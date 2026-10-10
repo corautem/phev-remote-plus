@@ -61,13 +61,13 @@ class BridgeService(
             combine(connection.status, connection.car) { l, c -> l to c }.collect { (link, car) ->
                 val snapshot = snapshot(link, car)
                 listeners.forEach { runCatching { it(snapshot) } }
-                for (a in alerts.onState(car, System.currentTimeMillis())) raise(a)
+                for (a in synchronized(alerts) { alerts.onState(car, System.currentTimeMillis()) }) raise(a)
             }
         }
         scope.launch {
             while (isActive) {
                 delay(30_000)
-                for (a in alerts.onTick(System.currentTimeMillis())) raise(a)
+                for (a in synchronized(alerts) { alerts.onTick(System.currentTimeMillis()) }) raise(a)
                 saveState(connection.car.value)
             }
         }
@@ -128,8 +128,9 @@ class BridgeService(
 
     suspend fun connectNow() = hold().also { scope.launch { delay(1000); release() } }
 
-    suspend fun disconnectNow() {
-        holdLock.withLock { holds = 0; lingerJob?.cancel() }
+    suspend fun disconnectNow() = holdLock.withLock {
+        holds = 0
+        lingerJob?.cancel()
         connection.stop("requested")
     }
 

@@ -45,6 +45,7 @@ class BridgeClient(
     val error: StateFlow<String?> = _error.asStateFlow()
 
     private var events: Job? = null
+    @Volatile private var eventConn: HttpURLConnection? = null
 
     private fun url(path: String) = baseUrl.trimEnd('/') + "/api/" + path
 
@@ -110,6 +111,7 @@ class BridgeClient(
                     c.connectTimeout = 6_000
                     c.readTimeout = 40_000 // the bridge sends a keepalive every 15 s
                     c.setRequestProperty("Accept", "text/event-stream")
+                    eventConn = c
                     if (c.responseCode != 200) throw IllegalStateException("HTTP ${c.responseCode}")
                     _reachable.value = true
                     _error.value = null
@@ -141,6 +143,9 @@ class BridgeClient(
     fun stopEvents() {
         events?.cancel()
         events = null
+        // Unblock the reader right away instead of waiting for the next keepalive.
+        eventConn?.let { c -> Thread { runCatching { c.disconnect() } }.start() }
+        eventConn = null
     }
 
     private fun open(path: String, method: String, timeoutMs: Int): HttpURLConnection {

@@ -70,7 +70,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         if (repo.busy() && link.value.connected) {
             if (!watchStarted) {
                 watchStarted = true
-                LinkService.start(getApplication(), LinkService.intent(getApplication(), LinkService.ACTION_WATCH))
+                // First background check a little later; alarms bring the service back as needed.
+                io.github.anwo91.phevlink.link.WatchScheduler.schedule(getApplication(), 10 * 60_000L, 0)
             }
         } else {
             watchStarted = false

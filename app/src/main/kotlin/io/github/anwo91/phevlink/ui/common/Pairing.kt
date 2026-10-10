@@ -37,7 +37,7 @@ class CarPairing(
         val filter = WifiDeviceFilter.Builder().setNamePattern(pattern).build()
         val request = AssociationRequest.Builder().addDeviceFilter(filter).setSingleDevice(false).build()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val exec = Executor { it.run() }
+            val exec: Executor = context.mainExecutor
             cdm.associate(request, exec, object : CompanionDeviceManager.Callback() {
                 override fun onAssociationPending(intentSender: IntentSender) = launch(intentSender)
                 override fun onAssociationCreated(associationInfo: AssociationInfo) {}

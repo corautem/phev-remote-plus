@@ -63,7 +63,11 @@ fun ScheduleScreen(vm: MainViewModel, modifier: Modifier) {
     val settings by vm.settings.collectAsState()
     var editing by remember { mutableStateOf<Departure?>(null) }
     val ctx = LocalContext.current
-    val next = remember(settings.departures) { vm.nextDeparture() }
+    var minute by remember { androidx.compose.runtime.mutableLongStateOf(System.currentTimeMillis() / 60_000) }
+    androidx.compose.runtime.LaunchedEffect(Unit) {
+        while (true) { kotlinx.coroutines.delay(30_000); minute = System.currentTimeMillis() / 60_000 }
+    }
+    val next = remember(settings.departures, minute) { vm.nextDeparture() }
 
     Box(modifier.fillMaxSize()) {
         LazyColumn(

@@ -253,6 +253,7 @@ fun CarWifiCard(vm: MainViewModel, s: AppSettings, showTest: Boolean = true) {
             vm.toast("Paired with the car's Wi-Fi ($bssid)")
         } else vm.toast("Pairing cancelled")
     }
+    val pwError = io.github.anwo91.phevlink.data.passwordProblem(pw).takeIf { pw.isNotEmpty() }
     SectionCard(title = "Car Wi-Fi") {
         Text(
             "The SSID (REMOTExxxxxx) and password are on the card that came with the car's keys.",
@@ -269,6 +270,8 @@ fun CarWifiCard(vm: MainViewModel, s: AppSettings, showTest: Boolean = true) {
                 }
             },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            isError = pwError != null,
+            supportingText = if (pwError != null) { { Text(pwError) } } else null,
         )
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 8.dp)) {
             FilledTonalButton(onClick = {

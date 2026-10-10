@@ -105,6 +105,8 @@ class PhevSession(
     private var readyAt = 0L
     private var lastRefreshAt = 0L
     private var initialRefreshDone = false
+    /** Registers the car has sent in *this* session (the initial state may be an old cache). */
+    private val seenThisSession = HashSet<Int>()
     private var clockSynced = false
     private var lastRekeyRequestAt = Long.MIN_VALUE / 2
     /** Recent 0xf6 packets (write or ack) with send time, so rejected ones can be resent after a 0xbb. */
@@ -190,7 +192,7 @@ class PhevSession(
             val needPeriodic = config.refreshIntervalMs > 0 && now - lastRefreshAt > config.refreshIntervalMs
             if (needInitial || needPeriodic) {
                 initialRefreshDone = true
-                if (needInitial && state.hasData && !needPeriodic) {
+                if (needInitial && Reg.READ_BATTERY in seenThisSession && !needPeriodic) {
                     // The car already sent its registers; no need to ask.
                 } else {
                     enqueue(CarCommand.RequestUpdate, null, silent = true)
@@ -281,6 +283,7 @@ class PhevSession(
             // Notification: acknowledge it, then fold it into the state.
             send(Packet(PacketType.SEND, ack = 1, register = p.register, data = byteArrayOf(0)))
             val before = state
+            seenThisSession += p.register
             state = RegisterDecoder.apply(state, p.register, p.data, clock.wallMs())
             if (p.register == Reg.READ_REGISTRATION_EVENT) log.link("Car reports a registration event (0x2a=${p.dataHex()})")
             logStateDiff(before, state)
@@ -376,7 +379,7 @@ class PhevSession(
         val next = queue.firstOrNull() ?: return
         val my = if (modelYear != ModelYear.UNKNOWN) modelYear else config.fallbackModelYear
         // Commands that echo registers back wait briefly for the car's initial dump.
-        val missing = next.command.requiredRegisters(my).filter { it !in state.registers }
+        val missing = next.command.requiredRegisters(my).filter { it !in seenThisSession }
         if (missing.isNotEmpty() && now - readyAt < config.registerWaitMs) return
         queue.removeFirst()
         next.writes = next.command.toWrites(my, state)

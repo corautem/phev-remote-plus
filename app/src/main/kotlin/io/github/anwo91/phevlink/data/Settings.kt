@@ -58,9 +58,17 @@ data class AppSettings(
     val syncClock: Boolean = true,
     val recordPings: Boolean = false,
 ) {
-    val hasCarWifi: Boolean get() = ssid.isNotBlank() && password.length >= 8
+    val hasCarWifi: Boolean get() = ssid.isNotBlank() && passwordProblem(password) == null
     val hasBridge: Boolean get() = bridgeUrl.isNotBlank()
     val canConnect: Boolean get() = hasCarWifi || hasBridge || hostOverride.isNotBlank()
+}
+
+/** Why a WPA2 password would be rejected by Android, or null if it is fine. */
+fun passwordProblem(pw: String): String? = when {
+    pw.length < 8 -> "At least 8 characters"
+    pw.length > 63 -> "At most 63 characters"
+    pw.any { it.code !in 0x20..0x7e } -> "Only plain letters, digits and symbols (no æøå or emoji)"
+    else -> null
 }
 
 class SettingsStore(private val context: Context, scope: CoroutineScope) {

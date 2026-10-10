@@ -95,7 +95,7 @@ private fun LogTab(vm: MainViewModel) {
     var previous by rememberSaveable { mutableStateOf(false) }
     val entries = remember(version, filter) { vm.log.snapshot().filter { it.kind in filter.kinds } }
     val listState = rememberLazyListState()
-    LaunchedEffect(entries.size) { if (entries.isNotEmpty() && !previous) listState.scrollToItem(entries.size - 1) }
+    LaunchedEffect(version, filter) { if (entries.isNotEmpty() && !previous) listState.scrollToItem(entries.size - 1) }
 
     Column(Modifier.fillMaxSize()) {
         Row(
@@ -217,8 +217,9 @@ private fun ToolsTab(vm: MainViewModel) {
                 onClick = {
                     val r = reg.removePrefix("0x").toIntOrNull(16)
                     val d = runCatching { data.removePrefix("0x").hexToBytes() }.getOrNull()
-                    if (r == null || r !in 0..255 || d == null || d.isEmpty()) vm.toast("Enter a register (00–ff) and some hex data")
-                    else vm.run(CarCommand.Raw(r, d))
+                    val cmd = if (r != null && d != null) runCatching { CarCommand.Raw(r, d) }.getOrNull() else null
+                    if (cmd == null) vm.toast("Enter a register (00–ff) and 1–64 bytes of hex data")
+                    else vm.run(cmd)
                 },
                 enabled = pending == null,
             ) { Text("Send") }

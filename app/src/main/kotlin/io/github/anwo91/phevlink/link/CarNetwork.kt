@@ -73,7 +73,7 @@ class CarNetwork(context: Context, private val log: DiagLog) {
         registerWatch()
         // If the phone is already on the car's Wi-Fi, the watch callback reports it within
         // a moment. Only ask Android to connect when that does not happen.
-        main.postDelayed({ requestIfNeeded() }, 1_200)
+        scheduleRequest()
     }
 
     @Synchronized
@@ -84,7 +84,7 @@ class CarNetwork(context: Context, private val log: DiagLog) {
     }
 
     private fun stopInternal() {
-        main.removeCallbacksAndMessages(null)
+        main.removeCallbacksAndMessages(REQUEST_TOKEN)
         watchCb?.let { runCatching { cm.unregisterNetworkCallback(it) } }
         requestCb?.let { runCatching { cm.unregisterNetworkCallback(it) } }
         watchCb = null
@@ -152,9 +152,10 @@ class CarNetwork(context: Context, private val log: DiagLog) {
                     candidates -= network
                     validated -= network
                     val s = _state.value
-                    if (s is State.Ready && s.network == network) {
+                    if (s is State.Ready && s.network == network && network != requested) {
                         log.link("Car Wi-Fi lost")
                         _state.value = State.Searching(System.currentTimeMillis(), requested = requestCb != null)
+                        scheduleRequest()
                     }
                     evaluate()
                 }
@@ -165,12 +166,23 @@ class CarNetwork(context: Context, private val log: DiagLog) {
             .onFailure { log.warn("Could not watch Wi-Fi networks: ${it.message}") }
     }
 
-    /** The car hands out 192.168.8.x addresses and offers no internet. */
-    private fun looksLikeCar(lp: LinkProperties): Boolean =
-        lp.linkAddresses.any { la ->
+    /**
+     * A network the phone joined by itself counts as the car only with positive
+     * evidence: a 192.168.8.x address *and* 192.168.8.46 as gateway, DNS or DHCP
+     * server. (Many 4G home routers also use 192.168.8.x, with .1 as gateway.)
+     */
+    private fun looksLikeCar(lp: LinkProperties): Boolean {
+        val onSubnet = lp.linkAddresses.any { la ->
             val a = la.address
             a is Inet4Address && a.hostAddress?.startsWith("192.168.8.") == true
         }
+        if (!onSubnet) return false
+        val gw = lp.routes.any { it.gateway?.hostAddress == CAR_IP }
+        val dns = lp.dnsServers.any { it.hostAddress == CAR_IP }
+        val dhcp = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R &&
+            lp.dhcpServerAddress?.hostAddress == CAR_IP
+        return gw || dns || dhcp
+    }
 
     private fun evaluate() {
         if (target == null) return
@@ -183,11 +195,23 @@ class CarNetwork(context: Context, private val log: DiagLog) {
         if (pick != null) {
             if (current !is State.Ready || current.network != pick) {
                 val how = if (pick == req) "connected by the app" else "phone already on car Wi-Fi"
-                log.link("Car Wi-Fi ready ($how)")
+                val lp = candidates[pick]
+                log.link("Car Wi-Fi ready ($how)" + (lp?.let { " addr=${it.linkAddresses.joinToString()}" } ?: ""))
                 _state.value = State.Ready(pick, how)
                 onAvailable?.invoke()
             }
+        } else if (current is State.Ready) {
+            // The network we were using no longer qualifies (lost, or turned out to be a router).
+            log.link("Car Wi-Fi no longer usable — searching again")
+            _state.value = State.Searching(System.currentTimeMillis(), requested = requestCb != null)
+            scheduleRequest()
         }
+    }
+
+    private fun scheduleRequest() {
+        if (requestCb != null) return
+        main.removeCallbacksAndMessages(REQUEST_TOKEN)
+        main.postAtTime({ requestIfNeeded() }, REQUEST_TOKEN, android.os.SystemClock.uptimeMillis() + 1_200)
     }
 
     // ------------------------------------------------------------------- request
@@ -196,14 +220,20 @@ class CarNetwork(context: Context, private val log: DiagLog) {
     private fun requestIfNeeded() {
         val t = target ?: return
         if (_state.value is State.Ready || requestCb != null) return
-        val spec = WifiNetworkSpecifier.Builder()
-            .setSsid(t.ssid)
-            .setWpa2Passphrase(t.password)
-            .apply {
-                val b = t.bssid?.takeIf { it.isNotBlank() }
-                if (b != null) runCatching { setBssid(MacAddress.fromString(b)) }
-            }
-            .build()
+        val spec = try {
+            WifiNetworkSpecifier.Builder()
+                .setSsid(t.ssid)
+                .setWpa2Passphrase(t.password)
+                .apply {
+                    val b = t.bssid?.takeIf { it.isNotBlank() }
+                    if (b != null) runCatching { setBssid(MacAddress.fromString(b)) }
+                }
+                .build()
+        } catch (e: Exception) {
+            log.error("Invalid car Wi-Fi details: ${e.message}")
+            _state.value = State.Failed("The SSID or password is not valid (${e.message})")
+            return
+        }
         val req = NetworkRequest.Builder()
             .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
             .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
@@ -247,6 +277,11 @@ class CarNetwork(context: Context, private val log: DiagLog) {
             log.error("Network request refused: ${it.message}")
             _state.value = State.Failed("Android refused the Wi-Fi request: ${it.message}")
         }
+    }
+
+    companion object {
+        const val CAR_IP = "192.168.8.46"
+        private val REQUEST_TOKEN = Any()
     }
 
     /** After a failure (e.g. user declined), allow a fresh attempt. */

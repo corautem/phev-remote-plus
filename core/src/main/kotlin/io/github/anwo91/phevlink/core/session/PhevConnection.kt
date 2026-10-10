@@ -110,21 +110,31 @@ class PhevConnection(
     private val wake = Channel<Unit>(Channel.CONFLATED)
     private var loop: Job? = null
     @Volatile private var running = false
+    /** Terminal: once closed, this instance never connects again. */
+    @Volatile private var closed = false
 
     val isRunning: Boolean get() = running
 
     /** Start connecting (no-op if already running). */
     @Synchronized
     fun start() {
+        if (closed) {
+            log.warn("Ignored start() on a closed connection")
+            return
+        }
         if (loop?.isActive == true) return
         running = true
         loop = scope.launch(Dispatchers.IO) { runLoop() }
     }
 
-    /** Stop and disconnect. Pending commands fail. */
-    suspend fun stop(reason: String = "Stopped") {
+    /**
+     * Stop and disconnect. Pending commands fail. With [terminal] the instance
+     * can never be started again (used when its owner discards it).
+     */
+    suspend fun stop(reason: String = "Stopped", terminal: Boolean = false) {
         val j = synchronized(this) {
             running = false
+            if (terminal) closed = true
             loop.also { loop = null }
         }
         j?.cancelAndJoin()
@@ -143,6 +153,7 @@ class PhevConnection(
      * [timeoutMs] runs out.
      */
     suspend fun execute(command: CarCommand, timeoutMs: Long = 45_000): CommandResult {
+        if (closed) return CommandResult.Failure(command, "Link closed", retryable = true)
         start()
         val deadline = clock.monoMs() + timeoutMs
         var last: CommandResult.Failure? = null
@@ -291,17 +302,25 @@ class PhevConnection(
         session.start()
         try {
             while (session.phase != SessionPhase.CLOSED) {
-                select<Unit> {
-                    inbox.onReceive { msg ->
-                        when (msg) {
-                            is Msg.Bytes -> session.onBytes(msg.data)
-                            is Msg.Tick -> session.tick()
-                            is Msg.Closed -> session.onTransportClosed(msg.reason)
+                try {
+                    select<Unit> {
+                        inbox.onReceive { msg ->
+                            when (msg) {
+                                is Msg.Bytes -> session.onBytes(msg.data)
+                                is Msg.Tick -> session.tick()
+                                is Msg.Closed -> session.onTransportClosed(msg.reason)
+                            }
+                        }
+                        commands.onReceive { exec ->
+                            if (!exec.abandoned.get()) session.execute(exec.command) { exec.result.complete(it) }
                         }
                     }
-                    commands.onReceive { exec ->
-                        if (!exec.abandoned.get()) session.execute(exec.command) { exec.result.complete(it) }
-                    }
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    // A bug must not take the whole link down silently: log it and reconnect.
+                    log.error("Internal error: ${e.javaClass.simpleName}: ${e.message}")
+                    session.close("Internal error (${e.javaClass.simpleName})")
                 }
             }
         } finally {

@@ -1,6 +1,7 @@
 package io.github.anwo91.phevlink.link
 
 import android.content.Context
+import io.github.anwo91.phevlink.core.alerts.Alert
 import io.github.anwo91.phevlink.core.alerts.AlertEngine
 import io.github.anwo91.phevlink.core.diag.DiagLog
 import io.github.anwo91.phevlink.core.model.CarCommand
@@ -25,18 +26,21 @@ import io.github.anwo91.phevlink.weather.MetNo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import java.time.LocalTime
 import java.time.ZonedDateTime
 import java.util.concurrent.atomic.AtomicInteger
@@ -61,6 +65,10 @@ data class LinkUi(
  * Connections are reference counted: whoever needs the car calls [hold] and
  * later [release]; the link shuts down shortly after the last holder leaves,
  * so the car's Wi-Fi module and the phone's battery are not kept busy.
+ *
+ * All activation/deactivation happens under [activation], and a discarded
+ * connection is closed for good, so two connections can never compete for
+ * the car.
  */
 class CarRepository(
     private val context: Context,
@@ -78,19 +86,22 @@ class CarRepository(
     private val _link = MutableStateFlow(LinkUi(LinkPhase.OFFLINE, text = "Not connected"))
     val link: StateFlow<LinkUi> = _link.asStateFlow()
 
+    private val holderLock = Any()
     private val _holders = MutableStateFlow<Set<String>>(emptySet())
-    /** True while something other than the open app needs the car (drives the foreground service). */
-    val backgroundWork: StateFlow<Boolean> get() = _backgroundWork
     private val _backgroundWork = MutableStateFlow(false)
+    /** True while something other than the open app needs the car. */
+    val backgroundWork: StateFlow<Boolean> = _backgroundWork.asStateFlow()
 
     private val activation = Mutex()
     @Volatile private var direct: PhevConnection? = null
     @Volatile private var bridge: BridgeClient? = null
     @Volatile private var activeRoute: Route? = null
-    private var routeJobs = mutableListOf<Job>()
+    private val routeJobs = mutableListOf<Job>()
     private var lingerJob: Job? = null
     private val alerts = AlertEngine()
     private val counter = AtomicInteger()
+    /** After the bridge failed to reach the car, prefer the car's Wi-Fi for a while. */
+    @Volatile private var preferDirectUntil = 0L
 
     /** Hook for the widget/tile to refresh when the state changes. */
     var onStateSaved: (() -> Unit)? = null
@@ -98,18 +109,15 @@ class CarRepository(
     init {
         log.recordPings = settings.current.recordPings
         network.onAvailable = { direct?.reconnectNow() }
-        // Rebuild the link when connection-relevant settings change.
+        // Rebuild the link whenever connection-relevant settings change (serialised with activation).
         scope.launch {
             settings.flow.map { listOf(it.ssid, it.password, it.bssid, it.hostOverride, it.route, it.bridgeUrl, it.bridgeToken, it.modelYearOverride, it.syncClock) }
                 .distinctUntilChanged()
                 .collect {
-                    if (activeRoute != null) {
-                        log.link("Connection settings changed — reconnecting")
-                        activation.withLock { deactivateLocked() }
-                        if (_holders.value.isNotEmpty()) activate()
-                    } else if (_holders.value.isNotEmpty()) {
-                        activate()
-                    }
+                    val wasActive = activeRoute != null
+                    activation.withLock { deactivateLocked() }
+                    if (wasActive) log.link("Connection settings changed — reconnecting")
+                    if (isHeld) activate()
                 }
         }
         scope.launch {
@@ -120,9 +128,8 @@ class CarRepository(
             var lastSaved = 0L
             _car.collectLatest { s ->
                 val s2 = settings.current
-                alerts.prefs = s2.alerts
                 if (s2.phoneAlerts && _link.value.connected) {
-                    for (a in alerts.onState(s, System.currentTimeMillis())) notifier.alert(a)
+                    notify(synchronized(alerts) { alerts.prefs = s2.alerts; alerts.onState(s, System.currentTimeMillis()) })
                 }
                 if (System.currentTimeMillis() - lastSaved > 5_000) {
                     delay(800) // coalesce the register burst after connecting
@@ -136,31 +143,38 @@ class CarRepository(
             while (isActive) {
                 delay(30_000)
                 if (settings.current.phoneAlerts && _link.value.connected) {
-                    for (a in alerts.onTick(System.currentTimeMillis())) notifier.alert(a)
+                    notify(synchronized(alerts) { alerts.onTick(System.currentTimeMillis()) })
                 }
             }
         }
     }
 
+    private fun notify(list: List<Alert>) = list.forEach { notifier.alert(it) }
+
     // ---------------------------------------------------------------- holders
 
     fun hold(tag: String) {
-        lingerJob?.cancel()
-        lingerJob = null
-        val before = _holders.value
-        _holders.value = before + tag
-        _backgroundWork.value = _holders.value.any { it != UI }
-        if (before.isEmpty()) scope.launch { activate() }
+        val first: Boolean
+        synchronized(holderLock) {
+            lingerJob?.cancel()
+            lingerJob = null
+            first = _holders.value.isEmpty()
+            _holders.value = _holders.value + tag
+            _backgroundWork.value = _holders.value.any { it != UI }
+        }
+        if (first) scope.launch { activate() }
     }
 
     fun release(tag: String, lingerMs: Long = 20_000) {
-        _holders.value = _holders.value - tag
-        _backgroundWork.value = _holders.value.any { it != UI }
-        if (_holders.value.isEmpty()) {
-            lingerJob?.cancel()
-            lingerJob = scope.launch {
-                delay(lingerMs)
-                if (_holders.value.isEmpty()) activation.withLock { deactivateLocked() }
+        synchronized(holderLock) {
+            _holders.value = _holders.value - tag
+            _backgroundWork.value = _holders.value.any { it != UI }
+            if (_holders.value.isEmpty()) {
+                lingerJob?.cancel()
+                lingerJob = scope.launch {
+                    delay(lingerMs)
+                    activation.withLock { if (!isHeld) deactivateLocked() }
+                }
             }
         }
     }
@@ -171,7 +185,7 @@ class CarRepository(
     fun reconnect() {
         if (network.state.value is CarNetwork.State.Failed) network.retry()
         direct?.reconnectNow()
-        if (_holders.value.isEmpty()) {
+        if (!isHeld) {
             hold(KICK)
             release(KICK, 60_000)
         }
@@ -180,7 +194,7 @@ class CarRepository(
     // ------------------------------------------------------------- activation
 
     private suspend fun activate() = activation.withLock {
-        if (activeRoute != null) return@withLock
+        if (activeRoute != null || !isHeld) return@withLock
         val s = settings.current
         if (!s.canConnect) {
             _link.value = LinkUi(LinkPhase.FAILED, text = "Not set up", detail = "Enter the car's Wi-Fi details in Settings")
@@ -202,13 +216,21 @@ class CarRepository(
             Route.AUTO -> {
                 if (!s.hasBridge) return Route.DIRECT
                 if (!s.hasCarWifi) return Route.BRIDGE
+                if (System.currentTimeMillis() < preferDirectUntil) return Route.DIRECT
                 _link.value = LinkUi(LinkPhase.CONNECTING, Route.BRIDGE, "Checking bridge…")
                 val snap = BridgeClient(s.bridgeUrl, s.bridgeToken, log).fetchStatus(3_000)
-                val fresh = snap != null && (snap.link.isConnected ||
-                    (snap.car.updatedAtMs?.let { System.currentTimeMillis() - it < 30 * 60_000 } == true))
-                // The bridge knows the car (it is at home): use it. Otherwise the car is
-                // somewhere else — try its Wi-Fi directly.
-                if (fresh) Route.BRIDGE else Route.DIRECT
+                // Only trust the bridge if it is in touch with the car right now, or checked it
+                // recently without errors (the car is at home). Otherwise the car is elsewhere.
+                val recent = snap?.car?.updatedAtMs?.let { System.currentTimeMillis() - it < 15 * 60_000 } == true
+                val useBridge = snap != null && (snap.link.isConnected || (recent && snap.link is LinkStatus.Idle))
+                log.link(
+                    "Route: " + when {
+                        snap == null -> "bridge unreachable → car Wi-Fi"
+                        useBridge -> "bridge is in touch with the car → bridge"
+                        else -> "bridge has no fresh contact with the car → car Wi-Fi"
+                    }
+                )
+                if (useBridge) Route.BRIDGE else Route.DIRECT
             }
         }
     }
@@ -241,7 +263,7 @@ class CarRepository(
         direct = conn
         routeJobs += scope.launch { conn.car.collect { _car.value = it } }
         routeJobs += scope.launch {
-            kotlinx.coroutines.flow.combine(conn.status, network.state) { a, b -> a to b }.collect { (st, net) ->
+            combine(conn.status, network.state) { a, b -> a to b }.collect { (st, net) ->
                 _link.value = describeDirect(st, net, override != null)
             }
         }
@@ -255,31 +277,32 @@ class CarRepository(
         _link.value = LinkUi(LinkPhase.CONNECTING, Route.BRIDGE, "Connecting to bridge…")
         client.startEvents(scope)
         routeJobs += scope.launch {
-            kotlinx.coroutines.flow.combine(client.snapshot, client.reachable, client.error) { a, b, c -> Triple(a, b, c) }
+            combine(client.snapshot, client.reachable, client.error) { a, b, c -> Triple(a, b, c) }
                 .collect { (snap, reachable, err) ->
-                    if (snap != null) _car.value = mergeBridgeState(snap.car)
+                    if (snap != null && snap.car.hasData) _car.value = snap.car
                     _link.value = describeBridge(snap, reachable, err)
                 }
         }
-        // Ask the bridge to wake the car link so the data is fresh while we look.
+        // Ask the bridge to wake its car link so the data is fresh while we look.
         scope.launch { client.post("connect") }
     }
 
-    private fun mergeBridgeState(car: CarState): CarState = if (car.hasData) car else _car.value
-
-    private suspend fun deactivateLocked() {
-        val route = activeRoute ?: return
+    /** Tear down the current route. Never interrupted halfway, so no connection is left orphaned. */
+    private suspend fun deactivateLocked() = withContext(NonCancellable) {
+        val route = activeRoute ?: return@withContext
+        val d = direct
+        val b = bridge
         activeRoute = null
+        direct = null
+        bridge = null
         routeJobs.forEach { it.cancel() }
         routeJobs.clear()
-        direct?.let { d ->
-            d.stop("idle")
+        if (d != null) {
+            d.stop("idle", terminal = true)
             cache.saveDiag(log.dump())
         }
-        direct = null
         network.stop()
-        bridge?.stopEvents()
-        bridge = null
+        b?.stopEvents()
         _link.value = LinkUi(LinkPhase.OFFLINE, text = "Not connected", detail = lastUpdatedText())
         cache.save(_car.value)
         onStateSaved?.invoke()
@@ -292,24 +315,41 @@ class CarRepository(
     suspend fun execute(cmd: CarCommand, timeoutMs: Long = 50_000, lingerMs: Long = 45_000): CommandResult {
         val tag = "cmd-${counter.incrementAndGet()}"
         hold(tag)
+        val deadline = System.currentTimeMillis() + timeoutMs
         try {
-            // Activation runs asynchronously from hold(); wait for it (route choice may
-            // involve a quick bridge check).
-            var waited = 0
-            while (direct == null && bridge == null && settings.current.canConnect && waited < 8_000) {
-                delay(100); waited += 100
-            }
-            val b = bridge
-            val d = direct
-            return when {
-                b != null -> {
-                    val r = b.execute(cmd)
-                    if (r is CommandResult.Success) scope.launch { delay(1500); b.fetchStatus() }
-                    r
+            var last: CommandResult? = null
+            var triedFallback = false
+            while (System.currentTimeMillis() < deadline) {
+                // Wait for activation (the route choice may involve a quick bridge check).
+                val (d, b) = activation.withLock { direct to bridge }
+                if (d == null && b == null) {
+                    if (!settings.current.canConnect) return CommandResult.Failure(cmd, "Not set up — enter the car's Wi-Fi in Settings")
+                    if (activeRoute == null && isHeld) scope.launch { activate() }
+                    delay(150)
+                    continue
                 }
-                d != null -> d.execute(cmd, timeoutMs)
-                else -> CommandResult.Failure(cmd, _link.value.detail ?: "Not set up")
+                val remaining = (deadline - System.currentTimeMillis()).coerceAtLeast(1_000)
+                val r = if (b != null) b.execute(cmd) else d!!.execute(cmd, remaining)
+                last = r
+                when {
+                    r is CommandResult.Success -> {
+                        if (b != null) scope.launch { delay(1500); b.fetchStatus() }
+                        return r
+                    }
+                    // The connection we used was replaced meanwhile: run it on the new one.
+                    r is CommandResult.Failure && r.retryable && (direct !== d || bridge !== b) -> continue
+                    // The bridge could not reach the car: in Automatic mode try the car's Wi-Fi.
+                    b != null && !triedFallback && settings.current.route == Route.AUTO && settings.current.hasCarWifi -> {
+                        triedFallback = true
+                        log.link("Bridge could not do it (${(r as CommandResult.Failure).reason}) — trying the car's Wi-Fi")
+                        preferDirectUntil = System.currentTimeMillis() + 10 * 60_000
+                        activation.withLock { deactivateLocked() }
+                        continue
+                    }
+                    else -> return r
+                }
             }
+            return last ?: CommandResult.Failure(cmd, _link.value.detail ?: "Could not reach the car in time")
         } finally {
             release(tag, lingerMs)
         }
@@ -326,9 +366,23 @@ class CarRepository(
         return CarCommand.ClimateOn(plan.mode, plan.duration)
     }
 
-    /** Is the car doing something worth watching in the background? */
-    fun busy(state: CarState = _car.value): Boolean =
-        state.charging == true || state.climate.state == PreAcState.RUNNING
+    /** Climate end time if the (possibly cached) state says it is running. */
+    fun climateEndsAt(state: CarState = _car.value): Long? {
+        if (state.climate.state != PreAcState.RUNNING) return null
+        val started = state.climate.startedAtMs ?: state.updatedAtMs ?: return null
+        return started + (state.climate.duration?.minutes ?: 30) * 60_000L
+    }
+
+    /**
+     * Is the car doing something worth watching? Uses time to discount stale
+     * cache: a climate run that should have ended, or charging data from long ago.
+     */
+    fun busy(state: CarState = _car.value, now: Long = System.currentTimeMillis()): Boolean {
+        val climate = climateEndsAt(state)?.let { now < it + 5 * 60_000 } == true
+        val fresh = state.updatedAtMs?.let { now - it < 18 * 3600_000L } == true
+        val charging = state.charging == true && fresh
+        return climate || charging
+    }
 
     fun lastUpdatedText(): String? = _car.value.updatedAtMs?.let { "Last data ${Format.ago(it)}" }
 
@@ -365,7 +419,7 @@ class CarRepository(
         if (snap == null) return LinkUi(LinkPhase.CONNECTING, via, "Connecting to bridge…")
         return when (val l = snap.link) {
             is LinkStatus.Connected -> LinkUi(LinkPhase.CONNECTED, via, "Connected via bridge", "Car link live at the bridge", l.sinceMs)
-            is LinkStatus.Idle -> LinkUi(LinkPhase.CONNECTED, via, "Bridge online", "Car checked ${snap.car.updatedAtMs?.let { Format.ago(it) } ?: "never"}")
+            is LinkStatus.Idle -> LinkUi(LinkPhase.CONNECTED, via, "Bridge online", "Car checked ${snap.car.updatedAtMs?.let { Format.ago(it) } ?: "never"} — commands wake the link")
             is LinkStatus.Retrying -> LinkUi(LinkPhase.RETRYING, via, "Bridge can't reach the car", l.lastError)
             else -> LinkUi(LinkPhase.CONNECTING, via, "Bridge is connecting to the car…")
         }

@@ -14,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
@@ -49,7 +50,9 @@ class Graph(app: Application) {
         }
         // Keep the departure alarms in step with the schedule.
         scope.launch {
-            settings.flow.map { it.departures }.distinctUntilChanged().collect {
+            // drop(1): only react to edits. A cold start (often caused by one of these very
+            // alarms) must not re-plan the departure that is being handled.
+            settings.flow.map { it.departures }.distinctUntilChanged().drop(1).collect {
                 DepartureScheduler.reschedule(app)
             }
         }

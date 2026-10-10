@@ -333,7 +333,9 @@ private fun SecurityCard(car: CarState) {
 @Composable
 private fun DepartureCard(vm: MainViewModel, onOpenSchedule: () -> Unit) {
     val settings by vm.settings.collectAsState()
-    val next = remember(settings.departures) { vm.nextDeparture() }
+    var minute by remember { mutableLongStateOf(System.currentTimeMillis() / 60_000) }
+    LaunchedEffect(Unit) { while (true) { delay(30_000); minute = System.currentTimeMillis() / 60_000 } }
+    val next = remember(settings.departures, minute) { vm.nextDeparture() }
     SectionCard(title = "Next departure", trailing = {
         TextButton(onClick = onOpenSchedule) { Text(if (settings.departures.isEmpty()) "Set up" else "Edit") }
     }) {

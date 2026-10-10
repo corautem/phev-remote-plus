@@ -93,6 +93,8 @@ object DepartureScheduler {
 /** Alarm target: hands the work to the foreground service. */
 class DepartureReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
+        // Keep the CPU awake until the service has started and taken its own wake lock.
+        io.github.anwo91.phevlink.link.WakeHolder.acquireForReceiver(context)
         val forward = Intent(context, LinkService::class.java).setAction(intent.action).putExtras(intent)
         LinkService.start(context, forward)
     }

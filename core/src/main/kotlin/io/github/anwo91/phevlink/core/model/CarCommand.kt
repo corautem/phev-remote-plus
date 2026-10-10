@@ -135,6 +135,11 @@ sealed interface CarCommand {
 
     /** Arbitrary register write, for experiments from the diagnostics screen. */
     class Raw(val register: Int, val data: ByteArray) : CarCommand {
+        init {
+            require(register in 0..255) { "Register must be 00..ff" }
+            require(data.size in 1..64) { "Data must be 1..64 bytes" }
+        }
+
         override val label = "Raw 0x%02x=%s".format(register, data.toHex())
         override fun toWrites(modelYear: ModelYear, state: CarState) = listOf(RegisterWrite(register, data))
     }

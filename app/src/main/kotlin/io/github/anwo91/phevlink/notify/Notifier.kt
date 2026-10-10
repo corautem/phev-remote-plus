@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.alerts.Alert
 import io.github.anwo91.phevlink.core.alerts.AlertType
@@ -34,7 +35,8 @@ class Notifier(private val context: Context) {
         )
     }
 
-    private fun canPost() = context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+    // Works on every Android version (the runtime permission only exists from 13).
+    private fun canPost() = NotificationManagerCompat.from(context).areNotificationsEnabled()
 
     fun openAppIntent(): PendingIntent = PendingIntent.getActivity(
         context, 0, Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),

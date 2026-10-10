@@ -3,6 +3,8 @@ package io.github.anwo91.phevlink.widget
 import android.content.Context
 import android.content.Intent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.Button
@@ -44,13 +46,15 @@ import kotlinx.coroutines.launch
 /** Home-screen widget: battery, charging, climate, and one-tap preheat / refresh. */
 class CarWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
-        val car = context.graph.repo.car.value
-        val connected = context.graph.repo.link.value.connected
+        val repo = context.graph.repo
         val open = Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         val toggle = Intent(context, ActionActivity::class.java).setAction(ActionActivity.TOGGLE_CLIMATE).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         val refresh = Intent(context, ActionActivity::class.java).setAction(ActionActivity.REFRESH).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         provideContent {
-            GlanceTheme { Content(car, connected, open, toggle, refresh) }
+            // Collected while the widget session is alive, so updates show without a full redraw.
+            val car by repo.car.collectAsState()
+            val link by repo.link.collectAsState()
+            GlanceTheme { Content(car, link.connected, open, toggle, refresh) }
         }
     }
 
@@ -110,12 +114,18 @@ class CarWidgetReceiver : GlanceAppWidgetReceiver() {
 
 object WidgetUpdater {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
-    @Volatile private var last = 0L
+    private var last = 0L
+    private var pending: kotlinx.coroutines.Job? = null
 
+    /** At most one redraw per 10 s, but the last request is never dropped. */
+    @Synchronized
     fun request(context: Context) {
-        val now = System.currentTimeMillis()
-        if (now - last < 10_000) return
-        last = now
-        scope.launch { runCatching { CarWidget().updateAll(context.applicationContext) } }
+        if (pending?.isActive == true) return
+        val wait = (last + 10_000 - System.currentTimeMillis()).coerceAtLeast(0)
+        pending = scope.launch {
+            kotlinx.coroutines.delay(wait)
+            synchronized(this@WidgetUpdater) { last = System.currentTimeMillis() }
+            runCatching { CarWidget().updateAll(context.applicationContext) }
+        }
     }
 }

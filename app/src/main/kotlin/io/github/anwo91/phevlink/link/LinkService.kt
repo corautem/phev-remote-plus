@@ -1,9 +1,12 @@
 package io.github.anwo91.phevlink.link
 
+import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
+import android.os.Build
+import android.os.PowerManager
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.lifecycle.LifecycleService
@@ -19,13 +22,16 @@ import io.github.anwo91.phevlink.core.model.PreAcState
 import io.github.anwo91.phevlink.core.planner.ClimatePlanner
 import io.github.anwo91.phevlink.graph
 import io.github.anwo91.phevlink.notify.Notifier
+import io.github.anwo91.phevlink.schedule.DepartureReceiver
 import io.github.anwo91.phevlink.schedule.DepartureScheduler
 import io.github.anwo91.phevlink.util.Format
 import io.github.anwo91.phevlink.weather.MetNo
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 import java.time.Instant
@@ -34,36 +40,51 @@ import java.time.ZonedDateTime
 
 /**
  * Foreground service for everything that happens while the app is not on
- * screen: widget/tile/shortcut actions, scheduled departures, and watching
- * the car while it charges or preconditions. Android only lets a foreground
- * app or service request the car's Wi-Fi, which is why this exists.
+ * screen: widget/tile/shortcut actions, scheduled departures, and periodic
+ * checks while the car charges or preconditions. Android only lets a
+ * foreground app or service request the car's Wi-Fi, which is why this exists.
+ *
+ * The service only runs while there is work; between background checks it is
+ * stopped and an exact alarm brings it back. A partial wake lock keeps the CPU
+ * awake while it is talking to the car (screen off, phone in a pocket).
  */
 class LinkService : LifecycleService() {
 
     private val repo by lazy { graph.repo }
     private var running = 0
-    private var watchJob: Job? = null
     private var stopJob: Job? = null
+    private var lastStartId = 0
+    private var foreground = false
+    private var wakeLock: PowerManager.WakeLock? = null
 
     override fun onCreate() {
         super.onCreate()
-        startInForeground("Contacting the car…", "")
+        goForeground("Contacting the car…", "")
         lifecycleScope.launch {
-            combine(repo.link, repo.car) { l, c -> l to c }.collect { (l, c) ->
+            combine(repo.link, repo.car) { l, c ->
                 val parts = listOfNotNull(
                     c.batteryPercent?.let { "$it%" },
                     if (c.charging == true) "charging" else null,
                     if (c.climate.state == PreAcState.RUNNING) "climate on" else null,
                 )
-                graph.notifier.updateLink(buildNotification(l.text, parts.joinToString(" · ").ifEmpty { l.detail ?: "" }))
+                l.text to parts.joinToString(" · ").ifEmpty { l.detail ?: "" }
+            }.distinctUntilChanged().collect { (title, text) ->
+                if (foreground) graph.notifier.updateLink(buildNotification(title, text))
             }
         }
     }
 
+    override fun onDestroy() {
+        releaseWake()
+        super.onDestroy()
+    }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-        startInForeground("Contacting the car…", "")
+        lastStartId = startId
+        goForeground("Contacting the car…", "")
         stopJob?.cancel()
+        WakeHolder.releaseFromReceiver()
         when (intent?.action) {
             ACTION_COMMAND -> {
                 val cmd = intent.getStringExtra(EXTRA_COMMAND)?.let { json ->
@@ -73,15 +94,15 @@ class LinkService : LifecycleService() {
             }
             ACTION_QUICK_CLIMATE -> work { runCommand(repo.quickClimate()) }
             ACTION_TOGGLE_CLIMATE -> work {
-                val running = repo.car.value.climate.state == PreAcState.RUNNING
-                runCommand(if (running) CarCommand.ClimateOff else repo.quickClimate())
+                val on = repo.climateEndsAt()?.let { System.currentTimeMillis() < it } == true
+                runCommand(if (on) CarCommand.ClimateOff else repo.quickClimate())
             }
             ACTION_REFRESH -> work { refresh() }
             ACTION_PLAN -> work { planDeparture(intent) }
             ACTION_START_DEPARTURE -> work { startDeparture(intent) }
-            ACTION_WATCH -> startWatch()
+            ACTION_WATCH -> work { watchTick(intent.getIntExtra(EXTRA_FAILURES, 0)) }
             ACTION_STOP -> {
-                watchJob?.cancel(); watchJob = null
+                WatchScheduler.cancel(this)
                 maybeStop(0)
             }
             else -> maybeStop(0)
@@ -91,30 +112,31 @@ class LinkService : LifecycleService() {
 
     private fun work(block: suspend () -> Unit) {
         running++
+        acquireWake()
         lifecycleScope.launch {
             try {
                 block()
+            } catch (e: Exception) {
+                graph.log.error("Background task failed: ${e.javaClass.simpleName}: ${e.message}")
             } finally {
                 running--
-                // A command often leaves the car busy (charging, climate running): keep an eye on it.
-                if (graph.settings.current.watchWhileBusy && repo.busy()) startWatch()
-                maybeStop(3_000)
+                if (running == 0) releaseWake()
+                maybeStop(2_000)
             }
         }
     }
 
     private suspend fun runCommand(cmd: CarCommand) {
-        val tag = "svc"
-        repo.hold(tag)
+        repo.hold(TAG)
         try {
-            val r = repo.execute(cmd)
-            when (r) {
+            when (val r = repo.execute(cmd)) {
                 is CommandResult.Success -> graph.notifier.result(cmd.label, successText(cmd), ok = true)
                 is CommandResult.Failure -> graph.notifier.result("${cmd.label} failed", r.reason, ok = false)
             }
         } finally {
-            repo.release(tag, 15_000)
+            repo.release(TAG, 15_000)
         }
+        armWatchIfBusy()
     }
 
     private fun successText(cmd: CarCommand): String = when (cmd) {
@@ -126,12 +148,17 @@ class LinkService : LifecycleService() {
         else -> "Done."
     }
 
-    private suspend fun refresh() {
+    /** Connect, ask for fresh data, give it a moment. True if the car answered. */
+    private suspend fun refresh(): Boolean {
         repo.hold("svc-refresh")
         try {
-            withTimeoutOrNull(60_000) { repo.link.first { it.connected } } ?: return
-            repo.execute(CarCommand.RequestUpdate, 15_000)
+            withTimeoutOrNull(60_000) { repo.link.first { it.connected } } ?: run {
+                graph.log.warn("Background check: car not reachable (${repo.link.value.text})")
+                return false
+            }
+            val r = repo.execute(CarCommand.RequestUpdate, 15_000)
             delay(4_000)
+            return r is CommandResult.Success
         } finally {
             repo.release("svc-refresh", 5_000)
         }
@@ -173,9 +200,8 @@ class LinkService : LifecycleService() {
         val cmd = CarCommand.ClimateOn(mode, ClimateDuration.fromMinutes(minutes))
         repo.hold("svc-departure")
         try {
-            // A scheduled start deserves a little extra patience: Wi-Fi may need to wake up.
-            val r = repo.execute(cmd, timeoutMs = 120_000)
-            when (r) {
+            // A scheduled start deserves extra patience: the car's Wi-Fi may need to wake up.
+            when (val r = repo.execute(cmd, timeoutMs = 120_000)) {
                 is CommandResult.Success -> graph.notifier.result(
                     "${mode.label} started", "Your car will be ready for ${Format.clock(atMs)}.", ok = true,
                 )
@@ -187,39 +213,40 @@ class LinkService : LifecycleService() {
             repo.release("svc-departure", 10_000)
             DepartureScheduler.reschedule(this, after = atMs)
         }
+        armWatchIfBusy()
     }
 
     // ----------------------------------------------------------------- watch
 
-    private fun startWatch() {
-        if (watchJob?.isActive == true) return
-        graph.log.link("Watching the car in the background")
-        watchJob = lifecycleScope.launch {
-            try {
-                while (graph.settings.current.watchWhileBusy) {
-                    val car = repo.car.value
-                    val waitMin = when {
-                        car.climate.state == PreAcState.RUNNING -> {
-                            // Check right after the climate should end.
-                            val started = car.climate.startedAtMs ?: System.currentTimeMillis()
-                            val end = started + (car.climate.duration?.minutes ?: 20) * 60_000L
-                            ((end - System.currentTimeMillis()) / 60_000 + 1).coerceIn(1, 30)
-                        }
-                        car.charging == true -> {
-                            val left = car.chargeMinutesRemaining ?: 60
-                            minOf(graph.settings.current.watchIntervalMinutes.toLong(), left.toLong() + 2).coerceAtLeast(2)
-                        }
-                        else -> break
-                    }
-                    delay(waitMin * 60_000)
-                    refresh()
-                    if (!repo.busy()) break
-                }
-            } finally {
-                graph.log.link("Background watch ended")
-                maybeStop(2_000)
-            }
+    private suspend fun watchTick(failuresBefore: Int) {
+        if (!graph.settings.current.watchWhileBusy) return
+        if (!repo.busy()) {
+            graph.log.link("Background watch: nothing to watch")
+            return
         }
+        val ok = refresh()
+        val failures = if (ok) 0 else failuresBefore + 1
+        when {
+            failures >= MAX_WATCH_FAILURES -> graph.log.warn("Background watch stopped: car unreachable $failures times in a row")
+            !repo.busy() -> graph.log.link("Background watch finished — nothing more to wait for")
+            else -> WatchScheduler.schedule(this, nextWatchDelayMs(), failures)
+        }
+    }
+
+    private fun armWatchIfBusy() {
+        if (graph.settings.current.watchWhileBusy && repo.busy()) WatchScheduler.schedule(this, nextWatchDelayMs(), 0)
+    }
+
+    private fun nextWatchDelayMs(): Long {
+        val car = repo.car.value
+        val now = System.currentTimeMillis()
+        val minutes = repo.climateEndsAt(car)?.takeIf { it > now }?.let { end ->
+            ((end - now) / 60_000 + 1).coerceIn(1, 30)
+        } ?: run {
+            val left = (car.chargeMinutesRemaining ?: 60).toLong()
+            minOf(graph.settings.current.watchIntervalMinutes.toLong(), left + 2).coerceAtLeast(2)
+        }
+        return minutes * 60_000
     }
 
     // ----------------------------------------------------------------- misc
@@ -228,18 +255,35 @@ class LinkService : LifecycleService() {
         stopJob?.cancel()
         stopJob = lifecycleScope.launch {
             delay(delayMs)
-            if (running == 0 && watchJob?.isActive != true) {
+            if (running == 0) {
+                foreground = false
                 ServiceCompat.stopForeground(this@LinkService, ServiceCompat.STOP_FOREGROUND_REMOVE)
-                stopSelf()
+                // Only stops if no newer start request arrived meanwhile.
+                stopSelfResult(lastStartId)
             }
         }
     }
 
-    private fun startInForeground(title: String, text: String) {
+    private fun goForeground(title: String, text: String) {
         ServiceCompat.startForeground(
             this, Notifier.ID_LINK, buildNotification(title, text),
             ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE,
         )
+        foreground = true
+    }
+
+    private fun acquireWake() {
+        if (wakeLock?.isHeld == true) return
+        val pm = getSystemService(PowerManager::class.java)
+        wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "phevlink:service").apply {
+            setReferenceCounted(false)
+            acquire(5 * 60_000L) // safety timeout
+        }
+    }
+
+    private fun releaseWake() {
+        wakeLock?.let { if (it.isHeld) runCatching { it.release() } }
+        wakeLock = null
     }
 
     private fun buildNotification(title: String, text: String) = graph.notifier.linkNotification(
@@ -256,6 +300,8 @@ class LinkService : LifecycleService() {
     )
 
     companion object {
+        private const val TAG = "svc"
+        private const val MAX_WATCH_FAILURES = 3
         const val ACTION_COMMAND = "io.github.anwo91.phevlink.COMMAND"
         const val ACTION_QUICK_CLIMATE = "io.github.anwo91.phevlink.QUICK_CLIMATE"
         const val ACTION_TOGGLE_CLIMATE = "io.github.anwo91.phevlink.TOGGLE_CLIMATE"
@@ -269,6 +315,7 @@ class LinkService : LifecycleService() {
         const val EXTRA_AT = "at"
         const val EXTRA_MODE = "mode"
         const val EXTRA_MINUTES = "minutes"
+        const val EXTRA_FAILURES = "failures"
 
         fun intent(context: Context, action: String) = Intent(context, LinkService::class.java).setAction(action)
 
@@ -280,5 +327,50 @@ class LinkService : LifecycleService() {
             runCatching { context.startForegroundService(intent) }
                 .onFailure { context.graph.log.error("Could not start background service: ${it.message}") }
         }
+    }
+}
+
+/** Exact alarms for the periodic background checks (they work in Doze, unlike delay()). */
+object WatchScheduler {
+    private const val REQ_WATCH = 12
+
+    private fun pending(context: Context, failures: Int) = PendingIntent.getBroadcast(
+        context, REQ_WATCH,
+        Intent(context, DepartureReceiver::class.java).setAction(LinkService.ACTION_WATCH).putExtra(LinkService.EXTRA_FAILURES, failures),
+        PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+    )
+
+    fun schedule(context: Context, delayMs: Long, failures: Int) {
+        val am = context.getSystemService(AlarmManager::class.java)
+        val at = System.currentTimeMillis() + delayMs
+        val exact = Build.VERSION.SDK_INT < Build.VERSION_CODES.S || am.canScheduleExactAlarms()
+        if (exact) am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, at, pending(context, failures))
+        else am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, at, pending(context, failures))
+        context.graph.log.link("Next background check at ${Format.clock(at)}")
+    }
+
+    fun cancel(context: Context) {
+        context.getSystemService(AlarmManager::class.java).cancel(pending(context, 0))
+    }
+}
+
+/** Bridges the gap between an alarm broadcast returning and the service taking over. */
+object WakeHolder {
+    private var lock: PowerManager.WakeLock? = null
+
+    @Synchronized
+    fun acquireForReceiver(context: Context) {
+        if (lock?.isHeld == true) return
+        lock = context.getSystemService(PowerManager::class.java)
+            .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "phevlink:alarm").apply {
+                setReferenceCounted(false)
+                acquire(60_000L)
+            }
+    }
+
+    @Synchronized
+    fun releaseFromReceiver() {
+        lock?.let { if (it.isHeld) runCatching { it.release() } }
+        lock = null
     }
 }

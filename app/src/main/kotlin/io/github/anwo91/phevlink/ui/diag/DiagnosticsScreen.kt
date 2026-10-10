@@ -69,6 +69,7 @@ private enum class Filter(val label: String, val kinds: Set<LogKind>) {
     STATE("Car state", setOf(LogKind.STATE)),
 }
 
+@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun DiagnosticsScreen(vm: MainViewModel, modifier: Modifier) {
     var tab by rememberSaveable { mutableIntStateOf(0) }

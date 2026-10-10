@@ -115,6 +115,9 @@ class CarRepository(
     /** Hook for the widget/tile to refresh when the state changes. */
     var onStateSaved: (() -> Unit)? = null
 
+    /** Outside temperature measured by the car (°C, wall-clock ms of the reading), if one is known. */
+    var carTemperature: (() -> Pair<Double, Long>?)? = null
+
     init {
         log.recordPings = settings.current.recordPings
         network.onAvailable = { direct?.reconnectNow() }
@@ -409,7 +412,14 @@ class CarRepository(
     suspend fun quickClimate(): CarCommand.ClimateOn {
         val s = settings.current
         if (!s.quickSmart) return CarCommand.ClimateOn(s.quickMode, s.quickDuration)
-        val temp = MetNo.temperatureNear(context, s, ZonedDateTime.now().plusMinutes(15), log)
+        // The car's own sensor when it was read recently (OBD session), otherwise the forecast for the next minutes.
+        val measured = carTemperature?.invoke()?.takeIf { System.currentTimeMillis() - it.second < CAR_TEMP_MAX_AGE_MS }
+        val temp = if (measured != null) {
+            log.link("Quick climate: using the car's outside temperature ${"%.1f".format(measured.first)} °C (read ${(System.currentTimeMillis() - measured.second) / 60_000} min ago)")
+            measured.first
+        } else {
+            MetNo.temperatureNear(context, s, ZonedDateTime.now().plusMinutes(15), log)
+        }
         val now = Departure("quick", LocalTime.now(), emptySet(), mode = s.quickMode, duration = s.quickDuration)
         val plan = ClimatePlanner.decide(now, temp) ?: return CarCommand.ClimateOn(s.quickMode, s.quickDuration)
         log.link("Quick climate: ${plan.reason}")
@@ -484,5 +494,7 @@ class CarRepository(
     companion object {
         const val UI = "ui"
         private const val KICK = "kick"
+        /** A car temperature reading older than this is not trusted over the forecast. */
+        private const val CAR_TEMP_MAX_AGE_MS = 45 * 60_000L
     }
 }

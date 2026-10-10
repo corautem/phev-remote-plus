@@ -70,6 +70,11 @@ class ObdRepository(
     private val scope: CoroutineScope,
     private val log: DiagLog,
 ) {
+    /** Last outside temperature the car reported over OBD (°C, wall-clock ms), or null. */
+    @Volatile
+    var lastAmbient: Pair<Double, Long>? = null
+        private set
+
     private val app: Context = context.applicationContext
     private val store = ObdDeviceStore(app)
 
@@ -293,6 +298,9 @@ class ObdRepository(
             clientScope.launch {
                 client.state.collect { s ->
                     // The client starts DISCONNECTED and ends DISCONNECTED; the repository reports those phases itself.
+                    // Outside temperature measured by the car, for climate decisions (better than a forecast).
+                    AMBIENT_IDS.firstNotNullOfOrNull { id -> s.values[id]?.value?.let { v -> v to s.values.getValue(id).updatedAtMs } }
+                        ?.let { if (it.first in -40.0..60.0) lastAmbient = it }
                     if (s.phase != ObdPhase.DISCONNECTED) {
                         val cycle = s.pollCycle + base
                         lastCycle = maxOf(lastCycle, cycle)
@@ -583,6 +591,8 @@ class ObdRepository(
         private const val INITIAL_ATTEMPTS = 3
         private const val RETRY_DELAY_MS = 1_500L
         private const val OPEN_TIMEOUT_MS = 60_000L
+        /** A/C ECU sensor first (the one behind the dashboard reading), then the AWC unit and the standard PID. */
+        private val AMBIENT_IDS = listOf("ac.ambient_temp", "awc.ambient_temp", "obd.46")
         private val RECONNECT_BACKOFF_MS = listOf(2_000L, 5_000L, 10_000L)
 
         /** A connection that lasted less than this counts as a short drop. */

@@ -47,12 +47,15 @@ class Graph(app: Application) {
     val notifier = Notifier(app)
     val repo = CarRepository(app, settings, log, cache, notifier)
     /** OBD-II adapter connection (ELM327 over Bluetooth Classic/LE or Wi-Fi). */
-    val obd: ObdRepository by lazy { ObdRepository(app, scope, log) }
+    private val obdLazy = lazy { ObdRepository(app, scope, log) }
+    val obd: ObdRepository by obdLazy
     /** Guided live tests; app-wide so a test keeps running when the screen is left. */
     val liveTests: LiveTestRunner by lazy { LiveTestRunner(scope, log) }
     val testStore: TestStore by lazy { PrefsTestStore(app) }
 
     init {
+        // The car's own outside temperature (from an OBD session) beats the forecast for "now" decisions.
+        repo.carTemperature = { if (obdLazy.isInitialized()) obdLazy.value.lastAmbient else null }
         repo.onStateSaved = {
             WidgetUpdater.request(app)
             PreheatTileService.requestUpdate(app)

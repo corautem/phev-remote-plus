@@ -104,7 +104,7 @@ class BluetoothLeLink private constructor(
 
         // API 33+: the value comes as a parameter (the deprecated overload below is not called any more).
         override fun onCharacteristicChanged(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, value: ByteArray) {
-            if (characteristic.uuid == notifyUuid) inbox.offer(value.copyOf())
+            if (characteristic.uuid == notifyUuid) received(value)
         }
 
         // Below API 33.
@@ -113,8 +113,18 @@ class BluetoothLeLink private constructor(
         override fun onCharacteristicChanged(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) return
             val value: ByteArray = characteristic.value ?: return
-            if (characteristic.uuid == notifyUuid) inbox.offer(value.copyOf())
+            if (characteristic.uuid == notifyUuid) received(value)
         }
+    }
+
+    private val rawLogged = java.util.concurrent.atomic.AtomicInteger()
+
+    /** Incoming data; the first few packets are also logged as hex (binary protocols don't show in the ELM trace). */
+    private fun received(value: ByteArray) {
+        if (rawLogged.getAndIncrement() < RAW_LOG_PACKETS) {
+            log.link("OBD: BLE: received ${value.size} bytes: " + value.joinToString(" ") { "%02X".format(it.toInt() and 0xFF) })
+        }
+        inbox.offer(value.copyOf())
     }
 
     private fun linkDown(e: IOException) {
@@ -248,6 +258,11 @@ class BluetoothLeLink private constructor(
     }
 
     private fun pickCharacteristics(services: List<BluetoothGattService>): Pick? {
+        // The whole table, so a log shows what an unknown device offers.
+        for (s in services) {
+            val chars = s.characteristics.orEmpty().joinToString { c -> "${c.uuid} (${propsText(c)})" }
+            log.link("OBD: BLE: service ${s.uuid}: $chars")
+        }
         for (k in KNOWN_SERVICES) {
             val s = services.firstOrNull { it.uuid == k.service } ?: continue
             val n = s.getCharacteristic(k.notify) ?: continue
@@ -259,7 +274,8 @@ class BluetoothLeLink private constructor(
         }
         for (s in services) {
             if (s.uuid in STANDARD_SERVICES) continue
-            val chars: List<BluetoothGattCharacteristic> = s.characteristics ?: continue
+            // Never a module's own control characteristics (writing those can change the radio's settings).
+            val chars: List<BluetoothGattCharacteristic> = s.characteristics?.filter { it.uuid !in CONTROL_CHARACTERISTICS } ?: continue
             // Prefer one characteristic that does both (FFE1-style), else separate ones.
             val both = chars.firstOrNull { canNotify(it) && canWrite(it) }
             val n = chars.firstOrNull { canNotify(it) } ?: continue
@@ -372,9 +388,36 @@ class BluetoothLeLink private constructor(
                 UUID.fromString("6E400002-B5A3-F393-E0A9-E50E24DCCA9E"),
                 "Nordic UART",
             ),
+            // Microchip/ISSC "transparent UART" (BM70/RN4870/IS1678 modules), used by many BLE dongles. The service
+            // also has Air Patch (ACA3), Connection Parameter (6DAA) and Control Point (4C8A) characteristics that
+            // the generic picker used to choose — the data path is 1E4D (notify) / 8841 (write).
+            Uart(
+                UUID.fromString("49535343-FE7D-4AE5-8FA9-9FAFD205E455"),
+                UUID.fromString("49535343-1E4D-4BD9-BA61-23C647249616"),
+                UUID.fromString("49535343-8841-43F4-A8D4-ECBE34729BB3"),
+                "Microchip/ISSC transparent UART",
+            ),
             Uart(uuid16("FFF0"), uuid16("FFF1"), uuid16("FFF2"), "FFF0"),
             Uart(uuid16("FFE0"), uuid16("FFE1"), uuid16("FFE1"), "FFE0"),
         )
+
+        private const val RAW_LOG_PACKETS = 12
+
+        /** Configuration characteristics of BLE modules: never a data channel, never written. */
+        private val CONTROL_CHARACTERISTICS = setOf(
+            UUID.fromString("49535343-ACA3-481C-91EC-D85E28A60318"), // ISSC Air Patch
+            UUID.fromString("49535343-6DAA-4D02-ABF6-19569ACA69FE"), // ISSC Connection Parameter
+            UUID.fromString("49535343-4C8A-39B3-2F49-511CFF073B7E"), // ISSC Control Point
+        )
+
+        private fun propsText(c: BluetoothGattCharacteristic): String = buildList {
+            val p = c.properties
+            if (p and BluetoothGattCharacteristic.PROPERTY_READ != 0) add("read")
+            if (p and BluetoothGattCharacteristic.PROPERTY_WRITE != 0) add("write")
+            if (p and BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE != 0) add("write-no-resp")
+            if (p and BluetoothGattCharacteristic.PROPERTY_NOTIFY != 0) add("notify")
+            if (p and BluetoothGattCharacteristic.PROPERTY_INDICATE != 0) add("indicate")
+        }.joinToString("/")
 
         /** Generic Access, Generic Attribute, Device Information, Battery: never the data channel. */
         private val STANDARD_SERVICES = setOf(uuid16("1800"), uuid16("1801"), uuid16("180A"), uuid16("180F"))

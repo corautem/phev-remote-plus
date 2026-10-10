@@ -27,13 +27,19 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Test protocol core
-        run: ./gradlew :core:test --stacktrace
+        run: |
+          set -o pipefail
+          ./gradlew :core:test --stacktrace 2>&1 | tee -a build.log
 
       - name: Build bridge
-        run: ./gradlew :bridge:fatJar --stacktrace
+        run: |
+          set -o pipefail
+          ./gradlew :bridge:fatJar --stacktrace 2>&1 | tee -a build.log
 
       - name: Build Android app
-        run: ./gradlew :app:assembleRelease --stacktrace
+        run: |
+          set -o pipefail
+          ./gradlew :app:assembleRelease --stacktrace 2>&1 | tee -a build.log
 
       - name: Collect outputs
         run: |
@@ -63,3 +69,22 @@ jobs:
         with:
           name: test-reports
           path: '**/build/reports/tests/**'
+
+      # Make failures readable through the plain GitHub API: errors become annotations,
+      # and the full log is committed to the ci-logs branch.
+      - name: Report build errors
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          errs=$(grep -E "^e: |error:|ERROR:|What went wrong|FAILED|Exception" build.log | head -60 | sed ':a;N;$!ba;s/\n/%0A/g' || true)
+          echo "::error title=Build errors::${errs}"
+          content=$(tail -c 900000 build.log | base64 -w0)
+          sha=$(gh api "repos/${{ github.repository }}/contents/build.log?ref=ci-logs" --jq .sha 2>/dev/null || true)
+          if ! gh api "repos/${{ github.repository }}/branches/ci-logs" >/dev/null 2>&1; then
+            main_sha=$(gh api "repos/${{ github.repository }}/git/ref/heads/main" --jq .object.sha)
+            gh api -X POST "repos/${{ github.repository }}/git/refs" -f ref=refs/heads/ci-logs -f sha="$main_sha" >/dev/null
+          fi
+          args=(-X PUT "repos/${{ github.repository }}/contents/build.log" -f message="CI log run ${{ github.run_number }}" -f branch=ci-logs -f content="$content")
+          [ -n "$sha" ] && args+=(-f sha="$sha")
+          gh api "${args[@]}" >/dev/null

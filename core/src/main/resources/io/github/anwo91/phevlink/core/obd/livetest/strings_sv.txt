@@ -1,0 +1,369 @@
+# PHEV Link live tests - Svenska. Translates the keys of strings_en.txt (see that file for the format).
+# Original text for this project (GPL-3.0-or-later). Keep the {slots} exactly as in English.
+
+# ---- buttons and common
+btn.continue	Fortsätt
+btn.skip	Hoppa över
+btn.done	Klar
+btn.yes	Ja
+btn.no	Nej
+btn.start_road	Starta körmomentet
+test.cancelled	Testet avbröts.
+test.error	Testet stoppades av ett oväntat fel: {error}
+wait.car	Väntar på svar från bilen. Slå på tändningen (ON) om den är av.
+abort.car_silent	Bilen slutade svara, så testet kunde inte slutföras. Kontrollera att tändningen är på (ON) och att adaptern är ansluten, och kör sedan testet igen.
+abort.no_voltage	Adaptern rapporterade ingen spänning. Anslut adaptern igen och försök på nytt.
+abort.no_bmu	Drivbatteriets styrenhet svarade inte. Slå på tändningen (ON, inte READY) och försök igen. Vissa billiga adaptrar kan inte läsa batteridata alls.
+abort.no_engine_data	Motorstyrningen skickade inte de data som testet behöver. Kontrollera att tändningen är på (ON) och försök igen.
+next.check_connection	Kontrollera att adaptern är ansluten och att tändningen är på (ON), och kör sedan testet igen.
+val.on	På
+val.off	Av
+val.n_of_m	{n} av {m} klara
+eng.start	Starta nu motorn. Endast utomhus. Bilen i READY, växelväljaren i P, parkeringsbromsen åtdragen. Håll in CHARGE-knappen i cirka 10 sekunder tills motorn startar och tryck sedan på Fortsätt.
+eng.waiting	Väntar på att motorn ska starta…
+eng.no_start	Motorn startade inte. Håll in CHARGE-knappen i cirka 10 sekunder med bilen i READY och växelväljaren i P, och kör sedan testet igen. Om drivbatteriet är nästan fullt kan motorn vägra starta för laddning.
+
+# ---- test list
+test.dtc-full-scan.title	Felkoder i alla styrenheter
+test.dtc-full-scan.desc	Läser lagrade och väntande felkoder från motorn, drivbatteriet, laddaren, elmotorerna och andra enheter, och känner igen typiska mönster som ett svagt 12 V-batteri.
+test.twelve-volt-health.title	12 V-batteri
+test.twelve-volt-health.desc	Mäter det lilla 12 V-batteriet i vila och med tändningen på. Ett svagt 12 V-batteri är den vanligaste orsaken till konstiga varningar på den här bilen.
+test.dcdc-output.title	12 V-laddning i READY (DC/DC-omvandlare)
+test.dcdc-output.desc	Kontrollerar att bilen laddar 12 V-batteriet från drivbatteriet i READY, med och utan elektrisk belastning.
+test.hv-capacity.title	Drivbatteriets kapacitet (hälsa)
+test.hv-capacity.desc	Läser batteristyrningens uppskattning av kapaciteten och jämför med Mitsubishis siffra för ett nytt batteri. Sparar historiken så att du kan följa utvecklingen.
+test.hv-cell-balance.title	Drivbatteriets cellbalans
+test.hv-cell-balance.desc	Jämför den högsta och lägsta av de 80 cellspänningarna i vila. En stor skillnad tyder på en svag cell eller modul.
+test.inspection-readiness.title	Klar för besiktning?
+test.inspection-readiness.desc	Kontrollerar motorlampan, avgasrelaterade felkoder och om bilens självtester för avgaser är klara.
+test.charging-session.title	Laddningskontroll
+test.charging-session.desc	Läser batteriet före och efter minst 20 minuters laddning för att bekräfta att det verkligen går in laddning.
+test.engine-warmup.title	Motorns uppvärmning och termostat
+test.engine-warmup.desc	Kör motorn och följer kylvätsketemperaturen för att hitta en termostat som öppnar för tidigt, överhettning eller en motor som stannar av sig själv.
+test.fuel-trims.title	Bränsleblandning (bränsletrim)
+test.fuel-trims.desc	Följer hur mycket motorn korrigerar bränsleblandningen, vilket avslöjar luftläckor, svag bränsletillförsel eller en felaktig luftmassemätare.
+test.wheel-speed-match.title	Däck och hjulhastigheter
+test.wheel-speed-match.desc	Jämför hjulhastigheterna fram och bak vid jämn körning. Olika däckstorlekar eller olika slitage fram och bak kan ge varningar från EV-systemet.
+
+# ---- 12 V battery
+t12.pre	Innan du börjar: bilen bör ha varit avstängd i minst 2 timmar (helst över natten), inte laddas, dörrarna ska vara stängda och inget ska vara anslutet till 12 V-uttagen. Låt bilen vara avstängd och tryck på Fortsätt.
+t12.measure_rest	Mäter 12 V-batteriet i vila…
+t12.switch_on	Tryck nu två gånger på startknappen UTAN att trampa på bromspedalen, så att tändningen är på (ON) men bilen inte är i READY. Tryck sedan på Fortsätt.
+t12.settle	Låter spänningen stabilisera sig…
+t12.measure_on	Mäter med tändningen på…
+t12.rest_surface	Batteriet visar {v} V i vila, vilket betyder att det fortfarande har ytladdning eller att något laddar det. Testa igen när bilen har varit avstängd i 2 timmar.
+t12.rest_good	I vila visar 12 V-batteriet {v} V: väl laddat.
+t12.rest_half	I vila visar 12 V-batteriet {v} V: bara ungefär halvladdat.
+t12.rest_low	I vila visar 12 V-batteriet {v} V: lågt.
+t12.rest_very_low	I vila visar 12 V-batteriet {v} V: mycket lågt. Ladda det nu; bilen kan snart vägra starta.
+t12.borderline	Värdet ligger nära en gräns. Adaptrar kan visa 0,1–0,2 V fel, så se det som ett gränsfall.
+t12.on_ready	Med tändningen på steg spänningen till {v} V, så bilen verkar vara i READY och laddar batteriet. Delen med belastning hoppas över; kör testet igen utan att trampa på bromspedalen.
+t12.on_good	Med tändningen på håller batteriet {v} V: bra.
+t12.on_sag	Med tändningen på sjunker spänningen till {v} V. Batteriet har svårt att orka även med liten belastning.
+t12.on_weak	Med tändningen på faller spänningen till {v} V. Batteriet klarar inte att hålla spänningen; det är troligen utslitet eller djupurladdat.
+t12.ecu_diff	En styrenhet rapporterar {ecu} V medan OBD-uttaget visar {v} V. Kontrollera batteripolerna och jordanslutningarna.
+t12.head.pass	12 V-batteriet är i gott skick.
+t12.head.info	12 V-batteriet ser bra ut.
+t12.head.warn	12 V-batteriet är svagt.
+t12.head.fail	12 V-batteriet är urladdat eller utslitet.
+t12.head.inconclusive	12 V-batteriet kunde inte bedömas den här gången.
+next.12v_ready_charge	Ställ bilen i READY i 15–30 minuter så att drivbatteriet laddar upp 12 V-batteriet, låt den vila i 2 timmar och testa igen.
+next.12v_charger	Om det fortfarande är lågt nästa morgon, ladda det med en laddare som passar för AGM-batterier och testa igen.
+next.12v_drain	Koppla ur OBD-adaptrar, bilkameror och laddare när bilen står i flera dagar; de kan ladda ur batteriet.
+next.12v_replace	Om spänningen fortsätter att sjunka, byt batteriet mot rätt ventilerad AGM-typ för montering i kupén (originalstorlek S46B24L, cirka 45 Ah).
+next.run_dcdc	Kör sedan testet ”12 V-laddning i READY” för att kontrollera att bilen laddar batteriet.
+
+# ---- DC/DC
+dc.pre	Ställ bilen i READY (bromspedal + startknapp), växelväljaren i P och klimatanläggningen av. Tryck sedan på Fortsätt.
+dc.settle	Låter laddspänningen stabilisera sig…
+dc.measure	Mäter 12 V-matningen i READY…
+dc.too_high	12 V-matningen är {v} V: för hög. Det kan skada batteriet och elektroniken.
+dc.high	12 V-matningen är {v} V: i högsta laget.
+dc.good	12 V-matningen är {v} V i READY: bilen laddar 12 V-batteriet.
+dc.low	12 V-matningen är bara {v} V i READY. Omvandlaren kan vara i ett sparläge; kör i 15 minuter och testa igen.
+dc.not_charging	12 V-matningen är bara {v} V i READY: 12 V-batteriet laddas inte.
+dc.load	Slå nu på halvljuset, fläkten på max och bakrutevärmen. Tryck på Fortsätt när allt är på, eller på Hoppa över.
+dc.settle_load	Väntar på spänningen under belastning…
+dc.measure_load	Mäter under belastning…
+dc.load_good	Under belastning håller matningen {v} V: bra.
+dc.load_low	Under belastning sjunker matningen till {v} V: lite lågt.
+dc.load_fail	Under belastning sjunker matningen till {v} V: omvandlaren klarar inte belastningen.
+dc.load_off	Du kan stänga av ljuset, fläkten och bakrutevärmen igen. Tryck på Fortsätt.
+dc.below_baseline	Matningen ({v} V) är mer än 0,5 V lägre än vad den här bilen visade tidigare ({base} V).
+dc.head.pass	Bilen laddar 12 V-batteriet normalt.
+dc.head.info	12 V-matningen ser bra ut.
+dc.head.warn	12 V-matningen är inte helt som den ska.
+dc.head.fail	12 V-batteriet laddas inte ordentligt i READY.
+dc.head.inconclusive	12 V-matningen kunde inte bedömas den här gången.
+next.drive_retest	Kör i 15 minuter och kör sedan testet igen.
+next.run_scan	Kör testet ”Felkoder i alla styrenheter”.
+next.workshop_dcdc	Om det misslyckas igen, låt en verkstad kontrollera DC/DC-omvandlaren och dess säkring.
+
+# ---- capacity
+cap.pre	Slå på tändningen (ON – READY går också bra). Tryck på Fortsätt.
+cap.measure	Läser drivbatteriet…
+cap.good	Kapacitet {cap} Ah, cirka {soh} % av de {ref} Ah som ett nytt batteri har: bra för åldern.
+cap.aged	Kapacitet {cap} Ah, cirka {soh} % av de {ref} Ah som ett nytt batteri har. Det är normal åldring för många bilar från 2014–2017; räkna med klart kortare elräckvidd än när bilen var ny.
+cap.low	Kapacitet {cap} Ah, cirka {soh} % av nyskick. Det är under Mitsubishis gamla garantigräns på 70 % ({limit} Ah). Elräckvidden är kraftigt försämrad.
+cap.year_unknown	Årsmodellen är okänd, så 38 Ah (siffran för bilar före årsmodell 2017) används. Mot 40 Ah skulle det vara {soh40} %.
+cap.year	Årsmodell {year}: jämfört med Mitsubishis siffra på {ref} Ah för ett nytt batteri.
+cap.estimate_stale	Den lagrade laddningen motsvarar {calc} %, men batteristyrningen visar {soc} %. Uppskattningen kan vara inaktuell; en full laddning efter lång vila, eller en kapacitetsmätning hos återförsäljaren, kan rätta den.
+cap.quick_change	Kapaciteten ändrades snabbt ({before} Ah → {now} Ah). Upprepa efter en full laddning innan du drar några slutsatser.
+cap.trend	Första mätningen i den här appen: {before} Ah, för {days} dagar sedan.
+cap.context	Som jämförelse: ägare i Nya Zeeland rapporterade bilar från 2014 på cirka 63–73 % efter sex år, och tyska ägare ser ofta cirka 32–34 Ah. Värdet är batteristyrningens egen uppskattning, inte en labbmätning.
+cap.head.pass	Drivbatteriet är i gott skick.
+cap.head.info	Drivbatteriets kapacitet är avläst.
+cap.head.warn	Drivbatteriet har åldrats märkbart.
+cap.head.fail	Drivbatteriets kapacitet är låg.
+cap.head.inconclusive	Kapaciteten kunde inte bedömas den här gången.
+next.cap_track	Kör det här testet ungefär en gång i månaden för att följa utvecklingen.
+next.cap_full_charges	Gör några fulla AC-laddningar utan att avbryta i förtid; uppskattningen uppdateras under fulla laddningar.
+next.cap_dealer	En Mitsubishiverkstad kan mäta kapaciteten ordentligt (kapacitetsmätning av drivbatteriet) och kontrollera cellerna.
+next.cap_warranty	Kontrollera drivbatteriets garanti utifrån datumet för första registrering; de flesta bilar från 2014–2017 är nu äldre än 8 år.
+
+# ---- cell balance
+cell.pre	Bäst resultat: bilen har stått parkerad i minst 30 minuter och laddas inte. Slå på tändningen (ON, inte READY) och stäng av klimatanläggningen. Tryck på Fortsätt.
+cell.settle	Låter batteriet stabilisera sig…
+cell.measure	Läser cellspänningarna…
+cell.decode_unreliable	Cellvärdena på den här bilen stämmer inte med batterispänningen, så de går inte att lita på. Rådata visas på batterisidan.
+cell.good	Skillnaden mellan högsta och lägsta cell är {mv} mV: väl balanserat.
+cell.slight	Cellerna skiljer sig med {mv} mV: lätt obalans. Låt bilen göra klart några fulla AC-laddningar och testa igen.
+cell.clear	Cellerna skiljer sig med {mv} mV: tydlig obalans. En cell eller modul kan vara svagare.
+cell.large	Cellerna skiljer sig med {mv} mV: stor obalans. En cell eller modul håller troligen på att gå sönder.
+cell.low_cell	Den lägsta cellen har bara {v} V fast batteriet inte är tomt: den cellen är ovanligt låg.
+cell.lowest	Lägsta cell: nummer {cell} (troligen modul {module}) med {v} V.
+cell.soc_range	Batteriet ligger på {soc} %. Under 30 % eller över 95 % skiljer sig cellerna naturligt mer, så resultatet är mindre tillförlitligt.
+cell.repeat_lowest	Cell {cell} har varit lägst i {times} av de senaste testerna.
+cell.head.pass	Drivbatteriets celler är väl balanserade.
+cell.head.info	Cellspänningarna är avlästa.
+cell.head.warn	Drivbatteriets celler är något i obalans.
+cell.head.fail	En cell eller modul i drivbatteriet ser svag ut.
+cell.head.inconclusive	Cellbalansen kunde inte bedömas den här gången.
+next.cell_full_charges	Låt bilen göra klart några fulla AC-laddningar utan att avbryta dem i förtid.
+next.cell_repeat	Upprepa testet några olika dagar för att se om samma cell fortsätter att vara lägst.
+next.cell_workshop	Om obalansen består, be en Mitsubishiverkstad om en batterikontroll (cellutjämning eller modultest). Öppna aldrig drivbatteriet själv.
+
+# ---- charging
+chg.pre	Det här testet tar cirka 25 minuter och kräver laddkabeln. Batteriet bör ligga på 85 % eller lägre. Slå på tändningen (ON, inte READY) och tryck på Fortsätt.
+chg.reading	Läser drivbatteriet…
+chg.too_full	Batteriet ligger redan på {soc} %. Kör testet när det ligger på 85 % eller lägre.
+chg.plug_in	Stäng nu av bilen och anslut laddkabeln. Låt den ladda i minst 20 minuter. Koppla sedan ur, slå på tändningen (ON, inte READY) och tryck på Klar.
+chg.too_short	Den laddade bara i {min} minuter. Ladda i minst 20 minuter för ett tillförlitligt resultat.
+chg.good	{ah} Ah (+{soc} procentenheter) gick in i batteriet: laddningen fungerar.
+chg.good_soc	Laddnivån steg med {soc} procentenheter: laddningen fungerar.
+chg.slow	Bara {ah} Ah (+{soc} enheter) gick in, mindre än hälften av de cirka {expected} Ah som väntas med en 10 A-kabel. Laddningen kan ha stoppat eller gått med reducerad effekt.
+chg.none	Ingen laddning gick in under {min} minuter. Laddningen startade inte eller stoppade.
+chg.counter_up	Laddarens räknare för laddtillfällen ökade.
+chg.counter_same	Laddarens räknare för laddtillfällen ändrades inte (dess betydelse är inte helt känd).
+chg.head.pass	Laddningen fungerar.
+chg.head.info	Laddningskontrollen är klar.
+chg.head.warn	Laddningen går långsammare än väntat.
+chg.head.fail	Bilen laddade inte.
+chg.head.inconclusive	Laddningen kunde inte bedömas den här gången.
+next.chg_checklist	Kontrollera de vanliga orsakerna: att tändningen är av, om en laddtimer är inställd, att kabeln är helt låst, uttaget och dess säkring, och 12 V-batteriet.
+next.chg_other_socket	Prova ett annat uttag eller en annan laddare. I IT-elnät, som är vanliga i Norge, kan jordfel stoppa bärbara laddkablar.
+next.chg_workshop	Om det inte fungerar någonstans, låt kontrollera laddaren och laddporten.
+
+# ---- engine warm-up
+warm.pre	Endast utomhus (avgaser). Växelväljaren i P, parkeringsbromsen åtdragen, klimatanläggningen av. Bäst med kall motor. Tryck på Fortsätt.
+warm.low_fuel	Bränslenivån är bara {pct} %. Tanka snart; motorn behöver bränsle för det här testet.
+warm.already_warm	Motorn är redan varm ({t} °C), så uppvärmningen kan inte mätas. Gör om testet när motorn har svalnat (några timmar).
+warm.measure	Motorn går. Följer kylvätsketemperaturen (upp till 15 minuter)…
+warm.overheat	Kylvätskan nådde {t} °C: motorn överhettas. Stäng av nu.
+warm.hot	Kylvätskan nådde {t} °C: motorn går varm. Kontrollera kylvätskenivån när motorn är kall.
+warm.good	Motorn nådde 75 °C efter {min} minuter och stabiliserades på {t} °C: normal uppvärmning.
+warm.slow	Motorn behövde {min} minuter för att nå 75 °C: långsamt. Termostaten kan öppna för tidigt.
+warm.slow_max	Kylvätskan nådde bara {t} °C på {min} minuter: långsam uppvärmning. Termostaten kan öppna för tidigt.
+warm.cold	Efter 15 minuter är kylvätskan bara {t} °C: motorn blir inte varm. Termostaten har troligen fastnat i öppet läge.
+warm.too_short	Motorn gick inte tillräckligt länge för att uppvärmningen ska kunna bedömas (högst {t} °C).
+warm.drops	Temperaturen sjönk med mer än 5 °C medan motorn fortfarande gick.
+warm.engine_stopped	Motorn stannade av sig själv under testet.
+warm.uneven_rpm	Varvtalet varierade med {spread} rpm på tomgång: ojämn gång.
+warm.head.pass	Motorn värms upp normalt.
+warm.head.info	Motorns uppvärmning är kontrollerad.
+warm.head.warn	Motorns uppvärmning är inte helt som den ska.
+warm.head.fail	Motorn har ett problem med uppvärmning eller temperatur.
+warm.head.inconclusive	Uppvärmningen kunde inte bedömas den här gången.
+next.switch_off_engine	Stäng av bilen med startknappen för att stoppa motorn.
+next.coolant_level	Kontrollera kylvätskenivån när motorn är kall.
+next.thermostat	En verkstad kan testa och byta termostaten; slå också upp koderna P0128 och P0125.
+
+# ---- fuel trims
+trim.pre	Motorn måste gå och vara varm. Endast utomhus, växelväljaren i P, parkeringsbromsen åtdragen. Tryck på Fortsätt.
+trim.warming	Väntar på att motorn ska nå 75 °C…
+trim.not_warm	Motorn blev inte tillräckligt varm inom 10 minuter. Kör uppvärmningstestet först.
+trim.measure_a	Mäter bränslekorrigeringen stillastående…
+trim.road	Valfritt körmoment: kör jämnt i 70–90 km/h med motorn igång (använd Save eller Charge). Tryck på ”Starta körmomentet” när du är uppe i fart, eller på Hoppa över. Håll blicken på vägen; appen mäter själv.
+trim.measure_b	Mäter under körning…
+trim.road_no_data	Inga användbara kördata (motorn gick inte, eller farten var för låg).
+trim.open_loop	Korttidskorrigeringen rörde sig inte, så motorn var kanske inte i sitt normala regleringsläge än. Resultatet är mindre tillförlitligt.
+trim.lean	tillför bränsle (mager blandning)
+trim.rich	drar ner bränslet (fet blandning)
+trim.good_a	Stillastående: total korrigering {total} %: normalt.
+trim.high_a	Stillastående: total korrigering {total} %, {dir}: mer än normalt.
+trim.bad_a	Stillastående: total korrigering {total} %, {dir}: stor. En P0171/P0172-kod kommer troligen snart.
+trim.good_b	Under körning: total korrigering {total} %: normalt.
+trim.high_b	Under körning: total korrigering {total} %, {dir}: mer än normalt.
+trim.bad_b	Under körning: total korrigering {total} %, {dir}: stor.
+trim.hint_air_leak	Mager stillastående men normal under körning: troligen en luftläcka efter luftmassemätaren (slangar, insugspackning).
+trim.hint_lean_both	Mager både stillastående och under körning: troligen svag bränsletillförsel eller en luftmassemätare som visar för lågt.
+trim.hint_rich	Fet blandning: möjligen en läckande insprutare, för högt bränsletryck, en luftmassemätare som visar för högt eller EVAP-systemet (bränsleångor).
+trim.head.pass	Bränsleblandningen är normal.
+trim.head.info	Bränsleblandningen är kontrollerad.
+trim.head.warn	Motorn korrigerar bränsleblandningen mer än normalt.
+trim.head.fail	Bränsleblandningen är långt från det normala.
+trim.head.inconclusive	Bränsleblandningen kunde inte bedömas den här gången.
+next.trim_hoses	Kontrollera insugsslangarna och klämmorna mellan luftfiltret och motorn så att de inte har sprickor eller läcker.
+
+# ---- inspection readiness
+insp.pre	Slå på tändningen (ON – motorn behöver inte gå). Tryck på Fortsätt.
+insp.reading	Läser bilens självtester för avgaser…
+insp.mil_or_codes	Motorlampan lyser eller avgasrelaterade felkoder är lagrade ({codes}). Det skulle troligen ge underkänt vid besiktningen; åtgärda det först.
+insp.pending	Ett fel bevakas men är inte bekräftat ännu ({codes}).
+insp.incomplete	{count} av bilens självtester för avgaser är inte klara ännu.
+insp.monitor_done	{name}: klar
+insp.monitor_open	{name}: inte klar ännu
+insp.recently_cleared	Felkoderna raderades nyligen, så självtesterna är kanske inte klara ännu.
+insp.ready	Ingen motorlampa, inga avgaskoder och alla självtester är klara.
+insp.head.pass	Klar för avgasdelen av besiktningen.
+insp.head.info	Avgasstatus avläst.
+insp.head.warn	Inte riktigt klar för besiktning ännu.
+insp.head.fail	Det här skulle troligen ge underkänt på avgaskontrollen.
+insp.head.inconclusive	Avgasstatus kunde inte läsas.
+next.insp_drive	Kör några turer på 20–30 minuter med motorn igång (Save eller Charge) och testa igen. På en PHEV som sällan kör motorn kan det ta flera dagar.
+next.insp_fix_codes	Slå upp koderna, åtgärda orsaken och testa igen före besiktningen.
+next.insp_no_clear	Radera inte felkoder under veckorna före besiktningen: det nollställer självtesterna.
+mon.misfire	Feltändning
+mon.fuel_system	Bränslesystem
+mon.components	Komponenter
+mon.catalyst	Katalysator
+mon.heated_catalyst	Uppvärmd katalysator
+mon.evap	Bränsleångsystem (EVAP)
+mon.secondary_air	Sekundärluft
+mon.ac_refrigerant	A/C-köldmedium
+mon.o2_sensor	Lambdasonder
+mon.o2_heater	Lambdasondvärmare
+mon.egr	EGR / variabel ventiltidsinställning
+mon.nmhc_catalyst	NMHC-katalysator
+mon.nox_scr	NOx-efterbehandling
+mon.boost_pressure	Laddtryck
+mon.exhaust_sensor	Avgassensor
+mon.pm_filter	Partikelfilter
+
+# ---- full scan
+scan.pre	Slå på tändningen (ON, inte READY). Avläsningen tar ungefär en minut. Tryck på Fortsätt.
+scan.voltage	Kontrollerar 12 V-batteriet…
+scan.scanning	Läser felkoder från alla styrenheter…
+scan.low_voltage	12 V-batteriet har bara {v} V. Ett svagt 12 V-batteri kan ge falska kommunikationskoder.
+scan.none	Inga felkoder hittades ({ecus} styrenheter svarade).
+scan.found	{count} felkod(er) hittades ({ecus} styrenheter svarade). Tryck på en kod för att se förklaringen.
+scan.pattern_low_voltage	De här koderna stämmer med det typiska mönstret för ett svagt 12 V-batteri. Testa 12 V-batteriet först, radera sedan koderna och läs av igen efter en körning.
+scan.p10dc	P10DC är känd på tidiga bilar (motorn stannar strax efter kallstart). Fråga återförsäljaren om kampanjen med ny programvara och nya tändstift.
+scan.hybrid	Fel i högspänningssystemet ({codes}). Låt en Mitsubishiverkstad kontrollera det; öppna aldrig högspänningsdelar.
+scan.emission_mil	Avgasfel med motorlampan tänd ({codes}).
+scan.emission	Avgasrelaterade koder ({codes}). Testerna för bränsleblandning, uppvärmning och besiktning kan hjälpa till att ringa in dem.
+scan.chassis	Chassikoder ({codes}): bromsar, hjulhastighetsgivare eller styrning. Kontrollera även däckstorlekar och däcktryck.
+scan.only_u	Bara kommunikationskoder: oftast 12 V-batteriet, en kontakt eller en dålig jordanslutning.
+scan.pending_only	Bara väntande koder: bilen har sett något en gång men inte bekräftat det.
+scan.other_codes	Det finns lagrade koder. Öppna var och en för att se förklaringen och vad du ska kontrollera.
+scan.some_silent	{count} styrenhet(er) svarade inte på den utökade avläsningen; det är normalt för enheter som inte finns på den här bilen.
+scan.head.pass	Inga felkoder.
+scan.head.info	Felkodsavläsningen är klar.
+scan.head.warn	Felkoder hittades: värda att kontrollera.
+scan.head.fail	Allvarliga felkoder hittades.
+scan.head.inconclusive	Felkodsavläsningen kunde inte slutföras.
+next.read_codes	Öppna fliken Koder för en lättbegriplig förklaring av varje kod och vad du ska kontrollera.
+next.run_12v	Kör 12 V-batteritestet.
+next.hv_workshop	Boka tid hos en Mitsubishiverkstad för högspänningsfelet; följ eventuella varningar på instrumentpanelen.
+next.save_before_clear	Spara koderna eller ta en skärmbild innan du raderar något; radering nollställer också självtesterna för avgaser.
+
+# ---- wheel speeds
+wheel.pre	Vägtest: kör i jämna 50–80 km/h på en rak, plan väg (farthållare om möjligt), utan inbromsningar eller kraftiga accelerationer. Däcktryck enligt dekalen i dörröppningen. Tryck på Fortsätt och kör vidare; appen mäter själv.
+wheel.wait_speed	Väntar på jämna 50–80 km/h…
+wheel.no_speed	Farten nådde inte jämna 50–80 km/h inom 3 minuter.
+wheel.measure	Mäter hjulhastigheterna… håll jämn fart.
+wheel.axle.good	Däcken fram och bak rullar lika fort (skillnad {pct} %).
+wheel.axle.small	Däcken fram och bak skiljer sig lite ({pct} %): slitage eller lufttryck.
+wheel.axle.large	Däcken fram och bak skiljer sig tydligt ({pct} %). Olika däck fram och bak kan ge varningar från EV-systemet.
+wheel.ratio.good	Varvtalsförhållandet mellan bakre och främre elmotor stämmer med din referens (ändring {pct} %).
+wheel.ratio.small	Varvtalsförhållandet mellan bakre och främre elmotor har ändrats lite sedan referensen ({pct} %): slitage eller lufttryck.
+wheel.ratio.large	Varvtalsförhållandet mellan bakre och främre elmotor har ändrats tydligt sedan referensen ({pct} %). Kontrollera däcken.
+wheel.single	{wheel} avviker {pct} % från medelvärdet. Kontrollera lufttrycket i det däcket.
+wheel.fl	Vänster framhjul
+wheel.fr	Höger framhjul
+wheel.rl	Vänster bakhjul
+wheel.rr	Höger bakhjul
+wheel.no_data	Varken hjulhastigheter eller motorvarvtal kunde läsas på den här bilen, eller så var farten inte tillräckligt jämn.
+wheel.same_tyres	Är alla fyra däcken av samma märke och storlek och jämnt slitna? Om ja sparas den här körningen som referens för senare jämförelser.
+wheel.baseline_saved	Sparad som referens. Kör testet igen senare (t.ex. efter ett däckbyte) för att jämföra.
+wheel.no_baseline	Inte sparad som referens. Kör det igen när alla fyra däcken är lika.
+wheel.first_run	Den här bilen rapporterar bara motorvarvtal, så en enskild körning kan inte bedömas; senare körningar jämförs med referensen.
+wheel.head.pass	Däcken fram och bak stämmer överens.
+wheel.head.info	Hjulhastigheterna är uppmätta.
+wheel.head.warn	Däcken fram och bak skiljer sig lite.
+wheel.head.fail	Däcken fram och bak skiljer sig tydligt.
+wheel.head.inconclusive	Hjulhastigheterna kunde inte bedömas den här gången.
+next.tyre_pressures	Ställ in alla däcktryck enligt dekalen i dörröppningen och testa igen.
+next.tyre_same	Montera fyra däck av samma märke och storlek och med likartat slitage; blandade däck kan ge varningar från EV-systemet.
+
+# ---- measurement labels
+m.v12	12 V-batteri
+m.v_rest	I vila
+m.v_rest_min	I vila, lägst
+m.v_on	Tändning på
+m.v_on_min	Tändning på, lägst
+m.v_ready	I READY
+m.v_ready_min	I READY, lägst
+m.v_ready_max	I READY, högst
+m.v_load	Under belastning
+m.v_baseline	Tidigare bra värde
+m.capacity	Kapacitet
+m.reference	Nytt batteri
+m.soh	Hälsa
+m.remaining	Lagrad laddning
+m.soc	Laddnivå
+m.energy	Lagrad energi (ca)
+m.pack_v	Batterispänning
+m.spread	Cellskillnad
+m.cell_max	Högsta cell
+m.cell_min	Lägsta cell
+m.cell_max_no	Högsta cell, nummer
+m.cell_min_no	Lägsta cell, nummer
+m.avg_cell	Medel per cell
+m.minutes	Laddtid
+m.soc_before	Laddnivå före
+m.soc_after	Laddnivå efter
+m.rem_before	Lagrad laddning före
+m.rem_after	Lagrad laddning efter
+m.coolant	Kylvätska
+m.rpm	Varvtal
+m.coolant_start	Kylvätska vid start
+m.coolant_max	Kylvätska, högst
+m.coolant_end	Kylvätska vid slut
+m.ambient	Utomhustemperatur
+m.time_to_75	Tid till 75 °C
+m.run_time	Motorns gångtid
+m.stft	Korttidskorrigering
+m.ltft	Långtidskorrigering
+m.stft_a	Korttid, stillastående
+m.ltft_a	Långtid, stillastående
+m.total_a	Totalt, stillastående
+m.stft_b	Korttid, körning
+m.ltft_b	Långtid, körning
+m.total_b	Totalt, körning
+m.mil	Motorlampa
+m.monitors	Självtester för avgaser
+m.dist_mil	Körsträcka med lampan tänd
+m.dist_cleared	Körsträcka sedan koderna raderades
+m.warmups	Uppvärmningar sedan koderna raderades
+m.time_cleared	Tid sedan koderna raderades
+m.codes	Felkoder
+m.ecus	Styrenheter som svarar
+m.speed	Hastighet
+m.front_rear_pct	Fram mot bak
+m.wheel_fl	Vänster fram
+m.wheel_fr	Höger fram
+m.wheel_rl	Vänster bak
+m.wheel_rr	Höger bak
+m.motor_ratio	Motorvarvtal bak/fram
+m.ratio_change	Ändring sedan referensen

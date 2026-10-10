@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Screens added with the OBD tab: OBD, live tests, vehicle settings, tips. -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources>
     <string name="ok">OK</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -64,7 +64,7 @@
     <string name="obd_open_codes">Fault codes</string>
     <string name="obd_open_tests">Live tests</string>
     <string name="obd_live_empty">No live values yet. Connect the adapter and switch the car\'s power ON.</string>
-    <string name="obd_live_note">Tap a value for its source. Values marked "owners" come from owner research; "experimental" values may be wrong on this car.</string>
+    <string name="obd_live_note">Tap a value for its source. Values marked “owners” come from owner research; “experimental” values may be wrong on this car.</string>
     <string name="obd_value">Value</string>
     <string name="obd_value_id">Id</string>
     <string name="obd_confidence">Source</string>
@@ -145,7 +145,7 @@
     <string name="obd_retry_unavailable">Try them again</string>
     <string name="obd_log_traffic">Log all adapter traffic</string>
     <string name="obd_raw_bmu">Battery computer raw data (21 01)</string>
-    <string name="obd_raw_bmu_hint">The bytes after "61 01", numbered from 00. Useful for decoding more values; share a screenshot with the project if you find something.</string>
+    <string name="obd_raw_bmu_hint">The bytes after “61 01”, numbered from 00. Useful for decoding more values; share a screenshot with the project if you find something.</string>
     <string name="obd_terminal_title">Terminal</string>
     <string name="obd_terminal_warning">Sends commands straight to the adapter. Reading is harmless; only send commands you understand.</string>
     <string name="obd_terminal_command">Command</string>
@@ -168,7 +168,7 @@
     <string name="obd_pick_forget">Forget</string>
     <string name="obd_pick_wifi">Wi-Fi adapter</string>
     <string name="obd_pick_wifi_address">Address (host:port)</string>
-    <string name="obd_pick_wifi_hint">Join the adapter\'s Wi-Fi network first (often "WiFi_OBDII" or "V-LINK"). The phone cannot use the car\'s own Wi-Fi at the same time.</string>
+    <string name="obd_pick_wifi_hint">Join the adapter\'s Wi-Fi network first (often “WiFi_OBDII” or “V-LINK”). The phone cannot use the car\'s own Wi-Fi at the same time.</string>
     <string name="obd_wifi_adapter_name">Wi-Fi OBD adapter</string>
 
     <!-- Vehicle settings -->
@@ -184,7 +184,7 @@
     <string name="vs_unnamed_item">Setting #%1$d</string>
     <string name="vs_unnamed_value">Option %1$d (available: %2$s)</string>
     <string name="vs_option_n">Option %1$d</string>
-    <string name="vs_beeps_hint">Lock/unlock beeps and horn answerback are in the "Keyless entry" group. Tips → Beeps lists every sound and how to change it.</string>
+    <string name="vs_beeps_hint">Lock/unlock beeps and horn answerback are in the “Keyless entry &amp; operation” group. Tips → Beeps lists every sound and how to change it.</string>
 
     <!-- Tips -->
     <string name="tips_title">Tips and known issues</string>
@@ -214,4 +214,6 @@
     <string name="beep_adjust_switch">Switch in the car</string>
     <string name="beep_adjust_dealer">Dealer only</string>
     <string name="beep_adjust_no">Cannot be changed</string>
+    <string name="obd_terminal_confirm_title">Send this command?</string>
+    <string name="obd_terminal_confirm_text">“%1$s” is not a plain read request. Commands such as 04 (clear codes), 10 (session), 11 (reset), 14 (clear memory), 27 (security) or 2E/2F/31/3B (write/control) can change or reset the car\'s control units. Only continue if you know exactly what it does.</string>
 </resources>

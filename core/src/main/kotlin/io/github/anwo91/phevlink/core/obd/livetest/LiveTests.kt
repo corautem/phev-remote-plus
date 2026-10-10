@@ -113,6 +113,14 @@ private fun Verdict.severity(): Int = when (this) {
     Verdict.CANCELLED -> 0
 }
 
+/**
+ * Waits up to 30 s for the car to answer, probing it directly ([io.github.anwo91.phevlink.core.obd.ObdClient.checkCar]):
+ * while the car was off, the live loop only probes every 5–30 s, so just reading `carReachable` could miss the
+ * whole window right after the user switched the car on and abort with "car silent".
+ */
+private suspend fun TestContext.waitForCar(): Boolean =
+    waitFor(Msg("wait.car"), 30_000) { client.state.value.carReachable || client.checkCar() }
+
 private fun m(label: String, value: Double?, unit: String, decimals: Int = 1) = Measurement(Msg(label), value, unit, decimals)
 private fun n(v: Double, d: Int = 1) = Num(v, d)
 private fun f(v: Verdict, key: String, vararg args: Pair<String, Any>) = Finding(v, Msg(key, mapOf(*args)))
@@ -193,7 +201,7 @@ object DcDcOutput : LiveTest("dcdc-output", needsEngine = false, minutes = 3, re
     override suspend fun run(ctx: TestContext): TestResult {
         val started = ctx.now()
         ctx.prompt(Msg("dc.pre"))
-        if (!ctx.waitFor(Msg("wait.car"), 30_000) { ctx.client.state.value.carReachable }) throw TestAborted(Msg("abort.car_silent"))
+        if (!ctx.waitForCar()) throw TestAborted(Msg("abort.car_silent"))
         ctx.pause(Msg("dc.settle"), 20_000)
         val liveV: (Map<String, Double?>) -> List<Measurement> = { listOf(m("m.v12", it["v"], "V", 2)) }
         val ready = ctx.sample(Msg("dc.measure"), 60_000, 2_000, live = liveV) { mapOf("v" to ctx.client.readAdapterVoltage()) }
@@ -249,7 +257,7 @@ object HvCapacity : LiveTest("hv-capacity", needsEngine = false, minutes = 1, re
     override suspend fun run(ctx: TestContext): TestResult {
         val started = ctx.now()
         ctx.prompt(Msg("cap.pre"))
-        if (!ctx.waitFor(Msg("wait.car"), 30_000) { ctx.client.state.value.carReachable }) throw TestAborted(Msg("abort.car_silent"))
+        if (!ctx.waitForCar()) throw TestAborted(Msg("abort.car_silent"))
         val s = ctx.sample(Msg("cap.measure"), 15_000, 5_000, live = { batteryLive(it) }) {
             val b = ctx.client.readBattery()
             mapOf("cap" to b?.capacityAh, "rem" to b?.remainingAh, "soc" to b?.soc, "pack" to b?.packVoltage, "kwh" to b?.energyKwh)
@@ -326,7 +334,7 @@ object HvCellBalance : LiveTest("hv-cell-balance", needsEngine = false, minutes 
     override suspend fun run(ctx: TestContext): TestResult {
         val started = ctx.now()
         ctx.prompt(Msg("cell.pre"))
-        if (!ctx.waitFor(Msg("wait.car"), 30_000) { ctx.client.state.value.carReachable }) throw TestAborted(Msg("abort.car_silent"))
+        if (!ctx.waitForCar()) throw TestAborted(Msg("abort.car_silent"))
         ctx.pause(Msg("cell.settle"), 20_000)
         val minNos = ArrayList<Int>()
         val maxNos = ArrayList<Int>()
@@ -400,7 +408,7 @@ object ChargingSession : LiveTest("charging-session", needsEngine = false, minut
     override suspend fun run(ctx: TestContext): TestResult {
         val started = ctx.now()
         ctx.prompt(Msg("chg.pre"))
-        if (!ctx.waitFor(Msg("wait.car"), 30_000) { ctx.client.state.value.carReachable }) throw TestAborted(Msg("abort.car_silent"))
+        if (!ctx.waitForCar()) throw TestAborted(Msg("abort.car_silent"))
         ctx.working(Msg("chg.reading"))
         val before = ctx.client.readBattery() ?: throw TestAborted(Msg("abort.no_bmu"))
         val socBefore = before.soc ?: throw TestAborted(Msg("abort.no_bmu"))
@@ -410,7 +418,7 @@ object ChargingSession : LiveTest("charging-session", needsEngine = false, minut
         val t0 = ctx.now()
         ctx.prompt(Msg("chg.plug_in"), Msg("btn.done"))
         val minutes = (ctx.now() - t0) / 60_000.0
-        if (!ctx.waitFor(Msg("wait.car"), 30_000) { ctx.client.state.value.carReachable }) throw TestAborted(Msg("abort.car_silent"))
+        if (!ctx.waitForCar()) throw TestAborted(Msg("abort.car_silent"))
         ctx.working(Msg("chg.reading"))
         var after = ctx.client.readBattery()
         if (after == null) after = ctx.client.readBattery()
@@ -488,10 +496,17 @@ object EngineWarmup : LiveTest("engine-warmup", needsEngine = true, minutes = 15
     override suspend fun run(ctx: TestContext): TestResult {
         val started = ctx.now()
         ctx.prompt(Msg("warm.pre"))
-        if (!ctx.waitFor(Msg("wait.car"), 30_000) { ctx.client.state.value.carReachable }) throw TestAborted(Msg("abort.car_silent"))
+        if (!ctx.waitForCar()) throw TestAborted(Msg("abort.car_silent"))
         val first = ctx.pids(COOLANT, AMBIENT, FUEL)
         val startTemp = first[id(COOLANT)] ?: throw TestAborted(Msg("abort.no_engine_data"))
         val ambient = first[id(AMBIENT)] ?: ctx.fresh("ac.ambient_temp", 60_000)?.value ?: ctx.fresh("awc.ambient_temp", 60_000)?.value
+        if (startTemp >= Limits.WARM_TARGET) {
+            // A warm engine can't show how fast it warms up.
+            return result(
+                ctx, this, started, "warm", listOf(f(Verdict.INCONCLUSIVE, "warm.already_warm", "t" to n(startTemp, 0))),
+                listOf(m("m.coolant_start", startTemp, "°C", 0)), emptyList(),
+            )
+        }
         val findings = ArrayList<Finding>()
         first[id(FUEL)]?.let { if (it < 10) findings += f(Verdict.WARN, "warm.low_fuel", "pct" to n(it, 0)) }
         if (!ctx.ensureEngineRunning()) throw TestAborted(Msg("eng.no_start"))
@@ -576,7 +591,7 @@ object FuelTrims : LiveTest("fuel-trims", needsEngine = true, minutes = 3, road 
     override suspend fun run(ctx: TestContext): TestResult {
         val started = ctx.now()
         ctx.prompt(Msg("trim.pre"))
-        if (!ctx.waitFor(Msg("wait.car"), 30_000) { ctx.client.state.value.carReachable }) throw TestAborted(Msg("abort.car_silent"))
+        if (!ctx.waitForCar()) throw TestAborted(Msg("abort.car_silent"))
         if (!ctx.ensureEngineRunning()) throw TestAborted(Msg("eng.no_start"))
         val warm = ctx.waitFor(Msg("trim.warming"), 10 * 60_000L, 5_000) { (ctx.pids(COOLANT)[id(COOLANT)] ?: 0.0) >= Limits.WARM_TARGET }
         if (!warm) throw TestAborted(Msg("trim.not_warm"))
@@ -653,11 +668,13 @@ object InspectionReadiness : LiveTest("inspection-readiness", needsEngine = fals
     override suspend fun run(ctx: TestContext): TestResult {
         val started = ctx.now()
         ctx.prompt(Msg("insp.pre"))
-        if (!ctx.waitFor(Msg("wait.car"), 30_000) { ctx.client.state.value.carReachable }) throw TestAborted(Msg("abort.car_silent"))
+        if (!ctx.waitForCar()) throw TestAborted(Msg("abort.car_silent"))
         ctx.working(Msg("insp.reading"))
         val r = ctx.client.readReadiness() ?: throw TestAborted(Msg("abort.no_engine_data"))
         ctx.working(Msg("scan.scanning"))
         val scan = ctx.client.scanDtcs(includeExtended = false)
+        // Without a successful code read the verdict could say "ready for inspection" while codes are stored.
+        if (!scan.success) throw TestAborted(Msg("abort.car_silent"))
         val supported = ctx.client.state.value.supportedPids[0x7E8].orEmpty()
         val extra = listOf(0x21, 0x30, 0x31, 0x4E).filter { it in supported }
         val values = if (extra.isNotEmpty()) ctx.client.readPids(extra) else emptyMap()
@@ -711,7 +728,7 @@ object DtcFullScan : LiveTest("dtc-full-scan", needsEngine = false, minutes = 1,
     override suspend fun run(ctx: TestContext): TestResult {
         val started = ctx.now()
         ctx.prompt(Msg("scan.pre"))
-        if (!ctx.waitFor(Msg("wait.car"), 30_000) { ctx.client.state.value.carReachable }) throw TestAborted(Msg("abort.car_silent"))
+        if (!ctx.waitForCar()) throw TestAborted(Msg("abort.car_silent"))
         val findings = ArrayList<Finding>()
         ctx.working(Msg("scan.voltage"))
         val v12 = ctx.client.readAdapterVoltage()

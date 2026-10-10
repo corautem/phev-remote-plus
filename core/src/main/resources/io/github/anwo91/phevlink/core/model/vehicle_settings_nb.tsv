@@ -1,19 +1,36 @@
 # Vehicle settings texts - nb. Base: the official Mitsubishi Remote Control app's translations (setFunc* strings),
 # reviewed against the English. Format: key<TAB>text. name.<id>, opt.<id>.<option>, group.<English group title>.
-opt.1.0	Tenning aktivert eller tilbehør
-opt.1.1	Tenning aktivert
-name.1	Funksjon i nøkkelposisjon
+# Fixed vs. official translation:
+#  - name.3 said "Lydhorn kvittering ..." (horn) but is the turn signal answerback: "Kvittering med blinklys ...";
+#    opt.3.* reworded from "Låse: En gang Låse opp: To ganger" to "Låsing: én gang, opplåsing: to ganger".
+#  - name.2, name.14 said "Kjørefeltvarsler" (lane departure warning): now "Filskiftblink" (lane-change signal).
+#  - name.60 said "Hurtig stopp av høyere oppvarming": now "Forhøyet tomgang for bedre varme ved stillstand".
+#  - opt.9.1 / opt.9.3 were swapped ("Litt sent" / "Litt tidlig").
+#  - opt.8.3 and opt.26.5 were untranslated English.
+#  - name.35 said "forhindret av dørlås": it is the window lock switch ("sperrebryteren").
+#  - name.21 / opt.21.*: the beep setting was called "Fjernstyrt sentrallås kvitteringslyd"; options now say which
+#    system beeps ("Kun ved nøkkelløs betjening" / "Kun ved fjernstyrt sentrallås").
+#  - opt.20.*: "Etter trykk på knappen på dagtid", "To trykk gir signallyd" -> "Ved ett trykk, kun på dagtid", "Ved to trykk".
+#  - opt.12.*: "kjørelys" (daytime running lights) -> "frontlys"; "baklys" (tail lamp = position lamps) -> "parklys".
+#  - name.15 "Komfortvisker" -> "Komfortspyling" (washer); name.53 English "Eco Mode" -> "Eco-modus".
+#  - name.19 "ekstralås" -> "dobbellåsing" (deadlock); name.1 "nøkkelposisjon" -> "tenningsposisjon".
+#  - Clearer wording: name.5, 7, 8, 11, 12, 13, 17, 20, 22, 28, 29, 32, 33, 34, 36, 42, 43, 50, 51, 54-58, opt.8.*, 16.*, 26.*, 29.*, 54.*, 55.*.
+#  - Groups: keyless group was only "Fjernstyrt sentrallås" -> "Fjernstyrt sentrallås og nøkkelløs betjening";
+#    "Utvendig lys/innvendig lys" -> "Lys"; "Retningslys" -> "Blinklys"; "Elektrisk betjente dørlåser" -> "Dørlåser"; "Andre" -> "Annet".
+opt.1.0	Tenning på eller tilbehør (ACC)
+opt.1.1	Tenning på
+name.1	Virker i tenningsposisjon
 opt.2.0	Av
 opt.2.1	På
-name.2	Kjørefeltvarsler signal (tre blink ved ett trykk)
-opt.3.0	Låse: En gang Låse opp: To ganger
-opt.3.1	Låse: En gang Låse opp: Av
-opt.3.2	Låse: Av Låse opp:To ganger
-opt.3.3	Låse: To ganger Låse opp: En gang
-opt.3.4	Låse: Av Låse opp: En gang
-opt.3.5	Låse: To ganger Låse opp: Av
+name.2	Filskiftblink (tre blink ved ett lett trykk)
+opt.3.0	Låsing: én gang, opplåsing: to ganger
+opt.3.1	Låsing: én gang, opplåsing: av
+opt.3.2	Låsing: av, opplåsing: to ganger
+opt.3.3	Låsing: to ganger, opplåsing: én gang
+opt.3.4	Låsing: av, opplåsing: én gang
+opt.3.5	Låsing: to ganger, opplåsing: av
 opt.3.6	Av
-name.3	Lydhorn kvittering ved låsing med fjernstyrt sentrallås
+name.3	Kvittering med blinklys ved låsing/opplåsing
 opt.4.0	Fast (4 sekunder)
 opt.4.1	Justerbar
 opt.4.2	Justerbar og hastighetsavhengig
@@ -21,32 +38,33 @@ opt.4.3	Justerbar og regnfølsom
 name.4	Intervallfunksjon for vindusviskere
 opt.5.0	Av
 opt.5.1	På
-opt.5.2	På med forsinket avslutningsvisk
-name.5	Vindusviskere starter ved bruk av vindusspylerveske
+opt.5.2	På, med forsinket ettervisk
+name.5	Viskerne går når du spyler
 opt.6.0	0 sekunder
 opt.6.1	4 sekunder
 opt.6.2	8 sekunder
 opt.6.3	16 sekunder
-name.6	Intervallfunksjon for vindusvisker bak
+name.6	Intervallfunksjon for bakrutevisker
 opt.7.0	Av
 opt.7.1	1 minutt
 opt.7.2	3 minutter
 opt.7.3	5 minutter
 opt.7.4	10 minutter
-name.7	Automatisk slukking av lys for ladedekselet
+name.7	Automatisk slukking av lyset i ladeluken
 opt.8.0	Av
-opt.8.1	Åpen etter kjøretøyets hastighet
-opt.8.2	Åpne/lukk ved tenning På/Av og førerdør Åpen/Lukket
-name.8	Elektrisk innfellingsfunksjon av sidespeil
+opt.8.1	Felles ut når bilen kjører
+opt.8.2	Ut/inn med tenning på/av og førerdør åpnet/lukket
+opt.8.3	Ut/inn ved opplåsing/låsing (fjernstyrt sentrallås eller nøkkelløs betjening)
+name.8	Automatisk innfelling av sidespeil
 opt.9.0	Tidlig
-opt.9.1	Litt sent
-opt.9.2	Normalt
-opt.9.3	Litt tidlig
+opt.9.1	Litt tidlig
+opt.9.2	Normal
+opt.9.3	Litt sent
 opt.9.4	Sent
-name.9	Følsomhet for automatiske lys
+name.9	Følsomhet for automatisk lys
 opt.10.0	Av
 opt.10.1	På
-name.10	Automatiske lys i kombinasjon med vindusvisker
+name.10	Automatisk lys koblet til vindusviskerne
 opt.11.0	0 sekunder (ingen timerfunksjon)
 opt.11.1	7,5 sekunder
 opt.11.2	15 sekunder
@@ -54,133 +72,132 @@ opt.11.3	30 sekunder
 opt.11.4	1 minutt
 opt.11.5	2 minutter
 opt.11.6	3 minutter
-name.11	Kupélys forblir tent etter at dør lukkes
+name.11	Hvor lenge kupélyset lyser etter at døren er lukket
 opt.12.0	Av
-opt.12.1	Baklys/kjørelys alltid slå av
+opt.12.1	Parklys/frontlys: slukkes alltid
 opt.12.2	På
 opt.12.3	På
-opt.12.4	Baklys : Slukkes etter / Kjørelys : Slukkes alltid
+opt.12.4	Parklys: slukkes én gang / frontlys: slukkes alltid
 opt.12.5	På
-name.12	Frontlys - automatisk av funksjon
+name.12	Automatisk slukking av frontlys
 opt.13.0	Av
 opt.13.1	3 minutter
 opt.13.2	30 minutter
 opt.13.3	60 minutter
-name.13	Kupélys autoslukningstid
+name.13	Kupélys, tid før automatisk slukking
 opt.14.0	Kort
 opt.14.1	Lang
-name.14	Aktiveringstid for kjørefeltvarsler signal
+name.14	Aktiveringstid for filskiftblink
 opt.15.0	Av
 opt.15.1	På
-name.15	Komfortvisker
+name.15	Komfortspyling
 opt.16.0	Av
-opt.16.1	Når bilen står i park
-opt.16.2	Når bilen står i park med vinduer ulåst
-opt.16.3	Når tenningen settes i Lock
-opt.16.4	Når tenningen settes i Lock med vinduer ulåst
-name.16	Automatisk opplåsning
+opt.16.1	Når giret settes i P
+opt.16.2	Når giret settes i P, med vinduer ulåst
+opt.16.3	Når tenningen slås av
+opt.16.4	Når tenningen slås av, med vinduer ulåst
+name.16	Automatisk opplåsing
 opt.17.0	Alle dører
-opt.17.1	Kun førerdør
-name.17	Lås opp
+opt.17.1	Kun førerdøren
+name.17	Opplåsing
 opt.19.0	2 ganger
 opt.19.1	1 gang
-name.19	Antall låsetrykk for ekstralås
+name.19	Antall trykk på låseknappen for dobbellåsing
 opt.20.0	Av
-opt.20.1	Ett trykk på knappen
-opt.20.2	Etter trykk på knappen på dagtid
-opt.20.3	To trykk gir signallyd
-opt.20.4	To trykk gir signallyd på dagtid
-name.20	Lydhornkvittering ved låsing med fjernstyrt sentrallås
+opt.20.1	Ved ett trykk
+opt.20.2	Ved ett trykk, kun på dagtid
+opt.20.3	Ved to trykk
+opt.20.4	Ved to trykk, kun på dagtid
+name.20	Hornkvittering ved låsing med fjernstyrt sentrallås
 opt.21.0	Alle systemer av
-opt.21.1	Lydsignal ved nøkkelløs operasjon
-opt.21.2	Lydsignal ved fjernstyrt sentrallås
+opt.21.1	Kun ved nøkkelløs betjening
+opt.21.2	Kun ved fjernstyrt sentrallås
 opt.21.3	Alle systemer på
-name.21	Fjernstyrt sentrallås kvitteringslyd
+name.21	Kvitteringspip ved låsing/opplåsing
 opt.22.0	30 sekunder
 opt.22.1	1 minutt
 opt.22.2	2 minutter
 opt.22.3	3 minutter
-name.22	Låses automatisk etter låst opp med fjernkontroll
+name.22	Låses automatisk igjen etter fjernopplåsing
 opt.24.0	0 sekunder
 opt.24.1	30 sekunder
 opt.24.2	3 minutter
 opt.24.3	10 minutter
 name.24	Timerfunksjon etter at tenningen er slått av
 opt.26.0	Av
-opt.26.1	Elektrisk vindusheis, dørspeil: Åpne og stenge
-opt.26.2	Elektrisk vindusheis: Åpne og stenge
-opt.26.3	Elektrisk vindusheis: Stenge / Dørspeil: Åpne Lukke
-opt.26.4	Dørspeil: Åpne Lukke
-opt.26.5	Power Window : Close
+opt.26.1	Vinduer og sidespeil: åpne og lukke
+opt.26.2	Vinduer: åpne og lukke
+opt.26.3	Vinduer: lukke / sidespeil: åpne og lukke
+opt.26.4	Sidespeil: åpne og lukke
+opt.26.5	Vinduer: lukke
 name.26	Flerfunksjons fjernstyrt sentrallås
 opt.28.0	Kort
 opt.28.1	Lang
-name.28	Lengde på lydhorn signalkvittering
-opt.29.0	Når vindusvisker bak er aktivert
-opt.29.1	Når vindusvisker foran eller bak er aktivert
-name.29	Vindusvisker bak aktivert i revers
+name.28	Varighet på hornkvittering
+opt.29.0	Når bakrutevisker er på
+opt.29.1	Når visker foran eller bak er på
+name.29	Bakrutevisker går i revers
 opt.32.0	Av
 opt.32.1	3 sekunder
 opt.32.2	5 sekunder
-name.32	Tid for deaktivering av opplåsing etter låsing
+name.32	Sperretid for fjernopplåsing etter låsing
 opt.33.0	Av
 opt.33.1	På
-name.33	Horn varsler ved start av motoren med fjernstarter
+name.33	Hornkvittering ved fjernstart av motoren
 opt.34.0	På
 opt.34.1	Av
-name.34	Åpen betjening etter at tenningen er slått av
+name.34	Vinduer kan åpnes etter at tenningen er slått av
 opt.35.0	Alle dører
-opt.35.1	Kun førerdør
-name.35	Elvinduinnstilling forhindret av dørlås
+opt.35.1	Kun førerdøren
+name.35	Vinduer som sperres med sperrebryteren
 opt.36.0	Av
 opt.36.1	30 minutter
 opt.36.2	60 minutter
-name.36	Automatisk stopp av ACC-strøm
+name.36	Automatisk utkobling av ACC-strøm
 opt.42.0	Av
 opt.42.1	15 sekunder
 opt.42.2	30 sekunder
 opt.42.3	1 minutt
 opt.42.4	3 minutter
-name.42	Frontlys PÅ når kjøretøy forlates
+name.42	Frontlys på når du går ut av bilen
 opt.43.0	Av
-opt.43.1	Parkeringslys
+opt.43.1	Parklys
 opt.43.2	Frontlys
-name.43	Utvendig lys PÅ ved fjernopplåsing
+name.43	Utvendige lys tennes ved fjernopplåsing
 opt.50.0	Manuell
 opt.50.1	Automatisk
-name.50	Resirkulasjonskontroll
+name.50	Styring av resirkulering
 opt.51.0	Manuell
 opt.51.1	Automatisk
-name.51	Styring av klimaanlegg
+name.51	Styring av A/C-knappen
 opt.53.0	Eco
 opt.53.1	Komfort
-name.53	Eco Mode
+name.53	Eco-modus
 opt.54.0	Normal
-opt.54.1	Mer luftstrøm til fot
-opt.54.2	Mer luftstrøm til defroster
-name.54	Luftstrøm, forhold fot/defroster
+opt.54.1	Mer luft til fotrommet
+opt.54.2	Mer luft mot frontruten
+name.54	Luftfordeling fotrom/frontrute
 opt.55.0	Normal
-opt.55.1	Mer luftstrøm til ansikt
-opt.55.2	Mer luftstrøm til fot
-name.55	Luftstrøm, forhold ansikt/fot
+opt.55.1	Mer luft mot ansiktet
+opt.55.2	Mer luft til fotrommet
+name.55	Luftfordeling ansikt/fotrom
 opt.56.0	Av
 opt.56.1	På
-name.56	Automatisk defroster av bakrute ved oppstart
+name.56	Automatisk bakrutevarme ved oppstart
 opt.57.0	Av
 opt.57.1	På
-name.57	Start nedkjøling eller oppvarming ved opplåsing av dører
+name.57	Start kjøling eller varme ved opplåsing
 opt.58.0	Av
 opt.58.1	På
-name.58	I Fotmodus, litt luftstrøm gjennom defroster
+name.58	Litt luft mot frontruten i fotmodus
 opt.60.0	Av
 opt.60.1	På
-name.60	Hurtig stopp av høyere oppvarming når du stopper.
-opt.8.3	Open/Close by Keyless Operation System Lock/Unlock
-group.Keyless entry & operation	Fjernstyrt sentrallås
+name.60	Forhøyet tomgang for bedre varme ved stillstand
+group.Keyless entry & operation	Fjernstyrt sentrallås og nøkkelløs betjening
 group.Wipers	Vindusviskere
-group.Lights	Utvendig lys/innvendig lys
+group.Lights	Lys
 group.Power windows	Elektriske vinduer
-group.Turn signals	Retningslys
-group.Door locks	Elektrisk betjente dørlåser
+group.Turn signals	Blinklys
+group.Door locks	Dørlåser
 group.Air conditioning	Klimaanlegg
-group.Other	Andre
+group.Other	Annet

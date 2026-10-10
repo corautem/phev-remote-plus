@@ -285,6 +285,33 @@ class ObdClient(
     }
 
     /**
+     * Checks right now whether the car answers (a `0100` broadcast) instead of waiting for the live loop: while the
+     * car is off the loop only probes every 5–30 s, so a caller that just asked the user to switch the car on could
+     * otherwise wait up to 30 s for the next probe. Cheap no-op when the car already answers.
+     * @return [ObdState.carReachable] afterwards; false without a usable link
+     */
+    suspend fun checkCar(): Boolean {
+        if (!canTalk()) return false
+        if (_state.value.carReachable) return true
+        return try {
+            val ok = linkMutex.withLock { _state.value.carReachable || probeCarLocked() }
+            if (ok) {
+                // The live loop's back-off no longer applies.
+                probeFailures = 0
+                nextProbeMs = 0L
+            }
+            ok
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: ObdException.LinkLost) {
+            onLinkLost(e)
+            false
+        } catch (e: ObdException) {
+            false
+        }
+    }
+
+    /**
      * Reads the emission readiness monitors from the engine ECU: PID 01 (since codes were cleared) and, if
      * [thisDriveCycle], PID 41. Returns null when the car doesn't answer.
      */
@@ -387,6 +414,11 @@ class ObdClient(
         } catch (e: ObdException.LinkLost) {
             onLinkLost(e)
             ClearDtcsResult(false, emptyList(), emptyList(), emptyList(), MSG_LINK_LOST)
+        } catch (e: ObdException) {
+            // elm.exchange() can also throw AdapterError (e.g. ATSH rejected after the terminal switched the
+            // protocol). Only Timeout was caught above, so this used to escape to the caller (an app crash).
+            log.warn("OBD: clear request not sent: ${e.message}")
+            ClearDtcsResult(false, emptyList(), emptyList(), emptyList(), describe(e))
         }
     }
 

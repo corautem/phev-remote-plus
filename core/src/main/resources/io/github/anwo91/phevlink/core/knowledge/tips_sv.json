@@ -1,0 +1,1051 @@
+{
+  "version": 1,
+  "scope": "Mitsubishi Outlander PHEV, första generationen, årsmodell 2014-2017 (GG2W, 12 kWh drivbatteri), europeisk marknad.",
+  "disclaimer": "Allmänna råd till ägare, sammanställda från instruktionsböcker, återkallelser och ägarforum. De ersätter inte en diagnos på verkstad. Öppna eller rör aldrig orange högspänningsdelar.",
+  "researchedOn": "2026-10-10",
+  "tips": [
+    {
+      "id": "weak-12v-battery",
+      "title": "Svagt 12 V-batteri: konstiga varningar och en bil som inte vill starta",
+      "category": "12 V och elsystem",
+      "symptoms": [
+        "Bilen går inte till READY, eller instrumentpanelen flimrar när du trycker på startknappen",
+        "Flera orelaterade varningar samtidigt, till exempel EV-system, regenerativ broms (RBS), ASC eller ”Service required”",
+        "Laddningen startar inte fast kabeln och uttaget är i ordning",
+        "Fjärrappen eller bilens Wi-Fi svarar inte"
+      ],
+      "why": "Det lilla 12 V-batteriet i bagageutrymmet försörjer alla styrenheter och behövs för att slå på högspänningssystemet. Det laddas bara när bilen är i READY eller när drivbatteriet laddas, så en bil som står mycket laddas sakta ur. När spänningen sjunker loggar många styrenheter underspänningsfel samtidigt, vilket syns som en förvirrande blandning av varningar. Tidiga bilar från 2014-2015 fick också en programvarukampanj eftersom 12 V-batteriet kunde bli underladdat.",
+      "whatToDo": [
+        "Stäng av stora strömförbrukare, ställ bilen i READY och låt den stå i 15-30 minuter så att drivbatteriet kan ladda upp 12 V-batteriet.",
+        "Låt bilen vila i minst 2 timmar och kör sedan 12 V-batteritestet i den här appen.",
+        "Om batteriet mäter lågt igen nästa morgon efter en lång stund i READY, ladda det med en laddare som klarar AGM och testa igen. Sjunker det fortfarande är det utslitet, eller så drar något ström.",
+        "Koppla ur OBD-adaptrar, bilkameror och laddare som är strömsatta när bilen står parkerad i flera dagar.",
+        "Byt ett gammalt batteri mot rätt ventilerad AGM-typ avsedd för montering i kupén (originalstorlek S46B24L, cirka 45 Ah). Ett vanligt blybatteri med flytande elektrolyt passar inte i kupén.",
+        "Använd inte bilen för att starta andra bilar. Många ägare har i stället en liten startbooster med litiumbatteri.",
+        "Efter en period med låg spänning: anteckna alla felkoder, radera dem och kontrollera att de inte kommer tillbaka.",
+        "Be en Mitsubishiverkstad kontrollera att alla programvarukampanjer är gjorda för ditt chassinummer (VIN), till exempel R30331 på tidiga bilar."
+      ],
+      "diy": "yes",
+      "appHelp": "Kör 12 V-batteritestet och testet av 12 V-laddningen (DC/DC). Felkodstestet för alla styrenheter visar det typiska mönstret med underspänningskoder från flera enheter samtidigt. Bland bilinställningarna hjälper ”Automatisk avstängning av ACC-ström” och inställningarna för automatisk avstängning av belysning till att förhindra ett urladdat batteri om något lämnas på.",
+      "relatedTests": ["twelve-volt-health", "dcdc-output", "dtc-full-scan"],
+      "relatedCodes": ["P0562", "P1035", "P104B", "P1000", "P1AF2", "U0100"],
+      "relatedSettings": [36, 13, 12],
+      "confidence": "high",
+      "sources": [
+        {"title": "Mitsubishi UK: 14MY Outlander PHEV owner's manual (p. 3-04, 3-20: 12 V charged in READY or while charging; flat 12 V stops charging)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"},
+        {"title": "HELLA Tech World: Outlander III PHEV 2014-2015 battery insufficiently charged, campaign R30331", "url": "https://www.hella.com/techworld/ae/bi/mitsubishi-outlander-iii-battery-is-insufficiently-charged-and-vehicle-can-come-to-a-standstill-as-a-result/"},
+        {"title": "TaT repair case: 2014 Outlander PHEV 12 V battery going flat (P0562, P1AF2, P1035, P104B, P1000)", "url": "https://www.tat.net.au/tatsafact/5952"},
+        {"title": "TaT code P1035: RMCU 12V control voltage fail", "url": "https://www.tat.net.au/scandata/codes/code-view.php?id=8316"},
+        {"title": "Tayna: Yuasa HJ-S46B24L(S) 45 Ah AGM auxiliary battery (fitted to Outlander PHEV)", "url": "https://www.tayna.co.uk/car-batteries/aux/hj-s46b24l-s/"},
+        {"title": "WhichCar: Outlander PHEV recall for non-AGM 12 V batteries fitted in service", "url": "https://www.whichcar.com.au/news/2013-2020-mitsubishi-outlander-phev-recall"},
+        {"title": "Richi Jennings: Outlander PHEV FAQ (sections Z and AD: 12 V battery and jump starting)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"}
+      ]
+    },
+    {
+      "id": "obd-dongle-drain",
+      "title": "En OBD-adapter som sitter kvar kan ladda ur 12 V-batteriet",
+      "category": "12 V och elsystem",
+      "symptoms": [
+        "12 V-batteriet är svagt efter att bilen har stått parkerad i flera dagar",
+        "Problemet började när du började låta en OBD-adapter sitta kvar i uttaget"
+      ],
+      "why": "OBD-uttaget har ström även när bilen är avstängd. En ELM327-adapter med Bluetooth eller Wi-Fi drar ström hela tiden, och många billiga kopior går aldrig i viloläge. Bara ELM327-kretsen drar flera milliampere, och radion drar ännu mer. Eftersom den här bilen bara laddar 12 V-batteriet i READY eller under laddning blir en liten konstant förbrukning mycket på några dagar.",
+      "whatToDo": [
+        "Koppla ur adaptern när bilen ska stå mer än en dag eller två.",
+        "Vill du låta den sitta kvar, välj en adapter med riktigt viloläge eller en strömbrytare.",
+        "Kör 12 V-batteritestet efter en helg med och en helg utan adaptern för att se skillnaden."
+      ],
+      "diy": "yes",
+      "appHelp": "12 V-batteritestet läser spänningen vid OBD-uttaget, så att du kan jämföra en morgon med och en morgon utan adaptern i.",
+      "relatedTests": ["twelve-volt-health"],
+      "relatedCodes": [],
+      "relatedSettings": [],
+      "confidence": "medium",
+      "sources": [
+        {"title": "ELM327 data sheet (average supply current of the chip)", "url": "https://cdn.sparkfun.com/assets/learn_tutorials/8/3/datasheet.pdf"},
+        {"title": "Mitsubishi UK: 14MY Outlander PHEV owner's manual (p. 3-04: when the 12 V battery is charged)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"}
+      ]
+    },
+    {
+      "id": "engine-cold-start-campaign",
+      "title": "Tidiga bilar: motorn stannar efter kallstart (kampanj med programvara och tändstift)",
+      "category": "Motor och bränsle",
+      "symptoms": [
+        "En kall morgon går motorn i cirka 25 sekunder och stannar sedan",
+        "”EV system service required” visas och motorn startar inte igen förrän bilen har stängts av och slagits på",
+        "Drivbatteriet laddas ur eftersom motorn inte kan ladda det",
+        "Felkod P10DC är lagrad"
+      ],
+      "why": "På bilar byggda före ungefär mitten av 2015 kunde motorstyrningen och hybridstyrningen (PHEV) hamna i otakt, vilket kunde stoppa motorn vid kallstart och lämna 12 V-batteriet underladdat. Mitsubishi åtgärdade det med ny programvara för båda styrenheterna och godkända tändstift. Ägare rapporterar att felet vid kallstart finns kvar om bara den ena enheten uppdateras.",
+      "whatToDo": [
+        "Be en Mitsubishiverkstad kontrollera ditt chassinummer (VIN) för öppna kampanjer (HELLA anger kampanj R30331).",
+        "Se till att både motorstyrningen och PHEV-styrningen uppdaterades, inte bara den ena.",
+        "Om felet uppstår, stäng av bilen och slå på den igen för att starta om, och undvik att köra på tomt drivbatteri tills felet är åtgärdat."
+      ],
+      "diy": "no",
+      "appHelp": "Felkodstestet för alla styrenheter visar P10DC och relaterade motorkoder. Med uppvärmningstestet kan du kontrollera att motorn går jämnt i flera minuter.",
+      "relatedTests": ["dtc-full-scan", "engine-warmup"],
+      "relatedCodes": ["P10DC"],
+      "relatedSettings": [],
+      "confidence": "medium",
+      "sources": [
+        {"title": "HELLA Tech World: Outlander III PHEV 2014-2015, software update and spark plugs (R30331)", "url": "https://www.hella.com/techworld/ae/bi/mitsubishi-outlander-iii-battery-is-insufficiently-charged-and-vehicle-can-come-to-a-standstill-as-a-result/"},
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section O.2: engine fail, P10DC)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"}
+      ]
+    },
+    {
+      "id": "ev-system-warning",
+      "title": "Varningen ”Check EV system” eller ”EV system service required”",
+      "category": "Övrigt",
+      "symptoms": [
+        "Orange varning för EV-systemet, ibland med reducerad effekt eller hastighetsbegränsning",
+        "Motorlampa och RBS- eller ASC-varningar samtidigt",
+        "Varningen försvinner när bilen stängs av och slås på, och kommer sedan tillbaka"
+      ],
+      "why": "Det här meddelandet är ett samlingsmeddelande från hybridstyrningen. Vanliga ofarliga orsaker är ett svagt 12 V-batteri och olika däckstorlekar fram och bak, eftersom bilen jämför motorvarvtalen på båda axlarna. Verkliga orsaker är bland annat motorfel (till exempel det tidiga felet vid kallstart), givarfel, isolationsfel i högspänningssystemet och problem med drivbatteriet. Bara en avläsning av felkoderna kan skilja dem åt.",
+      "whatToDo": [
+        "Om en röd varning visas eller bilen tappar kraft, stanna på ett säkert ställe och stäng av.",
+        "Kontrollera 12 V-batteriet först; många EV-varningar beror på låg spänning.",
+        "Kontrollera att alla fyra däcken har samma märke, storlek och slitage, och att lufttrycket är lika.",
+        "Läs av felkoderna från alla styrenheter och skriv ner dem innan något raderas.",
+        "Om koderna pekar på högspänningssystemet (P0Axx-koder) eller varningen kommer tillbaka gång på gång, låt en Mitsubishiverkstad felsöka med MUT-III."
+      ],
+      "diy": "partly",
+      "appHelp": "Felkodstestet för alla styrenheter läser motor-, batteri-, laddar- och elmotorenheterna. 12 V-testerna och hjulhastighetstestet kontrollerar de två vanligaste enkla orsakerna.",
+      "relatedTests": ["dtc-full-scan", "twelve-volt-health", "wheel-speed-match"],
+      "relatedCodes": ["P0AA6", "P0A94", "P0A0A", "P0A78", "P0A3F", "P10DC", "P1035"],
+      "relatedSettings": [],
+      "confidence": "medium",
+      "sources": [
+        {"title": "Richi Jennings: Outlander PHEV FAQ (L.3 mixed tyres, O.2 engine fail)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"},
+        {"title": "TaT repair case: low 12 V voltage logging faults in several hybrid units", "url": "https://www.tat.net.au/tatsafact/5952"},
+        {"title": "Australian recall 2014-2014.5 PHEV: airflow sensor failure can light the EV system warning", "url": "https://aucn.net.au/australian-car/recalls/mitsubishi-motors-australia-ltd-outlander-phev-my2014-20145_1.html"}
+      ]
+    },
+    {
+      "id": "mixed-tyres",
+      "title": "Olika däck fram och bak kan störa hybridsystemet",
+      "category": "Bromsar och chassi",
+      "symptoms": [
+        "”EV system service required” efter att du satt nya däck på bara en axel",
+        "Mindre regenerativ bromsning än tidigare",
+        "I sällsynta fall: ryck när du släpper gaspedalen i motorvägsfart"
+      ],
+      "why": "Fram- och bakhjulen drivs av var sin elmotor, och styrenheterna utgår från att alla fyra däcken har samma rullomkrets. Nya däck på en axel, ett annat märke eller mycket ojämnt slitage gör att axlarna roterar med något olika hastighet, vilket systemet kan tolka som ett fel. Mitsubishi rekommenderar samma däcktyp på alla fyra hjulen.",
+      "whatToDo": [
+        "Använd samma märke, modell och storlek på alla fyra hjulen, och skifta dem så att de slits jämnt.",
+        "Ställ in alla däcktryck enligt dekalen på dörrstolpen.",
+        "Om du bara måste byta två däck, be däckverkstaden matcha mönsterdjupet så nära som möjligt.",
+        "Be om en hjulinställning på alla fyra hjulen om slitaget är ojämnt."
+      ],
+      "diy": "partly",
+      "appHelp": "Hjulhastighetstestet jämför de fyra hjulhastigheterna (och varvtalen på främre och bakre elmotor) vid jämn fart för att upptäcka olika däckstorlekar.",
+      "relatedTests": ["wheel-speed-match"],
+      "relatedCodes": [],
+      "relatedSettings": [],
+      "confidence": "medium",
+      "sources": [
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section L.3: mixed tyres)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"}
+      ]
+    },
+    {
+      "id": "drive-battery-capacity-loss",
+      "title": "Kortare elräckvidd: drivbatteriet har tappat kapacitet",
+      "category": "Drivbatteri",
+      "symptoms": [
+        "Märkbart färre kilometer på full laddning än när bilen var nyare",
+        "En full laddning rymmer mindre energi än förut",
+        "Motorn startar tidigare på dina vanliga resor",
+        "Räckviddsuppskattningen sjunker med tiden"
+      ],
+      "why": "Litiumjonceller tappar sakta kapacitet med ålder och användning. Värme, lång förvaring i värme, mycket hård körning och upprepad snabbladdning påskyndar det. Batteristyrningen (BMU) uppskattar kapaciteten vid full laddning i amperetimmar utifrån hur mycket laddning som går in och ut; uppskattningen kan driva iväg om batteriet sällan fulladdas. Ett nytt batteripaket från 2014-2017 har cirka 38-40 Ah. Mitsubishis gamla garantigräns var 70 procent: under 26,6 Ah för bilar före årsmodell 2017 och under 28 Ah för årsmodell 2017-2018.",
+      "whatToDo": [
+        "Kör kapacitetstestet för drivbatteriet och anteckna Ah-värdet. Upprepa det varje eller varannan månad; trenden säger mer än en enskild mätning.",
+        "Ladda regelbundet och låt laddningen bli klar i stället för att avbryta den tidigt, så att batteriet kan balansera cellerna.",
+        "Undvik att låta bilen stå i flera veckor helt fulladdad eller helt tom, särskilt i sommarvärme.",
+        "En ”omkalibrering” som ägare gör själva (kör batteriet tomt med värmen på medan bilen står parkerad, låt den vila och fulladda den sedan över natten) kan hjälpa en uppskattning som kommit fel, men den reparerar inte ett slitet batteri.",
+        "En Mitsubishiverkstad kan köra den automatiska kapacitetsmätningen av drivbatteriet (DBCAM) med MUT-III; det kan ta upp till tre dagar.",
+        "Kontrollera datumet för första registrering och vilken garanti som gällde i ditt land. I Storbritannien var den 8 år eller 100 000 miles, så de flesta bilar från 2014-2017 är nu förbi den.",
+        "Om kapaciteten är mycket låg, jämför offerter på modulreparation eller renovering, inte bara på ett nytt batteripaket."
+      ],
+      "diy": "partly",
+      "appHelp": "Kapacitetstestet läser batteristyrningens egen kapacitetsuppskattning (Ah) och återstående laddning, och räknar ut en hälsoprocent mot rätt referens för din årsmodell. Cellbalanstestet visar om en enskild cell håller tillbaka hela paketet.",
+      "relatedTests": ["hv-capacity", "hv-cell-balance", "charging-session"],
+      "relatedCodes": ["P0A7F", "P0A80"],
+      "relatedSettings": [],
+      "confidence": "high",
+      "sources": [
+        {"title": "Mitsubishi UK: 14MY Outlander PHEV owner's manual (p. 2-04: capacity declines over time)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"},
+        {"title": "Richi Jennings: Outlander PHEV FAQ (A.1 owner recalibration, A.2 DBCAM, AG warranty thresholds, M battery care)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"},
+        {"title": "AA New Zealand: 2014 Outlander PHEV at 63 percent capacity after six years (owner reports)", "url": "https://aa.co.nz/cars/ask-an-expert/faults-reliability-service-and-repair/show/12447"},
+        {"title": "GoingElectric forum: PHEV Watchdog capacity readings (32.5-33.8 Ah)", "url": "https://www.goingelectric.de/forum/viewtopic.php?p=1052216"}
+      ]
+    },
+    {
+      "id": "drive-battery-weak-cell",
+      "title": "En svag cell kan begränsa hela drivbatteriet",
+      "category": "Drivbatteri",
+      "symptoms": [
+        "Räckvidden sjönk snabbt under några veckor i stället för sakta under flera år",
+        "Batterimätaren sjunker snabbt nära botten, och sedan startar motorn",
+        "Samma cellnummer visas gång på gång som lägst i appen"
+      ],
+      "why": "Paketet har 80 celler i serie, så det är den svagaste cellen som avgör när paketet är tomt eller fullt. Batteristyrningen (BMU) balanserar cellerna under långa laddningar, men en cell eller modul som verkligen har åldrats kan inte balanseras tillbaka. En stor spänningsskillnad mellan högsta och lägsta cell i vila är det tydligaste tecknet.",
+      "whatToDo": [
+        "Låt bilen göra klart några fulla vanliga laddningar (AC) utan att avbryta dem i förtid.",
+        "Kör cellbalanstestet när bilen har vilat i minst 30 minuter. Upprepa på olika dagar.",
+        "Om skillnaden förblir stor och samma cell alltid är lägst, be en verkstad om en batterikontroll. Återförsäljare kan köra ”cell smoothing” (en grundlig balansering) och testa moduler med MUT-III.",
+        "En enskild dålig modul kan oftast bytas; det är ofta mycket billigare än ett helt paket."
+      ],
+      "diy": "no",
+      "appHelp": "Cellbalanstestet visar högsta och lägsta cellspänning med cellnummer och skillnaden i millivolt. Obs: cellvärdena är tolkade från data som ägare tagit fram och är markerade som experimentella.",
+      "relatedTests": ["hv-cell-balance", "hv-capacity"],
+      "relatedCodes": ["P0A7F", "P0A80", "P0AFA"],
+      "relatedSettings": [],
+      "confidence": "medium",
+      "sources": [
+        {"title": "Richi Jennings: Outlander PHEV FAQ (A.2 cell smoothing, M battery care)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"},
+        {"title": "MyIMiEV forum: Outlander PHEV traction battery module replacement (10 modules)", "url": "https://myimiev.com/threads/traction-battery-modules-replacement-outlander-phev.5462/"}
+      ]
+    },
+    {
+      "id": "winter-range-and-engine-heat",
+      "title": "Vinter: kort elräckvidd och motorn som startar för att ge värme",
+      "category": "Klimat",
+      "symptoms": [
+        "Elräckvidden är mycket kortare när det är kallt",
+        "Motorn startar strax efter att du har åkt hemifrån när värmen är på",
+        "Laddningen tar längre tid och blir kanske inte full i sträng kyla",
+        "Från cirka -15 °C och kallare: mindre effekt och mindre regenerativ bromsning",
+        "Från cirka -30 °C och kallare: ”BATTERY TOO COLD”, och systemet startar kanske inte"
+      ],
+      "why": "Kalla batterier lagrar och avger mindre energi, och att värma kupén drar mycket av den. Elvärmaren har begränsad effekt, så när värmebehovet är stort (ägare rapporterar över cirka 5 kW, inklusive A/C-kompressorn) startar bilen motorn för att ge värme. Bilen startar också motorn när hybridsystemet självt är för kallt.",
+      "whatToDo": [
+        "Förvärm kupén medan bilen fortfarande är ansluten till laddning, med timern eller fjärrstyrd klimatisering i den här appen.",
+        "Låt bilen vara ansluten under mycket kalla nätter. Bilar med fjärrstyrning och elvärmare kan värma drivbatteriet medan de är anslutna.",
+        "Använd ECO-knappen och en måttlig temperatur; sätesvärme drar mycket mindre energi än att värma luften.",
+        "Stäng av A/C när du bara behöver värme, om inte rutorna immar igen.",
+        "Överväg att ställa bilinställningen ”Hög tomgång för högre värmeeffekt vid stillastående” på Av om du vill att motorn ska gå mindre när bilen står still.",
+        "Ställ bilen i garage om du kan."
+      ],
+      "diy": "yes",
+      "appHelp": "Starta och schemalägg förvärmning via bilens Wi-Fi. Bland bilinställningarna finns ”Eco-läge” för A/C och ”Hög tomgång för högre värmeeffekt vid stillastående”. Kapacitetstestet hjälper dig att skilja räckviddsförlust på grund av kyla från verklig åldring av batteriet.",
+      "relatedTests": ["hv-capacity"],
+      "relatedCodes": [],
+      "relatedSettings": [53, 60, 51],
+      "confidence": "high",
+      "sources": [
+        {"title": "Mitsubishi UK: 14MY Outlander PHEV owner's manual (p. 2-03 engine start conditions; p. 2-09 to 2-11 cold weather and drive battery warm-up)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"},
+        {"title": "Richi Jennings: Outlander PHEV FAQ (Q.3 engine for heat, J ECO button)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"}
+      ]
+    },
+    {
+      "id": "engine-starts-unexpectedly",
+      "title": "Motorn startar av sig själv",
+      "category": "Motor och bränsle",
+      "symptoms": [
+        "Motorn går fast batteriet visar att det finns laddning kvar",
+        "Motorn startar medan bilen står parkerad i READY",
+        "Motorn går en kort stund när bilen inte har använts på ett tag"
+      ],
+      "why": "Det här är oftast normalt. Instruktionsboken räknar upp när bilen lämnar ren eldrift: hybridsystemet är för varmt eller för kallt, snabb eller kraftig acceleration (även i uppförsbackar eller på motorväg), A/C eller värmen arbetar hårt, kallt väder, lågt drivbatteri, bilen har inte tankats på länge och, när bilen står still, att bilen eller motorn inte har använts på länge. Knapparna Save och Charge håller också motorn igång.",
+      "whatToDo": [
+        "Kontrollera att varken Save- eller Charge-knappen är aktiv.",
+        "Använd ECO-knappen och lugn acceleration för att köra längre på el.",
+        "På vintern: se tipset om motorn som startar för att ge värme.",
+        "Kör motorn själv minst var 3:e månad och tanka minst 20 liter färsk bensin var 6:e månad, som instruktionsboken anger.",
+        "Om motorn går mycket mer än vanligt och en varningslampa lyser samtidigt, läs av felkoderna."
+      ],
+      "diy": "yes",
+      "appHelp": "Felkodsavläsningen letar efter motor- eller hybridkoder. Uppvärmningstestet förklarar hur du startar motorn med avsikt och kontrollerar att den värms upp normalt.",
+      "relatedTests": ["engine-warmup", "dtc-full-scan"],
+      "relatedCodes": [],
+      "relatedSettings": [60],
+      "confidence": "high",
+      "sources": [
+        {"title": "Mitsubishi UK: 14MY Outlander PHEV owner's manual (p. 2-03 engine start conditions, p. 2-12 fuel)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"},
+        {"title": "Mitsubishi UK: Outlander PHEV operation guide (Save and Charge switch)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/Outlander-PHEV-Operation-Guide.pdf"}
+      ]
+    },
+    {
+      "id": "old-fuel-and-fuel-cap",
+      "title": "Gammal bensin, ett tanklock som pyser och koder för bränsleångsystemet",
+      "category": "Motor och bränsle",
+      "symptoms": [
+        "Det pyser när du öppnar tanklocket",
+        "Motorlampa med en kod för bränsleångsystemet (EVAP)",
+        "Motorn går ojämnt efter många månader med bara eldrift"
+      ],
+      "why": "I en laddhybrid kan samma bensin stå i tanken i månader. Bränslesystemet hålls under tryck för att hålla kvar bränsleångorna, så det är normalt att det pyser när du öppnar locket. Instruktionsboken ber ägare köra motorn med batteriladdningsknappen minst en gång var 3:e månad och tanka minst 20 liter bränsle var 6:e månad. Ett lock som inte är ordentligt stängt kan ge en läckagekod.",
+      "whatToDo": [
+        "Öppna tanklocket långsamt och vänta tills det slutar pysa innan du tar av det.",
+        "Skruva på locket tills det klickar.",
+        "Kör motorn med Charge-knappen minst var 3:e månad, tillräckligt länge för att den ska bli varm.",
+        "Tanka minst 20 liter färsk 95-oktanig bensin var 6:e månad.",
+        "Om en EVAP-kod kommer tillbaka efter att locket har kontrollerats bör en verkstad röktesta systemet."
+      ],
+      "diy": "yes",
+      "appHelp": "Felkodsavläsningen visar EVAP-koder. Testet ”Klar för besiktning?” visar om självtesterna för EVAP och katalysator är klara, vilket kan ta lång tid på en bil som sällan kör motorn.",
+      "relatedTests": ["inspection-readiness", "engine-warmup", "dtc-full-scan"],
+      "relatedCodes": ["P0455", "P0456", "P0457", "P0440", "P0441", "P0442", "P0446"],
+      "relatedSettings": [],
+      "confidence": "high",
+      "sources": [
+        {"title": "Mitsubishi UK: 14MY Outlander PHEV owner's manual (p. 2-12 to 2-13: fuel, refuelling, run engine every 3 months)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"},
+        {"title": "Mitsubishi NZ quick guide 2014 (run the engine every 3 months)", "url": "https://www.manualslib.com/manual/883530/Mitsubishi-Outlander-Plug-In-Hybrid.html"}
+      ]
+    },
+    {
+      "id": "airflow-sensor-early-cars",
+      "title": "Tidiga bilar: korroderad luftmassemätare (ojämn motor, EV-varning)",
+      "category": "Motor och bränsle",
+      "symptoms": [
+        "Motorn går dåligt eller tvekar",
+        "Varningslampa för EV-systemet; motorn kan stanna och drivbatteriet kan inte laddas",
+        "Felkoder för luftmassemätaren"
+      ],
+      "why": "På några av de allra första bilarna kunde motorns luftmassemätare korrodera eller gå sönder. I Australien ledde detta till en återkallelse för bilar av årsmodell 2014 till 2014.5, och brittiska begagnatguider nämner också korroderade luftmassemätare på tidiga bilar.",
+      "whatToDo": [
+        "Be en Mitsubishiverkstad kontrollera ditt chassinummer (VIN) för öppna återkallelser och kampanjer.",
+        "Om koder för luftmassemätaren dyker upp, låt kontrollera eller byta mätaren och dess kontakt."
+      ],
+      "diy": "partly",
+      "appHelp": "Testet av bränsleblandningen visar om motorn går magert eller fett, och felkodsavläsningen visar koder för luftmassemätaren.",
+      "relatedTests": ["fuel-trims", "dtc-full-scan"],
+      "relatedCodes": ["P0100", "P0101", "P0102", "P0103"],
+      "relatedSettings": [],
+      "confidence": "medium",
+      "sources": [
+        {"title": "Australian recall: Outlander PHEV MY2014-2014.5 airflow sensor", "url": "https://aucn.net.au/australian-car/recalls/mitsubishi-motors-australia-ltd-outlander-phev-my2014-20145_1.html"},
+        {"title": "What Car?: Used Outlander PHEV reliability (airflow sensor corrosion on early cars)", "url": "https://www.whatcar.com/mitsubishi/outlander-phev/4x4/used-review/n18054/advice"}
+      ]
+    },
+    {
+      "id": "ecu-relay-recall",
+      "title": "Motorn stannar och startar inte igen (återkallelse av relä till motorstyrningen)",
+      "category": "Motor och bränsle",
+      "symptoms": [
+        "Motorn stannar under körning och startar inte igen",
+        "Varningar om motorn eller EV-systemet"
+      ],
+      "why": "På bilar byggda från ungefär december 2014 till mars 2016 kunde ett relä som försörjer motorstyrningen överhettas. Åtgärden är ett nytt relä genom en återkallelse.",
+      "whatToDo": [
+        "Kontrollera med en Mitsubishiverkstad att återkallelsen av reläet är gjord för ditt chassinummer (VIN).",
+        "Om det händer under körning, stanna säkert så snart du kan och låt kontrollera bilen innan du litar på den igen."
+      ],
+      "diy": "no",
+      "appHelp": "Felkodsavläsningen visar motorkoder som loggades när motorn stannade.",
+      "relatedTests": ["dtc-full-scan"],
+      "relatedCodes": [],
+      "relatedSettings": [],
+      "confidence": "high",
+      "sources": [
+        {"title": "What Car?: Used Outlander PHEV reliability and recalls", "url": "https://www.whatcar.com/mitsubishi/outlander-phev/4x4/used-review/n18054/advice"},
+        {"title": "Carwow: Used Outlander PHEV buying guide (recall list)", "url": "https://www.carwow.co.uk/guides/buying/used-mitsubishi-outlander-phev-2014-2021-buying-guide"},
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section O.3)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"}
+      ]
+    },
+    {
+      "id": "brake-disc-rust",
+      "title": "Rostiga bromsskivor och underkänt vid besiktningen (EU-kontroll)",
+      "category": "Bromsar och chassi",
+      "symptoms": [
+        "Bruna rostringar på skivorna, särskilt bak",
+        "Skrapande eller ojämn bromsning",
+        "Anmärkning eller underkänt på bromsarna vid den periodiska besiktningen (EU-kontroll i Norge)"
+      ],
+      "why": "Den regenerativa bromsningen står för det mesta av inbromsningen, så friktionsbromsarna används väldigt lite och blir inte rengjorda av användning. Vägsalt och fukt får då skivorna att rosta, och bakre skivorna drabbas mest. Bromsfel hör till de vanligaste orsakerna till underkänt vid EU-kontrollen i Norge. Tek.no rapporterade om en regeländring som tillåter upp till 50 procent rost på bromsytan på de bakre skivorna, medan gränsen för de främre skivorna ligger kvar på 25 procent.",
+      "whatToDo": [
+        "En eller två gånger i veckan: bromsa kraftigt några gånger från cirka 50-60 km/h där det är säkert, så att skivorna blir rena.",
+        "Spola av hjulen och bromsarna när du tvättar bilen på vintern.",
+        "Låt rengöra bromsoken och smörja styrbultarna vid service, särskilt före besiktningen.",
+        "Byt skivor och belägg om rosten har gjort gropar i metallen."
+      ],
+      "diy": "partly",
+      "appHelp": "",
+      "relatedTests": [],
+      "relatedCodes": [],
+      "relatedSettings": [],
+      "confidence": "high",
+      "sources": [
+        {"title": "NAF: Slik unngar du rustne bremseskiver pa elbilen", "url": "https://www.naf.no/elbil/bruke-elbil/slik-unngar-du-rustne-bremseskiver-pa-elbilen"},
+        {"title": "Tek.no: rust limits on brake discs at EU-kontroll", "url": "https://www.tek.no/nyheter/nyhet/i/y4pOOR/naa-blir-det-lettere-aa-bestaa-eu-kontrollen"},
+        {"title": "Klikk.no: most common EU-kontroll faults (brake discs top the list)", "url": "https://www.klikk.no/motor/bil/vanlige-feil-pa-eu-kontroll-2829972"}
+      ]
+    },
+    {
+      "id": "rear-brake-binding-recall",
+      "title": "Bakbromsarna kärvar eller handbromsen är svag (återkallelse av bromsok)",
+      "category": "Bromsar och chassi",
+      "symptoms": [
+        "Ett bakhjul är mycket varmare än de andra efter en körning",
+        "Bränd lukt eller kortare räckvidd än vanligt",
+        "Handbromsspaken känns slapp eller kräver många klick"
+      ],
+      "why": "På bilar byggda fram till början av 2016 kunde vatten tränga förbi gummidamasken på parkeringsbromsens ok och korrodera mekanismen, så att bakbromsarna kunde kärva eller handbromsen sluta fungera ordentligt. Detta var en återkallelse i Europa.",
+      "whatToDo": [
+        "Kontrollera med en Mitsubishiverkstad att återkallelsen av parkeringsbromsens ok är gjord för ditt chassinummer (VIN).",
+        "Efter en körning kan du försiktigt känna nära varje hjul (inte på själva skivan) om något är tydligt varmare.",
+        "Be om nya belägg om de gamla har blivit glaserade av att ligga an."
+      ],
+      "diy": "partly",
+      "appHelp": "",
+      "relatedTests": [],
+      "relatedCodes": [],
+      "relatedSettings": [],
+      "confidence": "high",
+      "sources": [
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section O.5)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"},
+        {"title": "What Car?: Used Outlander PHEV reliability (parking brake caliper boot)", "url": "https://www.whatcar.com/mitsubishi/outlander-phev/4x4/used-review/n18054/advice"},
+        {"title": "Carwow: Used Outlander PHEV buying guide (parking brake recall)", "url": "https://www.carwow.co.uk/guides/buying/used-mitsubishi-outlander-phev-2014-2021-buying-guide"}
+      ]
+    },
+    {
+      "id": "charging-wont-start",
+      "title": "Laddningen startar inte eller slutar för tidigt",
+      "category": "Laddning",
+      "symptoms": [
+        "Inget händer när du ansluter kabeln",
+        "Laddkabelns kontrollbox visar en fellampa",
+        "Laddningen fungerar på jobbet men inte hemma, eller bara vid vissa tider",
+        "Snabbladdning (CHAdeMO) slutar vid cirka 80 procent"
+      ],
+      "why": "Instruktionsboken räknar upp de vanliga orsakerna: tändningen är inte avstängd (OFF), batteriet är redan fullt, batteriet är för varmt eller för kallt, 12 V-batteriet är urladdat, kontakten sitter inte i helt, en laddtimer är inställd, eller strömmen är avslagen eller styrs av en egen timer. Att snabbladdningen slutar runt 80 procent är avsiktligt. I Norge har många hem IT-elnät, och små jordfel i husets elinstallation kan få bärbara laddkablar att vägra ladda.",
+      "whatToDo": [
+        "Stäng av bilen (OFF) innan du ansluter, och tryck in kontakten tills den låses.",
+        "Kontrollera om en laddtimer är inställd (i den här appen eller i originalappen) och avbryt den för att ladda nu.",
+        "Kontrollera säkringen och eventuella timrar på uttaget. Undvik förlängningssladdar.",
+        "Om kabelns kontrollbox visar en fellampa, prova ett annat uttag. Om det bara krånglar hemma, be en elektriker leta efter jordfel eller installera en laddbox.",
+        "Vid en snabbladdare: starta en ny session om du behöver mer än 80 procent.",
+        "Om inget hjälper, kontrollera 12 V-batteriet och felkoderna."
+      ],
+      "diy": "partly",
+      "appHelp": "Via Wi-Fi visar appen om bilen ser kabeln och laddar, och du kan kontrollera och ta bort laddtimern. Laddningskontrollen kontrollerar att laddnivån stiger och att laddaren loggar laddtillfället.",
+      "relatedTests": ["charging-session", "twelve-volt-health"],
+      "relatedCodes": [],
+      "relatedSettings": [7],
+      "confidence": "high",
+      "sources": [
+        {"title": "Mitsubishi UK: 14MY Outlander PHEV owner's manual (charging troubleshooting guide, p. 3-20 to 3-22)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"},
+        {"title": "Teknisk Ukeblad: guide to EV charging problems in Norwegian IT grids", "url": "https://www.tu.no/artikler/ny-veileder-slik-loser-du-ladeproblemene/473587"}
+      ]
+    },
+    {
+      "id": "charge-flap-broken",
+      "title": "Laddluckan stängs eller låses inte",
+      "category": "Laddning",
+      "symptoms": [
+        "Laddluckan fjädrar upp eller stannar inte stängd",
+        "Luckan ser böjd ut eller clipsen saknas"
+      ],
+      "why": "Laddluckan öppnas många gånger i veckan och är känd för att böjas eller tappa sina clips. Det är en billig del, men en lucka som står öppen släpper in vatten och is i uttagen.",
+      "whatToDo": [
+        "Tvinga inte igen luckan när den är fastfrusen; lossa den med ljummet vatten eller avisningsmedel.",
+        "Kontrollera låset och clipsen, och byt luckan eller låset vid behov.",
+        "Håll uttagen rena och torra."
+      ],
+      "diy": "yes",
+      "appHelp": "Bilinställningen ”Automatisk avstängning av laddluckans belysning” styr hur länge lampan vid laddluckan lyser.",
+      "relatedTests": [],
+      "relatedCodes": [],
+      "relatedSettings": [7],
+      "confidence": "medium",
+      "sources": [
+        {"title": "What Car?: Used Outlander PHEV reliability (charging flap)", "url": "https://www.whatcar.com/mitsubishi/outlander-phev/4x4/used-review/n18054/advice"},
+        {"title": "Carwow: Used Outlander PHEV buying guide (charging socket flap)", "url": "https://www.carwow.co.uk/guides/buying/used-mitsubishi-outlander-phev-2014-2021-buying-guide"}
+      ]
+    },
+    {
+      "id": "remote-wifi-problems",
+      "title": "Fjärrappen kan inte ansluta till bilens Wi-Fi",
+      "category": "Fjärrapp och Wi-Fi",
+      "symptoms": [
+        "Telefonen ser bilens nätverk men appen kan inte ansluta",
+        "Anslutningen bryts efter några sekunder eller efter en uppdatering av telefonen",
+        "Bilen slutade svara efter att 12 V-batteriet var urladdat eller bortkopplat"
+      ],
+      "why": "Fjärrstyrningen fungerar via bilens egen Wi-Fi-åtkomstpunkt, så telefonen måste vara inom räckvidd och registrerad i bilen. Bara två telefoner kan registreras. Telefoner lämnar gärna ett Wi-Fi-nätverk utan internet, vilket bryter förbindelsen. Vissa bilar fick en firmwareuppdatering som ändrade formatet på Wi-Fi-lösenordet. Om alla telefoner är avregistrerade går bilens Wi-Fi-modul i viloläge. Att koppla bort 12 V-batteriet nollställer timrarna.",
+      "whatToDo": [
+        "Stå nära bilen och kontrollera att 12 V-batteriet är i gott skick.",
+        "På Android: ta bort manuellt sparade poster för bilens nätverk och låt appen sköta anslutningen. Stäng av funktioner som byter till mobildata när Wi-Fi saknar internet.",
+        "På iPhone: stäng av Wi-Fi-assistans, och stäng av Anslut automatiskt och Privat Wi-Fi-adress för bilens nätverk efter installationen.",
+        "Registrera telefonen igen: tändningen i ACC, tryck sedan växelvis på LÅS och LÅS UPP på nyckeln enligt instruktionsboken tills bilen piper.",
+        "Om två telefoner redan är registrerade, återställ registreringarna (ägare beskriver en sekvens med varningsblinkers, ACC och tryck på LÅS/LÅS UPP; ett pip och sedan tyst betyder att det lyckades).",
+        "Om din bil har fått uppdateringen av fjärrenheten, använd det nyare lösenordet (fråga återförsäljaren)."
+      ],
+      "diy": "yes",
+      "appHelp": "Den här appen ersätter den ursprungliga fjärrappen. Anslutningsloggen visar var förbindelsen fallerar. Om bilen aldrig svarar, kör 12 V-batteritestet.",
+      "relatedTests": ["twelve-volt-health"],
+      "relatedCodes": [],
+      "relatedSettings": [],
+      "confidence": "high",
+      "sources": [
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section E: Wi-Fi and the remote app)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"},
+        {"title": "Mitsubishi UK: 14MY Outlander PHEV owner's manual (MITSUBISHI Remote Control, p. 3-23 to 3-25)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"},
+        {"title": "Mitsubishi UK: Outlander PHEV operation guide (registration beeps, two devices)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/Outlander-PHEV-Operation-Guide.pdf"},
+        {"title": "Pen Test Partners: Hacking the Mitsubishi Outlander PHEV (Wi-Fi design, sleeping module)", "url": "https://www.pentestpartners.com/security-blog/hacking-the-mitsubishi-outlander-phev-hybrid-suv/"},
+        {"title": "GoingElectric forum: remote app problems after Android updates (2020)", "url": "https://www.goingelectric.de/forum/viewtopic.php?p=1226214"}
+      ]
+    },
+    {
+      "id": "ac-heater-problems",
+      "title": "Luftkonditionering eller värme fungerar dåligt",
+      "category": "Klimat",
+      "symptoms": [
+        "Svag kylning eller värme",
+        "Luften kommer från fel munstycken eller temperaturen är fel på ena sidan",
+        "Kupétemperaturen regleras konstigt"
+      ],
+      "why": "A/C-kompressorn är elektrisk och kyler även drivbatteriet, så en svag A/C är också dålig för batteriets livslängd. Elektriska kompressorer behöver en speciell olja, och förorening med vanlig kompressorolja (PAG) kan skada dem; bilar byggda före ungefär mitten av 2016 använder R134a och senare R1234yf. Luftspjällen kan tappa sitt läge, och kupétemperaturgivaren under startknappen kan sättas igen av damm.",
+      "whatToDo": [
+        "Rengör det lilla gallret till kupétemperaturgivaren (vid startknappen) med dammsugare eller tryckluft.",
+        "Prova att återställa spjällen: tryck på AUTO i ACC-läge och tryck sedan på MODE ungefär 20 gånger med fem sekunders paus mellan trycken.",
+        "Byt kupéfiltret om det är gammalt.",
+        "Låt bara en verkstad som kan elektriska hybridkompressorer serva A/C:n, och be dem använda rätt olja.",
+        "Låt åtgärda fel på A/C snabbt, eftersom samma system kyler drivbatteriet."
+      ],
+      "diy": "partly",
+      "appHelp": "Bilinställningar för klimatsystemet (återcirkulation, styrning av A/C-knappen, Eco-läge, luftfördelning) kan ändras i appen. Experimentella avläsningar från klimatenheten visar inne- och utetemperatur.",
+      "relatedTests": ["dtc-full-scan"],
+      "relatedCodes": [],
+      "relatedSettings": [50, 51, 53, 54, 55, 58],
+      "confidence": "medium",
+      "sources": [
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section Q: aircon and heater)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"}
+      ]
+    },
+    {
+      "id": "window-misting",
+      "title": "Rutorna immar igen eller kupén känns fuktig",
+      "category": "Klimat",
+      "symptoms": [
+        "Rutorna immar snabbt igen i regn eller kyla",
+        "Blöta mattor eller fuktig lukt"
+      ],
+      "why": "A/C torkar luften, så värme med A/C avstängd i fuktigt väder gör immbildningen värre. Ett igensatt kupéfilter, igensatta dräneringshål nedanför vindrutan eller ett läckage kan släppa in vatten.",
+      "whatToDo": [
+        "Använd A/C tillsammans med värmen i fuktigt väder.",
+        "Byt kupéfiltret och ta bort löv från luftintagen nedanför vindrutan.",
+        "Leta efter blöta fläckar på mattorna och hitta läckan om det finns en."
+      ],
+      "diy": "yes",
+      "appHelp": "Bilinställningar som ”Styrning av A/C-knappen”, ”Automatisk bakrutevärme vid start” och ”Svagt luftflöde mot vindrutan i fotläge” hjälper till att hålla rutorna klara.",
+      "relatedTests": [],
+      "relatedCodes": [],
+      "relatedSettings": [51, 56, 58],
+      "confidence": "medium",
+      "sources": [
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section W: condensation)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"}
+      ]
+    },
+    {
+      "id": "noises-when-parked",
+      "title": "Fläkt- eller pumpljud när bilen är avstängd",
+      "category": "Komfort och ljud",
+      "symptoms": [
+        "En fläkt går när bilen är avstängd och laddar",
+        "A/C-kompressorn går under fjärrstyrd klimatisering eller laddning"
+      ],
+      "why": "Under laddning eller fjärrstyrd klimatisering kyler bilen drivbatteriet och kör klimatsystemet trots att tändningen är avstängd (OFF). Instruktionsboken säger att de här ljuden är normala.",
+      "whatToDo": [
+        "Ingen åtgärd behövs om ljudet bara hörs under laddning eller fjärrstyrd klimatisering.",
+        "Om en fläkt går länge utan laddning och utan fjärrstyrd klimatisering, kontrollera 12 V-batteriet och felkoderna."
+      ],
+      "diy": "yes",
+      "appHelp": "Via Wi-Fi visar appen om bilen laddar eller kör klimatiseringen, vilket förklarar de flesta av de här ljuden.",
+      "relatedTests": [],
+      "relatedCodes": [],
+      "relatedSettings": [],
+      "confidence": "high",
+      "sources": [
+        {"title": "Mitsubishi UK: 14MY Outlander PHEV owner's manual (p. 2-05: operating sounds)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"}
+      ]
+    },
+    {
+      "id": "drivetrain-noises",
+      "title": "Brummande, klonk eller knackningar från drivlinan",
+      "category": "Komfort och ljud",
+      "symptoms": [
+        "En klonk när du startar eller växlar mellan D och R",
+        "Ett brummande framifrån som ändras med farten",
+        "Knackningar över gupp"
+      ],
+      "why": "Ägare rapporterar några typiska orsaker: ett slitet fäste för den bakre elmotorn (oftast det främsta), ett brummande från den främre motorenheten som berodde på ett igensatt oljefilter, och knackningar från växellådan på bilar som använts mycket för släpvagnsdragning. Länkstag och bussningar i hjulupphängningen slits också, som på alla bilar.",
+      "whatToDo": [
+        "Anteckna när ljudet uppstår (vid start, inbromsning, gupp, viss fart) innan du åker till verkstaden.",
+        "Be verkstaden kontrollera motorfästena, särskilt fästet för den bakre elmotorn.",
+        "Överväg att byta oljan i transaxeln och i den bakre motorenheten vid hög körsträcka, även om serviceprogrammet bara anger kontroll."
+      ],
+      "diy": "no",
+      "appHelp": "Felkodsavläsningen kan utesluta lagrade koder för elmotorer eller drivlina.",
+      "relatedTests": ["dtc-full-scan"],
+      "relatedCodes": [],
+      "relatedSettings": [],
+      "confidence": "low",
+      "sources": [
+        {"title": "Richi Jennings: Outlander PHEV FAQ (sections AF rear motor mount, AC transaxle oil, front motor hum)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"},
+        {"title": "Carwow: Used Outlander PHEV buying guide (transmission clunks)", "url": "https://www.carwow.co.uk/guides/buying/used-mitsubishi-outlander-phev-2014-2021-buying-guide"}
+      ]
+    },
+    {
+      "id": "car-beeps-wont-lock",
+      "title": "Bilen piper och låser inte, eller hittar inte nyckeln",
+      "category": "Övrigt",
+      "symptoms": [
+        "Ett tryck på låsknappen på dörren eller bakluckan ger ett pip och dörrarna förblir olåsta",
+        "”Key not detected” eller varning för nyckelbatteriet",
+        "Det nyckelfria systemet fungerar bara alldeles intill bilen"
+      ],
+      "why": "Det nyckelfria systemet vägrar låsa om det tror att en nyckel fortfarande är inne i bilen, om en dörr eller bakluckan inte är helt stängd, eller om tändningen inte är avstängd (OFF), och det piper för att tala om det. Ägare rapporterar att den inre nyckelgivaren kan vara överkänslig när du står alldeles intill bakluckan. Ett svagt nyckelbatteri ger kortare räckvidd.",
+      "whatToDo": [
+        "Se till att ingen extranyckel ligger inne i bilen och att alla dörrar, bakluckan och motorhuven är helt stängda.",
+        "Läs meddelandet på instrumentpanelen; det talar om varför låsningen nekades.",
+        "Tryck på låsknappen på en armlängds avstånd från bilen.",
+        "Byt batteriet i nyckeln (oftast ett CR2032-knappcellsbatteri; kontrollera det gamla först)."
+      ],
+      "diy": "yes",
+      "appHelp": "Appen visar status för dörrar, baklucka och lås via Wi-Fi, vilket hjälper dig att hitta dörren som inte är stängd.",
+      "relatedTests": [],
+      "relatedCodes": [],
+      "relatedSettings": [21],
+      "confidence": "medium",
+      "sources": [
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section R: beeping, won't lock)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"},
+        {"title": "BatterySkills: Mitsubishi Outlander key fob battery (CR2032)", "url": "https://batteryskills.com/mitsubishi-outlander-key-fob/"}
+      ]
+    },
+    {
+      "id": "driver-assist-alarms",
+      "title": "Falsklarm från förarassistansen (FCM, LDW, ACC)",
+      "category": "Övrigt",
+      "symptoms": [
+        "Kollisionsvarningen (FCM) piper eller bromsar utan tydlig anledning",
+        "Filvarningen (LDW) piper på smala eller slitna vägar",
+        "Den adaptiva farthållaren (ACC) piper när en bil framför försvinner ur räckvidd"
+      ],
+      "why": "De här systemen använder en radar och en kamera och reagerar på det de ser; smuts, snö och vägens utformning ger falsklarm. Vissa bilar från 2016-2017 hade också programvaruåterkallelser: FCM kunde hålla bromsarna för länge (byggda ungefär augusti 2016 till november 2017), programvaran i den hydrauliska bromsenheten kunde avbryta förarassistansfunktioner (augusti 2016 till januari 2018), och en kameraåterkallelse gällde bilar som kunde förväxla föremål med fotgängare.",
+      "whatToDo": [
+        "Kontrollera med en Mitsubishiverkstad att alla programvaruåterkallelser för FCM, bromsenheten och kameran är gjorda.",
+        "Håll radarn i grillen och kameraområdet på vindrutan rena, särskilt på vintern.",
+        "Välj ett kortare varningsavstånd för FCM om den varnar för tidigt, eller stäng av FCM tillfälligt under svåra förhållanden.",
+        "Stäng av LDW om den stör dig; se listan över pip och ljud för hur du håller den avstängd."
+      ],
+      "diy": "partly",
+      "appHelp": "Felkodstestet för alla styrenheter kan ta med ABS/ASC-enheten. Se listan över pip och ljud för vilka varningar som kan ändras.",
+      "relatedTests": ["dtc-full-scan"],
+      "relatedCodes": [],
+      "relatedSettings": [],
+      "confidence": "medium",
+      "sources": [
+        {"title": "Richi Jennings: Outlander PHEV FAQ (O.6 FCM, O.7 brake hydraulic unit, C LDW)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"},
+        {"title": "Carwow: Used Outlander PHEV buying guide (camera, collision avoidance and brake recalls)", "url": "https://www.carwow.co.uk/guides/buying/used-mitsubishi-outlander-phev-2014-2021-buying-guide"},
+        {"title": "Medium: Outlander PHEV 2017 owner's review part 2 (ACC, FCM, LDW beeps)", "url": "https://medium.com/mitsubishi-outlander-phev-2017/mitsubishi-outlander-phev-2017-owners-review-part-2-591f2399e7df"}
+      ]
+    },
+    {
+      "id": "check-open-recalls",
+      "title": "Kontrollera om din bil har öppna återkallelser",
+      "category": "Övrigt",
+      "symptoms": [
+        "Du köpte bilen begagnad och känner inte till dess återkallelsehistorik"
+      ],
+      "why": "Outlander PHEV 2014-2017 hade flera återkallelser i Europa. Förutom dem i de andra tipsen (relä till motorstyrningen, parkeringsbromsens ok, programvara för FCM och bromsar, tidig motorprogramvara) fanns återkallelser för dörrlås som kunde krångla i varmt väder (byggda ungefär maj 2015 till mars 2016) och för en bränsleledningskoppling som kunde läcka (byggda ungefär juli till september 2015).",
+      "whatToDo": [
+        "Ge ditt chassinummer (VIN) till en Mitsubishiverkstad och be om en lista över öppna återkallelser och servicekampanjer.",
+        "Spara utskriften; den är användbar när du säljer bilen."
+      ],
+      "diy": "no",
+      "appHelp": "Appen kan läsa chassinumret (VIN) via OBD så att du kan ge det till verkstaden.",
+      "relatedTests": [],
+      "relatedCodes": [],
+      "relatedSettings": [],
+      "confidence": "high",
+      "sources": [
+        {"title": "What Car?: Used Outlander PHEV reliability and recalls", "url": "https://www.whatcar.com/mitsubishi/outlander-phev/4x4/used-review/n18054/advice"},
+        {"title": "Carwow: Used Outlander PHEV buying guide (recall list)", "url": "https://www.carwow.co.uk/guides/buying/used-mitsubishi-outlander-phev-2014-2021-buying-guide"},
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section O: recalls)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"}
+      ]
+    },
+    {
+      "id": "prepare-for-eu-kontroll",
+      "title": "Förbered bilen för besiktningen (EU-kontroll)",
+      "category": "Övrigt",
+      "symptoms": [
+        "Besiktningen närmar sig",
+        "Felkoderna raderades nyligen",
+        "Motorn har knappt gått de senaste veckorna"
+      ],
+      "why": "I Norge besiktigas en bil när den är 4 år och sedan vartannat år (EU-kontroll), och bensinbilar kontrolleras för avgaser och utsläpp samt bromsar, belysning och högspänningssystemet. EU-reglerna tillåter att utsläppen kontrolleras genom att läsa bilens OBD-system. På en laddhybrid går motorn så lite att dess självtester (readiness-monitorer) kanske inte är klara, särskilt efter att koder har raderats, och skivorna är ofta rostiga.",
+      "whatToDo": [
+        "Radera inte felkoder under veckorna före besiktningen.",
+        "Använd Save- eller Charge-knappen på några längre körningar veckan innan, så att motorn blir varm och gör klart sina självtester.",
+        "Kör testet ”Klar för besiktning?” i den här appen: motorlampan måste vara släckt och inga koder får vara lagrade.",
+        "Bromsa kraftigt några gånger för att rengöra skivorna, och åtgärda eventuella varningslampor först.",
+        "Om besiktningsstationen vill ha motorn igång för ett avgastest, se uppvärmningstestet för hur du startar den i P."
+      ],
+      "diy": "yes",
+      "appHelp": "Testet ”Klar för besiktning?” kontrollerar motorlampan, lagrade, väntande och permanenta koder, och vilka självtester som är klara.",
+      "relatedTests": ["inspection-readiness", "engine-warmup", "fuel-trims", "dtc-full-scan"],
+      "relatedCodes": ["P0420", "P0171", "P0172", "P0300", "P0455", "P0456"],
+      "relatedSettings": [],
+      "confidence": "medium",
+      "sources": [
+        {"title": "Bertel O. Steen: EU-kontroll rules (intervals, emissions check for petrol cars)", "url": "https://www.bos.no/bilverksted/eu-kontroll-regler-du-bor-kjenne-til"},
+        {"title": "Commission Directive 2001/9/EC (OBD reading as an alternative emissions check)", "url": "https://app.lexploria.com/document/259629-d"},
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section X: starting the engine for an emissions test)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"}
+      ]
+    },
+    {
+      "id": "jump-starting",
+      "title": "Starta PHEV:n säkert med startkablar",
+      "category": "12 V och elsystem",
+      "symptoms": [
+        "Inget händer när du trycker på startknappen och 12 V-batteriet är urladdat"
+      ],
+      "why": "Det är bara 12 V-batteriet som behöver hjälp; motorn dras inte runt av det, så en liten startbooster räcker. Bilens 12 V-system matas av en DC/DC-omvandlare från drivbatteriet, som kan skadas om du använder bilen för att starta en annan bil.",
+      "whatToDo": [
+        "Följ avsnittet om nödstart i instruktionsboken; du behöver inte lyfta på golvet i bagageutrymmet.",
+        "När bilen är i READY, låt den vara på i 15-30 minuter så att 12 V-batteriet laddas upp igen.",
+        "Starta inte bilen med startkablar medan den laddas, och använd den inte för att starta andra bilar.",
+        "Testa 12 V-batteriet efteråt, eftersom ett batteri som har varit urladdat en gång ofta krånglar igen."
+      ],
+      "diy": "yes",
+      "appHelp": "Kör 12 V-batteritestet nästa morgon för att se om batteriet har återhämtat sig.",
+      "relatedTests": ["twelve-volt-health", "dcdc-output"],
+      "relatedCodes": [],
+      "relatedSettings": [],
+      "confidence": "medium",
+      "sources": [
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section AD: flat 12 V battery)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"},
+        {"title": "Mitsubishi UK: 14MY Outlander PHEV owner's manual (p. 3-05: no jump start while charging)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"}
+      ]
+    }
+  ],
+  "beeps": [
+    {
+      "id": "general-no-volume-control",
+      "sound": "Varningsljud i allmänhet",
+      "when": "Tillsammans med varningsmeddelanden i displayen: dörr öppen under körning, lite bränsle, lågt drivbatteri, systemvarningar och liknande.",
+      "adjust": "no",
+      "how": "Det finns ingen volyminställning för varningsljuden. Instruktionsboken för 2016 säger att inställningen för manöverljud bara gäller displayknappen och dimmerknappen, och att varningsvisningar och andra ljud inte kan stängas av.",
+      "settingIds": [],
+      "notes": "De flesta övriga pip går bara att undvika genom att åtgärda det som utlöser dem (stänga dörren, spänna fast bältet, stänga av tändningen).",
+      "confidence": "high",
+      "sources": [
+        {"title": "Outlander PHEV 2016 owner's manual, p. 2-05 (via ManualsLib)", "url": "https://www.manualslib.com/manual/1818726/Mitsubishi-Motors-Outlander-Phev-2016.html?page=19#manual"}
+      ]
+    },
+    {
+      "id": "operation-sound",
+      "sound": "Pip när du trycker på displayknappen (info) eller dimmerknappen",
+      "when": "Vid varje tryck på knappen för multiinformationsdisplayen eller knappen för instrumentbelysningen (reostat).",
+      "adjust": "car-menu",
+      "how": "Stanna bilen, dra åt parkeringsbromsen och välj P. Tryck lätt på displayknappen tills inställningsskärmen visas, och håll den sedan intryckt i cirka 2 sekunder för att öppna menyn. Välj ikonen för manöverljud och håll intryckt i cirka 2 sekunder för att slå på eller av det.",
+      "settingIds": [],
+      "notes": "Beskrivs i instruktionsboken för 2016 (s. 2-05 och 6-16). Instruktionsboken för 2014 nämner inte den här inställningen, så den kan saknas på bilar från 2014-2015.",
+      "confidence": "high",
+      "sources": [
+        {"title": "Outlander PHEV 2016 owner's manual, p. 2-05 operation sound setting (via ManualsLib)", "url": "https://www.manualslib.com/manual/1818726/Mitsubishi-Motors-Outlander-Phev-2016.html?page=19#manual"},
+        {"title": "Outlander PHEV 2016 owner's manual, p. 6-16 changing function settings (via ManualsLib)", "url": "https://www.manualslib.com/manual/1818726/Mitsubishi-Motors-Outlander-Phev-2016.html?page=152"}
+      ]
+    },
+    {
+      "id": "keyless-answerback-beep",
+      "sound": "Yttre summer vid låsning eller upplåsning",
+      "when": "När du låser eller låser upp med knappen på dörren eller bakluckan (nyckelfritt system) eller med knapparna på nyckeln (fjärrlåsning).",
+      "adjust": "app",
+      "how": "Öppna bilinställningarna i den här appen, välj ”Kvittenspip vid låsning/upplåsning” och välj: allt av, bara för dörrknapparna, bara för nyckelknapparna eller allt på.",
+      "settingIds": [21],
+      "notes": "Bara på/av, inte volym. På vissa nyare Mitsubishimodeller kan en återförsäljare ställa in den yttre summerns volym i tre steg; det är inte bekräftat för PHEV 2014-2017. Snabbguiden från 2014 säger också att fabriksinställningen kan ändras av en Mitsubishiverkstad.",
+      "confidence": "high",
+      "sources": [
+        {"title": "Mitsubishi NZ quick guide 2014 (keyless entry buzzer, factory setting can be changed)", "url": "https://www.manualslib.com/manual/883530/Mitsubishi-Outlander-Plug-In-Hybrid.html"},
+        {"title": "Mitsubishi UK: 14MY owner's manual p. 3-23 (Remote Control 'Customize' covers the keyless operation system)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"},
+        {"title": "Club Mitsubishi ASX forum: ETACS options on related models (answerback buzzer, external buzzer volume)", "url": "https://www.clubmitsubishiasx.com/goto/post?id=257203"}
+      ]
+    },
+    {
+      "id": "horn-answerback",
+      "sound": "Kort tut med signalhornet när du låser med nyckeln",
+      "when": "När du låser med knapparna på nyckeln, beroende på inställningen (ett tryck, två tryck, bara dagtid).",
+      "adjust": "app",
+      "how": "Ställ ”Signalhornskvittens vid fjärrlåsning” på Av i den här appen, eller låt det bara tuta vid andra trycket eller bara dagtid. ”Längd på signalhornskvittens” väljer kort eller lång.",
+      "settingIds": [20, 28],
+      "notes": "Om din bil inte erbjuder de här inställningarna finns de inte för din marknad.",
+      "confidence": "high",
+      "sources": [
+        {"title": "Mitsubishi UK: 14MY owner's manual p. 3-23 (Remote Control 'Customize')", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"},
+        {"title": "EvoScan: Mitsubishi ETACS options (horn answerback)", "url": "https://mail.evoscan.com/technical-vehicle-manuals/152-mitsubishi-etacs-sws"}
+      ]
+    },
+    {
+      "id": "horn-remote-start",
+      "sound": "Signalhorn när bilen fjärrstartas",
+      "when": "Bara på bilar med fjärrstart av motorn.",
+      "adjust": "app",
+      "how": "Om bilen erbjuder det, ställ ”Signalhornskvittens vid fjärrstart” på Av i den här appen.",
+      "settingIds": [33],
+      "notes": "PHEV:n har normalt ingen fjärrstart av motorn, så den här inställningen erbjuds oftast inte.",
+      "confidence": "low",
+      "sources": [
+        {"title": "EvoScan: Mitsubishi ETACS options", "url": "https://mail.evoscan.com/technical-vehicle-manuals/152-mitsubishi-etacs-sws"}
+      ]
+    },
+    {
+      "id": "unlock-mode-chime",
+      "sound": "En eller två ljudsignaler efter att du hållit in LÅS och LÅS UPP",
+      "when": "När upplåsningsläget ändras med knappsekvensen på nyckeln: en signal betyder att alla dörrar låses upp, två signaler att bara förardörren gör det.",
+      "adjust": "no",
+      "how": "Den hörs bara som bekräftelse under inställningen. Du kan ändra samma inställning i den här appen (”Upplåsning”) utan några ljudsignaler.",
+      "settingIds": [17],
+      "notes": "Förklarar ”mystiska” ljudsignaler om knapparna tryckts in samtidigt av misstag.",
+      "confidence": "high",
+      "sources": [
+        {"title": "Mitsubishi UK: 14MY owner's manual p. 4-03 onwards (door and tailgate unlock setting, chimes)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"}
+      ]
+    },
+    {
+      "id": "lock-refused-beep",
+      "sound": "Yttre pip och dörrarna låses inte",
+      "when": "När du försöker låsa medan en nyckel är inne i bilen, en dörr eller bakluckan är öppen, eller tändningen inte är avstängd (OFF).",
+      "adjust": "no",
+      "how": "Hitta orsaken: en extranyckel inne i bilen, en dörr eller baklucka som inte är helt stängd, eller tändningen som fortfarande är på. Tryck på låsknappen på en armlängds avstånd; ägare rapporterar att den inre nyckelgivaren kan vara överkänslig nära bakluckan.",
+      "settingIds": [],
+      "notes": "Det här är ett skydd mot att låsa in nyckeln.",
+      "confidence": "medium",
+      "sources": [
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section R)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"}
+      ]
+    },
+    {
+      "id": "power-and-key-reminders",
+      "sound": "Inre summer när du lämnar bilen med tändningen på, eller när nyckeln tas ut ur bilen",
+      "when": "När förardörren öppnas medan tändningen inte är avstängd (OFF), eller när nyckeln bärs ut ur bilen medan tändningen är på.",
+      "adjust": "no",
+      "how": "Stäng av tändningen (OFF) innan du öppnar dörren. Varningen skyddar mot att 12 V-batteriet laddas ur och mot att köra iväg utan nyckeln.",
+      "settingIds": [36],
+      "notes": "De exakta mönstren beskrivs i avsnittet om det nyckelfria systemet i instruktionsboken, som vi inte har kunnat läsa i sin helhet. ”Automatisk avstängning av ACC-ström” i den här appen begränsar urladdningen om ACC lämnas på, men tystar inte påminnelsen.",
+      "confidence": "medium",
+      "sources": [
+        {"title": "Mitsubishi UK: 12MY Outlander owner's manual (similar Mitsubishi keyless reminders, earlier model)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/12MY-Outlander-Diesel-Owners-Manual.pdf"}
+      ]
+    },
+    {
+      "id": "lights-on-reminder",
+      "sound": "Summer som påminner om att belysningen är på",
+      "when": "När förardörren öppnas med belysningen på och tändningen avstängd.",
+      "adjust": "no",
+      "how": "Vrid ljusreglaget till AUTO eller OFF. Belysningsinställningarna i den här appen ändrar hur belysningen beter sig när du lämnar bilen, vilket kan göra att du hör den mer sällan.",
+      "settingIds": [12, 42],
+      "notes": "Kallas ”lamp monitor buzzer” i Mitsubishis instruktionsböcker för samma Outlander-generation.",
+      "confidence": "medium",
+      "sources": [
+        {"title": "ManualsNet: Mitsubishi Outlander 2017 owner's manual contents (lamp monitor buzzer)", "url": "https://manualsnet.com/mitsubishi/outlander-2017"}
+      ]
+    },
+    {
+      "id": "seat-belt-reminder",
+      "sound": "Bältespåminnare",
+      "when": "När föraren (och på många bilar framsätespassageraren) inte har bältet på medan bilen är på eller rör sig.",
+      "adjust": "no",
+      "how": "Spänn fast bältet. En tung väska på passagerarsätet kan utlösa den; lägg den på golvet eller i bagageutrymmet.",
+      "settingIds": [],
+      "notes": "Bältespåminnare för föraren krävs enligt EU:s regler för fordonssäkerhet från 2009. Att koppla bort den rekommenderas inte, och återförsäljare brukar säga nej.",
+      "confidence": "medium",
+      "sources": [
+        {"title": "ETSC: seat belt reminders in EU rules", "url": "https://etsc.eu/seatbelt-reminders-in-every-seating-position-from-september/"}
+      ]
+    },
+    {
+      "id": "reverse-buzzer",
+      "sound": "Pip i kupén när backen (R) läggs i",
+      "when": "När växelväljaren flyttas till R; på vissa bilar upprepas det så länge den står i R.",
+      "adjust": "dealer",
+      "how": "Be en Mitsubishiverkstad stänga av backsummern i kupén i anpassningen av karosstyrenheten (ETACS) med verktyget MUT-III. Be dem kontrollera anpassningslistan för ditt chassinummer (VIN), eftersom det exakta namnet på alternativet för PHEV 2014-2017 inte är bekräftat.",
+      "settingIds": [],
+      "notes": "Det här finns inte bland appens bilinställningar. Ett alternativ för ”reverse buzzer” finns i ETACS-inställningarna på närbesläktade Mitsubishimodeller, och PHEV-ägare diskuterar backpip i forum. Om bilen har parkeringssensorer är deras pip ett separat system.",
+      "confidence": "low",
+      "sources": [
+        {"title": "Club Mitsubishi ASX forum: ETACS options on related models include a reverse buzzer", "url": "https://www.clubmitsubishiasx.com/goto/post?id=257203"},
+        {"title": "MyOutlanderPHEV forum thread 'Reversing bleepers' (title only; content could not be read)", "url": "https://www.myoutlanderphev.com/threads/reversing-bleepers.6152/"}
+      ]
+    },
+    {
+      "id": "parking-sensors",
+      "sound": "Pip från parkeringssensorerna (bak, och fram på vissa bilar)",
+      "when": "När du backar eller kör sakta nära ett hinder; pipen blir tätare ju närmare du kommer.",
+      "adjust": "switch",
+      "how": "Tryck på sensorknappen (sonar) på instrumentbrädan för att stänga av systemet. Det kan slås på igen vid nästa start eller när du väljer R. Volymen går inte att justera i de dokumenterade inställningarna.",
+      "settingIds": [],
+      "notes": "Bilar från 2014-2015 har en ”Sonar switch”. Instruktionsboken för 2016-2017 har ett ”Reversing sensor system” och ett ”Sensor system” fram och bak. Ägare rapporterar att de främre sensorerna piper mycket när man kör ut ur trånga garage.",
+      "confidence": "medium",
+      "sources": [
+        {"title": "Mitsubishi UK: 14MY owner's manual p. 1-02 and 1-03 (sonar switch)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"},
+        {"title": "Outlander PHEV 2016 owner's manual contents (reversing sensor system, sensor system)", "url": "https://www.manualslib.com/manual/1818726/Mitsubishi-Motors-Outlander-Phev-2016.html"},
+        {"title": "Medium: Outlander PHEV 2017 owner's review part 2 (parking sensors can be disabled with a button)", "url": "https://medium.com/mitsubishi-outlander-phev-2017/mitsubishi-outlander-phev-2017-owners-review-part-2-591f2399e7df"}
+      ]
+    },
+    {
+      "id": "avas",
+      "sound": "Varningsljud för fotgängare utanför bilen (AVAS)",
+      "when": "Utanför bilen, när du kör i cirka 35 km/h eller långsammare utan att motorn går.",
+      "adjust": "switch",
+      "how": "Tryck på knappen AVAS OFF på instrumentbrädan; indikatorn AVAS OFF tänds. Mitsubishi säger att den inte ska stängas av där det kan finnas fotgängare; den är avsedd för tät motorvägstrafik.",
+      "settingIds": [],
+      "notes": "EU-reglerna för den här typen av system kräver att det slås på igen när bilen startas om, så det är troligen på igen nästa gång. Att koppla bort det rekommenderas inte. Det är ett surrande ljud för människor utanför, inte ett pip i kupén.",
+      "confidence": "high",
+      "sources": [
+        {"title": "Mitsubishi UK: 14MY owner's manual p. 1-02, 2-05 (AVAS OFF switch)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"},
+        {"title": "Mitsubishi NZ quick guide 2014 (AVAS OFF switch and indicator)", "url": "https://www.manualslib.com/manual/883530/Mitsubishi-Outlander-Plug-In-Hybrid.html"},
+        {"title": "Regulation (EU) 540/2014 Annex VIII (AVAS switch must default to on at restart)", "url": "https://legislation.gov.uk/cy/eur/2014/540/annex/VIII/2014-04-16?view=plain"}
+      ]
+    },
+    {
+      "id": "charging-lid-buzzer",
+      "sound": "Lång summer när laddluckan öppnas eller en kabel ansluts",
+      "when": "När laddluckan öppnas eller en laddkontakt ansluts medan tändningen är på (ON). Den kan låta i cirka 10 minuter.",
+      "adjust": "no",
+      "how": "Stäng av tändningen (OFF) innan du öppnar laddluckan och ansluter. Laddningen kan ändå inte starta medan tändningen är på.",
+      "settingIds": [],
+      "notes": "Beskrivs i instruktionsboken för årsmodell 2018; tidigare bilar kan bete sig likadant, men instruktionsboken för 2014 nämner det inte.",
+      "confidence": "medium",
+      "sources": [
+        {"title": "Mitsubishi UK: 18MY Outlander PHEV owner's manual p. 3-05", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/18MY-Outlander-PHEV-Owners-Manual.pdf"}
+      ]
+    },
+    {
+      "id": "electric-tailgate-buzzer",
+      "sound": "Pip medan den elektriska bakluckan öppnas eller stängs",
+      "when": "Medan den elektriska bakluckan rör sig, och när du ställer in öppningshöjden.",
+      "adjust": "dealer",
+      "how": "Ingen inställning för ägaren är dokumenterad. Fråga en Mitsubishiverkstad om bakluckans summer kan ändras i inställningarna för karosstyrenheten (ETACS) på din bil.",
+      "settingIds": [],
+      "notes": "Inte bekräftat. Pipet varnar personer nära bakluckan som rör sig.",
+      "confidence": "low",
+      "sources": [
+        {"title": "MyOutlanderPHEV forum thread 'Beeping tailgate' (title only; content could not be read)", "url": "https://www.myoutlanderphev.com/threads/beeping-tailgate.648/"}
+      ]
+    },
+    {
+      "id": "fcm-warning",
+      "sound": "Varning från kollisionsbegränsningen (FCM)",
+      "when": "När radarn ser risk för att köra på fordonet framför; den piper och visar en varning, och kan sedan bromsa.",
+      "adjust": "switch",
+      "how": "Använd FCM-knappen för att stänga av systemet, eller välj ett kortare varningsavstånd om den varnar för tidigt. På många Mitsubishibilar slås FCM på igen vid nästa start.",
+      "settingIds": [],
+      "notes": "Finns på högre utrustningsnivåer. Se till att återkallelsen av FCM-programvaran (bilar byggda ungefär augusti 2016 till november 2017) är gjord.",
+      "confidence": "medium",
+      "sources": [
+        {"title": "Mitsubishi UK: 14MY owner's manual p. 1-02 (FCM ON/OFF switch)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"},
+        {"title": "Medium: Outlander PHEV 2017 owner's review part 2 (FCM distance setting is saved)", "url": "https://medium.com/mitsubishi-outlander-phev-2017/mitsubishi-outlander-phev-2017-owners-review-part-2-591f2399e7df"}
+      ]
+    },
+    {
+      "id": "ldw-warning",
+      "sound": "Pip från filvarningen (LDW)",
+      "when": "När bilen glider över en körfältslinje utan att blinkersen är på, i högre fart (ägare rapporterar över cirka 60 km/h).",
+      "adjust": "switch",
+      "how": "Tryck på LDW-knappen för att stänga av den. För att hålla den avstängd vid varje start rapporterar ägare: stäng av LDW och håll sedan LDW-knappen intryckt i cirka 15 sekunder tills ”LDW2” visas.",
+      "settingIds": [],
+      "notes": "LDW2-beteendet rapporteras av ägare och kommer inte från instruktionsboken.",
+      "confidence": "medium",
+      "sources": [
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section C: disable LDW on startup)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"},
+        {"title": "Mitsubishi UK: 14MY owner's manual p. 1-03 (LDW switch)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"}
+      ]
+    },
+    {
+      "id": "acc-beeps",
+      "sound": "Pip från den adaptiva farthållaren (ACC)",
+      "when": "När ACC tappar bilen framför, kopplar ur eller behöver att föraren bromsar.",
+      "adjust": "no",
+      "how": "De här pipen kan inte ändras; det enda sättet att undvika dem är att använda vanlig farthållare eller ingen farthållare alls.",
+      "settingIds": [],
+      "notes": "Ägare tycker att pipet för ”mål förlorat” vid omkörning eller när en bil lämnar körfältet är särskilt irriterande.",
+      "confidence": "medium",
+      "sources": [
+        {"title": "Medium: Outlander PHEV 2017 owner's review part 2 (ACC beeps)", "url": "https://medium.com/mitsubishi-outlander-phev-2017/mitsubishi-outlander-phev-2017-owners-review-part-2-591f2399e7df"}
+      ]
+    },
+    {
+      "id": "blind-spot-and-cross-traffic",
+      "sound": "Varningar för döda vinkeln, filbyte och korsande trafik bakom",
+      "when": "Bilar från 2016-2017 med de här systemen: när du blinkar med en bil i döda vinkeln, eller när en bil närmar sig från sidan medan du backar.",
+      "adjust": "switch",
+      "how": "Leta efter en knapp för varning för döda vinkeln på instrumentbrädan. Om din bil inte har någon kan systemet inte stängas av av ägaren.",
+      "settingIds": [],
+      "notes": "Bara på faceliftade bilar (2016-2017) med den här utrustningen. Vi har inte kunnat bekräfta knappen i instruktionsboken.",
+      "confidence": "low",
+      "sources": [
+        {"title": "Mitsubishi Australia MY17 Outlander PHEV brochure (RCTA buzzer, lane change assist alert)", "url": "https://resource.digitaldealer.com.au/pdf/15927743955a5ed4947ef34877504034.pdf"},
+        {"title": "Medium: Outlander PHEV 2017 owner's review part 2 (blind spot and cross traffic beeps)", "url": "https://medium.com/mitsubishi-outlander-phev-2017/mitsubishi-outlander-phev-2017-owners-review-part-2-591f2399e7df"}
+      ]
+    },
+    {
+      "id": "ums-warning",
+      "sound": "Varning från systemet mot felaktig acceleration (UMS)",
+      "when": "Bilar från 2016-2017 med UMS: när du trycker hårt på gaspedalen nära ett hinder i låg fart; det piper och begränsar effekten.",
+      "adjust": "no",
+      "how": "Se avsnittet om UMS i instruktionsboken för 2016-2017 för om och hur det kan stängas av på din bil.",
+      "settingIds": [],
+      "notes": "Inte bekräftat; listat så att ägare kan känna igen ljudet.",
+      "confidence": "low",
+      "sources": [
+        {"title": "Outlander PHEV 2016 owner's manual contents (UMS section, p. 263 of the PDF)", "url": "https://www.manualslib.com/manual/1818726/Mitsubishi-Motors-Outlander-Phev-2016.html"}
+      ]
+    },
+    {
+      "id": "turn-signal-sound",
+      "sound": "Tickande ljud från blinkersen",
+      "when": "Medan körriktningsvisarna eller varningsblinkersen är på.",
+      "adjust": "car-menu",
+      "how": "Leta efter ett alternativ för blinkersljud i displayens funktionsinställningar. Outlander utan hybrid av samma generation har ”Changing the turn-signal sound” där; vi har inte kunnat bekräfta det för PHEV:n.",
+      "settingIds": [],
+      "notes": "Appens inställningar för ”Filbytesblinkers” ändrar hur många gånger blinkersen blinkar, inte ljudet.",
+      "confidence": "low",
+      "sources": [
+        {"title": "ManualsNet: Mitsubishi Outlander 2017 owner's manual contents (changing the turn-signal sound)", "url": "https://manualsnet.com/mitsubishi/outlander-2017"}
+      ]
+    },
+    {
+      "id": "remote-registration-beeps",
+      "sound": "Pip vid registrering i fjärrappen eller återställning av Wi-Fi",
+      "when": "Bara medan du registrerar en telefon eller återställer registreringarna med knappsekvensen på nyckeln. Antalet pip visar hur många telefoner som är registrerade eller om återställningen lyckades.",
+      "adjust": "no",
+      "how": "Ingen ändring behövs; de hörs bara under proceduren.",
+      "settingIds": [],
+      "notes": "Vid återställning rapporterar ägare att ett pip och sedan tystnad betyder att det lyckades.",
+      "confidence": "high",
+      "sources": [
+        {"title": "Mitsubishi UK: Outlander PHEV operation guide (registration beeps)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/Outlander-PHEV-Operation-Guide.pdf"},
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section E.3)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"}
+      ]
+    },
+    {
+      "id": "ac-button-confirmation",
+      "sound": "Tre snabba pip från klimatpanelen",
+      "when": "Efter att du hållit in A/C-knappen i cirka 10 sekunder; det bekräftar att AUTO-knappen inte längre slår på A/C.",
+      "adjust": "no",
+      "how": "Bara en bekräftelse. Samma beteende kan ställas in med ”Styrning av A/C-knappen” i den här appen.",
+      "settingIds": [51],
+      "notes": "",
+      "confidence": "medium",
+      "sources": [
+        {"title": "Richi Jennings: Outlander PHEV FAQ (section D)", "url": "https://www.richi.uk/p/mitsubishi-outlander-phev-faq.html"}
+      ]
+    },
+    {
+      "id": "security-alarm",
+      "sound": "Stöldlarm",
+      "when": "När larmet är aktiverat och en dörr öppnas utan att låsas upp, eller kupégivarna utlöser det.",
+      "adjust": "dealer",
+      "how": "Listan ”Customize” i den ursprungliga fjärrappen innehöll funktioner för stöldlarmet, men den här appen har ännu inte identifierat vilken inställning det är. En Mitsubishiverkstad kan ändra larminställningarna med MUT-III.",
+      "settingIds": [],
+      "notes": "Sirenens volym kan inte justeras.",
+      "confidence": "low",
+      "sources": [
+        {"title": "Mitsubishi UK: 14MY owner's manual p. 3-23 (Customize includes the security alarm)", "url": "https://mitsubishi-motors.co.uk/wp-content/uploads/2021/06/14MY-Outlander-PHEV-Owners-Manual.pdf"}
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Strings of the OBD connection layer (io.github.anwo91.phevlink.obd). -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources>
     <!-- Transport names, used in "Connecting to %1$s via %2$s…" -->
     <string name="obd_kind_classic">Bluetooth</string>
     <string name="obd_kind_ble">Bluetooth LE</string>

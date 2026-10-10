@@ -93,7 +93,9 @@ fun VehicleSettingsScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> U
                     }
                 }
             }
-            items(groups, key = { it.title }) { g ->
+            // Keyed by the first setting id (each id belongs to exactly one group), not by the translated title:
+            // two groups translated to the same word would crash LazyColumn with a duplicate key.
+            items(groups, key = { g -> "group:" + (g.items.firstOrNull()?.id ?: g.title) }) { g ->
                 SectionCard(title = g.title) {
                     g.items.forEachIndexed { i, item ->
                         if (i > 0) HorizontalDivider()
@@ -110,7 +112,10 @@ fun VehicleSettingsScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> U
                 }
             }
             val shownIds = groups.flatMap { g -> g.items.map { it.id } }.toSet()
-            val unnamed = car.settings.filter { (id, st) -> st.mask != 0 && id !in shownIds }.toSortedMap()
+            // Only slots Mitsubishi's app never names (named settings with odd values stay hidden, as in the official app).
+            val unnamed = car.settings.filter { (id, st) ->
+                st.mask != 0 && id !in shownIds && (VehicleSettingsCatalog.def(id) == null || id in VehicleSettingsCatalog.HIDDEN_IDS)
+            }.toSortedMap()
             if (unnamed.isNotEmpty()) {
                 item {
                     SectionCard(title = stringResource(R.string.vs_unnamed_title)) {

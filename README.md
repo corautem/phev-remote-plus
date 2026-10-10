@@ -32,6 +32,28 @@ The main goal: **a connection that just works.**
 - **Car clock** kept in sync (the car's own timers depend on it), like the official app does.
 - **Diagnostics** — live log of every connection step and packet (with raw hex), raw register table, raw register writes
   for experiments, previous-session log, one-tap share.
+- **Vehicle settings** — the car's own customisable functions over Wi-Fi, like in the official app: lights (auto-cutout,
+  headlights on exit, lights on remote unlock), locks (auto relock, unlock mode, auto unlock), lock/unlock beeps and horn
+  answerback, wipers, turn signals, power windows and A/C behaviour; each change is confirmed by the car and saved.
+  Also lists setting slots the car reports that Mitsubishi's app never names.
+- **OBD tab (ELM327 adapter)** — Bluetooth Classic, Bluetooth LE or Wi-Fi adapters, read-only:
+  - **drive battery health** from the battery computer (BMU): charge level, capacity in Ah and % of new (38 Ah reference
+    before model year 2017, 40 Ah from 2017, taken from the VIN), stored energy, pack voltage, highest/lowest cell and the
+    cell difference, charge counters;
+  - **live values** from all control units that answer (standard OBD-II plus documented Mitsubishi values, each marked
+    standard / owner-documented / experimental);
+  - **fault codes** from all control units with a plain-language explanation of 3,500 codes (what it means, how serious,
+    can I drive, likely causes, what to check first; 122 written by hand for this car), code lookup, and clearing of
+    engine/emission codes behind a confirmation;
+  - **guided live tests** you can do on the spot: full fault scan, 12 V battery, 12 V charging in READY (DC/DC), drive
+    battery capacity, cell balance, EU-kontroll readiness, charging check, engine warm-up/thermostat, fuel trims and
+    front/rear tyre match — each with step-by-step instructions and a pass/warning/fail verdict with explanation
+    ([design, limits and sources](docs/live-tests.md));
+  - CSV recording, adapter details, raw battery data and a terminal (non-read commands need a confirmation).
+- **Tips** — 26 well-known problems of the 2014–2017 Outlander PHEV (12 V battery, EV system warnings, capacity loss,
+  brake disc rust, charging, …) with why they happen and what to do, and a guide to all 24 beeps and sounds: which ones
+  this app, the car's menu, a switch or only a dealer can change. With sources.
+- **Languages** — English, Norsk (bokmål), Svenska, Dansk and Deutsch (Settings → Language).
 - **Bridge (optional)** — a small always-on computer near the car (e.g. Raspberry Pi) keeps the link and lets the phone
   reach the car **from anywhere** through a VPN such as Tailscale. Includes a web control page and push alerts via ntfy.
 
@@ -114,6 +136,17 @@ control the car's climate and lights (not locks: the protocol has no remote unlo
 
 Auth: `Authorization: Bearer <token>` or `?token=<token>`.
 
+## OBD adapter
+
+Any ELM327-compatible adapter works for standard data and fault codes. The drive-battery data needs an adapter that
+supports custom CAN flow control (`ATFCSH`); many cheap "v1.5/v2.1" clones don't — the app tells you if yours doesn't.
+Known good: OBDLink LX / MX+ / CX, Vgate iCar 2 / iCar Pro, Konnwei KW902, Veepeak. Pair classic Bluetooth adapters in
+the phone's Bluetooth settings first; Bluetooth LE adapters are found with a scan in the app. The OBD socket is under the
+steering wheel. Unplug the adapter when the car stands for days (it draws from the 12 V battery).
+
+The OBD side never writes to the car except "Clear codes" (OBD-II mode 04), which asks first. The terminal asks before
+sending anything that isn't a read request.
+
 ## Troubleshooting
 
 - **"Looking for the car…" forever** — out of range, or the car's Wi-Fi is asleep. After several days parked it sleeps;
@@ -148,6 +181,9 @@ Details were cross-checked against the official app (v3.1.6): e.g. climate write
   algorithm (reverse engineered by @zivillian).
 - [phev-remote](https://github.com/phev-remote) by Jamie Nuttall — the original open implementation.
 - Weather: [MET Norway](https://api.met.no/) Locationforecast (CC BY 4.0).
+- Fault-code titles: [AndrOBD](https://github.com/fr3ts0n/AndrOBD) (GPL-3.0); Outlander signal definitions:
+  [OBDb](https://github.com/OBDb) (CC BY-SA 4.0); drive-battery values: owners on myoutlanderphev.com. Tips research
+  sources are listed with each tip. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 Not affiliated with or endorsed by Mitsubishi Motors. Use at your own risk.
 

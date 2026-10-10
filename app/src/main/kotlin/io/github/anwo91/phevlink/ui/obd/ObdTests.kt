@@ -145,8 +145,10 @@ fun TestRunnerScreen(vm: ObdViewModel, state: TestUiState, modifier: Modifier, o
                     Text(LiveTestText.text(state.msg, lang), style = MaterialTheme.typography.bodyLarge)
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Button(onClick = { vm.answerTest(true) }) { Text(LiveTestText.text(state.positive, lang)) }
-                    state.negative?.let { neg -> FilledTonalButton(onClick = { vm.answerTest(false) }) { Text(LiveTestText.text(neg, lang)) } }
+                    // The step makes a quick double tap answer only this prompt, not the next one as well.
+                    val step = state.step
+                    Button(onClick = { vm.answerTest(true, step) }) { Text(LiveTestText.text(state.positive, lang)) }
+                    state.negative?.let { neg -> FilledTonalButton(onClick = { vm.answerTest(false, step) }) { Text(LiveTestText.text(neg, lang)) } }
                     TextButton(onClick = { vm.cancelTest() }) { Text(stringResource(R.string.common_cancel)) }
                 }
             }

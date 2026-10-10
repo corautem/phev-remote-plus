@@ -1,0 +1,369 @@
+# PHEV Link live tests - Deutsch. Translates the keys of strings_en.txt (see that file for the format).
+# Original text for this project (GPL-3.0-or-later). Keep the {slots} exactly as in English.
+
+# ---- buttons and common
+btn.continue	Weiter
+btn.skip	Überspringen
+btn.done	Fertig
+btn.yes	Ja
+btn.no	Nein
+btn.start_road	Fahrteil starten
+test.cancelled	Test abgebrochen.
+test.error	Der Test wurde wegen eines unerwarteten Fehlers beendet: {error}
+wait.car	Warte auf Antwort vom Auto. Schalte die Zündung ein (ON), falls sie aus ist.
+abort.car_silent	Das Auto antwortet nicht mehr, deshalb konnte der Test nicht abgeschlossen werden. Prüfe, ob die Zündung eingeschaltet ist (ON) und der Adapter verbunden ist, und starte den Test dann erneut.
+abort.no_voltage	Der Adapter hat keine Spannung gemeldet. Verbinde den Adapter neu und versuch es noch einmal.
+abort.no_bmu	Das Steuergerät der Antriebsbatterie hat nicht geantwortet. Schalte die Zündung ein (ON, nicht READY) und versuch es noch einmal. Manche billigen Adapter können die Batteriedaten gar nicht lesen.
+abort.no_engine_data	Das Motorsteuergerät hat die Daten, die dieser Test braucht, nicht gesendet. Prüfe, ob die Zündung eingeschaltet ist (ON), und versuch es noch einmal.
+next.check_connection	Prüfe die Verbindung zum Adapter und ob die Zündung eingeschaltet ist (ON), und starte den Test dann erneut.
+val.on	Ein
+val.off	Aus
+val.n_of_m	{n} von {m} abgeschlossen
+eng.start	Bring jetzt den Motor zum Laufen. Nur im Freien. Auto in READY, Wählhebel auf P, Feststellbremse angezogen. Halte die CHARGE-Taste etwa 10 Sekunden gedrückt, bis der Motor anspringt, und tippe dann auf Weiter.
+eng.waiting	Warte, bis der Motor anspringt…
+eng.no_start	Der Motor ist nicht angesprungen. Halte die CHARGE-Taste etwa 10 Sekunden gedrückt, während das Auto in READY und der Wählhebel auf P ist, und starte den Test dann erneut. Ist die Antriebsbatterie fast voll, verweigert der Motor unter Umständen den Start zum Laden.
+
+# ---- test list
+test.dtc-full-scan.title	Fehlerspeicher aller Steuergeräte
+test.dtc-full-scan.desc	Liest gespeicherte und ausstehende Fehlercodes aus Motor, Antriebsbatterie, Ladegerät, Elektromotoren und weiteren Steuergeräten und erkennt typische Muster wie eine schwache 12-V-Batterie.
+test.twelve-volt-health.title	12-V-Batterie
+test.twelve-volt-health.desc	Misst die kleine 12-V-Batterie im Ruhezustand und bei eingeschalteter Zündung. Eine schwache 12-V-Batterie ist bei diesem Auto die häufigste Ursache für seltsame Warnungen.
+test.dcdc-output.title	12-V-Laden in READY (DC/DC-Wandler)
+test.dcdc-output.desc	Prüft, ob das Auto in READY seine 12-V-Batterie aus der Antriebsbatterie lädt, mit und ohne elektrische Verbraucher.
+test.hv-capacity.title	Kapazität der Antriebsbatterie (Zustand)
+test.hv-capacity.desc	Liest die Kapazitätsschätzung des Batteriesteuergeräts und vergleicht sie mit Mitsubishis Wert für eine neue Batterie. Speichert einen Verlauf, damit du die Entwicklung verfolgen kannst.
+test.hv-cell-balance.title	Zellbalance der Antriebsbatterie
+test.hv-cell-balance.desc	Vergleicht die höchste und die niedrigste der 80 Zellspannungen im Ruhezustand. Ein großer Unterschied deutet auf eine schwache Zelle oder ein schwaches Modul hin.
+test.inspection-readiness.title	Bereit für die HU/AU?
+test.inspection-readiness.desc	Prüft die Motorkontrollleuchte, abgasrelevante Fehlercodes und ob die Abgas-Selbsttests des Autos abgeschlossen sind.
+test.charging-session.title	Ladeprüfung
+test.charging-session.desc	Liest die Batterie vor und nach mindestens 20 Minuten Laden, um zu bestätigen, dass wirklich Ladung ankommt.
+test.engine-warmup.title	Warmlauf des Motors und Thermostat
+test.engine-warmup.desc	Lässt den Motor laufen und beobachtet die Kühlmitteltemperatur, um ein zu früh öffnendes Thermostat, Überhitzung oder einen Motor zu erkennen, der von selbst ausgeht.
+test.fuel-trims.title	Gemischkorrektur (Fuel Trims)
+test.fuel-trims.desc	Beobachtet, wie stark der Motor das Gemisch korrigiert. Das zeigt Falschluft, eine schwache Kraftstoffversorgung oder einen defekten Luftmassenmesser.
+test.wheel-speed-match.title	Reifen und Raddrehzahlen
+test.wheel-speed-match.desc	Vergleicht bei gleichmäßiger Fahrt die Raddrehzahlen vorne und hinten. Unterschiedliche Reifengrößen oder ungleicher Verschleiß vorne/hinten können Warnungen des EV-Systems auslösen.
+
+# ---- 12 V battery
+t12.pre	Bevor du anfängst: Das Auto sollte mindestens 2 Stunden ausgeschaltet gewesen sein (am besten über Nacht), nicht laden, die Türen geschlossen und nichts in den 12-V-Steckdosen. Lass das Auto ausgeschaltet und tippe auf Weiter.
+t12.measure_rest	Messe die 12-V-Batterie im Ruhezustand…
+t12.switch_on	Drück jetzt zweimal auf den Startknopf, OHNE auf das Bremspedal zu treten, sodass die Zündung eingeschaltet ist (ON), das Auto aber nicht in READY ist. Tippe dann auf Weiter.
+t12.settle	Warte, bis sich die Spannung stabilisiert…
+t12.measure_on	Messe bei eingeschalteter Zündung…
+t12.rest_surface	Die Batterie zeigt im Ruhezustand {v} V. Sie hat also noch Oberflächenladung, oder etwas lädt sie. Teste noch einmal, wenn das Auto 2 Stunden ausgeschaltet war.
+t12.rest_good	Im Ruhezustand zeigt die 12-V-Batterie {v} V: gut geladen.
+t12.rest_half	Im Ruhezustand zeigt die 12-V-Batterie {v} V: nur etwa halb geladen.
+t12.rest_low	Im Ruhezustand zeigt die 12-V-Batterie {v} V: niedrig.
+t12.rest_very_low	Im Ruhezustand zeigt die 12-V-Batterie {v} V: sehr niedrig. Lade sie jetzt; das Auto könnte bald nicht mehr starten.
+t12.borderline	Der Wert liegt nahe an einer Grenze. Adapter können um 0,1–0,2 V danebenliegen, betrachte es also als Grenzfall.
+t12.on_ready	Bei eingeschalteter Zündung stieg die Spannung auf {v} V, das Auto scheint also in READY zu sein und die Batterie zu laden. Der Teil mit Belastung wird übersprungen; führe den Test erneut aus, ohne auf das Bremspedal zu treten.
+t12.on_good	Bei eingeschalteter Zündung hält die Batterie {v} V: gut.
+t12.on_sag	Bei eingeschalteter Zündung sinkt die Spannung auf {v} V. Die Batterie tut sich schon mit kleiner Last schwer.
+t12.on_weak	Bei eingeschalteter Zündung fällt die Spannung auf {v} V. Die Batterie kann ihre Spannung nicht halten; sie ist wahrscheinlich verschlissen oder tiefentladen.
+t12.ecu_diff	Ein Steuergerät meldet {ecu} V, während an der OBD-Buchse {v} V anliegen. Prüfe die Batteriepole und Masseverbindungen.
+t12.head.pass	Die 12-V-Batterie ist in gutem Zustand.
+t12.head.info	Die 12-V-Batterie sieht gut aus.
+t12.head.warn	Die 12-V-Batterie ist schwach.
+t12.head.fail	Die 12-V-Batterie ist entladen oder verschlissen.
+t12.head.inconclusive	Die 12-V-Batterie ließ sich diesmal nicht beurteilen.
+next.12v_ready_charge	Lass das Auto 15–30 Minuten in READY, damit die Antriebsbatterie die 12-V-Batterie nachlädt, lass es dann 2 Stunden ruhen und teste erneut.
+next.12v_charger	Ist sie am nächsten Morgen immer noch niedrig, lade sie mit einem AGM-geeigneten Ladegerät und teste erneut.
+next.12v_drain	Zieh OBD-Adapter, Dashcams und Ladegeräte ab, wenn das Auto mehrere Tage steht; sie können die Batterie entladen.
+next.12v_replace	Sinkt die Spannung weiter, ersetze die Batterie durch den richtigen AGM-Typ mit Entgasung für den Einbau im Innenraum (Originalgröße S46B24L, etwa 45 Ah).
+next.run_dcdc	Führe als Nächstes den Test „12-V-Laden in READY“ aus, um zu prüfen, ob das Auto die Batterie lädt.
+
+# ---- DC/DC
+dc.pre	Schalte das Auto in READY (Bremspedal + Startknopf), Wählhebel auf P, Klimaanlage aus. Tippe dann auf Weiter.
+dc.settle	Warte, bis sich die Ladespannung stabilisiert…
+dc.measure	Messe die 12-V-Versorgung in READY…
+dc.too_high	Die 12-V-Versorgung liegt bei {v} V: zu hoch. Das kann Batterie und Elektronik schädigen.
+dc.high	Die 12-V-Versorgung liegt bei {v} V: eher hoch.
+dc.good	Die 12-V-Versorgung liegt in READY bei {v} V: Das Auto lädt seine 12-V-Batterie.
+dc.low	Die 12-V-Versorgung liegt in READY nur bei {v} V. Der Wandler ist eventuell in einem Sparmodus; fahr 15 Minuten und teste erneut.
+dc.not_charging	Die 12-V-Versorgung liegt in READY nur bei {v} V: Die 12-V-Batterie wird nicht geladen.
+dc.load	Schalte jetzt Abblendlicht, Gebläse auf höchster Stufe und Heckscheibenheizung ein. Tippe auf Weiter, wenn alles an ist, oder auf Überspringen.
+dc.settle_load	Warte auf die Spannung unter Last…
+dc.measure_load	Messe unter Last…
+dc.load_good	Unter Last hält die Versorgung {v} V: gut.
+dc.load_low	Unter Last fällt die Versorgung auf {v} V: etwas niedrig.
+dc.load_fail	Unter Last fällt die Versorgung auf {v} V: Der Wandler schafft die Last nicht.
+dc.load_off	Du kannst Licht, Gebläse und Heckscheibenheizung wieder ausschalten. Tippe auf Weiter.
+dc.below_baseline	Die Versorgung ({v} V) liegt mehr als 0,5 V unter dem, was dieses Auto früher gezeigt hat ({base} V).
+dc.head.pass	Das Auto lädt seine 12-V-Batterie normal.
+dc.head.info	Die 12-V-Versorgung sieht gut aus.
+dc.head.warn	Die 12-V-Versorgung ist nicht ganz in Ordnung.
+dc.head.fail	Die 12-V-Batterie wird in READY nicht richtig geladen.
+dc.head.inconclusive	Die 12-V-Versorgung ließ sich diesmal nicht beurteilen.
+next.drive_retest	Fahr 15 Minuten und führe den Test erneut aus.
+next.run_scan	Führe den Test „Fehlerspeicher aller Steuergeräte“ aus.
+next.workshop_dcdc	Schlägt der Test erneut fehl, lass den DC/DC-Wandler und seine Sicherung in einer Werkstatt prüfen.
+
+# ---- capacity
+cap.pre	Schalte die Zündung ein (ON – READY geht auch). Tippe auf Weiter.
+cap.measure	Lese die Antriebsbatterie…
+cap.good	Kapazität {cap} Ah, etwa {soh} % der {ref} Ah einer neuen Batterie: gut für das Alter.
+cap.aged	Kapazität {cap} Ah, etwa {soh} % der {ref} Ah einer neuen Batterie. Das ist bei vielen Autos von 2014–2017 normale Alterung; rechne mit deutlich weniger elektrischer Reichweite als im Neuzustand.
+cap.low	Kapazität {cap} Ah, etwa {soh} % des Neuwerts. Das liegt unter Mitsubishis alter Garantiegrenze von 70 % ({limit} Ah). Die elektrische Reichweite ist stark verringert.
+cap.year_unknown	Das Modelljahr ist unbekannt, daher werden 38 Ah verwendet (der Wert für Autos vor Modelljahr 2017). Bezogen auf 40 Ah wären es {soh40} %.
+cap.year	Modelljahr {year}: verglichen mit Mitsubishis Wert von {ref} Ah für eine neue Batterie.
+cap.estimate_stale	Die gespeicherte Ladung entspricht {calc} %, das Batteriesteuergerät zeigt aber {soc} %. Seine Schätzung ist eventuell veraltet; eine Vollladung nach langer Ruhezeit oder eine Kapazitätsmessung beim Händler kann sie korrigieren.
+cap.quick_change	Die Kapazität hat sich schnell geändert ({before} Ah → {now} Ah). Wiederhole den Test nach einer Vollladung, bevor du Schlüsse ziehst.
+cap.trend	Erste Messung in dieser App: {before} Ah, vor {days} Tagen.
+cap.context	Zum Vergleich: Besitzer in Neuseeland berichteten bei Autos von 2014 nach sechs Jahren von etwa 63–73 %, und deutsche Besitzer sehen oft etwa 32–34 Ah. Der Wert ist die eigene Schätzung des Batteriesteuergeräts, keine Labormessung.
+cap.head.pass	Die Antriebsbatterie ist in gutem Zustand.
+cap.head.info	Kapazität der Antriebsbatterie ausgelesen.
+cap.head.warn	Die Antriebsbatterie ist merklich gealtert.
+cap.head.fail	Die Kapazität der Antriebsbatterie ist niedrig.
+cap.head.inconclusive	Die Kapazität ließ sich diesmal nicht beurteilen.
+next.cap_track	Führe diesen Test etwa einmal im Monat aus, um die Entwicklung zu verfolgen.
+next.cap_full_charges	Lade ein paar Mal voll an Wechselstrom (AC), ohne vorzeitig abzubrechen; die Schätzung wird bei Vollladungen aktualisiert.
+next.cap_dealer	Eine Mitsubishi-Werkstatt kann die Kapazität richtig messen (Kapazitätsmessung der Antriebsbatterie) und die Zellen prüfen.
+next.cap_warranty	Prüfe die Garantie der Antriebsbatterie ab dem Datum der Erstzulassung; die meisten Autos von 2014–2017 sind inzwischen älter als 8 Jahre.
+
+# ---- cell balance
+cell.pre	Bestes Ergebnis: Das Auto hat mindestens 30 Minuten geparkt und lädt nicht. Schalte die Zündung ein (ON, nicht READY) und die Klimaanlage aus. Tippe auf Weiter.
+cell.settle	Warte, bis sich die Batterie beruhigt…
+cell.measure	Lese die Zellspannungen…
+cell.decode_unreliable	Die Zellwerte dieses Autos ergeben zusammen nicht die Batteriespannung, deshalb sind sie nicht verlässlich. Die Rohdaten werden auf der Batterieseite angezeigt.
+cell.good	Der Unterschied zwischen höchster und niedrigster Zelle beträgt {mv} mV: gut ausgeglichen.
+cell.slight	Die Zellen unterscheiden sich um {mv} mV: leichtes Ungleichgewicht. Lass das Auto ein paar Mal an Wechselstrom (AC) voll laden und teste dann erneut.
+cell.clear	Die Zellen unterscheiden sich um {mv} mV: deutliches Ungleichgewicht. Eine Zelle oder ein Modul ist möglicherweise schwächer.
+cell.large	Die Zellen unterscheiden sich um {mv} mV: großes Ungleichgewicht. Eine Zelle oder ein Modul fällt wahrscheinlich gerade aus.
+cell.low_cell	Die niedrigste Zelle hat nur {v} V, obwohl die Batterie nicht leer ist: Diese Zelle ist ungewöhnlich niedrig.
+cell.lowest	Niedrigste Zelle: Nummer {cell} (vermutlich Modul {module}) mit {v} V.
+cell.soc_range	Die Batterie steht bei {soc} %. Unter 30 % oder über 95 % unterscheiden sich die Zellen naturgemäß stärker, daher ist das Ergebnis weniger verlässlich.
+cell.repeat_lowest	Zelle {cell} war in {times} der letzten Tests die niedrigste.
+cell.head.pass	Die Zellen der Antriebsbatterie sind gut ausgeglichen.
+cell.head.info	Zellspannungen ausgelesen.
+cell.head.warn	Die Zellen der Antriebsbatterie sind etwas unausgeglichen.
+cell.head.fail	Eine Zelle oder ein Modul der Antriebsbatterie wirkt schwach.
+cell.head.inconclusive	Die Zellbalance ließ sich diesmal nicht beurteilen.
+next.cell_full_charges	Lass das Auto ein paar Mal an Wechselstrom (AC) voll laden, ohne die Ladung vorzeitig abzubrechen.
+next.cell_repeat	Wiederhole den Test an ein paar verschiedenen Tagen, um zu sehen, ob dieselbe Zelle die niedrigste bleibt.
+next.cell_workshop	Bleibt das Ungleichgewicht bestehen, bitte eine Mitsubishi-Werkstatt um eine Batterieprüfung (Zellausgleich oder Modultest). Öffne die Antriebsbatterie niemals selbst.
+
+# ---- charging
+chg.pre	Dieser Test dauert etwa 25 Minuten und braucht das Ladekabel. Die Batterie sollte bei höchstens 85 % stehen. Schalte die Zündung ein (ON, nicht READY) und tippe auf Weiter.
+chg.reading	Lese die Antriebsbatterie…
+chg.too_full	Die Batterie steht schon bei {soc} %. Führe den Test aus, wenn sie bei höchstens 85 % steht.
+chg.plug_in	Schalte das Auto jetzt aus und steck das Ladekabel ein. Lass es mindestens 20 Minuten laden. Zieh dann das Kabel ab, schalte die Zündung ein (ON, nicht READY) und tippe auf Fertig.
+chg.too_short	Es wurde nur {min} Minuten geladen. Lade mindestens 20 Minuten für ein verlässliches Ergebnis.
+chg.good	{ah} Ah (+{soc} Prozentpunkte) sind in die Batterie geflossen: Das Laden funktioniert.
+chg.good_soc	Der Ladestand ist um {soc} Prozentpunkte gestiegen: Das Laden funktioniert.
+chg.slow	Nur {ah} Ah (+{soc} Punkte) sind geflossen, weniger als die Hälfte der etwa {expected} Ah, die mit einem 10-A-Kabel zu erwarten sind. Das Laden wurde eventuell unterbrochen oder lief mit verringerter Leistung.
+chg.none	In {min} Minuten ist keine Ladung geflossen. Das Laden hat nicht begonnen oder wurde gestoppt.
+chg.counter_up	Der Ladevorgangszähler des Ladegeräts ist gestiegen.
+chg.counter_same	Der Ladevorgangszähler des Ladegeräts hat sich nicht verändert (seine Bedeutung ist nicht ganz geklärt).
+chg.head.pass	Das Laden funktioniert.
+chg.head.info	Ladeprüfung abgeschlossen.
+chg.head.warn	Das Laden ist langsamer als erwartet.
+chg.head.fail	Das Auto hat nicht geladen.
+chg.head.inconclusive	Das Laden ließ sich diesmal nicht beurteilen.
+next.chg_checklist	Prüfe die üblichen Ursachen: Zündung aus, Ladetimer eingestellt, Kabel ganz eingerastet, Steckdose und ihre Sicherung sowie die 12-V-Batterie.
+next.chg_other_socket	Probiere eine andere Steckdose oder ein anderes Ladegerät. In IT-Netzen, wie sie in Norwegen verbreitet sind, können Erdschlüsse mobile Ladegeräte stoppen.
+next.chg_workshop	Klappt es nirgends, lass das Ladegerät und die Ladebuchse prüfen.
+
+# ---- engine warm-up
+warm.pre	Nur im Freien (Abgase). Wählhebel auf P, Feststellbremse angezogen, Klimaanlage aus. Am besten mit kaltem Motor. Tippe auf Weiter.
+warm.low_fuel	Der Tankinhalt beträgt nur {pct} %. Tanke bald; für diesen Test muss der Motor laufen.
+warm.already_warm	Der Motor ist bereits warm ({t} °C), daher lässt sich das Aufwärmen nicht messen. Wiederhole den Test, wenn der Motor abgekühlt ist (einige Stunden).
+warm.measure	Motor läuft. Beobachte die Kühlmitteltemperatur (bis zu 15 Minuten)…
+warm.overheat	Das Kühlmittel hat {t} °C erreicht: Der Motor überhitzt. Schalte jetzt ab.
+warm.hot	Das Kühlmittel hat {t} °C erreicht: Der Motor läuft heiß. Prüfe den Kühlmittelstand bei kaltem Motor.
+warm.good	Der Motor hat nach {min} Minuten 75 °C erreicht und sich bei {t} °C eingependelt: normaler Warmlauf.
+warm.slow	Der Motor brauchte {min} Minuten bis 75 °C: langsam. Das Thermostat öffnet eventuell zu früh.
+warm.slow_max	Das Kühlmittel hat in {min} Minuten nur {t} °C erreicht: langsamer Warmlauf. Das Thermostat öffnet eventuell zu früh.
+warm.cold	Nach 15 Minuten hat das Kühlmittel nur {t} °C: Der Motor wird nicht warm. Das Thermostat hängt wahrscheinlich offen.
+warm.too_short	Der Motor lief nicht lange genug, um den Warmlauf zu beurteilen (höchstens {t} °C).
+warm.drops	Die Temperatur ist um mehr als 5 °C gefallen, während der Motor weiterlief.
+warm.engine_stopped	Der Motor ist während des Tests von selbst ausgegangen.
+warm.uneven_rpm	Die Drehzahl schwankte im Leerlauf um {spread} rpm: unruhiger Lauf.
+warm.head.pass	Der Motor wird normal warm.
+warm.head.info	Warmlauf des Motors geprüft.
+warm.head.warn	Der Warmlauf des Motors ist nicht ganz in Ordnung.
+warm.head.fail	Der Motor hat ein Warmlauf- oder Temperaturproblem.
+warm.head.inconclusive	Der Warmlauf ließ sich diesmal nicht beurteilen.
+next.switch_off_engine	Schalte das Auto mit dem Startknopf aus, um den Motor abzustellen.
+next.coolant_level	Prüfe den Kühlmittelstand bei kaltem Motor.
+next.thermostat	Eine Werkstatt kann das Thermostat prüfen und ersetzen; schlag auch die Codes P0128 und P0125 nach.
+
+# ---- fuel trims
+trim.pre	Der Motor muss laufen und warm sein. Nur im Freien, Wählhebel auf P, Feststellbremse angezogen. Tippe auf Weiter.
+trim.warming	Warte, bis der Motor 75 °C erreicht…
+trim.not_warm	Der Motor ist innerhalb von 10 Minuten nicht warm genug geworden. Führe zuerst den Warmlauf-Test aus.
+trim.measure_a	Messe die Gemischkorrektur im Stand…
+trim.road	Optionaler Fahrteil: Fahr gleichmäßig 70–90 km/h mit laufendem Motor (Save oder Charge verwenden). Tippe auf „Fahrteil starten“, wenn du die Geschwindigkeit erreicht hast, oder auf Überspringen. Behalte die Straße im Blick; die App misst selbstständig.
+trim.measure_b	Messe während der Fahrt…
+trim.road_no_data	Keine brauchbaren Fahrdaten (Motor lief nicht oder Geschwindigkeit zu niedrig).
+trim.open_loop	Die Kurzzeitkorrektur hat sich nicht bewegt, der Motor war also eventuell noch nicht im normalen Regelbetrieb. Das Ergebnis ist weniger verlässlich.
+trim.lean	fettet an (Gemisch zu mager)
+trim.rich	magert ab (Gemisch zu fett)
+trim.good_a	Im Stand: Gesamtkorrektur {total} %: normal.
+trim.high_a	Im Stand: Gesamtkorrektur {total} %, {dir}: mehr als normal.
+trim.bad_a	Im Stand: Gesamtkorrektur {total} %, {dir}: groß. Ein Code P0171/P0172 ist wahrscheinlich bald zu erwarten.
+trim.good_b	Während der Fahrt: Gesamtkorrektur {total} %: normal.
+trim.high_b	Während der Fahrt: Gesamtkorrektur {total} %, {dir}: mehr als normal.
+trim.bad_b	Während der Fahrt: Gesamtkorrektur {total} %, {dir}: groß.
+trim.hint_air_leak	Im Stand mager, während der Fahrt normal: höchstwahrscheinlich Falschluft nach dem Luftmassenmesser (Schläuche, Ansaugdichtung).
+trim.hint_lean_both	Im Stand und während der Fahrt mager: höchstwahrscheinlich eine schwache Kraftstoffversorgung oder ein Luftmassenmesser, der zu wenig misst.
+trim.hint_rich	Gemisch zu fett: möglicherweise ein undichtes Einspritzventil, zu hoher Kraftstoffdruck, ein Luftmassenmesser, der zu viel misst, oder die Tankentlüftung (EVAP).
+trim.head.pass	Das Gemisch ist normal.
+trim.head.info	Gemisch geprüft.
+trim.head.warn	Der Motor korrigiert das Gemisch stärker als normal.
+trim.head.fail	Das Gemisch liegt weit daneben.
+trim.head.inconclusive	Das Gemisch ließ sich diesmal nicht beurteilen.
+next.trim_hoses	Prüfe die Ansaugschläuche und Schellen zwischen Luftfilter und Motor auf Risse und Undichtigkeiten.
+
+# ---- inspection readiness
+insp.pre	Schalte die Zündung ein (ON – der Motor muss nicht laufen). Tippe auf Weiter.
+insp.reading	Lese die Abgas-Selbsttests…
+insp.mil_or_codes	Die Motorkontrollleuchte leuchtet oder abgasrelevante Fehlercodes sind gespeichert ({codes}). Damit würde das Auto bei der HU/AU wahrscheinlich durchfallen; behebe das zuerst.
+insp.pending	Ein Fehler wird beobachtet, ist aber noch nicht bestätigt ({codes}).
+insp.incomplete	{count} der Abgas-Selbsttests des Autos sind noch nicht abgeschlossen.
+insp.monitor_done	{name}: abgeschlossen
+insp.monitor_open	{name}: noch nicht abgeschlossen
+insp.recently_cleared	Die Fehlercodes wurden kürzlich gelöscht, daher sind die Selbsttests eventuell noch nicht abgeschlossen.
+insp.ready	Keine Motorkontrollleuchte, keine Abgascodes, und alle Selbsttests sind abgeschlossen.
+insp.head.pass	Bereit für die Abgasuntersuchung.
+insp.head.info	Abgasstatus ausgelesen.
+insp.head.warn	Noch nicht ganz bereit für die HU/AU.
+insp.head.fail	Damit würde das Auto bei der Abgasuntersuchung wahrscheinlich durchfallen.
+insp.head.inconclusive	Der Abgasstatus konnte nicht gelesen werden.
+next.insp_drive	Fahr ein paar Strecken von 20–30 Minuten mit laufendem Motor (Save oder Charge) und teste dann erneut. Bei einem PHEV, dessen Motor selten läuft, kann das mehrere Tage dauern.
+next.insp_fix_codes	Schlag die Codes nach, behebe die Ursache und teste vor der HU/AU erneut.
+next.insp_no_clear	Lösche in den Wochen vor der HU/AU keine Fehlercodes: Das setzt die Selbsttests zurück.
+mon.misfire	Zündaussetzer
+mon.fuel_system	Kraftstoffsystem
+mon.components	Komponenten
+mon.catalyst	Katalysator
+mon.heated_catalyst	Beheizter Katalysator
+mon.evap	Tankentlüftung (EVAP)
+mon.secondary_air	Sekundärluft
+mon.ac_refrigerant	Klimaanlagen-Kältemittel
+mon.o2_sensor	Lambdasonden
+mon.o2_heater	Lambdasondenheizung
+mon.egr	AGR / variable Ventilsteuerung
+mon.nmhc_catalyst	NMHC-Katalysator
+mon.nox_scr	NOx-Nachbehandlung
+mon.boost_pressure	Ladedruck
+mon.exhaust_sensor	Abgassensor
+mon.pm_filter	Partikelfilter
+
+# ---- full scan
+scan.pre	Schalte die Zündung ein (ON, nicht READY). Das Auslesen dauert etwa eine Minute. Tippe auf Weiter.
+scan.voltage	Prüfe die 12-V-Batterie…
+scan.scanning	Lese Fehlercodes aus allen Steuergeräten…
+scan.low_voltage	Die 12-V-Batterie hat nur {v} V. Eine schwache 12-V-Batterie kann falsche Kommunikationscodes verursachen.
+scan.none	Keine Fehlercodes gefunden ({ecus} Steuergeräte haben geantwortet).
+scan.found	{count} Fehlercode(s) gefunden ({ecus} Steuergeräte haben geantwortet). Tippe auf einen Code, um die Erklärung zu sehen.
+scan.pattern_low_voltage	Diese Codes passen zum typischen Muster einer schwachen 12-V-Batterie. Teste zuerst die 12-V-Batterie, lösche dann die Codes und lies nach einer Fahrt erneut aus.
+scan.p10dc	P10DC ist bei frühen Autos bekannt (der Motor geht kurz nach einem Kaltstart aus). Frag beim Händler nach der Aktion mit neuer Software und Zündkerzen.
+scan.hybrid	Fehler im Hochvoltsystem ({codes}). Lass das von einer Mitsubishi-Werkstatt prüfen; öffne niemals Hochvoltteile.
+scan.emission_mil	Abgasfehler bei leuchtender Motorkontrollleuchte ({codes}).
+scan.emission	Abgasrelevante Codes ({codes}). Die Tests für Gemischkorrektur, Warmlauf und HU/AU-Bereitschaft können helfen, sie einzugrenzen.
+scan.chassis	Fahrwerkscodes ({codes}): Bremsen, Raddrehzahlsensoren oder Lenkung. Prüfe auch Reifengrößen und Reifendruck.
+scan.only_u	Nur Kommunikationscodes: meist die 12-V-Batterie, ein Stecker oder ein Masseproblem.
+scan.pending_only	Nur ausstehende Codes: Das Auto hat einmal etwas bemerkt, es aber nicht bestätigt.
+scan.other_codes	Es sind Codes gespeichert. Öffne jeden einzelnen, um die Erklärung und die Prüfschritte zu sehen.
+scan.some_silent	{count} Steuergerät(e) haben auf das erweiterte Auslesen nicht geantwortet; das ist normal für Steuergeräte, die dieses Auto nicht hat.
+scan.head.pass	Keine Fehlercodes.
+scan.head.info	Fehlerspeicher ausgelesen.
+scan.head.warn	Fehlercodes gefunden: Prüfen lohnt sich.
+scan.head.fail	Ernste Fehlercodes gefunden.
+scan.head.inconclusive	Der Fehlerspeicher konnte nicht vollständig ausgelesen werden.
+next.read_codes	Öffne den Tab Codes für eine verständliche Erklärung jedes Codes und was zu prüfen ist.
+next.run_12v	Führe den 12-V-Batterietest aus.
+next.hv_workshop	Vereinbare wegen des Hochvoltfehlers einen Termin in einer Mitsubishi-Werkstatt; beachte alle Warnungen im Kombiinstrument.
+next.save_before_clear	Speichere die Codes oder mach einen Screenshot, bevor du etwas löschst; das Löschen setzt auch die Abgas-Selbsttests zurück.
+
+# ---- wheel speeds
+wheel.pre	Fahrtest: Fahr auf einer geraden, ebenen Straße gleichmäßig 50–80 km/h (wenn möglich mit Tempomat), ohne zu bremsen oder stark zu beschleunigen. Reifendruck laut Aufkleber am Türrahmen. Tippe auf Weiter und fahr weiter; die App misst selbstständig.
+wheel.wait_speed	Warte auf gleichmäßige 50–80 km/h…
+wheel.no_speed	Die Geschwindigkeit hat innerhalb von 3 Minuten keine gleichmäßigen 50–80 km/h erreicht.
+wheel.measure	Messe die Raddrehzahlen… halte die Geschwindigkeit konstant.
+wheel.axle.good	Die Reifen vorne und hinten rollen gleich schnell (Unterschied {pct} %).
+wheel.axle.small	Die Reifen vorne und hinten unterscheiden sich etwas ({pct} %): Verschleiß oder Luftdruck.
+wheel.axle.large	Die Reifen vorne und hinten unterscheiden sich deutlich ({pct} %). Unterschiedliche Reifen vorne und hinten können Warnungen des EV-Systems auslösen.
+wheel.ratio.good	Das Drehzahlverhältnis von hinterem zu vorderem Elektromotor passt zu deinem Referenzwert (Änderung {pct} %).
+wheel.ratio.small	Das Drehzahlverhältnis von hinterem zu vorderem Elektromotor hat sich seit dem Referenzwert etwas verändert ({pct} %): Verschleiß oder Luftdruck.
+wheel.ratio.large	Das Drehzahlverhältnis von hinterem zu vorderem Elektromotor hat sich seit dem Referenzwert deutlich verändert ({pct} %). Prüfe die Reifen.
+wheel.single	Das {wheel} weicht um {pct} % vom Durchschnitt ab. Prüfe den Luftdruck dieses Reifens.
+wheel.fl	linke Vorderrad
+wheel.fr	rechte Vorderrad
+wheel.rl	linke Hinterrad
+wheel.rr	rechte Hinterrad
+wheel.no_data	Bei diesem Auto ließen sich weder Raddrehzahlen noch Motordrehzahlen lesen, oder die Geschwindigkeit war nicht gleichmäßig genug.
+wheel.same_tyres	Sind alle vier Reifen von gleicher Marke und Größe und gleichmäßig abgefahren? Wenn ja, wird diese Fahrt als Referenz für spätere Vergleiche gespeichert.
+wheel.baseline_saved	Als Referenz gespeichert. Führe den Test später erneut aus (z. B. nach einem Reifenwechsel), um zu vergleichen.
+wheel.no_baseline	Nicht als Referenz gespeichert. Führe den Test erneut aus, wenn alle vier Reifen gleich sind.
+wheel.first_run	Dieses Auto meldet nur Motordrehzahlen, daher lässt sich eine einzelne Fahrt nicht beurteilen; spätere Fahrten werden mit der Referenz verglichen.
+wheel.head.pass	Die Reifen vorne und hinten passen zusammen.
+wheel.head.info	Raddrehzahlen gemessen.
+wheel.head.warn	Die Reifen vorne und hinten unterscheiden sich etwas.
+wheel.head.fail	Die Reifen vorne und hinten unterscheiden sich deutlich.
+wheel.head.inconclusive	Die Raddrehzahlen ließen sich diesmal nicht beurteilen.
+next.tyre_pressures	Stelle alle Reifendrücke laut Aufkleber am Türrahmen ein und teste erneut.
+next.tyre_same	Montiere vier Reifen gleicher Marke und Größe mit ähnlichem Verschleiß; gemischte Reifen können Warnungen des EV-Systems auslösen.
+
+# ---- measurement labels
+m.v12	12-V-Batterie
+m.v_rest	Ruhezustand
+m.v_rest_min	Ruhezustand, Minimum
+m.v_on	Zündung ein
+m.v_on_min	Zündung ein, Minimum
+m.v_ready	In READY
+m.v_ready_min	In READY, Minimum
+m.v_ready_max	In READY, Maximum
+m.v_load	Unter Last
+m.v_baseline	Früherer guter Wert
+m.capacity	Kapazität
+m.reference	Neue Batterie
+m.soh	Zustand
+m.remaining	Gespeicherte Ladung
+m.soc	Ladestand
+m.energy	Gespeicherte Energie (ca.)
+m.pack_v	Batteriespannung
+m.spread	Zellendifferenz
+m.cell_max	Höchste Zelle
+m.cell_min	Niedrigste Zelle
+m.cell_max_no	Höchste Zelle, Nummer
+m.cell_min_no	Niedrigste Zelle, Nummer
+m.avg_cell	Zelle im Durchschnitt
+m.minutes	Ladedauer
+m.soc_before	Ladestand vorher
+m.soc_after	Ladestand nachher
+m.rem_before	Gespeicherte Ladung vorher
+m.rem_after	Gespeicherte Ladung nachher
+m.coolant	Kühlmittel
+m.rpm	Motordrehzahl
+m.coolant_start	Kühlmittel am Anfang
+m.coolant_max	Kühlmittel, Maximum
+m.coolant_end	Kühlmittel am Ende
+m.ambient	Außentemperatur
+m.time_to_75	Zeit bis 75 °C
+m.run_time	Motorlaufzeit
+m.stft	Kurzzeitkorrektur
+m.ltft	Langzeitkorrektur
+m.stft_a	Kurzzeit, im Stand
+m.ltft_a	Langzeit, im Stand
+m.total_a	Gesamt, im Stand
+m.stft_b	Kurzzeit, Fahrt
+m.ltft_b	Langzeit, Fahrt
+m.total_b	Gesamt, Fahrt
+m.mil	Motorkontrollleuchte
+m.monitors	Abgas-Selbsttests
+m.dist_mil	Strecke mit leuchtender Lampe
+m.dist_cleared	Strecke seit Löschen der Codes
+m.warmups	Warmläufe seit Löschen der Codes
+m.time_cleared	Zeit seit Löschen der Codes
+m.codes	Fehlercodes
+m.ecus	Antwortende Steuergeräte
+m.speed	Geschwindigkeit
+m.front_rear_pct	Vorne gegenüber hinten
+m.wheel_fl	Vorne links
+m.wheel_fr	Vorne rechts
+m.wheel_rl	Hinten links
+m.wheel_rr	Hinten rechts
+m.motor_ratio	Motordrehzahl hinten/vorne
+m.ratio_change	Änderung seit Referenz

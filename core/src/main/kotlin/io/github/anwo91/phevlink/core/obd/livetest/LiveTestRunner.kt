@@ -6,6 +6,7 @@ import io.github.anwo91.phevlink.core.obd.ObdValue
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -52,6 +53,7 @@ fun List<Double>.median(): Double? {
  * What a [LiveTest] can do: talk to the user, read the car, measure over time. Implemented by [LiveTestRunner].
  */
 interface TestContext {
+    /** The current client. It changes when the app reconnects the adapter during a test: read it on every use. */
     val client: ObdClient
     val store: TestStore
     /** VIN known for the car (OBD or Wi-Fi), for model-year dependent limits. */
@@ -103,17 +105,41 @@ class LiveTestRunner(
     private val _state = MutableStateFlow<TestUiState?>(null)
     val state: StateFlow<TestUiState?> = _state.asStateFlow()
 
+    /** The open prompt: its [step] (see [TestUiState.Prompt.step]) and the answer it waits for. */
+    private class PendingAnswer(val step: Int, val deferred: CompletableDeferred<Boolean>)
+
     @Volatile private var job: Job? = null
-    @Volatile private var answer: CompletableDeferred<Boolean>? = null
+    @Volatile private var answer: PendingAnswer? = null
 
     val running: Boolean get() = job?.isActive == true
 
-    /** Starts [test] (cancelling any running one). [onFinished] is called with the result (also when cancelled). */
-    fun start(test: LiveTest, client: ObdClient, store: TestStore, vin: String?, onFinished: (TestResult) -> Unit = {}) {
+    /**
+     * Starts [test] (cancelling any running one). [onFinished] is called with the result (not when cancelled; the
+     * CANCELLED result is still published in [state]).
+     *
+     * [current] is asked for the client every time the test uses it, so a test keeps working when the app
+     * reconnects the adapter meanwhile (a reconnect creates a new [ObdClient]; the old one stays dead). While it
+     * returns null (between connections) the last client is used: its reads then fail softly and the test aborts or
+     * waits as usual. Default: always [client].
+     */
+    fun start(
+        test: LiveTest,
+        client: ObdClient,
+        store: TestStore,
+        vin: String?,
+        current: () -> ObdClient? = { client },
+        onFinished: (TestResult) -> Unit = {},
+    ) {
         job?.cancel()
         val started = clock()
-        job = scope.launch {
-            val ctx = Ctx(test.id, client, store, vin)
+        // LAZY so that [job] already points at the new coroutine when its body runs: on a multi-threaded scope the
+        // body could otherwise start before the assignment, and a cancelled predecessor could still publish its
+        // CANCELLED result (or clear [answer]) over the new test — leaving the UI on a stale result whose "Done"
+        // does nothing because a test is running.
+        val newJob = scope.launch(start = CoroutineStart.LAZY) {
+            val me = coroutineContext[Job]
+            val isCurrent = { job === me }
+            val ctx = Ctx(test.id, client, current, store, vin, isCurrent)
             log?.link("Live test ${test.id}: started")
             val result = try {
                 test.run(ctx)
@@ -127,8 +153,8 @@ class LiveTestRunner(
                     test.id, Verdict.CANCELLED, Msg("test.cancelled"), emptyList(), emptyList(), emptyList(),
                     test.relatedTips, startedAtMs = started, finishedAtMs = clock(),
                 )
-                _state.value = TestUiState.Finished(test.id, r)
-                log?.link("Live test ${test.id}: cancelled")
+                if (isCurrent()) _state.value = TestUiState.Finished(test.id, r)
+                log?.link("Live test ${test.id}: cancelled" + if (isCurrent()) "" else " (replaced by another test)")
                 throw e
             } catch (e: Exception) {
                 log?.error("Live test ${test.id} crashed: $e")
@@ -140,14 +166,21 @@ class LiveTestRunner(
             }
             store.put("last.${test.id}", "${result.verdict.name}|${result.finishedAtMs}")
             log?.link("Live test ${test.id}: ${result.verdict} (${result.headline.key})")
-            _state.value = TestUiState.Finished(test.id, result)
+            if (isCurrent()) _state.value = TestUiState.Finished(test.id, result)
             onFinished(result)
         }
+        job = newJob
+        newJob.start()
     }
 
-    /** Answers the current [TestUiState.Prompt]. */
-    fun answer(positive: Boolean) {
-        answer?.complete(positive)
+    /**
+     * Answers the current [TestUiState.Prompt]. With [step], only the prompt of that step is answered, so a quick
+     * second tap meant for an earlier prompt cannot also confirm the next instruction (e.g. "start the engine").
+     */
+    fun answer(positive: Boolean, step: Int? = null) {
+        val p = answer ?: return
+        if (step != null && step != p.step) return
+        p.deferred.complete(positive)
     }
 
     /** Cancels the running test (the state becomes a CANCELLED result). */
@@ -171,28 +204,50 @@ class LiveTestRunner(
 
     private inner class Ctx(
         private val testId: String,
-        override val client: ObdClient,
+        first: ObdClient,
+        private val current: () -> ObdClient?,
         override val store: TestStore,
         override val vin: String?,
+        /** False once another test replaced this one: it must not touch [state] or [answer] any more. */
+        private val isCurrent: () -> Boolean,
     ) : TestContext {
         private var step = 0
+        @Volatile private var last: ObdClient = first
+
+        /** The app's current client (see [start]); the last known one while there is none. */
+        override val client: ObdClient
+            get() {
+                val c = try {
+                    current()
+                } catch (e: Exception) {
+                    null
+                }
+                if (c != null && c !== last) {
+                    last = c
+                    log?.link("Live test $testId: continuing on the new OBD connection")
+                }
+                return last
+            }
 
         override fun now(): Long = clock()
 
         override suspend fun prompt(msg: Msg, positive: Msg, negative: Msg?): Boolean {
             step++
-            val d = CompletableDeferred<Boolean>()
-            answer = d
-            _state.value = TestUiState.Prompt(testId, step, msg, positive, negative)
+            val p = PendingAnswer(step, CompletableDeferred())
+            if (isCurrent()) {
+                answer = p
+                _state.value = TestUiState.Prompt(testId, step, msg, positive, negative)
+            }
             return try {
-                d.await()
+                p.deferred.await()
             } finally {
-                answer = null
+                // Only clear our own prompt: a newer test may already have opened its own.
+                if (answer === p) answer = null
             }
         }
 
         override fun working(msg: Msg, progress: Float?, secondsLeft: Int?, live: List<Measurement>) {
-            _state.value = TestUiState.Working(testId, step, msg, progress, secondsLeft, live)
+            if (isCurrent()) _state.value = TestUiState.Working(testId, step, msg, progress, secondsLeft, live)
         }
 
         private suspend fun sleep(ms: Long) {
@@ -261,6 +316,7 @@ class LiveTestRunner(
     }
 
     companion object {
-        const val CAR_SILENT_LIMIT_MS = 10_000L
+        /** How long a measurement waits for the car (covers an automatic adapter reconnect: backoff + setup). */
+        const val CAR_SILENT_LIMIT_MS = 45_000L
     }
 }

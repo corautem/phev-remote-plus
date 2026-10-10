@@ -1,6 +1,9 @@
 package io.github.anwo91.phevlink.ui.obd
 
 import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
@@ -48,6 +51,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.obd.ObdDeviceSpec
 import io.github.anwo91.phevlink.obd.ObdDevices
@@ -65,9 +69,12 @@ fun DevicePicker(vm: ObdViewModel, onDismiss: () -> Unit, onPicked: (ObdDeviceSp
     val recent by vm.recentDevices.collectAsState()
     var permissionTick by remember { mutableStateOf(0) }
     val hasPerm = remember(permissionTick) { ObdDevices.hasPermissions(ctx) }
+    // Listing paired devices only needs BLUETOOTH_CONNECT (Android 12+); on Android 10–11 hasPerm means location
+    // (needed for the BLE scan only), which used to hide the paired adapters from users who declined it.
+    val canConnect = remember(permissionTick) { ObdDevices.hasConnectPermission(ctx) }
     val btOn = remember(permissionTick) { ObdDevices.isBluetoothOn(ctx) }
     val hasBt = remember { ObdDevices.hasBluetooth(ctx) }
-    val bonded = remember(permissionTick) { if (hasPerm && btOn) ObdDevices.bondedDevices(ctx) else emptyList() }
+    val bonded = remember(permissionTick) { if (canConnect && btOn) ObdDevices.bondedDevices(ctx) else emptyList() }
     val found = remember { mutableStateListOf<ObdDeviceSpec>() }
     var scanning by remember { mutableStateOf(false) }
     var scanJob by remember { mutableStateOf<Job?>(null) }
@@ -89,6 +96,12 @@ fun DevicePicker(vm: ObdViewModel, onDismiss: () -> Unit, onPicked: (ObdDeviceSp
     }
 
     DisposableEffect(Unit) { onDispose { scanJob?.cancel() } }
+    // Back from the app's system settings (permission granted there) or from switching Bluetooth on elsewhere:
+    // re-check, otherwise the dialog keeps showing the old state until it is reopened.
+    LifecycleResumeEffect(Unit) {
+        permissionTick++
+        onPauseOrDispose { }
+    }
     LaunchedEffect(Unit) {
         if (hasBt && !hasPerm) permLauncher.launch(ObdDevices.requiredPermissions())
     }
@@ -104,8 +117,22 @@ fun DevicePicker(vm: ObdViewModel, onDismiss: () -> Unit, onPicked: (ObdDeviceSp
                     Text(stringResource(R.string.obd_err_no_bluetooth), color = MaterialTheme.colorScheme.error)
                 } else if (!hasPerm) {
                     Text(stringResource(R.string.obd_pick_need_permission), style = MaterialTheme.typography.bodyMedium)
-                    FilledTonalButton(onClick = { permLauncher.launch(ObdDevices.requiredPermissions()) }) {
-                        Text(stringResource(R.string.obd_pick_allow))
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        FilledTonalButton(onClick = { permLauncher.launch(ObdDevices.requiredPermissions()) }) {
+                            Text(stringResource(R.string.obd_pick_allow))
+                        }
+                        // After "Don't allow" twice Android no longer shows the request, so "Allow" does nothing:
+                        // the app's system settings are then the only way to grant it.
+                        TextButton(onClick = {
+                            try {
+                                ctx.startActivity(
+                                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", ctx.packageName, null))
+                                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                                )
+                            } catch (e: ActivityNotFoundException) {
+                                vm.log.warn("OBD: no app settings screen to open: ${e.message}")
+                            }
+                        }) { Text(stringResource(R.string.sched_open_settings)) }
                     }
                 } else if (!btOn) {
                     Text(stringResource(R.string.obd_err_bluetooth_off), style = MaterialTheme.typography.bodyMedium)
@@ -129,7 +156,7 @@ fun DevicePicker(vm: ObdViewModel, onDismiss: () -> Unit, onPicked: (ObdDeviceSp
                 if (bonded.isNotEmpty()) {
                     SectionLabel(stringResource(R.string.obd_pick_paired))
                     bonded.filter { b -> recent.none { it.sameDevice(b) } }.forEach { d -> DeviceRow(d, onClick = { pick(d) }) }
-                } else if (hasPerm && btOn) {
+                } else if (canConnect && btOn) {
                     Text(stringResource(R.string.obd_pick_none_paired), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
 

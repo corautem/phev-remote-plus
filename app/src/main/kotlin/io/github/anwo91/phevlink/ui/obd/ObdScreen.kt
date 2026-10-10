@@ -53,6 +53,7 @@ import io.github.anwo91.phevlink.core.obd.ObdPhase
 import io.github.anwo91.phevlink.core.obd.ObdState
 import io.github.anwo91.phevlink.core.obd.ObdValue
 import io.github.anwo91.phevlink.core.obd.livetest.LiveTestText
+import io.github.anwo91.phevlink.core.obd.livetest.TestUiState
 import io.github.anwo91.phevlink.ui.common.LabeledValue
 import io.github.anwo91.phevlink.ui.common.Pill
 import io.github.anwo91.phevlink.ui.common.SectionCard
@@ -85,23 +86,29 @@ fun ObdScreen(vm: ObdViewModel, modifier: Modifier, onOpenTip: (String) -> Unit)
 
     val active = testState
     if (active != null) {
-        TestRunnerScreen(vm, active, modifier, onOpenTip)
-        return
-    }
-
-    Column(modifier.fillMaxSize()) {
-        ConnectionCard(vm, s, onPick = { picker = true })
-        ScrollableTabRow(selectedTabIndex = tab, edgePadding = 8.dp) {
-            ObdTab.entries.forEachIndexed { i, t ->
-                Tab(selected = tab == i, onClick = { tab = i }, text = { Text(stringResource(t.label)) })
-            }
+        Column(modifier.fillMaxSize()) {
+            // The runner replaces the whole tab, so without this a dropped adapter (e.g. the phone was out of range
+            // during the 25-minute charging test) could only be reconnected by cancelling the test. The runner
+            // follows the new connection (ObdViewModel.startTest).
+            val linkUp = s.phase == ObdPhase.READY || s.phase == ObdPhase.POLLING
+            if (active !is TestUiState.Finished && !linkUp) ConnectionCard(vm, s, onPick = { picker = true })
+            TestRunnerScreen(vm, active, Modifier.weight(1f), onOpenTip)
         }
-        when (ObdTab.entries[tab]) {
-            ObdTab.OVERVIEW -> OverviewTab(vm, s, onOpenCodes = { tab = ObdTab.CODES.ordinal }, onOpenTests = { tab = ObdTab.TESTS.ordinal })
-            ObdTab.LIVE -> LiveTab(s)
-            ObdTab.CODES -> CodesTab(vm, s, onOpenTip)
-            ObdTab.TESTS -> TestsTab(vm, s)
-            ObdTab.TOOLS -> ToolsTab(vm, s)
+    } else {
+        Column(modifier.fillMaxSize()) {
+            ConnectionCard(vm, s, onPick = { picker = true })
+            ScrollableTabRow(selectedTabIndex = tab, edgePadding = 8.dp) {
+                ObdTab.entries.forEachIndexed { i, t ->
+                    Tab(selected = tab == i, onClick = { tab = i }, text = { Text(stringResource(t.label)) })
+                }
+            }
+            when (ObdTab.entries[tab]) {
+                ObdTab.OVERVIEW -> OverviewTab(vm, s, onOpenCodes = { tab = ObdTab.CODES.ordinal }, onOpenTests = { tab = ObdTab.TESTS.ordinal })
+                ObdTab.LIVE -> LiveTab(s)
+                ObdTab.CODES -> CodesTab(vm, s, onOpenTip)
+                ObdTab.TESTS -> TestsTab(vm, s)
+                ObdTab.TOOLS -> ToolsTab(vm, s)
+            }
         }
     }
     if (picker) {

@@ -12,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilledTonalButton
@@ -25,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -48,6 +50,11 @@ fun ToolsTab(vm: ObdViewModel, s: ObdState) {
     val terminal by vm.terminal.collectAsState()
     var cmd by rememberSaveable { mutableStateOf("") }
     var lastFile by rememberSaveable { mutableStateOf<String?>(null) }
+    var confirmCmd by remember { mutableStateOf<String?>(null) }
+    // Anything that isn't a plain read goes through a confirmation first.
+    fun send(c: String) {
+        if (ObdViewModel.isReadOnlyCommand(c)) vm.sendTerminal(c) else confirmCmd = c.trim()
+    }
 
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         // ---- recording
@@ -63,7 +70,7 @@ fun ToolsTab(vm: ObdViewModel, s: ObdState) {
                 Text(stringResource(R.string.obd_rec_hint), style = MaterialTheme.typography.bodySmall)
                 Row(Modifier.padding(top = 6.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Button(onClick = { vm.toggleRecording() }) { Text(stringResource(R.string.obd_rec_start)) }
-                    val f = lastFile
+                    val f = lastFile ?: vm.obd.lastRecording?.absolutePath
                     if (f != null) {
                         OutlinedButton(onClick = {
                             val intent = vm.obd.shareIntent(java.io.File(f))
@@ -132,7 +139,7 @@ fun ToolsTab(vm: ObdViewModel, s: ObdState) {
             Text(stringResource(R.string.obd_terminal_warning), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Row(Modifier.horizontalScroll(rememberScrollState()).padding(vertical = 6.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 listOf("ATI", "ATRV", "ATDPN", "0100", "0101", "03", "07", "0902").forEach { c ->
-                    AssistChip(onClick = { vm.sendTerminal(c) }, label = { Text(c) })
+                    AssistChip(onClick = { send(c) }, label = { Text(c) })
                 }
             }
             Column(
@@ -145,12 +152,21 @@ fun ToolsTab(vm: ObdViewModel, s: ObdState) {
                 value = cmd, onValueChange = { cmd = it.take(60) }, singleLine = true, modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.obd_terminal_command)) },
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, imeAction = ImeAction.Send),
-                keyboardActions = KeyboardActions(onSend = { vm.sendTerminal(cmd); cmd = "" }),
+                keyboardActions = KeyboardActions(onSend = { send(cmd); cmd = "" }),
             )
             Row(Modifier.padding(top = 6.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                FilledTonalButton(onClick = { vm.sendTerminal(cmd); cmd = "" }, enabled = cmd.isNotBlank()) { Text(stringResource(R.string.obd_terminal_send)) }
+                FilledTonalButton(onClick = { send(cmd); cmd = "" }, enabled = cmd.isNotBlank()) { Text(stringResource(R.string.obd_terminal_send)) }
                 TextButton(onClick = { vm.clearTerminal() }) { Text(stringResource(R.string.obd_terminal_clear)) }
             }
         }
+    }
+    confirmCmd?.let { c ->
+        AlertDialog(
+            onDismissRequest = { confirmCmd = null },
+            title = { Text(stringResource(R.string.obd_terminal_confirm_title)) },
+            text = { Text(stringResource(R.string.obd_terminal_confirm_text, c)) },
+            confirmButton = { TextButton(onClick = { confirmCmd = null; vm.sendTerminal(c) }) { Text(stringResource(R.string.obd_terminal_send)) } },
+            dismissButton = { TextButton(onClick = { confirmCmd = null }) { Text(stringResource(R.string.common_cancel)) } },
+        )
     }
 }

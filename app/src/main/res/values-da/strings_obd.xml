@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dansk. Same names as values/strings_obd.xml. -->
+<resources>
+    <!-- Transport names, used in "Connecting to %1$s via %2$s…" -->
+    <string name="obd_kind_classic">Bluetooth</string>
+    <string name="obd_kind_ble">Bluetooth LE</string>
+    <string name="obd_kind_wifi">Wi-Fi</string>
+    <string name="obd_default_device">OBD-adapter</string>
+
+    <!-- Connection progress (ObdState.message) -->
+    <string name="obd_connecting">Opretter forbindelse til %1$s via %2$s…</string>
+    <string name="obd_retrying">%1$s Prøver igen (forsøg %2$d af %3$d)…</string>
+    <string name="obd_reconnecting">Forbindelsen blev afbrudt – forbinder igen om %1$d s (forsøg %2$d af %3$d)…</string>
+    <string name="obd_gave_up">%1$s Genforbindelsen mislykkedes %2$d gange. Tryk på Forbind igen for at prøve igen.</string>
+    <string name="obd_unstable">Forbindelsen bliver ved med at falde ud. Kontrollér, at adapteren sidder godt fast i OBD-stikket og har strøm, og forbind så igen.</string>
+    <string name="obd_disconnected">Afbrudt.</string>
+    <string name="obd_not_connected">Ikke forbundet til en OBD-adapter.</string>
+    <string name="obd_bt_turned_off">Bluetooth blev slået fra, så OBD-forbindelsen blev lukket.</string>
+
+    <!-- Connection errors (ObdState.message) -->
+    <string name="obd_err_no_bluetooth">Denne telefon har ikke Bluetooth.</string>
+    <string name="obd_err_bluetooth_off">Bluetooth er slået fra. Slå det til, og prøv igen.</string>
+    <string name="obd_err_permission">Bluetooth-tilladelse mangler: tillad »Enheder i nærheden« for denne app, og prøv igen.</string>
+    <string name="obd_err_bad_address">Adapteradressen »%1$s« er ugyldig.</string>
+    <string name="obd_err_unreachable">Kunne ikke oprette forbindelse til »%1$s«. Kontrollér, at adapteren sidder i og har strøm (lampen lyser), at den er inden for rækkevidde, og at ingen anden telefon eller app er forbundet til den (den tager kun imod én forbindelse). Det hjælper ofte at tage den ud i et par sekunder.</string>
+    <string name="obd_err_no_uart">»%1$s« tilbyder ingen kendt OBD-datatjeneste via Bluetooth LE. Det er måske ikke en OBD-adapter, eller den skal i stedet forbindes med almindelig Bluetooth (Classic).</string>
+    <string name="obd_err_wifi_unreachable">Kan ikke nå Wi-Fi-adapteren på %1$s. Forbind telefonen til adapterens Wi-Fi-netværk (ofte »WiFi_OBDII« eller »V-LINK«) i Wi-Fi-indstillingerne, og bliv forbundet, selvom netværket ikke har internet.</string>
+    <string name="obd_err_timeout">Det tog for lang tid at oprette forbindelse til »%1$s«.</string>
+    <string name="obd_err_other">Kunne ikke oprette forbindelse til »%1$s«: %2$s</string>
+
+    <!-- Foreground service notification -->
+    <string name="obd_channel_name">OBD-adapter</string>
+    <string name="obd_channel_description">Vises, mens appen er forbundet til en OBD-adapter eller optager OBD-data</string>
+    <string name="obd_notif_connected">OBD forbundet – %1$s</string>
+    <string name="obd_notif_connecting">OBD: forbinder til %1$s…</string>
+    <string name="obd_notif_problem">OBD: problem med %1$s</string>
+    <string name="obd_notif_idle">OBD-adapter</string>
+    <string name="obd_action_disconnect">Afbryd</string>
+    <plurals name="obd_notif_recording">
+        <item quantity="one">Optager · %d række</item>
+        <item quantity="other">Optager · %d rækker</item>
+    </plurals>
+</resources>

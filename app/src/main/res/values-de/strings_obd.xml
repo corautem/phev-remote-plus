@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Deutsch. Same names as values/strings_obd.xml. -->
+<resources>
+    <!-- Transport names, used in "Connecting to %1$s via %2$s…" -->
+    <string name="obd_kind_classic">Bluetooth</string>
+    <string name="obd_kind_ble">Bluetooth LE</string>
+    <string name="obd_kind_wifi">Wi-Fi</string>
+    <string name="obd_default_device">OBD-Adapter</string>
+
+    <!-- Connection progress (ObdState.message) -->
+    <string name="obd_connecting">Verbinde mit %1$s über %2$s…</string>
+    <string name="obd_retrying">%1$s Neuer Versuch (Versuch %2$d von %3$d)…</string>
+    <string name="obd_reconnecting">Verbindung verloren – neuer Verbindungsaufbau in %1$d s (Versuch %2$d von %3$d)…</string>
+    <string name="obd_gave_up">%1$s Neu verbinden ist %2$d-mal fehlgeschlagen. Tippe auf Neu verbinden, um es noch einmal zu versuchen.</string>
+    <string name="obd_unstable">Die Verbindung bricht immer wieder ab. Prüfe, ob der Adapter fest in der OBD-Buchse sitzt und Strom hat, und verbinde dann neu.</string>
+    <string name="obd_disconnected">Getrennt.</string>
+    <string name="obd_not_connected">Nicht mit einem OBD-Adapter verbunden.</string>
+    <string name="obd_bt_turned_off">Bluetooth wurde ausgeschaltet, deshalb wurde die OBD-Verbindung beendet.</string>
+
+    <!-- Connection errors (ObdState.message) -->
+    <string name="obd_err_no_bluetooth">Dieses Handy hat kein Bluetooth.</string>
+    <string name="obd_err_bluetooth_off">Bluetooth ist aus. Schalte es ein und versuch es erneut.</string>
+    <string name="obd_err_permission">Bluetooth-Berechtigung fehlt: Erlaube „Geräte in der Nähe“ für diese App und versuch es erneut.</string>
+    <string name="obd_err_bad_address">Die Adapteradresse „%1$s“ ist ungültig.</string>
+    <string name="obd_err_unreachable">Keine Verbindung zu „%1$s“. Prüfe, ob der Adapter steckt und Strom hat (LED leuchtet), ob er in Reichweite ist und ob kein anderes Handy und keine andere App mit ihm verbunden ist (er nimmt nur eine Verbindung an). Oft hilft es, ihn ein paar Sekunden abzuziehen.</string>
+    <string name="obd_err_no_uart">„%1$s“ bietet keinen bekannten OBD-Datendienst über Bluetooth LE. Vielleicht ist es kein OBD-Adapter, oder er braucht stattdessen eine klassische Bluetooth-Verbindung (Classic).</string>
+    <string name="obd_err_wifi_unreachable">Der Wi-Fi-Adapter unter %1$s ist nicht erreichbar. Verbinde das Handy in den Wi-Fi-Einstellungen mit dem Wi-Fi-Netz des Adapters (oft „WiFi_OBDII“ oder „V-LINK“) und bleib verbunden, auch wenn es kein Internet hat.</string>
+    <string name="obd_err_timeout">Die Verbindung zu „%1$s“ hat zu lange gedauert.</string>
+    <string name="obd_err_other">Keine Verbindung zu „%1$s“: %2$s</string>
+
+    <!-- Foreground service notification -->
+    <string name="obd_channel_name">OBD-Adapter</string>
+    <string name="obd_channel_description">Wird angezeigt, solange die App mit einem OBD-Adapter verbunden ist oder OBD-Daten aufzeichnet</string>
+    <string name="obd_notif_connected">OBD verbunden – %1$s</string>
+    <string name="obd_notif_connecting">OBD: verbinde mit %1$s…</string>
+    <string name="obd_notif_problem">OBD: Problem mit %1$s</string>
+    <string name="obd_notif_idle">OBD-Adapter</string>
+    <string name="obd_action_disconnect">Trennen</string>
+    <plurals name="obd_notif_recording">
+        <item quantity="one">Aufzeichnung · %d Zeile</item>
+        <item quantity="other">Aufzeichnung · %d Zeilen</item>
+    </plurals>
+</resources>

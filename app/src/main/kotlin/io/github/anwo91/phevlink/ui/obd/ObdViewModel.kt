@@ -11,6 +11,7 @@ import io.github.anwo91.phevlink.core.obd.livetest.Verdict
 import io.github.anwo91.phevlink.graph
 import io.github.anwo91.phevlink.obd.ObdDeviceSpec
 import io.github.anwo91.phevlink.util.AppLocale
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -115,10 +116,13 @@ class ObdViewModel(app: Application) : AndroidViewModel(app) {
             toast(getApplication<Application>().getString(R.string.obd_not_connected))
             return
         }
-        tests.start(test, client, testStore, client.state.value.vin ?: wifiVin)
+        // current: a reconnect (automatic, or the user's) creates a new client; the test follows it instead of
+        // talking to the closed one for the rest of a 15–25 minute test.
+        tests.start(test, client, testStore, client.state.value.vin ?: wifiVin, current = { obd.client })
     }
 
-    fun answerTest(positive: Boolean) = tests.answer(positive)
+    /** Answers the prompt of [step]; a late second tap meant for an earlier prompt is ignored. */
+    fun answerTest(positive: Boolean, step: Int? = null) = tests.answer(positive, step)
     fun cancelTest() = tests.cancel()
     fun dismissTest() = tests.dismiss()
     fun lastRun(id: String): Pair<Verdict, Long>? = tests.lastRun(testStore, id)
@@ -133,9 +137,31 @@ class ObdViewModel(app: Application) : AndroidViewModel(app) {
             _busy.value = label
             try {
                 block()
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                // The OBD client is meant to report failures in its results, but anything that still escapes
+                // would crash the app from viewModelScope: log it and show it instead.
+                log.error("OBD: operation failed unexpectedly: ${e.javaClass.simpleName}: ${e.message}")
+                _messages.emit(e.message ?: e.javaClass.simpleName)
             } finally {
                 _busy.value = null
             }
+        }
+    }
+
+    companion object {
+        private val READ_SERVICES = setOf("01", "02", "03", "05", "06", "07", "09", "0A", "18", "19", "1A", "21", "22", "3E")
+
+        /**
+         * True for commands that only read: adapter (AT/ST) commands, which never reach the car, and OBD/KWP/UDS read
+         * services. Everything else (04 clear, 10 session, 11 reset, 14 clear, 27 security, 2E/2F/31/3B/3D writes and
+         * routines…) needs a confirmation in the terminal.
+         */
+        fun isReadOnlyCommand(cmd: String): Boolean {
+            val c = cmd.trim().uppercase().replace(" ", "")
+            if (c.isEmpty() || c.startsWith("AT") || c.startsWith("ST")) return true
+            return c.length >= 2 && c.take(2) in READ_SERVICES
         }
     }
 }

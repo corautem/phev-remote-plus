@@ -167,6 +167,7 @@ next.chg_workshop	If it fails everywhere, have the charger and charging port che
 # ---- engine warm-up
 warm.pre	Outdoors only (exhaust). Selector in P, parking brake on, climate control off. Best with a cold engine. Tap Continue.
 warm.low_fuel	The fuel level is only {pct} %. Add fuel soon; the engine needs fuel to run this test.
+warm.already_warm	The engine is already warm ({t} °C), so the warm-up can't be measured. Repeat the test after the engine has cooled down (a few hours).
 warm.measure	Engine running. Watching the coolant temperature (up to 15 minutes)…
 warm.overheat	The coolant reached {t} °C: the engine is overheating. Switch off now.
 warm.hot	The coolant reached {t} °C: running hot. Check the coolant level when the engine is cold.

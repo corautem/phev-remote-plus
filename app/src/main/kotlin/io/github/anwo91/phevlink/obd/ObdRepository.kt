@@ -237,6 +237,8 @@ class ObdRepository(
                 if (stillCurrent && !failed) {
                     _state.value = ObdState(phase = ObdPhase.DISCONNECTED, message = app.getString(R.string.obd_disconnected), pollCycle = lastCycle)
                 }
+                // A recording without a connection would keep the service alive while writing nothing.
+                if (stillCurrent) stopRecording()?.let { lastRecording = it }
                 log.link("OBD: session with ${spec.name} ended" + if (failed) " (failed)" else "")
             }
         }
@@ -469,7 +471,9 @@ class ObdRepository(
             }
             val c = current
             val columns = if (c != null && _state.value.supportedPids.isNotEmpty()) c.knownValueIds() else emptyList()
-            val logger = ObdCsvLogger(columns)
+            // maxRows = 1: rows are streamed to the file; the logger would otherwise also keep up to 100 000 rows
+            // (one map of ~100 cells per second) in memory — tens of MB per hour, an OOM on a long recording.
+            val logger = ObdCsvLogger(columns, maxRows = 1)
             val startedAt = System.currentTimeMillis()
             recFile = file
             _recording.value = RecordingInfo(file, 0, startedAt)
@@ -502,6 +506,10 @@ class ObdRepository(
     }
 
     /** Stops the recording. Returns its file (complete: every row is flushed), or null when none was running. */
+    /** The most recent finished recording (for "Share"), or null. */
+    @Volatile var lastRecording: File? = null
+        private set
+
     fun stopRecording(): File? {
         val (job, file) = synchronized(recLock) {
             val pair = recJob to recFile
@@ -510,7 +518,10 @@ class ObdRepository(
             pair
         }
         job?.cancel()
-        if (file != null) _recording.value = null
+        if (file != null) {
+            _recording.value = null
+            lastRecording = file
+        }
         return file
     }
 

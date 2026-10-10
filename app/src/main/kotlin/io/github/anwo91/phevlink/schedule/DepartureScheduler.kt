@@ -15,6 +15,7 @@ import io.github.anwo91.phevlink.util.Format
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.util.Locale
 
 /**
  * Two-stage alarms per departure:
@@ -50,7 +51,10 @@ object DepartureScheduler {
             return
         }
         setExact(context, am, n.planAtMs, planIntent(context, n.departureId, n.atMs))
-        context.graph.log.link("Next departure ${Format.clockOrDay(n.atMs)} — weather check at ${Format.clockOrDay(n.planAtMs)}")
+        context.graph.log.link(
+            "Next departure ${Format.clockOrDay(n.atMs, locale = Locale.ENGLISH)} — " +
+                "weather check at ${Format.clockOrDay(n.planAtMs, locale = Locale.ENGLISH)}"
+        )
     }
 
     fun scheduleStart(context: Context, depId: String, atMs: Long, mode: ClimateMode, duration: ClimateDuration, startAtMs: Long) {

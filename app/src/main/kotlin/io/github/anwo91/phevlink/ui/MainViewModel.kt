@@ -1,8 +1,10 @@
 package io.github.anwo91.phevlink.ui
 
 import android.app.Application
+import androidx.annotation.StringRes
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.diag.LogEntry
 import io.github.anwo91.phevlink.core.model.CarCommand
 import io.github.anwo91.phevlink.core.model.CommandResult
@@ -11,6 +13,8 @@ import io.github.anwo91.phevlink.graph
 import io.github.anwo91.phevlink.link.CarRepository
 import io.github.anwo91.phevlink.link.LinkService
 import io.github.anwo91.phevlink.schedule.DepartureScheduler
+import io.github.anwo91.phevlink.util.AppLocale
+import io.github.anwo91.phevlink.util.Labels
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -52,8 +56,16 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         log.removeListener(logListener)
     }
 
+    /** A string in the app language, resolved now (the language can change while this view model lives). */
+    private fun str(@StringRes id: Int, vararg args: Any): String {
+        val res = AppLocale.localized(getApplication())
+        return if (args.isEmpty()) res.getString(id) else res.getString(id, *args)
+    }
+
     fun onVisible() {
         visible = true
+        // After a language change the activity is recreated: re-render texts built outside the UI.
+        repo.relocalize()
         repo.hold(CarRepository.UI)
         maybeStartWatch()
     }
@@ -81,11 +93,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun run(cmd: CarCommand, successMessage: String? = null) {
         if (_pending.value != null) return
         viewModelScope.launch {
-            _pending.value = cmd.label
+            val label = Labels.command(getApplication(), cmd)
+            _pending.value = label
             try {
                 when (val r = repo.execute(cmd)) {
-                    is CommandResult.Success -> _messages.emit(successMessage ?: "${cmd.label} — done")
-                    is CommandResult.Failure -> _messages.emit("${cmd.label} failed: ${r.reason}")
+                    is CommandResult.Success -> _messages.emit(successMessage ?: str(R.string.msg_cmd_done, label))
+                    is CommandResult.Failure -> _messages.emit(str(R.string.msg_cmd_failed, label, r.reason))
                 }
             } finally {
                 _pending.value = null
@@ -97,11 +110,11 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch { run(repo.quickClimate()) }
     }
 
-    fun refresh() = run(CarCommand.RequestUpdate, "Refreshed")
+    fun refresh() = run(CarCommand.RequestUpdate, str(R.string.msg_refreshed))
 
     fun reconnect() {
         repo.reconnect()
-        viewModelScope.launch { _messages.emit("Reconnecting…") }
+        viewModelScope.launch { _messages.emit(str(R.string.msg_reconnecting)) }
     }
 
     fun updateSettings(transform: (AppSettings) -> AppSettings) {
@@ -128,7 +141,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                     if (l.phase == io.github.anwo91.phevlink.link.LinkPhase.FAILED) break
                 }
                 val l = link.value
-                if (l.connected) onDone(true, "Connected! Battery ${car.value.batteryPercent ?: "?"}%")
+                if (l.connected) onDone(true, str(R.string.msg_connected_battery, car.value.batteryPercent?.toString() ?: "?"))
                 else onDone(false, listOfNotNull(l.text, l.detail).joinToString(" — "))
             } finally {
                 repo.release("test", 20_000)

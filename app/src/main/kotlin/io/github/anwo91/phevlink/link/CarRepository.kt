@@ -1,6 +1,8 @@
 package io.github.anwo91.phevlink.link
 
 import android.content.Context
+import androidx.annotation.StringRes
+import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.alerts.Alert
 import io.github.anwo91.phevlink.core.alerts.AlertEngine
 import io.github.anwo91.phevlink.core.diag.DiagLog
@@ -21,7 +23,9 @@ import io.github.anwo91.phevlink.data.Route
 import io.github.anwo91.phevlink.data.SettingsStore
 import io.github.anwo91.phevlink.data.StateCache
 import io.github.anwo91.phevlink.notify.Notifier
+import io.github.anwo91.phevlink.util.AppLocale
 import io.github.anwo91.phevlink.util.Format
+import io.github.anwo91.phevlink.util.Labels
 import io.github.anwo91.phevlink.weather.MetNo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -47,7 +51,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 enum class LinkPhase { OFFLINE, SEARCHING, CONNECTING, HANDSHAKE, CONNECTED, RETRYING, FAILED }
 
-/** Connection status as shown to people. */
+/** Connection status as shown to people (texts in the app language). */
 data class LinkUi(
     val phase: LinkPhase,
     val via: Route? = null,
@@ -83,8 +87,13 @@ class CarRepository(
     private val _car = MutableStateFlow(cache.load())
     val car: StateFlow<CarState> = _car.asStateFlow()
 
-    private val _link = MutableStateFlow(LinkUi(LinkPhase.OFFLINE, text = "Not connected"))
+    private val _link = MutableStateFlow(LinkUi(LinkPhase.OFFLINE, text = str(R.string.link_not_connected)))
     val link: StateFlow<LinkUi> = _link.asStateFlow()
+    private val linkLock = Any()
+    /** Builds the current [_link]; kept so the texts can be rebuilt after a language change. */
+    private var describeLink: () -> LinkUi = { LinkUi(LinkPhase.OFFLINE, text = str(R.string.link_not_connected)) }
+    /** The app language [_link] was built in. */
+    private var linkLanguage: String = language()
 
     private val holderLock = Any()
     private val _holders = MutableStateFlow<Set<String>>(emptySet())
@@ -129,7 +138,7 @@ class CarRepository(
             _car.collectLatest { s ->
                 val s2 = settings.current
                 if (s2.phoneAlerts && _link.value.connected) {
-                    notify(synchronized(alerts) { alerts.prefs = s2.alerts; alerts.onState(s, System.currentTimeMillis()) })
+                    notify(synchronized(alerts) { alerts.prefs = s2.alerts; alerts.onState(s, System.currentTimeMillis()) }, s)
                 }
                 if (System.currentTimeMillis() - lastSaved > 5_000) {
                     delay(800) // coalesce the register burst after connecting
@@ -143,13 +152,44 @@ class CarRepository(
             while (isActive) {
                 delay(30_000)
                 if (settings.current.phoneAlerts && _link.value.connected) {
-                    notify(synchronized(alerts) { alerts.onTick(System.currentTimeMillis()) })
+                    notify(synchronized(alerts) { alerts.onTick(System.currentTimeMillis()) }, _car.value)
                 }
             }
         }
     }
 
-    private fun notify(list: List<Alert>) = list.forEach { notifier.alert(it) }
+    private fun notify(list: List<Alert>, state: CarState) {
+        val prefs = settings.current.alerts
+        list.forEach { notifier.alert(it, state, prefs) }
+    }
+
+    private fun str(@StringRes id: Int, vararg args: Any): String {
+        val res = AppLocale.localized(context)
+        return if (args.isEmpty()) res.getString(id) else res.getString(id, *args)
+    }
+
+    private fun language(): String = AppLocale.localized(context).resources.configuration.locales.toLanguageTags()
+
+    /** Sets the connection status; [describe] is kept to rebuild the texts in another language. */
+    private fun setLink(describe: () -> LinkUi) = synchronized(linkLock) {
+        describeLink = describe
+        linkLanguage = language()
+        _link.value = describe()
+    }
+
+    /**
+     * Rebuilds the status texts if the app language changed since they were made, and
+     * redraws the widget and tile. Cheap when nothing changed; called when the app shows.
+     */
+    fun relocalize() {
+        synchronized(linkLock) {
+            val lang = language()
+            if (lang == linkLanguage) return
+            linkLanguage = lang
+            _link.value = describeLink()
+        }
+        onStateSaved?.invoke()
+    }
 
     // ---------------------------------------------------------------- holders
 
@@ -197,7 +237,7 @@ class CarRepository(
         if (activeRoute != null || !isHeld) return@withLock
         val s = settings.current
         if (!s.canConnect) {
-            _link.value = LinkUi(LinkPhase.FAILED, text = "Not set up", detail = "Enter the car's Wi-Fi details in Settings")
+            setLink { LinkUi(LinkPhase.FAILED, text = str(R.string.link_not_set_up), detail = str(R.string.link_not_set_up_detail)) }
             return@withLock
         }
         val route = chooseRoute(s)
@@ -217,8 +257,8 @@ class CarRepository(
                 if (!s.hasBridge) return Route.DIRECT
                 if (!s.hasCarWifi) return Route.BRIDGE
                 if (System.currentTimeMillis() < preferDirectUntil) return Route.DIRECT
-                _link.value = LinkUi(LinkPhase.CONNECTING, Route.BRIDGE, "Checking bridge…")
-                val snap = BridgeClient(s.bridgeUrl, s.bridgeToken, log).fetchStatus(3_000)
+                setLink { LinkUi(LinkPhase.CONNECTING, Route.BRIDGE, str(R.string.link_checking_bridge)) }
+                val snap = BridgeClient(s.bridgeUrl, s.bridgeToken, log, context).fetchStatus(3_000)
                 // Only trust the bridge if it is in touch with the car right now, or checked it
                 // recently without errors (the car is at home). Otherwise the car is elsewhere.
                 val recent = snap?.car?.updatedAtMs?.let { System.currentTimeMillis() - it < 15 * 60_000 } == true
@@ -264,23 +304,23 @@ class CarRepository(
         routeJobs += scope.launch { conn.car.collect { _car.value = it } }
         routeJobs += scope.launch {
             combine(conn.status, network.state) { a, b -> a to b }.collect { (st, net) ->
-                _link.value = describeDirect(st, net, override != null)
+                setLink { describeDirect(st, net, override != null) }
             }
         }
         conn.start()
     }
 
     private fun startBridge(s: AppSettings) {
-        val client = BridgeClient(s.bridgeUrl, s.bridgeToken, log)
+        val client = BridgeClient(s.bridgeUrl, s.bridgeToken, log, context)
         bridge = client
         log.link("Using the bridge at ${s.bridgeUrl}")
-        _link.value = LinkUi(LinkPhase.CONNECTING, Route.BRIDGE, "Connecting to bridge…")
+        setLink { LinkUi(LinkPhase.CONNECTING, Route.BRIDGE, str(R.string.link_connecting_bridge)) }
         client.startEvents(scope)
         routeJobs += scope.launch {
             combine(client.snapshot, client.reachable, client.error) { a, b, c -> Triple(a, b, c) }
                 .collect { (snap, reachable, err) ->
                     if (snap != null && snap.car.hasData) _car.value = snap.car
-                    _link.value = describeBridge(snap, reachable, err)
+                    setLink { describeBridge(snap, reachable, err) }
                 }
         }
         // Ask the bridge to wake its car link so the data is fresh while we look.
@@ -303,7 +343,7 @@ class CarRepository(
         }
         network.stop()
         b?.stopEvents()
-        _link.value = LinkUi(LinkPhase.OFFLINE, text = "Not connected", detail = lastUpdatedText())
+        setLink { LinkUi(LinkPhase.OFFLINE, text = str(R.string.link_not_connected), detail = lastUpdatedText()) }
         cache.save(_car.value)
         onStateSaved?.invoke()
         log.link("Link closed (${route.label})")
@@ -323,7 +363,7 @@ class CarRepository(
                 // Wait for activation (the route choice may involve a quick bridge check).
                 val (d, b) = activation.withLock { direct to bridge }
                 if (d == null && b == null) {
-                    if (!settings.current.canConnect) return CommandResult.Failure(cmd, "Not set up — enter the car's Wi-Fi in Settings")
+                    if (!settings.current.canConnect) return CommandResult.Failure(cmd, str(R.string.link_err_not_set_up))
                     if (activeRoute == null && isHeld) scope.launch { activate() }
                     delay(150)
                     continue
@@ -349,7 +389,7 @@ class CarRepository(
                     else -> return r
                 }
             }
-            return last ?: CommandResult.Failure(cmd, _link.value.detail ?: "Could not reach the car in time")
+            return last ?: CommandResult.Failure(cmd, _link.value.detail ?: str(R.string.link_err_timeout))
         } finally {
             release(tag, lingerMs)
         }
@@ -384,30 +424,33 @@ class CarRepository(
         return climate || charging
     }
 
-    fun lastUpdatedText(): String? = _car.value.updatedAtMs?.let { "Last data ${Format.ago(it)}" }
+    fun lastUpdatedText(): String? = _car.value.updatedAtMs?.let { str(R.string.link_last_data, Format.ago(it, context = context)) }
 
     // ------------------------------------------------------------- describing
 
     private fun describeDirect(st: LinkStatus, net: CarNetwork.State, test: Boolean): LinkUi {
         val via = Route.DIRECT
         if (!test) when (net) {
-            is CarNetwork.State.Failed -> return LinkUi(LinkPhase.FAILED, via, "Can't join car Wi-Fi", net.reason)
+            is CarNetwork.State.Failed -> return LinkUi(LinkPhase.FAILED, via, str(R.string.link_cant_join), net.reason)
             is CarNetwork.State.Searching -> if (st !is LinkStatus.Connected) {
                 val secs = (System.currentTimeMillis() - net.sinceMs) / 1000
                 return LinkUi(
-                    LinkPhase.SEARCHING, via, "Looking for the car…",
-                    if (secs > 20) "Not found yet — is the car within Wi-Fi range? Its Wi-Fi sleeps after a few days parked." else lastUpdatedText(),
+                    LinkPhase.SEARCHING, via, str(R.string.link_searching),
+                    if (secs > 20) str(R.string.link_not_found) else lastUpdatedText(),
                 )
             }
             else -> Unit
         }
         return when (st) {
-            is LinkStatus.Idle -> LinkUi(LinkPhase.OFFLINE, via, "Not connected", st.lastError ?: lastUpdatedText())
-            is LinkStatus.Connecting -> LinkUi(LinkPhase.CONNECTING, via, "Connecting…", if (st.attempt > 1) "Attempt ${st.attempt}" else null)
-            LinkStatus.Handshaking -> LinkUi(LinkPhase.HANDSHAKE, via, "Saying hello to the car…")
-            is LinkStatus.Connected -> LinkUi(LinkPhase.CONNECTED, via, "Connected", "Car Wi-Fi · ${st.modelYear.label} protocol", st.sinceMs)
+            is LinkStatus.Idle -> LinkUi(LinkPhase.OFFLINE, via, str(R.string.link_not_connected), st.lastError ?: lastUpdatedText())
+            is LinkStatus.Connecting -> LinkUi(LinkPhase.CONNECTING, via, str(R.string.link_connecting), if (st.attempt > 1) str(R.string.link_attempt, st.attempt) else null)
+            LinkStatus.Handshaking -> LinkUi(LinkPhase.HANDSHAKE, via, str(R.string.link_handshake))
+            is LinkStatus.Connected -> LinkUi(
+                LinkPhase.CONNECTED, via, str(R.string.link_connected),
+                str(R.string.link_connected_detail, Labels.modelYear(context, st.modelYear)), st.sinceMs,
+            )
             is LinkStatus.Retrying -> LinkUi(
-                LinkPhase.RETRYING, via, "Reconnecting in ${((st.retryAtMs - System.currentTimeMillis()) / 1000).coerceAtLeast(0)} s",
+                LinkPhase.RETRYING, via, str(R.string.link_retrying, ((st.retryAtMs - System.currentTimeMillis()) / 1000).coerceAtLeast(0)),
                 st.lastError,
             )
         }
@@ -415,13 +458,16 @@ class CarRepository(
 
     private fun describeBridge(snap: BridgeClient.Snapshot?, reachable: Boolean?, err: String?): LinkUi {
         val via = Route.BRIDGE
-        if (reachable == false) return LinkUi(LinkPhase.FAILED, via, "Bridge unreachable", err)
-        if (snap == null) return LinkUi(LinkPhase.CONNECTING, via, "Connecting to bridge…")
+        if (reachable == false) return LinkUi(LinkPhase.FAILED, via, str(R.string.link_bridge_unreachable), err)
+        if (snap == null) return LinkUi(LinkPhase.CONNECTING, via, str(R.string.link_connecting_bridge))
         return when (val l = snap.link) {
-            is LinkStatus.Connected -> LinkUi(LinkPhase.CONNECTED, via, "Connected via bridge", "Car link live at the bridge", l.sinceMs)
-            is LinkStatus.Idle -> LinkUi(LinkPhase.CONNECTED, via, "Bridge online", "Car checked ${snap.car.updatedAtMs?.let { Format.ago(it) } ?: "never"} — commands wake the link")
-            is LinkStatus.Retrying -> LinkUi(LinkPhase.RETRYING, via, "Bridge can't reach the car", l.lastError)
-            else -> LinkUi(LinkPhase.CONNECTING, via, "Bridge is connecting to the car…")
+            is LinkStatus.Connected -> LinkUi(LinkPhase.CONNECTED, via, str(R.string.link_via_bridge), str(R.string.link_bridge_live), l.sinceMs)
+            is LinkStatus.Idle -> LinkUi(
+                LinkPhase.CONNECTED, via, str(R.string.link_bridge_online),
+                str(R.string.link_bridge_idle, snap.car.updatedAtMs?.let { Format.ago(it, context = context) } ?: str(R.string.link_never)),
+            )
+            is LinkStatus.Retrying -> LinkUi(LinkPhase.RETRYING, via, str(R.string.link_bridge_cant_reach), l.lastError)
+            else -> LinkUi(LinkPhase.CONNECTING, via, str(R.string.link_bridge_connecting_car))
         }
     }
 

@@ -31,13 +31,16 @@ import androidx.glance.layout.width
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
+import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.model.CarState
 import io.github.anwo91.phevlink.core.model.PlugState
 import io.github.anwo91.phevlink.core.model.PreAcState
 import io.github.anwo91.phevlink.graph
 import io.github.anwo91.phevlink.link.ActionActivity
 import io.github.anwo91.phevlink.ui.MainActivity
+import io.github.anwo91.phevlink.util.AppLocale
 import io.github.anwo91.phevlink.util.Format
+import io.github.anwo91.phevlink.util.Labels
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -54,12 +57,14 @@ class CarWidget : GlanceAppWidget() {
             // Collected while the widget session is alive, so updates show without a full redraw.
             val car by repo.car.collectAsState()
             val link by repo.link.collectAsState()
-            GlanceTheme { Content(car, link.connected, open, toggle, refresh) }
+            // Resolved on every redraw, so a language change shows with the next update.
+            val res = AppLocale.localized(context)
+            GlanceTheme { Content(res, car, link.connected, open, toggle, refresh) }
         }
     }
 
     @Composable
-    private fun Content(car: CarState, connected: Boolean, open: Intent, toggle: Intent, refresh: Intent) {
+    private fun Content(res: Context, car: CarState, connected: Boolean, open: Intent, toggle: Intent, refresh: Intent) {
         val running = car.climate.state == PreAcState.RUNNING
         Column(
             modifier = GlanceModifier.fillMaxSize()
@@ -75,35 +80,39 @@ class CarWidget : GlanceAppWidget() {
                 )
                 Spacer(GlanceModifier.width(10.dp))
                 Column {
-                    Text(chargeLine(car), style = TextStyle(fontSize = 13.sp, color = GlanceTheme.colors.onSurface))
+                    Text(chargeLine(res, car), style = TextStyle(fontSize = 13.sp, color = GlanceTheme.colors.onSurface))
                     Text(
-                        if (running) "Climate on" + (car.climate.mode?.let { " · ${it.label}" } ?: "") else "Climate off",
+                        if (running) res.getString(R.string.climate_on_status) + (car.climate.mode?.let { " · ${res.getString(Labels.mode(it))}" } ?: "")
+                        else res.getString(R.string.climate_off_status),
                         style = TextStyle(fontSize = 12.sp, color = if (running) GlanceTheme.colors.primary else GlanceTheme.colors.onSurfaceVariant),
                     )
                 }
             }
             Spacer(GlanceModifier.height(4.dp))
+            val updated = car.updatedAtMs?.let { res.getString(R.string.widget_updated, Format.ago(it, context = res)) }
+                ?: res.getString(R.string.widget_no_data)
             Text(
-                (if (connected) "Live · " else "") + (car.updatedAtMs?.let { "updated ${Format.ago(it)}" } ?: "no data yet"),
+                if (connected) res.getString(R.string.widget_live, updated) else updated,
                 style = TextStyle(fontSize = 11.sp, color = GlanceTheme.colors.onSurfaceVariant),
             )
             Spacer(GlanceModifier.height(8.dp))
             Row(modifier = GlanceModifier.fillMaxWidth()) {
                 Button(
-                    text = if (running) "Stop" else "Preheat",
+                    text = res.getString(if (running) R.string.common_stop else R.string.sc_preheat_short),
                     onClick = actionStartActivity(toggle),
                     modifier = GlanceModifier.defaultWeight(),
                 )
                 Spacer(GlanceModifier.width(8.dp))
-                Button(text = "Refresh", onClick = actionStartActivity(refresh), modifier = GlanceModifier.defaultWeight())
+                Button(text = res.getString(R.string.common_refresh), onClick = actionStartActivity(refresh), modifier = GlanceModifier.defaultWeight())
             }
         }
     }
 
-    private fun chargeLine(car: CarState): String = when {
-        car.charging == true -> "Charging" + (car.chargeMinutesRemaining?.let { " · ${Format.minutes(it)} left" } ?: "")
-        car.plug == PlugState.PLUGGED -> "Plugged in"
-        car.plug == PlugState.UNPLUGGED -> "Unplugged"
+    private fun chargeLine(res: Context, car: CarState): String = when {
+        car.charging == true -> car.chargeMinutesRemaining?.let { res.getString(R.string.widget_charging_left, Format.minutes(it, res)) }
+            ?: res.getString(R.string.home_charging)
+        car.plug == PlugState.PLUGGED -> res.getString(R.string.home_plugged_in)
+        car.plug == PlugState.UNPLUGGED -> res.getString(R.string.home_unplugged)
         else -> ""
     }
 }

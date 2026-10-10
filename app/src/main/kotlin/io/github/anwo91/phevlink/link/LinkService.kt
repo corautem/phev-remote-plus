@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.PowerManager
+import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.lifecycle.LifecycleService
@@ -24,7 +25,9 @@ import io.github.anwo91.phevlink.graph
 import io.github.anwo91.phevlink.notify.Notifier
 import io.github.anwo91.phevlink.schedule.DepartureReceiver
 import io.github.anwo91.phevlink.schedule.DepartureScheduler
+import io.github.anwo91.phevlink.util.AppLocale
 import io.github.anwo91.phevlink.util.Format
+import io.github.anwo91.phevlink.util.Labels
 import io.github.anwo91.phevlink.weather.MetNo
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -57,15 +60,21 @@ class LinkService : LifecycleService() {
     private var foreground = false
     private var wakeLock: PowerManager.WakeLock? = null
 
+    /** A string in the app language, resolved now. */
+    private fun str(@StringRes id: Int, vararg args: Any): String {
+        val res = AppLocale.localized(this)
+        return if (args.isEmpty()) res.getString(id) else res.getString(id, *args)
+    }
+
     override fun onCreate() {
         super.onCreate()
-        goForeground("Contacting the car…", "")
+        goForeground(str(R.string.svc_contacting), "")
         lifecycleScope.launch {
             combine(repo.link, repo.car) { l, c ->
                 val parts = listOfNotNull(
                     c.batteryPercent?.let { "$it%" },
-                    if (c.charging == true) "charging" else null,
-                    if (c.climate.state == PreAcState.RUNNING) "climate on" else null,
+                    if (c.charging == true) str(R.string.svc_charging) else null,
+                    if (c.climate.state == PreAcState.RUNNING) str(R.string.svc_climate_on) else null,
                 )
                 l.text to parts.joinToString(" · ").ifEmpty { l.detail ?: "" }
             }.distinctUntilChanged().collect { (title, text) ->
@@ -82,7 +91,7 @@ class LinkService : LifecycleService() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
         lastStartId = startId
-        goForeground("Contacting the car…", "")
+        goForeground(str(R.string.svc_contacting), "")
         stopJob?.cancel()
         WakeHolder.releaseFromReceiver()
         when (intent?.action) {
@@ -130,8 +139,8 @@ class LinkService : LifecycleService() {
         repo.hold(TAG)
         try {
             when (val r = repo.execute(cmd)) {
-                is CommandResult.Success -> graph.notifier.result(cmd.label, successText(cmd), ok = true)
-                is CommandResult.Failure -> graph.notifier.result("${cmd.label} failed", r.reason, ok = false)
+                is CommandResult.Success -> graph.notifier.result(Labels.command(this, cmd), successText(cmd), ok = true)
+                is CommandResult.Failure -> graph.notifier.result(str(R.string.notif_cmd_failed, Labels.command(this, cmd)), r.reason, ok = false)
             }
         } finally {
             repo.release(TAG, 15_000)
@@ -140,12 +149,13 @@ class LinkService : LifecycleService() {
     }
 
     private fun successText(cmd: CarCommand): String = when (cmd) {
-        is CarCommand.ClimateOn -> "Running for ${cmd.duration.minutes} min — ready around ${
-            Format.clock(System.currentTimeMillis() + cmd.duration.minutes * 60_000L)
-        }."
-        CarCommand.ClimateOff -> "Climate switched off."
-        is CarCommand.Locate -> "Headlights flashed."
-        else -> "Done."
+        is CarCommand.ClimateOn -> str(
+            R.string.notif_climate_running, cmd.duration.minutes,
+            Format.clock(System.currentTimeMillis() + cmd.duration.minutes * 60_000L),
+        )
+        CarCommand.ClimateOff -> str(R.string.notif_climate_off)
+        is CarCommand.Locate -> str(R.string.notif_flashed)
+        else -> str(R.string.notif_done)
     }
 
     /** Connect, ask for fresh data, give it a moment. True if the car answered. */
@@ -179,7 +189,10 @@ class LinkService : LifecycleService() {
         val plan = ClimatePlanner.decide(dep, temp)
         graph.log.link("Departure ${Format.clock(atMs)}: " + (plan?.reason ?: "mild (${temp?.toInt()}°C) — skipping"))
         if (plan == null) {
-            graph.notifier.result("No preheating needed", "It's about ${temp?.toInt()}°C at ${Format.clock(atMs)} — leaving the climate off.", ok = true)
+            graph.notifier.result(
+                str(R.string.notif_no_preheat_title),
+                str(R.string.notif_no_preheat_text, temp?.toInt()?.toString() ?: "?", Format.clock(atMs)), ok = true,
+            )
             DepartureScheduler.reschedule(this, after = atMs); return
         }
         val startAt = ClimatePlanner.startTime(at, plan).toInstant().toEpochMilli() - 60_000 // a minute of margin
@@ -203,10 +216,12 @@ class LinkService : LifecycleService() {
             // A scheduled start deserves extra patience: the car's Wi-Fi may need to wake up.
             when (val r = repo.execute(cmd, timeoutMs = 120_000)) {
                 is CommandResult.Success -> graph.notifier.result(
-                    "${mode.label} started", "Your car will be ready for ${Format.clock(atMs)}.", ok = true,
+                    str(R.string.notif_departure_started, str(Labels.mode(mode))),
+                    str(R.string.notif_departure_ready, Format.clock(atMs)), ok = true,
                 )
                 is CommandResult.Failure -> graph.notifier.result(
-                    "Scheduled ${mode.label.lowercase()} failed", "${r.reason}\nTap to open the app and try again.", ok = false,
+                    str(R.string.notif_departure_failed, str(Labels.modeInline(mode))),
+                    str(R.string.notif_departure_retry, r.reason), ok = false,
                 )
             }
         } finally {
@@ -290,7 +305,7 @@ class LinkService : LifecycleService() {
         title, text,
         listOf(
             NotificationCompat.Action(
-                R.drawable.ic_stat_car, "Stop",
+                R.drawable.ic_stat_car, str(R.string.common_stop),
                 PendingIntent.getService(
                     this, 1, Intent(this, LinkService::class.java).setAction(ACTION_STOP),
                     PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,

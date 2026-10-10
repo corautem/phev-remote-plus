@@ -35,13 +35,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.model.CarCommand
 import io.github.anwo91.phevlink.ui.MainViewModel
 import io.github.anwo91.phevlink.ui.common.SectionCard
 import io.github.anwo91.phevlink.ui.settings.CarWifiCard
-import io.github.anwo91.phevlink.ui.settings.REGISTRATION_STEPS
 
 private const val PAGES = 4
 
@@ -63,84 +64,81 @@ fun SetupScreen(vm: MainViewModel) {
             LinearProgressIndicator(progress = { (page + 1f) / PAGES }, modifier = Modifier.fillMaxWidth())
             when (page) {
                 0 -> {
-                    Text("PHEV Link", style = MaterialTheme.typography.displaySmall, fontWeight = FontWeight.SemiBold)
+                    Text(stringResource(R.string.app_name), style = MaterialTheme.typography.displaySmall, fontWeight = FontWeight.SemiBold)
                     Text(
-                        "Control your Outlander PHEV over its own Wi-Fi: battery and charging, climate (heat, cool, defrost), " +
-                            "lights, doors — plus departure timers that read the weather, a home-screen widget, a quick-settings tile, " +
-                            "and alerts. Optionally through a small bridge at home, so it works from anywhere.",
+                        stringResource(R.string.setup_intro),
                         style = MaterialTheme.typography.bodyLarge,
                     )
                     Text(
-                        "Setup takes a few minutes. Have the car nearby with its key, and the Wi-Fi card that came with the keys.",
+                        stringResource(R.string.setup_intro_2),
                         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     Button(onClick = {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) notifPerm.launch(Manifest.permission.POST_NOTIFICATIONS)
                         page = 1
-                    }, modifier = Modifier.fillMaxWidth()) { Text("Start") }
+                    }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.setup_start)) }
                 }
                 1 -> {
-                    Text("1 · The car's Wi-Fi", style = MaterialTheme.typography.titleLarge)
+                    Text(stringResource(R.string.setup_step1_title), style = MaterialTheme.typography.titleLarge)
                     CarWifiCard(vm, s, showTest = false)
                     Text(
-                        "Pairing is optional but recommended: without it Android asks \"Connect to device?\" now and then, " +
-                            "and background features (widget, departures) can't connect on their own.",
+                        stringResource(R.string.setup_pairing_note),
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        TextButton(onClick = { page = 0 }) { Text("Back") }
+                        TextButton(onClick = { page = 0 }) { Text(stringResource(R.string.common_back)) }
                         Spacer(Modifier.weight(1f))
-                        Button(onClick = { page = 2 }, enabled = s.hasCarWifi) { Text("Next") }
+                        Button(onClick = { page = 2 }, enabled = s.hasCarWifi) { Text(stringResource(R.string.common_next)) }
                     }
-                    TextButton(onClick = { page = 3 }) { Text("I'll only use a bridge — skip") }
+                    TextButton(onClick = { page = 3 }) { Text(stringResource(R.string.setup_bridge_only)) }
                 }
                 2 -> {
-                    Text("2 · Connect and register", style = MaterialTheme.typography.titleLarge)
-                    SectionCard(title = "Connect") {
-                        Text("Status: ${link.text}", style = MaterialTheme.typography.bodyMedium)
+                    Text(stringResource(R.string.setup_step2_title), style = MaterialTheme.typography.titleLarge)
+                    SectionCard(title = stringResource(R.string.setup_connect)) {
+                        Text(stringResource(R.string.setup_status, link.text), style = MaterialTheme.typography.bodyMedium)
                         link.detail?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
-                        if (car.vin != null) Text("Car: ${car.vin} · ${car.batteryPercent ?: "?"}%", style = MaterialTheme.typography.bodyMedium)
+                        if (car.vin != null) {
+                            Text(
+                                stringResource(R.string.setup_car_line, car.vin ?: "", car.batteryPercent?.toString() ?: "?"),
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                        }
                         Spacer(Modifier.height(8.dp))
                         var testing by remember { mutableStateOf(false) }
                         Button(
                             onClick = { testing = true; vm.testConnection { _, msg -> testing = false; vm.toast(msg) } },
                             enabled = !testing,
                         ) {
-                            if (testing) CircularProgressIndicator(Modifier.height(18.dp), strokeWidth = 2.dp) else Text("Connect")
+                            if (testing) CircularProgressIndicator(Modifier.height(18.dp), strokeWidth = 2.dp) else Text(stringResource(R.string.setup_connect))
                         }
                     }
-                    SectionCard(title = "Not registered yet?") {
+                    SectionCard(title = stringResource(R.string.setup_not_registered_title)) {
                         Text(
-                            "If the connection stops at \"Saying hello\" and then fails, this phone isn't registered with the car yet. " +
-                                "Phones that used the official app are usually already registered.",
+                            stringResource(R.string.setup_not_registered_explain),
                             style = MaterialTheme.typography.bodySmall,
                         )
                         Spacer(Modifier.height(6.dp))
-                        Text(REGISTRATION_STEPS, style = MaterialTheme.typography.bodySmall)
+                        Text(stringResource(R.string.registration_steps), style = MaterialTheme.typography.bodySmall)
                         Spacer(Modifier.height(8.dp))
-                        OutlinedButton(onClick = { vm.run(CarCommand.RegisterPhone, "Phone registered") }) { Text("Register this phone") }
+                        val msgRegistered = stringResource(R.string.msg_phone_registered)
+                        OutlinedButton(onClick = { vm.run(CarCommand.RegisterPhone, msgRegistered) }) { Text(stringResource(R.string.setup_register_phone)) }
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        TextButton(onClick = { page = 1 }) { Text("Back") }
+                        TextButton(onClick = { page = 1 }) { Text(stringResource(R.string.common_back)) }
                         Spacer(Modifier.weight(1f))
-                        Button(onClick = { page = 3 }) { Text(if (link.connected) "Next" else "Skip for now") }
+                        Button(onClick = { page = 3 }) { Text(stringResource(if (link.connected) R.string.common_next else R.string.setup_skip_for_now)) }
                     }
                 }
                 else -> {
-                    Text("3 · All set", style = MaterialTheme.typography.titleLarge)
+                    Text(stringResource(R.string.setup_step3_title), style = MaterialTheme.typography.titleLarge)
                     Text(
-                        "Good to know:\n" +
-                            "• Long-press the app icon for shortcuts (preheat, defrost, flash lights).\n" +
-                            "• Add the widget and the \"Preheat\" quick-settings tile.\n" +
-                            "• Schedule your usual departures in the Schedule tab.\n" +
-                            "• Every connection attempt is logged in Diagnostics — share the log if something misbehaves.\n" +
-                            "• For control from anywhere, set up the bridge (see the README) and enter its address in Settings.",
+                        stringResource(R.string.setup_good_to_know),
                         style = MaterialTheme.typography.bodyMedium,
                     )
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        TextButton(onClick = { page = 2 }) { Text("Back") }
+                        TextButton(onClick = { page = 2 }) { Text(stringResource(R.string.common_back)) }
                         Spacer(Modifier.weight(1f))
-                        Button(onClick = { vm.updateSettings { it.copy(setupDone = true) } }) { Text("Open the app") }
+                        Button(onClick = { vm.updateSettings { it.copy(setupDone = true) } }) { Text(stringResource(R.string.setup_open_app)) }
                     }
                 }
             }

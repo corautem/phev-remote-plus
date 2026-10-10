@@ -1,0 +1,1676 @@
+# PHEV Link DTC texts - de. Translates the keys of strings_en.txt (see that file for the format).
+# Keys not listed here fall back to English. Original text for this project (GPL-3.0-or-later).
+
+sev.INFO.label	Information
+sev.INFO.advice	Keine unmittelbare Auswirkung auf das Fahren. Beim nächsten Service ansprechen.
+sev.CHECK_SOON.label	Bald prüfen
+sev.CHECK_SOON.advice	Sie können normal fahren. Lassen Sie es in den nächsten Wochen oder beim nächsten Service ansehen.
+sev.CHECK_NOW.label	Jetzt prüfen
+sev.CHECK_NOW.advice	Lassen Sie es innerhalb weniger Tage prüfen. Leistung, Abgaswerte oder ein Sicherheitssystem können beeinträchtigt sein, oder es können Folgeschäden entstehen. Vermeiden Sie lange Fahrten, Anhängerbetrieb und sportliche Fahrweise, bis der Fehler behoben ist.
+sev.STOP.label	Anhalten
+sev.STOP.advice	Halten Sie an, sobald es sicher ist, und schalten Sie aus. Weiterfahren riskiert schwere Schäden oder ein Sicherheitsproblem. Lassen Sie das Auto prüfen oder abschleppen.
+sys.POWERTRAIN_ENGINE.label	Motor
+sys.FUEL_AIR.label	Kraftstoff- und Luftzumessung
+sys.IGNITION_MISFIRE.label	Zündung und Zündaussetzer
+sys.EMISSIONS.label	Abgasreinigung
+sys.SPEED_IDLE.label	Fahrgeschwindigkeit, Leerlaufregelung und Hilfseingänge
+sys.COMPUTER_OUTPUTS.label	Steuergeräte, Spannungsversorgung und Ausgänge
+sys.TRANSMISSION.label	Getriebe und Antriebsstrang
+sys.HYBRID_EV.label	Hybrid- / Elektroantrieb
+sys.CHASSIS.label	Fahrwerk (Bremsen, ABS, Lenkung, Aufhängung, Reifen)
+sys.BODY.label	Karosserie (Airbags, Klima, Beleuchtung, Komfort)
+sys.NETWORK.label	Netzwerkkommunikation zwischen Steuergeräten
+sys.MANUFACTURER.label	Herstellerspezifisch (Antrieb)
+sys.UNKNOWN.label	Unbekannt
+
+txt.hv_safety	Sicherheit geht vor: Die orangefarbenen Kabel und die Hochvoltteile (Antriebsbatterie, Wechselrichter, Elektromotoren, Bordladegerät, DC/DC-Wandler) führen gefährliche Spannung, auch bei ausgeschaltetem Fahrzeug. Öffnen, trennen oder messen Sie diese nicht selbst; diese Arbeiten dürfen nur Fachkräfte mit Hochvolt-Qualifikation ausführen.
+txt.srs_safety	Sicherheit geht vor: Prüfen Sie Stecker von Airbags oder Gurtstraffern niemals mit Prüflampe oder Multimeter, und trennen Sie sie nie bei angeschlossener 12-V-Batterie. Eine unbeabsichtigte Auslösung kann schwere Verletzungen verursachen.
+txt.cause_12v	Schwache oder gealterte 12-V-Hilfsbatterie. Beim Outlander PHEV wird sie nur vom DC/DC-Wandler geladen (hauptsächlich im READY-Zustand oder beim Laden), und niedrige Spannung lässt Steuergeräte fehlerhaft reagieren oder aus dem Netzwerk fallen
+txt.check_12v	Prüfen Sie die 12-V-Hilfsbatterie: Nach einigen Stunden Standzeit sollte sie etwa 12,6 V oder mehr anzeigen; im READY-Zustand sollte die Spannung auf etwa 13–14,5 V steigen. Ein Batterietester in einer Werkstatt oder beim Teilehändler liefert eine zuverlässigere Aussage als die Spannung allein. Prüfen Sie auch, ob Pole und Masseverbindungen sauber und fest sind.
+txt.check_many_codes	Wenn mehrere voneinander unabhängige Codes gleichzeitig aufgetreten sind, zuerst die 12-V-Hilfsbatterie prüfen
+txt.check_dongle	OBD-Dongle (und andere Nachrüstgeräte an der Diagnosebuchse) abziehen, wenn er nicht benutzt wird: Manche Adapter halten das Netzwerk wach oder entladen die 12-V-Batterie, während das Auto parkt
+txt.check_dealer_tool	Alle Steuergeräte von einem Mitsubishi-Händler oder einer Werkstatt mit Mitsubishi-kompatiblem Diagnosegerät (MUT-III oder gleichwertig) auslesen lassen; ein einfacher OBD-Leser sieht nur einen Teil des Systems
+txt.check_clear_retest	Nach einer Reparatur den Code löschen und einige Tage normal fahren; kommt er nicht wieder, war die Reparatur erfolgreich
+txt.check_clear_see	Code löschen und beobachten, ob er wiederkommt: Ein schnell wiederkehrender Code deutet auf einen echten, aktuellen Fehler hin
+txt.check_freeze_frame	Notieren, wann der Code auftrat, und – falls Ihr Diagnosegerät sie anzeigt – die mit dem Code gespeicherten Freeze-Frame-Daten (Geschwindigkeit, Temperaturen, Last): Sie zeigen die Bedingungen beim Auftreten des Fehlers
+txt.check_oil	Ölstand und Ölzustand am Messstab prüfen; nachfüllen oder wechseln, wenn zu wenig, alt oder verschlammt (bei einem Plug-in-Hybrid läuft der Motor seltener, aber das Öl altert trotzdem mit der Zeit)
+txt.check_charge_mode	Um den Motor länger zu testen, ihn mit der Charge- (oder Save-)Funktion laufen lassen, bis er volle Betriebstemperatur erreicht
+txt.check_fresh_fuel	Wenn der Motor selten läuft, kann das Benzin Monate alt sein: frisches Benzin an einer viel besuchten Tankstelle tanken und den Motor regelmäßig laufen lassen
+txt.read_all	Alle Codes auslesen; gleichzeitig gespeicherte Codes zeigen oft die Ursache
+txt.hv_cause_12v_relay	Zu niedrige 12-V-Versorgungsspannung der Steuerelektronik oder der Relais
+txt.pe_coolant_check	Bei kaltem Fahrzeug den Kühlmittelstand im Ausgleichsbehälter der Leistungselektronik prüfen (Plug-in-Hybride haben meist einen vom Motor getrennten Kreislauf; siehe Betriebsanleitung). Niemals ein heißes Kühlsystem öffnen
+txt.advice_info	Ja. Das beeinflusst das Fahrverhalten nicht.
+txt.advice_check_soon	Ja, Sie können normal weiterfahren. Lassen Sie es in den nächsten Wochen prüfen, früher, wenn weitere Warnleuchten aufleuchten oder sich das Auto anders verhält.
+txt.advice_check_now	Kurze, ruhige Fahrten sind meist möglich, aber lassen Sie es innerhalb weniger Tage prüfen. Vermeiden Sie lange Fahrten, Anhängerbetrieb und sportliche Fahrweise, bis der Fehler behoben ist. Zeigt das Auto eine Meldung zum Anhalten an oder blinkt eine Warnleuchte, halten Sie an, sobald es sicher möglich ist.
+txt.advice_stop	Nein. Halten Sie an, sobald es sicher ist, schalten Sie aus und fahren Sie nicht weiter. Lassen Sie das Auto prüfen oder abschleppen.
+txt.advice_misfire	Blinkt die Motorkontrollleuchte, ruckelt der Motor oder verliert er Leistung, halten Sie an, sobald es sicher ist: Unverbrannter Kraftstoff kann den Katalysator überhitzen und zerstören. Leuchtet die Lampe dauerhaft und läuft der Motor rund, sind kurze Fahrten möglich, aber lassen Sie es innerhalb weniger Tage prüfen. Sanftes Fahren mit Batteriestrom hält den Motor meist aus, das Auto startet ihn bei Bedarf aber trotzdem.
+txt.advice_hv	Das Auto fährt oft noch, manchmal mit verringerter Leistung oder elektrischer Reichweite, aber lassen Sie es innerhalb weniger Tage prüfen. Beachten Sie Meldungen im Kombiinstrument: Werden Sie zum Anhalten aufgefordert, halten Sie sicher an und starten Sie nicht erneut. Versuchen Sie nicht, Hochvoltteile selbst zu reparieren.
+txt.advice_network	Meist ja, wenn das Auto normal fährt und keine weiteren Warnungen erscheinen. Erscheinen Warnleuchten oder Meldungen (zum Beispiel „Check EV system“), kann das Auto Funktionen abschalten; lassen Sie es innerhalb weniger Tage prüfen.
+txt.advice_unknown	Die App kann nicht beurteilen, wie ernst dieser Code ist. Fährt das Auto normal und zeigt keine Warnleuchten oder Meldungen, können Sie in der Regel weiterfahren, bis der Code geklärt ist. Erscheint eine Warnmeldung (etwa „Check EV system“), blinkt die Motorkontrollleuchte oder verhält sich das Auto anders, folgen Sie der Betriebsanleitung und lassen Sie es sofort prüfen.
+txt.advice_abs	Die normale Bremse funktioniert weiterhin, aber ABS, Antriebsschlupfregelung und Stabilitätskontrolle können abgeschaltet sein, sodass die Räder bei starkem Bremsen blockieren können. Fahren Sie vorsichtig, besonders auf nasser, vereister oder verschneiter Fahrbahn, und lassen Sie es innerhalb weniger Tage prüfen.
+txt.advice_srs	Das Auto fährt normal, aber Airbags oder Gurtstraffer schützen Sie bei einem Unfall möglicherweise nicht. Lassen Sie es so schnell wie möglich reparieren (innerhalb weniger Tage).
+txt.advice_throttle	Das Auto kann die Motorleistung zur Sicherheit begrenzen (Notlauf); ein Fehler am Pedalsensor kann auch den elektrischen Fahrbetrieb einschränken. Fahren Sie vorsichtig, vermeiden Sie Situationen, in denen Sie volle Leistung brauchen, und lassen Sie es innerhalb weniger Tage prüfen.
+txt.advice_steering	Ist die Lenkung schwergängig oder verhält sie sich ungewöhnlich, fahren Sie langsam und vorsichtig zu einer Werkstatt oder lassen Sie das Auto abschleppen. Fühlt sie sich normal an, lassen Sie es innerhalb weniger Tage prüfen.
+txt.advice_cooling	Achten Sie genau auf die Temperaturwarnung. Leuchtet sie auf oder tritt Dampf aus, halten Sie sicher an und schalten Sie aus. Meiden Sie Stop-and-go-Verkehr, Hitze und Anhängerbetrieb, bis der Fehler behoben ist, und lassen Sie es innerhalb weniger Tage prüfen.
+txt.advice_oil_low	Nein. Halten Sie an, sobald es sicher ist, und schalten Sie aus. Prüfen Sie den Ölstand: War er zu niedrig und erlischt die Warnung nach dem Nachfüllen, fahren Sie behutsam zu einer Werkstatt; andernfalls lassen Sie abschleppen. Denken Sie daran, dass das Auto im READY-Zustand den Motor selbstständig starten kann.
+txt.advice_isolation	Beachten Sie die Warnungen im Kombiinstrument. Fordert das Auto zum Anhalten auf oder geht es nicht in READY, halten Sie sicher an, starten Sie nicht immer wieder neu und lassen Sie abschleppen. Fährt das Auto normal, lassen Sie es innerhalb weniger Tage prüfen und meiden Sie tiefes Wasser. Berühren Sie niemals beschädigte orangefarbene Kabel.
+txt.advice_dcdc	Fahren Sie möglichst wenig und lassen Sie es innerhalb weniger Tage prüfen. Wird die 12-V-Batterie nicht geladen, entlädt sie sich während der Fahrt, und das Auto kann ohne große Vorwarnung ausgehen. Schalten Sie unnötige Verbraucher aus.
+txt.advice_brake_switch	Die Bremsen selbst funktionieren normalerweise weiter, aber Bremslichter, Tempomat oder Wählhebelsperre können betroffen sein. Prüfen Sie, ob die Bremslichter funktionieren (lassen Sie jemanden nachsehen), und lassen Sie es innerhalb weniger Tage prüfen.
+note.turbo	Der Outlander PHEV 2014–2017 hat einen 2,0-Liter-Saugbenziner ohne Turbo oder Kompressor, daher ist dieser Code bei diesem Auto nicht zu erwarten; lassen Sie ihn mit einem Mitsubishi-kompatiblen Gerät bestätigen.
+note.diesel	Dies betrifft Ausstattung von Dieselmotoren, die der Benzinmotor des Outlander PHEV nicht hat; der Code ist bei diesem Auto daher nicht zu erwarten. Lassen Sie ihn mit einem Mitsubishi-kompatiblen Gerät bestätigen.
+note.nox	NOx-Sensoren und NOx-Nachbehandlung werden hauptsächlich bei Diesel- und Magermotoren eingesetzt und sind beim Benzinmotor des Outlander PHEV nicht zu erwarten; lassen Sie den Code mit einem Mitsubishi-kompatiblen Gerät bestätigen.
+note.cyl_deact	Der Vierzylindermotor des Outlander PHEV nutzt keine Zylinderabschaltung, daher ist dieser Code bei diesem Auto nicht zu erwarten; lassen Sie ihn mit einem Mitsubishi-kompatiblen Gerät bestätigen.
+note.alternator	Der Outlander PHEV hat keine herkömmliche Lichtmaschine (der DC/DC-Wandler lädt die 12-V-Batterie), daher ist dieser Code bei diesem Auto nicht zu erwarten; prüfen Sie die 12-V-Batterie, suchen Sie nach Codes des DC/DC-Wandlers und lassen Sie den Code mit einem Mitsubishi-kompatiblen Gerät bestätigen.
+note.gearbox	Der Outlander PHEV hat kein herkömmliches Mehrganggetriebe (sondern ein Achsgetriebe mit fester Übersetzung und eine Kupplung für den direkten Motorantrieb bei höherer Geschwindigkeit), daher trifft dieser Code möglicherweise nicht zu; lassen Sie ihn mit einem Mitsubishi-kompatiblen Gerät bestätigen.
+word.component	Bauteil
+loc.bank_sensor	Bank {bank}, Sensor {sensor}
+loc.bank	Bank {bank}
+loc.cylinder	Zylinder {cyl}
+loc.o2_before	(vor dem Katalysator)
+loc.o2_after	(nach dem Katalysator)
+note.bank2	Bank 2 gibt es nur bei Motoren mit zwei Zylinderreihen (V-Motoren); der Vierzylinder des Outlander PHEV hat nur Bank 1, daher ist dieser Code bei diesem Auto nicht zu erwarten und wurde eventuell falsch ausgelesen.
+note.cyl5	Der Motor des Outlander PHEV hat vier Zylinder, daher ist dieser Code bei diesem Auto nicht zu erwarten und wurde eventuell falsch ausgelesen.
+area.P	Antriebsstrang (Motor, Hybridsystem oder Antriebseinheit)
+area.C	Fahrwerk (Bremsen, ABS, Lenkung, Federung, Reifen)
+area.B	Karosserie (Airbags, Klimaanlage, Beleuchtung, Schlösser und Komfort)
+area.U	Netzwerkkommunikation zwischen Steuergeräten
+unk.title.mfr	Herstellerspezifischer Code (Mitsubishi)
+unk.title.unknown	Unbekannter Code
+unk.sub.mfr	Von Mitsubishi definierter Code: {area}
+unk.sub.std	Bereich der Standardcodes: {area}
+unk.sum.mfr	Dies ist ein herstellerspezifischer Code: Mitsubishi legt fest, was er bedeutet, und er gehört nicht zur öffentlichen Liste der generischen Codes, daher kann die App nicht genau sagen, was er bedeutet. Der Buchstabe {letter} zeigt den Bereich: {area}.
+unk.sum.std	Diese Nummer liegt im Bereich der Standardcodes (SAE/ISO), steht aber nicht in der Codeliste der App. Es kann ein neuerer Standardcode sein, eine vom Hersteller genutzte reservierte Nummer oder ein Lesefehler. Der Buchstabe {letter} zeigt den Bereich: {area}.
+unk.sum.impossible	Ein echter Fehlercode hat als zweites Zeichen immer 0, 1, 2 oder 3; dieser Code wurde daher vermutlich falsch eingegeben oder vom Diagnosegerät falsch gelesen.
+unk.mfr.c1	Die genaue Ursache hängt von Mitsubishis eigener Definition des Codes ab
+unk.std.c1	Die genaue Ursache hängt von der offiziellen Definition des Codes ab
+unk.c2	Wenn mehrere Codes gleichzeitig auftraten: eine schwache 12-V-Hilfsbatterie oder ein Versorgungs-/Masseproblem, das mehrere Steuergeräte betrifft
+unk.c3	Ein tatsächlicher Fehler im Bereich: {area}
+unk.k4	Code von einem Mitsubishi-Händler oder einer Werkstatt mit Mitsubishi-kompatiblem Diagnosegerät (MUT-III oder gleichwertig) auslesen lassen; dort sind die genaue Definition und das speichernde Steuergerät sichtbar
+unk.k5	Den Code zusammen mit „Outlander PHEV“ in Besitzerforen suchen, um Erfahrungen anderer Besitzer zu sehen (Ratschläge aus Foren mit Vorsicht genießen)
+unk.imp.c1	Tippfehler bei der Eingabe des Codes
+unk.imp.c2	Diagnosegerät oder Adapter liest den Code falsch (Codes erneut auslesen)
+unk.imp.k1	Code auf dem Display des Diagnosegeräts prüfen und erneut eingeben
+unk.imp.k2	Codes bei eingeschalteter Zündung erneut auslesen; erscheint er weiterhin, ein anderes Diagnosegerät oder eine andere App versuchen
+fail.fallback.sum	Das Steuergerät hat diesen Code für folgendes Bauteil gesetzt: {component}.
+fail.general.sum	Das Steuergerät hat einen Fehler an folgendem Bauteil erkannt: {component}.
+fail.low.act.sum	Die Spannung im Ansteuerkreis ist niedriger als erwartet (Bauteil: {component}); meist deutet das auf einen Masseschluss oder eine fehlende Versorgung hin.
+fail.low.sen.sum	Das Signal liegt unter dem niedrigsten Wert, den es je haben sollte (Bauteil: {component}); meist deutet das auf einen Masseschluss, eine fehlende Versorgung oder einen defekten Sensor hin.
+fail.high.act.sum	Die Spannung im Ansteuerkreis ist höher als erwartet (Bauteil: {component}); meist deutet das auf eine Unterbrechung oder einen Kurzschluss nach Plus hin.
+fail.high.sen.sum	Das Signal liegt über dem höchsten Wert, den es je haben sollte (Bauteil: {component}); meist deutet das auf eine Unterbrechung (gebrochene Leitung, abgezogener Stecker), einen Kurzschluss nach Plus oder einen defekten Sensor hin.
+fail.open.sum	Das Steuergerät hat eine Unterbrechung (unterbrochene elektrische Verbindung) im Stromkreis festgestellt (Bauteil: {component}).
+fail.circuit.sen.sum	Das Steuergerät hat einen elektrischen Fehler im Stromkreis festgestellt (Bauteil: {component}): Das Signal fehlt oder liegt außerhalb dessen, was der Kreis liefern kann.
+fail.circuit.act.sum	Das Steuergerät hat einen elektrischen Fehler im Stromkreis festgestellt (Bauteil: {component}), typischerweise eine Unterbrechung, einen Kurzschluss oder ein defektes Teil.
+fail.circuit.other.sum	Das Steuergerät hat einen elektrischen Fehler im Stromkreis festgestellt (Bauteil: {component}).
+fail.intermittent.sum	Das Signal fällt gelegentlich aus oder springt (Bauteil: {component}), typisch für eine Wackelverbindung oder eine beschädigte Leitung.
+fail.range.sen.sum	Das Signal liegt innerhalb der elektrischen Grenzen, passt aber nicht zu anderen Messwerten (Bauteil: {component}); der Sensor driftet eventuell, oder das gemessene System hat einen echten Fehler.
+fail.range.other.sum	Folgendes Bauteil reagiert nicht wie vom Steuergerät erwartet: {component}.
+fail.slow.sum	Folgendes Bauteil reagiert langsamer als vorgesehen, wenn sich die Bedingungen ändern: {component}.
+fail.noact.sum	Das Signal ändert sich überhaupt nicht (Bauteil: {component}), als wäre der Sensor defekt oder abgeklemmt.
+fail.stuck.sum	Folgendes Bauteil scheint zu klemmen und erreicht oder hält die angeforderte Stellung bzw. den Zustand nicht: {component}.
+fail.corr.sum	Zwei zusammengehörige Signale ({subject}) stimmen nicht wie vorgesehen überein.
+fail.internal.sum	Ein Steuergerät hat einen Fehler in seinem eigenen Speicher, seiner Software oder Konfiguration festgestellt.
+fail.perf.sum	Folgendes Bauteil oder das zugehörige System arbeitet nicht so gut wie vom Steuergerät erwartet: {component}.
+fail.overtemp.sum	Die sichere Temperaturgrenze wurde überschritten: {subject}.
+fail.toolow.sum	Der Wert ist niedriger als vom Steuergerät erwartet: {subject}.
+fail.toohigh.sum	Der Wert ist höher als vom Steuergerät erwartet: {subject}.
+fail.low.act.c1	Ansteuerleitung mit Masseschluss (Bauteil: {component})
+fail.low.act.c2	Bauteil defekt (interner Kurzschluss): {component}
+fail.low.act.c3	Durchgebrannte Sicherung oder defektes Relais in der Versorgung (Bauteil: {component})
+fail.low.act.c4	Beschädigter oder korrodierter Stecker
+fail.low.sen.c1	Signalleitung mit Masseschluss, zum Beispiel durch durchgescheuerte Isolierung
+fail.low.sen.c2	Bauteil defekt: {component}
+fail.low.sen.c3	Beschädigter oder korrodierter Stecker (Bauteil: {component})
+fail.low.sen.c4	Fehlende oder zu niedrige Versorgungs-/Referenzspannung am Sensor
+fail.high.act.c1	Ansteuerleitung mit Kurzschluss nach Plus
+fail.high.act.c2	Unterbrechung oder abgezogener Stecker (Bauteil: {component})
+fail.high.act.c3	Bauteil defekt: {component}
+fail.high.act.c4	Fehler in der Endstufe des Steuergeräts (seltener)
+fail.high.sen.c1	Unterbrechung: gebrochene Leitung oder abgezogener/lockerer Stecker (Bauteil: {component})
+fail.high.sen.c2	Signalleitung mit Kurzschluss nach Plus
+fail.high.sen.c3	Bauteil defekt: {component}
+fail.high.sen.c4	Schlechte Masseverbindung des Sensors
+fail.open.act.c1	Abgezogener, lockerer oder korrodierter Stecker (Bauteil: {component})
+fail.open.act.c2	Gebrochene oder durchgescheuerte Leitung zwischen Bauteil und Steuergerät (Bauteil: {component})
+fail.open.act.c3	Bauteil defekt (Unterbrechung in Wicklung oder Element): {component}
+fail.open.act.c4	Durchgebrannte Sicherung in der Versorgung (Bauteil: {component})
+fail.open.sen.c1	Abgezogener, lockerer oder korrodierter Stecker (Bauteil: {component})
+fail.open.sen.c2	Gebrochene oder durchgescheuerte Leitungen zwischen Bauteil und Steuergerät (Bauteil: {component})
+fail.open.sen.c3	Bauteil defekt: {component}
+fail.open.sen.c4	Versorgungs- oder Masseproblem (Bauteil: {component})
+fail.intermittent.c1	Lockerer Stecker oder Kontakte, die bei Vibration oder Temperaturwechsel den Kontakt verlieren
+fail.intermittent.c2	Durchgescheuerte Leitung, die gelegentlich kurzschließt oder unterbricht
+fail.intermittent.c3	Feuchtigkeit oder Korrosion im Stecker
+fail.intermittent.c4	Bauteil beginnt intern auszufallen: {component}
+fail.range.sen.c1	Bauteil driftet, ist verschmutzt oder gealtert: {component}
+fail.range.sen.c2	Ein echter Fehler im gemessenen System
+fail.range.sen.c3	Erhöhter Widerstand in Leitungen oder Stecker (Korrosion)
+fail.range.sen.c4	Gleichzeitig vorhandene andere Fehler, die den Vergleich verfälschen
+fail.range.other.c1	Bauteil klemmt, ist verschlissen oder verschmutzt: {component}
+fail.range.other.c2	Schwache Versorgungsspannung oder schlechte Verbindung (Bauteil: {component})
+fail.range.other.c3	Bauteil defekt: {component}
+fail.slow.c1	Gealtertes Bauteil (normaler Verschleiß über viele Jahre): {component}
+fail.slow.c2	Verschmutzung des Bauteils (Öl, Kühlmittel, Ablagerungen oder Additive): {component}
+fail.slow.c3	Leitungs- oder Steckerproblem
+fail.slow.c4	Undichtigkeit nahe dem Sensor, die die Messung verfälscht (zum Beispiel ein Abgas- oder Luftleck)
+fail.noact.c1	Bauteil defekt: {component}
+fail.noact.c2	Unterbrechung oder abgezogener Stecker
+fail.noact.c3	Bei beheizten Sensoren: ein Heizungsfehler, der den Sensor zu kalt zum Arbeiten hält
+fail.stuck.c1	Bauteil klemmt mechanisch (Schmutz, Ablagerungen, Korrosion oder Eis): {component}
+fail.stuck.c2	Bauteil defekt: {component}
+fail.stuck.c3	Leitungs- oder Steckerproblem, das die Funktion verhindert
+fail.stuck.c4	Fehler an den Teilen, die es bewegt oder steuert
+fail.corr.c1	Einer der beiden Sensoren ist defekt oder driftet
+fail.corr.c2	Leitungs- oder Steckerproblem an einem der Signale
+fail.corr.c3	Ein echtes mechanisches Problem, durch das die beiden Messwerte abweichen
+fail.internal.c1	Interner Fehler im Steuergerät
+fail.internal.c2	Niedrige oder instabile 12-V-Versorgung beim Start, Laden oder Programmieren
+fail.internal.c3	Abgebrochenes oder inkompatibles Software-Update oder ein nach dem Tausch nicht codiertes Steuergerät
+fail.internal.c4	Schlechte Masseverbindung zum Steuergerät
+fail.perf.c1	Verschlissenes oder defektes Bauteil: {component}
+fail.perf.c2	Leitungs- oder Steckerproblem
+fail.perf.c3	Zusammenhängende Fehler im selben System (andere Codes prüfen)
+fail.overtemp.c1	Kühlproblem: zu wenig Kühlmittel, defekte Pumpe oder Lüfter, verstopfter Kühler oder Lufteinlass
+fail.overtemp.c2	Hohe Last bei Hitze
+fail.overtemp.c3	Defekter Temperatursensor, der einen falsch hohen Wert liefert
+fail.measured.c1	Ein echter Fehler am Bauteil oder im System drumherum: {component}
+fail.measured.c2	Defekter Sensor, der einen falschen Wert liefert
+fail.measured.c3	Leitungs- oder Steckerproblem
+fail.generic.c1	Defektes Bauteil in diesem Stromkreis
+fail.generic.c2	Leitungs- oder Steckerproblem (Korrosion, lockere Kontakte, durchgescheuerte Isolierung)
+fail.generic.c3	Zusammenhängender Fehler an anderer Stelle im selben System (andere gespeicherte Codes prüfen)
+fail.elec.k1	Stecker prüfen (Bauteil: {component}): bei ausgeschaltetem Fahrzeug abziehen, auf Korrosion, Wasser oder verbogene Kontakte prüfen und fest wieder aufstecken, bis er einrastet
+fail.elec.k2	Leitungen vom Bauteil aus verfolgen und auf Scheuerstellen, geschmolzene Isolierung oder Marderschäden prüfen (Bauteil: {component})
+fail.elec.wiggle	Bei laufendem Motor (oder Fahrzeug in READY) vorsichtig an Leitungen und Stecker wackeln und dabei Live-Daten oder Warnleuchte beobachten; eine Veränderung zeigt die Fehlerstelle
+fail.elec.sen	Mit Multimeter und Schaltplan Versorgung, Masse und Signal des Sensors am Stecker prüfen
+fail.elec.act	Sicherung prüfen und Widerstand mit den Werkstattdaten vergleichen (Bauteil: {component})
+fail.elec.other	Stromkreis in einer Werkstatt anhand des Schaltplans messen lassen
+fail.elec.replace	Bauteil erst tauschen, wenn die Leitungen nachweislich in Ordnung sind (Bauteil: {component})
+fail.analyse.k1	Alle Codes auslesen und zuerst Stromkreisfehler im selben System beheben
+fail.analyse.k2	Live-Daten mit zugehörigen Messwerten und Sollwerten vergleichen (Bauteil: {component})
+fail.analyse.k3	Stecker und Leitungen auf Korrosion oder Beschädigung prüfen
+fail.stuck.k2	Prüfen, ob sich das Bauteil frei bewegt und nicht durch Schmutz, Ablagerungen oder Eis blockiert ist (nur wenn leicht zugänglich; Bauteil: {component})
+fail.stuck.k3	Eine Werkstatt kann das Bauteil per Stellglieddiagnose ansteuern (Bauteil: {component})
+fail.measured.k2	Zugehörige Live-Daten prüfen, um zu sehen, ob der Wert echt ist oder von einem defekten Sensor stammt
+fail.internal.k3	Einen Mitsubishi-Händler nach Software-Updates, Codierung oder Neuprogrammierung des Steuergeräts fragen
+fail.hv.elec.k1	Keine Stecker an oder neben Hochvoltteilen selbst trennen; Leitungen und Stecker von einer Hochvolt-Fachkraft prüfen lassen (Bauteil: {component})
+fail.hv.elec.k2	Notieren, wann der Fehler auftritt (Start, Fahrt, Laden, Nässe) – das hilft der Werkstatt
+fail.hv.internal.k2	Einen Mitsubishi-Händler nach Software-Updates, Codierung oder Neuprogrammierung des Steuergeräts fragen
+notfitted.c1	Das Diagnosegerät hat den Code falsch gelesen, oder er wurde falsch eingegeben
+notfitted.c2	Ein Fehler am betroffenen Bauteil (nur möglich, wenn das Auto es tatsächlich hat)
+notfitted.k1	Codes erneut auslesen und mit der Anzeige des Diagnosegeräts vergleichen
+net.effect.abs	ABS, Antriebsschlupfregelung oder Stabilitätskontrolle können abgeschaltet sein; die normale Bremse sollte weiter funktionieren.
+net.effect.steering	Die Lenkunterstützung oder lenkwinkelabhängige Funktionen können betroffen sein.
+net.effect.srs	Die Airbag-Warnleuchte leuchtet meist, und die Airbags lösen bei einem Unfall möglicherweise nicht aus.
+net.effect.cluster	Anzeigen, Warnleuchten oder Meldungen werden möglicherweise nicht richtig dargestellt.
+net.effect.hvac	Heizung, Klimaanlage oder Scheibenentfeuchtung funktionieren möglicherweise nicht richtig.
+net.effect.engine	Der Motor startet möglicherweise nicht oder läuft nur eingeschränkt.
+net.effect.hv	Das Auto kann Leistung oder Laden begrenzen, eine EV-Systemwarnung anzeigen oder nicht in READY gehen.
+topic.lost_comm.sub	Kommunikation verloren: {module}
+topic.lost_comm.about	Die Steuergeräte tauschen Daten über das Fahrzeugnetzwerk (CAN-Bus) aus; von folgendem Steuergerät kommen keine Nachrichten mehr an: {module}.
+topic.lost_comm.c2	Durchgebrannte Sicherung, defektes Relais oder schlechte Masse am Steuergerät ({module})
+topic.lost_comm.c3	Lockerer, nasser oder korrodierter Stecker am Steuergerät ({module}) oder an den Netzwerkleitungen
+topic.lost_comm.c4	Beschädigte Netzwerkleitungen (CAN), zum Beispiel durchgescheuerter oder eingeklemmter Kabelbaum
+topic.lost_comm.c5	Das Steuergerät selbst ist defekt (seltener; zuerst Versorgung und Leitungen ausschließen)
+topic.lost_comm.k3	Sicherungen des im Code genannten Steuergeräts prüfen (Sicherungsplan in der Betriebsanleitung)
+topic.lost_comm.k4	Auf eingedrungenes Wasser oder Korrosion am Steuergerät und seinen Steckern prüfen
+topic.lost_comm.k5	Alle Codes löschen, fahren und erneut auslesen: Wiederkehrende Codes zeigen auf das eigentliche Problem
+topic.lost_comm.k7	Eine Werkstatt kann Netzwerkleitungen und Abschlusswiderstände prüfen (ein intakter CAN-Bus misst bei ausgeschaltetem Fahrzeug normalerweise etwa 60 Ohm zwischen CAN-High und CAN-Low)
+topic.invalid_data.sub	Ungültige Daten: {module}
+topic.invalid_data.about	Nachrichten von folgendem Steuergerät kommen über das Datennetz an, enthalten aber unplausible Werte oder Werte außerhalb des zulässigen Bereichs: {module}.
+topic.invalid_data.c1	Ein Fehler im Steuergerät ({module}) oder in einem seiner Sensoren, der unplausible Werte erzeugt (im Fehlerspeicher dieses Geräts nachsehen)
+topic.invalid_data.c3	Nicht zueinander passende Software oder fehlende Codierung nach Tausch oder Update eines Steuergeräts
+topic.invalid_data.c4	Schlechte Verbindungen oder Störungen auf den Netzwerkleitungen
+topic.invalid_data.k1	Steuergerät mit einem geeigneten Diagnosegerät auslesen lassen – seine eigenen Codes zeigen meist die eigentliche Ursache ({module})
+topic.invalid_data.k4	Überlegen Sie: Wurde kürzlich ein Steuergerät getauscht, aktualisiert oder abgeklemmt?
+topic.fuel_trim.about	Die Motorsteuerung korrigiert ständig die Einspritzmenge (Gemischadaption), um das Luft-Kraftstoff-Gemisch richtig zu halten, und die Korrekturen haben ihre Grenze erreicht.
+topic.fuel_trim.about.lean	{@topic.fuel_trim.about} Der Motor läuft zu mager: zu viel Luft oder zu wenig Kraftstoff.
+topic.fuel_trim.about.rich	{@topic.fuel_trim.about} Der Motor läuft zu fett: zu viel Kraftstoff oder zu wenig Luft.
+topic.fuel_trim.lean.c1	Falschluft nach dem Luftmassenmesser (Schläuche, Schellen, Dichtungen, Kurbelgehäuseentlüftung)
+topic.fuel_trim.lean.c2	Verschmutzter oder defekter Luftmassenmesser
+topic.fuel_trim.lean.c3	Zu niedriger Kraftstoffdruck (Pumpe, Filter, Regler) oder verstopfte Einspritzventile
+topic.fuel_trim.lean.c4	Abgasleck vor der Lambdasonde
+topic.fuel_trim.lean.c5	Bei einem Plug-in-Hybrid möglich: altes Benzin, wenn der Motor selten läuft
+topic.fuel_trim.rich.c1	Undichtes Einspritzventil oder zu hoher Kraftstoffdruck
+topic.fuel_trim.rich.c2	Defekter Luftmassenmesser oder Kühlmitteltemperatursensor
+topic.fuel_trim.rich.c3	Tankentlüftungsventil (Purge) klemmt offen
+topic.fuel_trim.rich.c4	Verstopfter Luftfilter
+topic.fuel_trim.rich.c5	Motoröl mit Kraftstoff verdünnt (möglich bei vielen kurzen, kalten Motorläufen)
+topic.fuel_trim.c1	Falschluft oder Problem mit der Kraftstoffversorgung
+topic.fuel_trim.c2	Defekter Sensor der Gemischregelung
+topic.fuel_trim.c3	Problem mit den Einspritzventilen
+topic.hybrid_other.sub_fallback	Hybridsystem (Antrieb)
+topic.no_codes.sub	Kein Fehler gespeichert
+topic.no_codes.about	Dieser Eintrag bedeutet „keine Fehlercodes gespeichert“; es ist kein Fehler.
+topic.no_codes.c1	Wird von manchen Steuergeräten als Platzhalter gemeldet, wenn kein Fehler gespeichert ist
+topic.no_codes.c2	Möglicherweise ein Lesefehler des Diagnosegeräts
+topic.no_codes.k1	Keine Maßnahme nötig
+topic.no_codes.k2	Codes zur Bestätigung erneut auslesen
+topic.u_power.sub	Spannungsversorgung des Steuergeräts
+topic.u_power.about	Ein Steuergerät meldet ein Problem mit Spannungsversorgung, Masse oder Zündungssignal (Betriebszustand).
+topic.u_power.c2	Durchgebrannte Sicherung oder defektes Relais in der Versorgung des Steuergeräts
+topic.u_power.c3	Lockere oder korrodierte Versorgungs- oder Masseverbindung am Steuergerät
+topic.u_power.c4	Fehler im Zündungs-/Betriebszustandssignal
+topic.u_power.c5	Spannung ging verloren, während das Steuergerät noch arbeitete (zum Beispiel Batterie bei eingeschaltetem Fahrzeug abgeklemmt)
+topic.u_power.k2	Sicherungen des betroffenen Steuergeräts prüfen
+topic.u_power.k3	Masseverbindungen und Batteriepole prüfen
+topic.u_module.sub	Steuergerät
+topic.u_module.about	Ein Steuergerät meldet einen Fehler an sich selbst, seiner Software oder Codierung (zum Beispiel gespeicherte FIN).
+topic.u_module.c1	Steuergerät nicht richtig konfiguriert oder codiert, zum Beispiel nach dem Tausch
+topic.u_module.c2	Nicht zueinander passende Software zwischen Steuergeräten
+topic.u_module.c4	Interner Fehler im Steuergerät
+topic.u_module.k2	Überlegen Sie: Wurde kürzlich ein Steuergerät getauscht, aktualisiert oder abgeklemmt?
+topic.bus.sub	Datennetz (CAN-Bus)
+topic.bus.about	Die Steuergeräte tauschen Daten über Datennetze (CAN-Busse) aus. Ein Steuergerät hat einen Fehler im Netz selbst erkannt, nicht an einem bestimmten Steuergerät.
+topic.bus.c2	Beschädigte Netzwerkleitungen: CAN-High und CAN-Low untereinander, nach Masse oder nach Plus kurzgeschlossen
+topic.bus.c3	Ein defektes Steuergerät, das das Netz stört
+topic.bus.c4	Wasser oder Korrosion in einem Stecker des Netzes
+topic.bus.c5	Nachrüstgeräte an der Diagnosebuchse oder in den Kabelbaum eingeschleift (Dongles, Tracker, Dashcams)
+topic.bus.k3	Notieren, welche Funktionen beim Auftreten des Codes ausfielen; das zeigt, welcher Teil des Netzes betroffen ist
+topic.bus.k4	Auf eingedrungenes Wasser (nasse Teppiche, feuchte Stecker) und kürzliche Arbeiten am Kabelbaum prüfen
+topic.bus.k5	Eine Werkstatt kann Netzwerkleitungen und Abschlusswiderstände messen und Steuergeräte einzeln abklemmen
+topic.u_other.sub	Netzwerkkommunikation
+topic.u_other.about	Dieser Code betrifft die Kommunikation zwischen den Steuergeräten des Fahrzeugs.
+topic.u_other.c2	Leitungs- oder Steckerfehler im Datennetz
+topic.u_other.c3	Fehler in einem der Steuergeräte
+topic.mil_request.sub	Warnleuchtenanforderung durch ein anderes Steuergerät
+topic.mil_request.about	Ein anderes Steuergerät hat einen eigenen Fehler gespeichert und das Einschalten der Motorkontrollleuchte angefordert. Der eigentliche Fehlercode ist in diesem Steuergerät gespeichert.
+topic.mil_request.c1	Ein Fehler im anfordernden Steuergerät (dieses Gerät auslesen, um den eigentlichen Code zu sehen)
+topic.mil_request.c3	Leitungs- oder Netzwerkproblem zwischen Steuergeräten
+topic.mil_request.k3	Veränderungen im Fahrverhalten notieren und der Werkstatt mitteilen
+topic.mil_request.adv	Meist ja, wenn das Auto normal fährt. Lassen Sie das andere Steuergerät innerhalb einiger Wochen auslesen, oder innerhalb weniger Tage, wenn sich das Auto anders verhält oder weitere Warnungen anzeigt.
+topic.hv_isolation_fault.sub	Überwachung der Hochvolt-Isolation
+topic.hv_isolation_fault.about	Das Hochvoltsystem ist gegenüber der Karosserie isoliert, und eine Überwachung prüft diese Isolation ständig. Sie hat einen zu niedrigen Isolationswiderstand gemessen; Hochspannung könnte also zur Karosserie hin ableiten.
+topic.hv_isolation_fault.c1	Feuchtigkeit oder Wasser in einem Hochvoltbauteil oder -stecker (Starkregen, Motorwäsche, tiefes Wasser)
+topic.hv_isolation_fault.c2	Beschädigte Isolierung an einem orangefarbenen Hochvoltkabel (Scheuerstelle, Marder- oder Unfallschaden)
+topic.hv_isolation_fault.c3	Isolationsfehler in einem Hochvoltbauteil (Klimakompressor, Heizer, Ladegerät, Wechselrichter, Elektromotor oder Antriebsbatterie)
+topic.hv_isolation_fault.c4	Fehler in der Isolationsüberwachung selbst (seltener)
+topic.hv_isolation_fault.k1	Notieren, wann der Fehler auftritt: nur bei Nässe, nur beim Laden oder nur bei eingeschalteter Heizung bzw. Klimaanlage
+topic.hv_isolation_fault.k2	Ohne zu berühren auf sichtbare Schäden an orangefarbenen Kabeln unter dem Auto und im Motorraum achten
+topic.hv_isolation_fault.k3	Fehler von einem Mitsubishi-Händler oder einer Hochvolt-Fachwerkstatt mit einem Isolationsmessgerät suchen lassen
+topic.hv_isolation_sensor.sub	Überwachung der Hochvolt-Isolation (Sensorkreis)
+topic.hv_isolation_sensor.about	Die Isolationsüberwachung prüft, dass das Hochvoltsystem gegenüber der Karosserie isoliert bleibt.
+topic.hv_isolation_sensor.c1	Fehler im Isolationsüberwachungskreis oder in dem Gerät, zu dem er gehört
+topic.hv_isolation_sensor.c2	Leitungs- oder Steckerproblem
+topic.hv_interlock.sub	Hochvolt-Interlock (Sicherheitsschleife)
+topic.hv_interlock.about	Der Hochvolt-Interlock ist eine Niedervolt-Signalschleife durch die Hochvoltstecker und -abdeckungen; wird sie unterbrochen, schaltet das System die Hochspannung aus Sicherheitsgründen ab.
+topic.hv_interlock.c1	Hochvoltstecker oder Servicestecker nicht vollständig verriegelt, oft nach einer Reparatur oder Prüfung
+topic.hv_interlock.c2	Beschädigter oder korrodierter Interlock-Kontakt bzw. -Leitung in einem Hochvoltstecker
+topic.hv_interlock.c3	Wasser in einem Stecker
+topic.hv_interlock.c4	Fehler im Steuergerät, das die Schleife überwacht (seltener)
+topic.hv_interlock.k1	Überlegen Sie: Wurde kürzlich an einem Hochvoltteil gearbeitet? Dann zuerst zu dieser Werkstatt zurück
+topic.hv_interlock.k2	Jeden Stecker der Interlock-Schleife von einer Hochvolt-Fachkraft prüfen lassen
+topic.hv_interlock.cc1	Hochvoltstecker oder Servicestecker nicht vollständig verriegelt, oft nach einer Reparatur oder Prüfung
+topic.hv_interlock.adv	Das Auto geht möglicherweise nicht in READY oder schaltet das Hochvoltsystem ab. Fährt es, lassen Sie es innerhalb weniger Tage prüfen. Fordert eine Meldung zum Anhalten auf, halten Sie sicher an. Versuchen Sie niemals, Hochvoltstecker selbst neu zu stecken.
+topic.hv_contactor.sub	Hauptschütze der Antriebsbatterie
+topic.hv_contactor.about	Hauptschütze verbinden die Antriebsbatterie mit dem übrigen Hochvoltsystem, und eine Vorladeschaltung begrenzt den Einschaltstrom beim Schließen.
+topic.hv_contactor.c1	Defektes Hauptschütz oder Vorladerelais/-widerstand
+topic.hv_contactor.c2	Leitungs- oder Steckerfehler im Ansteuerkreis der Schütze
+topic.hv_contactor.c3	Fehler im Batteriemanagement, das die Schütze ansteuert
+topic.hv_contactor.k2	Schütze und Ansteuerkreis von einem Mitsubishi-Händler oder einer Hochvolt-Fachwerkstatt prüfen lassen
+topic.hv_contactor.adv	Das Auto geht möglicherweise nicht in READY oder schaltet das Hochvoltsystem ab. Ein geschlossen hängendes Schütz bedeutet, dass die Hochspannung eingeschaltet bleiben kann – halten Sie sich von Hochvoltteilen fern. Lassen Sie es innerhalb weniger Tage prüfen; fordert eine Meldung zum Anhalten auf, halten Sie sicher an.
+topic.hv_fuse.sub	Hochvoltsicherung
+topic.hv_fuse.about	Eine Sicherung im Hochvoltsystem wird als durchgebrannt oder offen gemeldet; von ihr abgesicherte Funktionen können ausfallen.
+topic.hv_fuse.c1	Kurzschluss oder Überlast in einem Hochvoltbauteil hinter der Sicherung
+topic.hv_fuse.c2	Gealterte oder von selbst ausgefallene Sicherung (seltener)
+topic.hv_fuse.c3	Fehler im Überwachungskreis der Sicherung
+topic.hv_fuse.k1	Notieren, welche Funktionen ausgefallen sind (Heizung, Klimaanlage, Laden, Antrieb)
+topic.hv_fuse.k2	Ursache von einer Hochvolt-Fachkraft suchen lassen, bevor die Sicherung ersetzt wird
+topic.batt_temp.sub	Temperatursensoren der Antriebsbatterie
+topic.batt_temp.about	Temperatursensoren in der Antriebsbatterie ermöglichen es dem Batteriemanagement, sie vor Überhitzung und vor dem Laden bei zu großer Kälte zu schützen.
+topic.batt_temp.c1	Defekter Temperatursensor
+topic.batt_temp.c2	Leitungs- oder Steckerproblem im Batteriepaket
+topic.batt_temp.c3	Ein echter Temperaturunterschied durch ein Kühlproblem
+topic.batt_temp.c4	Fehler im Batteriemanagement-Steuergerät
+topic.batt_temp.k1	Alle Batterietemperaturen von einem Händler vergleichen lassen; nach einer Nacht Standzeit sollten sie fast gleich sein
+topic.batt_temp.k2	Eine Reparatur bedeutet meist das Öffnen der Antriebsbatterie und muss von einer Hochvolt-Fachkraft durchgeführt werden
+topic.batt_cooling.sub	Kühlung der Antriebsbatterie
+topic.batt_cooling.about	Die Antriebsbatterie wird von einem Kühlsystem mit Lüftern, Kanälen oder Ventilen in einem sicheren Temperaturbereich gehalten.
+topic.batt_cooling.c1	Lüfter, Kanal oder Ventil durch Schmutz oder Fremdkörper blockiert
+topic.batt_cooling.c2	Defekter Lüftermotor oder defektes Ventil
+topic.batt_cooling.c3	Durchgebrannte Sicherung oder defektes Relais
+topic.batt_cooling.c4	Leitungs- oder Steckerfehler
+topic.batt_cooling.k1	Sicherungen und Relais der Batteriekühlung prüfen (Betriebsanleitung oder Werkstatt-Sicherungsplan)
+topic.batt_cooling.k2	Bis zur Reparatur sportliches Fahren und wiederholtes Schnellladen bei Hitze vermeiden
+topic.batt_cooling.adv	Fahren Sie zurückhaltend; Leistung und Laden können zum Schutz der Antriebsbatterie begrenzt sein. Vermeiden Sie wiederholtes Schnellladen bei Hitze und lassen Sie es innerhalb weniger Tage prüfen.
+topic.batt_sense.sub	Strom- und Spannungsmessung der Antriebsbatterie
+topic.batt_sense.about	Das Batteriemanagement misst Spannung und Strom der Antriebsbatterie, um den Ladezustand zu berechnen und die Zellen zu schützen.
+topic.batt_sense.c1	Defekter Sensor
+topic.batt_sense.c2	Leitungs- oder Steckerproblem
+topic.batt_sense.c3	Fehler im Batteriemanagement-Steuergerät
+topic.batt_sense.k1	Batterieüberwachung von einem Mitsubishi-Händler mit dessen Diagnosegerät prüfen lassen
+topic.batt.sub	Antriebsbatterie (Hochvolt-Traktionsbatterie)
+topic.batt.about	Die Antriebsbatterie speichert die Energie für das elektrische Fahren; ihr Steuergerät überwacht Spannung, Temperatur und Ladezustand der Zellen.
+topic.batt.c1	Gealterte Antriebsbatterie, schwache Zellen oder unausgeglichene Zellen
+topic.batt.c2	Fehler in den Überwachungskreisen oder im Steuergerät der Batterie
+topic.batt.c3	Kühlproblem
+topic.batt.c4	Tiefentladung nach langer Standzeit oder nach leerem Tank
+topic.batt.k2	Anstecken und voll laden, dann prüfen, ob der Code wiederkommt
+topic.batt.k3	Antriebsbatterie von einem Mitsubishi-Händler prüfen lassen
+topic.dcdc.sub	DC/DC-Wandler (12-V-Versorgung)
+topic.dcdc.about	Der DC/DC-Wandler setzt die Spannung der Antriebsbatterie auf etwa 12–14 V um, versorgt damit die Bordelektronik und lädt die 12-V-Batterie; der Outlander PHEV hat keine herkömmliche Lichtmaschine.
+topic.dcdc.c1	Fehler im DC/DC-Wandler
+topic.dcdc.c2	Schlechte Verbindung, Korrosion oder durchgebrannte Hauptsicherung zwischen Wandler und 12-V-Batterie
+topic.dcdc.c3	Defekte 12-V-Batterie mit ungewöhnlich hoher Stromaufnahme
+topic.dcdc.c4	Mögliche Überhitzung durch einen Fehler in der Kühlung der Leistungselektronik
+topic.dcdc.k1	Spannung der 12-V-Batterie bei ausgeschaltetem Fahrzeug und dann in READY messen: In READY sollte sie auf etwa 13–14,5 V steigen; sonst lädt der Wandler nicht
+topic.dcdc.k2	Pole der 12-V-Batterie und Masseband auf Korrosion und festen Sitz prüfen
+topic.dcdc.k3	12-V-Batterie testen lassen und bei Schwäche ersetzen
+topic.pe_cooling.sub	Kühlung der Leistungselektronik
+topic.pe_cooling.about	Wechselrichter und Motorelektronik werden von einem eigenen Kühlkreislauf mit elektrischer Pumpe gekühlt.
+topic.pe_cooling.c1	Zu niedriger Kühlmittelstand im Kreislauf der Leistungselektronik (Leck)
+topic.pe_cooling.c2	Schwache oder defekte elektrische Kühlmittelpumpe
+topic.pe_cooling.c3	Luft im Kreislauf nach einer Reparatur
+topic.pe_cooling.c4	Kühler durch Schmutz oder Laub zugesetzt oder ein Problem mit dem Kühlerlüfter
+topic.pe_cooling.k2	Unter der Fahrzeugfront auf Kühlmittellecks achten
+topic.pe_cooling.k3	Laub und Schmutz vor den Kühlern entfernen
+topic.pe_cooling.adv	Die Leistung kann zum Schutz der Elektronik begrenzt sein. Fahren Sie zurückhaltend und lassen Sie es innerhalb weniger Tage prüfen; meiden Sie steile Steigungen, Anhängerbetrieb und hohe Last bei Hitze. Halten Sie an, wenn eine Temperaturwarnung oder eine Aufforderung zum Anhalten erscheint.
+topic.inverter.sub	Wechselrichter (Leistungselektronik für Motor/Generator)
+topic.inverter.about	Wechselrichter wandeln den Gleichstrom der Antriebsbatterie in den Wechselstrom für die Elektromotoren um – und zurück, wenn die Batterie vom Generator oder durch Rekuperation geladen wird.
+topic.inverter.c1	Interner Fehler im Wechselrichter
+topic.inverter.c2	Kühlproblem (nach Codes der Leistungselektronik-Kühlung suchen)
+topic.inverter.c3	Problem mit dem Elektromotor oder den Hochvoltkabeln
+topic.inverter.k2	Wechselrichter von einem Mitsubishi-Händler diagnostizieren lassen; das erfordert Hochvolt-Qualifikation und Spezialwerkzeug
+topic.motor_gen.sub	Elektrische Antriebsmotoren und Generator
+topic.motor_gen.about	Der Outlander PHEV hat elektrische Antriebsmotoren und einen vom Verbrennungsmotor angetriebenen Generator; jeder hat Sensoren und Steuerelektronik, die ständig überwacht werden.
+topic.motor_gen.c1	Fehler im Motorsteuergerät des E-Motors oder im Wechselrichter
+topic.motor_gen.c2	Defekter Sensor im Motor oder Generator
+topic.motor_gen.c3	Kühlproblem (bei temperaturbezogenen Codes)
+topic.motor_gen.c4	Leitungs- oder Steckerfehler zwischen Motor und Steuergerät
+topic.motor_gen.k1	Alle Codes auslesen und notieren, wann der Fehler auftrat (Start, Beschleunigung, Laden, über Bodenwellen)
+topic.motor_gen.k2	Motor und Steuergerät von einem Mitsubishi-Händler diagnostizieren lassen
+topic.engine_start.sub	Motorstart (Hybridsystem)
+topic.engine_start.about	Das Hybridsystem hat versucht, den Benzinmotor zu starten, aber er ist nicht wie erwartet angesprungen und gelaufen.
+topic.engine_start.c1	Sehr wenig Kraftstoff oder altes Benzin
+topic.engine_start.c2	Problem mit der Kraftstoffversorgung (Pumpe, Relais, Sicherung)
+topic.engine_start.c3	Fehler an Kurbel- oder Nockenwellensensor, Zündung oder Wegfahrsperre
+topic.engine_start.c4	Schwache 12-V-Batterie
+topic.engine_start.k1	Kraftstoffstand prüfen und frisches Benzin tanken
+topic.engine_start.k2	Alle Codes auslesen, um die eigentliche Ursache zu finden
+topic.engine_mount.sub	Elektronisch geregeltes Motorlager
+topic.engine_mount.about	Manche Autos nutzen elektronisch geregelte Motorlager, um Vibrationen zu verringern.
+topic.engine_mount.c1	Leitungs- oder Steckerfehler am Motorlager
+topic.engine_mount.c2	Defekter Aktor im Motorlager
+topic.engine_mount.c3	Durchgebrannte Sicherung
+topic.engine_mount.k1	Stecker und Leitungen des Motorlagers prüfen
+topic.engine_mount.k2	Auf stärkere Vibrationen beim Starten und Abstellen des Motors achten
+topic.aux_trans_pump.sub	Zusätzliche Getriebeölpumpe
+topic.aux_trans_pump.about	Eine elektrische Zusatzpumpe hält das Getriebeöl in Umlauf, wenn die motorgetriebene Pumpe nicht läuft.
+topic.aux_trans_pump.c1	Defekte elektrische Pumpe oder deren Steuergerät
+topic.aux_trans_pump.c2	Leitungs- oder Steckerfehler
+topic.aux_trans_pump.c3	Zu niedriger Ölstand oder interne Leckage
+topic.aux_trans_pump.k1	Ölstand und Pumpenstromkreis in einer Werkstatt prüfen lassen
+topic.hybrid_other.about	Die Hybridsteuerung koordiniert Verbrennungsmotor, Elektromotoren und Antriebsbatterie und überwacht deren Komponenten.
+topic.hybrid_other.c1	Fehler an einer Komponente des Hybridsystems oder ihrem Steuergerät
+topic.hybrid_other.c2	Leitungs- oder Steckerproblem
+topic.turbo.sub	Turbolader / Kompressor
+topic.turbo.about	Dieser Code betrifft einen Turbolader oder Kompressor, der den Ladedruck im Ansaugtrakt erhöht.
+topic.glow.sub	Glühkerzen (Dieselmotoren)
+topic.glow.about	Dieser Code betrifft Glühkerzen oder einen Ansaugluftvorwärmer, die einem Dieselmotor beim Kaltstart helfen.
+topic.diesel.sub	Dieselkraftstoff und Abgasnachbehandlung
+topic.diesel.about	Dieser Code betrifft Ausstattung für Dieselkraftstoff oder Abgasnachbehandlung (Partikelfilter, AdBlue-Dosierung).
+topic.nox.sub	NOx-Sensor / NOx-Nachbehandlung
+topic.nox.about	Dieser Code betrifft einen NOx-Sensor oder die NOx-Nachbehandlung im Abgassystem.
+topic.cyl_deact.sub	Zylinderabschaltung
+topic.cyl_deact.about	Dieser Code betrifft die Zylinderabschaltung, die bei geringer Last einzelne Zylinder abschaltet, um Kraftstoff zu sparen.
+topic.misfire.sub	Zündaussetzererkennung
+topic.misfire.about	Die Motorsteuerung hat Zündaussetzer erkannt: Der Kraftstoff in einem oder mehreren Zylindern verbrennt nicht richtig. Unverbrannter Kraftstoff kann den Katalysator überhitzen und beschädigen.
+topic.misfire.c1	Verschlissene Zündkerzen oder eine defekte Zündspule
+topic.misfire.c2	Verstopftes oder defektes Einspritzventil
+topic.misfire.c3	Alter oder minderwertiger Kraftstoff (möglich, wenn der Motor selten läuft)
+topic.misfire.c4	Falschluft im Ansaugtrakt oder verschmutzter Luftmassenmesser
+topic.misfire.c5	Zu niedriger Kraftstoffdruck
+topic.misfire.c6	Problem mit der Ventilsteuerung oder zu geringe Kompression (seltener)
+topic.misfire.k1	Alle Codes auslesen: zylinderbezogene Aussetzer-, Gemisch- oder Sensorcodes grenzen den Fehler ein
+topic.misfire.k2	Zündkerzen und Zündspulen prüfen; eine Spule mit einem anderen Zylinder tauschen und sehen, ob der Aussetzer mitwandert
+topic.misfire.k4	Eine Werkstatt kann Kraftstoffdruck, Einspritzventile und Kompression prüfen
+topic.cam_crank_corr.sub	Ventilsteuerung (Kurbelwelle/Nockenwelle-Abgleich)
+topic.cam_crank_corr.about	Die Motorsteuerung vergleicht die Signale von Kurbelwellen- und Nockenwellensensor. Sie passen nicht mehr wie vorgesehen zusammen – entweder hat sich die Ventilsteuerung verschoben oder eines der Signale ist falsch.
+topic.cam_crank_corr.c1	Gelängte Steuerkette, verschlissene Führungen oder schwacher Kettenspanner
+topic.cam_crank_corr.c2	Zu wenig oder verschmutztes Motoröl, das die variable Ventilsteuerung stört
+topic.cam_crank_corr.c3	Klemmendes Ölsteuerventil oder defekter Nockenwellenversteller
+topic.cam_crank_corr.c4	Defekter Nocken- oder Kurbelwellensensor
+topic.cam_crank_corr.k2	Direkt nach einem Kaltstart auf Rasseln von der Steuerkettenseite des Motors achten
+topic.cam_crank_corr.k3	Eine Werkstatt kann Steuerzeitenmarkierungen oder Kettenlängung prüfen; früh beheben, denn eine übersprungene Kette kann den Motor beschädigen
+topic.cam_sensor.sub	Nockenwellensensor
+topic.cam_sensor.about	Der Nockenwellensensor teilt der Motorsteuerung mit, welcher Zylinder als nächstes zündet.
+topic.cam_sensor.c1	Defekter Nockenwellensensor
+topic.cam_sensor.c2	Öl im Sensorstecker
+topic.cam_sensor.c3	Problem mit Steuerkette oder Nockenwellen-Geberrad (seltener)
+topic.cam_sensor.k1	Sensorstecker auf Öl im Inneren prüfen und fest wieder aufstecken
+topic.cam_sensor.adv	Das Auto kann weiter elektrisch fahren, aber der Motor startet eventuell schlecht oder geht aus. Lassen Sie es innerhalb weniger Tage prüfen.
+topic.vvt.sub	Variable Ventilsteuerung
+topic.vvt.about	Die Motorsteuerung verstellt die Steuerzeiten mit öldruckbetätigten Verstellern, die über Magnetventile angesteuert werden.
+topic.vvt.c1	Zu wenig, altes oder falsches Motoröl
+topic.vvt.c2	Klemmendes oder defektes Ölsteuerventil oder ein verstopftes Filtersieb
+topic.vvt.c3	Defekter Nockenwellenversteller
+topic.vvt.c4	Gelängte Steuerkette
+topic.vvt.k2	Eine Werkstatt kann das Ölsteuerventil prüfen und Soll- mit Ist-Nockenwellenwinkel vergleichen
+topic.crank.sub	Kurbelwellensensor
+topic.crank.about	Der Kurbelwellensensor liefert der Motorsteuerung Drehzahl und Kolbenstellung.
+topic.crank.c1	Defekter Kurbelwellensensor
+topic.crank.c2	Metallspäne am Sensor oder beschädigtes Geberrad
+topic.crank.c3	Sporadischer Leitungsfehler
+topic.crank.k1	Sensorstecker und Leitungen auf Öl, Scheuerstellen oder Marderschäden prüfen
+topic.crank.adv	Das Auto kann weiter elektrisch fahren, aber der Motor springt eventuell nicht an oder geht aus. Lassen Sie es innerhalb weniger Tage prüfen.
+topic.knock.sub	Klopfsensor
+topic.knock.about	Der Klopfsensor erkennt Motorklopfen, damit die Motorsteuerung den Zündzeitpunkt anpassen kann.
+topic.knock.c1	Defekter Klopfsensor
+topic.knock.c2	Sensor locker am Motorblock
+topic.knock.c3	Echte mechanische Motorgeräusche
+topic.knock.k1	Prüfen, ob der Sensor fest am Motorblock verschraubt ist
+topic.knock.k2	Empfohlene Kraftstoffqualität (Oktanzahl) tanken
+topic.knock.adv	Ja, Sie können weiterfahren. Die Motorsteuerung nutzt einen sichereren Zündzeitpunkt, daher wirkt der Motor eventuell etwas schwächer. Vermeiden Sie hohe Last und lassen Sie es in den nächsten Wochen prüfen.
+topic.ignition.sub	Zündsystem
+topic.ignition.about	Die Zündspulen erzeugen den Funken, der den Kraftstoff in jedem Zylinder entzündet.
+topic.ignition.c1	Defekte Zündspule
+topic.ignition.c2	Verschlissene Zündkerze
+topic.ignition.c3	Leitungs- oder Steckerfehler an der Spule
+topic.ignition.k1	Spule mit dem Nachbarzylinder tauschen und prüfen, ob der Code mit der Spule wandert
+topic.o2_heater.sub	Lambdasondenheizung
+topic.o2_heater.about	Lambdasonden arbeiten nur im warmen Zustand, daher hat jede eine eingebaute elektrische Heizung.
+topic.o2_heater.c1	Durchgebrannte Heizung (häufig bei älteren Sonden)
+topic.o2_heater.c2	Durchgebrannte Sicherung der Sondenheizung
+topic.o2_heater.c3	Geschmolzene oder durchgescheuerte Leitungen in Abgasnähe
+topic.o2_heater.k1	Sicherung der Lambdasondenheizung prüfen
+topic.o2_heater.k2	Widerstand der Heizung am Sondenstecker messen und mit den Werkstattdaten vergleichen
+topic.o2_heater.cc1	Durchgebrannte oder kurzgeschlossene Heizung (die Sonde muss dann ersetzt werden)
+topic.o2_heater.adv	Ja, Sie können weiterfahren. Emissionen und Verbrauch können steigen, vor allem nach Kaltstarts. Lassen Sie es in den nächsten Wochen beheben.
+topic.o2.sub	Lambdasonde
+topic.o2.about	Lambdasonden messen den Sauerstoff im Abgas: Die vordere Sonde hilft, das Gemisch richtig zu halten, die hintere überwacht den Katalysator.
+topic.o2.c1	Gealterte oder verunreinigte Lambdasonde
+topic.o2.c2	Abgasleck in der Nähe der Sonde
+topic.o2.c3	Ein echtes Gemischproblem (nach Gemischadaptionscodes suchen)
+topic.o2.c4	Durch Abgaswärme beschädigte Leitungen
+topic.o2.k1	Auf Abgaslecks nahe der Sonde achten (tickendes oder pustendes Geräusch, Rußspuren)
+topic.o2.k2	Zuerst Gemisch-, Zündaussetzer- und Heizungscodes beheben
+topic.fuel_trim.sub	Gemischbildung (Gemischadaption)
+topic.fuel_trim.k1	Gemischadaption in den Live-Daten im Leerlauf und bei höherer Drehzahl prüfen
+topic.fuel_trim.k2	Auf Falschluft im Ansaugtrakt achten (sehen und hören)
+topic.fuel_trim.k3	Zuerst Zündaussetzer-, Luftmassenmesser- und Lambdasondencodes beheben
+topic.secondary_air.sub	Sekundärlufteinblasung
+topic.secondary_air.about	Manche Benzinmotoren blasen nach einem Kaltstart Frischluft ins Abgas, um den Katalysator schneller aufzuheizen.
+topic.secondary_air.c1	Defekte Luftpumpe oder defektes Relais
+topic.secondary_air.c2	Klemmendes oder undichtes Umschalt-/Rückschlagventil
+topic.secondary_air.c3	Undichte oder verstopfte Schläuche
+topic.secondary_air.k1	Schläuche und Ventile auf Schäden prüfen
+topic.secondary_air.k2	Sicherung und Relais der Pumpe prüfen
+topic.intake_manifold.sub	Saugrohrklappe / Schaltsaugrohrventil
+topic.intake_manifold.about	Manche Motoren nutzen Klappen oder Ventile im Saugrohr, um den Luftweg für mehr Drehmoment und Leistung zu verändern.
+topic.intake_manifold.c1	Klappe oder Ventil klemmt durch Ölkohleablagerungen
+topic.intake_manifold.c2	Defekter Steller oder Positionssensor
+topic.intake_manifold.c3	Unterdruckleck oder Leitungsfehler
+topic.intake_manifold.k1	Leitungen zum Steller und eventuelle Unterdruckschläuche prüfen
+topic.maf.sub	Luftmassenmesser (MAF)
+topic.maf.about	Der Luftmassenmesser misst die angesaugte Luftmenge, aus der die Einspritzmenge berechnet wird.
+topic.maf.c1	Falschluft im Ansaugkanal hinter dem Sensor
+topic.maf.c2	Verschmutztes oder verunreinigtes Sensorelement
+topic.maf.c3	Verstopfter Luftfilter
+topic.maf.k1	Luftfilter und Ansaugkanal zwischen Sensor und Drosselklappe prüfen
+topic.maf.k2	Sensorelement mit speziellem LMM-Reiniger säubern (Element nie berühren)
+topic.map.sub	Saugrohr-/Umgebungsdrucksensor
+topic.map.about	Drucksensoren messen Saugrohr- und Umgebungsdruck für die Berechnung von Einspritzung und Zündung.
+topic.map.c1	Rissiger oder abgezogener Unterdruckschlauch zum Sensor
+topic.map.c2	Falschluft im Ansaugtrakt
+topic.map.c3	Defekter Drucksensor
+topic.map.k1	Unterdruckschlauch des Sensors und Ansaugtrakt auf Undichtigkeiten prüfen
+topic.iat.sub	Lufttemperatursensor
+topic.iat.about	Lufttemperatursensoren melden der Motorsteuerung, wie warm die Ansaug- oder Außenluft ist.
+topic.iat.c1	Defekter oder ungenauer Temperatursensor
+topic.iat.c2	Sensorstecker bei Arbeiten am Luftfilter gelockert
+topic.iat.k1	Bei kaltem Motor nach einer Nacht Standzeit sollten Luft- und Kühlmitteltemperatur in den Live-Daten etwa gleich sein
+topic.engine_overtemp.sub	Motorkühlung (Überhitzung)
+topic.engine_overtemp.about	Die Kühlmitteltemperatur hat die sichere Grenze überschritten: Der Motor ist überhitzt.
+topic.engine_overtemp.c1	Kühlmittelverlust durch ein Leck
+topic.engine_overtemp.c2	Kühlerlüfter funktioniert nicht
+topic.engine_overtemp.c3	Thermostat klemmt geschlossen oder defekte Wasserpumpe
+topic.engine_overtemp.c4	Zugesetzter Kühler
+topic.engine_overtemp.c5	Defekte Zylinderkopfdichtung (seltener)
+topic.engine_overtemp.k1	Anhalten und den Motor mindestens 30 Minuten abkühlen lassen; den Kühlmitteldeckel nie bei heißem Motor öffnen
+topic.engine_overtemp.k2	Bei kaltem Motor Kühlmittelstand prüfen und nach Undichtigkeiten suchen
+topic.engine_overtemp.k3	Kühlsystem in einer Werkstatt abdrücken lassen
+topic.engine_overspeed.sub	Motordrehzahlgrenze
+topic.engine_overspeed.about	Die Motordrehzahl hat das zulässige Maximum überschritten.
+topic.engine_overspeed.c1	Motor zu hoch gedreht, zum Beispiel durch einen Fehler in der Drosselklappen- oder Antriebssteuerung
+topic.engine_overspeed.c2	Falsches Drehzahlsignal
+topic.engine_overspeed.k1	Alle Codes auf zusammenhängende Fehler auslesen
+topic.engine_overspeed.k2	Notieren, was Sie gerade gemacht haben, als es passierte
+topic.thermostat.sub	Thermostat / Warmlauf
+topic.thermostat.about	Der Motor hat seine normale Betriebstemperatur nicht in der erwarteten Zeit erreicht; das Thermostat öffnet eventuell zu früh oder klemmt offen.
+topic.thermostat.c1	Thermostat klemmt offen oder öffnet zu früh
+topic.thermostat.c2	Defekter Kühlmitteltemperatursensor
+topic.thermostat.c3	Zu niedriger Kühlmittelstand
+topic.thermostat.c4	Möglicher Mitauslöser bei einem Plug-in-Hybrid: sehr kaltes Wetter mit kurzen Motorlaufzeiten
+topic.thermostat.k1	Kühlmittelstand bei kaltem Motor prüfen
+topic.thermostat.k2	Kühlmitteltemperatur während des Warmlaufs in den Live-Daten beobachten
+topic.ect.sub	Kühlmitteltemperatursensor
+topic.ect.about	Der Kühlmitteltemperatursensor teilt der Motorsteuerung mit, wie warm der Motor ist.
+topic.ect.c1	Defekter oder ungenauer Kühlmitteltemperatursensor
+topic.ect.c2	Thermostatproblem
+topic.ect.c3	Zu niedriger Kühlmittelstand
+topic.ect.k1	Kühlmittelstand bei kaltem Motor prüfen
+topic.ect.k2	Nach einer Nacht Standzeit sollten Kühlmittel- und Lufttemperatur in den Live-Daten nur wenige Grad auseinanderliegen
+topic.cooling.sub	Motorkühlsystem
+topic.cooling.about	Das Kühlsystem hält den Motor mit Kühlmittel, Pumpe, Kühler und Lüftern auf Betriebstemperatur.
+topic.cooling.c1	Zu wenig Kühlmittel oder Leck
+topic.cooling.c2	Fehler an Lüfter, Lüfterrelais oder Sicherung
+topic.cooling.c3	Defekte Pumpe oder defektes Thermostat
+topic.cooling.k1	Kühlmittelstand bei kaltem Motor prüfen
+topic.cooling.k2	Sicherungen und Relais des Kühlerlüfters prüfen
+topic.oil_low.sub	Motoröldruck
+topic.oil_low.about	Öldruck oder Ölstand des Motors ist unter das sichere Minimum gefallen; das kann den Motor innerhalb von Minuten schädigen.
+topic.oil_low.c1	Zu niedriger Ölstand
+topic.oil_low.c2	Verschlissene oder defekte Ölpumpe
+topic.oil_low.c3	Falsches oder sehr altes Öl
+topic.oil_low.c4	Defekter Öldrucksensor oder -schalter
+topic.oil_low.k1	Anhalten und den Ölstand am Messstab bei waagerecht stehendem Auto prüfen
+topic.oil_low.k2	Ist der Stand in Ordnung, die Warnung bleibt aber, den Öldruck mit einem mechanischen Manometer messen lassen
+topic.oil.sub	Motorölsystem
+topic.oil.about	Die Motorsteuerung überwacht Druck, Stand oder Temperatur des Motoröls.
+topic.oil.c1	Zu wenig oder altes Motoröl
+topic.oil.c2	Defekter Ölsensor oder -schalter
+topic.oil.c3	Leitungs- oder Steckerfehler
+topic.egr.sub	Abgasrückführung (AGR)
+topic.egr.about	Die Abgasrückführung leitet etwas Abgas in den Ansaugtrakt zurück, um Verbrennungstemperatur und NOx-Emissionen zu senken.
+topic.egr.c1	Ölkohleablagerungen im AGR-Ventil oder in den Kanälen
+topic.egr.c2	Klemmendes oder defektes AGR-Ventil
+topic.egr.c3	Defekter Sensor zur Bewertung des AGR-Durchflusses
+topic.egr.k1	AGR-Ventil reinigen oder ersetzen und die Kanäle reinigen
+topic.throttle.sub	Elektronische Drosselklappe / Fahrpedal
+topic.throttle.about	Der Motor hat eine elektronische Drosselklappe, und das Fahrpedal hat Positionssensoren mit jeweils zwei Signalen, die übereinstimmen müssen.
+topic.throttle.c1	Verschmutzte oder klemmende Drosselklappe (Ablagerungen oder Eis bei starkem Frost)
+topic.throttle.c2	Defekte Drosselklappe oder defekter Fahrpedalsensor
+topic.throttle.c3	Wasser oder Korrosion im Stecker
+topic.throttle.c4	Problem mit der gemeinsamen 5-V-Sensorversorgung
+topic.throttle.k1	Drosselklappe bei Verschmutzung vorsichtig reinigen (Zündung aus); danach ist eventuell eine Grundeinstellung (Anlernen) nötig
+topic.throttle.k2	Bei Pedalfehlern den Fußraum auf Feuchtigkeit prüfen
+topic.idle.sub	Leerlaufregelung
+topic.idle.about	Im Leerlauf regelt die Motorsteuerung die Drehzahl über die elektronische Drosselklappe.
+topic.idle.c1	Verschmutzte Drosselklappe
+topic.idle.c2	Falschluft im Ansaugtrakt
+topic.idle.c3	Leerlauf muss nach Reinigung oder Abklemmen der Batterie neu angelernt werden
+topic.idle.k1	Drosselklappe vorsichtig reinigen und Leerlauf neu anlernen
+topic.idle.k2	Im Leerlauf auf Falschluftgeräusche im Ansaugtrakt achten
+topic.injector.sub	Einspritzventile
+topic.injector.about	Die Einspritzventile spritzen Benzin in den Motor und werden von der Motorsteuerung angesteuert.
+topic.injector.c1	Verstopftes oder undichtes Einspritzventil
+topic.injector.c2	Defekte Magnetspule des Einspritzventils
+topic.injector.c3	Leitungs- oder Steckerfehler
+topic.injector.k1	Widerstand der Einspritzventile messen und untereinander vergleichen
+topic.injector.k2	Eine Werkstatt kann Durchfluss und Dichtheit der Einspritzventile prüfen
+topic.injector.adv	Der Motor kann Zündaussetzer haben und unrund laufen, was den Katalysator schädigen kann. Lassen Sie es innerhalb weniger Tage reparieren; blinkt die Motorkontrollleuchte, halten Sie an, sobald es sicher ist.
+topic.fuel_pump.sub	Kraftstoffpumpe
+topic.fuel_pump.about	Die elektrische Kraftstoffpumpe im Tank versorgt den Motor mit Benzin.
+topic.fuel_pump.c1	Defektes Kraftstoffpumpenrelais oder durchgebrannte Sicherung
+topic.fuel_pump.c2	Verschlissene Kraftstoffpumpe
+topic.fuel_pump.c3	Leitungs- oder Steckerfehler
+topic.fuel_pump.k1	Sicherung und Relais der Kraftstoffpumpe prüfen
+topic.fuel_pump.k2	Eine Werkstatt kann Kraftstoffdruck und Pumpenstrom messen
+topic.fuel_pump.adv	Sie können meist elektrisch weiterfahren, aber der Motor springt eventuell nicht an oder geht aus. Lassen Sie es innerhalb weniger Tage prüfen.
+topic.fuel_pressure.sub	Kraftstoffdruck / -versorgung
+topic.fuel_pressure.about	Das Kraftstoffsystem muss Benzin mit dem richtigen Druck liefern, damit die Einspritzventile richtig arbeiten.
+topic.fuel_pressure.c1	Schwache Kraftstoffpumpe oder verstopfter Kraftstofffilter
+topic.fuel_pressure.c2	Defekter Druckregler oder Sensor
+topic.fuel_pressure.c3	Kraftstoffleck
+topic.fuel_pressure.k1	Bei Benzingeruch nicht fahren; das Auto auf Undichtigkeiten prüfen lassen
+topic.fuel_pressure.k2	Eine Werkstatt kann den Kraftstoffdruck messen
+topic.evap_leak.sub	Tankentlüftungssystem (EVAP)
+topic.evap_leak.about	Das Tankentlüftungssystem (EVAP) sammelt Benzindämpfe aus dem Tank in einem Aktivkohlefilter. Die Motorsteuerung verschließt das System und prüft, ob es Druck oder Unterdruck hält – und hat ein Leck gefunden.
+topic.evap_leak.c1	Lockerer, verschlissener oder falscher Tankdeckel (am häufigsten)
+topic.evap_leak.c2	Rissiger oder abgezogener EVAP-Schlauch
+topic.evap_leak.c3	Tankentlüftungs- oder Belüftungsventil dichtet nicht
+topic.evap_leak.c4	Korrodierter Einfüllstutzen oder beschädigter Aktivkohlefilter
+topic.evap_leak.k1	Tankdeckel prüfen: Er muss beim Zudrehen klicken, und die Dichtung muss sauber und rissfrei sein
+topic.evap_leak.k2	Sichtbare EVAP-Schläuche und den Einfüllstutzen prüfen
+topic.evap_leak.k3	Plug-in-Hybride haben oft einen geschlossenen, unter Druck stehenden Tank: wie in der Betriebsanleitung beschrieben tanken
+topic.evap_leak.k4	Kommt er wieder, kann eine Werkstatt das Leck mit einem Rauchtest finden
+topic.evap_leak.adv	Ja, Sie können weiterfahren. Benzindämpfe entweichen, lassen Sie es also in den nächsten Wochen beheben. Riecht es stark nach Benzin, lassen Sie es bald prüfen.
+topic.evap.sub	Tankentlüftungssystem (EVAP)
+topic.evap.about	Das Tankentlüftungssystem (EVAP) sammelt Benzindämpfe aus dem Tank in einem Aktivkohlefilter und verbrennt sie später im Motor.
+topic.evap.c1	Defektes Tankentlüftungs- oder Belüftungsventil
+topic.evap.c2	Verstopfter oder abgezogener EVAP-Schlauch
+topic.evap.c3	Defekter Tankdrucksensor
+topic.evap.k1	Plug-in-Hybride haben oft einen geschlossenen, unter Druck stehenden Tank: wie in der Betriebsanleitung beschrieben tanken
+topic.evap.k2	EVAP-Schläuche und Ventile prüfen
+topic.fuel_level.sub	Kraftstoffstandsensor
+topic.fuel_level.about	Der Kraftstoffstandsensor im Tank steuert die Tankanzeige und die Reichweitenberechnung.
+topic.fuel_level.c1	Verschlissener oder defekter Tankgeber (Schwimmer und Widerstandsbahn)
+topic.fuel_level.c2	Korrodierter Stecker am Tankgeber
+topic.fuel_level.c3	Leitungsfehler
+topic.fuel_level.k1	Tankanzeige mit der getankten Menge vergleichen
+topic.fuel_level.k2	Bei einem Plug-in-Hybrid kann die Anzeige wochenlang stillstehen, wenn der Motor selten läuft; das allein ist kein Fehler
+topic.fuel_misc.sub	Kraftstoffsystem
+topic.fuel_misc.about	Die Motorsteuerung überwacht das Kraftstoffsystem (Stand, Temperatur, Zusammensetzung und Versorgung).
+topic.fuel_misc.c1	Defekter Sensor im Kraftstoffsystem
+topic.fuel_misc.c2	Leitungs- oder Steckerfehler
+topic.fuel_misc.c3	Alter oder verunreinigter Kraftstoff
+topic.cat_eff.sub	Katalysator
+topic.cat_eff.about	Die Motorsteuerung vergleicht die Lambdasonden vor und nach dem Katalysator und hat festgestellt, dass der Katalysator das Abgas nicht mehr ausreichend reinigt.
+topic.cat_eff.c1	Gealterter oder beschädigter Katalysator
+topic.cat_eff.c2	Abgasleck in der Nähe der Lambdasonden
+topic.cat_eff.c3	Defekte oder träge Lambdasonde, die ein falsches Ergebnis liefert
+topic.cat_eff.c4	Gemischprobleme oder Zündaussetzer im Motor
+topic.cat_eff.k1	Zuerst Zündaussetzer-, Gemisch- und Lambdasondencodes beheben
+topic.cat_eff.k2	Auf Abgaslecks prüfen
+topic.cat_eff.k4	Den Katalysator durch ein typgenehmigtes Qualitätsteil ersetzen, wenn bestätigt ist, dass er verbraucht ist
+topic.catalyst.sub	Katalysator
+topic.catalyst.about	Der Katalysator reinigt das Abgas; manche Fahrzeuge überwachen seine Temperatur oder heizen ihn elektrisch auf.
+topic.catalyst.c1	Defekter Katalysator-Temperatursensor oder -Heizung
+topic.catalyst.c2	Durch Abgaswärme beschädigte Leitungen
+topic.catalyst.k1	Leitungen in der Nähe der Abgasanlage auf Hitzeschäden untersuchen
+topic.pcv.sub	Kurbelgehäuseentlüftung (PCV)
+topic.pcv.about	Die Kurbelgehäuseentlüftung führt Öldämpfe aus dem Motor zurück in den Ansaugtrakt, wo sie verbrannt werden.
+topic.pcv.c1	Gerissener oder abgezogener Entlüftungsschlauch
+topic.pcv.c2	Klemmendes PCV-Ventil
+topic.pcv.c3	Defekte PCV-Heizung (falls vorhanden)
+topic.pcv.k1	Die Schläuche der Kurbelgehäuseentlüftung auf Risse und lose Enden prüfen
+topic.exhaust.sub	Sensoren in der Abgasanlage
+topic.exhaust.about	Die Motorsteuerung überwacht Abgasdruck oder Abgastemperatur mit Sensoren in der Abgasanlage.
+topic.exhaust.c1	Defekter Abgassensor
+topic.exhaust.c2	Durch Abgaswärme beschädigte Leitungen
+topic.exhaust.c3	Undichtigkeit oder Verengung in der Abgasanlage
+topic.exhaust.k1	Leitungen in der Nähe der Abgasanlage auf Hitzeschäden untersuchen
+topic.vss.sub	Geschwindigkeitssignal
+topic.vss.about	Die Fahrzeuggeschwindigkeit wird normalerweise aus den Raddrehzahlsensoren berechnet und über das Datennetz verteilt.
+topic.vss.c1	Fehler an Raddrehzahlsensor oder ABS
+topic.vss.c2	Kommunikationsproblem im Netzwerk
+topic.vss.k1	Prüfen, ob der Tacho funktioniert und ob die ABS-Warnleuchte leuchtet
+topic.cruise.sub	Tempomat
+topic.cruise.about	Der Tempomat und seine Schalter werden vom Steuergerät überwacht.
+topic.cruise.c1	Defekter Tempomatschalter
+topic.cruise.c2	Fehler am Bremsschalter
+topic.cruise.c3	Leitungs- oder Steckerfehler
+topic.cruise.k1	Prüfen, ob die Bremsleuchten funktionieren (der Bremsschalter schaltet auch den Tempomaten ab)
+topic.cruise.adv	Ja. Der Tempomat funktioniert möglicherweise erst nach der Reparatur wieder.
+topic.brake_p.sub	Bremspedalschalter / Signale des Bremskraftverstärkers
+topic.brake_p.about	Der Bremspedalschalter meldet mehreren Steuergeräten, wann Sie bremsen (Bremsleuchten, Tempomat und Antriebssteuerung); manche Fahrzeuge überwachen auch den Bremskraftverstärker.
+topic.brake_p.c1	Defekter oder falsch eingestellter Bremspedalschalter
+topic.brake_p.c2	Leitungs- oder Steckerfehler
+topic.brake_p.c3	Defekter Sensor am Bremskraftverstärker
+topic.brake_p.k1	Prüfen, ob die Bremsleuchten funktionieren (jemanden hinschauen lassen)
+topic.brake_p.k2	Den Schalter oben am Bremspedal auf Beschädigung oder Fehleinstellung prüfen
+topic.power_steering_p.sub	Signal der Servolenkung
+topic.power_steering_p.about	Die Motor- oder Antriebssteuerung erhält ein Signal von der Servolenkung.
+topic.power_steering_p.c1	Fehler an Sensor oder Schalter der Servolenkung
+topic.power_steering_p.c2	Leitungs- oder Steckerfehler
+topic.power_steering_p.k1	Prüfen, ob sich die Lenkung normal anfühlt
+topic.ac_p.sub	Klimaanlage
+topic.ac_p.about	Die Klimaanlage wird zusammen mit Motor und Antriebssystem überwacht und gesteuert.
+topic.ac_p.c1	Zu wenig Kältemittel (Undichtigkeit)
+topic.ac_p.c2	Defekter Drucksensor oder defektes Relais
+topic.ac_p.c3	Leitungs- oder Steckerfehler
+topic.ac_p.k1	Prüfen, ob die Klimaanlage kühlt; andernfalls die Kältemittelmenge prüfen lassen
+topic.ac_p.k2	Bei vielen Plug-in-Hybriden kühlt die Klimaanlage auch die Antriebsbatterie – den Fehler also nicht unrepariert lassen
+topic.alternator.sub	12-V-Ladesystem
+topic.alternator.about	Dieser Code betrifft das Ladesystem (Lichtmaschine), das normalerweise die 12-V-Batterie laden würde.
+topic.alternator.c2	Fehler am DC/DC-Wandler
+topic.alternator.c3	Das Diagnosegerät hat den Code falsch ausgelesen
+topic.alternator.k2	Nach Codes des DC/DC-Wandlers suchen
+topic.voltage.sub	12-V-Versorgung
+topic.voltage.about	Das 12-V-System wird von der 12-V-Hilfsbatterie versorgt, die beim Outlander PHEV vom DC/DC-Wandler statt von einer Lichtmaschine geladen wird.
+topic.voltage.c2	DC/DC-Wandler lädt nicht richtig (nach DC/DC-Codes suchen)
+topic.voltage.c3	Lose oder korrodierte Batteriepole oder Massebänder
+topic.voltage.c4	Batterie entladen durch lange Standzeit oder angeschlossen gelassenes Zubehör
+topic.voltage.k2	Batteriepole reinigen und festziehen, Massebänder prüfen
+topic.voltage.adv	Lassen Sie es innerhalb weniger Tage prüfen. Ein schwaches 12-V-System kann verhindern, dass das Auto in READY geht, oder Funktionen ohne Vorwarnung abschalten.
+topic.sensor_ref.sub	Sensorversorgungsspannung (5-V-Referenz)
+topic.sensor_ref.about	Die Motorsteuerung liefert eine geregelte 5-V-Referenzspannung an mehrere Sensoren. Diese Versorgung ist unterbrochen, kurzgeschlossen oder außerhalb des Bereichs, was mehrere Sensoren gleichzeitig beeinträchtigen kann.
+topic.sensor_ref.c1	Ein Sensor an der gemeinsamen Versorgung mit internem Kurzschluss
+topic.sensor_ref.c2	Leitungen mit Kurzschluss nach Masse oder Plus
+topic.sensor_ref.c3	Wasser in einem Stecker
+topic.sensor_ref.c4	Fehler im Steuergerät (seltener)
+topic.sensor_ref.k1	Notieren, welche Sensorcodes gleichzeitig gespeichert sind; sie teilen sich wahrscheinlich diese Versorgung
+topic.sensor_ref.k2	Den Motorkabelbaum auf Scheuerstellen nahe heißer oder beweglicher Teile und die Stecker auf Wasser prüfen
+topic.sensor_ref.k3	Eine Werkstatt kann die Sensoren an dieser Versorgung einzeln abstecken: Verschwindet der Fehler, hat dieser Sensor einen Kurzschluss
+topic.starter.sub	Motorstartkreis
+topic.starter.about	Das Steuergerät überwacht den Stromkreis zum Starten des Motors.
+topic.starter.c1	Fehler an Relais oder Sicherung
+topic.starter.c2	Leitungs- oder Steckerfehler
+topic.starter.k1	Die betreffenden Sicherungen und Relais prüfen
+topic.power_relay.sub	Spannungsversorgung und Relais des Steuergeräts
+topic.power_relay.about	Das Steuergerät überwacht seine eigene Spannungsversorgung, das Hauptrelais oder das Zündungssignal (Power-Modus).
+topic.power_relay.c2	Defektes Hauptrelais oder durchgebrannte Sicherung
+topic.power_relay.c3	Lose oder korrodierte Plus- oder Masseverbindung
+topic.power_relay.k2	Sicherungen und Hauptrelais der Motorsteuerung prüfen
+topic.module_internal.sub	Steuergerät (intern)
+topic.module_internal.c1	Interner Fehler im Steuergerät
+topic.module_internal.c2	Abgebrochenes Software-Update
+topic.module_internal.c3	Starker Spannungseinbruch oder Spannungsspitze im 12-V-Bordnetz
+topic.module_internal.k2	Bei einem Mitsubishi-Händler nach Software-Updates oder Neuprogrammierung fragen
+topic.module.sub	Steuergerät
+topic.module.c1	Steuergerät nicht richtig programmiert oder konfiguriert (zum Beispiel nach einem Austausch)
+topic.module.c2	Interner Fehler im Steuergerät
+topic.module.k2	Überlegen Sie: Wurde kürzlich ein Steuergerät getauscht, aktualisiert oder abgeklemmt?
+topic.transmission.sub	Getriebe / Antriebseinheit
+topic.transmission.about	Das Steuersystem der Antriebseinheit überwacht seine Sensoren, Schalter und Aktoren.
+topic.transmission.c1	Defekter Sensor, Schalter oder defektes Magnetventil in der Antriebseinheit
+topic.transmission.c2	Leitungs- oder Steckerfehler
+topic.transmission.c3	Zu wenig oder altes Getriebeöl
+topic.transmission.k1	Auf Veränderungen im Fahrverhalten achten (Rucken, Geräusche, Ausfall des Antriebs)
+topic.outputs.sub	Warnleuchten und Ausgangskreise
+topic.outputs.about	Das Steuergerät steuert Warnleuchten, Anzeigen oder andere Ausgänge an und überwacht diese Stromkreise.
+topic.outputs.c1	Leitungs- oder Steckerfehler
+topic.outputs.c2	Fehler im Kombiinstrument oder im angesteuerten Gerät
+topic.outputs.k1	Prüfen, ob die Warnleuchten beim Einschalten des Fahrzeugs kurz aufleuchten
+topic.p_other.c1	Defektes Bauteil in diesem System
+topic.p_other.c2	Leitungs- oder Steckerproblem
+topic.p_other.c3	Zusammenhängender Fehler an anderer Stelle (andere gespeicherte Codes prüfen)
+topic.c_wheel.sub	Raddrehzahlsensoren (ABS)
+topic.c_wheel.about	Jedes Rad hat einen Drehzahlsensor, den ABS, Antriebsschlupf- und Stabilitätsregelung sowie andere Systeme nutzen, die die Fahrgeschwindigkeit benötigen.
+topic.c_wheel.c1	Beschädigte oder korrodierte Sensorleitung oder Stecker in Radnähe (Wasser, Salz, Steinschlag)
+topic.c_wheel.c2	Schmutz, Rost oder Metallspäne an der Sensorspitze oder am Geberring (Impulsring)
+topic.c_wheel.c3	Defekter Raddrehzahlsensor
+topic.c_wheel.c4	Spiel im Radlager oder beschädigter Geberring
+topic.c_wheel.k1	Die Leitung jedes Sensors entlang der Radaufhängung prüfen, besonders nach dem Winter
+topic.c_wheel.k2	Radlager auf Spiel oder Geräusche prüfen
+topic.c_wheel.k3	Wenn Ihr Gerät das ABS-Steuergerät lesen kann, die vier Raddrehzahlen bei langsamer Geradeausfahrt vergleichen
+topic.c_brake_fluid.sub	Bremsflüssigkeit
+topic.c_brake_fluid.about	Die Bremsanlage überwacht Stand oder Druck der Bremsflüssigkeit.
+topic.c_brake_fluid.c1	Zu wenig Bremsflüssigkeit (abgenutzte Bremsbeläge oder Undichtigkeit)
+topic.c_brake_fluid.c2	Defekter Füllstandsschalter
+topic.c_brake_fluid.c3	Leitungsfehler
+topic.c_brake_fluid.k1	Bremsflüssigkeitsstand im Behälter prüfen
+topic.c_brake_fluid.k2	An den Rädern und unter dem Fahrzeug nach Undichtigkeiten suchen
+topic.c_brake_fluid.adv	Prüfen Sie jetzt den Bremsflüssigkeitsstand. Liegt er unter MIN oder fühlt sich das Bremspedal weich an bzw. lässt es sich weiter durchtreten als sonst, fahren Sie nicht weiter: Lassen Sie das Auto abschleppen.
+topic.c_brake_temp.sub	Bremsentemperatur
+topic.c_brake_temp.about	Die Bremsanlage hat berechnet oder gemessen, dass die Bremsen überhitzen.
+topic.c_brake_temp.c1	Lange Bergabfahrt mit Bremsen oder sehr starke Beanspruchung
+topic.c_brake_temp.c2	Festsitzender Bremssattel oder festsitzende Feststellbremse
+topic.c_brake_temp.c3	Fehler im Sensor oder in der Berechnung
+topic.c_brake_temp.k1	Bremsen abkühlen lassen und dann prüfen, ob ein Rad deutlich heißer ist als die anderen (festsitzende Bremse)
+topic.c_brake_temp.adv	Halten Sie an, sobald es sicher möglich ist, und lassen Sie die Bremsen abkühlen; überhitzte Bremsen verlieren an Wirkung. Bleibt ein Rad heiß oder riecht verbrannt, lassen Sie die Bremsen vor der Weiterfahrt prüfen.
+topic.c_brake_switch.sub	Bremspedalschalter / Bremslichtsignal
+topic.c_brake_switch.about	Der Bremspedalschalter bzw. -sensor meldet ABS, Stabilitätsregelung und anderen Steuergeräten, wann und wie stark Sie bremsen.
+topic.c_brake_switch.c1	Defekter oder falsch eingestellter Bremspedalschalter bzw. -sensor
+topic.c_brake_switch.c2	Leitungs- oder Steckerfehler
+topic.c_brake_switch.c3	Durchgebrannte Sicherung oder Glühlampe der Bremsleuchten (bei Bremslichtkreisen)
+topic.c_brake_switch.k1	Prüfen, ob die Bremsleuchten funktionieren (jemanden hinschauen lassen)
+topic.c_brake_switch.k2	Den Schalter oben am Bremspedal auf Beschädigung oder Fehleinstellung prüfen
+topic.c_abs.sub	ABS, Antriebsschlupf- und Stabilitätsregelung
+topic.c_abs.about	Das ABS-Steuergerät regelt den Bremsdruck an jedem Rad für ABS, Antriebsschlupf- und Stabilitätsregelung.
+topic.c_abs.c1	Fehler im ABS-Hydraulikaggregat oder in seinem Steuergerät
+topic.c_abs.c2	Leitungs- oder Steckerfehler
+topic.c_abs.k1	Prüfen, ob die Warnleuchten für ABS oder Stabilitätsregelung leuchten
+topic.c_abs.k2	Bremsflüssigkeitsstand prüfen
+topic.c_steering.sub	Lenkung
+topic.c_steering.about	Der Lenkwinkelsensor und die elektrische Servolenkung werden von ihren Steuergeräten überwacht.
+topic.c_steering.c1	Der Lenkwinkelsensor muss kalibriert werden (zum Beispiel nach einer Achsvermessung)
+topic.c_steering.c2	Defekter Sensor
+topic.c_steering.c3	Leitungs- oder Steckerfehler
+topic.c_steering.k1	Prüfen, ob sich die Lenkung normal anfühlt
+topic.c_steering.k2	Eine Werkstatt kann den Lenkwinkelsensor kalibrieren
+topic.c_tyre_low.sub	Reifendruckkontrolle (TPMS)
+topic.c_tyre_low.about	Die Reifendruckkontrolle hat festgestellt, dass ein oder mehrere Reifen unter der Warnschwelle liegen.
+topic.c_tyre_low.c1	Reifenpanne oder schleichender Druckverlust
+topic.c_tyre_low.c2	Natürlicher Druckabfall bei Kälte
+topic.c_tyre_low.c3	Reifendruck nach dem Reifenwechsel nicht angepasst
+topic.c_tyre_low.k1	Alle vier Reifen im kalten Zustand mit einem Prüfgerät kontrollieren und auf die Werte des Aufklebers an der Türsäule einstellen
+topic.c_tyre_low.k2	Auf Nägel, Schnitte oder Beulen achten
+topic.c_tyre_low.adv	Prüfen Sie den Reifendruck bei der ersten sicheren Gelegenheit. Ist ein Reifen sichtbar platt oder zieht das Auto zu einer Seite, halten Sie an und wechseln Sie das Rad oder rufen Sie Hilfe.
+topic.c_tyre.sub	Reifendruckkontrolle (TPMS)
+topic.c_tyre.about	Die Reifendruckkontrolle überwacht den Reifendruck mit Sensoren oder anhand der Raddrehzahlen.
+topic.c_tyre.c1	Defekter Reifendrucksensor oder leere Sensorbatterie
+topic.c_tyre.c2	Sensoren nach dem Radwechsel nicht angelernt
+topic.c_tyre.c3	Falsche Reifengröße
+topic.c_tyre.k1	Reifendruck manuell prüfen
+topic.c_tyre.k2	Ein Reifenhändler kann die Sensoren testen und anlernen
+topic.c_susp.sub	Fahrwerk
+topic.c_susp.c1	Defekter Sensor oder Aktor im Fahrwerk
+topic.c_susp.c2	Leitungs- oder Steckerfehler
+topic.c_susp.k1	Fahrwerk und seine Leitungen auf Beschädigungen prüfen
+topic.c_4wd.sub	Allradsteuerung
+topic.c_4wd.c1	Fehler in der Allradsteuerung oder ihren Signalen
+topic.c_4wd.c2	Leitungs- oder Steckerfehler
+topic.c_4wd.k1	Darauf achten, ob sich Allradantrieb oder Traktion anders verhalten
+topic.c_other.c1	Defekter Fahrwerkssensor oder -aktor
+topic.c_other.c2	Leitungs- oder Steckerfehler
+topic.c_other.k1	Prüfen, ob Fahrwerks-Warnleuchten (ABS, Bremse, Lenkung) leuchten
+topic.b_srs.sub	Airbags und Gurtstraffer (SRS)
+topic.b_srs.about	Das Airbag-Steuergerät (SRS) überprüft ständig Airbags, Gurtstraffer und Crashsensoren. Es hat einen Fehler an dem im Code genannten Teil gefunden, das daher bei einem Unfall möglicherweise nicht funktioniert; die Airbag-Warnleuchte leuchtet normalerweise.
+topic.b_srs.c1	Loser oder korrodierter Stecker (oft unter den Sitzen, hinter dem Armaturenbrett oder im Lenkrad)
+topic.b_srs.c2	Verschleißter Wickelfeder-Kontakt (Schleifring) im Lenkrad (bei Fahrerairbag- und Lenkradschalterkreisen)
+topic.b_srs.c3	Defekter Airbag, Gurtstraffer oder Sensor
+topic.b_srs.c4	Kürzliche Arbeiten an Sitzen, Armaturenbrett oder Lenkrad
+topic.b_srs.k1	Überlegen Sie: Wurde kürzlich an Sitzen, Armaturenbrett oder Lenkrad gearbeitet?
+topic.b_srs.k2	Das Airbag-Steuergerät von einer Werkstatt mit einem geeigneten Gerät auslesen und Stecker und Leitungen prüfen lassen
+topic.b_climate.sub	Klimaautomatik
+topic.b_climate.about	Die Klimaautomatik überwacht ihre Sensoren, das Gebläse, die Klappen und die Bauteile der Klimaanlage.
+topic.b_climate.c1	Defekter Sensor, Klappenmotor oder Gebläse
+topic.b_climate.c2	Leitungs- oder Steckerfehler
+topic.b_climate.c3	Zu wenig Kältemittel (bei Codes der Klimaanlage)
+topic.b_climate.k1	Prüfen, welche Klimafunktionen nicht funktionieren (Heizung, Kühlung, Gebläsestufe, Luftverteilung)
+topic.b_climate.adv	Ja, solange die Frontscheibe klar bleibt. Bei Kälte oder Nässe nicht fahren, wenn Sie die Frontscheibe nicht beschlag- und eisfrei halten können. Lassen Sie es innerhalb einiger Wochen prüfen.
+topic.b_power.sub	Spannungsversorgung des Steuergeräts
+topic.b_power.about	Ein Karosseriesteuergerät meldet ein Problem mit Spannungsversorgung, Masse oder Zündungssignal.
+topic.b_power.c2	Durchgebrannte Sicherung oder defektes Relais
+topic.b_power.c3	Lose oder korrodierte Plus- oder Masseverbindung
+topic.b_power.k2	Sicherungen der betroffenen Funktionen prüfen
+topic.b_module.sub	Karosseriesteuergerät (intern)
+topic.b_module.c1	Interner Fehler im Steuergerät
+topic.b_module.c2	Steuergerät nach dem Austausch nicht konfiguriert
+topic.b_security.sub	Schlüssel, Wegfahrsperre und Sicherheit
+topic.b_security.c1	Schwache Schlüsselbatterie
+topic.b_security.c2	Defekter Schlüssel, Antenne oder Wegfahrsperre
+topic.b_security.c3	Leitungs- oder Steckerfehler
+topic.b_security.k1	Den Ersatzschlüssel ausprobieren
+topic.b_security.k2	Die Schlüsselbatterie wechseln
+topic.b_lights.sub	Beleuchtung und Blinker
+topic.b_lights.c1	Durchgebrannte Glühlampe oder ausgefallene LED-Einheit
+topic.b_lights.c2	Korrodierter Lampenstecker
+topic.b_lights.c3	Leitungsfehler oder durchgebrannte Sicherung
+topic.b_lights.k1	Um das Auto herumgehen und alle Leuchten prüfen, auch Bremsleuchten und Blinker
+topic.b_lights.adv	Meist ja, aber prüfen Sie zuerst alle Leuchten: Eine ausgefallene Bremsleuchte, ein Blinker oder Scheinwerfer muss vor der Fahrt repariert werden, besonders bei Dunkelheit.
+topic.b_instruments.sub	Kombiinstrument und Warnungen
+topic.b_instruments.c1	Fehler im Kombiinstrument
+topic.b_instruments.c2	Defekter Schalter oder Sensor, der die Anzeige versorgt
+topic.b_instruments.c3	Leitungs- oder Steckerfehler
+topic.b_instruments.k1	Prüfen, ob die Warnleuchten beim Einschalten des Fahrzeugs kurz aufleuchten
+topic.b_comfort.sub	Türen, Fenster, Sitze und Komfort
+topic.b_comfort.c1	Defekter Schalter, Motor oder Aktor
+topic.b_comfort.c2	Leitungsbruch im Türscharnierbereich oder unter einem Sitz
+topic.b_comfort.c3	Durchgebrannte Sicherung
+topic.b_comfort.k1	Prüfen, welche Funktion nicht funktioniert
+topic.b_comfort.k2	Die Sicherungen dieser Funktion prüfen
+topic.b_audio.sub	Audio und Infotainment
+topic.b_audio.c1	Defektes Audio- oder Infotainmentgerät
+topic.b_audio.c2	Leitungs- oder Steckerfehler
+topic.b_audio.k1	Prüfen, welche Audiofunktion nicht funktioniert
+topic.b_audio.k2	Das System neu starten, indem Sie das Auto vollständig aus- und wieder einschalten
+topic.b_other.c1	Defekter Karosseriesensor, -schalter oder -aktor
+topic.b_other.c2	Leitungs- oder Steckerfehler
+topic.b_other.k1	Prüfen, welche Karosseriefunktion nicht funktioniert
+cur.w.intake_cam	normalerweise Einlassnockenwelle
+cur.w.exhaust_cam	normalerweise Auslassnockenwelle
+cur.w.front	vorderen
+cur.w.rear	hinteren
+cur.w.before_cat	vor dem Katalysator
+cur.w.after_cat	nach dem Katalysator
+cur.w.leak_small	kleines
+cur.w.leak_large	großes
+cur.w.leak_very_small	sehr kleines
+cur.w.wheel_lf	vorne links
+cur.w.wheel_rf	vorne rechts
+cur.w.wheel_lr	hinten links
+cur.w.wheel_rr	hinten rechts
+cur.w.airbag_driver	Fahrer-Frontairbag
+cur.w.airbag_passenger	Beifahrer-Frontairbag
+cur.vvt.sub	Variable Ventilsteuerung, Nockenwelle {cam} ({camname}), Bank 1
+cur.vvt.sum	Die Motorsteuerung verstellt die Steuerzeit der Nockenwelle {cam} mit dem Motoröldruck über ein Ölsteuerventil. Die gemessene Nockenwellenstellung ist weiter auf „früh“ verstellt als vorgegeben oder folgt der Vorgabe nicht gut genug.
+cur.vvt.c1	Zu wenig, altes oder falsches Motoröl (die variable Ventilsteuerung arbeitet mit Öldruck)
+cur.vvt.c2	Klemmendes oder defektes Ölsteuerventil der Nockenwelle {cam} oder verstopftes Sieb davor
+cur.vvt.c3	Defekter Nockenwellenversteller
+cur.vvt.c4	Gelängte Steuerkette oder verschlissener Kettenspanner (oft zusammen mit P0016 oder P0017)
+cur.vvt.c5	Leitungs- oder Steckerfehler am Ölsteuerventil
+cur.vvt.k2	Alle Codes auslesen: P0016/P0017 zusammen mit diesem Code deuten auf die Steuerkette; Stromkreiscodes (P0010/P0013) auf die Leitungen des Ölsteuerventils
+cur.vvt.k3	Den Stecker des Ölsteuerventils abziehen, innen auf Öl oder Korrosion prüfen und wieder fest aufstecken
+cur.vvt.k4	Eine Werkstatt kann das Ölsteuerventil testen und Soll- und Ist-Nockenwellenwinkel in den Live-Daten vergleichen
+cur.vvt.k5	Bei Verdacht auf die Steuerkette diese vor langen Fahrten prüfen lassen: Eine Kette, die einen Zahn überspringt, kann den Motor beschädigen
+cur.vvt.adv	Für kurze Fahrten meist fahrbereit, aber der Motor kann unruhig laufen, an Leistung verlieren und mehr verbrauchen. Lassen Sie es innerhalb weniger Tage prüfen und wechseln Sie das Öl, wenn es fällig ist. Halten Sie an, wenn der Motor laut zu rasseln beginnt oder die Öldruckwarnung aufleuchtet.
+cur.corr.sub	Steuerzeiten: Kurbelwelle zu Nockenwelle {cam} ({camname})
+cur.corr.sum	Die Motorsteuerung vergleicht die Signale von Kurbelwellen- und Nockenwellensensor. Sie passen nicht mehr wie vorgesehen zusammen – entweder hat sich die Ventilsteuerung verschoben oder eines der Signale ist falsch.
+cur.corr.c1	Gelängte Steuerkette, verschlissene Kettenführungen oder schwacher Kettenspanner
+cur.corr.c2	Zu wenig oder verschmutztes Motoröl, das die variable Ventilsteuerung stört
+cur.corr.c3	Klemmendes Ölsteuerventil oder defekter Nockenwellenversteller
+cur.corr.c4	Defekter Nockenwellen- oder Kurbelwellensensor oder beschädigte Sensorleitungen
+cur.corr.c5	Steuerkette nach einer früheren Reparatur um einen Zahn versetzt montiert
+cur.corr.k2	In den ersten Sekunden nach einem Kaltstart auf Rasseln von der Steuerkettenseite des Motors hören
+cur.corr.k3	Stecker und Leitungen von Nockenwellen- und Kurbelwellensensor prüfen
+cur.corr.k4	Falls Ihr Gerät es anzeigt, Soll- und Ist-Nockenwellenwinkel in den Live-Daten bei warmem Motor vergleichen
+cur.corr.k5	Eine Werkstatt kann die Steuerzeitenmarkierungen prüfen oder die Kettenlängung messen; frühzeitig beheben, denn eine übergesprungene Kette kann den Motor beschädigen
+cur.corr.adv	Für kurze Fahrten meist fahrbereit, aber der Motor kann schlecht anspringen, unruhig laufen und an Leistung verlieren. Lassen Sie es innerhalb weniger Tage prüfen. Halten Sie an, wenn der Motor laut rasselt, stark Zündaussetzer hat oder die Öldruckwarnung aufleuchtet.
+cur.P0335.sub	Kurbelwellensensor
+cur.P0335.sum	Der Kurbelwellensensor meldet der Motorsteuerung Drehzahl und Kolbenstellung. Sein Signal fehlt oder ist elektrisch fehlerhaft, daher springt der Motor möglicherweise nicht an oder geht aus.
+cur.P0335.c1	Beschädigte Leitungen oder ein loser oder korrodierter Stecker am Kurbelwellensensor
+cur.P0335.c2	Defekter Kurbelwellensensor
+cur.P0335.c3	Metallspäne an der Sensorspitze oder beschädigtes Geberrad
+cur.P0335.c4	Problem mit Versorgung oder Masse des Sensors
+cur.P0335.k1	Sensorstecker und Leitungen auf Öl, Scheuerstellen oder Marderschäden prüfen
+cur.P0335.k2	Läuft der Motor, die Drehzahl in den Live-Daten beobachten: Aussetzer bestätigen ein zeitweise fehlendes Signal
+cur.P0335.k3	Eine Werkstatt kann das Sensorsignal mit einem Oszilloskop prüfen, bevor der Sensor ersetzt wird
+cur.P0335.k4	Nach der Reparatur den Code löschen und prüfen, ob der Motor mehrmals zuverlässig anspringt
+cur.P0335.adv	Das Auto fährt eventuell noch elektrisch, aber der Motor springt möglicherweise nicht an oder geht aus. Lassen Sie es innerhalb weniger Tage prüfen und meiden Sie Fahrten, bei denen Sie auf den Motor angewiesen sind (lange Strecken, niedrige Antriebsbatterie).
+cur.P0336.sum	Das Signal des Kurbelwellensensors ist vorhanden, aber unregelmäßig: Impulse fehlen, kommen zusätzlich oder zur falschen Zeit. Der Motor kann Zündaussetzer haben, ausgehen oder nicht anspringen.
+cur.P0336.c1	Loser Stecker oder beschädigte Leitungen, die ein zeitweise aussetzendes Signal verursachen
+cur.P0336.c2	Metallspäne an der Sensorspitze oder beschädigtes Geberrad
+cur.P0336.c3	Defekter Kurbelwellensensor
+cur.P0336.c4	Elektrische Störungen durch ein beschädigtes Zündungsbauteil oder schlecht verlegte Leitungen
+cur.P0336.k1	Sensorstecker und Leitungen prüfen; darauf achten, dass der Kabelbaum in seiner ursprünglichen Verlegung befestigt ist
+cur.P0336.k2	Sensor ausbauen und die Spitze auf Verschmutzung oder Beschädigung prüfen (nur wenn leicht zugänglich)
+cur.P0336.k3	Nach gleichzeitig gespeicherten Zündaussetzer- oder Zündungscodes suchen
+cur.P0336.k4	Eine Werkstatt kann das Signal mit einem Oszilloskop prüfen
+cur.P0340.sub	Nockenwellensensor (Bank 1 oder einziger Sensor)
+cur.P0340.sum	Der Nockenwellensensor meldet der Motorsteuerung, welcher Zylinder als Nächstes zündet. Sein Signal fehlt oder ist elektrisch fehlerhaft, daher kann der Motor länger zum Anspringen brauchen, schlecht laufen oder nicht anspringen.
+cur.P0340.c1	Loser, verölter oder korrodierter Stecker am Nockenwellensensor
+cur.P0340.c2	Beschädigte Leitungen
+cur.P0340.c3	Defekter Nockenwellensensor
+cur.P0340.c4	Problem mit der Steuerkette oder dem Nockenwellengeberrad (seltener; siehe P0016)
+cur.P0340.c5	Niedrige 12-V-Spannung beim Motorstart
+cur.P0340.k1	Sensorstecker innen auf Öl prüfen (eine undichte Dichtung kann Öl eindringen lassen) und wieder fest aufstecken
+cur.P0340.k2	Leitungen auf Scheuerstellen prüfen
+cur.P0340.k4	Sensor ersetzen, wenn Leitungen und Versorgung in Ordnung sind, dann Code löschen und mehrere Starts testen
+cur.P0A0F.sub	Motorstart (Hybridsystem)
+cur.P0A0F.sum	Das Hybridsystem hat versucht, den Benzinmotor zu starten, aber er ist nicht wie erwartet angesprungen und gelaufen. Der Motor wird bei Bedarf automatisch gestartet, daher haben Sie den Versuch vielleicht nicht bemerkt.
+cur.P0A0F.c1	Sehr niedriger Kraftstoffstand oder leergefahrener Tank
+cur.P0A0F.c2	Altes Benzin (möglich, wenn der Motor monatelang kaum gelaufen ist)
+cur.P0A0F.c3	Problem mit der Kraftstoffversorgung: Kraftstoffpumpe, Pumpenrelais oder Sicherung
+cur.P0A0F.c4	Fehler am Kurbelwellen- oder Nockenwellensensor (nach P0335 oder P0340 suchen)
+cur.P0A0F.c5	Problem mit Zündung oder Wegfahrsperre
+cur.P0A0F.c6	Schwache 12-V-Batterie, die die Motorsteuerung beim Start beeinträchtigt
+cur.P0A0F.k1	Kraftstoffstand prüfen; bei wenig oder altem Kraftstoff eine ordentliche Menge frisches Benzin tanken
+cur.P0A0F.k2	Alle Codes auslesen: Gleichzeitig gespeicherte andere Motorcodes zeigen meist die eigentliche Ursache
+cur.P0A0F.k4	Sicherungen und Relais von Kraftstoffpumpe und Motorsteuerung prüfen (Sicherungsplan in der Betriebsanleitung)
+cur.P0A0F.k5	Wenn es wieder vorkommt, Kraftstoffdruck, Zündfunken und Sensorsignale in einer Werkstatt prüfen lassen
+cur.P0A0F.adv	Sie können meist elektrisch weiterfahren, solange die Antriebsbatterie geladen ist, aber der Motor steht möglicherweise weder zum Fahren noch zum Laden zur Verfügung. Lassen Sie es innerhalb weniger Tage prüfen und meiden Sie lange Fahrten. Fordert eine Meldung zum Anhalten auf, halten Sie sicher an.
+cur.P0116.sub	Kühlmitteltemperatursensor
+cur.P0116.sum	Die Kühlmitteltemperatur verhält sich nicht wie erwartet: Sie steigt zum Beispiel beim Warmlaufen nicht an oder passt nach einer Standzeit nicht zu anderen Temperatursensoren.
+cur.P0116.c1	Thermostat hängt offen, daher wird der Motor zu langsam warm (siehe auch P0128)
+cur.P0116.c2	Driftender Kühlmitteltemperatursensor
+cur.P0116.c3	Zu niedriger Kühlmittelstand, sodass der Sensor in Luft liegt
+cur.P0116.c4	Hoher Übergangswiderstand oder Korrosion im Sensorstecker
+cur.P0116.k1	Kühlmittelstand im Ausgleichsbehälter bei kaltem Motor prüfen
+cur.P0116.k2	Nach einer Standzeit über Nacht die Kühlmitteltemperatur in den Live-Daten mit Ansaugluft- und Außentemperatur vergleichen: Sie sollten nur wenige Grad auseinanderliegen
+cur.P0116.k3	Die Kühlmitteltemperatur bei laufendem Motor beobachten: Sie sollte gleichmäßig auf normale Betriebstemperatur steigen (typischerweise etwa 80–100 °C)
+cur.P0116.k5	Sensorstecker auf Korrosion prüfen
+cur.P0117.sum	Die Signalspannung des Kühlmitteltemperatursensors ist zu niedrig, was die Motorsteuerung als unmöglich heißen Motor deutet. Sie verwendet stattdessen einen Ersatzwert.
+cur.P0117.c1	Defekter Kühlmitteltemperatursensor (interner Kurzschluss)
+cur.P0117.c2	Signalleitung mit Kurzschluss nach Masse
+cur.P0117.c3	Kühlmittel oder Wasser im Sensorstecker
+cur.P0117.k1	Die Kühlmitteltemperatur in den Live-Daten mit der Wirklichkeit vergleichen: Ein viel zu hoher Wert bestätigt den Fehler
+cur.P0117.k2	Stecker und Leitungen auf Beschädigung, Scheuerstellen und Feuchtigkeit prüfen
+cur.P0117.k3	Den Sensorwiderstand bei bekannter Temperatur messen und mit den Werkstattdaten vergleichen
+cur.P0117.k4	Sensor ersetzen, wenn die Leitungen in Ordnung sind, danach Kühlmittel auffüllen und den Code löschen
+cur.P0117.adv	Sie können meist fahren, aber der Kühlerlüfter läuft möglicherweise ständig und der Motor kann schlecht anspringen oder laufen. Achten Sie auf die Temperaturwarnleuchte und lassen Sie es innerhalb einiger Wochen beheben.
+cur.P0118.sum	Die Signalspannung des Kühlmitteltemperatursensors ist zu hoch, was die Motorsteuerung als unmöglich kalten Motor deutet, typischerweise wegen eines unterbrochenen Stromkreises. Sie verwendet stattdessen einen Ersatzwert.
+cur.P0118.c1	Abgezogener, loser oder korrodierter Stecker am Sensor
+cur.P0118.c2	Gebrochene Signalleitung oder unterbrochener Stromkreis
+cur.P0118.c3	Defekter Kühlmitteltemperatursensor (interne Unterbrechung)
+cur.P0118.c4	Schlechte Masse am Sensor
+cur.P0118.k1	Live-Daten prüfen: Ein Wert um -40 °C bedeutet meist eine Unterbrechung im Stromkreis
+cur.P0118.k2	Prüfen, ob der Stecker vollständig eingesteckt und sauber ist
+cur.P0118.k3	Leitungen entlang auf Brüche oder Schäden prüfen
+cur.P0118.adv	Sie können meist fahren, aber der Motor kann fett laufen, mehr verbrauchen und der Kühlerlüfter ständig laufen. Lassen Sie es innerhalb einiger Wochen beheben.
+cur.P0125.sub	Motorwarmlauf (Lambdaregelung im geschlossenen Regelkreis)
+cur.P0125.sum	Der Motor brauchte zu lange, um warm genug zu werden, damit die Motorsteuerung die Gemischregelung mit der Rückmeldung der Lambdasonde beginnen konnte.
+cur.P0125.c1	Thermostat klemmt offen oder öffnet zu früh
+cur.P0125.c2	Defekter oder ungenauer Kühlmitteltemperatursensor
+cur.P0125.c3	Zu niedriger Kühlmittelstand
+cur.P0125.c4	Mögliche Mitursache bei einem Plug-in-Hybrid: sehr kaltes Wetter in Verbindung mit kurzen Motorlaufzeiten
+cur.P0125.k1	Kühlmittelstand bei kaltem Motor prüfen
+cur.P0125.k2	Die Kühlmitteltemperatur in den Live-Daten während des Warmlaufs beobachten; sie sollte gleichmäßig steigen
+cur.P0125.k4	Nach P0128 oder Codes des Kühlmitteltemperatursensors suchen; der Tausch eines defekten Thermostats behebt oft beides
+cur.P0128.sub	Thermostat / Warmlauf
+cur.P0128.sum	Der Motor hat seine normale Betriebstemperatur nicht in der erwarteten Zeit erreicht. Die Motorsteuerung vermutet, dass das Thermostat zu früh öffnet oder offen hängt.
+cur.P0128.c1	Thermostat hängt offen oder öffnet zu früh (am häufigsten)
+cur.P0128.c4	Kühlerlüfter läuft ständig (Fehler an Lüfterrelais oder Ansteuerung)
+cur.P0128.c5	Mögliche Mitursache bei einem Plug-in-Hybrid: Bei großer Kälte läuft der Motor nur kurz und kühlt schnell ab, sodass ein leicht schwaches Thermostat früher auffällt
+cur.P0128.k2	Die Kühlmitteltemperatur in den Live-Daten beim Warmlaufen beobachten: Ein langsamer Anstieg, der deutlich unter der normalen Betriebstemperatur stehen bleibt, deutet auf das Thermostat
+cur.P0128.k4	Prüfen, dass der Kühlerlüfter bei kaltem Motor nicht läuft
+cur.P0128.k5	Thermostat ersetzen (mit neuer Dichtung) und Kühlmittel der für das Fahrzeug vorgeschriebenen Sorte auffüllen
+cur.P0128.adv	Ja, Sie können weiterfahren. Rechnen Sie mit etwas höherem Verbrauch und langsamerer Innenraumheizung, wenn die Wärme vom Motor kommt. Lassen Sie es innerhalb einiger Wochen beheben.
+cur.P0217.sub	Motorkühlung (Überhitzung)
+cur.P0217.sum	Die Kühlmitteltemperatur hat die sichere Grenze überschritten: Der Motor ist überhitzt.
+cur.P0217.c1	Zu niedriger Kühlmittelstand durch eine Undichtigkeit
+cur.P0217.c2	Kühlerlüfter funktioniert nicht (Sicherung, Relais, Lüftermotor)
+cur.P0217.c3	Thermostat hängt geschlossen
+cur.P0217.c4	Defekte Wasserpumpe oder rutschender Antrieb
+cur.P0217.c5	Kühler durch Schmutz zugesetzt oder innen verstopft
+cur.P0217.c6	Defekte Zylinderkopfdichtung (seltener)
+cur.P0217.c7	Defekter Temperatursensor, der Fehlalarm auslöst (seltener)
+cur.P0217.k1	Anhalten und den Motor mindestens 30 Minuten abkühlen lassen; den Kühlmitteldeckel nie bei heißem Motor öffnen
+cur.P0217.k2	Bei kaltem Motor den Kühlmittelstand prüfen und unter dem Auto sowie an den Schläuchen nach Undichtigkeiten suchen
+cur.P0217.k3	Sicherung und Relais des Kühlerlüfters prüfen
+cur.P0217.k4	Das Kühlsystem in einer Werkstatt abdrücken und Lüfter, Thermostat und Wasserpumpe prüfen lassen
+cur.P0217.adv	Nein. Halten Sie an, sobald es sicher ist, und schalten Sie aus: Mit überhitztem Motor weiterzufahren kann den Zylinderkopf verziehen oder den Motor zerstören. Das Auto kann den Motor in READY automatisch starten, lassen Sie es daher ausgeschaltet, bis die Ursache behoben ist.
+cur.P0480.sub	Ansteuerung des Kühlerlüfters
+cur.P0480.sum	Die Motorsteuerung steuert den Kühlerlüfter über ein Relais oder ein Lüftersteuergerät an. Sie hat einen elektrischen Fehler in diesem Steuerkreis gefunden, daher läuft der Lüfter bei Bedarf möglicherweise nicht.
+cur.P0480.c1	Durchgebrannte Lüftersicherung oder defektes Lüfterrelais
+cur.P0480.c2	Defekter Lüftermotor oder defektes Lüftersteuergerät
+cur.P0480.c3	Beschädigte Leitungen oder korrodierter Stecker am Lüfter (Spritzwasser ausgesetzt)
+cur.P0480.k1	Lüftersicherungen und Relais prüfen (Sicherungsplan in der Betriebsanleitung)
+cur.P0480.k2	Bei warmem Motor oder eingeschalteter Klimaanlage prüfen, ob der Lüfter läuft
+cur.P0480.k3	Lüfterstecker und Leitungen auf Korrosion und Beschädigung prüfen
+cur.P0480.k4	Eine Werkstatt kann den Lüfter per Stellglieddiagnose ansteuern, um Leitungs- von Lüfterfehlern zu unterscheiden
+cur.P0480.adv	Achten Sie genau auf die Temperaturwarnung. Kurze Fahrten bei kühlem Wetter sind meist in Ordnung, aber im Stau, bei Hitze oder mit Anhänger kann der Motor überhitzen. Leuchtet die Temperaturwarnung auf, halten Sie sicher an und schalten Sie aus.
+cur.P0524.sub	Motoröldruck
+cur.P0524.sum	Der Motoröldruck ist unter das sichere Minimum gefallen. Ohne ausreichenden Öldruck kann der Motor innerhalb von Minuten schwer beschädigt werden.
+cur.P0524.c1	Zu niedriger Motorölstand (Undichtigkeit oder Ölverbrauch)
+cur.P0524.c2	Verschlissene oder versagende Ölpumpe oder verstopfter Ansaugstutzen der Ölpumpe
+cur.P0524.c3	Falsche Ölviskosität oder sehr altes Öl
+cur.P0524.c4	Defekter Öldrucksensor oder -schalter, der eine Fehlwarnung auslöst
+cur.P0524.c5	Verschlissene Motorlager (hohe Laufleistung)
+cur.P0524.k1	Anhalten und den Ölstand am Messstab bei waagerecht stehendem Auto prüfen; bei niedrigem Stand das richtige Öl nachfüllen
+cur.P0524.k2	Unter dem Auto nach Ölverlust suchen
+cur.P0524.k3	Ist der Stand in Ordnung, die Warnung bleibt aber: Motor nicht laufen lassen; den Öldruck in einer Werkstatt mit einem mechanischen Manometer messen lassen
+cur.P0524.k4	Sensor oder Schalter erst ersetzen, wenn ein ausreichender tatsächlicher Öldruck bestätigt ist
+cur.P0100.sub	Luftmassenmesser (MAF)
+cur.P0100.sum	Der Luftmassenmesser im Ansaugkanal misst, wie viel Luft der Motor ansaugt; die Motorsteuerung berechnet daraus die Einspritzmenge. Sein Stromkreis hat einen elektrischen Fehler, daher verwendet die Steuerung einen Ersatzwert.
+cur.P0100.c1	Loser oder korrodierter Stecker am Luftmassenmesser (wird beim Luftfilterwechsel oft bewegt)
+cur.P0100.c2	Beschädigte Leitungen
+cur.P0100.c3	Defekter Luftmassenmesser
+cur.P0100.c4	Problem mit Versorgung oder Masse des Sensors (Sicherung prüfen)
+cur.P0100.k1	Prüfen, ob die Klammern des Luftfilterkastens und der Ansaugkanal richtig sitzen und der Stecker vollständig eingerastet ist
+cur.P0100.k2	Leitungen und Stecker auf Beschädigung und Korrosion prüfen
+cur.P0100.k3	Prüfen, ob der Luftmassenwert in den Live-Daten gleichmäßig mit der Drehzahl steigt
+cur.P0100.k4	Sensor ersetzen, wenn Leitungen, Versorgung und Masse in Ordnung sind
+cur.P0100.adv	Meist ja, aber der Motor kann unruhiger laufen, zögerlich reagieren oder mehr verbrauchen. Lassen Sie es innerhalb einiger Wochen prüfen.
+cur.P0101.sum	Der Luftmassenwert passt nicht zu dem, was die Motorsteuerung aus Drehzahl, Drosselklappenstellung und anderen Sensoren erwartet.
+cur.P0101.c1	Falschluft im Ansaugkanal zwischen Sensor und Motor (gerissener Schlauch, lose Schelle)
+cur.P0101.c2	Verschmutzter oder verunreinigter Luftmassenmesser (zum Beispiel durch einen zu stark geölten Zubehör-Luftfilter)
+cur.P0101.c3	Sehr verschmutzter oder verstopfter Luftfilter
+cur.P0101.k1	Luftfilter prüfen und bei Verschmutzung ersetzen
+cur.P0101.k2	Den Ansaugkanal zwischen Sensor und Drosselklappe auf Risse und lose Schellen prüfen
+cur.P0101.k3	Das Messelement nur mit speziellem LMM-Reinigungsspray reinigen; das Element niemals berühren
+cur.P0101.k4	Gemischadaption in den Live-Daten prüfen: Große positive Werte deuten auf Falschluft hin
+cur.P0101.k5	Wenn möglich, vor dem Kauf eines neuen Sensors einen nachweislich funktionierenden ausprobieren
+cur.P0102.sum	Das Signal des Luftmassenmessers ist niedriger, als es je sein dürfte, was meist auf einen unterbrochenen oder kurzgeschlossenen Stromkreis oder einen defekten Sensor hindeutet.
+cur.P0102.c1	Abgezogener, loser oder korrodierter Stecker am Luftmassenmesser
+cur.P0102.c2	Signalleitung unterbrochen oder mit Kurzschluss nach Masse
+cur.P0102.c4	Sehr große Falschluftmenge im Ansaugtrakt (seltener)
+cur.P0102.k1	Prüfen, ob der Stecker vollständig eingerastet ist; Kontakte auf Korrosion untersuchen
+cur.P0102.k2	Leitungen auf Beschädigung prüfen
+cur.P0102.k3	Versorgung, Masse und Signal am Stecker mit Multimeter und Schaltplan prüfen
+cur.P0102.k4	Sensor ersetzen, wenn die Leitungen in Ordnung sind
+cur.P0103.sum	Das Signal des Luftmassenmessers ist höher, als es je sein dürfte, was meist auf einen Kurzschluss nach Plus, eine schlechte Masse oder einen defekten Sensor hindeutet.
+cur.P0103.c1	Signalleitung mit Kurzschluss nach Plus
+cur.P0103.c2	Schlechte Masse am Sensor
+cur.P0103.c4	Beschädigte Leitungen oder Stecker
+cur.P0103.k1	Stecker und Leitungen auf Beschädigung und Korrosion prüfen
+cur.P0112.sub	Ansauglufttemperatursensor
+cur.P0112.sum	Die Signalspannung des Ansauglufttemperatursensors ist zu niedrig, was die Motorsteuerung als unmöglich heiße Ansaugluft deutet. Bei vielen Motoren ist dieser Sensor im Gehäuse des Luftmassenmessers eingebaut.
+cur.P0112.c1	Defekter Ansauglufttemperatursensor (oder der Luftmassenmesser, in den er eingebaut ist)
+cur.P0112.c2	Signalleitung mit Kurzschluss nach Masse
+cur.P0112.c3	Beschädigter oder nasser Stecker
+cur.P0112.k1	Bei kaltem Motor die Ansauglufttemperatur in den Live-Daten mit der Außentemperatur vergleichen: Ein viel zu hoher Wert bestätigt den Fehler
+cur.P0112.k2	Stecker und Leitungen prüfen
+cur.P0112.k3	Sensor ersetzen, wenn die Leitungen in Ordnung sind
+cur.P0112.adv	Ja, Sie können weiterfahren. Motorlauf und Verbrauch können leicht beeinträchtigt sein. Lassen Sie es innerhalb einiger Wochen beheben.
+cur.P0113.sum	Die Signalspannung des Ansauglufttemperatursensors ist zu hoch, was die Motorsteuerung als unmöglich kalte Luft deutet, meist wegen eines unterbrochenen Stromkreises. Die Live-Daten zeigen oft etwa -40 °C.
+cur.P0113.c1	Abgezogener oder loser Stecker (häufig nach Arbeiten an Luftfilter oder Ansaugtrakt)
+cur.P0113.c2	Leitungsbruch oder unterbrochener Stromkreis
+cur.P0113.c3	Defekter Ansauglufttemperatursensor
+cur.P0113.c4	Schlechte Masse am Sensor
+cur.P0113.k1	Prüfen, ob der Stecker am Luftmassenmesser / Ansaugkanal eingesteckt und eingerastet ist
+cur.P0113.k2	Leitungen auf Brüche prüfen
+cur.P0121.sub	Elektronische Drosselklappe (Drosselklappensensor A)
+cur.P0121.sum	Die elektronische Drosselklappe hat zwei Stellungssensoren. Sensor A (normalerweise einer der beiden im Drosselklappengehäuse) liefert Werte, die nicht zu dem passen, was die Motorsteuerung vom anderen Sensor, der Luftmenge oder der Sollstellung erwartet.
+cur.P0121.c1	Verschmutzte Drosselklappe (Ablagerungen), wodurch die Klappe klemmt oder sich ungleichmäßig bewegt
+cur.P0121.c2	Verschlissener oder defekter Drosselklappensensor (im Drosselklappengehäuse eingebaut)
+cur.P0121.c3	Schlechter Kontakt oder Korrosion am Stecker der Drosselklappe
+cur.P0121.c4	Beschädigte Leitungen
+cur.P0121.k1	Stecker und Leitungen der Drosselklappe auf Korrosion, Wasser und Beschädigung prüfen
+cur.P0121.k2	Bei ausgeschalteter Zündung den Ansaugschlauch abnehmen und auf starke Ablagerungen in der Drosselklappe prüfen; vorsichtig mit Drosselklappenreiniger reinigen, ohne die Klappe mit Gewalt zu bewegen
+cur.P0121.k3	Nach Reinigung oder Austausch kann ein Anlernen der Drosselklappe (Initialisierung) nötig sein; nach Werkstattanleitung vorgehen oder von einer Werkstatt durchführen lassen
+cur.P0121.k4	Kommt der Code wieder, die komplette Drosselklappeneinheit ersetzen (die Sensoren sind meist eingebaut)
+cur.P0121.adv	Die Motorsteuerung kann die Motorleistung zur Sicherheit begrenzen (Notlauf). Elektrisches Fahren ist eventuell noch möglich, aber meiden Sie Situationen, in denen Sie volle Leistung brauchen, und lassen Sie es innerhalb weniger Tage prüfen.
+cur.P0122.sum	Das Signal von Drosselklappensensor A liegt unter dem niedrigsten Wert, den er je senden dürfte, was meist auf einen Kurzschluss nach Masse, eine fehlende 5-V-Versorgung oder einen defekten Sensor hindeutet.
+cur.P0122.c1	Signal- oder 5-V-Versorgungsleitung mit Kurzschluss nach Masse oder Versorgung unterbrochen
+cur.P0122.c2	Defekter Drosselklappensensor (Drosselklappengehäuse)
+cur.P0122.c3	Korrodierter oder loser Stecker an der Drosselklappe
+cur.P0122.c4	Ein anderer Sensor an derselben 5-V-Versorgung zieht sie herunter (nach anderen Sensorcodes suchen)
+cur.P0123.sum	Das Signal von Drosselklappensensor A liegt über dem höchsten Wert, den er je senden dürfte, was meist auf eine unterbrochene Masse, einen Kurzschluss nach Plus oder einen defekten Sensor hindeutet.
+cur.P0123.c1	Unterbrochene Sensormasse oder Signal mit Kurzschluss nach Plus
+cur.P2101.sub	Elektronische Drosselklappe (Drosselklappenmotor)
+cur.P2101.sum	Die Motorsteuerung bewegt die Drosselklappe mit einem Elektromotor. Der Motor bewegt die Klappe nicht wie vorgegeben oder nimmt unerwarteten Strom auf.
+cur.P2101.c1	Verschmutzte oder klemmende Drosselklappe (Ablagerungen oder Eis bei starkem Frost)
+cur.P2101.c2	Defekter Drosselklappenmotor (Drosselklappengehäuse)
+cur.P2101.c3	Leitungs- oder Steckerfehler zum Drosselklappenmotor
+cur.P2101.c4	Niedrige 12-V-Versorgungsspannung
+cur.P2101.k1	Stecker und Leitungen der Drosselklappe prüfen
+cur.P2101.k2	Die Drosselklappe bei Verschmutzung vorsichtig reinigen (Zündung aus)
+cur.P2101.k4	Nach Reinigung oder Austausch kann ein Anlernen der Drosselklappe nötig sein
+cur.P2101.k5	Drosselklappe ersetzen, wenn der Fehler wiederkommt
+cur.P2135.sub	Elektronische Drosselklappe (Sensoren A und B)
+cur.P2135.sum	Die Drosselklappe hat zwei Stellungssensoren, die immer übereinstimmen sollten. Ihre Signale weichen jetzt stärker als zulässig voneinander ab, daher kann die Motorsteuerung der Drosselklappenstellung nicht trauen.
+cur.P2135.c1	Verschlissene oder defekte Stellungssensoren in der Drosselklappe
+cur.P2135.c2	Wasser oder Korrosion im Stecker der Drosselklappe
+cur.P2135.c3	Beschädigte Leitungen oder ein Problem mit der gemeinsamen 5-V-Versorgung oder Masse
+cur.P2135.c4	Verschmutzte Drosselklappe (bei diesem Code seltener)
+cur.P2138.sub	Fahrpedalsensoren (D und E)
+cur.P2138.sum	Das Fahrpedal hat zwei Stellungssensoren (normalerweise Sensor D und E), die immer übereinstimmen sollten. Ihre Signale weichen jetzt voneinander ab, daher kann das Auto nicht erkennen, wie weit das Pedal getreten ist.
+cur.P2138.c1	Verschlissener oder defekter Fahrpedalsensor (Teil der Pedaleinheit)
+cur.P2138.c2	Wasser oder Korrosion im Pedalstecker (zum Beispiel durch nasse Fußmatten)
+cur.P2138.c3	Beschädigte Leitungen zwischen Pedal und Steuergerät
+cur.P2138.c4	Problem mit der gemeinsamen 5-V-Versorgung oder Masse der Pedalsensoren
+cur.P2138.k1	Fußraum auf Feuchtigkeit und Pedalstecker auf Korrosion prüfen; Stecker wieder fest aufstecken
+cur.P2138.k2	Zeigt Ihr Gerät beide Pedalsignale an, prüfen, ob sich beide beim langsamen Durchtreten gleichmäßig und gleichlaufend ändern
+cur.P2138.k3	Leitungen unter dem Armaturenbrett auf Beschädigung prüfen
+cur.P2138.k4	Fahrpedaleinheit ersetzen, wenn die Leitungen in Ordnung sind
+cur.P2138.adv	Rechnen Sie mit reduzierter Leistung oder begrenzter Geschwindigkeit (Notlauf); auch das elektrische Fahren kann betroffen sein, weil das Pedalsignal das gesamte Antriebssystem steuert. Fahren Sie vorsichtig zu einer Werkstatt und meiden Sie schnelle Straßen, wenn die Leistung stark begrenzt ist.
+cur.P0171.sub	Gemischbildung (Gemischadaption), Bank 1
+cur.P0171.sum	Die Motorsteuerung musste deutlich mehr Kraftstoff als normal zugeben, um das Luft-Kraftstoff-Gemisch richtig zu halten. Der Motor bekommt zu viel Luft oder zu wenig Kraftstoff.
+cur.P0171.c1	Falschluft hinter dem Luftmassenmesser: gerissener Ansaugschlauch, lose Schelle, undichte Ansaugkrümmerdichtung, Unterdruck- oder Kurbelgehäuseentlüftungsschlauch
+cur.P0171.c2	Verschmutzter oder defekter Luftmassenmesser, der zu niedrig misst
+cur.P0171.c3	Zu niedriger Kraftstoffdruck: schwache Kraftstoffpumpe, verstopfter Filter oder defekter Druckregler
+cur.P0171.c4	Verstopfte Einspritzventile
+cur.P0171.c5	Abgasleck vor der vorderen Lambdasonde
+cur.P0171.c6	Bei einem Plug-in-Hybrid möglich: alter Kraftstoff, wenn der Motor selten gelaufen ist
+cur.P0171.k1	Bei laufendem Motor an Ansaugschläuchen und Ansaugkrümmer nach Falschluft horchen und suchen
+cur.P0171.k2	Gemischadaption in den Live-Daten prüfen: Ist die Langzeitkorrektur im Leerlauf hoch, bei höherer Drehzahl aber besser, ist Falschluft wahrscheinlich; wird sie unter Last schlechter, die Kraftstoffversorgung verdächtigen
+cur.P0171.k3	Den Luftmassenmesser mit speziellem Reiniger säubern
+cur.P0171.k4	Zuerst Zündaussetzer-, Luftmassenmesser- oder Lambdasondencodes beheben, falls vorhanden
+cur.P0171.k6	Eine Werkstatt kann einen Rauchtest auf Undichtigkeiten durchführen und den Kraftstoffdruck messen
+cur.P0171.adv	Ja, Sie können weiterfahren, lassen Sie es aber innerhalb einiger Wochen prüfen. Ein sehr mager laufender Motor kann Zündaussetzer haben; beginnt die Motorkontrollleuchte zu blinken, halten Sie an.
+cur.P0172.sum	Die Motorsteuerung musste deutlich mehr Kraftstoff als normal wegnehmen, um das Luft-Kraftstoff-Gemisch richtig zu halten. Der Motor bekommt zu viel Kraftstoff oder zu wenig Luft.
+cur.P0172.c1	Undichtes oder nachtropfendes Einspritzventil
+cur.P0172.c2	Defekter Luftmassenmesser, der zu hoch misst, oder Kühlmitteltemperatursensor, der zu kalt anzeigt
+cur.P0172.c3	Zu hoher Kraftstoffdruck (Druckreglerfehler)
+cur.P0172.c4	Regenerierventil hängt offen und lässt Kraftstoffdampf in den Ansaugtrakt (oft zusammen mit Codes der Tankentlüftung)
+cur.P0172.c5	Sehr verschmutzter Luftfilter oder blockierte Luftansaugung
+cur.P0172.c6	Mit Kraftstoff verdünntes Motoröl (möglich, wenn der Motor oft nur kurz und kalt läuft)
+cur.P0172.k1	Luftfilter und Luftansaugung prüfen
+cur.P0172.k2	Kühlmitteltemperatur und Luftmasse in den Live-Daten auf Plausibilität prüfen
+cur.P0172.k3	Ölstand prüfen: Steigt er mit der Zeit oder riecht das Öl nach Benzin, ist es mit Kraftstoff verdünnt; Öl wechseln
+cur.P0172.k4	Nach Codes der Tankentlüftung suchen; eine Werkstatt kann prüfen, ob das Regenerierventil dicht schließt
+cur.P0172.k5	Eine Werkstatt kann Kraftstoffdruck und Dichtheit der Einspritzventile prüfen
+cur.P0172.adv	Ja, Sie können weiterfahren, lassen Sie es aber innerhalb einiger Wochen prüfen. Ein fettes Gemisch erhöht den Verbrauch und kann mit der Zeit den Katalysator schädigen.
+cur.inj.sub	Einspritzventil, Zylinder {cyl}
+cur.inj.sum	Die Motorsteuerung hat einen elektrischen Fehler (meist eine Unterbrechung) im Einspritzventil-Stromkreis von Zylinder {cyl} gefunden. Dieser Zylinder bekommt keinen Kraftstoff und hat Zündaussetzer.
+cur.inj.c1	Abgezogener, loser oder korrodierter Stecker am Einspritzventil von Zylinder {cyl}
+cur.inj.c2	Leitungsbruch im Kabelbaum der Einspritzventile
+cur.inj.c3	Defektes Einspritzventil (Spule unterbrochen)
+cur.inj.c4	Fehler an Sicherung oder Relais der Einspritzventilversorgung (würde meist mehrere Ventile betreffen)
+cur.inj.k1	Prüfen, ob der Stecker am Einspritzventil von Zylinder {cyl} vollständig eingerastet und sauber ist
+cur.inj.k2	Kabelbaum der Einspritzventile auf Beschädigung prüfen
+cur.inj.k3	Den Widerstand des Einspritzventils messen und mit den anderen Ventilen vergleichen; die Werte sollten sehr ähnlich sein
+cur.inj.k4	Sicherung und Relais der Einspritzventilversorgung prüfen
+cur.inj.k5	Leitungen reparieren oder Einspritzventil ersetzen, dann Code löschen und auf Zündaussetzer prüfen
+cur.inj.adv	Der Motor läuft unrund auf drei Zylindern, und unverbrannter Kraftstoff kann den Katalysator beschädigen. Lassen Sie es innerhalb weniger Tage reparieren und meiden Sie lange Fahrten, bei denen der Motor laufen muss. Blinkt die Motorkontrollleuchte, halten Sie an, sobald es sicher ist.
+cur.P0230.sub	Steuerkreis der Kraftstoffpumpe
+cur.P0230.sum	Die Motorsteuerung steuert die Kraftstoffpumpe über ein Relais oder ein Pumpensteuergerät an. Sie hat einen elektrischen Fehler in diesem Stromkreis gefunden, daher läuft die Pumpe möglicherweise nicht und der Motor springt eventuell nicht an.
+cur.P0230.c1	Defektes Pumpenrelais oder durchgebrannte Sicherung
+cur.P0230.c2	Beschädigte Leitungen oder korrodierter Stecker im Pumpenstromkreis
+cur.P0230.c3	Defektes Kraftstoffpumpen-Steuergerät, falls vorhanden
+cur.P0230.c4	Defekte Kraftstoffpumpe mit zu hoher Stromaufnahme
+cur.P0230.k1	Sicherung und Relais der Kraftstoffpumpe prüfen (Sicherungsplan in der Betriebsanleitung)
+cur.P0230.k2	Prüfen, ob der Motor normal anspringt und läuft; Zögern oder Ausgehen notieren
+cur.P0230.k3	Leitungen und Stecker im Pumpenstromkreis prüfen
+cur.P0230.k4	Eine Werkstatt kann Pumpenstrom und Kraftstoffdruck prüfen
+cur.P0230.adv	Sie können meist elektrisch weiterfahren, aber der Motor springt möglicherweise nicht an oder geht aus. Lassen Sie es innerhalb weniger Tage prüfen und meiden Sie lange Fahrten, die den Motor erfordern.
+cur.P0300.sub	Zündaussetzererkennung (mehrere Zylinder)
+cur.P0300.sum	Die Motorsteuerung hat Zündaussetzer erkannt, die nicht auf einen Zylinder beschränkt sind oder zwischen den Zylindern wandern. Ein Zündaussetzer bedeutet, dass der Kraftstoff in einem Zylinder nicht richtig verbrannt ist.
+cur.P0300.c1	Verschlissene Zündkerzen (sie altern mit der Zeit und mit der Laufleistung; Wartungsplan prüfen)
+cur.P0300.c2	Versagende Zündspule(n)
+cur.P0300.c3	Alter oder minderwertiger Kraftstoff oder Wasser im Kraftstoff (möglich, wenn der Motor selten läuft)
+cur.P0300.c4	Falschluft im Ansaugtrakt oder verschmutzter Luftmassenmesser, der ein mageres Gemisch verursacht
+cur.P0300.c5	Zu niedriger Kraftstoffdruck (Kraftstoffpumpe, Filter)
+cur.P0300.c6	Probleme mit den Steuerzeiten (siehe P0016) oder niedrige Kompression (seltener)
+cur.P0300.k1	Alle Codes auslesen: Gleichzeitig gespeicherte P0171, P0016 oder P0335 können die Zündaussetzer erklären
+cur.P0300.k2	Zündkerzen prüfen und bei Fälligkeit ersetzen; Zündspulenstecker auf Öl, Risse oder Brandspuren prüfen
+cur.P0300.k4	Zeigt Ihr Gerät Aussetzerzähler je Zylinder an, prüfen, ob ein oder zwei Zylinder überwiegen
+cur.P0300.k5	Eine Werkstatt kann Kraftstoffdruck, Kompression und Zündanlage prüfen
+cur.mis.sub	Zündaussetzererkennung, Zylinder {cyl}
+cur.mis.sum	Die Motorsteuerung hat wiederholte Zündaussetzer in Zylinder {cyl} erkannt: Der Kraftstoff in diesem Zylinder verbrennt nicht richtig.
+cur.mis.c1	Defekte Zündspule an Zylinder {cyl} (am häufigsten)
+cur.mis.c2	Verschlissene oder verrußte Zündkerze an Zylinder {cyl}
+cur.mis.c3	Verstopftes oder defektes Einspritzventil an Zylinder {cyl}
+cur.mis.c4	Falschluft nahe dem Einlasskanal von Zylinder {cyl}
+cur.mis.c5	Niedrige Kompression in Zylinder {cyl} (Ventil- oder Kolbenringproblem, seltener)
+cur.mis.k1	Die Zündspule von Zylinder {cyl} mit der eines Nachbarzylinders tauschen, Codes löschen und fahren: Wandert der Aussetzer mit der Spule, die Spule ersetzen
+cur.mis.k2	Zündkerze ausbauen und prüfen: bei Verschleiß, Öl oder Rissen ersetzen (normalerweise alle vier zusammen)
+cur.mis.k3	Stecker und Leitungen von Zündspule und Einspritzventil an Zylinder {cyl} prüfen
+cur.mis.k4	Sind Spule und Kerze in Ordnung, Einspritzventil und Kompression in einer Werkstatt prüfen lassen
+cur.P0325.sub	Klopfsensor (Bank 1 oder einziger Sensor)
+cur.P0325.sum	Der Klopfsensor erkennt Motorklopfen (unkontrollierte Verbrennung), damit die Motorsteuerung den Zündzeitpunkt anpassen kann. Sein Stromkreis hat einen elektrischen Fehler.
+cur.P0325.c1	Beschädigte Leitungen oder korrodierter Stecker am Klopfsensor
+cur.P0325.c2	Defekter Klopfsensor
+cur.P0325.c3	Sensor locker am Motorblock
+cur.P0325.k1	Stecker und Leitungen des Klopfsensors prüfen (oft unter dem Ansaugkrümmer verborgen)
+cur.P0325.k2	Prüfen, ob der Sensor fest am Motorblock verschraubt ist (ein loser Sensor kann kein Klopfen erkennen)
+cur.P0325.k3	Sensor und Leitungen nach Werkstattdaten messen oder das Signal in einer Werkstatt prüfen lassen
+cur.P0325.k4	Sensor bei Bedarf ersetzen und mit dem vorgeschriebenen Anzugsdrehmoment festziehen
+cur.P0325.adv	Ja, Sie können weiterfahren. Die Motorsteuerung verwendet einen sichereren, späteren Zündzeitpunkt, daher kann sich der Motor etwas schwächer anfühlen und etwas mehr verbrauchen. Tanken Sie die empfohlene Kraftstoffsorte und vermeiden Sie hohe Last bis zur Reparatur.
+cur.P0327.sum	Das Signal des Klopfsensors ist niedriger als erwartet, meist wegen eines unterbrochenen oder kurzgeschlossenen Stromkreises oder eines defekten Sensors. Die Motorsteuerung wechselt auf einen sichereren Zündzeitpunkt.
+cur.P0327.c1	Signalleitung unterbrochen oder mit Kurzschluss nach Masse
+cur.P0327.c3	Korrodierter oder loser Stecker
+cur.P0328.sum	Das Signal des Klopfsensors ist höher als erwartet, meist wegen eines Leitungsfehlers, eines defekten Sensors oder starker mechanischer Geräusche des Motors.
+cur.P0328.c1	Signalleitung mit Kurzschluss nach Plus oder fängt Störungen ein
+cur.P0328.c3	Echte mechanische Geräusche des Motors (loses Hitzeschutzblech, verschlissene Lager, Ventilgeräusche)
+cur.P0328.k5	Auf ungewöhnliche mechanische Geräusche des Motors achten
+cur.coil.sub	Zündspule {letter} (normalerweise Zylinder {cyl})
+cur.coil.sum	Die Motorsteuerung hat einen elektrischen Fehler im Stromkreis von Zündspule {letter} gefunden (Spule A ist normalerweise Zylinder 1, B Zylinder 2 usw.). Dieser Zylinder hat wahrscheinlich Zündaussetzer.
+cur.coil.c1	Defekte Zündspule
+cur.coil.c2	Loser, korrodierter oder beschädigter Zündspulenstecker
+cur.coil.c3	Beschädigte Leitungen zwischen Zündspule und Motorsteuerung
+cur.coil.c4	Fehler in der Spannungsversorgung der Zündspulen (Sicherung oder Relais; würde meist mehrere Spulen betreffen)
+cur.coil.k1	Prüfen, ob der Spulenstecker vollständig eingerastet ist; auf Korrosion oder eine abgebrochene Verriegelung achten
+cur.coil.k2	Die Spule mit der eines Nachbarzylinders tauschen, Codes löschen und prüfen, ob der Code mit der Spule wandert
+cur.coil.k3	Kabelbaum zu den Zündspulen prüfen
+cur.coil.k4	Spule ersetzen, wenn der Code mitwandert; andernfalls Leitungen und Versorgung prüfen lassen
+cur.o2h.sub	Lambdasondenheizung, Bank 1 Sensor {n} ({where})
+cur.o2h.intro	Lambdasonden arbeiten nur im warmen Zustand, daher hat jede eine eingebaute elektrische Heizung.
+cur.o2h_low.sum	{@cur.o2h.intro} Die Motorsteuerung hat festgestellt, dass der Heizungs-Steuerkreis des {side} Sensors ({where}) niedriger als erwartet misst. {@cur.o2h.monitored}
+cur.o2h_high.sum	{@cur.o2h.intro} Die Motorsteuerung hat festgestellt, dass der Heizungs-Steuerkreis des {side} Sensors ({where}) höher als erwartet misst. {@cur.o2h.monitored}
+cur.o2h_circ.sum	{@cur.o2h.intro} Die Motorsteuerung hat einen elektrischen Fehler im Heizkreis des {side} Sensors ({where}) gefunden.
+cur.o2h.monitored	Je nach Art der Überwachung kann das einen Kurzschluss, eine Unterbrechung oder eine defekte Heizung bedeuten.
+cur.o2h.c1	Heizelement in der Sonde ausgefallen (durchgebrannt oder kurzgeschlossen; häufig bei älteren Sonden, die Sonde muss dann ersetzt werden)
+cur.o2h.c2	Durch Abgaswärme beschädigte Leitungen (geschmolzen, durchgescheuert, kurzgeschlossen oder gebrochen)
+cur.o2h.c3	Loser oder korrodierter Stecker
+cur.o2h.c4	Durchgebrannte Sicherung der Lambdasondenheizungen
+cur.o2h.k1	Sicherung der Lambdasondenheizungen prüfen (Sicherungsplan in der Betriebsanleitung)
+cur.o2h.k2	Sondenstecker und Leitungen entlang der Abgasanlage auf Schmelz- oder Scheuerschäden prüfen
+cur.o2h.k3	Den Heizungswiderstand am Sondenstecker messen und mit den Werkstattdaten vergleichen; eine Unterbrechung bedeutet, dass die Heizung defekt ist
+cur.o2h.k4	Sonde ersetzen, wenn die Heizung unterbrochen oder kurzgeschlossen ist (richtigen Typ für das Fahrzeug verwenden)
+cur.o2h.adv	Ja, Sie können weiterfahren. Emissionen und Verbrauch können steigen, vor allem nach Kaltstarts; da der Motor eines Plug-in-Hybrids oft kalt startet, sollten Sie nicht zu lange warten.
+cur.o2.sub	Lambdasonde Bank 1 Sensor {n} ({where})
+cur.o2.role_front	Die vordere Lambdasonde misst den Sauerstoff im Abgas, damit die Motorsteuerung das Gemisch richtig halten kann.
+cur.o2.role_rear	Die hintere Lambdasonde prüft, wie gut der Katalysator das Abgas reinigt.
+cur.o2.k1	Sondenstecker und Leitungen entlang der Abgasanlage auf Schmelz-, Scheuerschäden oder Korrosion prüfen
+cur.o2.k2	Auf Abgaslecks nahe der Sonde achten (tickendes oder pustendes Geräusch, Rußspuren)
+cur.o2.k3	Bei voll warmem Motor die Sonde in den Live-Daten beobachten: Eine vordere Sonde sollte schnell auf Gemischänderungen reagieren, eine hintere ist normalerweise recht ruhig
+cur.o2.k4	Zuerst Codes für Gemischadaption, Zündaussetzer und Sondenheizung beheben; sie erklären oft Lambdasondencodes
+cur.o2.k5	Sonde ersetzen, wenn Leitungen und Abgasanlage in Ordnung sind (richtigen Typ für das Fahrzeug verwenden)
+cur.o2f.adv	Ja, Sie können weiterfahren. Verbrauch und Emissionen können steigen und der Motor kann unruhiger laufen. Lassen Sie es innerhalb einiger Wochen prüfen; ein länger bestehendes Gemischproblem kann den Katalysator schädigen.
+cur.o2r.adv	Ja, Sie können weiterfahren. Die hintere Sonde überwacht hauptsächlich den Katalysator, daher läuft der Motor meist normal. Lassen Sie es innerhalb einiger Wochen prüfen.
+cur.o2_circ.sum	{role} Die Motorsteuerung hat einen Fehler im Signalkreis dieser Sonde gefunden.
+cur.o2_circ.c1	Beschädigte Leitungen oder korrodierter Stecker (die Leitungen verlaufen nahe der heißen Abgasanlage)
+cur.o2_circ.c2	Defekte oder gealterte Lambdasonde
+cur.o2_circ.c3	Abgasleck in der Nähe der Sonde
+cur.o2_circ.c4	Sonde durch Öl, Kühlmittel oder Kraftstoffzusätze verunreinigt
+cur.o2_low_f.sum	{role} Das Signal bleibt auf niedriger Spannung. Bei einer herkömmlichen Lambdasonde bedeutet das, dass sie ständig mageres Abgas (zu viel Sauerstoff) meldet; bei einer Breitbandsonde (Luft-Kraftstoff-Verhältnis) deutet es eher auf einen Stromkreis- oder Sondenfehler.
+cur.o2_low_r.sum	{role} Das Signal bleibt auf niedriger Spannung, d. h. sie meldet ständig mageres Abgas (zu viel Sauerstoff).
+cur.o2_low.c1	Abgasleck vor oder nahe der Sonde, durch das Außenluft eindringt
+cur.o2_low.c3	Signalleitung mit Kurzschluss nach Masse
+cur.o2_low.c4	Ein tatsächlich mageres Gemisch (Falschluft, niedriger Kraftstoffdruck; nach P0171 suchen)
+cur.o2_high_f.sum	{role} Das Signal bleibt auf hoher Spannung. Bei einer herkömmlichen Lambdasonde bedeutet das, dass sie ständig fettes Abgas (zu wenig Sauerstoff) meldet; bei einer Breitbandsonde (Luft-Kraftstoff-Verhältnis) deutet es eher auf einen Stromkreis- oder Sondenfehler.
+cur.o2_high_r.sum	{role} Das Signal bleibt auf hoher Spannung, d. h. sie meldet ständig fettes Abgas (zu wenig Sauerstoff).
+cur.o2_high.c1	Defekte oder verunreinigte Lambdasonde (Öl, Kühlmittel oder Silikon)
+cur.o2_high.c2	Signalleitung mit Kurzschluss nach Plus
+cur.o2_high.c3	Ein tatsächlich fettes Gemisch (undichtes Einspritzventil, offen hängendes Regenerierventil; nach P0172 suchen)
+cur.o2_slow.sum	{role} Die Sonde reagiert zu langsam auf Gemischänderungen.
+cur.o2_slow.c1	Gealterte Lambdasonde (normaler Verschleiß über viele Jahre)
+cur.o2_slow.c4	Problem mit der Heizung, wodurch die Sonde zu kalt bleibt (nach Heizungscodes suchen)
+cur.o2_noact.sum	{role} Das Signal ändert sich überhaupt nicht, als wäre die Sonde tot oder abgesteckt.
+cur.o2_noact.c1	Defekte Lambdasonde
+cur.o2_noact.c2	Unterbrechung oder abgezogener Stecker
+cur.o2_noact.c3	Heizungsfehler, wodurch die Sonde zu kalt zum Arbeiten bleibt
+cur.P2195.sum	{role} Das Signal tendiert zu mager oder bleibt auf mager stehen: Die Sonde meldet mehr Sauerstoff, als die Gemischregelung erwartet.
+cur.P2195.c1	Falschluft im Ansaugtrakt oder Abgasleck vor der Sonde
+cur.P2195.c2	Gealterte oder verunreinigte vordere Lambdasonde
+cur.P2195.c3	Luftmassenmesser misst zu niedrig
+cur.P2195.c4	Zu niedriger Kraftstoffdruck oder verstopfte Einspritzventile
+cur.P2196.sum	{role} Das Signal tendiert zu fett oder bleibt auf fett stehen: Die Sonde meldet weniger Sauerstoff, als die Gemischregelung erwartet.
+cur.P2196.c1	Verunreinigte oder gealterte vordere Lambdasonde
+cur.P2196.c2	Undichtes Einspritzventil oder zu hoher Kraftstoffdruck
+cur.P2196.c3	Tankentlüftungsventil (Purge) klemmt offen
+cur.P2196.c4	Mit Kraftstoff verdünntes Motoröl
+cur.P0420.sub	Katalysator, Bank 1
+cur.P0420.sum	Die Motorsteuerung beurteilt mit den Lambdasonden vor und nach dem Katalysator, wie gut dieser Sauerstoff speichert und das Abgas reinigt. Das Ergebnis liegt unter dem geforderten Wert, daher arbeitet der Katalysator wahrscheinlich nicht mehr ausreichend.
+cur.P0420.c1	Gealterter Katalysator (der Wirkungsgrad sinkt mit Alter und Laufleistung)
+cur.P0420.c2	Katalysator durch frühere Zündaussetzer oder durch verbranntes Öl oder Kühlmittel beschädigt
+cur.P0420.c3	Abgasleck in der Nähe der Lambdasonden
+cur.P0420.c4	Defekte oder träge hintere (oder vordere) Lambdasonde, die ein falsches Ergebnis liefert
+cur.P0420.c5	Motor läuft zu fett oder zu mager (zuerst Gemischadaptionscodes beheben)
+cur.P0420.k1	Zuerst eventuelle Zündaussetzer-, Gemischadaptions- oder Lambdasondencodes beheben; sie können diesen Code verursachen oder vortäuschen
+cur.P0420.k2	Zwischen Motor und hinterer Lambdasonde nach Abgaslecks suchen (tickendes oder pustendes Geräusch, Rußspuren)
+cur.P0420.k3	Bei voll warmem Motor die Signale von vorderer und hinterer Lambdasonde in den Live-Daten vergleichen: Die hintere sollte recht ruhig sein
+cur.P0420.k5	Code löschen und fahren; kommt er schnell wieder, ist der Katalysator wahrscheinlich verbraucht
+cur.P0420.k6	Den Katalysator durch ein typgenehmigtes Qualitätsteil ersetzen; billige Universalkatalysatoren bringen den Code oft zurück
+cur.P0420.adv	Ja, Sie können weiterfahren. Mit diesem Fehler kann das Auto bei der HU/AU (TÜV) durchfallen, und ein zerfallender Katalysator kann mit der Zeit klappern oder die Abgasanlage verstopfen.
+cur.evap.sub	Tankentlüftungssystem (EVAP)
+cur.evap.intro	Die Tankentlüftung (EVAP) sammelt Benzindämpfe aus dem Tank in einem Aktivkohlebehälter und verbrennt sie später im Motor.
+cur.evap.adv	Ja, Sie können weiterfahren. Das Fahrverhalten ist nicht betroffen, aber Kraftstoffdampf entweicht, und das Auto kann bei der HU/AU (TÜV) durchfallen. Riecht es stark nach Benzin, lassen Sie es bald prüfen.
+cur.evap.cap	Tankdeckel prüfen: Er sollte beim Zudrehen klicken, und die Gummidichtung sollte sauber, weich und rissfrei sein. Einen abgenutzten Deckel durch einen des richtigen Typs ersetzen
+cur.evap.refuel	Plug-in-Hybride haben oft einen geschlossenen, unter Druck stehenden Kraftstofftank: immer wie in der Betriebsanleitung beschrieben tanken (zum Beispiel mit der Entriegelungstaste der Tankklappe und warten, bis sich die Klappe öffnet)
+cur.P0440.sum	{@cur.evap.intro} Die Motorsteuerung hat einen allgemeinen Fehler in diesem System gefunden.
+cur.P0440.c1	Loser, abgenutzter oder falscher Tankdeckel
+cur.P0440.c2	Undichter oder abgezogener Schlauch der Tankentlüftung
+cur.P0440.c3	Defektes Regenerier- oder Belüftungsventil
+cur.P0440.c4	Beschädigter Aktivkohlebehälter
+cur.P0440.c5	Fehler am Tankdrucksensor
+cur.P0440.k3	Alle Codes auslesen; spezifischere EVAP-Codes (P0441–P0457) grenzen den Fehler ein
+cur.P0440.k4	Eine Werkstatt kann Undichtigkeiten mit einem Rauchtest finden
+cur.P0441.sum	{@cur.evap.intro} Der Dampfstrom vom Aktivkohlebehälter zum Motor (Regenerierstrom) ist nicht wie erwartet: zu gering, zu groß oder vorhanden, wenn er es nicht sein sollte.
+cur.P0441.c1	Regenerierventil hängt offen oder geschlossen
+cur.P0441.c2	Verstopfter, geknickter oder abgezogener Regenerierschlauch
+cur.P0441.c3	Elektrischer Fehler am Regenerierventil (nach P0443 suchen)
+cur.P0441.c4	Verstopfter Aktivkohlebehälter (zum Beispiel nach wiederholtem Überfüllen des Tanks)
+cur.P0441.k1	Die Regenerierschläuche zwischen Aktivkohlebehälter, Regenerierventil und Ansaugtrakt auf Risse und lose Enden prüfen
+cur.P0441.k2	Eine Werkstatt kann prüfen, ob das Regenerierventil auf Befehl öffnet und schließt und geschlossen dicht ist
+cur.P0441.k3	Nach dem Abschalten der Zapfpistole nicht nachtanken; flüssiger Kraftstoff kann den Aktivkohlebehälter beschädigen
+cur.evap_leak.sum	{@cur.evap.intro} Die Motorsteuerung verschließt das System und prüft, ob es Druck oder Unterdruck hält; sie hat ein {size} Leck gefunden.
+cur.evap_leak.k2	Die sichtbaren EVAP-Schläuche und den Einfüllstutzen auf Risse, Rost und lose Verbindungen prüfen
+cur.evap_leak.k4	Code löschen und einige Tage fahren; der Dichtheitstest läuft nur unter bestimmten Bedingungen, daher kann die Bestätigung der Reparatur dauern
+cur.evap_leak.k5	Kommt er wieder, kann eine Werkstatt das Leck mit einem Rauchtest finden
+cur.P0442.c1	Tankdeckeldichtung abgenutzt, rissig oder verschmutzt, oder Deckel nicht festgedreht
+cur.P0442.c2	Kleiner Riss in einem EVAP-Schlauch oder lose Schlauchschelle
+cur.P0442.c3	Regenerier- oder Belüftungsventil schließt nicht ganz dicht
+cur.P0442.c4	Korrodierter Einfüllstutzen oder undichter Aktivkohlebehälter
+cur.P0455.c1	Tankdeckel fehlt, ist lose oder nicht eingerastet
+cur.P0455.c2	Abgezogener oder aufgeplatzter EVAP-Schlauch
+cur.P0455.c3	Regenerierventil hängt offen oder Belüftungsventil klemmt
+cur.P0455.c4	Beschädigter Aktivkohlebehälter
+cur.P0456.c1	Tankdeckeldichtung leicht abgenutzt oder verschmutzt (am häufigsten)
+cur.P0456.c2	Winziger Riss in einem EVAP-Schlauch oder einer Dichtung
+cur.P0456.c3	Regenerier- oder Belüftungsventil schließt nicht perfekt dicht
+cur.P0456.c4	Kleines Leck am Einfüllstutzen oder an den Dichtungen des Kraftstofftanks
+cur.P0457.sum	{@cur.evap.intro} Der Dichtheitstest deutet darauf hin, dass der Tankdeckel lose ist oder fehlt.
+cur.P0457.c1	Tankdeckel nicht bis zum Klicken zugedreht oder nach dem Tanken vergessen
+cur.P0457.c2	Abgenutzte oder beschädigte Tankdeckeldichtung
+cur.P0457.c3	Schmutz an der Dichtfläche des Einfüllstutzens
+cur.P0457.c4	Falscher (nicht originaler) Tankdeckel
+cur.P0457.k1	Prüfen, ob der Tankdeckel aufgesetzt und bis zum Klicken zugedreht ist
+cur.P0457.k2	Deckeldichtung und Rand des Einfüllstutzens reinigen; den Deckel ersetzen, wenn die Dichtung rissig oder hart ist
+cur.P0457.k4	Code löschen; es kann einige Tage Fahrt dauern, bis das System erneut prüft und die Leuchte aus bleibt
+cur.P0457.adv	Ja. Tankdeckel festdrehen oder aufsetzen und normal weiterfahren.
+cur.P0443.sum	{@cur.evap.intro} Die Motorsteuerung hat einen elektrischen Fehler im Stromkreis des Regenerierventils gefunden, das die Dämpfe zum Motor strömen lässt.
+cur.P0443.c1	Abgezogener, loser oder korrodierter Stecker am Regenerierventil
+cur.P0443.c2	Defektes Regenerierventil (Spule unterbrochen oder kurzgeschlossen)
+cur.P0443.c3	Beschädigte Leitungen
+cur.P0443.c4	Durchgebrannte Sicherung in der Ventilversorgung
+cur.P0443.k1	Den Stecker am Regenerierventil prüfen (meist im Motorraum am Dampfschlauch zum Ansaugtrakt)
+cur.P0443.k2	Den Widerstand der Ventilspule messen und mit den Werkstattdaten vergleichen
+cur.P0443.k3	Leitungen und Sicherung prüfen
+cur.P0443.k4	Regenerierventil ersetzen, wenn die Spule unterbrochen oder kurzgeschlossen ist
+cur.P0446.sum	{@cur.evap.intro} Das Belüftungsventil, das Frischluft in den Aktivkohlebehälter lässt und bei Dichtheitstests schließt, arbeitet nicht richtig oder hat einen elektrischen Fehler.
+cur.P0446.c1	Belüftungsventil oder sein Filter durch Schmutz, Insekten oder Eis verstopft
+cur.P0446.c2	Defektes Belüftungsventil
+cur.P0446.c3	Leitungs- oder Steckerfehler (das Ventil sitzt meist nahe dem Aktivkohlebehälter, Straßenschmutz ausgesetzt)
+cur.P0446.c4	Verstopfter Belüftungsschlauch
+cur.P0446.k1	Belüftungsventil, Schlauch und Filter auf Schmutz und Verstopfung prüfen
+cur.P0446.k2	Stecker und Leitungen auf Korrosion prüfen
+cur.P0446.k3	Eine Werkstatt kann das Ventil per Stellglieddiagnose testen
+cur.P0401.sub	Abgasrückführung (AGR)
+cur.P0401.sum	Das AGR-System (EGR) führt eine kleine Menge Abgas in den Ansaugtrakt zurück, um Verbrennungstemperatur und NOx-Ausstoß zu senken. Die Motorsteuerung hat weniger AGR-Durchfluss gemessen als erwartet.
+cur.P0401.c1	Ablagerungen, die AGR-Ventil oder Kanäle zusetzen (am häufigsten)
+cur.P0401.c2	AGR-Ventil klemmt oder ist defekt
+cur.P0401.c3	Elektrischer Fehler am AGR-Ventil (nach P0403 suchen)
+cur.P0401.c4	Defekter Sensor zur Beurteilung des AGR-Durchflusses, zum Beispiel der Saugrohrdrucksensor
+cur.P0401.k1	Nach anderen AGR- oder Sensorcodes suchen
+cur.P0401.k2	Eine Werkstatt kann das AGR-Ventil im Leerlauf per Diagnosegerät öffnen: Strömt Abgas, sollte der Motor merklich unruhiger laufen
+cur.P0401.k3	AGR-Ventil reinigen oder ersetzen und die Kanäle reinigen
+cur.P0403.sum	Die Motorsteuerung hat einen elektrischen Fehler im Steuerkreis des AGR-Ventils gefunden.
+cur.P0403.c1	Abgezogener, loser oder korrodierter Stecker am AGR-Ventil
+cur.P0403.c2	Defektes AGR-Ventil (Motor oder Magnetventil)
+cur.P0403.c3	Beschädigte Leitungen (das Ventil sitzt in einem heißen Bereich)
+cur.P0403.k1	Stecker und Leitungen des AGR-Ventils auf Hitzeschäden und Korrosion prüfen
+cur.P0403.k2	Den Ventilwiderstand nach Werkstattdaten messen
+cur.P0403.k3	AGR-Ventil ersetzen, wenn es defekt ist
+cur.P0500.sub	Geschwindigkeitssignal
+cur.P0500.sum	Die Motorsteuerung erhält kein gültiges Geschwindigkeitssignal. Bei modernen Fahrzeugen wird die Geschwindigkeit meist aus den Raddrehzahlsensoren berechnet und über das Datennetz verteilt.
+cur.P0500.c1	Fehler an Raddrehzahlsensor oder ABS (auf ABS-Warnleuchte und C- oder U-Codes achten)
+cur.P0500.c2	Kommunikationsproblem im Netzwerk mit dem ABS-Steuergerät
+cur.P0500.c3	Leitungs- oder Steckerfehler
+cur.P0500.k1	Prüfen, ob der Tacho funktioniert und ob die ABS-Warnleuchte leuchtet
+cur.P0500.k2	Das ABS-Steuergerät nach Möglichkeit mit einem geeigneten Gerät auslesen
+cur.P0500.k4	Die Leitungen der Raddrehzahlsensoren an allen vier Rädern prüfen
+cur.P0500.adv	Meist fahrbereit, aber Tacho, Tempomat oder andere Funktionen arbeiten möglicherweise nicht richtig. Lassen Sie es innerhalb einiger Wochen prüfen, oder innerhalb weniger Tage, wenn auch die ABS-Warnleuchte leuchtet.
+cur.P0506.sub	Leerlaufregelung
+cur.P0506.intro	Im Leerlauf regelt die Motorsteuerung die Drehzahl über die elektronische Drosselklappe.
+cur.P0506.sum	{@cur.P0506.intro} Die Leerlaufdrehzahl bleibt unter dem Sollwert.
+cur.P0506.c1	Verschmutzte Drosselklappe (Ablagerungen, die die Luft im Leerlauf drosseln)
+cur.P0506.c2	Verstopfter Luftfilter oder Ansaugtrakt
+cur.P0506.c3	Die Drosselklappe muss nach Reinigung, Austausch oder Abklemmen der Batterie den Leerlauf neu anlernen
+cur.P0506.c4	Motor läuft aus einem anderen Grund schlecht (nach Zündaussetzercodes suchen)
+cur.P0506.k1	Luftfilter prüfen
+cur.P0506.k2	Die Drosselklappe vorsichtig reinigen (Zündung aus) und das Leerlauf-Anlernverfahren durchführen
+cur.P0506.k3	Nach anderen Motorcodes suchen
+cur.P0507.sum	{@cur.P0506.intro} Die Leerlaufdrehzahl bleibt über dem Sollwert.
+cur.P0507.c1	Falschluft im Ansaugtrakt (gerissener Schlauch, undichte Dichtung, Unterdruck- oder Kurbelgehäuseentlüftungsschlauch)
+cur.P0507.c2	Verschmutzte oder klemmende Drosselklappe
+cur.P0507.c4	Defekter Kühlmitteltemperatursensor, der der Motorsteuerung einen kalten Motor vortäuscht
+cur.P0507.k1	Bei Leerlauf am Ansaugtrakt auf zischende Falschluftgeräusche horchen
+cur.P0507.k3	Kühlmitteltemperatur in den Live-Daten auf Plausibilität prüfen
+cur.P0562.sub	12-V-Versorgung (Systemspannung)
+cur.P0562.sum	Die Motorsteuerung hat ihre 12-V-Versorgung unterhalb des normalen Bereichs gemessen. Beim Outlander PHEV wird das 12-V-System von der 12-V-Hilfsbatterie versorgt und vom DC/DC-Wandler geladen, daher liegt die Ursache meist bei der Batterie, dem Wandler oder den Verbindungen dazwischen.
+cur.P0562.c2	DC/DC-Wandler lädt nicht (nach P0A94 oder anderen DC/DC-Codes suchen)
+cur.P0562.c3	Lose oder korrodierte Batteriepole oder Massebänder
+cur.P0562.c4	Das Auto stand lange, oder Zubehör bzw. ein OBD-Dongle hat die Batterie im geparkten Zustand entladen
+cur.P0562.c5	Spannungsabfall in den Versorgungsleitungen oder an der Sicherung der Motorsteuerung
+cur.P0562.k2	Batteriepole reinigen und festziehen, Massebänder prüfen
+cur.P0562.k4	Nach Codes des DC/DC-Wandlers suchen
+cur.P0562.k5	Ist die Batterie alt (viele halten etwa 4–6 Jahre) oder besteht sie einen Test nicht, durch den richtigen Typ ersetzen
+cur.P0562.adv	Lassen Sie es innerhalb weniger Tage prüfen. Ein schwaches 12-V-System kann verhindern, dass das Auto in READY geht, oder Funktionen ohne Vorwarnung abschalten. Meiden Sie lange Fahrten, bis die Ursache gefunden ist.
+cur.P0563.sum	Die Motorsteuerung hat ihre 12-V-Versorgung oberhalb des normalen Bereichs gemessen. Zu hohe Spannung kann Elektronik und 12-V-Batterie schädigen.
+cur.P0563.c1	DC/DC-Wandler regelt die 12-V-Ausgangsspannung zu hoch
+cur.P0563.c2	Externes Ladegerät oder Starthilfegerät angeschlossen, während das Auto eingeschaltet war
+cur.P0563.c3	Schlechte Masseverbindung, die falsche Messwerte verursacht
+cur.P0563.c4	Interner Fehler der 12-V-Batterie
+cur.P0563.k1	Die Spannung der 12-V-Batterie im READY-Zustand messen; deutlich über etwa 15 V ist zu hoch
+cur.P0563.k2	Ladegerät oder Starthilfe abklemmen und beobachten, ob der Code wiederkommt
+cur.P0563.k3	Massebänder und Batteriepole prüfen
+cur.P0563.k4	Die Ausgangsspannung des DC/DC-Wandlers vom Händler prüfen lassen
+cur.P0563.adv	Lassen Sie es innerhalb weniger Tage prüfen. Zu hohe Spannung kann die 12-V-Batterie und die Elektronik schädigen.
+cur.P0601.sub	Motorsteuergerät (intern)
+cur.P0601.sum	Das Motorsteuergerät hat beim Prüfen seines eigenen Programmspeichers (Prüfsumme) einen Fehler gefunden. Die gespeicherte Software kann beschädigt sein.
+cur.P0601.c1	Interner Fehler im Motorsteuergerät
+cur.P0601.c2	Abgebrochenes oder fehlgeschlagenes Software-Update
+cur.P0601.c3	Starker Spannungseinbruch oder Spannungsspitze im 12-V-Bordnetz (zum Beispiel bei Starthilfe)
+cur.P0601.c4	Wasser- oder Korrosionsschaden am Steuergerät oder an seinen Steckern
+cur.P0601.k3	Bei einem Mitsubishi-Händler fragen, ob ein Software-Update oder eine Neuprogrammierung für das Steuergerät verfügbar ist
+cur.P0601.k4	Kommt der Fehler immer wieder, muss das Steuergerät eventuell ersetzt und auf das Fahrzeug programmiert werden
+cur.P0601.adv	Der Motor kann schlecht laufen, ausgehen oder nicht anspringen, und andere Funktionen können betroffen sein. Lassen Sie es innerhalb weniger Tage prüfen.
+cur.P0606.sum	Das Motorsteuergerät hat bei einem Selbsttest einen Fehler in seinem eigenen Prozessor gefunden.
+cur.P0700.sub	Getriebe-/Antriebseinheitssteuerung (Anforderung der Warnleuchte)
+cur.P0700.sum	Ein anderes Steuergerät, das für Getriebe oder Antriebseinheit zuständig ist, hat einen eigenen Fehlercode gespeichert und die Motorsteuerung gebeten, die Motorkontrollleuchte einzuschalten. Der eigentliche Fehlercode ist in diesem anderen Steuergerät gespeichert.
+cur.P0700.c1	Ein im Getriebe- bzw. Antriebseinheits-Steuergerät gespeicherter Fehler (dieses Steuergerät für den eigentlichen Code auslesen)
+cur.P0700.c3	Leitungs- oder Netzwerkfehler zwischen den Steuergeräten
+cur.P0700.k3	Auf Veränderungen im Fahrverhalten achten (Rucken, Geräusche, Ausfall des Antriebs) und der Werkstatt mitteilen
+cur.P0700.k4	Der Outlander PHEV hat kein herkömmliches Mehrganggetriebe, daher kann der gespeicherte Fehler das Transaxle, dessen Kupplung oder eine andere Funktion der Antriebseinheit betreffen
+cur.P0700.adv	Meist ja, wenn das Auto normal fährt. Lassen Sie das andere Steuergerät innerhalb einiger Wochen auslesen, oder innerhalb weniger Tage, wenn das Auto ruckelt, Geräusche macht oder an Antrieb verliert.
+cur.P0AA6.sub	Überwachung der Hochvolt-Isolation
+cur.P0AA6.sum	Das Hochvoltsystem ist elektrisch von der Karosserie isoliert, und eine Überwachung prüft diese Isolierung ständig. Sie hat einen zu niedrigen Isolationswiderstand gemessen: Irgendwo kann Hochspannung zur Karosserie oder zum Fahrgestell hin ableiten.
+cur.P0AA6.c1	Feuchtigkeit oder Wasser in einem Hochvoltbauteil oder -stecker (zum Beispiel nach Starkregen, Motorwäsche oder Fahrt durch tiefes Wasser)
+cur.P0AA6.c2	Beschädigte Isolierung eines orangefarbenen Hochvoltkabels (Scheuerstellen, Marderbiss oder früherer Unfallschaden)
+cur.P0AA6.c3	Isolationsdurchschlag in einem Hochvoltbauteil, zum Beispiel im elektrischen Klimakompressor, in der elektrischen Heizung, im Bordladegerät, in einem Wechselrichter, einem Elektromotor oder der Antriebsbatterie
+cur.P0AA6.c4	Fehler in der Isolationsüberwachung selbst (seltener)
+cur.P0AA6.k2	Notieren, wann der Fehler auftritt: nur bei Nässe oder nach dem Waschen deutet auf Feuchtigkeit; nur beim Laden auf die Ladekomponenten; nur bei laufender Heizung oder Klimaanlage möglicherweise auf diese Geräte
+cur.P0AA6.k3	Ohne zu berühren auf sichtbare Schäden an orangefarbenen Kabeln unter dem Auto und im Motorraum achten
+cur.P0AA6.k4	Motorraum und Unterboden in der Nähe von Hochvoltteilen nicht mit dem Hochdruckreiniger waschen
+cur.P0AA6.k5	Den Fehler von einem Mitsubishi-Händler oder einer hochvoltgeschulten Werkstatt suchen lassen; dort werden die Bauteile einzeln mit einem Isolationsmessgerät abgetrennt und geprüft
+cur.batt.sub	Antriebsbatterie (Hochvolt-Traktionsbatterie)
+cur.P0A80.sum	Das Batteriemanagementsystem hat festgestellt, dass die Antriebsbatterie über die Grenze hinaus gealtert ist, zum Beispiel durch Kapazitätsverlust oder zu weit auseinandergedriftete Zellen, und repariert oder ersetzt werden muss.
+cur.P0A80.c1	Alters- und nutzungsbedingter Kapazitätsverlust (alle Lithium-Ionen-Batterien verlieren mit der Zeit Kapazität)
+cur.P0A80.c2	Eine oder mehrere schwache Zellen oder Module, die nicht mehr mit dem Rest im Gleichgewicht bleiben
+cur.P0A80.c3	Probleme mit der Batteriekühlung, die die Alterung beschleunigt haben
+cur.P0A80.c4	Seltener: ein Fehler in der Spannungs- oder Temperaturerfassung, der die Batterie schlechter aussehen lässt, als sie ist
+cur.P0A80.k2	Alle Codes auslesen: Gleichzeitig gespeicherte Codes zu Antriebsbatteriesensoren, Kühlung oder Spannungserfassung können auf eine reparierbare Ursache hinweisen
+cur.P0A80.k3	Beim Mitsubishi-Händler einen Antriebsbatterie-Check (Kapazitäts-/Zustandsmessung) mit dessen Diagnosegerät durchführen lassen
+cur.P0A80.k4	Nach der Garantie der Antriebsbatterie fragen: Antriebsbatterien haben oft eine längere Garantie als der Rest des Fahrzeugs (siehe Garantieheft)
+cur.P0A80.k5	Angebote sowohl für eine Modulreparatur bei einem Hochvoltspezialisten als auch für einen kompletten Batterietausch einholen; manchmal lassen sich einzelne Module ersetzen
+cur.P0A80.adv	Das Auto fährt meist noch, aber rechnen Sie mit geringerer elektrischer Reichweite und Leistung und häufigerem Motorlauf. Lassen Sie es innerhalb weniger Tage prüfen. Fordert das Kombiinstrument zum Anhalten auf, halten Sie sicher an. Öffnen Sie niemals die Antriebsbatterie.
+cur.P0A7F.sum	Das Batteriemanagementsystem hat eine Verschlechterung der Antriebsbatterie erkannt, zum Beispiel Kapazitätsverlust oder auseinanderdriftende Zellen. Das Auto kann elektrische Reichweite oder Leistung begrenzen.
+cur.P0A7F.c1	Normaler alters- und nutzungsbedingter Kapazitätsverlust
+cur.P0A7F.c2	Zellen oder Module geraten aus dem Gleichgewicht
+cur.P0A7F.c3	Probleme mit der Batteriekühlung, die die Alterung beschleunigen
+cur.P0A7F.c4	Fehler in der Spannungs- oder Temperaturerfassung (nach anderen Antriebsbatteriecodes suchen)
+cur.P0A7F.k2	Alle Codes auslesen: Gleichzeitig gespeicherte Sensor- oder Kühlungscodes können auf eine reparierbare Ursache hinweisen
+cur.P0A7F.k3	Beim Mitsubishi-Händler einen Antriebsbatterie-Check durchführen lassen, um die verbleibende Kapazität zu messen
+cur.P0A7F.k4	Nach der Garantie der Antriebsbatterie fragen (siehe Garantieheft)
+cur.P0A7F.k5	Gelegentliches Vollladen (statt immer nur teilweise) hilft dem System, die Batterie richtig einzuschätzen
+cur.P0A7F.adv	Ja, Sie können normal fahren. Rechnen Sie mit geringerer elektrischer Reichweite als im Neuzustand. Lassen Sie die Batterie innerhalb einiger Wochen prüfen, früher, wenn weitere Warnungen erscheinen.
+cur.P0A7D.sum	Der Ladezustand der Antriebsbatterie ist unter die Mindestreserve gefallen, die das Hybridsystem halten will.
+cur.P0A7D.c1	Das Auto hatte kein Benzin mehr, daher konnte der Motor die Antriebsbatterie nicht laden
+cur.P0A7D.c2	Das Auto stand lange ungenutzt mit fast leerer Antriebsbatterie
+cur.P0A7D.c3	Motor- oder Generatorproblem, das das Selbstladen verhindert (nach anderen Codes suchen)
+cur.P0A7D.c4	Fehler in der Antriebsbatterie oder ihrer Überwachung
+cur.P0A7D.k2	Tanken, wenn der Tank fast leer ist
+cur.P0A7D.k3	Das Auto anschließen, vollständig laden und den Code löschen
+cur.P0A7D.k4	Nach Motor- oder Generatorcodes suchen, die das Selbstladen des Autos verhindern würden
+cur.P0A7D.k5	Kommt er trotz Kraftstoff im Tank und nach vollständigem Laden wieder, die Antriebsbatterie vom Händler prüfen lassen
+cur.P0A7D.adv	Laden Sie das Auto (oder tanken Sie) so bald wie möglich. Bei sehr niedriger Antriebsbatterie kann das Auto die Leistung begrenzen oder den Motor eventuell nicht starten. Lassen Sie das Auto nicht wochenlang mit leerer Antriebsbatterie stehen.
+cur.P0A7E.sum	Die Antriebsbatterie ist heißer als ihre sichere Grenze geworden. Das Auto begrenzt meist Leistung und Laden, um sie zu schützen.
+cur.P0A7E.c1	Fehler im Kühlsystem der Antriebsbatterie
+cur.P0A7E.c2	Wiederholtes Schnellladen (CHAdeMO) in Verbindung mit zügiger Fahrweise bei Hitze
+cur.P0A7E.c3	Defekter Temperatursensor mit fälschlich hohem Wert (nach P0A9B–P0A9E suchen)
+cur.P0A7E.c4	Interner Batteriefehler (seltener)
+cur.P0A7E.k2	Das Auto ausgeschaltet im Schatten stehen lassen, bis die Batterie abgekühlt ist
+cur.P0A7E.k3	Prüfen, ob die Klimaanlage richtig funktioniert; bei vielen Plug-in-Hybriden kühlt sie auch die Antriebsbatterie
+cur.P0A7E.k4	Bei Hitze kein mehrfaches Schnellladen direkt hintereinander
+cur.P0A7E.k5	Tritt es unter normalen Bedingungen auf, Batteriekühlung und Temperatursensoren beim Händler prüfen lassen
+cur.P0A7E.adv	Leistung und Laden können begrenzt sein. Lassen Sie das Auto abkühlen, bevor Sie weiterfahren, fahren Sie zurückhaltend und lassen Sie es innerhalb weniger Tage prüfen. Fordert eine Meldung zum Anhalten auf, halten Sie sicher an.
+cur.P0A9C.sub	Temperatursensor A der Antriebsbatterie
+cur.P0A9C.sum	Mehrere Temperatursensoren in der Antriebsbatterie ermöglichen dem Batteriemanagementsystem, sie zu schützen. Sensor A liefert Werte, die nicht zu den anderen Sensoren oder zum erwarteten Temperaturverlauf passen.
+cur.P0A9C.c1	Defekter Temperatursensor im Batteriepaket
+cur.P0A9C.c2	Leitungs- oder Steckerproblem im Batteriepaket oder am Batteriemanagement-Steuergerät
+cur.P0A9C.c3	Eine tatsächlich ungleichmäßige Temperatur im Paket durch ein Kühlproblem
+cur.P0A9C.c4	Fehler im Batteriemanagement-Steuergerät
+cur.P0A9C.k2	Alle Codes auslesen, auch andere Temperatur- und Kühlungscodes der Antriebsbatterie
+cur.P0A9C.k3	Alle Batterietemperaturen vom Händler in den Live-Daten vergleichen lassen; nach einer Standzeit über Nacht sollten sie nahezu gleich sein
+cur.P0A9C.k4	Für Reparaturen muss die Antriebsbatterie geöffnet werden; das darf nur ein hochvoltgeschulter Techniker
+cur.P0AFA.sum	Die Gesamtspannung der Antriebsbatterie ist niedriger, als das Hybridsystem zulässt.
+cur.P0AFA.c1	Antriebsbatterie tiefentladen (lange Standzeit oder Kraftstoff ausgegangen)
+cur.P0AFA.c2	Schwache Zellen oder Module, deren Spannung unter Last einbricht
+cur.P0AFA.c3	Fehler im Spannungserfassungskreis
+cur.P0AFA.c4	Problem mit der Hochvoltverbindung (Hauptschütz oder Stecker)
+cur.P0AFA.k2	Anschließen und vollständig laden, dann den Code löschen und beobachten, ob er wiederkommt
+cur.P0AFA.k3	Darauf achten, ob er nur bei starker Beschleunigung oder großer Kälte auftritt (deutet auf schwache Zellen)
+cur.P0AFA.k4	Einen Antriebsbatterie-Check beim Händler durchführen lassen
+cur.P0AFB.sum	Die Gesamtspannung der Antriebsbatterie ist höher, als das Hybridsystem zulässt.
+cur.P0AFB.c1	Fehler im Spannungserfassungskreis oder im Batteriemanagement-Steuergerät
+cur.P0AFB.c2	Fehler in der Ladesteuerung (Bordladegerät oder Rekuperationssteuerung)
+cur.P0AFB.c3	Zellen im Ungleichgewicht, sodass ein Teil des Pakets zu hoch misst
+cur.P0AFB.k2	Darauf achten, ob er beim Laden, bei langer Rekuperation bergab oder direkt nach dem Vollladen auftritt
+cur.P0AFB.k3	Tritt er beim Laden auf, den Ladevorgang beenden und prüfen lassen
+cur.P0AFB.k4	Antriebsbatterie und Ladesystem beim Händler prüfen lassen
+cur.P0A94.sub	DC/DC-Wandler (lädt die 12-V-Batterie)
+cur.P0A94.sum	Der DC/DC-Wandler setzt die Spannung der Antriebsbatterie auf etwa 12–14 V um, um die Bordelektronik zu versorgen und die 12-V-Batterie zu laden; der Outlander PHEV hat keine herkömmliche Lichtmaschine. Der Wandler liefert nicht die erwartete Leistung, daher kann sich die 12-V-Batterie langsam entladen.
+cur.P0A94.c1	Interner Fehler im DC/DC-Wandler
+cur.P0A94.c2	Schlechte Verbindung, Korrosion oder durchgebrannte Hauptsicherung zwischen Wandler und 12-V-Batterie
+cur.P0A94.c3	Defekte 12-V-Batterie mit ungewöhnlich hoher Stromaufnahme
+cur.P0A94.c4	Mögliche Überhitzung durch einen Fehler in der Kühlung der Leistungselektronik
+cur.P0A94.k2	Die Spannung der 12-V-Batterie bei ausgeschaltetem Auto und dann in READY messen: In READY sollte sie auf etwa 13–14,5 V steigen. Bleibt sie auf oder unter der Ruhespannung, lädt der Wandler nicht
+cur.P0A94.k3	Pole der 12-V-Batterie und Masseband zur Karosserie auf Korrosion und festen Sitz prüfen
+cur.P0A94.k4	Die 12-V-Batterie testen und bei Schwäche ersetzen
+cur.P0A94.k5	Bei kaltem Fahrzeug den Kühlmittelstand im Kühlkreis der Leistungselektronik prüfen (siehe Betriebsanleitung)
+cur.P0A94.k6	Den DC/DC-Wandler vom Händler testen lassen
+cur.P0A94.adv	Fahren Sie so wenig wie möglich und lassen Sie es innerhalb weniger Tage prüfen. Lädt der Wandler nicht, entlädt sich die 12-V-Batterie während der Fahrt, und das Auto kann ohne große Vorwarnung abschalten. Schalten Sie unnötige Verbraucher aus (Sitzheizung, Heckscheibenheizung, hohe Gebläsestufe).
+cur.pec.sub	Kühlkreis der Leistungselektronik
+cur.pec.adv	Die Leistung kann zum Schutz der Elektronik begrenzt sein. Fahren Sie zurückhaltend und lassen Sie es innerhalb weniger Tage prüfen; meiden Sie hohe Last bei Hitze, steile Steigungen und Anhängerbetrieb. Halten Sie an, wenn eine Temperaturwarnung oder eine Aufforderung zum Anhalten erscheint.
+cur.P0A93.sum	Die Wechselrichter und weitere Leistungselektronik werden über einen Kühlkreis mit elektrischer Pumpe gekühlt. Das Steuergerät hat festgestellt, dass dieser Kreis nicht so gut kühlt wie erwartet.
+cur.P0A93.c1	Zu niedriger Kühlmittelstand im Kreislauf der Leistungselektronik (Leck)
+cur.P0A93.c2	Schwache oder defekte elektrische Kühlmittelpumpe
+cur.P0A93.c3	Luft im Kreislauf nach einer Reparatur
+cur.P0A93.c4	Kühler durch Schmutz oder Laub zugesetzt oder ein Problem mit dem Kühlerlüfter
+cur.P0A93.c5	Defekter Kühlmitteltemperatursensor
+cur.P0A93.k3	Unter der Fahrzeugfront nach Kühlmittelverlust suchen (Pfützen oder eingetrocknete Rückstände)
+cur.P0A93.k4	Laub und Schmutz vor den Kühlern entfernen
+cur.P0A93.k5	Stimmt der Stand, den Kreis in einer Werkstatt entlüften und die Pumpe testen lassen
+cur.P0A05.sum	Die elektrische Pumpe, die Kühlmittel durch die Leistungselektronik pumpt, hat einen elektrischen Fehler in ihrem Steuerkreis und läuft möglicherweise nicht. Ohne sie können Wechselrichter und Motoren überhitzen.
+cur.P0A05.c1	Durchgebrannte Sicherung oder defektes Relais der elektrischen Pumpe
+cur.P0A05.c2	Abgezogener, loser oder korrodierter Stecker an der Pumpe
+cur.P0A05.c3	Leitungsbruch im Pumpenstromkreis
+cur.P0A05.c4	Defekte elektrische Pumpe
+cur.P0A05.k2	Sicherung und Relais der elektrischen Wasserpumpe prüfen (Betriebsanleitung oder Sicherungsplan im Werkstatthandbuch)
+cur.P0A05.k3	Den Pumpenstecker prüfen, der oft tief im Motorraum sitzt und Spritzwasser ausgesetzt ist
+cur.P0A05.k5	Eine Werkstatt kann die Pumpe per Stellglieddiagnose testen
+cur.P0A7C.sum	Die Leistungselektronik (Wechselrichter und Steuergeräte der Elektromotoren) ist heißer als ihre sichere Grenze geworden; das Auto begrenzt die Leistung, um sie zu schützen.
+cur.P0A7C.c1	Zu niedriger Kühlmittelstand oder Undichtigkeit im Kühlkreis der Leistungselektronik
+cur.P0A7C.c2	Elektrische Kühlmittelpumpe läuft nicht (nach P0A05 suchen)
+cur.P0A7C.c3	Zugesetzter Kühler oder nicht funktionierender Kühlerlüfter
+cur.P0A7C.c4	Anhaltend hohe Last bei Hitze (Anhänger, lange steile Steigungen)
+cur.P0A7C.c5	Defekter Temperatursensor (seltener)
+cur.P0A7C.k2	Anhalten und das Auto abkühlen lassen
+cur.P0A7C.k4	Kühler auf Verschmutzung und Kühlerlüfter auf Funktion prüfen
+cur.P0A7C.k5	Pumpe und Kühlkreis in einer Werkstatt prüfen lassen
+cur.P0A78.sub	Wechselrichter für Antriebsmotor A
+cur.P0A78.sum	Der Wechselrichter für Antriebsmotor A wandelt den Strom der Antriebsbatterie in den Wechselstrom um, der den Motor antreibt. Er arbeitet nicht so, wie das Steuergerät es erwartet, zum Beispiel liegen Strom oder Spannung außerhalb des Bereichs.
+cur.P0A78.c1	Interner Fehler im Wechselrichter
+cur.P0A78.c2	Überhitzung durch ein Kühlproblem (nach Kühlungscodes suchen)
+cur.P0A78.c3	Problem mit dem Motor oder den Hochvoltkabeln zwischen Wechselrichter und Motor
+cur.P0A78.c4	Niedrige 12-V-Versorgung der Steuerelektronik des Wechselrichters
+cur.P0A78.k3	Alle Codes auslesen: Codes zu Kühlung, Motorlagesensor oder Isolation können auf die Ursache hinweisen
+cur.P0A78.k5	Wechselrichter von einem Mitsubishi-Händler diagnostizieren lassen; das erfordert Hochvolt-Qualifikation und Spezialwerkzeug
+cur.P0A3F.sub	Lagesensor von Antriebsmotor A (Resolver)
+cur.P0A3F.sum	Ein Lagesensor (Resolver) in Antriebsmotor A meldet dem Steuergerät des Elektromotors die genaue Rotorstellung, die es zum Ansteuern des Motors benötigt. Das Sensorsignal fehlt oder ist elektrisch fehlerhaft.
+cur.P0A3F.c1	Loser, nasser oder korrodierter Stecker an der Resolverleitung zwischen Motor und Steuergerät
+cur.P0A3F.c2	Beschädigte Resolverleitungen
+cur.P0A3F.c3	Defekter Resolver im Motor (bedeutet meist, dass der Motor ausgebaut werden muss)
+cur.P0A3F.c4	Fehler im Steuergerät des Elektromotors
+cur.P0A3F.k2	Notieren, ob der Fehler beim Start, während der Fahrt oder über Bodenwellen auftrat (Bodenwellen deuten auf ein Leitungsproblem)
+cur.P0A3F.k3	Den Resolverstecker in einer Werkstatt prüfen und die Resolverwicklungen messen lassen; der Resolverkreis selbst führt Niederspannung, liegt aber neben Hochvoltteilen
+cur.P0A3F.adv	Das Auto kann den Antrieb durch diesen Motor verlieren, mit reduzierter Leistung fahren oder nicht in READY gehen. Fährt es, fahren Sie direkt zu einer Werkstatt und meiden Sie lange Fahrten. Fordert eine Meldung zum Anhalten auf, halten Sie sicher an.
+cur.hvil.sub	Hochvolt-Interlock (Sicherheitsschleife)
+cur.hvil.intro	Die Hochvolt-Sicherheitsschleife (Interlock) ist eine Niederspannungs-Signalschleife, die durch die Hochvoltstecker und -abdeckungen führt.
+cur.hvil.k2	Überlegen Sie: Wurde kürzlich an einem Hochvoltteil (Batterie, Wechselrichter, Ladegerät, Klimakompressor, Heizung) gearbeitet? Dann zuerst zu dieser Werkstatt zurück
+cur.hvil.k3	Jeden Stecker der Interlock-Schleife von einer Hochvolt-Fachkraft prüfen lassen
+cur.hvil.k4	Code löschen und prüfen, ob das Auto normal in READY geht
+cur.P0A0A.sum	{@cur.hvil.intro} Das Steuergerät hat einen Fehler in dieser Schleife gefunden und kann daher annehmen, dass ein Stecker oder eine Abdeckung offen ist, und die Hochspannung zur Sicherheit abschalten.
+cur.P0A0D.sum	{@cur.hvil.intro} Die Spannung an der Schleife ist zu hoch, was oft bedeutet, dass die Schleife irgendwo unterbrochen ist; das System kann daher die Hochspannung zur Sicherheit abschalten.
+cur.P0A95.sub	Hochvoltsicherung
+cur.P0A95.sum	Eine Sicherung im Hochvoltsystem wird als durchgebrannt oder unterbrochen gemeldet. Je nachdem, was sie absichert, können Funktionen wie elektrische Heizung, Klimaanlage, Laden oder Antrieb ausfallen.
+cur.P0A95.c1	Kurzschluss oder Überlast in einem Hochvoltbauteil hinter der Sicherung (zum Beispiel elektrische Heizung oder Klimakompressor)
+cur.P0A95.c2	Gealterte oder von selbst ausgefallene Sicherung (seltener)
+cur.P0A95.c3	Fehler im Überwachungskreis der Sicherung
+cur.P0A95.k2	Notieren, welche Funktionen ausgefallen sind (Heizung, Klimaanlage, Laden); das hilft der Werkstatt, den Stromkreis zu finden
+cur.P0A95.k3	Die Ursache von einem hochvoltgeschulten Techniker suchen lassen, bevor die Sicherung ersetzt wird; eine neue Sicherung brennt wieder durch, wenn der Fehler bleibt
+cur.mod.ecm	dem Motorsteuergerät (ECM)
+cur.mod.tcm	dem Getriebesteuergerät (TCM)
+cur.mod.mcu	dem Steuergerät des Antriebsmotors
+cur.mod.bmu	dem Batteriemanagement-Steuergerät der Antriebsbatterie (BMU)
+cur.mod.abs	dem ABS-Steuergerät
+cur.mod.eps	dem Servolenkungs-Steuergerät
+cur.mod.bcm	dem Karosseriesteuergerät (BCM)
+cur.mod.srs	dem Airbag-Steuergerät (SRS)
+cur.mod.ipc	dem Kombiinstrument
+cur.mod.hvac	dem Klimasteuergerät (HVAC)
+cur.mod.hpcu	dem Hybrid-Steuergerät
+cur.lost.sub	Kommunikation mit {module} verloren
+cur.lost.sum	Die Steuergeräte tauschen Informationen über das Datennetz des Fahrzeugs (CAN-Bus) aus, und die Nachrichten von {module} kommen nicht mehr an. {effect}
+cur.lost.c2	Keine Stromversorgung bei {module}: durchgebrannte Sicherung, defektes Relais oder schlechte Masseverbindung
+cur.lost.c3	Loser, nasser oder korrodierter Stecker an {module} oder an der Netzwerkverkabelung
+cur.lost.c5	Defekt in {module} selbst (seltener; zuerst Stromversorgung und Leitungen ausschließen)
+cur.lost.k3	Sicherungen von {module} prüfen; der Sicherungsplan steht in der Betriebsanleitung
+cur.lost.k4	An {module} und den zugehörigen Steckern nach Wassereintritt oder Korrosion suchen
+cur.lostx.k3	{extra}
+cur.U0100.effect	Der Motor springt möglicherweise nicht an oder läuft nicht, und das Auto fährt eventuell nur elektrisch mit einer Warnanzeige.
+cur.U0100.extra	Springt der Motor nicht an, zuerst Sicherungen und Hauptrelais des Motorsteuergeräts prüfen
+cur.U0100.adv	Das Auto fährt eventuell noch elektrisch, aber der Motor steht möglicherweise nicht zur Verfügung. Lassen Sie es innerhalb weniger Tage prüfen und meiden Sie lange Fahrten. Fordert eine Meldung zum Anhalten auf, halten Sie sicher an.
+cur.U0101.effect	Der Outlander PHEV hat kein herkömmliches Automatikgetriebe; welches Steuergerät als „TCM“ antwortet, hängt von der Fahrzeugsoftware ab – lassen Sie mit einem Mitsubishi-kompatiblen Gerät bestätigen, welches Steuergerät betroffen ist.
+cur.U0110.effect	Dieses Steuergerät treibt über seinen Wechselrichter einen elektrischen Antriebsmotor an, daher kann die Antriebsleistung reduziert sein oder das Auto nicht in READY gehen.
+cur.U0111.effect	Dieses Steuergerät überwacht die Antriebsbatterie, daher kann das Auto Leistung und Laden begrenzen oder nicht in READY gehen.
+cur.U0121.effect	ABS, Antriebsschlupf- und Stabilitätsregelung können abgeschaltet sein; die normale Bremse funktioniert weiterhin.
+cur.U0121.adv	Die normale Bremse funktioniert weiterhin, aber ABS und Stabilitätsregelung können abgeschaltet sein, sodass die Räder bei starkem Bremsen blockieren können. Fahren Sie vorsichtig, besonders bei Nässe, Eis oder Schnee, und lassen Sie es innerhalb weniger Tage prüfen.
+cur.U0131.effect	Die Lenkunterstützung kann nachlassen oder ausfallen, sodass die Lenkung schwergängig wird.
+cur.U0131.adv	Ist die Lenkung schwergängig, fahren Sie langsam und vorsichtig zu einer Werkstatt oder lassen Sie das Auto abschleppen; eine schwere Lenkung erfordert im Notfall viel mehr Kraft. Fühlt sich die Lenkung normal an, lassen Sie es innerhalb weniger Tage prüfen.
+cur.U0140.effect	Beleuchtung, Schlösser, Scheibenwischer oder andere Karosseriefunktionen können sich seltsam verhalten oder ausfallen.
+cur.U0151.effect	Die Airbag-Warnleuchte leuchtet meist, und Airbags und Gurtstraffer lösen bei einem Unfall möglicherweise nicht aus.
+cur.U0151.adv	Das Auto fährt normal, aber die Airbags schützen Sie bei einem Unfall möglicherweise nicht. Lassen Sie es so bald wie möglich reparieren (innerhalb weniger Tage).
+cur.U0155.effect	Anzeigen, Warnleuchten oder Meldungen werden möglicherweise nicht richtig dargestellt, solange dieser Fehler besteht.
+cur.U0155.adv	Meist ja, aber Warnleuchten und Meldungen werden möglicherweise nicht angezeigt, solange das Kombiinstrument ausgefallen ist, sodass Sie andere Warnungen verpassen könnten. Lassen Sie es innerhalb weniger Tage prüfen.
+cur.U0164.effect	Heizung, Klimaanlage oder Scheibenentfeuchtung funktionieren möglicherweise nicht richtig.
+cur.U0293.effect	Dieses Steuergerät koordiniert Motor, Elektromotoren und Antriebsbatterie, daher kann das Auto nicht in READY gehen oder mit reduzierter Leistung und einer Warnung zum EV-System fahren.
+cur.bus.k5	Eine Werkstatt kann die Netzwerkleitungen und Abschlusswiderstände messen (ein intakter CAN-Bus misst bei ausgeschaltetem Fahrzeug normalerweise etwa 60 Ohm zwischen CAN-High und CAN-Low) und Steuergeräte einzeln abtrennen
+cur.U0001.sub	Datennetz (High-Speed-CAN-Bus)
+cur.U0001.sum	Die Steuergeräte tauschen Informationen über ein schnelles Datennetz (CAN-Bus) aus. Ein Steuergerät hat einen Fehler im Netzwerk selbst erkannt, nicht bei einem bestimmten Steuergerät.
+cur.U0073.sub	Datennetz (CAN-Bus A)
+cur.U0073.sum	Ein Steuergerät hat so viele Fehler auf Netzwerk A erkannt, dass es sich selbst vom Netzwerk abgemeldet hat („Bus off“). Nachrichten von und zu diesem Steuergerät gehen in dieser Zeit verloren.
+cur.U3003.sub	12-V-Versorgungsspannung eines Steuergeräts
+cur.U3003.sum	Ein Steuergerät hat seine 12-V-Versorgung außerhalb des normalen Arbeitsbereichs gemessen, meist zu niedrig.
+cur.U3003.c2	DC/DC-Wandler lädt nicht richtig (nach P0A94 oder anderen DC/DC-Codes suchen)
+cur.U3003.c3	Loser oder korrodierter Batteriepol oder Masseanschluss
+cur.U3003.c4	Spannungseinbruch bei Starthilfe, bei angeschlossenem Ladegerät oder bei leerer 12-V-Batterie
+cur.wheel.sub	Raddrehzahlsensor, {wheel}
+cur.wheel.sum	Jedes Rad hat einen Drehzahlsensor, den ABS, Antriebsschlupf- und Stabilitätsregelung sowie andere Systeme nutzen, die die Fahrgeschwindigkeit benötigen. Das Signal des Sensors {wheel} fehlt, ist unplausibel oder elektrisch fehlerhaft.
+cur.wheel.c1	Beschädigter oder korrodierter Sensorstecker oder Leitung in Radnähe (Wasser, Salz und Steinschlag ausgesetzt)
+cur.wheel.c2	Schmutz, Rost oder Metallspäne an der Sensorspitze oder am magnetischen Geberring
+cur.wheel.c3	Defekter Raddrehzahlsensor
+cur.wheel.c4	Spiel im Radlager oder beschädigter Geberring (der Geberring ist oft Teil des Radlagers)
+cur.wheel.c5	Sensor nach Arbeiten an Bremsen oder Fahrwerk nicht richtig eingesetzt
+cur.wheel.k1	Die Leitung vom Sensor entlang der Radaufhängung bis zur Karosserie auf Beschädigung prüfen, besonders nach dem Winter
+cur.wheel.k2	Den Stecker abziehen und auf Korrosion prüfen
+cur.wheel.k3	Wenn Ihr Gerät das ABS-Steuergerät lesen kann (einfache OBD-Leser können das meist nicht), die vier Raddrehzahlen bei langsamer Geradeausfahrt vergleichen
+cur.wheel.k4	Radlager auf Spiel oder Geräusche prüfen
+cur.wheel.k5	Sensorspitze und Aufnahme reinigen oder den Sensor ersetzen
+cur.wheel.adv	Die normale Bremse funktioniert weiterhin, aber ABS, Antriebsschlupf- und Stabilitätsregelung sind wahrscheinlich abgeschaltet, sodass die Räder bei starkem Bremsen blockieren können. Fahren Sie vorsichtig, besonders bei Nässe, Eis oder Schnee, und lassen Sie es innerhalb weniger Tage prüfen.
+cur.C0077.sub	Reifendruckkontrolle (TPMS)
+cur.C0077.sum	Die Reifendruckkontrolle hat festgestellt, dass ein oder mehrere Reifen unter der Warnschwelle liegen.
+cur.C0077.c1	Ein Reifen hat Druck verloren (Reifenpanne, undichtes Ventil oder undichte Felge)
+cur.C0077.c2	Natürlicher Druckabfall bei Kälte (etwa 0,1 bar pro 10 °C)
+cur.C0077.c3	Reifendruck nach dem saisonalen Reifenwechsel nicht angepasst
+cur.C0077.c4	Defekter Reifendrucksensor oder leere Sensorbatterie (ergibt meist einen eigenen TPMS-Fehler)
+cur.C0077.k1	Alle vier Reifen im kalten Zustand mit einem Prüfgerät kontrollieren und auf die Werte des Aufklebers an der Türsäule einstellen
+cur.C0077.k2	Auf Nägel, Schnitte oder Beulen achten und auf Zischen horchen
+cur.C0077.k3	Nach dem Einstellen eine Weile fahren; die Warnung sollte erlöschen. Manche Systeme müssen nach einem Reifenwechsel zurückgesetzt oder angelernt werden, siehe Betriebsanleitung
+cur.C0077.k4	Verliert ein Reifen immer wieder Druck, ihn beim Reifenhändler reparieren lassen
+cur.C0077.adv	Prüfen Sie den Reifendruck bei der ersten sicheren Gelegenheit. Ist ein Reifen sichtbar platt, zieht das Auto zu einer Seite oder hören Sie Flattern, halten Sie an und wechseln Sie das Rad oder rufen Sie Hilfe. Fahren mit stark zu niedrigem Reifendruck kann den Reifen zerstören.
+cur.airbag.sub	Airbags (SRS): {which}
+cur.airbag.sum	Das Airbag-Steuergerät überprüft ständig den Zündkreis jedes Airbags. Es hat einen Fehler im Zündkreis der ersten Stufe gefunden (betroffen: {which}), daher löst dieser Airbag bei einem Unfall möglicherweise nicht aus. Die Airbag-Warnleuchte leuchtet normalerweise.
+cur.airbag.c1	{extra}
+cur.airbag.c2	Loser oder korrodierter Airbagstecker
+cur.airbag.c3	Defektes Airbagmodul
+cur.airbag.c4	Fehler im Airbag-Steuergerät (seltener)
+cur.airbag.k2	Überlegen Sie: Wurde kürzlich an Lenkrad, Armaturenbrett, Sitz oder im Radiobereich gearbeitet?
+cur.airbag.k3	Das Airbag-Steuergerät von einer Werkstatt mit einem geeigneten Gerät auslesen und Stecker und Leitungen prüfen lassen
+cur.airbag.k4	Nach der Reparatur sicherstellen, dass die Airbag-Warnleuchte einige Sekunden nach dem Einschalten erlischt
+cur.airbag.adv	Das Auto fährt normal, aber der Airbag schützt Sie bei einem Unfall möglicherweise nicht. Lassen Sie es so bald wie möglich reparieren (innerhalb weniger Tage).
+cur.B0001.extra	Verschleißte Wickelfeder (das Spiralkabel im Lenkrad, das den Airbag beim Lenken verbindet), eine häufige Ursache
+cur.B0010.extra	Beschädigte Leitungen oder Stecker hinter dem Armaturenbrett (zum Beispiel nach Arbeiten am Armaturenbrett oder Radio)

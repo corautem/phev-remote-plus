@@ -1,5 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    English (default) texts. Every name here must also exist in values-nb, values-sv,
+    values-da and values-de (and nothing else may be there). Use positional arguments
+    (%1$s, %2$d), escape apostrophes (\') and quotes (\"), and write a literal % as %%
+    in strings that take arguments.
+-->
 <resources>
     <string name="app_name">PHEV Link</string>
+    <!-- Not a UI text: the language code of this values folder (values-nb says "nb").
+         AppLocale.effectiveLanguage() reads it to learn which language the screens are in. -->
+    <string name="app_language_code">en</string>
+
+    <!-- Launcher shortcuts, widget, quick-settings tile -->
     <string name="widget_description">Battery, charging and one-tap preheat</string>
     <string name="sc_preheat_short">Preheat</string>
     <string name="sc_preheat_long">Start climate (smart)</string>
@@ -7,4 +19,396 @@
     <string name="sc_flash_short">Flash lights</string>
     <string name="sc_flash_long">Find my car: flash headlights</string>
     <string name="sc_refresh_short">Refresh</string>
+    <string name="tile_label">Preheat</string>
+    <string name="tile_running">Running</string>
+    <string name="climate_on_status">Climate on</string>
+    <string name="climate_off_status">Climate off</string>
+    <string name="widget_live">Live · %1$s</string>
+    <string name="widget_updated">updated %1$s</string>
+    <string name="widget_no_data">no data yet</string>
+    <string name="widget_charging_left">Charging · %1$s left</string>
+
+    <!-- Common -->
+    <string name="common_save">Save</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_test">Test</string>
+    <string name="common_back">Back</string>
+    <string name="common_next">Next</string>
+    <string name="common_stop">Stop</string>
+    <string name="common_refresh">Refresh</string>
+    <string name="common_on">On</string>
+    <string name="common_off">Off</string>
+    <string name="common_delete">Delete</string>
+
+    <!-- Bottom tabs (keep short) -->
+    <string name="tab_car">Car</string>
+    <string name="tab_schedule">Schedule</string>
+    <string name="tab_diagnostics">Diagnostics</string>
+    <string name="tab_settings">Settings</string>
+
+    <!-- Times and durations -->
+    <string name="ago_just_now">just now</string>
+    <plurals name="ago_minutes">
+        <item quantity="one">%1$d min ago</item>
+        <item quantity="other">%1$d min ago</item>
+    </plurals>
+    <plurals name="ago_hours">
+        <item quantity="one">%1$d h ago</item>
+        <item quantity="other">%1$d h ago</item>
+    </plurals>
+    <string name="ago_yesterday">yesterday</string>
+    <plurals name="ago_days">
+        <item quantity="one">%1$d day ago</item>
+        <item quantity="other">%1$d days ago</item>
+    </plurals>
+    <string name="dur_min">%1$d min</string>
+    <string name="dur_h">%1$d h</string>
+    <string name="dur_h_min">%1$d h %2$d min</string>
+    <string name="unit_min">min</string>
+
+    <!-- Climate modes -->
+    <string name="mode_cool">Cool</string>
+    <string name="mode_heat">Heat</string>
+    <string name="mode_defrost">Defrost</string>
+    <!-- The same modes inside a sentence ("Scheduled heat failed") -->
+    <string name="mode_cool_inline">cool</string>
+    <string name="mode_heat_inline">heat</string>
+    <string name="mode_defrost_inline">defrost</string>
+
+    <!-- Command names (button spinners, messages, notifications) -->
+    <string name="cmd_climate_on">%1$s for %2$d min</string>
+    <string name="cmd_climate_on_delayed">%1$s for %2$d min in %3$d min</string>
+    <string name="cmd_climate_off">Climate off</string>
+    <string name="cmd_headlights_on">Headlights on</string>
+    <string name="cmd_headlights_off">Headlights off</string>
+    <string name="cmd_parking_on">Parking lights on</string>
+    <string name="cmd_parking_off">Parking lights off</string>
+    <string name="cmd_locate">Flash headlights</string>
+    <string name="cmd_register">Register phone</string>
+    <string name="cmd_unregister">Unregister phone</string>
+    <string name="cmd_ack_climate">Reset climate warning</string>
+    <string name="cmd_charge_now">Charge now</string>
+    <string name="cmd_sync_clock">Sync car clock</string>
+
+    <!-- Messages (snackbars and toasts) -->
+    <string name="msg_cmd_done">%1$s — done</string>
+    <string name="msg_cmd_failed">%1$s failed: %2$s</string>
+    <string name="msg_refreshed">Refreshed</string>
+    <string name="msg_reconnecting">Reconnecting…</string>
+    <string name="msg_connected_battery">Connected! Battery %1$s%%</string>
+    <string name="msg_climate_started">%1$s started — ready in %2$d min</string>
+    <string name="msg_climate_warning_cleared">Climate warning cleared</string>
+    <string name="msg_headlights_flashed">Headlights flashed</string>
+    <string name="msg_charge_requested">Asked the car to start charging</string>
+    <string name="msg_phone_registered">Phone registered</string>
+    <string name="msg_phone_unregistered">Phone unregistered</string>
+    <string name="msg_bridge_ok">Bridge OK — car data %1$s</string>
+    <string name="msg_bridge_no_car_data">not yet available</string>
+    <string name="msg_bridge_unreachable">Bridge not reachable — see Diagnostics</string>
+    <string name="msg_location_saved">Location saved</string>
+    <string name="msg_location_none">No location available yet — open a maps app once and try again</string>
+    <string name="msg_location_denied">Location permission denied — enter coordinates by hand</string>
+    <string name="msg_location_invalid">Enter a valid latitude and longitude</string>
+    <string name="msg_saved">Saved</string>
+    <string name="msg_paired">Paired with the car\'s Wi-Fi (%1$s)</string>
+    <string name="msg_pairing_cancelled">Pairing cancelled</string>
+    <string name="msg_log_cleared">Log cleared</string>
+    <string name="msg_car_clock_set">Car clock set</string>
+    <string name="msg_raw_invalid">Enter a register (00–ff) and 1–64 bytes of hex data</string>
+
+    <!-- Shortcut / widget / tile actions -->
+    <string name="action_starting_climate">Starting climate…</string>
+    <string name="action_stopping_climate">Stopping climate…</string>
+    <string name="action_flashing">Flashing headlights…</string>
+    <string name="action_refreshing">Refreshing…</string>
+    <string name="action_set_up_first">Open PHEV Link and set up your car first</string>
+
+    <!-- Car tab -->
+    <string name="home_updated">Updated %1$s</string>
+    <string name="home_no_data">No data from the car yet</string>
+    <string name="home_electric_range">electric range</string>
+    <string name="home_charging">Charging</string>
+    <string name="home_full_at">Full ≈ %1$s (%2$s)</string>
+    <string name="home_plugged_in">Plugged in</string>
+    <string name="home_not_charging">Not charging (timer or full)</string>
+    <string name="home_unplugged">Unplugged</string>
+    <plurals name="home_phones_registered">
+        <item quantity="one">%1$d phone registered</item>
+        <item quantity="other">%1$d phones registered</item>
+    </plurals>
+    <string name="climate_title">Climate</string>
+    <string name="climate_running_pill">%1$s · %2$s min</string>
+    <string name="climate_stopped_by_car">Stopped by car</string>
+    <string name="climate_running_until">Running — the cabin will be ready around %1$s.</string>
+    <string name="climate_running">Running.</string>
+    <string name="climate_cancelled_explain">The car switched preconditioning off — usually a door was opened or the battery is too low. Clear the warning before starting again.</string>
+    <string name="climate_clear_warning">Clear warning</string>
+    <string name="climate_start">Start</string>
+    <string name="climate_smart">Smart</string>
+    <string name="climate_smart_explain">Smart picks the mode and duration from the outside temperature.</string>
+    <string name="quick_title">Quick actions</string>
+    <string name="quick_flash">Flash</string>
+    <string name="quick_headlights">Headlights</string>
+    <string name="quick_lights_off">Lights off</string>
+    <string name="quick_parking_lights">Parking lights</string>
+    <string name="quick_parking_off">Parking off</string>
+    <string name="quick_charge_now">Charge now (skip timer)</string>
+    <string name="security_title">Doors &amp; lights</string>
+    <string name="security_locked">Locked</string>
+    <string name="security_unlocked">Unlocked</string>
+    <string name="security_doors">Doors, boot, bonnet</string>
+    <string name="security_all_closed">All closed</string>
+    <string name="security_lights">Lights</string>
+    <string name="security_power">Power switch</string>
+    <string name="security_car_clock">Car clock</string>
+    <string name="ignition_acc">Accessory</string>
+    <string name="door_driver">driver door</string>
+    <string name="door_passenger">passenger door</string>
+    <string name="door_rear_left">rear left door</string>
+    <string name="door_rear_right">rear right door</string>
+    <string name="door_boot">boot</string>
+    <string name="door_bonnet">bonnet</string>
+    <string name="light_headlights">headlights</string>
+    <string name="light_parking">parking</string>
+    <string name="light_hazards">hazards</string>
+    <string name="light_interior">interior</string>
+    <string name="departure_next_title">Next departure</string>
+    <string name="departure_set_up">Set up</string>
+    <string name="departure_edit">Edit</string>
+    <string name="departure_empty">Tell the app when you usually leave, and it will warm or defrost the car just in time — choosing the mode from the weather forecast.</string>
+    <string name="departure_weather_check">Weather check at %1$s</string>
+
+    <!-- Connection status -->
+    <string name="link_route">Route: %1$s</string>
+    <string name="link_since">Since %1$s</string>
+    <string name="link_tips">Tips: the car\'s Wi-Fi reaches about 10–20 m. After several days parked it goes to sleep — pressing a button on the key, or unlocking, usually wakes it. If it says the phone isn\'t registered, register it under Settings.</string>
+    <string name="link_try_again">Try again now</string>
+    <string name="link_not_connected">Not connected</string>
+    <string name="link_not_set_up">Not set up</string>
+    <string name="link_not_set_up_detail">Enter the car\'s Wi-Fi details in Settings</string>
+    <string name="link_checking_bridge">Checking bridge…</string>
+    <string name="link_connecting_bridge">Connecting to bridge…</string>
+    <string name="link_err_not_set_up">Not set up — enter the car\'s Wi-Fi in Settings</string>
+    <string name="link_err_timeout">Could not reach the car in time</string>
+    <string name="link_last_data">Last data %1$s</string>
+    <string name="link_cant_join">Can\'t join car Wi-Fi</string>
+    <string name="link_searching">Looking for the car…</string>
+    <string name="link_not_found">Not found yet — is the car within Wi-Fi range? Its Wi-Fi sleeps after a few days parked.</string>
+    <string name="link_connecting">Connecting…</string>
+    <string name="link_attempt">Attempt %1$d</string>
+    <!-- Also quoted in setup_not_registered_explain: keep the two in step. -->
+    <string name="link_handshake">Saying hello to the car…</string>
+    <string name="link_connected">Connected</string>
+    <string name="link_connected_detail">Car Wi-Fi · %1$s protocol</string>
+    <string name="link_retrying">Reconnecting in %1$d s</string>
+    <string name="link_bridge_unreachable">Bridge unreachable</string>
+    <string name="link_via_bridge">Connected via bridge</string>
+    <string name="link_bridge_live">Car link live at the bridge</string>
+    <string name="link_bridge_online">Bridge online</string>
+    <string name="link_bridge_idle">Car checked %1$s — commands wake the link</string>
+    <string name="link_never">never</string>
+    <string name="link_bridge_cant_reach">Bridge can\'t reach the car</string>
+    <string name="link_bridge_connecting_car">Bridge is connecting to the car…</string>
+    <string name="protocol_unknown">unknown</string>
+    <string name="net_not_found">Car Wi-Fi not found — out of range, or the car\'s Wi-Fi is asleep</string>
+    <string name="net_invalid_details">The SSID or password is not valid (%1$s)</string>
+    <string name="net_could_not_join">Could not join \"%1$s\" — wrong password, declined, or not in range</string>
+    <string name="net_request_refused">Android refused the Wi-Fi request: %1$s</string>
+    <string name="bridge_err_token">Bridge rejected the token</string>
+    <string name="bridge_err_http">Bridge answered HTTP %1$d</string>
+    <string name="bridge_err_unreachable">Bridge not reachable: %1$s</string>
+    <string name="bridge_err_events">Bridge events: %1$s</string>
+    <string name="pair_unsupported">This phone does not support companion pairing</string>
+    <string name="pair_failed">Pairing failed</string>
+
+    <!-- Background service and notifications -->
+    <string name="svc_contacting">Contacting the car…</string>
+    <string name="svc_charging">charging</string>
+    <string name="svc_climate_on">climate on</string>
+    <string name="notif_cmd_failed">%1$s failed</string>
+    <string name="notif_climate_running">Running for %1$d min — ready around %2$s.</string>
+    <string name="notif_climate_off">Climate switched off.</string>
+    <string name="notif_flashed">Headlights flashed.</string>
+    <string name="notif_done">Done.</string>
+    <string name="notif_no_preheat_title">No preheating needed</string>
+    <string name="notif_no_preheat_text">It\'s about %1$s°C at %2$s — leaving the climate off.</string>
+    <string name="notif_departure_started">%1$s started</string>
+    <string name="notif_departure_ready">Your car will be ready for %1$s.</string>
+    <string name="notif_departure_failed">Scheduled %1$s failed</string>
+    <string name="notif_departure_retry">%1$s\nTap to open the app and try again.</string>
+    <string name="ch_link_name">Car connection</string>
+    <string name="ch_link_desc">Shown while the app is talking to the car in the background</string>
+    <string name="ch_alerts_name">Car alerts</string>
+    <string name="ch_alerts_desc">Charging finished, car left unlocked, lights on…</string>
+    <string name="ch_results_name">Command results</string>
+    <string name="ch_results_desc">Outcome of preheating, scheduled departures and quick actions</string>
+
+    <!-- Alerts -->
+    <string name="alert_title_charge_complete">Charging complete</string>
+    <string name="alert_title_charge_stopped">Charging stopped</string>
+    <string name="alert_title_charge_started">Charging started</string>
+    <string name="alert_title_climate_started">Climate started</string>
+    <string name="alert_title_climate_finished">Car is ready</string>
+    <string name="alert_title_climate_cancelled">Climate stopped</string>
+    <string name="alert_title_left_unlocked">Car left unlocked</string>
+    <string name="alert_title_door_open">Door left open</string>
+    <string name="alert_title_lights_on">Lights left on</string>
+    <string name="alert_battery_full">Battery is full.</string>
+    <string name="alert_battery_full_pct">Battery is full (%1$d%%).</string>
+    <string name="alert_charge_stopped">Charging stopped before full. Power cut, charge timer, or the cable came loose?</string>
+    <string name="alert_charge_stopped_pct">Charging stopped before full (%1$d%%). Power cut, charge timer, or the cable came loose?</string>
+    <string name="alert_charging">Charging.</string>
+    <string name="alert_charging_pct">Charging (%1$d%%).</string>
+    <string name="alert_charge_eta">About %1$s to full.</string>
+    <string name="alert_climate_running">Preconditioning is running.</string>
+    <string name="alert_climate_finished">Preconditioning finished — the cabin is ready.</string>
+    <string name="alert_climate_cancelled">Preconditioning was stopped by the car (door opened or battery too low).</string>
+    <plurals name="alert_left_unlocked">
+        <item quantity="one">Unlocked for %1$d+ minute with the car switched off.</item>
+        <item quantity="other">Unlocked for %1$d+ minutes with the car switched off.</item>
+    </plurals>
+    <plurals name="alert_door_open">
+        <item quantity="one">Open for %1$d+ minute: %2$s.</item>
+        <item quantity="other">Open for %1$d+ minutes: %2$s.</item>
+    </plurals>
+    <string name="alert_lights_on_head">The headlights are on with the car switched off.</string>
+    <string name="alert_lights_on_parking">The parking lights are on with the car switched off.</string>
+    <string name="alert_lights_on_both">The headlights and parking lights are on with the car switched off.</string>
+
+    <!-- Schedule tab -->
+    <string name="sched_title">Departures</string>
+    <string name="sched_explain">35 minutes before each departure the app checks the forecast (MET Norway), picks heat, cool or defrost and how long, and starts the climate so the car is ready when you leave.</string>
+    <string name="sched_exact_title">Allow exact alarms</string>
+    <string name="sched_exact_explain">Without this, Android may delay the departure check by several minutes.</string>
+    <string name="sched_open_settings">Open settings</string>
+    <string name="sched_no_location_title">Weather location not set</string>
+    <string name="sched_no_location_explain">Set your home location in Settings → Weather so the forecast is for where the car is parked. Until then the phone\'s last known location is used, or your default mode if that is unknown.</string>
+    <string name="sched_next">Next: %1$s · weather check %2$s</string>
+    <string name="sched_add">Add departure</string>
+    <string name="days_every">Every day</string>
+    <string name="days_weekends">Weekends</string>
+    <string name="days_weekdays">Weekdays</string>
+    <string name="days_none">No days</string>
+    <string name="sched_smart_row">Smart — mode from the weather</string>
+    <string name="sched_fixed_row">%1$s, %2$d min</string>
+    <string name="sched_dialog_title">Ready to leave at</string>
+    <string name="sched_smart_switch">Smart (use the forecast)</string>
+    <string name="sched_smart_fallback">Your choice below is used only if the forecast can\'t be fetched.</string>
+    <string name="sched_always_mode">Always uses the mode below.</string>
+
+    <!-- Settings tab -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_language_system">System default</string>
+    <string name="settings_car_wifi">Car Wi-Fi</string>
+    <string name="settings_car_wifi_explain">The SSID (REMOTExxxxxx) and password are on the card that came with the car\'s keys.</string>
+    <string name="settings_password">Password</string>
+    <string name="settings_hide">Hide</string>
+    <string name="settings_show">Show</string>
+    <string name="settings_testing">Testing…</string>
+    <string name="settings_silent_title">Silent connections</string>
+    <string name="settings_paired_with">Paired with %1$s. Android connects without asking, even in the background.</string>
+    <string name="settings_pair_explain">Pair once (with the car nearby) so Android stops asking \"Connect to device?\" and the widget, tile and schedules work in the background.</string>
+    <string name="settings_pair_again">Pair again</string>
+    <string name="settings_pair">Pair with car</string>
+    <string name="settings_forget">Forget</string>
+    <string name="pw_too_short">At least 8 characters</string>
+    <string name="pw_too_long">At most 63 characters</string>
+    <string name="pw_bad_chars">Only plain letters, digits and symbols (no æøå or emoji)</string>
+    <string name="settings_registration_title">Phone registration</string>
+    <string name="settings_registration_intro">The car only talks to phones it has registered (it remembers up to a few). To register this phone:</string>
+    <string name="registration_steps">1. Sit in the car with the key, power switch OFF.\n2. Press the power switch once to ACC (don\'t press the brake).\n3. Within 10 seconds, press LOCK then UNLOCK on the key, alternately, 5 times each (10 presses, starting with LOCK).\n4. The hazard lights blink: the car is in registration mode for a few minutes. Tap Register (the phone must be on the car\'s Wi-Fi).</string>
+    <string name="settings_registered_phones">Registered phones (car says)</string>
+    <string name="settings_register">Register</string>
+    <string name="settings_unregister">Unregister</string>
+    <string name="settings_route_title">How to reach the car</string>
+    <string name="route_auto">Automatic</string>
+    <string name="route_direct">Car Wi-Fi only</string>
+    <string name="route_bridge">Bridge only</string>
+    <string name="settings_route_explain">Automatic uses the bridge when it has fresh data about the car (car parked at home), otherwise the car\'s own Wi-Fi.</string>
+    <string name="settings_bridge_address">Bridge address</string>
+    <string name="settings_bridge_token">Bridge token</string>
+    <string name="settings_quick_title">One-tap climate (widget, tile, shortcuts)</string>
+    <string name="settings_quick_smart">Smart (pick from weather)</string>
+    <string name="settings_quick_fallback">Fallback when the forecast is unavailable:</string>
+    <string name="settings_quick_always">Always:</string>
+    <string name="settings_weather_title">Weather location</string>
+    <string name="settings_weather_explain">Where the car usually is in the morning. Used only for the MET Norway forecast.</string>
+    <string name="settings_latitude">Latitude</string>
+    <string name="settings_longitude">Longitude</string>
+    <string name="settings_use_current">Use current</string>
+    <string name="settings_alerts_title">Alerts on this phone</string>
+    <string name="settings_alerts">Alerts</string>
+    <string name="settings_alert_charge_complete">Charging complete</string>
+    <string name="settings_alert_charge_stopped">Charging stopped early</string>
+    <string name="settings_alert_climate_finished">Cabin ready (climate finished)</string>
+    <string name="settings_alert_climate_cancelled">Climate stopped by the car</string>
+    <string name="settings_alert_left_unlocked">Left unlocked (10 min)</string>
+    <string name="settings_alert_door_open">Door / boot left open</string>
+    <string name="settings_alert_lights_on">Lights left on</string>
+    <string name="settings_watch">Keep watching while charging or preheating</string>
+    <string name="settings_watch_explain">Checks the car every %1$d min in the background (phone must be within Wi-Fi range, or use the bridge).</string>
+    <string name="settings_advanced">Advanced</string>
+    <string name="settings_sync_clock">Set the car\'s clock on connect</string>
+    <string name="settings_full_range" formatted="false">Electric range at 100% (km)</string>
+    <string name="settings_protocol">Protocol</string>
+    <string name="settings_protocol_auto">Auto</string>
+    <string name="settings_test_address">Test address (emulator), host:port</string>
+    <string name="settings_test_address_hint">Leave empty for the real car</string>
+    <string name="settings_apply">Apply</string>
+    <string name="settings_about">About</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_about_text">Talks the car\'s own Wi-Fi protocol. Built on the reverse-engineering work of phev2mqtt (Ben Buxton and contributors) and phev-remote (Jamie Nuttall), cross-checked against the official app. Not affiliated with Mitsubishi Motors.</string>
+    <string name="settings_run_setup">Run setup again</string>
+
+    <!-- Setup -->
+    <string name="setup_intro">Control your Outlander PHEV over its own Wi-Fi: battery and charging, climate (heat, cool, defrost), lights, doors — plus departure timers that read the weather, a home-screen widget, a quick-settings tile, and alerts. Optionally through a small bridge at home, so it works from anywhere.</string>
+    <string name="setup_intro_2">Setup takes a few minutes. Have the car nearby with its key, and the Wi-Fi card that came with the keys.</string>
+    <string name="setup_start">Start</string>
+    <string name="setup_step1_title">1 · The car\'s Wi-Fi</string>
+    <string name="setup_pairing_note">Pairing is optional but recommended: without it Android asks \"Connect to device?\" now and then, and background features (widget, departures) can\'t connect on their own.</string>
+    <string name="setup_bridge_only">I\'ll only use a bridge — skip</string>
+    <string name="setup_step2_title">2 · Connect and register</string>
+    <string name="setup_connect">Connect</string>
+    <string name="setup_status">Status: %1$s</string>
+    <string name="setup_car_line">Car: %1$s · %2$s%%</string>
+    <string name="setup_not_registered_title">Not registered yet?</string>
+    <string name="setup_not_registered_explain">If the connection stops at \"Saying hello\" and then fails, this phone isn\'t registered with the car yet. Phones that used the official app are usually already registered.</string>
+    <string name="setup_register_phone">Register this phone</string>
+    <string name="setup_skip_for_now">Skip for now</string>
+    <string name="setup_step3_title">3 · All set</string>
+    <string name="setup_good_to_know">Good to know:\n• Long-press the app icon for shortcuts (preheat, defrost, flash lights).\n• Add the widget and the \"Preheat\" quick-settings tile.\n• Schedule your usual departures in the Schedule tab.\n• Every connection attempt is logged in Diagnostics — share the log if something misbehaves.\n• For control from anywhere, set up the bridge (see the README) and enter its address in Settings.</string>
+    <string name="setup_open_app">Open the app</string>
+
+    <!-- Diagnostics tab -->
+    <string name="diag_tab_log">Log</string>
+    <string name="diag_tab_registers">Registers</string>
+    <string name="diag_tab_tools">Tools</string>
+    <string name="diag_filter_all">All</string>
+    <string name="diag_connection">Connection</string>
+    <string name="diag_filter_commands">Commands</string>
+    <string name="diag_filter_packets">Packets</string>
+    <string name="diag_filter_state">Car state</string>
+    <string name="diag_previous_session">Previous session</string>
+    <string name="diag_share">Share</string>
+    <string name="diag_clear">Clear</string>
+    <string name="diag_share_subject">PHEV Link log %1$s</string>
+    <string name="diag_share_log">Share log</string>
+    <string name="diag_no_saved_session">No saved session yet.</string>
+    <string name="diag_registers_explain">Every register the car has reported, raw. Values that change while you operate the car are clues for new features.</string>
+    <string name="diag_registers_empty">Nothing yet — connect to the car first.</string>
+    <string name="diag_status">Status</string>
+    <string name="diag_paired_ap">Paired access point</string>
+    <string name="diag_not_paired">not paired</string>
+    <string name="diag_reconnect">Reconnect</string>
+    <string name="diag_full_refresh">Full refresh</string>
+    <string name="diag_log_pings">Log keepalive pings</string>
+    <string name="diag_car">Car</string>
+    <string name="diag_sync_clock">Sync clock</string>
+    <string name="diag_clear_climate_warning">Clear climate warning</string>
+    <string name="diag_raw_title">Raw register write</string>
+    <string name="diag_raw_warning">For experiments. Writes go straight to the car — only use values you understand.</string>
+    <string name="diag_register_hex">Register (hex)</string>
+    <string name="diag_data_hex">Data (hex)</string>
+    <string name="diag_send">Send</string>
 </resources>

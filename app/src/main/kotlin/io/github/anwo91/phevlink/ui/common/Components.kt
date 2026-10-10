@@ -26,8 +26,10 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.annotation.PluralsRes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +39,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -153,3 +156,9 @@ fun LabeledValue(label: String, value: String, modifier: Modifier = Modifier, va
         Text(value, style = MaterialTheme.typography.bodyMedium, color = valueColor, fontWeight = FontWeight.Medium)
     }
 }
+
+/** Plural string in the activity's (app) language; like `stringResource`, for counted things. */
+@Composable
+@ReadOnlyComposable
+fun quantityString(@PluralsRes id: Int, count: Int, vararg args: Any): String =
+    LocalContext.current.resources.getQuantityString(id, count, *args)

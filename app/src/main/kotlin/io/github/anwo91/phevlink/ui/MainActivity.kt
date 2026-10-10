@@ -1,5 +1,6 @@
 package io.github.anwo91.phevlink.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -26,17 +27,25 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.annotation.StringRes
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.ui.diag.DiagnosticsScreen
 import io.github.anwo91.phevlink.ui.home.HomeScreen
 import io.github.anwo91.phevlink.ui.schedule.ScheduleScreen
 import io.github.anwo91.phevlink.ui.settings.SettingsScreen
 import io.github.anwo91.phevlink.ui.setup.SetupScreen
 import io.github.anwo91.phevlink.ui.theme.PhevTheme
+import io.github.anwo91.phevlink.util.AppLocale
 
 class MainActivity : ComponentActivity() {
     private val vm: MainViewModel by viewModels()
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(AppLocale.wrap(newBase))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -55,11 +64,11 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private enum class Tab(val label: String, val icon: ImageVector) {
-    CAR("Car", Icons.Outlined.DirectionsCar),
-    SCHEDULE("Schedule", Icons.Outlined.Schedule),
-    DIAG("Diagnostics", Icons.Outlined.BugReport),
-    SETTINGS("Settings", Icons.Outlined.Settings),
+private enum class Tab(@StringRes val label: Int, val icon: ImageVector) {
+    CAR(R.string.tab_car, Icons.Outlined.DirectionsCar),
+    SCHEDULE(R.string.tab_schedule, Icons.Outlined.Schedule),
+    DIAG(R.string.tab_diagnostics, Icons.Outlined.BugReport),
+    SETTINGS(R.string.tab_settings, Icons.Outlined.Settings),
 }
 
 @Composable
@@ -83,7 +92,7 @@ fun AppRoot(vm: MainViewModel) {
                         selected = tab == i,
                         onClick = { tab = i },
                         icon = { Icon(t.icon, contentDescription = null) },
-                        label = { Text(t.label) },
+                        label = { Text(stringResource(t.label)) },
                     )
                 }
             }

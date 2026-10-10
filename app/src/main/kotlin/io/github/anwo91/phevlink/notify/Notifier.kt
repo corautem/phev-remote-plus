@@ -8,28 +8,45 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.alerts.Alert
+import io.github.anwo91.phevlink.core.alerts.AlertPrefs
 import io.github.anwo91.phevlink.core.alerts.AlertType
+import io.github.anwo91.phevlink.core.model.CarState
 import io.github.anwo91.phevlink.ui.MainActivity
+import io.github.anwo91.phevlink.util.AppLocale
+import io.github.anwo91.phevlink.util.Format
+import io.github.anwo91.phevlink.util.Labels
 
 class Notifier(private val context: Context) {
     private val nm = context.getSystemService(NotificationManager::class.java)
+    /** Language the channel names were last written in. */
+    @Volatile private var channelLanguage: String? = null
 
     init {
+        ensureChannels()
+    }
+
+    /** Creates the channels, and renames them after a language change (Android allows that in place). */
+    private fun ensureChannels() {
+        val res = AppLocale.localized(context)
+        val lang = res.resources.configuration.locales.toLanguageTags()
+        if (lang == channelLanguage) return
+        channelLanguage = lang
         nm.createNotificationChannels(
             listOf(
-                NotificationChannel(CH_LINK, "Car connection", NotificationManager.IMPORTANCE_LOW).apply {
-                    description = "Shown while the app is talking to the car in the background"
+                NotificationChannel(CH_LINK, res.getString(R.string.ch_link_name), NotificationManager.IMPORTANCE_LOW).apply {
+                    description = res.getString(R.string.ch_link_desc)
                     setShowBadge(false)
                 },
-                NotificationChannel(CH_ALERTS, "Car alerts", NotificationManager.IMPORTANCE_HIGH).apply {
-                    description = "Charging finished, car left unlocked, lights on…"
+                NotificationChannel(CH_ALERTS, res.getString(R.string.ch_alerts_name), NotificationManager.IMPORTANCE_HIGH).apply {
+                    description = res.getString(R.string.ch_alerts_desc)
                 },
-                NotificationChannel(CH_RESULTS, "Command results", NotificationManager.IMPORTANCE_DEFAULT).apply {
-                    description = "Outcome of preheating, scheduled departures and quick actions"
+                NotificationChannel(CH_RESULTS, res.getString(R.string.ch_results_name), NotificationManager.IMPORTANCE_DEFAULT).apply {
+                    description = res.getString(R.string.ch_results_desc)
                 },
             )
         )
@@ -43,13 +60,21 @@ class Notifier(private val context: Context) {
         PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
     )
 
-    fun alert(a: Alert) {
+    /**
+     * Posts [a] in the app language. The core builds alert texts in English, so with the car
+     * [state] (and the alert [prefs]) they are rebuilt here; without them the English text is used.
+     */
+    fun alert(a: Alert, state: CarState? = null, prefs: AlertPrefs? = null) {
         if (!canPost()) return
+        ensureChannels()
+        val res = AppLocale.localized(context)
+        val title = res.getString(alertTitle(a.type))
+        val message = state?.let { alertMessage(res, a.type, it, prefs ?: AlertPrefs()) } ?: a.message
         val n = NotificationCompat.Builder(context, CH_ALERTS)
             .setSmallIcon(R.drawable.ic_stat_car)
-            .setContentTitle(a.title)
-            .setContentText(a.message)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(a.message))
+            .setContentTitle(title)
+            .setContentText(message)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(message))
             .setCategory(if (a.type == AlertType.CHARGE_COMPLETE || a.type == AlertType.CLIMATE_FINISHED) NotificationCompat.CATEGORY_STATUS else NotificationCompat.CATEGORY_REMINDER)
             .setContentIntent(openAppIntent())
             .setAutoCancel(true)
@@ -59,6 +84,7 @@ class Notifier(private val context: Context) {
 
     fun result(title: String, text: String, ok: Boolean) {
         if (!canPost()) return
+        ensureChannels()
         val n = NotificationCompat.Builder(context, CH_RESULTS)
             .setSmallIcon(if (ok) R.drawable.ic_stat_car else R.drawable.ic_stat_warn)
             .setContentTitle(title)
@@ -71,8 +97,9 @@ class Notifier(private val context: Context) {
         nm.notify(ID_RESULT, n)
     }
 
-    fun linkNotification(title: String, text: String, actions: List<NotificationCompat.Action> = emptyList()): Notification =
-        NotificationCompat.Builder(context, CH_LINK)
+    fun linkNotification(title: String, text: String, actions: List<NotificationCompat.Action> = emptyList()): Notification {
+        ensureChannels()
+        return NotificationCompat.Builder(context, CH_LINK)
             .setSmallIcon(R.drawable.ic_stat_car)
             .setContentTitle(title)
             .setContentText(text)
@@ -83,9 +110,60 @@ class Notifier(private val context: Context) {
             .setForegroundServiceBehavior(NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE)
             .apply { actions.forEach { addAction(it) } }
             .build()
+    }
 
     fun updateLink(n: Notification) {
         if (canPost()) nm.notify(ID_LINK, n)
+    }
+
+    @StringRes
+    private fun alertTitle(t: AlertType): Int = when (t) {
+        AlertType.CHARGE_COMPLETE -> R.string.alert_title_charge_complete
+        AlertType.CHARGE_STOPPED -> R.string.alert_title_charge_stopped
+        AlertType.CHARGE_STARTED -> R.string.alert_title_charge_started
+        AlertType.CLIMATE_STARTED -> R.string.alert_title_climate_started
+        AlertType.CLIMATE_FINISHED -> R.string.alert_title_climate_finished
+        AlertType.CLIMATE_CANCELLED -> R.string.alert_title_climate_cancelled
+        AlertType.LEFT_UNLOCKED -> R.string.alert_title_left_unlocked
+        AlertType.DOOR_OPEN -> R.string.alert_title_door_open
+        AlertType.LIGHTS_ON -> R.string.alert_title_lights_on
+    }
+
+    /** Same content as the core's English message (see AlertEngine), from the same car state. Null if it cannot be rebuilt. */
+    private fun alertMessage(res: Context, t: AlertType, s: CarState, p: AlertPrefs): String? {
+        val pct = s.batteryPercent
+        return when (t) {
+            AlertType.CHARGE_COMPLETE ->
+                if (pct != null) res.getString(R.string.alert_battery_full_pct, pct) else res.getString(R.string.alert_battery_full)
+            AlertType.CHARGE_STOPPED ->
+                if (pct != null) res.getString(R.string.alert_charge_stopped_pct, pct) else res.getString(R.string.alert_charge_stopped)
+            AlertType.CHARGE_STARTED -> {
+                val charging = if (pct != null) res.getString(R.string.alert_charging_pct, pct) else res.getString(R.string.alert_charging)
+                val eta = s.chargeMinutesRemaining?.let { res.getString(R.string.alert_charge_eta, Format.minutes(it, res)) }
+                listOfNotNull(charging, eta).joinToString(" ")
+            }
+            AlertType.CLIMATE_STARTED -> {
+                val what = listOfNotNull(
+                    s.climate.mode?.let { res.getString(Labels.mode(it)) },
+                    s.climate.duration?.let { res.getString(R.string.dur_min, it.minutes) },
+                ).joinToString(", ")
+                if (what.isEmpty()) res.getString(R.string.alert_climate_running) else "$what."
+            }
+            AlertType.CLIMATE_FINISHED -> res.getString(R.string.alert_climate_finished)
+            AlertType.CLIMATE_CANCELLED -> res.getString(R.string.alert_climate_cancelled)
+            AlertType.LEFT_UNLOCKED ->
+                res.resources.getQuantityString(R.plurals.alert_left_unlocked, p.leftUnlockedMinutes, p.leftUnlockedMinutes)
+            AlertType.DOOR_OPEN -> {
+                val which = s.doors?.let { Labels.openDoors(res, it) }.orEmpty().joinToString()
+                res.resources.getQuantityString(R.plurals.alert_door_open, p.doorOpenMinutes, p.doorOpenMinutes, which)
+            }
+            AlertType.LIGHTS_ON -> when {
+                s.headlights == true && s.parkingLights == true -> res.getString(R.string.alert_lights_on_both)
+                s.headlights == true -> res.getString(R.string.alert_lights_on_head)
+                s.parkingLights == true -> res.getString(R.string.alert_lights_on_parking)
+                else -> null
+            }
+        }
     }
 
     companion object {

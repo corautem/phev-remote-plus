@@ -8,10 +8,13 @@ import android.content.Intent
 import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
+import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.model.PreAcState
 import io.github.anwo91.phevlink.graph
 import io.github.anwo91.phevlink.link.ActionActivity
+import io.github.anwo91.phevlink.util.AppLocale
 import io.github.anwo91.phevlink.util.Format
+import io.github.anwo91.phevlink.util.Labels
 
 /** Quick-settings tile: tap to start (smart) preheating, tap again to stop. */
 class PreheatTileService : TileService() {
@@ -38,13 +41,14 @@ class PreheatTileService : TileService() {
     private fun refreshTile() {
         val tile = qsTile ?: return
         val car = graph.repo.car.value
+        val res = AppLocale.localized(this)
         val running = car.climate.state == PreAcState.RUNNING
         tile.state = if (running) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
-        tile.label = if (running) "Climate on" else "Preheat"
+        tile.label = res.getString(if (running) R.string.climate_on_status else R.string.tile_label)
         tile.subtitle = when {
-            running -> car.climate.mode?.label ?: "Running"
-            car.batteryPercent != null -> "${car.batteryPercent}% · ${car.updatedAtMs?.let { Format.ago(it) } ?: ""}"
-            else -> "PHEV Link"
+            running -> res.getString(car.climate.mode?.let { Labels.mode(it) } ?: R.string.tile_running)
+            car.batteryPercent != null -> "${car.batteryPercent}% · ${car.updatedAtMs?.let { Format.ago(it, context = this) } ?: ""}"
+            else -> res.getString(R.string.app_name)
         }
         tile.updateTile()
     }

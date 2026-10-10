@@ -1,0 +1,2071 @@
+# PHEV Link DTC texts - English (source of truth). Format: key, whitespace, text.
+# {name} = slot filled by the app; {@key} = include another text; a text that is just @key reuses that text.
+# Other languages translate the same keys in strings_<lang>.txt; missing keys fall back to English.
+# Original text written for this project (GPL-3.0-or-later): general guidance, not a professional diagnosis.
+
+# ---------------------------------------------------------------------------------------------
+# Shared sentences, drive advice and applicability notes
+# ---------------------------------------------------------------------------------------------
+txt.hv_safety	Safety first: the orange cables and the high-voltage parts (drive battery, inverters, motors, on-board charger, DC/DC converter) carry dangerous voltage, even with the car switched off. Do not open, unplug or measure them yourself; this work is only for technicians trained in high-voltage systems.
+txt.srs_safety	Safety first: never probe airbag or seatbelt-pretensioner connectors with a test lamp or multimeter, and never unplug them with the 12 V battery connected. An accidental deployment can cause serious injury.
+txt.cause_12v	Weak or ageing 12 V auxiliary battery. On the Outlander PHEV it is charged only by the DC/DC converter (mainly while the car is in READY or charging), and low voltage makes control modules behave oddly or drop off the network
+txt.check_12v	Test the 12 V auxiliary battery: after the car has stood for a few hours it should read about 12.6 V or more; with the car in READY the voltage should rise to roughly 13–14.5 V. A battery tester at a workshop or parts shop gives a more reliable answer than voltage alone. Also check that the terminals and ground connections are clean and tight.
+txt.check_many_codes	If several unrelated codes appeared at the same time, test the 12 V auxiliary battery before anything else
+txt.check_dongle	Unplug the OBD dongle (and any other aftermarket device on the diagnostic socket) when you are not using it: some adapters keep the network awake or drain the 12 V battery while the car is parked
+txt.check_dealer_tool	Have a Mitsubishi dealer or a workshop with a Mitsubishi-compatible diagnostic tool (MUT-III or equivalent) read all control units; a generic OBD reader only sees part of the system
+txt.check_clear_retest	After a repair, clear the code and drive normally for a few days; if it does not return, the fix worked
+txt.check_clear_see	Clear the code and see whether it comes back: a code that returns quickly points to a real, current fault
+txt.check_freeze_frame	Note when the code appeared and, if your scan tool shows it, the freeze-frame data (speed, temperatures, load) saved with the code: it shows the conditions when the fault happened
+txt.check_oil	Check the engine oil level and condition on the dipstick; top up or change it if it is low, old or sludgy (on a plug-in hybrid the engine runs less, but oil still ages with time)
+txt.check_charge_mode	To test the engine for longer, keep it running with the Charge (or Save) function so it reaches full working temperature
+txt.check_fresh_fuel	If the engine rarely runs, the petrol may be months old: fill up with fresh petrol from a busy station and let the engine run regularly
+txt.read_all	Read all codes; codes stored at the same time often show the cause
+txt.hv_cause_12v_relay	Low 12 V supply voltage to the control electronics or relays
+txt.pe_coolant_check	With everything cold, check the coolant level in the power electronics reservoir (plug-in hybrids normally have a separate circuit from the engine; see the owner's manual). Never open a hot cooling system
+txt.advice_info	Yes. This does not affect how the car drives.
+txt.advice_check_soon	Yes, you can keep driving normally. Have it checked within the next few weeks, and sooner if more warning lights come on or the car starts to behave differently.
+txt.advice_check_now	Short, gentle trips are usually possible, but get it checked within days. Avoid long trips, towing and hard driving until it is fixed. If the car shows a message telling you to stop, or a warning light flashes, stop as soon as it is safe.
+txt.advice_stop	No. Stop as soon as it is safe, switch off and do not drive on. Arrange for the car to be checked or recovered.
+txt.advice_misfire	If the check-engine light is flashing, or the engine shakes or loses power, stop as soon as it is safe: unburnt fuel can overheat and destroy the catalytic converter. If the light is steady and the engine runs smoothly, short trips are possible, but get it checked within days. Gentle driving on battery power keeps the engine off most of the time, but the car will still start the engine when it needs to.
+txt.advice_hv	The car often still drives, sometimes with reduced power or electric range, but get it checked within days. Follow any message on the dashboard: if it tells you to stop the vehicle, stop safely and do not restart. Do not try to repair high-voltage parts yourself.
+txt.advice_network	Usually yes if the car drives normally and no other warnings are shown. If warning lights or messages appear (for example 'Check EV system'), the car may switch functions off; have it checked within days.
+txt.advice_unknown	This app cannot tell how serious this code is. If the car drives normally and shows no warning lights or messages, it is usually fine to keep driving while you get the code identified. If a warning message appears (such as 'Check EV system'), the check-engine light flashes, or the car behaves differently, follow the owner's manual and have it checked straight away.
+txt.advice_abs	Normal braking still works, but ABS, traction and stability control may be switched off, so wheels can lock under hard braking. Drive carefully, especially on wet, icy or snowy roads, and get it checked within days.
+txt.advice_srs	The car drives normally, but the airbags or seatbelt pretensioners may not protect you in a crash. Get it repaired as soon as possible (within days).
+txt.advice_throttle	The car may limit engine power (limp mode) to stay safe; a pedal sensor fault can also limit electric driving. Drive carefully, avoid situations where you need full power, and get it checked within days.
+txt.advice_steering	If the steering is heavy or behaves oddly, drive slowly and carefully to a workshop or arrange recovery. If it feels normal, get it checked within days.
+txt.advice_cooling	Watch the temperature warning closely. If it comes on, or steam appears, stop safely and switch off. Avoid slow traffic, hot weather and towing until it is fixed, and get it checked within days.
+txt.advice_oil_low	No. Stop as soon as it is safe and switch off. Check the oil level: if it was low and the warning goes away after topping up, drive gently to a workshop; otherwise arrange recovery. Remember that the car can start the engine automatically while in READY.
+txt.advice_isolation	Follow the dashboard warnings. If the car shows a message to stop the vehicle, or will not go into READY, stop safely, do not keep restarting it and arrange recovery. If the car drives normally, get it checked within days and avoid deep water. Never touch damaged orange cables.
+txt.advice_dcdc	Limit driving and get it checked within days. If the 12 V battery is not being charged it runs down while you drive, and the car can shut down without much warning. Switch off unnecessary electrical loads.
+txt.advice_brake_switch	The brakes themselves normally still work, but brake lights, cruise control or the shift lock may be affected. Check that the brake lights work (ask someone to look) and get it checked within days.
+note.turbo	The 2014–2017 Outlander PHEV has a naturally aspirated 2.0-litre petrol engine without turbo- or supercharger, so this code is not expected on this car; have it confirmed with a Mitsubishi-compatible tool.
+note.diesel	This concerns diesel engine equipment, which the Outlander PHEV's petrol engine does not have, so this code is not expected on this car; have it confirmed with a Mitsubishi-compatible tool.
+note.nox	NOx sensors and NOx after-treatment are mainly used on diesel and lean-burn engines and are not expected on the Outlander PHEV's petrol engine; have the code confirmed with a Mitsubishi-compatible tool.
+note.cyl_deact	The Outlander PHEV's four-cylinder engine does not use cylinder deactivation, so this code is not expected on this car; have it confirmed with a Mitsubishi-compatible tool.
+note.alternator	The Outlander PHEV has no conventional alternator (the DC/DC converter charges the 12 V battery), so this code is not expected on this car; check the 12 V battery, look for DC/DC converter codes, and have it confirmed with a Mitsubishi-compatible tool.
+note.gearbox	The Outlander PHEV has no conventional multi-speed gearbox (it uses a fixed-ratio transaxle with a clutch for direct engine drive at higher speeds), so this code may not apply; have it confirmed with a Mitsubishi-compatible tool.
+
+# ---------------------------------------------------------------------------------------------
+# Small words and locations
+# ---------------------------------------------------------------------------------------------
+word.component	component
+loc.bank_sensor	bank {bank} sensor {sensor}
+loc.bank	bank {bank}
+loc.cylinder	cylinder {cyl}
+loc.o2_before	(before the catalytic converter)
+loc.o2_after	(after the catalytic converter)
+note.bank2	Bank 2 only exists on engines with two rows of cylinders (V-engines); the Outlander PHEV's four-cylinder engine has only bank 1, so this code is not expected on this car and may be a misread.
+note.cyl5	The Outlander PHEV's engine has four cylinders, so this code is not expected on this car and may be a misread.
+
+# ---------------------------------------------------------------------------------------------
+# Codes without a title: manufacturer-specific, unlisted, impossible numbers
+# ---------------------------------------------------------------------------------------------
+area.P	powertrain (engine, hybrid system or drive unit)
+area.C	chassis (brakes, ABS, steering, suspension, tyres)
+area.B	body (airbags, climate control, lights, locks and comfort)
+area.U	network communication between control modules
+unk.title.mfr	Manufacturer-specific code (Mitsubishi)
+unk.title.unknown	Unknown code
+unk.sub.mfr	Mitsubishi-defined code: {area}
+unk.sub.std	Standard code range: {area}
+unk.sum.mfr	This is a manufacturer-specific code: Mitsubishi defines what it means, and it is not part of the public generic code list, so this app cannot say exactly what it means. The letter {letter} shows it belongs to the {area}.
+unk.sum.std	This number is in the range for standard (SAE/ISO) codes, but it is not in this app's code list. It may be a newer standard code, a reserved number used by the manufacturer, or a misread. The letter {letter} shows it belongs to the {area}.
+unk.sum.impossible	A real trouble code always has 0, 1, 2 or 3 as its second character, so this code was probably mistyped or misread by the scan tool.
+unk.mfr.c1	The exact cause depends on Mitsubishi's own definition of this code
+unk.std.c1	The exact cause depends on the official definition of this code
+unk.c2	If several codes appeared at the same time: a weak 12 V auxiliary battery or a power/ground problem shared by several modules
+unk.c3	A genuine fault in the {area}
+unk.k1	@txt.check_freeze_frame
+unk.k2	@txt.check_many_codes
+unk.k3	@txt.check_clear_see
+unk.k4	Have a Mitsubishi dealer or a workshop with a Mitsubishi-compatible diagnostic tool (MUT-III or equivalent) read it; they can see the exact definition and which control unit stored it
+unk.k5	Search for the code together with 'Outlander PHEV' in owner forums to see other owners' experiences (treat forum advice with care)
+unk.imp.c1	Typing mistake when entering the code
+unk.imp.c2	Scan tool or adapter misreading the code (try reading the codes again)
+unk.imp.k1	Check the code on the scan tool display and enter it again
+unk.imp.k2	Read the codes again with the car switched on; if it still shows, try another scan tool or app
+unk.imp.k3	@txt.check_dealer_tool
+
+# ---------------------------------------------------------------------------------------------
+# Failure types from the title wording. {component} = the part named in the code,
+# {subject} = the measured quantity or part ("system voltage", "drive motor A").
+# ---------------------------------------------------------------------------------------------
+fail.fallback.sum	The control module has set this code for the {component}.
+fail.general.sum	The control module has detected a fault related to the {component}.
+fail.low.act.sum	The voltage on the control circuit of the {component} is lower than expected, which usually points to a short to ground or a missing supply.
+fail.low.sen.sum	The signal from the {component} is below the lowest value it should ever send, which usually points to a short to ground, a missing supply or a faulty sensor.
+fail.high.act.sum	The voltage on the control circuit of the {component} is higher than expected, which usually points to an open circuit or a short to a voltage supply.
+fail.high.sen.sum	The signal from the {component} is above the highest value it should ever send, which usually points to an open circuit (broken wire, unplugged connector), a short to a voltage supply or a faulty sensor.
+fail.open.sum	The control module has found an open circuit (a broken electrical connection) in the circuit of the {component}.
+fail.circuit.sen.sum	The control module has found an electrical fault in the {component} circuit: the signal is missing or outside what the circuit can produce.
+fail.circuit.act.sum	The control module has found an electrical fault in the circuit of the {component}, typically an open circuit, a short or a failed part.
+fail.circuit.other.sum	The control module has found an electrical fault in the {component} circuit.
+fail.intermittent.sum	The signal from the {component} drops out or jumps now and then, which is typical of a loose connection or a damaged wire.
+fail.range.sen.sum	The {component} signal is within its electrical limits but does not make sense compared with other readings, so the sensor may be drifting or the system it measures may have a real problem.
+fail.range.other.sum	The {component} does not respond the way the control module expects.
+fail.slow.sum	The {component} reacts more slowly than it should when conditions change.
+fail.noact.sum	The {component} signal does not change at all, as if the sensor were dead or disconnected.
+fail.stuck.sum	The {component} appears to be stuck: it does not move to, or stay in, the commanded position or state.
+fail.corr.sum	Two related signals ({subject}) do not agree with each other as they should.
+fail.internal.sum	A control module has found a fault in its own memory, software or configuration.
+fail.perf.sum	The {component}, or the system it belongs to, is not performing as well as the control module expects.
+fail.overtemp.sum	The {subject} has become hotter than its safe limit.
+fail.toolow.sum	The {subject} is lower than the control module expects.
+fail.toohigh.sum	The {subject} is higher than the control module expects.
+
+fail.low.act.c1	Control wire to the {component} shorted to ground
+fail.low.act.c2	Faulty {component} (internal short)
+fail.low.act.c3	Blown fuse or failed relay in the supply to the {component}
+fail.low.act.c4	Damaged or corroded connector
+fail.low.sen.c1	Signal wire shorted to ground, for example chafed insulation
+fail.low.sen.c2	Faulty {component}
+fail.low.sen.c3	Damaged or corroded connector at the {component}
+fail.low.sen.c4	Missing or low supply/reference voltage to the sensor
+fail.high.act.c1	Control wire shorted to a voltage supply
+fail.high.act.c2	Open circuit or unplugged connector at the {component}
+fail.high.act.c3	Faulty {component}
+fail.high.act.c4	Fault in the control module output (less common)
+fail.high.sen.c1	Open circuit: broken wire or unplugged/loose connector at the {component}
+fail.high.sen.c2	Signal wire shorted to a voltage supply
+fail.high.sen.c3	Faulty {component}
+fail.high.sen.c4	Poor ground connection for the sensor
+fail.open.act.c1	Unplugged, loose or corroded connector at the {component}
+fail.open.act.c2	Broken or chafed wire between the {component} and its control module
+fail.open.act.c3	Faulty {component} (open winding or element)
+fail.open.act.c4	Blown fuse in the supply to the {component}
+fail.open.sen.c1	Unplugged, loose or corroded connector at the {component}
+fail.open.sen.c2	Broken or chafed wiring between the {component} and the control module
+fail.open.sen.c3	Faulty {component}
+fail.open.sen.c4	Supply or ground problem for the {component}
+fail.intermittent.c1	Loose connector or pins that lose contact with vibration or temperature changes
+fail.intermittent.c2	Chafed wire that shorts or breaks now and then
+fail.intermittent.c3	Moisture or corrosion in the connector
+fail.intermittent.c4	The {component} beginning to fail internally
+fail.range.sen.c1	Drifting, dirty or ageing {component}
+fail.range.sen.c2	A real fault in the system the sensor measures
+fail.range.sen.c3	High resistance in the wiring or connector (corrosion)
+fail.range.sen.c4	Other faults present at the same time that upset the comparison
+fail.range.other.c1	The {component} sticking, worn or contaminated
+fail.range.other.c2	Weak supply voltage or poor connection to the {component}
+fail.range.other.c3	Faulty {component}
+fail.slow.c1	Ageing {component} (normal wear over many years)
+fail.slow.c2	Contamination of the {component} (oil, coolant, deposits or additives)
+fail.slow.c3	Wiring or connector problem
+fail.slow.c4	Leak near the sensor that dilutes the measurement (for example an exhaust or air leak)
+fail.noact.c1	Faulty {component}
+fail.noact.c2	Open circuit or unplugged connector
+fail.noact.c3	For heated sensors: a heater fault that keeps the sensor too cold to work
+fail.stuck.c1	The {component} is mechanically sticking (dirt, deposits, corrosion or ice)
+fail.stuck.c2	Faulty {component}
+fail.stuck.c3	Wiring or connector problem preventing operation
+fail.stuck.c4	Fault in the parts it moves or controls
+fail.corr.c1	One of the two sensors is faulty or drifting
+fail.corr.c2	Wiring or connector problem on one of the signals
+fail.corr.c3	A real mechanical problem making the two readings disagree
+fail.internal.c1	Internal fault in the control module
+fail.internal.c2	Low or unstable 12 V supply during start, charging or programming
+fail.internal.c3	Interrupted or incompatible software update, or a module not configured after replacement
+fail.internal.c4	Poor ground connection to the module
+fail.perf.c1	Worn or faulty {component}
+fail.perf.c2	Wiring or connector problem
+fail.perf.c3	Related faults in the same system (check other codes)
+fail.overtemp.c1	Cooling problem: low coolant, failed pump or fan, blocked radiator or air intake
+fail.overtemp.c2	Heavy load in hot conditions
+fail.overtemp.c3	Faulty temperature sensor giving a false high reading
+fail.measured.c1	A real fault in the {component} or the system around it
+fail.measured.c2	Faulty sensor giving a wrong reading
+fail.measured.c3	Wiring or connector problem
+fail.generic.c1	Faulty component in this circuit
+fail.generic.c2	Wiring or connector problem (corrosion, loose pins, chafed insulation)
+fail.generic.c3	Related fault elsewhere in the same system (check other stored codes)
+
+fail.elec.k1	Inspect the {component} connector: with the car switched off, unplug it, look for corrosion, water or bent pins, then refit it firmly until it latches
+fail.elec.k2	Follow the wiring from the {component} and look for chafing, melted insulation or rodent damage
+fail.elec.wiggle	With the engine running (or the car in READY), gently wiggle the wiring and connector while watching live data or the warning light; a change shows where the fault is
+fail.elec.sen	With a multimeter and the wiring diagram, check the sensor's supply, ground and signal at the connector
+fail.elec.act	Check the fuse for the {component} and measure its resistance against the service data
+fail.elec.other	Have a workshop measure the circuit against the wiring diagram
+fail.elec.replace	Replace the {component} only after the wiring has been confirmed good
+fail.analyse.k1	Read all codes and fix circuit faults in the same system first
+fail.analyse.k2	Compare the live data for the {component} with related readings and with the expected values
+fail.analyse.k3	Inspect the connector and wiring for corrosion or damage
+fail.stuck.k1	@fail.analyse.k1
+fail.stuck.k2	Check that the {component} moves freely and is not blocked by dirt, deposits or ice (only if it is easy to reach)
+fail.stuck.k3	A workshop can operate the {component} with an actuator test
+fail.measured.k1	@txt.read_all
+fail.measured.k2	Check the related live data to see whether the reading is real or caused by a faulty sensor
+fail.internal.k1	@txt.check_12v
+fail.internal.k2	@txt.check_clear_see
+fail.internal.k3	Ask a Mitsubishi dealer about software updates, configuration or re-programming of the module
+fail.general.k1	@txt.check_freeze_frame
+fail.general.k2	@txt.read_all
+fail.hv.elec.k1	Do not unplug connectors on or near high-voltage parts yourself; have a high-voltage-trained technician inspect the wiring and connectors of the {component}
+fail.hv.elec.k2	Note when the fault appears (start-up, driving, charging, wet weather) to help the workshop
+fail.hv.elec.k3	@txt.check_12v
+fail.hv.internal.k1	@txt.check_12v
+fail.hv.internal.k2	Ask a Mitsubishi dealer about software updates, configuration or re-programming of the control unit
+fail.hv.other.k1	@txt.read_all
+fail.hv.other.k2	@fail.hv.elec.k2
+notfitted.c1	The scan tool misread the code, or it was entered wrongly
+notfitted.c2	A fault in the component the code refers to (only possible if the car actually has it)
+notfitted.k1	Read the codes again and compare with what the scan tool shows
+notfitted.k2	@txt.check_dealer_tool
+
+# ---------------------------------------------------------------------------------------------
+# Network (U) codes: what losing a module means. {module} = module name.
+# ---------------------------------------------------------------------------------------------
+net.effect.abs	ABS, traction or stability control may be switched off; normal braking should still work.
+net.effect.steering	Steering assistance or steering-angle based functions may be affected.
+net.effect.srs	The airbag warning light will usually be on, and airbags may not deploy in a crash.
+net.effect.cluster	Gauges, warning lights or messages may not be shown correctly.
+net.effect.hvac	Heating, air conditioning or windscreen demisting may not work properly.
+net.effect.engine	The engine may not start or may run with reduced function.
+net.effect.hv	The car may limit power or charging, show an EV system warning, or not go into READY.
+topic.lost_comm.sub	Lost communication with the {module}
+topic.lost_comm.about	Control modules share information over the car's data network (CAN bus), and messages from the {module} stopped arriving.
+topic.lost_comm.c1	@txt.cause_12v
+topic.lost_comm.c2	Blown fuse, failed relay or poor ground at the {module}
+topic.lost_comm.c3	Loose, wet or corroded connector at the {module} or on the network wiring
+topic.lost_comm.c4	Damaged network (CAN) wiring, for example a chafed or pinched harness
+topic.lost_comm.c5	The module itself has failed (less common; rule out power and wiring first)
+topic.lost_comm.k1	@txt.check_many_codes
+topic.lost_comm.k2	@txt.check_12v
+topic.lost_comm.k3	Check the fuses for the module named in the code (owner's manual fuse chart)
+topic.lost_comm.k4	Look for water ingress or corrosion around the module and its connectors
+topic.lost_comm.k5	Clear all codes, drive, and read again: codes that come back point to the real problem
+topic.lost_comm.k6	@txt.check_dongle
+topic.lost_comm.k7	A workshop can check the network wiring and terminating resistors (a healthy CAN bus normally measures about 60 ohms between CAN-High and CAN-Low with the car switched off)
+topic.invalid_data.sub	Invalid data from the {module}
+topic.invalid_data.about	Messages from the {module} arrive over the data network, but contain values that are implausible or out of range.
+topic.invalid_data.c1	A fault inside the {module}, or in one of its sensors, making it send implausible values (look for codes stored in that module)
+topic.invalid_data.c2	@txt.cause_12v
+topic.invalid_data.c3	Software mismatch or missing configuration after a module was replaced or updated
+topic.invalid_data.c4	Poor connections or interference on the network wiring
+topic.invalid_data.k1	Have the {module} read with a capable tool: its own codes usually show the root cause
+topic.invalid_data.k2	@txt.check_many_codes
+topic.invalid_data.k3	@txt.check_12v
+topic.invalid_data.k4	Think back: was any module replaced, updated or disconnected recently?
+topic.invalid_data.k5	@txt.check_dealer_tool
+topic.fuel_trim.about	The engine computer constantly corrects the amount of fuel injected (fuel trim) to keep the air-fuel mixture correct, and the corrections have reached their limit.
+topic.fuel_trim.about.lean	{@topic.fuel_trim.about} The engine is running lean: too much air or too little fuel.
+topic.fuel_trim.about.rich	{@topic.fuel_trim.about} The engine is running rich: too much fuel or too little air.
+topic.fuel_trim.lean.c1	Air leak after the air flow sensor (hoses, clamps, gaskets, crankcase ventilation)
+topic.fuel_trim.lean.c2	Dirty or faulty air flow sensor
+topic.fuel_trim.lean.c3	Low fuel pressure (pump, filter, regulator) or clogged injectors
+topic.fuel_trim.lean.c4	Exhaust leak in front of the oxygen sensor
+topic.fuel_trim.lean.c5	Possible on a plug-in hybrid: old, stale fuel if the engine rarely runs
+topic.fuel_trim.rich.c1	Leaking fuel injector or fuel pressure too high
+topic.fuel_trim.rich.c2	Faulty air flow or coolant temperature sensor
+topic.fuel_trim.rich.c3	Purge valve stuck open
+topic.fuel_trim.rich.c4	Blocked air filter
+topic.fuel_trim.rich.c5	Engine oil diluted with fuel (possible with many short, cold engine runs)
+topic.fuel_trim.c1	Air leak or fuel delivery problem
+topic.fuel_trim.c2	Faulty sensor used for mixture control
+topic.fuel_trim.c3	Injector problem
+topic.hybrid_other.sub_fallback	Hybrid system
+
+# ---------------------------------------------------------------------------------------------
+# Rule topics: topic.<id>.sub|about|note|adv, causes c1.., extra causes for circuit faults cc1.., checks k1..
+# ---------------------------------------------------------------------------------------------
+topic.no_codes.sub	No fault stored
+topic.no_codes.about	This entry means 'no trouble codes stored'; it is not a fault.
+topic.no_codes.c1	Reported by some modules as a placeholder when no fault is stored
+topic.no_codes.c2	Possibly a misread by the scan tool
+topic.no_codes.k1	No action needed
+topic.no_codes.k2	Read the codes again to confirm
+
+topic.u_power.sub	Control module power supply
+topic.u_power.about	A control module reports a problem with its power supply, ground or ignition (power mode) signal.
+topic.u_power.c1	@txt.cause_12v
+topic.u_power.c2	Blown fuse or failed relay feeding the module
+topic.u_power.c3	Loose or corroded power or ground connection at the module
+topic.u_power.c4	Fault in the ignition / power mode signal
+topic.u_power.c5	Power lost while the module was still working (for example a battery disconnected with the car on)
+topic.u_power.k1	@txt.check_12v
+topic.u_power.k2	Check the fuses for the affected module
+topic.u_power.k3	Check ground connections and battery terminals
+topic.u_power.k4	@txt.check_dongle
+
+topic.u_module.sub	Control module
+topic.u_module.about	A control module reports a fault with itself, its software or its configuration (for example the stored VIN).
+topic.u_module.c1	Module not configured or coded correctly, for example after replacement
+topic.u_module.c2	Software mismatch between modules
+topic.u_module.c3	@txt.cause_12v
+topic.u_module.c4	Internal module fault
+topic.u_module.k1	@txt.check_dealer_tool
+topic.u_module.k2	Think back: was any module replaced, updated or disconnected recently?
+topic.u_module.k3	@txt.check_12v
+
+topic.bus.sub	Data network (CAN bus)
+topic.bus.about	The control modules share information over data networks (CAN buses). A module has detected a fault on the network itself rather than with one specific module.
+topic.bus.c1	@txt.cause_12v
+topic.bus.c2	Damaged network wiring: CAN-High and CAN-Low shorted together, to ground or to voltage
+topic.bus.c3	A faulty control module disturbing the network
+topic.bus.c4	Water or corrosion in a connector on the network
+topic.bus.c5	Aftermarket devices on the diagnostic socket or spliced into the wiring (dongles, trackers, dashcams)
+topic.bus.k1	@txt.check_12v
+topic.bus.k2	@txt.check_dongle
+topic.bus.k3	Note which functions stopped working when the code appeared; it shows which part of the network is affected
+topic.bus.k4	Look for water ingress (wet carpets, damp connectors) and recent work on the wiring
+topic.bus.k5	A workshop can measure the network wiring and terminating resistors and disconnect modules one by one
+topic.bus.k6	@txt.check_dealer_tool
+topic.bus.adv	@txt.advice_network
+
+topic.u_other.sub	Network communication
+topic.u_other.about	This code concerns communication between the car's control modules.
+topic.u_other.c1	@txt.cause_12v
+topic.u_other.c2	Wiring or connector fault on the data network
+topic.u_other.c3	Fault in one of the control modules
+topic.u_other.k1	@txt.check_many_codes
+topic.u_other.k2	@txt.check_12v
+topic.u_other.k3	@txt.check_dongle
+topic.u_other.k4	@txt.check_dealer_tool
+topic.u_other.adv	@txt.advice_network
+
+topic.mil_request.sub	Warning light request from another module
+topic.mil_request.about	Another control module has stored its own fault and asked for the check-engine light to be switched on. The actual fault code is stored in that module.
+topic.mil_request.c1	A fault stored in the requesting module (read that module for the real code)
+topic.mil_request.c2	@txt.cause_12v
+topic.mil_request.c3	Wiring or network problem between modules
+topic.mil_request.k1	@txt.check_dealer_tool
+topic.mil_request.k2	@txt.check_many_codes
+topic.mil_request.k3	Note any change in how the car drives and tell the workshop
+topic.mil_request.adv	Usually yes, if the car drives normally. Have the other module read within a few weeks, or within days if the car behaves differently or shows more warnings.
+
+topic.hv_isolation_fault.sub	High-voltage insulation monitoring
+topic.hv_isolation_fault.about	The high-voltage system is insulated from the car body, and a monitor checks this insulation all the time. It has measured too low an insulation resistance, so high voltage may be leaking towards the body.
+topic.hv_isolation_fault.c1	Moisture or water in a high-voltage component or connector (heavy rain, engine-bay washing, deep water)
+topic.hv_isolation_fault.c2	Damaged insulation on an orange high-voltage cable (chafing, rodent or accident damage)
+topic.hv_isolation_fault.c3	Insulation breakdown inside a high-voltage component (air-conditioning compressor, heater, charger, inverter, motor or drive battery)
+topic.hv_isolation_fault.c4	Fault in the insulation monitoring circuit itself (less common)
+topic.hv_isolation_fault.k1	Note when the fault appears: only in wet weather, only while charging, or only with heating or air conditioning on
+topic.hv_isolation_fault.k2	Look, without touching, for visible damage to orange cables under the car and in the engine bay
+topic.hv_isolation_fault.k3	Have a Mitsubishi dealer or a high-voltage-trained workshop locate the fault with an insulation tester
+topic.hv_isolation_fault.adv	@txt.advice_isolation
+
+topic.hv_isolation_sensor.sub	High-voltage insulation monitoring (sensor circuit)
+topic.hv_isolation_sensor.about	The insulation monitor checks that the high-voltage system stays insulated from the car body.
+topic.hv_isolation_sensor.c1	Fault in the insulation monitoring circuit or the unit it is part of
+topic.hv_isolation_sensor.c2	Wiring or connector problem
+topic.hv_isolation_sensor.adv	@txt.advice_hv
+
+topic.hv_interlock.sub	High-voltage interlock (safety loop)
+topic.hv_interlock.about	The high-voltage interlock is a low-voltage signal loop through the high-voltage connectors and covers; if it is broken, the system switches the high voltage off for safety.
+topic.hv_interlock.c1	High-voltage connector or service plug not fully latched, often after a repair or inspection
+topic.hv_interlock.c2	Damaged or corroded interlock pin or wire in a high-voltage connector
+topic.hv_interlock.c3	Water in a connector
+topic.hv_interlock.c4	Fault in the control unit that monitors the loop (less common)
+topic.hv_interlock.k1	Think back: was any high-voltage part worked on recently? If so, return to that workshop first
+topic.hv_interlock.k2	Have a high-voltage-trained technician check each connector in the interlock loop
+topic.hv_interlock.cc1	High-voltage connector or service plug not fully latched, often after a repair or inspection
+topic.hv_interlock.adv	The car may refuse to go into READY or may shut the high-voltage system down. If it drives, get it checked within days. If a message tells you to stop, stop safely. Never try to reseat high-voltage connectors yourself.
+
+topic.hv_contactor.sub	Drive battery main relays (contactors)
+topic.hv_contactor.about	Main relays (contactors) connect the drive battery to the rest of the high-voltage system, and a precharge circuit limits the current surge when they close.
+topic.hv_contactor.c1	Faulty main relay or precharge relay/resistor
+topic.hv_contactor.c2	Wiring or connector fault in the relay control circuit
+topic.hv_contactor.c3	Fault in the battery management unit that controls the relays
+topic.hv_contactor.c4	@txt.hv_cause_12v_relay
+topic.hv_contactor.k1	@txt.check_12v
+topic.hv_contactor.k2	Have a Mitsubishi dealer or high-voltage-trained workshop test the relays and their control circuit
+topic.hv_contactor.adv	The car may refuse to go into READY or may shut down the high-voltage system. A relay stuck closed means high voltage may stay switched on, so stay away from high-voltage parts. Get it checked within days; if a message tells you to stop, stop safely.
+
+topic.hv_fuse.sub	High-voltage fuse
+topic.hv_fuse.about	A fuse in the high-voltage system is reported as blown or open; functions it protects may stop working.
+topic.hv_fuse.c1	Short circuit or overload in a high-voltage component after the fuse
+topic.hv_fuse.c2	Fuse that has aged or failed by itself (less common)
+topic.hv_fuse.c3	Fault in the fuse monitoring circuit
+topic.hv_fuse.k1	Note which functions stopped working (heating, air conditioning, charging, drive)
+topic.hv_fuse.k2	Have a high-voltage-trained technician find the cause before the fuse is replaced
+topic.hv_fuse.adv	@txt.advice_hv
+
+topic.batt_temp.sub	Drive battery temperature sensors
+topic.batt_temp.about	Temperature sensors in the drive battery let the battery management system protect it from overheating and from being charged when too cold.
+topic.batt_temp.c1	Faulty temperature sensor
+topic.batt_temp.c2	Wiring or connector problem inside the battery pack
+topic.batt_temp.c3	A real temperature difference caused by a cooling problem
+topic.batt_temp.c4	Fault in the battery management unit
+topic.batt_temp.k1	Have a dealer compare all battery temperature readings; after the car has stood overnight they should be nearly equal
+topic.batt_temp.k2	Repairs usually mean opening the drive battery and must be done by a high-voltage-trained technician
+topic.batt_temp.adv	@txt.advice_hv
+
+topic.batt_cooling.sub	Drive battery cooling
+topic.batt_cooling.about	The drive battery is kept within a safe temperature range by a cooling system with fans, ducts or valves.
+topic.batt_cooling.c1	Fan, duct or valve blocked by dirt or debris
+topic.batt_cooling.c2	Faulty fan motor or valve
+topic.batt_cooling.c3	Blown fuse or failed relay
+topic.batt_cooling.c4	Wiring or connector fault
+topic.batt_cooling.k1	Check the fuses and relays for the battery cooling (owner's manual or service fuse chart)
+topic.batt_cooling.k2	Avoid hard driving and repeated rapid charging in hot weather until it is fixed
+topic.batt_cooling.adv	Drive gently; power and charging may be limited to protect the drive battery. Avoid repeated rapid charging in hot weather and get it checked within days.
+
+topic.batt_sense.sub	Drive battery current and voltage sensing
+topic.batt_sense.about	The battery management system measures the drive battery's voltage and current to calculate the state of charge and protect the cells.
+topic.batt_sense.c1	Faulty sensor
+topic.batt_sense.c2	Wiring or connector problem
+topic.batt_sense.c3	Fault in the battery management unit
+topic.batt_sense.k1	Have a Mitsubishi dealer check the drive battery monitoring with their diagnostic tool
+topic.batt_sense.adv	@txt.advice_hv
+
+topic.batt.sub	Drive battery (high-voltage traction battery)
+topic.batt.about	The drive battery stores the energy for electric driving, and its management unit monitors the cells' voltage, temperature and state of charge.
+topic.batt.c1	Drive battery ageing, weak cells or cells out of balance
+topic.batt.c2	Fault in the battery's monitoring circuits or management unit
+topic.batt.c3	Cooling problem
+topic.batt.c4	Deep discharge after long standing or after running out of fuel
+topic.batt.k1	@txt.read_all
+topic.batt.k2	Plug in and charge fully, then see whether the code returns
+topic.batt.k3	Have a Mitsubishi dealer run a drive battery check
+topic.batt.adv	@txt.advice_hv
+
+topic.dcdc.sub	DC/DC converter (12 V supply)
+topic.dcdc.about	The DC/DC converter turns drive battery voltage into about 12–14 V to power the car's electronics and charge the 12 V battery; the Outlander PHEV has no conventional alternator.
+topic.dcdc.c1	Fault in the DC/DC converter
+topic.dcdc.c2	Poor connection, corrosion or a blown main fuse between the converter and the 12 V battery
+topic.dcdc.c3	Failing 12 V battery drawing abnormal current
+topic.dcdc.c4	Possible overheating because of a power electronics cooling fault
+topic.dcdc.k1	Measure the 12 V battery voltage with the car off and then in READY: in READY it should rise to roughly 13–14.5 V; if it does not, the converter is not charging
+topic.dcdc.k2	Check the 12 V battery terminals and ground strap for corrosion and tightness
+topic.dcdc.k3	Have the 12 V battery tested; replace it if weak
+topic.dcdc.adv	@txt.advice_dcdc
+
+topic.pe_cooling.sub	Power electronics cooling
+topic.pe_cooling.about	The inverters and motor electronics are cooled by their own coolant circuit with an electric pump.
+topic.pe_cooling.c1	Low coolant level in the power electronics circuit (leak)
+topic.pe_cooling.c2	Weak or failed electric coolant pump
+topic.pe_cooling.c3	Air trapped in the circuit after a repair
+topic.pe_cooling.c4	Radiator blocked by dirt or leaves, or a cooling fan problem
+topic.pe_cooling.k1	@txt.pe_coolant_check
+topic.pe_cooling.k2	Look for coolant leaks under the front of the car
+topic.pe_cooling.k3	Clean leaves and dirt from the front of the radiators
+topic.pe_cooling.adv	Power may be limited to protect the electronics. Drive gently and get it checked within days; avoid steep climbs, towing and high loads in hot weather. Stop if a temperature warning or a message to stop appears.
+
+topic.inverter.sub	Inverter (motor/generator power electronics)
+topic.inverter.about	Inverters convert the drive battery's direct current into the alternating current that drives the electric motors, and back again when the battery is being charged by the generator or by regenerative braking.
+topic.inverter.c1	Internal inverter fault
+topic.inverter.c2	Cooling problem (look for power electronics cooling codes)
+topic.inverter.c3	Problem with the motor or the high-voltage cables
+topic.inverter.c4	@txt.hv_cause_12v_relay
+topic.inverter.k1	@txt.pe_coolant_check
+topic.inverter.k2	Have a Mitsubishi dealer diagnose the inverter; this needs high-voltage training and special tools
+topic.inverter.adv	@txt.advice_hv
+
+topic.motor_gen.sub	Electric drive motors and generator
+topic.motor_gen.about	The Outlander PHEV has electric drive motors and a generator driven by the engine; each has sensors and control electronics that are monitored all the time.
+topic.motor_gen.c1	Fault in the motor control unit or inverter
+topic.motor_gen.c2	Faulty sensor inside the motor or generator
+topic.motor_gen.c3	Cooling problem (for temperature-related codes)
+topic.motor_gen.c4	Wiring or connector fault between the motor and its control unit
+topic.motor_gen.k1	Read all codes and note when the fault happened (start-up, acceleration, charging, over bumps)
+topic.motor_gen.k2	Have a Mitsubishi dealer diagnose the motor and its control unit
+topic.motor_gen.adv	@txt.advice_hv
+
+topic.engine_start.sub	Engine start (hybrid system)
+topic.engine_start.about	The hybrid system tried to start the petrol engine, but it did not start and run as expected.
+topic.engine_start.c1	Very low fuel level, or old/stale petrol
+topic.engine_start.c2	Fuel supply problem (pump, relay, fuse)
+topic.engine_start.c3	Crankshaft or camshaft sensor, ignition or immobiliser fault
+topic.engine_start.c4	Weak 12 V battery
+topic.engine_start.k1	Check the fuel level and add fresh petrol
+topic.engine_start.k2	Read all codes for the real cause
+topic.engine_start.k3	@txt.check_12v
+
+topic.engine_mount.sub	Electronically controlled engine mount
+topic.engine_mount.about	Some cars use electronically controlled engine mounts to reduce vibration.
+topic.engine_mount.c1	Wiring or connector fault at the mount
+topic.engine_mount.c2	Faulty mount actuator
+topic.engine_mount.c3	Blown fuse
+topic.engine_mount.k1	Inspect the mount connector and wiring
+topic.engine_mount.k2	Listen and feel for increased vibration when the engine starts and stops
+
+topic.aux_trans_pump.sub	Auxiliary transmission fluid pump
+topic.aux_trans_pump.about	An electric auxiliary pump keeps transmission fluid circulating when the engine-driven pump is not running.
+topic.aux_trans_pump.c1	Faulty electric pump or its control unit
+topic.aux_trans_pump.c2	Wiring or connector fault
+topic.aux_trans_pump.c3	Low fluid level or internal leakage
+topic.aux_trans_pump.k1	Have a workshop check fluid level and the pump circuit
+topic.aux_trans_pump.note	@note.gearbox
+
+topic.hybrid_other.about	The hybrid control system coordinates the engine, electric motors and drive battery, and monitors their parts.
+topic.hybrid_other.c1	Fault in a hybrid system component or its control unit
+topic.hybrid_other.c2	Wiring or connector problem
+topic.hybrid_other.c3	@txt.cause_12v
+topic.hybrid_other.k1	@txt.read_all
+topic.hybrid_other.k2	@txt.check_12v
+topic.hybrid_other.k3	@txt.check_dealer_tool
+topic.hybrid_other.adv	@txt.advice_hv
+
+topic.turbo.sub	Turbocharger / supercharger
+topic.turbo.about	This code concerns a turbocharger or supercharger, which raises the air pressure in the engine's intake.
+topic.turbo.note	@note.turbo
+topic.turbo.c1	@notfitted.c1
+topic.turbo.c2	@notfitted.c2
+topic.turbo.k1	@notfitted.k1
+topic.turbo.k2	@notfitted.k2
+
+topic.glow.sub	Glow plugs (diesel engines)
+topic.glow.about	This code concerns glow plugs or an intake air heater, which help a diesel engine start in the cold.
+topic.glow.note	@note.diesel
+topic.glow.c1	@notfitted.c1
+topic.glow.c2	@notfitted.c2
+topic.glow.k1	@notfitted.k1
+topic.glow.k2	@notfitted.k2
+
+topic.diesel.sub	Diesel fuel and exhaust after-treatment
+topic.diesel.about	This code concerns diesel fuel or exhaust after-treatment equipment (particulate filter, exhaust fluid dosing).
+topic.diesel.note	@note.diesel
+topic.diesel.c1	@notfitted.c1
+topic.diesel.c2	@notfitted.c2
+topic.diesel.k1	@notfitted.k1
+topic.diesel.k2	@notfitted.k2
+
+topic.nox.sub	NOx sensor / NOx after-treatment
+topic.nox.about	This code concerns a NOx sensor or NOx after-treatment in the exhaust.
+topic.nox.note	@note.nox
+topic.nox.c1	@notfitted.c1
+topic.nox.c2	@notfitted.c2
+topic.nox.k1	@notfitted.k1
+topic.nox.k2	@notfitted.k2
+
+topic.cyl_deact.sub	Cylinder deactivation
+topic.cyl_deact.about	This code concerns cylinder deactivation, which shuts off some cylinders at light load to save fuel.
+topic.cyl_deact.note	@note.cyl_deact
+topic.cyl_deact.c1	@notfitted.c1
+topic.cyl_deact.c2	@notfitted.c2
+topic.cyl_deact.k1	@notfitted.k1
+topic.cyl_deact.k2	@notfitted.k2
+
+topic.misfire.sub	Misfire detection
+topic.misfire.about	The engine computer has detected misfires: the fuel in one or more cylinders is not burning properly. Unburnt fuel can overheat and damage the catalytic converter.
+topic.misfire.c1	Worn spark plugs or a failing ignition coil
+topic.misfire.c2	Clogged or faulty fuel injector
+topic.misfire.c3	Old or poor-quality fuel (possible if the engine rarely runs)
+topic.misfire.c4	Air leak in the intake or a dirty air flow sensor
+topic.misfire.c5	Low fuel pressure
+topic.misfire.c6	Valve timing problem or low compression (less common)
+topic.misfire.k1	Read all codes: cylinder-specific misfire, fuel trim or sensor codes narrow it down
+topic.misfire.k2	Inspect the spark plugs and coils; swap a coil between cylinders to see whether the misfire follows it
+topic.misfire.k3	@txt.check_fresh_fuel
+topic.misfire.k4	A workshop can check fuel pressure, injectors and compression
+topic.misfire.adv	@txt.advice_misfire
+
+topic.cam_crank_corr.sub	Valve timing (crankshaft/camshaft correlation)
+topic.cam_crank_corr.about	The engine computer compares the crankshaft and camshaft position signals. They no longer line up as they should, so either the valve timing has shifted or one of the signals is wrong.
+topic.cam_crank_corr.c1	Stretched timing chain, worn guides or weak tensioner
+topic.cam_crank_corr.c2	Low or dirty engine oil upsetting the variable valve timing
+topic.cam_crank_corr.c3	Sticking oil control valve or faulty cam phaser
+topic.cam_crank_corr.c4	Faulty camshaft or crankshaft position sensor
+topic.cam_crank_corr.k1	@txt.check_oil
+topic.cam_crank_corr.k2	Listen for a rattle from the timing chain end of the engine just after a cold start
+topic.cam_crank_corr.k3	A workshop can check timing marks or chain stretch; fix this early, as a chain that jumps a tooth can damage the engine
+
+topic.cam_sensor.sub	Camshaft position sensor
+topic.cam_sensor.about	The camshaft position sensor tells the engine computer which cylinder is about to fire.
+topic.cam_sensor.c1	Faulty camshaft position sensor
+topic.cam_sensor.c2	Oil in the sensor connector
+topic.cam_sensor.c3	Timing chain or camshaft trigger problem (less common)
+topic.cam_sensor.k1	Inspect the sensor connector for oil inside and refit it firmly
+topic.cam_sensor.adv	The car may still drive on electric power, but the engine may start poorly or stall. Get it checked within days.
+
+topic.vvt.sub	Variable valve timing / valve control
+topic.vvt.about	The engine computer adjusts the valve timing with oil-pressure-driven actuators controlled by solenoid valves.
+topic.vvt.c1	Low, old or wrong-grade engine oil
+topic.vvt.c2	Sticking or faulty oil control valve, or a blocked filter screen
+topic.vvt.c3	Faulty cam phaser (variable timing actuator)
+topic.vvt.c4	Stretched timing chain
+topic.vvt.k1	@txt.check_oil
+topic.vvt.k2	A workshop can test the oil control valve and compare commanded and actual camshaft angle
+
+topic.crank.sub	Crankshaft position sensor
+topic.crank.about	The crankshaft position sensor tells the engine computer the engine speed and piston position.
+topic.crank.c1	Faulty crankshaft position sensor
+topic.crank.c2	Metal debris on the sensor or a damaged trigger wheel
+topic.crank.c3	Intermittent wiring fault
+topic.crank.k1	Inspect the sensor connector and wiring for oil, chafing or rodent damage
+topic.crank.adv	The car may still drive on electric power, but the engine may refuse to start or stall. Get it checked within days.
+
+topic.knock.sub	Knock sensor
+topic.knock.about	The knock sensor listens for engine knock so the engine computer can adjust the ignition timing.
+topic.knock.c1	Faulty knock sensor
+topic.knock.c2	Sensor loose on the engine block
+topic.knock.c3	Real mechanical engine noise
+topic.knock.k1	Check that the sensor is bolted tight to the engine block
+topic.knock.k2	Use the recommended fuel grade
+topic.knock.adv	Yes, you can keep driving. The engine computer uses safer ignition timing, so the engine may feel slightly weaker. Avoid heavy loads and get it checked within a few weeks.
+
+topic.ignition.sub	Ignition system
+topic.ignition.about	The ignition coils create the spark that ignites the fuel in each cylinder.
+topic.ignition.c1	Faulty ignition coil
+topic.ignition.c2	Worn spark plug
+topic.ignition.c3	Wiring or connector fault at the coil
+topic.ignition.k1	Swap the coil with a neighbouring cylinder and see whether the code follows the coil
+topic.ignition.adv	@txt.advice_misfire
+
+topic.o2_heater.sub	Oxygen sensor heater
+topic.o2_heater.about	Oxygen sensors only work when hot, so each has a built-in electric heater.
+topic.o2_heater.c1	Heater element burnt out (common on older sensors)
+topic.o2_heater.c2	Blown heater fuse
+topic.o2_heater.c3	Melted or chafed wiring near the exhaust
+topic.o2_heater.k1	Check the oxygen sensor heater fuse
+topic.o2_heater.k2	Measure the heater resistance at the sensor connector and compare with the service data
+topic.o2_heater.cc1	Heater element burnt out or shorted (the sensor must then be replaced)
+topic.o2_heater.adv	Yes, you can keep driving. Emissions and fuel use may rise, mostly after cold starts. Get it fixed within a few weeks.
+
+topic.o2.sub	Oxygen sensor
+topic.o2.about	Oxygen sensors measure the oxygen in the exhaust: the front sensor helps keep the fuel mixture correct and the rear sensor checks the catalytic converter.
+topic.o2.c1	Aged or contaminated oxygen sensor
+topic.o2.c2	Exhaust leak near the sensor
+topic.o2.c3	A real mixture problem (look for fuel trim codes)
+topic.o2.c4	Wiring damaged by heat from the exhaust
+topic.o2.k1	Check for exhaust leaks near the sensor (ticking or puffing noise, soot marks)
+topic.o2.k2	Fix fuel trim, misfire and heater codes first
+
+topic.fuel_trim.sub	Fuel mixture (fuel trim)
+topic.fuel_trim.k1	Check fuel trims in live data at idle and at higher engine speed
+topic.fuel_trim.k2	Look and listen for intake air leaks
+topic.fuel_trim.k3	Fix misfire, air flow sensor and oxygen sensor codes first
+topic.fuel_trim.k4	@txt.check_fresh_fuel
+
+topic.secondary_air.sub	Secondary air injection
+topic.secondary_air.about	Some petrol engines pump fresh air into the exhaust after a cold start to heat the catalytic converter faster.
+topic.secondary_air.c1	Faulty air pump or relay
+topic.secondary_air.c2	Stuck or leaking switching/check valve
+topic.secondary_air.c3	Leaking or blocked hoses
+topic.secondary_air.k1	Inspect the hoses and valves for damage
+topic.secondary_air.k2	Check the pump fuse and relay
+
+topic.intake_manifold.sub	Intake manifold runner / tuning valve
+topic.intake_manifold.about	Some engines use flaps or valves in the intake manifold to change the air path for better torque and power.
+topic.intake_manifold.c1	Flap or valve sticking because of carbon deposits
+topic.intake_manifold.c2	Faulty actuator or position sensor
+topic.intake_manifold.c3	Vacuum leak or wiring fault
+topic.intake_manifold.k1	Inspect the actuator wiring and any vacuum hoses to it
+
+topic.maf.sub	Mass air flow (MAF) sensor
+topic.maf.about	The mass air flow sensor measures how much air the engine draws in, which is used to calculate the fuel.
+topic.maf.c1	Air leak in the intake duct after the sensor
+topic.maf.c2	Dirty or contaminated sensor element
+topic.maf.c3	Blocked air filter
+topic.maf.k1	Check the air filter and the intake duct between sensor and throttle body
+topic.maf.k2	Clean the sensor element with dedicated MAF cleaner (never touch the element)
+
+topic.map.sub	Manifold / barometric pressure sensor
+topic.map.about	Pressure sensors measure the intake manifold and outside air pressure for fuel and ignition calculations.
+topic.map.c1	Cracked or disconnected vacuum hose to the sensor
+topic.map.c2	Intake air leak
+topic.map.c3	Faulty pressure sensor
+topic.map.k1	Inspect the sensor's vacuum hose and the intake for leaks
+
+topic.iat.sub	Air temperature sensor
+topic.iat.about	Air temperature sensors tell the engine computer how warm the incoming or outside air is.
+topic.iat.c1	Faulty or drifting temperature sensor
+topic.iat.c2	Sensor connector disturbed during air filter work
+topic.iat.k1	On a cold engine after standing overnight, air and coolant temperatures in live data should be similar
+
+topic.engine_overtemp.sub	Engine cooling (overheating)
+topic.engine_overtemp.about	The engine coolant temperature has gone above the safe limit: the engine is overheating.
+topic.engine_overtemp.c1	Low coolant because of a leak
+topic.engine_overtemp.c2	Radiator fan not working
+topic.engine_overtemp.c3	Thermostat stuck closed or water pump failure
+topic.engine_overtemp.c4	Blocked radiator
+topic.engine_overtemp.c5	Head gasket failure (less common)
+topic.engine_overtemp.k1	Stop and let the engine cool for at least 30 minutes; never open the coolant cap on a hot engine
+topic.engine_overtemp.k2	With the engine cold, check the coolant level and look for leaks
+topic.engine_overtemp.k3	Have a workshop pressure-test the cooling system
+
+topic.engine_overspeed.sub	Engine speed limit
+topic.engine_overspeed.about	The engine speed went above the allowed maximum.
+topic.engine_overspeed.c1	Engine revved too high, for example during a fault in throttle or drive control
+topic.engine_overspeed.c2	Wrong engine speed signal
+topic.engine_overspeed.k1	Read all codes for related faults
+topic.engine_overspeed.k2	Note what you were doing when it happened
+
+topic.thermostat.sub	Thermostat / engine warm-up
+topic.thermostat.about	The engine did not reach its normal working temperature within the expected time; the thermostat may open too early or be stuck open.
+topic.thermostat.c1	Thermostat stuck open or opening too early
+topic.thermostat.c2	Faulty coolant temperature sensor
+topic.thermostat.c3	Low coolant level
+topic.thermostat.c4	Possible contributing factor on a plug-in hybrid: very cold weather with short engine running periods
+topic.thermostat.k1	Check the coolant level with the engine cold
+topic.thermostat.k2	Watch the coolant temperature in live data during warm-up
+topic.thermostat.k3	@txt.check_charge_mode
+
+topic.ect.sub	Engine coolant temperature sensor
+topic.ect.about	The coolant temperature sensor tells the engine computer how warm the engine is.
+topic.ect.c1	Faulty or drifting coolant temperature sensor
+topic.ect.c2	Thermostat problem
+topic.ect.c3	Low coolant level
+topic.ect.k1	Check the coolant level with the engine cold
+topic.ect.k2	After the car has stood overnight, coolant and air temperatures in live data should be within a few degrees
+
+topic.cooling.sub	Engine cooling system
+topic.cooling.about	The cooling system keeps the engine at its working temperature with coolant, a pump, the radiator and fans.
+topic.cooling.c1	Low coolant level or leak
+topic.cooling.c2	Fan, fan relay or fuse fault
+topic.cooling.c3	Faulty pump or thermostat
+topic.cooling.k1	Check the coolant level with the engine cold
+topic.cooling.k2	Check the radiator fan fuses and relay
+topic.cooling.adv	@txt.advice_cooling
+
+topic.oil_low.sub	Engine oil pressure
+topic.oil_low.about	The engine oil pressure or level has dropped below the safe minimum, which can damage the engine within minutes.
+topic.oil_low.c1	Low oil level
+topic.oil_low.c2	Worn or failing oil pump
+topic.oil_low.c3	Wrong or very old oil
+topic.oil_low.c4	Faulty oil pressure sensor or switch
+topic.oil_low.k1	Stop and check the oil level on the dipstick with the car on level ground
+topic.oil_low.k2	If the level is fine but the warning remains, have the oil pressure measured with a mechanical gauge
+topic.oil_low.adv	@txt.advice_oil_low
+
+topic.oil.sub	Engine oil system
+topic.oil.about	The engine computer monitors the engine oil pressure, level or temperature.
+topic.oil.c1	Low or old engine oil
+topic.oil.c2	Faulty oil sensor or switch
+topic.oil.c3	Wiring or connector fault
+topic.oil.k1	@txt.check_oil
+
+topic.egr.sub	Exhaust gas recirculation (EGR)
+topic.egr.about	The EGR system feeds a little exhaust back into the intake to lower combustion temperatures and NOx emissions.
+topic.egr.c1	Carbon deposits in the EGR valve or passages
+topic.egr.c2	Sticking or faulty EGR valve
+topic.egr.c3	Faulty sensor used to judge EGR flow
+topic.egr.k1	Clean or replace the EGR valve and clean the passages
+
+topic.throttle.sub	Electronic throttle / accelerator pedal
+topic.throttle.about	The engine has an electronic throttle and the accelerator pedal has position sensors, each with two signals that must agree.
+topic.throttle.c1	Dirty or sticking throttle body (carbon deposits, or ice in very cold weather)
+topic.throttle.c2	Faulty throttle body or accelerator pedal sensor
+topic.throttle.c3	Water or corrosion in the connector
+topic.throttle.c4	Problem with the shared 5 V sensor supply
+topic.throttle.k1	Clean the throttle body carefully if it is dirty (ignition off); a throttle relearn may be needed afterwards
+topic.throttle.k2	Check the footwell for moisture if the pedal is involved
+topic.throttle.adv	@txt.advice_throttle
+
+topic.idle.sub	Idle speed control
+topic.idle.about	When the engine idles, the engine computer controls its speed with the electronic throttle.
+topic.idle.c1	Dirty throttle body
+topic.idle.c2	Intake air leak
+topic.idle.c3	Throttle needs an idle relearn after cleaning or battery disconnection
+topic.idle.k1	Clean the throttle body carefully and perform the idle relearn
+topic.idle.k2	Listen for intake air leaks at idle
+
+topic.injector.sub	Fuel injectors
+topic.injector.about	The fuel injectors spray petrol into the engine and are switched by the engine computer.
+topic.injector.c1	Clogged or leaking injector
+topic.injector.c2	Faulty injector coil
+topic.injector.c3	Wiring or connector fault
+topic.injector.k1	Measure the injector resistances and compare them with each other
+topic.injector.k2	A workshop can test injector flow and leak-down
+topic.injector.adv	The engine may misfire and run unevenly, which can damage the catalytic converter. Get it repaired within days; if the check-engine light flashes, stop as soon as it is safe.
+
+topic.fuel_pump.sub	Fuel pump
+topic.fuel_pump.about	The electric fuel pump in the tank supplies petrol to the engine.
+topic.fuel_pump.c1	Failed fuel pump relay or fuse
+topic.fuel_pump.c2	Worn fuel pump
+topic.fuel_pump.c3	Wiring or connector fault
+topic.fuel_pump.k1	Check the fuel pump fuse and relay
+topic.fuel_pump.k2	A workshop can measure fuel pressure and pump current
+topic.fuel_pump.adv	You can usually keep driving on electric power, but the engine may not start or may stall. Get it checked within days.
+
+topic.fuel_pressure.sub	Fuel pressure / delivery
+topic.fuel_pressure.about	The fuel system must deliver petrol at the correct pressure for the injectors to work properly.
+topic.fuel_pressure.c1	Weak fuel pump or clogged fuel filter
+topic.fuel_pressure.c2	Faulty pressure regulator or sensor
+topic.fuel_pressure.c3	Fuel leak
+topic.fuel_pressure.k1	If you smell petrol, do not drive; have it checked for leaks
+topic.fuel_pressure.k2	A workshop can measure fuel pressure
+
+topic.evap_leak.sub	Evaporative emissions (fuel vapour) system
+topic.evap_leak.about	The evaporative (EVAP) system collects petrol vapour from the tank in a charcoal canister. The engine computer seals it and checks that it holds pressure or vacuum, and it has found a leak.
+topic.evap_leak.c1	Loose, worn or wrong fuel cap (most common)
+topic.evap_leak.c2	Cracked or disconnected EVAP hose
+topic.evap_leak.c3	Purge or vent valve not sealing
+topic.evap_leak.c4	Corroded filler neck or damaged canister
+topic.evap_leak.k1	Check the fuel cap: it should click when tightened and the seal should be clean and uncracked
+topic.evap_leak.k2	Inspect visible EVAP hoses and the filler neck
+topic.evap_leak.k3	Plug-in hybrids commonly use a sealed, pressurised fuel tank: refuel as described in the owner's manual
+topic.evap_leak.k4	If it returns, a workshop can find the leak with a smoke test
+topic.evap_leak.adv	Yes, you can keep driving. Fuel vapour escapes, so have it fixed within a few weeks. If you smell petrol strongly, have it checked soon.
+
+topic.evap.sub	Evaporative emissions (fuel vapour) system
+topic.evap.about	The evaporative (EVAP) system collects petrol vapour from the tank in a charcoal canister and later burns it in the engine.
+topic.evap.c1	Faulty purge or vent valve
+topic.evap.c2	Blocked or disconnected EVAP hose
+topic.evap.c3	Faulty tank pressure sensor
+topic.evap.k1	Plug-in hybrids commonly use a sealed, pressurised fuel tank: refuel as described in the owner's manual
+topic.evap.k2	Inspect the EVAP hoses and valves
+
+topic.fuel_level.sub	Fuel level sensor
+topic.fuel_level.about	The fuel level sensor in the tank drives the fuel gauge and the range estimate.
+topic.fuel_level.c1	Worn or faulty fuel level sender (float and resistor track)
+topic.fuel_level.c2	Corroded connector at the fuel tank sender
+topic.fuel_level.c3	Wiring fault
+topic.fuel_level.k1	Compare the fuel gauge with how much fuel goes in when you fill up
+topic.fuel_level.k2	Remember that on a plug-in hybrid the gauge can stay still for weeks when the engine rarely runs; that alone is not a fault
+
+topic.fuel_misc.sub	Fuel system
+topic.fuel_misc.about	The engine computer monitors the fuel system (level, temperature, composition and supply).
+topic.fuel_misc.c1	Faulty fuel system sensor
+topic.fuel_misc.c2	Wiring or connector fault
+topic.fuel_misc.c3	Old or contaminated fuel
+topic.fuel_misc.k1	@txt.check_fresh_fuel
+
+topic.cat_eff.sub	Catalytic converter
+topic.cat_eff.about	The engine computer compares the oxygen sensors before and after the catalytic converter and has found that the converter is no longer cleaning the exhaust well enough.
+topic.cat_eff.c1	Aged or damaged catalytic converter
+topic.cat_eff.c2	Exhaust leak near the oxygen sensors
+topic.cat_eff.c3	Faulty or slow oxygen sensor giving a false result
+topic.cat_eff.c4	Engine mixture problems or misfires
+topic.cat_eff.k1	Fix misfire, fuel trim and oxygen sensor codes first
+topic.cat_eff.k2	Check for exhaust leaks
+topic.cat_eff.k3	@txt.check_charge_mode
+topic.cat_eff.k4	Replace the converter with a quality, type-approved part if it is confirmed worn
+
+topic.catalyst.sub	Catalytic converter
+topic.catalyst.about	The catalytic converter cleans the exhaust; some cars monitor its temperature or heat it electrically.
+topic.catalyst.c1	Faulty catalyst temperature sensor or heater
+topic.catalyst.c2	Wiring damaged by exhaust heat
+topic.catalyst.k1	Inspect the wiring near the exhaust for heat damage
+
+topic.pcv.sub	Crankcase ventilation (PCV)
+topic.pcv.about	The crankcase ventilation system routes oil vapour from the engine back into the intake to be burnt.
+topic.pcv.c1	Cracked or disconnected ventilation hose
+topic.pcv.c2	Sticking PCV valve
+topic.pcv.c3	Faulty PCV heater (if fitted)
+topic.pcv.k1	Inspect the crankcase ventilation hoses for cracks and loose ends
+
+topic.exhaust.sub	Exhaust system sensors
+topic.exhaust.about	The engine computer monitors exhaust pressure or temperature with sensors in the exhaust.
+topic.exhaust.c1	Faulty exhaust sensor
+topic.exhaust.c2	Wiring damaged by exhaust heat
+topic.exhaust.c3	Exhaust leak or restriction
+topic.exhaust.k1	Inspect the wiring near the exhaust for heat damage
+
+topic.vss.sub	Vehicle speed signal
+topic.vss.about	Vehicle speed is normally calculated from the wheel speed sensors and shared over the data network.
+topic.vss.c1	Wheel speed sensor or ABS fault
+topic.vss.c2	Network communication problem
+topic.vss.c3	@txt.cause_12v
+topic.vss.k1	Check whether the speedometer works and whether the ABS warning light is on
+topic.vss.k2	@txt.check_many_codes
+
+topic.cruise.sub	Cruise control
+topic.cruise.about	The cruise control system and its switches are monitored by the control unit.
+topic.cruise.c1	Faulty cruise control switch
+topic.cruise.c2	Brake switch fault
+topic.cruise.c3	Wiring or connector fault
+topic.cruise.k1	Check whether the brake lights work (the brake switch also cancels cruise control)
+topic.cruise.adv	Yes. Cruise control may not work until it is fixed.
+
+topic.brake_p.sub	Brake pedal switch / brake booster signals
+topic.brake_p.about	The brake pedal switch tells several control units when you brake (brake lights, cruise control and the drive control); some cars also monitor the brake booster.
+topic.brake_p.c1	Faulty or badly adjusted brake pedal switch
+topic.brake_p.c2	Wiring or connector fault
+topic.brake_p.c3	Faulty brake booster sensor
+topic.brake_p.k1	Check that the brake lights work (ask someone to look)
+topic.brake_p.k2	Check the switch at the top of the brake pedal for damage or misadjustment
+topic.brake_p.adv	@txt.advice_brake_switch
+
+topic.power_steering_p.sub	Power steering signal
+topic.power_steering_p.about	The engine or drive control receives a signal from the power steering system.
+topic.power_steering_p.c1	Power steering sensor or switch fault
+topic.power_steering_p.c2	Wiring or connector fault
+topic.power_steering_p.k1	Check whether the steering feels normal
+
+topic.ac_p.sub	Air conditioning
+topic.ac_p.about	The air conditioning is monitored and controlled together with the engine and drive system.
+topic.ac_p.c1	Low refrigerant (leak)
+topic.ac_p.c2	Faulty pressure sensor or relay
+topic.ac_p.c3	Wiring or connector fault
+topic.ac_p.k1	Check whether the air conditioning cools; have the refrigerant level checked if it does not
+topic.ac_p.k2	On many plug-in hybrids the air conditioning also helps cool the drive battery, so do not leave it unrepaired
+
+topic.alternator.sub	12 V charging system
+topic.alternator.about	This code concerns the charging system (alternator) that would normally charge the 12 V battery.
+topic.alternator.c1	@txt.cause_12v
+topic.alternator.c2	DC/DC converter fault
+topic.alternator.c3	The scan tool misread the code
+topic.alternator.k1	@txt.check_12v
+topic.alternator.k2	Look for DC/DC converter codes
+topic.alternator.k3	@txt.check_dealer_tool
+topic.alternator.note	@note.alternator
+
+topic.voltage.sub	12 V supply
+topic.voltage.about	The 12 V system is fed by the 12 V auxiliary battery, which on the Outlander PHEV is charged by the DC/DC converter rather than an alternator.
+topic.voltage.c1	@txt.cause_12v
+topic.voltage.c2	DC/DC converter not charging properly (look for DC/DC codes)
+topic.voltage.c3	Loose or corroded battery terminals or ground straps
+topic.voltage.c4	Battery drained by long standing or an accessory left connected
+topic.voltage.k1	@txt.check_12v
+topic.voltage.k2	Clean and tighten the battery terminals and check the ground straps
+topic.voltage.k3	@txt.check_dongle
+topic.voltage.adv	Get it checked within days. A weak 12 V system can stop the car from going into READY or make functions switch off without warning.
+
+topic.sensor_ref.sub	Sensor supply voltage (5 V reference)
+topic.sensor_ref.about	The engine computer supplies a regulated 5 V reference to several sensors. This supply is open, shorted or out of range, which can affect several sensors at once.
+topic.sensor_ref.c1	A sensor on the shared supply with an internal short
+topic.sensor_ref.c2	Wiring shorted to ground or voltage
+topic.sensor_ref.c3	Water in a connector
+topic.sensor_ref.c4	Fault in the control module (less common)
+topic.sensor_ref.k1	Note which sensor codes are stored at the same time; they probably share this supply
+topic.sensor_ref.k2	Inspect the engine wiring harness for chafing near hot or moving parts, and connectors for water
+topic.sensor_ref.k3	A workshop can unplug the sensors on this supply one at a time: if the fault clears, that sensor is shorted
+
+topic.starter.sub	Engine starting circuit
+topic.starter.about	The control unit monitors the circuit used to start the engine.
+topic.starter.c1	Relay or fuse fault
+topic.starter.c2	Wiring or connector fault
+topic.starter.c3	@txt.cause_12v
+topic.starter.k1	Check the relevant fuses and relays
+topic.starter.k2	@txt.check_12v
+
+topic.power_relay.sub	Module power supply and relays
+topic.power_relay.about	The control module monitors its own power supply, main relay or ignition (power mode) signal.
+topic.power_relay.c1	@txt.cause_12v
+topic.power_relay.c2	Faulty main relay or blown fuse
+topic.power_relay.c3	Loose or corroded power or ground connection
+topic.power_relay.k1	@txt.check_12v
+topic.power_relay.k2	Check the fuses and main relay for the engine control module
+
+topic.module_internal.sub	Control module (internal)
+topic.module_internal.c1	Internal fault in the control module
+topic.module_internal.c2	Interrupted software update
+topic.module_internal.c3	Severe 12 V voltage dip or spike
+topic.module_internal.k1	@txt.check_12v
+topic.module_internal.k2	Ask a Mitsubishi dealer about software updates or re-programming
+
+topic.module.sub	Control module
+topic.module.c1	Module not programmed or configured correctly (for example after replacement)
+topic.module.c2	Internal module fault
+topic.module.c3	@txt.cause_12v
+topic.module.k1	@txt.check_dealer_tool
+topic.module.k2	Think back: was any module replaced, updated or disconnected recently?
+
+topic.transmission.sub	Transmission / drive unit
+topic.transmission.about	The drive unit's control system monitors its sensors, switches and actuators.
+topic.transmission.c1	Faulty sensor, switch or solenoid in the drive unit
+topic.transmission.c2	Wiring or connector fault
+topic.transmission.c3	Low or old transmission fluid
+topic.transmission.k1	Note any change in how the car drives (jerks, noises, loss of drive)
+topic.transmission.k2	@txt.check_dealer_tool
+
+topic.outputs.sub	Warning lamps and output circuits
+topic.outputs.about	The control module drives warning lamps, gauges or other outputs and monitors those circuits.
+topic.outputs.c1	Wiring or connector fault
+topic.outputs.c2	Fault in the instrument cluster or output device
+topic.outputs.k1	Check that the warning lights come on briefly when the car is switched on
+
+topic.p_other.c1	Faulty component in this system
+topic.p_other.c2	Wiring or connector problem
+topic.p_other.c3	Related fault elsewhere (check other stored codes)
+topic.p_other.k1	@txt.read_all
+topic.p_other.k2	@txt.check_dealer_tool
+
+topic.c_wheel.sub	Wheel speed sensors (ABS)
+topic.c_wheel.about	Each wheel has a speed sensor used by ABS, traction and stability control, and by other systems that need road speed.
+topic.c_wheel.c1	Damaged or corroded sensor wiring or connector near the wheel (water, salt, stones)
+topic.c_wheel.c2	Dirt, rust or metal debris on the sensor tip or the encoder (tone) ring
+topic.c_wheel.c3	Faulty wheel speed sensor
+topic.c_wheel.c4	Wheel bearing play or a damaged encoder ring
+topic.c_wheel.k1	Inspect the wiring from each sensor along the suspension, especially after winter
+topic.c_wheel.k2	Check the wheel bearings for play or noise
+topic.c_wheel.k3	If your tool can read the ABS unit, compare the four wheel speeds while driving slowly in a straight line
+topic.c_wheel.adv	@txt.advice_abs
+
+topic.c_brake_fluid.sub	Brake fluid
+topic.c_brake_fluid.about	The brake system monitors the brake fluid level or pressure.
+topic.c_brake_fluid.c1	Low brake fluid (worn pads or a leak)
+topic.c_brake_fluid.c2	Faulty fluid level switch
+topic.c_brake_fluid.c3	Wiring fault
+topic.c_brake_fluid.k1	Check the brake fluid level in the reservoir
+topic.c_brake_fluid.k2	Look for leaks at the wheels and under the car
+topic.c_brake_fluid.adv	Check the brake fluid level now. If it is below MIN, or the brake pedal feels soft or travels further than usual, do not drive: arrange recovery.
+
+topic.c_brake_temp.sub	Brake temperature
+topic.c_brake_temp.about	The brake system has estimated or measured that the brakes are overheating.
+topic.c_brake_temp.c1	Long downhill braking or very hard use
+topic.c_brake_temp.c2	Sticking brake caliper or handbrake
+topic.c_brake_temp.c3	Faulty sensor or estimate
+topic.c_brake_temp.k1	Let the brakes cool, then check whether one wheel is much hotter than the others (sticking brake)
+topic.c_brake_temp.adv	Stop as soon as it is safe and let the brakes cool down; overheated brakes lose effectiveness. If a wheel stays hot or smells burnt, have the brakes checked before driving on.
+
+topic.c_brake_switch.sub	Brake pedal switch / brake light signal
+topic.c_brake_switch.about	The brake pedal switch or sensor tells the ABS, stability control and other units when, and how hard, you brake.
+topic.c_brake_switch.c1	Faulty or badly adjusted brake pedal switch or sensor
+topic.c_brake_switch.c2	Wiring or connector fault
+topic.c_brake_switch.c3	Blown brake light fuse or bulb (for brake light circuits)
+topic.c_brake_switch.k1	Check that the brake lights work (ask someone to look)
+topic.c_brake_switch.k2	Check the switch at the top of the brake pedal for damage or misadjustment
+topic.c_brake_switch.adv	@txt.advice_brake_switch
+
+topic.c_abs.sub	ABS, traction and stability control
+topic.c_abs.about	The ABS unit controls brake pressure at each wheel for ABS, traction and stability control.
+topic.c_abs.c1	Fault in the ABS hydraulic unit or its control unit
+topic.c_abs.c2	Wiring or connector fault
+topic.c_abs.c3	@txt.cause_12v
+topic.c_abs.k1	Check whether the ABS or stability control warning lights are on
+topic.c_abs.k2	Check the brake fluid level
+topic.c_abs.k3	@txt.check_12v
+topic.c_abs.adv	@txt.advice_abs
+
+topic.c_steering.sub	Steering
+topic.c_steering.about	The steering angle sensor and electric power steering are monitored by their control units.
+topic.c_steering.c1	Steering angle sensor needs calibration (for example after wheel alignment)
+topic.c_steering.c2	Faulty sensor
+topic.c_steering.c3	Wiring or connector fault
+topic.c_steering.k1	Check whether the steering feels normal
+topic.c_steering.k2	A workshop can calibrate the steering angle sensor
+topic.c_steering.adv	@txt.advice_steering
+
+topic.c_tyre_low.sub	Tyre pressure monitoring (TPMS)
+topic.c_tyre_low.about	The tyre pressure monitoring system has detected that one or more tyres are below the warning threshold.
+topic.c_tyre_low.c1	Puncture or slow leak
+topic.c_tyre_low.c2	Natural pressure drop in cold weather
+topic.c_tyre_low.c3	Pressures not adjusted after a tyre change
+topic.c_tyre_low.k1	Check all four tyres with a gauge when cold and set them to the pressures on the door-pillar label
+topic.c_tyre_low.k2	Look for nails, cuts or bulges
+topic.c_tyre_low.adv	Check the tyre pressures at the first safe opportunity. If a tyre is visibly flat or the car pulls to one side, stop and change the wheel or call for assistance.
+
+topic.c_tyre.sub	Tyre pressure monitoring (TPMS)
+topic.c_tyre.about	The tyre pressure monitoring system uses sensors or wheel speed data to watch the tyre pressures.
+topic.c_tyre.c1	Faulty tyre pressure sensor or flat sensor battery
+topic.c_tyre.c2	Sensors not registered after a wheel change
+topic.c_tyre.c3	Wrong tyre size
+topic.c_tyre.k1	Check the tyre pressures manually
+topic.c_tyre.k2	A tyre shop can test and register the sensors
+
+topic.c_susp.sub	Suspension
+topic.c_susp.c1	Faulty suspension sensor or actuator
+topic.c_susp.c2	Wiring or connector fault
+topic.c_susp.k1	Look for damage to the suspension and its wiring
+
+topic.c_4wd.sub	Four-wheel drive control
+topic.c_4wd.c1	Fault in the four-wheel drive control or its signals
+topic.c_4wd.c2	Wiring or connector fault
+topic.c_4wd.k1	Note whether four-wheel drive or traction behaves differently
+topic.c_4wd.k2	@txt.check_dealer_tool
+
+topic.c_other.c1	Faulty chassis sensor or actuator
+topic.c_other.c2	Wiring or connector fault
+topic.c_other.c3	@txt.cause_12v
+topic.c_other.k1	Check whether any chassis warning lights (ABS, brake, steering) are on
+topic.c_other.k2	@txt.check_dealer_tool
+
+topic.b_srs.sub	Airbags and seatbelt pretensioners (SRS)
+topic.b_srs.about	The airbag (SRS) control unit constantly checks the airbags, seatbelt pretensioners and crash sensors. It has found a fault in the part named in this code, so it may not work in a crash; the airbag warning light is normally on.
+topic.b_srs.c1	Loose or corroded connector (often under the seats, behind the dashboard or in the steering wheel)
+topic.b_srs.c2	Worn clock spring in the steering wheel (for driver airbag and steering wheel switch circuits)
+topic.b_srs.c3	Faulty airbag, pretensioner or sensor
+topic.b_srs.c4	Recent work on seats, dashboard or steering wheel
+topic.b_srs.k1	Think back: were the seats, dashboard or steering wheel worked on recently?
+topic.b_srs.k2	Have a workshop read the airbag unit with a suitable tool and check the connectors and wiring
+topic.b_srs.adv	@txt.advice_srs
+
+topic.b_climate.sub	Climate control
+topic.b_climate.about	The climate control monitors its sensors, blower, flaps and air-conditioning components.
+topic.b_climate.c1	Faulty sensor, flap motor or blower
+topic.b_climate.c2	Wiring or connector fault
+topic.b_climate.c3	Low refrigerant (for air-conditioning codes)
+topic.b_climate.k1	Check which climate functions do not work (heat, cooling, fan speed, air direction)
+topic.b_climate.adv	Yes, if the windscreen stays clear. In cold or wet weather, do not drive if you cannot keep the windscreen free of mist and ice. Have it checked within a few weeks.
+
+topic.b_power.sub	Module power supply
+topic.b_power.about	A body control module reports a problem with its power supply, ground or ignition signal.
+topic.b_power.c1	@txt.cause_12v
+topic.b_power.c2	Blown fuse or failed relay
+topic.b_power.c3	Loose or corroded power or ground connection
+topic.b_power.k1	@txt.check_12v
+topic.b_power.k2	Check the fuses for the affected functions
+topic.b_power.k3	@txt.check_dongle
+
+topic.b_module.sub	Body control module (internal)
+topic.b_module.c1	Internal module fault
+topic.b_module.c2	Module not configured after replacement
+topic.b_module.c3	@txt.cause_12v
+topic.b_module.k1	@txt.check_12v
+topic.b_module.k2	@txt.check_dealer_tool
+
+topic.b_security.sub	Keys, immobiliser and security
+topic.b_security.c1	Weak key battery
+topic.b_security.c2	Faulty key, antenna or immobiliser unit
+topic.b_security.c3	Wiring or connector fault
+topic.b_security.k1	Try the spare key
+topic.b_security.k2	Replace the key battery
+
+topic.b_lights.sub	Lights and indicators
+topic.b_lights.c1	Blown bulb or failed LED unit
+topic.b_lights.c2	Corroded lamp connector
+topic.b_lights.c3	Wiring fault or blown fuse
+topic.b_lights.k1	Walk around the car and check all lights, including brake lights and indicators
+topic.b_lights.adv	Usually yes, but check all lights first: a failed brake light, indicator or headlight must be fixed before driving, especially in the dark.
+
+topic.b_instruments.sub	Instrument cluster and warnings
+topic.b_instruments.c1	Fault in the instrument cluster
+topic.b_instruments.c2	Faulty switch or sensor feeding the display
+topic.b_instruments.c3	Wiring or connector fault
+topic.b_instruments.k1	Check that warning lights come on briefly when the car is switched on
+
+topic.b_comfort.sub	Doors, windows, seats and comfort
+topic.b_comfort.c1	Faulty switch, motor or actuator
+topic.b_comfort.c2	Wiring broken in a door hinge area or under a seat
+topic.b_comfort.c3	Blown fuse
+topic.b_comfort.k1	Check which function does not work
+topic.b_comfort.k2	Check the fuses for that function
+
+topic.b_audio.sub	Audio and infotainment
+topic.b_audio.c1	Faulty audio or infotainment unit
+topic.b_audio.c2	Wiring or connector fault
+topic.b_audio.k1	Check which audio function does not work
+topic.b_audio.k2	Restart the system by switching the car fully off and on
+
+topic.b_other.c1	Faulty body sensor, switch or actuator
+topic.b_other.c2	Wiring or connector fault
+topic.b_other.c3	@txt.cause_12v
+topic.b_other.k1	Check which body function does not work
+topic.b_other.k2	@txt.check_12v
+topic.b_other.k3	@txt.check_dealer_tool
+
+# =============================================================================================
+# Curated entries (cur.*). Families share text through {slots} filled per code:
+#   {cam} {camname} {cyl} {letter} {n} {side} {where} {role} {size} {module} {effect} {extra} {wheel} {which}
+# cur.w.* are small words used in those slots.
+# =============================================================================================
+cur.w.intake_cam	normally the intake camshaft
+cur.w.exhaust_cam	normally the exhaust camshaft
+cur.w.front	front
+cur.w.rear	rear
+cur.w.before_cat	before the catalytic converter
+cur.w.after_cat	after the catalytic converter
+cur.w.leak_small	small
+cur.w.leak_large	large
+cur.w.leak_very_small	very small
+cur.w.wheel_lf	left front
+cur.w.wheel_rf	right front
+cur.w.wheel_lr	left rear
+cur.w.wheel_rr	right rear
+cur.w.airbag_driver	driver front airbag
+cur.w.airbag_passenger	passenger front airbag
+
+# ---- engine timing, crank/cam sensors, engine start
+cur.vvt.sub	Variable valve timing, camshaft {cam} ({camname}), bank 1
+cur.vvt.sum	The engine computer adjusts the timing of camshaft {cam} with engine oil pressure through an oil control valve. The measured camshaft position is more advanced than commanded, or does not follow the command well enough.
+cur.vvt.c1	Low, old or wrong-grade engine oil (the variable valve timing is driven by oil pressure)
+cur.vvt.c2	Sticking or faulty oil control valve for camshaft {cam}, or a blocked filter screen in front of it
+cur.vvt.c3	Faulty variable timing actuator (cam phaser) on the camshaft
+cur.vvt.c4	Stretched timing chain or worn chain tensioner (often together with P0016 or P0017)
+cur.vvt.c5	Wiring or connector fault at the oil control valve
+cur.vvt.k1	@txt.check_oil
+cur.vvt.k2	Read all codes: P0016/P0017 together with this code point towards the timing chain; circuit codes (P0010/P0013) point to the oil control valve wiring
+cur.vvt.k3	Unplug the oil control valve connector, look for oil or corrosion inside, and refit it firmly
+cur.vvt.k4	A workshop can test the oil control valve and compare commanded and actual camshaft angle in live data
+cur.vvt.k5	If the timing chain is suspected, have it checked before long trips: a chain that jumps a tooth can damage the engine
+cur.vvt.adv	Usually drivable for short trips, but the engine may idle roughly, lack power and use more fuel. Get it checked within days and change the oil if it is due. Stop if the engine starts rattling loudly or the oil pressure warning comes on.
+cur.corr.sub	Valve timing: crankshaft vs camshaft {cam} ({camname})
+cur.corr.sum	The engine computer compares the crankshaft and camshaft position signals. They no longer line up as they should, so either the valve timing has shifted or one of the signals is wrong.
+cur.corr.c1	Stretched timing chain, worn chain guides or a weak chain tensioner
+cur.corr.c2	Low or dirty engine oil upsetting the variable valve timing
+cur.corr.c3	Sticking oil control valve or faulty cam phaser
+cur.corr.c4	Faulty camshaft or crankshaft position sensor, or damaged sensor wiring
+cur.corr.c5	Timing chain fitted one tooth off after an earlier repair
+cur.corr.k1	@txt.check_oil
+cur.corr.k2	Listen for a rattle from the timing chain end of the engine during the first seconds after a cold start
+cur.corr.k3	Inspect the camshaft and crankshaft sensor connectors and wiring
+cur.corr.k4	If your tool shows it, compare commanded and actual camshaft angle in live data with a warm engine
+cur.corr.k5	A workshop can check the timing marks or measure chain stretch; fix this early, as a chain that jumps a tooth can damage the engine
+cur.corr.adv	Usually drivable for short trips, but the engine may start poorly, run roughly and lack power. Get it checked within days. Stop if the engine rattles loudly, misfires badly or the oil pressure warning comes on.
+cur.P0335.sub	Crankshaft position sensor
+cur.P0335.sum	The crankshaft position sensor tells the engine computer the engine speed and the position of the pistons. Its signal is missing or electrically wrong, so the engine may not start or may stall.
+cur.P0335.c1	Damaged wiring or a loose or corroded connector at the crankshaft sensor
+cur.P0335.c2	Faulty crankshaft position sensor
+cur.P0335.c3	Metal debris on the sensor tip, or a damaged trigger (reluctor) wheel
+cur.P0335.c4	Supply or ground problem for the sensor
+cur.P0335.k1	Inspect the sensor connector and wiring for oil contamination, chafing or rodent damage
+cur.P0335.k2	If the engine runs, watch engine speed (rpm) in live data: drop-outs confirm an intermittent signal
+cur.P0335.k3	A workshop can check the sensor signal with an oscilloscope before replacing the sensor
+cur.P0335.k4	After the repair, clear the code and confirm the engine starts reliably several times
+cur.P0335.adv	The car may still drive on electric power, but the engine may refuse to start or may stall. Get it checked within days and avoid trips where you depend on the engine (long distances, low drive battery).
+cur.P0336.sum	The crankshaft position sensor signal is present but irregular: pulses are missing, extra or arrive at the wrong time. The engine may misfire, stall or fail to start.
+cur.P0336.c1	Loose connector or damaged wiring causing an intermittent signal
+cur.P0336.c2	Metal debris on the sensor tip or a damaged trigger (reluctor) wheel
+cur.P0336.c3	Faulty crankshaft position sensor
+cur.P0336.c4	Electrical interference from a damaged ignition component or poorly routed wiring
+cur.P0336.k1	Inspect the sensor connector and wiring; make sure the harness is clipped in its original routing
+cur.P0336.k2	Remove the sensor and check the tip for debris or damage (only if easy to reach)
+cur.P0336.k3	Check for misfire or ignition codes stored at the same time
+cur.P0336.k4	A workshop can check the signal with an oscilloscope
+cur.P0340.sub	Camshaft position sensor (bank 1 or single sensor)
+cur.P0340.sum	The camshaft position sensor tells the engine computer which cylinder is about to fire. Its signal is missing or electrically wrong, so the engine may take longer to start, run poorly or not start.
+cur.P0340.c1	Loose, oily or corroded connector at the camshaft sensor
+cur.P0340.c2	Damaged wiring
+cur.P0340.c3	Faulty camshaft position sensor
+cur.P0340.c4	Timing chain or camshaft trigger problem (less common; see P0016)
+cur.P0340.c5	Low 12 V voltage during engine start
+cur.P0340.k1	Inspect the sensor connector for oil inside (a leaking seal can let oil in) and refit it firmly
+cur.P0340.k2	Check the wiring for chafing
+cur.P0340.k3	@txt.check_12v
+cur.P0340.k4	Replace the sensor if wiring and supply are good, then clear the code and test several starts
+cur.P0A0F.sub	Engine start (hybrid system)
+cur.P0A0F.sum	The hybrid system tried to start the petrol engine, but it did not start and run as expected. The engine is started automatically when needed, so you may not have noticed the attempt.
+cur.P0A0F.c1	Very low fuel level, or the tank ran empty
+cur.P0A0F.c2	Old or stale petrol (possible if the engine has rarely run for months)
+cur.P0A0F.c3	Fuel supply problem: fuel pump, fuel pump relay or fuse
+cur.P0A0F.c4	Crankshaft or camshaft position sensor fault (look for P0335 or P0340)
+cur.P0A0F.c5	Ignition or immobiliser problem
+cur.P0A0F.c6	Weak 12 V battery affecting the engine computer during the start
+cur.P0A0F.k1	Check the fuel level; add a decent amount of fresh petrol if it is low or the fuel is old
+cur.P0A0F.k2	Read all codes: other engine codes stored at the same time usually show the real cause
+cur.P0A0F.k3	@txt.check_12v
+cur.P0A0F.k4	Check the fuses and relays for the fuel pump and the engine computer (owner's manual fuse chart)
+cur.P0A0F.k5	If it keeps happening, have a workshop check fuel pressure, spark and sensor signals
+cur.P0A0F.adv	You can usually keep driving on electric power while the drive battery has charge, but the engine may not be available to drive or recharge. Get it checked within days and avoid long trips. If a message tells you to stop, stop safely.
+
+# ---- cooling, thermostat, oil pressure
+cur.P0116.sub	Engine coolant temperature sensor
+cur.P0116.sum	The coolant temperature reading does not behave as expected: for example it does not rise as the engine warms up, or it disagrees with other temperature sensors after the car has stood.
+cur.P0116.c1	Thermostat stuck open, so the engine warms up too slowly (see also P0128)
+cur.P0116.c2	Drifting coolant temperature sensor
+cur.P0116.c3	Low coolant level leaving the sensor in air
+cur.P0116.c4	High resistance or corrosion in the sensor connector
+cur.P0116.k1	Check the coolant level in the expansion tank with the engine cold
+cur.P0116.k2	After the car has stood overnight, compare coolant temperature with intake and outside air temperature in live data: they should be within a few degrees
+cur.P0116.k3	Watch the coolant temperature with the engine running: it should rise steadily to normal working temperature (typically around 80–100 °C)
+cur.P0116.k4	@txt.check_charge_mode
+cur.P0116.k5	Inspect the sensor connector for corrosion
+cur.P0117.sum	The coolant temperature sensor signal voltage is too low, which the engine computer reads as an impossibly hot engine. It uses a substitute value instead.
+cur.P0117.c1	Faulty coolant temperature sensor (internal short)
+cur.P0117.c2	Sensor signal wire shorted to ground
+cur.P0117.c3	Coolant or water inside the sensor connector
+cur.P0117.k1	Compare the coolant temperature in live data with reality: a reading far too hot confirms the fault
+cur.P0117.k2	Inspect the connector and wiring for damage, chafing and moisture
+cur.P0117.k3	Measure the sensor resistance against the service data at a known temperature
+cur.P0117.k4	Replace the sensor if wiring is good, top up coolant afterwards and clear the code
+cur.P0117.adv	You can usually drive, but the cooling fan may run all the time and the engine may start or run poorly. Watch the temperature warning light and get it fixed within a few weeks.
+cur.P0118.sum	The coolant temperature sensor signal voltage is too high, which the engine computer reads as an impossibly cold engine, typically because the circuit is open. It uses a substitute value instead.
+cur.P0118.c1	Unplugged, loose or corroded connector at the sensor
+cur.P0118.c2	Broken signal wire or open circuit
+cur.P0118.c3	Faulty coolant temperature sensor (open internally)
+cur.P0118.c4	Poor sensor ground
+cur.P0118.k1	Check live data: a reading near -40 °C usually means an open circuit
+cur.P0118.k2	Check that the connector is fully plugged in and clean
+cur.P0118.k3	Follow the wiring for breaks or damage
+cur.P0118.k4	@cur.P0117.k4
+cur.P0118.adv	You can usually drive, but the engine may run rich, use more fuel and the cooling fan may run all the time. Get it fixed within a few weeks.
+cur.P0125.sub	Engine warm-up (closed-loop fuel control)
+cur.P0125.sum	The engine took too long to warm up enough for the engine computer to start using oxygen sensor feedback for fuel control.
+cur.P0125.c1	Thermostat stuck open or opening too early
+cur.P0125.c2	Faulty or drifting coolant temperature sensor
+cur.P0125.c3	Low coolant level
+cur.P0125.c4	Possible contributing factor on a plug-in hybrid: very cold weather combined with short engine running periods
+cur.P0125.k1	Check the coolant level with the engine cold
+cur.P0125.k2	Watch coolant temperature in live data while the engine warms up; it should climb steadily
+cur.P0125.k3	@txt.check_charge_mode
+cur.P0125.k4	Check for P0128 or coolant sensor codes; replacing a faulty thermostat often fixes both
+cur.P0128.sub	Thermostat / engine warm-up
+cur.P0128.sum	The engine did not reach its normal working temperature within the expected time. The engine computer suspects that the thermostat opens too early or is stuck open.
+cur.P0128.c1	Thermostat stuck open or opening too early (most common)
+cur.P0128.c2	@cur.P0125.c2
+cur.P0128.c3	@cur.P0125.c3
+cur.P0128.c4	Radiator fan running all the time (fan relay or control fault)
+cur.P0128.c5	Possible contributing factor on a plug-in hybrid: in very cold weather the engine runs in short periods and cools quickly, which makes a slightly weak thermostat show up sooner
+cur.P0128.k1	@cur.P0125.k1
+cur.P0128.k2	Watch coolant temperature in live data during warm-up: a slow climb that stalls well below normal working temperature points to the thermostat
+cur.P0128.k3	@txt.check_charge_mode
+cur.P0128.k4	Check that the radiator fan does not run on a cold engine
+cur.P0128.k5	Replace the thermostat (with a new seal) and refill with coolant of the type specified for the car
+cur.P0128.k6	@txt.check_clear_retest
+cur.P0128.adv	Yes, you can keep driving. Expect slightly higher fuel use, and slower cabin heating when the heat comes from the engine. Get it fixed within a few weeks.
+cur.P0217.sub	Engine cooling (overheating)
+cur.P0217.sum	The engine coolant temperature has gone above the safe limit: the engine is overheating.
+cur.P0217.c1	Low coolant level because of a leak
+cur.P0217.c2	Radiator cooling fan not working (fuse, relay, fan motor)
+cur.P0217.c3	Thermostat stuck closed
+cur.P0217.c4	Water pump failure or slipping drive
+cur.P0217.c5	Radiator blocked by dirt, or internally clogged
+cur.P0217.c6	Head gasket failure (less common)
+cur.P0217.c7	Faulty temperature sensor giving a false alarm (less common)
+cur.P0217.k1	Stop and let the engine cool for at least 30 minutes; never open the coolant cap on a hot engine
+cur.P0217.k2	With the engine cold, check the coolant level and look for leaks under the car and around hoses
+cur.P0217.k3	Check the radiator fan fuse and relay
+cur.P0217.k4	Have a workshop pressure-test the cooling system and check fan, thermostat and water pump
+cur.P0217.adv	No. Stop as soon as it is safe and switch off: driving an overheating engine can warp the cylinder head or destroy the engine. The car can start the engine automatically while in READY, so keep it switched off until the cause is fixed.
+cur.P0480.sub	Radiator cooling fan control
+cur.P0480.sum	The engine computer controls the radiator cooling fan through a relay or fan controller. It has found an electrical fault in that control circuit, so the fan may not run when needed.
+cur.P0480.c1	Blown fan fuse or failed fan relay
+cur.P0480.c2	Faulty fan motor or fan controller
+cur.P0480.c3	Damaged wiring or a corroded connector at the fan (exposed to road spray)
+cur.P0480.k1	Check the fan fuses and relay (owner's manual fuse chart)
+cur.P0480.k2	With the engine hot, or with the air conditioning on, check whether the fan runs
+cur.P0480.k3	Inspect the fan connector and wiring for corrosion and damage
+cur.P0480.k4	A workshop can run the fan with an actuator test to separate wiring from fan faults
+cur.P0480.adv	Watch the temperature warning closely. Short trips in cool weather are usually fine, but in slow traffic, warm weather or when towing the engine can overheat. If the temperature warning comes on, stop safely and switch off.
+cur.P0524.sub	Engine oil pressure
+cur.P0524.sum	The engine oil pressure has dropped below the safe minimum. Without enough oil pressure the engine can be badly damaged within minutes.
+cur.P0524.c1	Low engine oil level (leak or oil consumption)
+cur.P0524.c2	Worn or failing oil pump, or a blocked oil pump pickup
+cur.P0524.c3	Wrong oil viscosity or very old oil
+cur.P0524.c4	Faulty oil pressure sensor or switch giving a false warning
+cur.P0524.c5	Worn engine bearings (high mileage)
+cur.P0524.k1	Stop and check the oil level on the dipstick with the car on level ground; top up with the correct oil if low
+cur.P0524.k2	Look for oil leaks under the car
+cur.P0524.k3	If the level is fine but the warning remains, do not run the engine; have a workshop measure the oil pressure with a mechanical gauge
+cur.P0524.k4	Replace the sensor or switch only after real oil pressure has been confirmed good
+
+# ---- air metering
+cur.P0100.sub	Mass air flow (MAF) sensor
+cur.P0100.sum	The mass air flow sensor in the intake duct measures how much air the engine draws in, which the engine computer uses to calculate how much fuel to inject. Its circuit has an electrical fault, so the computer uses a substitute value.
+cur.P0100.c1	Loose or corroded connector at the MAF sensor (often disturbed during air filter changes)
+cur.P0100.c2	Damaged wiring
+cur.P0100.c3	Faulty MAF sensor
+cur.P0100.c4	Supply or ground problem for the sensor (check the fuse)
+cur.P0100.k1	Check that the air filter box clips and intake duct are fitted properly and the connector is fully latched
+cur.P0100.k2	Inspect the wiring and connector for damage and corrosion
+cur.P0100.k3	Check that the live MAF reading rises smoothly with engine speed
+cur.P0100.k4	Replace the sensor if wiring, supply and ground are good
+cur.P0100.adv	Usually yes, but the engine may run less smoothly, hesitate or use more fuel. Get it checked within a few weeks.
+cur.P0101.sum	The mass air flow reading does not match what the engine computer expects from engine speed, throttle position and other sensors.
+cur.P0101.c1	Air leak in the intake duct between the sensor and the engine (split hose, loose clamp)
+cur.P0101.c2	Dirty or contaminated MAF sensor element (for example from an over-oiled aftermarket air filter)
+cur.P0101.c3	Very dirty or blocked air filter
+cur.P0101.c4	@cur.P0100.c3
+cur.P0101.k1	Inspect the air filter and replace it if dirty
+cur.P0101.k2	Check the intake duct between the sensor and the throttle body for cracks and loose clamps
+cur.P0101.k3	Clean the sensor element with dedicated MAF cleaner spray only; never touch the element
+cur.P0101.k4	Check fuel trims in live data: large positive values suggest an intake leak
+cur.P0101.k5	Try a known-good sensor before buying a new one, if possible
+cur.P0102.sum	The MAF sensor signal is lower than it should ever be, which usually points to an open or shorted circuit or a faulty sensor.
+cur.P0102.c1	Unplugged, loose or corroded connector at the MAF sensor
+cur.P0102.c2	Signal wire open or shorted to ground
+cur.P0102.c3	@cur.P0100.c3
+cur.P0102.c4	Very large intake air leak (less common)
+cur.P0102.k1	Check the connector is fully latched; inspect pins for corrosion
+cur.P0102.k2	Inspect the wiring for damage
+cur.P0102.k3	With a multimeter and the wiring diagram, check supply, ground and signal at the connector
+cur.P0102.k4	Replace the sensor if the wiring is good
+cur.P0103.sum	The MAF sensor signal is higher than it should ever be, which usually points to a short to a voltage supply, a poor ground or a faulty sensor.
+cur.P0103.c1	Signal wire shorted to a voltage supply
+cur.P0103.c2	Poor sensor ground
+cur.P0103.c3	@cur.P0100.c3
+cur.P0103.c4	Damaged wiring or connector
+cur.P0103.k1	Inspect the connector and wiring for damage and corrosion
+cur.P0103.k2	@cur.P0102.k3
+cur.P0103.k3	@cur.P0102.k4
+cur.P0112.sub	Intake air temperature sensor
+cur.P0112.sum	The intake air temperature sensor signal voltage is too low, which the engine computer reads as impossibly hot intake air. On many engines this sensor is built into the air flow sensor housing.
+cur.P0112.c1	Faulty intake air temperature sensor (or the air flow sensor it is built into)
+cur.P0112.c2	Signal wire shorted to ground
+cur.P0112.c3	Damaged or wet connector
+cur.P0112.k1	Compare intake air temperature in live data with outside temperature on a cold engine: a reading far too hot confirms the fault
+cur.P0112.k2	Inspect the connector and wiring
+cur.P0112.k3	Replace the sensor if wiring is good
+cur.P0112.adv	Yes, you can keep driving. Engine running and fuel use may be slightly affected. Get it fixed within a few weeks.
+cur.P0113.sum	The intake air temperature sensor signal voltage is too high, which the engine computer reads as impossibly cold air, usually because the circuit is open. Live data often shows around -40 °C.
+cur.P0113.c1	Unplugged or loose connector (common after air filter or intake work)
+cur.P0113.c2	Broken wire or open circuit
+cur.P0113.c3	Faulty intake air temperature sensor
+cur.P0113.c4	Poor sensor ground
+cur.P0113.k1	Check that the connector on the air flow sensor / intake duct is plugged in and latched
+cur.P0113.k2	Inspect the wiring for breaks
+cur.P0113.k3	@cur.P0102.k4
+
+# ---- electronic throttle and accelerator pedal
+cur.P0121.sub	Electronic throttle body (throttle position sensor A)
+cur.P0121.sum	The electronic throttle has two position sensors. Sensor A (normally one of the two in the throttle body) gives readings that do not match what the engine computer expects from the other sensor, the air flow or the commanded position.
+cur.P0121.c1	Dirty throttle body (carbon build-up) making the throttle stick or move unevenly
+cur.P0121.c2	Worn or faulty throttle position sensor (built into the throttle body)
+cur.P0121.c3	Poor connection or corrosion at the throttle body connector
+cur.P0121.c4	Damaged wiring
+cur.P0121.k1	Inspect the throttle body connector and wiring for corrosion, water and damage
+cur.P0121.k2	With the ignition off, remove the intake hose and look for heavy carbon deposits in the throttle body; clean carefully with throttle-body cleaner without forcing the flap
+cur.P0121.k3	After cleaning or replacement, a throttle relearn (initialisation) may be needed; follow the service procedure or let a workshop do it
+cur.P0121.k4	If the code returns, replace the throttle body assembly (the sensors are usually built in)
+cur.P0121.adv	The engine computer may limit engine power (limp mode) to stay safe. Electric driving may still be possible, but avoid situations where you need full power and get it checked within days.
+cur.P0122.sum	The signal from throttle position sensor A is below the lowest value it should ever send, which usually points to a short to ground, a missing 5 V supply or a faulty sensor.
+cur.P0122.c1	Signal or 5 V supply wire shorted to ground, or supply open
+cur.P0122.c2	Faulty throttle position sensor (throttle body)
+cur.P0122.c3	Corroded or loose throttle body connector
+cur.P0122.c4	Another sensor sharing the same 5 V supply pulling it down (look for other sensor codes)
+cur.P0123.sum	The signal from throttle position sensor A is above the highest value it should ever send, which usually points to an open ground, a short to voltage or a faulty sensor.
+cur.P0123.c1	Open sensor ground or signal shorted to a voltage supply
+cur.P0123.c2	@cur.P0122.c2
+cur.P0123.c3	@cur.P0122.c3
+cur.P2101.sub	Electronic throttle body (throttle motor)
+cur.P2101.sum	The engine computer drives the throttle flap with an electric motor. The motor is not moving the throttle as commanded, or draws an unexpected current.
+cur.P2101.c1	Dirty or sticking throttle body (carbon deposits, or ice in very cold weather)
+cur.P2101.c2	Faulty throttle motor (throttle body)
+cur.P2101.c3	Wiring or connector fault to the throttle motor
+cur.P2101.c4	Low 12 V supply voltage
+cur.P2101.k1	Inspect the throttle body connector and wiring
+cur.P2101.k2	Clean the throttle body carefully if it is dirty (ignition off)
+cur.P2101.k3	@txt.check_12v
+cur.P2101.k4	A throttle relearn may be needed after cleaning or replacement
+cur.P2101.k5	Replace the throttle body if the fault returns
+cur.P2135.sub	Electronic throttle body (sensors A and B)
+cur.P2135.sum	The throttle body has two position sensors that should always agree. Their signals now disagree by more than allowed, so the engine computer cannot trust the throttle position.
+cur.P2135.c1	Worn or faulty throttle position sensors inside the throttle body
+cur.P2135.c2	Water or corrosion in the throttle body connector
+cur.P2135.c3	Damaged wiring, or a problem with the shared 5 V supply or ground
+cur.P2135.c4	Dirty throttle body (less common for this code)
+cur.P2138.sub	Accelerator pedal position sensors (D and E)
+cur.P2138.sum	The accelerator pedal has two position sensors (normally sensors D and E) that should always agree. Their signals now disagree, so the car cannot trust how far the pedal is pressed.
+cur.P2138.c1	Worn or faulty accelerator pedal sensor (part of the pedal assembly)
+cur.P2138.c2	Water or corrosion in the pedal connector (for example from wet footwell carpets)
+cur.P2138.c3	Damaged wiring between the pedal and the control unit
+cur.P2138.c4	Problem with the 5 V supply or ground shared by the pedal sensors
+cur.P2138.k1	Check the footwell for moisture and the pedal connector for corrosion; refit it firmly
+cur.P2138.k2	If your tool shows both pedal signals, check that both move smoothly and evenly as you press the pedal slowly
+cur.P2138.k3	Inspect the wiring under the dashboard for damage
+cur.P2138.k4	Replace the accelerator pedal assembly if the wiring is good
+cur.P2138.adv	Expect reduced power or limited speed (limp mode), and this can also affect electric driving because the pedal signal controls the whole drive system. Drive carefully to a workshop and avoid fast roads if power is very limited.
+
+# ---- fuel mixture, injectors, pump
+cur.P0171.sub	Fuel mixture (fuel trim), bank 1
+cur.P0171.sum	The engine computer has had to add much more fuel than normal to keep the air-fuel mixture correct. The engine is getting too much air or too little fuel.
+cur.P0171.c1	Air leak after the air flow sensor: cracked intake hose, loose clamp, leaking intake gasket, vacuum or crankcase ventilation hose
+cur.P0171.c2	Dirty or faulty mass air flow sensor reading too low
+cur.P0171.c3	Low fuel pressure: weak fuel pump, clogged filter or faulty pressure regulator
+cur.P0171.c4	Clogged fuel injectors
+cur.P0171.c5	Exhaust leak in front of the front oxygen sensor
+cur.P0171.c6	Possible on a plug-in hybrid: old, stale fuel if the engine has rarely run
+cur.P0171.k1	Listen and look for air leaks around the intake hoses and manifold with the engine running
+cur.P0171.k2	Check fuel trims in live data: if long-term trim is high at idle but improves at higher engine speed, an intake leak is likely; if it gets worse under load, suspect fuel delivery
+cur.P0171.k3	Clean the MAF sensor with dedicated cleaner
+cur.P0171.k4	Fix misfire, MAF or oxygen sensor codes first if present
+cur.P0171.k5	@txt.check_fresh_fuel
+cur.P0171.k6	A workshop can do a smoke test for leaks and measure fuel pressure
+cur.P0171.adv	Yes, you can keep driving, but get it checked within a few weeks. A very lean engine can misfire; if the check-engine light starts flashing, stop.
+cur.P0172.sum	The engine computer has had to remove much more fuel than normal to keep the air-fuel mixture correct. The engine is getting too much fuel or too little air.
+cur.P0172.c1	Leaking or dripping fuel injector
+cur.P0172.c2	Faulty air flow sensor reading too high, or coolant temperature sensor reading too cold
+cur.P0172.c3	Fuel pressure too high (pressure regulator fault)
+cur.P0172.c4	Purge valve stuck open, letting fuel vapour into the intake (often with evaporative system codes)
+cur.P0172.c5	Very dirty air filter or blocked air intake
+cur.P0172.c6	Engine oil diluted with fuel (possible when the engine often runs only briefly while cold)
+cur.P0172.k1	Check the air filter and air intake
+cur.P0172.k2	Check coolant temperature and air flow readings in live data for plausibility
+cur.P0172.k3	Check the oil level: if it rises over time or the oil smells of petrol, it is diluted with fuel; change the oil
+cur.P0172.k4	Check for evaporative system codes; a workshop can test whether the purge valve seals
+cur.P0172.k5	A workshop can check fuel pressure and injector leak-down
+cur.P0172.adv	Yes, you can keep driving, but get it checked within a few weeks. A rich mixture raises fuel use and can damage the catalytic converter over time.
+cur.inj.sub	Fuel injector, cylinder {cyl}
+cur.inj.sum	The engine computer has found an electrical fault (usually an open circuit) in the injector circuit for cylinder {cyl}. That cylinder will not get fuel and will misfire.
+cur.inj.c1	Unplugged, loose or corroded connector on the cylinder {cyl} injector
+cur.inj.c2	Broken wire in the injector harness
+cur.inj.c3	Faulty injector (open coil)
+cur.inj.c4	Fuse or relay fault in the injector supply (would usually affect several injectors)
+cur.inj.k1	Check that the cylinder {cyl} injector connector is fully latched and clean
+cur.inj.k2	Inspect the injector harness for damage
+cur.inj.k3	Measure the injector resistance and compare with the other injectors; they should be very similar
+cur.inj.k4	Check the fuse and relay supplying the injectors
+cur.inj.k5	Repair the wiring or replace the injector, then clear the code and check for misfires
+cur.inj.adv	The engine will run unevenly on three cylinders, and unburnt fuel can damage the catalytic converter. Get it repaired within days and avoid long trips where the engine has to run. If the check-engine light flashes, stop as soon as it is safe.
+cur.P0230.sub	Fuel pump control circuit
+cur.P0230.sum	The engine computer controls the fuel pump through a relay or pump control unit. It has found an electrical fault in that circuit, so the pump may not run and the engine may not start.
+cur.P0230.c1	Failed fuel pump relay or blown fuse
+cur.P0230.c2	Damaged wiring or corroded connector in the pump circuit
+cur.P0230.c3	Faulty fuel pump control unit, if fitted
+cur.P0230.c4	Faulty fuel pump drawing too much current
+cur.P0230.k1	Check the fuel pump fuse and relay (owner's manual fuse chart)
+cur.P0230.k2	Check whether the engine starts and runs normally; note any hesitation or stalling
+cur.P0230.k3	Inspect the wiring and connectors in the pump circuit
+cur.P0230.k4	A workshop can check pump current and fuel pressure
+cur.P0230.adv	You can usually keep driving on electric power, but the engine may not start or may stall. Get it checked within days and avoid long trips that need the engine.
+
+# ---- misfire and ignition
+cur.P0300.sub	Misfire detection (several cylinders)
+cur.P0300.sum	The engine computer has detected misfires that are not limited to one cylinder, or that move between cylinders. A misfire means the fuel in a cylinder did not burn properly.
+cur.P0300.c1	Worn spark plugs (they age with time as well as distance; check the service schedule)
+cur.P0300.c2	Failing ignition coil(s)
+cur.P0300.c3	Old or poor-quality fuel, or water in the fuel (possible if the engine rarely runs)
+cur.P0300.c4	Air leak in the intake or a dirty air flow sensor causing a lean mixture
+cur.P0300.c5	Low fuel pressure (fuel pump, filter)
+cur.P0300.c6	Valve timing problems (see P0016) or low compression (less common)
+cur.P0300.k1	Read all codes: P0171, P0016 or P0335 stored at the same time can explain the misfire
+cur.P0300.k2	Inspect and replace the spark plugs if due; check the coil boots for oil, cracks or burn marks
+cur.P0300.k3	@txt.check_fresh_fuel
+cur.P0300.k4	If your tool shows misfire counters per cylinder, see whether one or two cylinders dominate
+cur.P0300.k5	A workshop can check fuel pressure, compression and the ignition system
+cur.mis.sub	Misfire detection, cylinder {cyl}
+cur.mis.sum	The engine computer has detected repeated misfires in cylinder {cyl}: the fuel in that cylinder is not burning properly.
+cur.mis.c1	Faulty ignition coil on cylinder {cyl} (most common)
+cur.mis.c2	Worn or fouled spark plug on cylinder {cyl}
+cur.mis.c3	Clogged or faulty fuel injector on cylinder {cyl}
+cur.mis.c4	Air leak near the intake port of cylinder {cyl}
+cur.mis.c5	Low compression in cylinder {cyl} (valve or piston ring problem, less common)
+cur.mis.k1	Swap the ignition coil from cylinder {cyl} with a neighbouring cylinder, clear the codes and drive: if the misfire moves with the coil, replace the coil
+cur.mis.k2	Remove and inspect the spark plug: replace it if worn, oily or cracked (normally all four at once)
+cur.mis.k3	Check the coil and injector connectors and wiring on cylinder {cyl}
+cur.mis.k4	If coil and plug are fine, have a workshop test the injector and the compression
+cur.P0325.sub	Knock sensor (bank 1 or single sensor)
+cur.P0325.sum	The knock sensor listens for engine knock (uncontrolled combustion) so the engine computer can adjust the ignition timing. Its circuit has an electrical fault.
+cur.P0325.c1	Damaged wiring or a corroded connector at the knock sensor
+cur.P0325.c2	Faulty knock sensor
+cur.P0325.c3	Sensor loose on the engine block
+cur.P0325.k1	Inspect the knock sensor connector and wiring (often hidden under the intake manifold)
+cur.P0325.k2	Check that the sensor is bolted tight to the engine block (a loose sensor cannot sense knock)
+cur.P0325.k3	Measure the sensor and wiring against the service data, or have a workshop check the signal
+cur.P0325.k4	Replace the sensor if needed and tighten it to the specified torque
+cur.P0325.adv	Yes, you can keep driving. The engine computer uses safer, retarded ignition timing, so the engine may feel slightly weaker and use a little more fuel. Use the recommended fuel grade and avoid heavy loads until it is fixed.
+cur.P0327.sum	The knock sensor signal is lower than expected, usually because of an open or shorted circuit or a faulty sensor. The engine computer switches to safer ignition timing.
+cur.P0327.c1	Signal wire open or shorted to ground
+cur.P0327.c2	@cur.P0325.c2
+cur.P0327.c3	Corroded or loose connector
+cur.P0327.c4	@cur.P0325.c3
+cur.P0328.sum	The knock sensor signal is higher than expected, usually because of a wiring fault, a faulty sensor or strong mechanical noise from the engine.
+cur.P0328.c1	Signal wire shorted to a voltage supply or picking up interference
+cur.P0328.c2	@cur.P0325.c2
+cur.P0328.c3	Real mechanical noise from the engine (loose heat shield, worn bearings, valve noise)
+cur.P0328.k1	@cur.P0325.k1
+cur.P0328.k2	@cur.P0325.k2
+cur.P0328.k3	@cur.P0325.k3
+cur.P0328.k4	@cur.P0325.k4
+cur.P0328.k5	Listen for unusual mechanical noises from the engine
+cur.coil.sub	Ignition coil {letter} (normally cylinder {cyl})
+cur.coil.sum	The engine computer has found an electrical fault in the circuit of ignition coil {letter} (coil A is normally cylinder 1, B cylinder 2 and so on). That cylinder will probably misfire.
+cur.coil.c1	Faulty ignition coil
+cur.coil.c2	Loose, corroded or damaged coil connector
+cur.coil.c3	Damaged wiring between the coil and the engine computer
+cur.coil.c4	Fault in the coil power supply (fuse or relay; would usually affect several coils)
+cur.coil.k1	Check that the coil connector is fully latched; look for corrosion or a broken latch
+cur.coil.k2	Swap the coil with a neighbouring cylinder, clear the codes and see whether the code follows the coil
+cur.coil.k3	Inspect the wiring harness to the coils
+cur.coil.k4	Replace the coil if it follows; otherwise have the wiring and supply checked
+
+# ---- oxygen sensors (bank 1)
+cur.o2h.sub	Oxygen sensor heater, bank 1 sensor {n} ({where})
+cur.o2h.intro	Oxygen sensors only work when hot, so each has a built-in electric heater.
+cur.o2h_low.sum	{@cur.o2h.intro} The engine computer has found that the heater control circuit of the {side} sensor ({where}) reads lower than expected. {@cur.o2h.monitored}
+cur.o2h_high.sum	{@cur.o2h.intro} The engine computer has found that the heater control circuit of the {side} sensor ({where}) reads higher than expected. {@cur.o2h.monitored}
+cur.o2h_circ.sum	{@cur.o2h.intro} The engine computer has found an electrical fault in the heater circuit of the {side} sensor ({where}).
+cur.o2h.monitored	Depending on how the circuit is monitored, this can mean a short, an open circuit or a failed heater.
+cur.o2h.c1	Heater element failed inside the sensor (burnt out or shorted; common on older sensors, and the sensor must then be replaced)
+cur.o2h.c2	Wiring damaged by heat from the exhaust (melted, chafed, shorted or broken)
+cur.o2h.c3	Loose or corroded connector
+cur.o2h.c4	Blown fuse for the oxygen sensor heaters
+cur.o2h.k1	Check the fuse for the oxygen sensor heaters (owner's manual fuse chart)
+cur.o2h.k2	Inspect the sensor connector and the wiring along the exhaust for melting or chafing
+cur.o2h.k3	Measure the heater resistance at the sensor connector and compare with the service data; an open circuit means the heater is dead
+cur.o2h.k4	Replace the sensor if the heater is open or shorted (use the correct type for the car)
+cur.o2h.k5	@txt.check_clear_retest
+cur.o2h.adv	Yes, you can keep driving. Emissions and fuel use may rise, mostly after cold starts; since a plug-in hybrid's engine cold-starts often, do not leave it for too long.
+cur.o2.sub	Oxygen sensor bank 1 sensor {n} ({where})
+cur.o2.role_front	The front oxygen sensor measures oxygen in the exhaust so the engine computer can keep the fuel mixture correct.
+cur.o2.role_rear	The rear oxygen sensor checks how well the catalytic converter is cleaning the exhaust.
+cur.o2.k1	Inspect the sensor connector and wiring along the exhaust for melting, chafing or corrosion
+cur.o2.k2	Check for exhaust leaks near the sensor (ticking or puffing noise, soot marks)
+cur.o2.k3	With a fully warm engine, watch the sensor in live data: a front sensor should react quickly to changes in mixture; a rear sensor is normally fairly steady
+cur.o2.k4	Fix fuel trim, misfire and heater codes first; they often explain oxygen sensor codes
+cur.o2.k5	Replace the sensor if wiring and exhaust are good (use the correct type for the car)
+cur.o2f.adv	Yes, you can keep driving. Fuel use and emissions may rise and the engine may run less smoothly. Get it checked within a few weeks; a long-term mixture problem can damage the catalytic converter.
+cur.o2r.adv	Yes, you can keep driving. The rear sensor mainly monitors the catalytic converter, so the engine usually runs normally. Get it checked within a few weeks.
+cur.o2_circ.sum	{role} The engine computer has found a fault in this sensor's signal circuit.
+cur.o2_circ.c1	Damaged wiring or a corroded connector (the wiring runs close to the hot exhaust)
+cur.o2_circ.c2	Faulty or aged oxygen sensor
+cur.o2_circ.c3	Exhaust leak near the sensor
+cur.o2_circ.c4	Sensor contaminated by oil, coolant or fuel additives
+cur.o2_low_f.sum	{role} Its signal stays at a low voltage. On a conventional oxygen sensor this means it reports lean exhaust (too much oxygen) all the time; on a wide-band (air-fuel ratio) sensor it points more to a circuit or sensor fault.
+cur.o2_low_r.sum	{role} Its signal stays at a low voltage, which means it reports lean exhaust (too much oxygen) all the time.
+cur.o2_low.c1	Exhaust leak in front of or near the sensor, letting in outside air
+cur.o2_low.c2	@cur.o2_circ.c2
+cur.o2_low.c3	Signal wire shorted to ground
+cur.o2_low.c4	A real lean mixture (intake air leak, low fuel pressure; look for P0171)
+cur.o2_high_f.sum	{role} Its signal stays at a high voltage. On a conventional oxygen sensor this means it reports rich exhaust (too little oxygen) all the time; on a wide-band (air-fuel ratio) sensor it points more to a circuit or sensor fault.
+cur.o2_high_r.sum	{role} Its signal stays at a high voltage, which means it reports rich exhaust (too little oxygen) all the time.
+cur.o2_high.c1	Faulty or contaminated oxygen sensor (oil, coolant or silicone contamination)
+cur.o2_high.c2	Signal wire shorted to a voltage supply
+cur.o2_high.c3	A real rich mixture (leaking injector, purge valve stuck open; look for P0172)
+cur.o2_slow.sum	{role} The sensor reacts too slowly when the mixture changes.
+cur.o2_slow.c1	Aged oxygen sensor (normal wear over many years)
+cur.o2_slow.c2	@cur.o2_circ.c4
+cur.o2_slow.c3	@cur.o2_circ.c3
+cur.o2_slow.c4	Heater problem keeping the sensor too cold (look for heater codes)
+cur.o2_noact.sum	{role} Its signal does not change at all, as if the sensor were dead or disconnected.
+cur.o2_noact.c1	Faulty oxygen sensor
+cur.o2_noact.c2	Open circuit or unplugged connector
+cur.o2_noact.c3	Heater fault keeping the sensor too cold to work
+cur.o2_noact.c4	@cur.o2_circ.c3
+cur.P2195.sum	{role} Its signal is biased towards lean or stuck lean: it reports more oxygen than the fuel control expects.
+cur.P2195.c1	Air leak in the intake or an exhaust leak in front of the sensor
+cur.P2195.c2	Aged or contaminated front oxygen sensor
+cur.P2195.c3	Air flow sensor reading too low
+cur.P2195.c4	Low fuel pressure or clogged injectors
+cur.P2196.sum	{role} Its signal is biased towards rich or stuck rich: it reports less oxygen than the fuel control expects.
+cur.P2196.c1	Contaminated or aged front oxygen sensor
+cur.P2196.c2	Leaking fuel injector or fuel pressure too high
+cur.P2196.c3	Purge valve stuck open
+cur.P2196.c4	Engine oil diluted with fuel
+
+# ---- catalyst, evaporative system, EGR
+cur.P0420.sub	Catalytic converter, bank 1
+cur.P0420.sum	The engine computer uses the oxygen sensors before and after the catalytic converter to judge how well the converter stores oxygen and cleans the exhaust. The result is below the required level, so the converter is probably no longer working well enough.
+cur.P0420.c1	Aged catalytic converter (efficiency falls with age and mileage)
+cur.P0420.c2	Converter damaged by earlier misfires, or by oil or coolant being burnt
+cur.P0420.c3	Exhaust leak near the oxygen sensors
+cur.P0420.c4	Faulty or slow rear (or front) oxygen sensor giving a false result
+cur.P0420.c5	Engine running too rich or too lean (fix fuel trim codes first)
+cur.P0420.k1	Fix any misfire, fuel trim or oxygen sensor codes first; they can cause or fake this code
+cur.P0420.k2	Check for exhaust leaks (ticking or puffing noise, soot marks) between the engine and the rear oxygen sensor
+cur.P0420.k3	Compare front and rear oxygen sensor signals in live data with a fully warm engine: the rear should be fairly steady
+cur.P0420.k4	@txt.check_charge_mode
+cur.P0420.k5	Clear the code and drive; if it returns quickly, the converter is probably worn
+cur.P0420.k6	Replace the converter with a quality, type-approved part; cheap universal converters often bring the code back
+cur.P0420.adv	Yes, you can keep driving. The car may fail the periodic roadworthiness test (EU-kontroll in Norway) with this fault, and a broken-up converter can rattle or restrict the exhaust over time.
+cur.evap.sub	Evaporative emissions (fuel vapour) system
+cur.evap.intro	The evaporative emission (EVAP) system collects petrol vapour from the tank in a charcoal canister and later burns it in the engine.
+cur.evap.adv	Yes, you can keep driving. It does not affect how the car drives, but it lets fuel vapour escape and can cause a failed roadworthiness test. If you smell petrol strongly, have it checked soon.
+cur.evap.cap	Check the fuel cap: it should click when tightened, and the rubber seal should be clean, soft and uncracked. Replace a worn cap with one of the correct type
+cur.evap.refuel	Plug-in hybrids commonly use a sealed, pressurised fuel tank: always refuel as described in the owner's manual (for example using the fuel-lid release button and waiting until the lid opens)
+cur.P0440.sum	{@cur.evap.intro} The engine computer has found a general fault in this system.
+cur.P0440.c1	Loose, worn or wrong fuel cap
+cur.P0440.c2	Leaking or disconnected evaporative hose
+cur.P0440.c3	Faulty purge valve or vent valve
+cur.P0440.c4	Damaged charcoal canister
+cur.P0440.c5	Fault in the fuel tank pressure sensor
+cur.P0440.k1	@cur.evap.cap
+cur.P0440.k2	@cur.evap.refuel
+cur.P0440.k3	Read all codes; more specific EVAP codes (P0441–P0457) narrow it down
+cur.P0440.k4	A workshop can do a smoke test to find leaks
+cur.P0441.sum	{@cur.evap.intro} The vapour flow from the canister to the engine (purge flow) is not as expected: too little, too much, or flowing when it should not.
+cur.P0441.c1	Purge valve stuck open or stuck closed
+cur.P0441.c2	Blocked, kinked or disconnected purge hose
+cur.P0441.c3	Electrical fault on the purge valve (look for P0443)
+cur.P0441.c4	Charcoal canister blocked (for example after repeatedly overfilling the tank)
+cur.P0441.k1	Inspect the purge hoses between canister, purge valve and intake for cracks and loose ends
+cur.P0441.k2	A workshop can test whether the purge valve opens and closes when commanded and seals when closed
+cur.P0441.k3	Avoid topping up the tank after the pump nozzle clicks off; liquid fuel can damage the canister
+cur.P0441.k4	@cur.evap.refuel
+cur.evap_leak.sum	{@cur.evap.intro} The engine computer seals the system and checks that it holds pressure or vacuum; it has found a {size} leak.
+cur.evap_leak.k1	@cur.evap.cap
+cur.evap_leak.k2	Inspect the visible EVAP hoses and the filler neck for cracks, rust and loose connections
+cur.evap_leak.k3	@cur.evap.refuel
+cur.evap_leak.k4	Clear the code and drive for a few days; the leak test only runs under certain conditions, so it can take a while to confirm a fix
+cur.evap_leak.k5	If it returns, a workshop can find the leak with a smoke test
+cur.P0442.c1	Fuel cap seal worn, cracked or dirty, or the cap not tightened
+cur.P0442.c2	Small crack in an EVAP hose or loose hose clamp
+cur.P0442.c3	Purge or vent valve not sealing fully
+cur.P0442.c4	Corroded filler neck or leaking canister
+cur.P0455.c1	Fuel cap missing, loose or not clicked shut
+cur.P0455.c2	Disconnected or split EVAP hose
+cur.P0455.c3	Purge valve stuck open, or vent valve stuck
+cur.P0455.c4	Damaged charcoal canister
+cur.P0456.c1	Fuel cap seal slightly worn or dirty (most common)
+cur.P0456.c2	Tiny crack in an EVAP hose or seal
+cur.P0456.c3	Purge or vent valve not sealing perfectly
+cur.P0456.c4	Small leak at the filler neck or fuel tank seals
+cur.P0457.sum	{@cur.evap.intro} The leak test suggests the fuel cap is loose or missing.
+cur.P0457.c1	Fuel cap not tightened until it clicks, or left off after refuelling
+cur.P0457.c2	Worn or damaged fuel cap seal
+cur.P0457.c3	Dirt on the filler neck sealing surface
+cur.P0457.c4	Wrong (non-original) fuel cap
+cur.P0457.k1	Check that the fuel cap is fitted and turned until it clicks
+cur.P0457.k2	Clean the cap seal and the filler neck rim; replace the cap if the seal is cracked or hard
+cur.P0457.k3	@cur.evap.refuel
+cur.P0457.k4	Clear the code; it can take a few days of driving before the system re-tests and the light stays off
+cur.P0457.adv	Yes. Tighten or refit the fuel cap and drive normally.
+cur.P0443.sum	{@cur.evap.intro} The engine computer has found an electrical fault in the circuit of the purge valve, which lets the vapour flow to the engine.
+cur.P0443.c1	Unplugged, loose or corroded purge valve connector
+cur.P0443.c2	Faulty purge valve (open or shorted coil)
+cur.P0443.c3	Damaged wiring
+cur.P0443.c4	Blown fuse in the valve supply
+cur.P0443.k1	Check the purge valve connector (usually in the engine bay on the vapour hose to the intake)
+cur.P0443.k2	Measure the valve coil resistance and compare with the service data
+cur.P0443.k3	Inspect the wiring and fuse
+cur.P0443.k4	Replace the purge valve if the coil is open or shorted
+cur.P0446.sum	{@cur.evap.intro} The vent valve, which lets fresh air into the canister and closes during leak tests, is not working correctly or has an electrical fault.
+cur.P0446.c1	Vent valve or its filter blocked by dirt, insects or ice
+cur.P0446.c2	Faulty vent valve
+cur.P0446.c3	Wiring or connector fault (the valve is usually near the canister, exposed to road dirt)
+cur.P0446.c4	Blocked vent hose
+cur.P0446.k1	Inspect the vent valve, its hose and its filter for dirt and blockage
+cur.P0446.k2	Check the connector and wiring for corrosion
+cur.P0446.k3	A workshop can test the valve with an actuator test
+cur.P0446.k4	@cur.evap.refuel
+cur.P0401.sub	Exhaust gas recirculation (EGR)
+cur.P0401.sum	The EGR system feeds a small amount of exhaust back into the intake to lower combustion temperatures and NOx emissions. The engine computer measured less EGR flow than expected.
+cur.P0401.c1	Carbon deposits blocking the EGR valve or passages (most common)
+cur.P0401.c2	EGR valve sticking or faulty
+cur.P0401.c3	Electrical fault on the EGR valve (look for P0403)
+cur.P0401.c4	Faulty sensor used to judge EGR flow, such as the manifold pressure sensor
+cur.P0401.k1	Check for other EGR or sensor codes
+cur.P0401.k2	A workshop can command the EGR valve open at idle: the engine should run noticeably rougher if gas flows
+cur.P0401.k3	Clean or replace the EGR valve and clean the passages
+cur.P0401.k4	@txt.check_clear_retest
+cur.P0403.sum	The engine computer has found an electrical fault in the control circuit of the EGR valve.
+cur.P0403.c1	Unplugged, loose or corroded EGR valve connector
+cur.P0403.c2	Faulty EGR valve (motor or solenoid)
+cur.P0403.c3	Damaged wiring (the valve sits in a hot area)
+cur.P0403.k1	Inspect the EGR valve connector and wiring for heat damage and corrosion
+cur.P0403.k2	Measure the valve resistance against the service data
+cur.P0403.k3	Replace the EGR valve if it is faulty
+
+# ---- vehicle speed, idle, 12 V supply, control modules, MIL request
+cur.P0500.sub	Vehicle speed signal
+cur.P0500.sum	The engine computer is not receiving a valid vehicle speed signal. On modern cars the speed is usually calculated from the wheel speed sensors and shared over the data network.
+cur.P0500.c1	Wheel speed sensor or ABS fault (look for an ABS warning light and C or U codes)
+cur.P0500.c2	Network communication problem with the ABS unit
+cur.P0500.c3	Wiring or connector fault
+cur.P0500.c4	@txt.cause_12v
+cur.P0500.k1	Check whether the speedometer works and whether the ABS warning light is on
+cur.P0500.k2	Read the ABS unit with a capable tool if possible
+cur.P0500.k3	@txt.check_many_codes
+cur.P0500.k4	Inspect the wheel speed sensor wiring at all four wheels
+cur.P0500.adv	Usually drivable, but the speedometer, cruise control or other functions may not work correctly. Get it checked within a few weeks, or within days if the ABS warning light is also on.
+cur.P0506.sub	Idle speed control
+cur.P0506.intro	When the engine idles, the engine computer controls its speed with the electronic throttle.
+cur.P0506.sum	{@cur.P0506.intro} The idle speed stays lower than the target.
+cur.P0506.c1	Dirty throttle body (carbon deposits restricting the air at idle)
+cur.P0506.c2	Blocked air filter or intake
+cur.P0506.c3	Throttle body needs an idle relearn after cleaning, replacement or battery disconnection
+cur.P0506.c4	Engine running poorly for another reason (look for misfire codes)
+cur.P0506.k1	Check the air filter
+cur.P0506.k2	Clean the throttle body carefully (ignition off) and perform the idle relearn procedure
+cur.P0506.k3	Check for other engine codes
+cur.P0507.sum	{@cur.P0506.intro} The idle speed stays higher than the target.
+cur.P0507.c1	Air leak in the intake (cracked hose, leaking gasket, vacuum or crankcase ventilation hose)
+cur.P0507.c2	Dirty or sticking throttle body
+cur.P0507.c3	@cur.P0506.c3
+cur.P0507.c4	Faulty coolant temperature sensor making the engine computer think the engine is cold
+cur.P0507.k1	Listen for hissing air leaks around the intake with the engine idling
+cur.P0507.k2	@cur.P0506.k2
+cur.P0507.k3	Check coolant temperature in live data for plausibility
+cur.P0562.sub	12 V supply (system voltage)
+cur.P0562.sum	The engine computer has measured its 12 V supply below the normal range. On the Outlander PHEV the 12 V system is fed by the 12 V auxiliary battery and charged by the DC/DC converter, so the cause is usually the battery, the converter or the connections between them.
+cur.P0562.c1	@txt.cause_12v
+cur.P0562.c2	DC/DC converter not charging (look for P0A94 or other DC/DC codes)
+cur.P0562.c3	Loose or corroded battery terminals or ground straps
+cur.P0562.c4	Car left standing for a long time, or an accessory or OBD dongle draining the battery while parked
+cur.P0562.c5	Voltage drop in the supply wiring or fuse to the engine computer
+cur.P0562.k1	@txt.check_12v
+cur.P0562.k2	Clean and tighten the battery terminals and check the ground straps
+cur.P0562.k3	@txt.check_dongle
+cur.P0562.k4	Check for DC/DC converter codes
+cur.P0562.k5	If the battery is old (many last around 4–6 years) or fails a test, replace it with the correct type
+cur.P0562.adv	Get it checked within days. A weak 12 V system can stop the car from going into READY or make functions switch off without warning. Avoid long trips until the cause is found.
+cur.P0563.sum	The engine computer has measured its 12 V supply above the normal range. Too high a voltage can damage electronics and the 12 V battery.
+cur.P0563.c1	DC/DC converter regulating the 12 V output too high
+cur.P0563.c2	External battery charger or jump-start booster connected while the car was on
+cur.P0563.c3	Poor ground connection causing false readings
+cur.P0563.c4	Internal fault in the 12 V battery
+cur.P0563.k1	Measure the 12 V battery voltage with the car in READY; clearly above about 15 V is too high
+cur.P0563.k2	Disconnect any charger or booster and check whether the code returns
+cur.P0563.k3	Check the ground straps and battery terminals
+cur.P0563.k4	Have a dealer check the DC/DC converter output
+cur.P0563.adv	Get it checked within days. Too high a voltage can damage the 12 V battery and electronics.
+cur.P0601.sub	Engine control module (internal)
+cur.P0601.sum	The engine control module has found an error when checking its own program memory (checksum). The stored software may be corrupt.
+cur.P0601.c1	Internal fault in the engine control module
+cur.P0601.c2	Interrupted or failed software update
+cur.P0601.c3	Severe 12 V voltage dip or spike (for example during jump-starting)
+cur.P0601.c4	Water or corrosion damage to the module or its connectors
+cur.P0601.k1	@txt.check_12v
+cur.P0601.k2	@txt.check_clear_see
+cur.P0601.k3	Ask a Mitsubishi dealer whether a software update or re-programming is available for the module
+cur.P0601.k4	If it keeps returning, the module may need replacing and programming to the car
+cur.P0601.adv	The engine may run poorly, stall or refuse to start, and other functions may be affected. Get it checked within days.
+cur.P0606.sum	The engine control module has found a fault in its own processor during a self-test.
+cur.P0700.sub	Transmission / drive unit control (warning light request)
+cur.P0700.sum	Another control module, responsible for the transmission or drive unit, has stored its own fault code and asked the engine computer to turn on the check-engine light. The real fault code is stored in that other module.
+cur.P0700.c1	A fault stored in the transmission or drive-unit control module (read that module for the actual code)
+cur.P0700.c2	@txt.cause_12v
+cur.P0700.c3	Wiring or network fault between the modules
+cur.P0700.k1	@txt.check_dealer_tool
+cur.P0700.k2	@txt.check_many_codes
+cur.P0700.k3	Note any change in how the car drives (jerks, noises, loss of drive) and tell the workshop
+cur.P0700.k4	The Outlander PHEV has no conventional multi-speed gearbox, so the stored fault may concern the transaxle, its clutch or another drive-unit function
+cur.P0700.adv	Usually yes, if the car drives normally. Have the other module read within a few weeks, or within days if the car jerks, makes noises or loses drive.
+
+# ---- hybrid / EV system
+cur.P0AA6.sub	High-voltage insulation monitoring
+cur.P0AA6.sum	The high-voltage system is electrically insulated from the car body, and a monitor checks this insulation all the time. It has measured too low an insulation resistance: somewhere, high voltage may be leaking towards the body or chassis.
+cur.P0AA6.c1	Moisture or water in a high-voltage component or connector (for example after heavy rain, washing the engine bay, or driving through deep water)
+cur.P0AA6.c2	Damaged insulation on an orange high-voltage cable (chafing, rodent damage or earlier accident damage)
+cur.P0AA6.c3	Insulation breakdown inside a high-voltage component, such as the electric air-conditioning compressor, the electric heater, the on-board charger, an inverter, a motor or the drive battery
+cur.P0AA6.c4	Fault in the insulation monitoring circuit itself (less common)
+cur.P0AA6.k1	@txt.hv_safety
+cur.P0AA6.k2	Note when the fault appears: only in wet weather or after washing points to moisture; only while charging points to the charging components; only with heating or air conditioning running may point to those units
+cur.P0AA6.k3	Look, without touching, for visible damage to orange cables under the car and in the engine bay
+cur.P0AA6.k4	Do not pressure-wash the engine bay or the underside near high-voltage parts
+cur.P0AA6.k5	Have a Mitsubishi dealer or a high-voltage-trained workshop locate the fault; they isolate the components one by one with an insulation tester
+cur.batt.sub	Drive battery (high-voltage traction battery)
+cur.P0A80.sum	The battery management system has judged that the drive battery has degraded beyond its limit, for example through lost capacity or cells that have drifted too far apart, and that it needs repair or replacement.
+cur.P0A80.c1	Age- and use-related capacity loss (all lithium-ion batteries lose capacity over time)
+cur.P0A80.c2	One or more weak cells or modules that no longer stay balanced with the rest
+cur.P0A80.c3	Battery cooling problems that have speeded up ageing
+cur.P0A80.c4	Less commonly, a fault in the voltage or temperature sensing that makes the battery look worse than it is
+cur.P0A80.k1	@txt.hv_safety
+cur.P0A80.k2	Read all codes: drive battery sensor, cooling or voltage-sensing codes stored at the same time may point to a repairable cause
+cur.P0A80.k3	Have a Mitsubishi dealer run a drive battery check (capacity/health measurement) with their diagnostic tool
+cur.P0A80.k4	Ask about the drive battery warranty: drive batteries often have a longer warranty than the rest of the car (see your warranty booklet)
+cur.P0A80.k5	Get quotes for both module repair by a high-voltage specialist and full battery replacement; replacing individual modules is sometimes possible
+cur.P0A80.adv	The car usually still drives, but expect reduced electric range and power and the engine running more often. Get it checked within days. If the dashboard tells you to stop, stop safely. Never open the drive battery.
+cur.P0A7F.sum	The battery management system has detected that the drive battery has deteriorated, for example lost capacity or cells drifting apart. The car may limit electric range or power.
+cur.P0A7F.c1	Normal age- and use-related capacity loss
+cur.P0A7F.c2	Cells or modules becoming unbalanced
+cur.P0A7F.c3	Battery cooling problems speeding up ageing
+cur.P0A7F.c4	Fault in the voltage or temperature sensing (check for other drive battery codes)
+cur.P0A7F.k1	@txt.hv_safety
+cur.P0A7F.k2	Read all codes: sensor or cooling codes stored at the same time may point to a repairable cause
+cur.P0A7F.k3	Have a Mitsubishi dealer run a drive battery check to measure the remaining capacity
+cur.P0A7F.k4	Ask about the drive battery warranty (see your warranty booklet)
+cur.P0A7F.k5	Charging fully now and then (rather than always stopping part-way) helps the system judge the battery correctly
+cur.P0A7F.adv	Yes, you can drive normally. Expect shorter electric range than when new. Have the battery checked within a few weeks, and sooner if more warnings appear.
+cur.P0A7D.sum	The drive battery's state of charge has fallen below the minimum reserve that the hybrid system wants to keep.
+cur.P0A7D.c1	The car ran out of petrol, so the engine could not recharge the drive battery
+cur.P0A7D.c2	The car stood unused for a long time with a nearly empty drive battery
+cur.P0A7D.c3	Engine or generator problem preventing self-charging (look for other codes)
+cur.P0A7D.c4	Fault in the drive battery or its monitoring
+cur.P0A7D.k1	@txt.hv_safety
+cur.P0A7D.k2	Refuel if the tank is low
+cur.P0A7D.k3	Plug the car in, charge it fully and clear the code
+cur.P0A7D.k4	Check for engine or generator codes that would stop the car from charging itself
+cur.P0A7D.k5	If it returns with fuel in the tank and after a full charge, have the drive battery checked by a dealer
+cur.P0A7D.adv	Charge the car (or refuel) as soon as possible. With a very low drive battery the car may limit power or may not be able to start the engine. Do not leave the car standing for weeks with an empty drive battery.
+cur.P0A7E.sum	The drive battery has become hotter than its safe limit. The car will usually limit power and charging to protect it.
+cur.P0A7E.c1	Fault in the drive battery cooling system
+cur.P0A7E.c2	Repeated rapid (CHAdeMO) charging combined with hard driving in hot weather
+cur.P0A7E.c3	Faulty temperature sensor giving a false high reading (look for P0A9B–P0A9E)
+cur.P0A7E.c4	Internal battery fault (less common)
+cur.P0A7E.k1	@txt.hv_safety
+cur.P0A7E.k2	Let the car rest in the shade, switched off, until the battery has cooled
+cur.P0A7E.k3	Check that the air conditioning works properly; in many plug-in hybrids it also helps cool the drive battery
+cur.P0A7E.k4	Avoid back-to-back rapid charging in hot weather
+cur.P0A7E.k5	If it happens in normal conditions, have the battery cooling and temperature sensors checked by a dealer
+cur.P0A7E.adv	Power and charging may be limited. Let the car cool down before continuing, drive gently and get it checked within days. If a message tells you to stop the vehicle, stop safely.
+cur.P0A9C.sub	Drive battery temperature sensor A
+cur.P0A9C.sum	Several temperature sensors inside the drive battery let the battery management system protect it. Sensor A gives readings that do not fit with the other sensors or with how the temperature should change.
+cur.P0A9C.c1	Faulty temperature sensor inside the battery pack
+cur.P0A9C.c2	Wiring or connector problem inside the pack or at the battery management unit
+cur.P0A9C.c3	A real uneven temperature in the pack caused by a cooling problem
+cur.P0A9C.c4	Fault in the battery management unit
+cur.P0A9C.k1	@txt.hv_safety
+cur.P0A9C.k2	Read all codes, including other drive battery temperature and cooling codes
+cur.P0A9C.k3	Have a dealer compare all battery temperature readings in live data; after the car has stood overnight they should be nearly equal
+cur.P0A9C.k4	Repairs need the drive battery to be opened and must be done by a high-voltage-trained technician
+cur.P0AFA.sum	The total voltage of the drive battery is lower than the hybrid system allows.
+cur.P0AFA.c1	Drive battery deeply discharged (stood for a long time, or ran out of fuel)
+cur.P0AFA.c2	Weak cells or modules whose voltage drops under load
+cur.P0AFA.c3	Fault in the voltage-sensing circuit
+cur.P0AFA.c4	High-voltage connection problem (main relay or connector)
+cur.P0AFA.k1	@txt.hv_safety
+cur.P0AFA.k2	Plug in and charge fully, then clear the code and see whether it returns
+cur.P0AFA.k3	Note whether it appears only under hard acceleration or in very cold weather (points to weak cells)
+cur.P0AFA.k4	Have a dealer run a drive battery check
+cur.P0AFB.sum	The total voltage of the drive battery is higher than the hybrid system allows.
+cur.P0AFB.c1	Fault in the voltage-sensing circuit or battery management unit
+cur.P0AFB.c2	Charging-control fault (on-board charger or regenerative braking control)
+cur.P0AFB.c3	Cells out of balance so that part of the pack reads high
+cur.P0AFB.k1	@txt.hv_safety
+cur.P0AFB.k2	Note whether it appears while charging, during long downhill regeneration or right after charging to full
+cur.P0AFB.k3	If it appears while charging, stop charging and have it checked
+cur.P0AFB.k4	Have a dealer check the drive battery and charging system
+cur.P0A94.sub	DC/DC converter (charges the 12 V battery)
+cur.P0A94.sum	The DC/DC converter turns drive battery voltage into about 12–14 V to power the car's electronics and charge the 12 V battery; the Outlander PHEV has no conventional alternator. The converter is not delivering the expected output, so the 12 V battery may slowly run flat.
+cur.P0A94.c1	Internal fault in the DC/DC converter
+cur.P0A94.c2	Poor connection, corrosion or a blown main fuse between the converter and the 12 V battery
+cur.P0A94.c3	Failing 12 V battery drawing abnormal current
+cur.P0A94.c4	Possible overheating because of a fault in the power electronics cooling
+cur.P0A94.k1	@txt.hv_safety
+cur.P0A94.k2	Measure the 12 V battery voltage with the car off and then in READY: in READY it should rise to roughly 13–14.5 V. If it stays at or below the resting voltage, the converter is not charging
+cur.P0A94.k3	Check the 12 V battery terminals and the ground strap to the body for corrosion and tightness
+cur.P0A94.k4	Test the 12 V battery and replace it if weak
+cur.P0A94.k5	With everything cold, check the coolant level of the power electronics cooling circuit (see the owner's manual)
+cur.P0A94.k6	Have a dealer test the DC/DC converter
+cur.P0A94.adv	Limit driving and get it checked within days. If the converter is not charging, the 12 V battery runs down while you drive and the car can shut down without much warning. Switch off unnecessary electrical loads (seat heating, rear window heater, high fan speed).
+cur.pec.sub	Power electronics cooling circuit
+cur.pec.adv	Power may be limited to protect the electronics. Drive gently and get it checked within days; avoid hot weather driving at high load, steep climbs and towing. Stop if a temperature warning or a message to stop appears.
+cur.P0A93.sum	The inverters and other power electronics are cooled by a coolant circuit with an electric pump. The control unit has found that this circuit is not cooling as well as expected.
+cur.P0A93.c1	Low coolant level in the power electronics circuit (leak)
+cur.P0A93.c2	Weak or failed electric coolant pump
+cur.P0A93.c3	Air trapped in the circuit after a repair
+cur.P0A93.c4	Radiator blocked by dirt or leaves, or a cooling fan problem
+cur.P0A93.c5	Faulty coolant temperature sensor
+cur.P0A93.k1	@txt.hv_safety
+cur.P0A93.k2	@txt.pe_coolant_check
+cur.P0A93.k3	Look for coolant leaks (puddles or dried residue) under the front of the car
+cur.P0A93.k4	Clean leaves and dirt from the front of the radiators
+cur.P0A93.k5	If the level is correct, have a workshop bleed the circuit and test the pump
+cur.P0A05.sum	The electric pump that circulates coolant through the power electronics has an electrical fault in its control circuit, so it may not run. Without it, the inverters and motors can overheat.
+cur.P0A05.c1	Blown fuse or failed relay for the electric pump
+cur.P0A05.c2	Unplugged, loose or corroded connector at the pump
+cur.P0A05.c3	Broken wire in the pump circuit
+cur.P0A05.c4	Failed electric pump
+cur.P0A05.k1	@txt.hv_safety
+cur.P0A05.k2	Check the fuse and relay for the electric water pump (owner's manual or service fuse chart)
+cur.P0A05.k3	Inspect the pump connector, which is often low in the engine bay and exposed to road spray
+cur.P0A05.k4	@txt.pe_coolant_check
+cur.P0A05.k5	A workshop can test the pump with an actuator test
+cur.P0A7C.sum	The power electronics (inverters and motor control units) have become hotter than their safe limit, and the car will limit power to protect them.
+cur.P0A7C.c1	Low coolant level or a leak in the power electronics circuit
+cur.P0A7C.c2	Electric coolant pump not running (look for P0A05)
+cur.P0A7C.c3	Radiator blocked or cooling fan not working
+cur.P0A7C.c4	Sustained heavy load in hot weather (towing, long steep climbs)
+cur.P0A7C.c5	Faulty temperature sensor (less common)
+cur.P0A7C.k1	@txt.hv_safety
+cur.P0A7C.k2	Stop and let the car cool down
+cur.P0A7C.k3	@txt.pe_coolant_check
+cur.P0A7C.k4	Check the radiators for blockage and the cooling fan for operation
+cur.P0A7C.k5	Have a workshop check the pump and the cooling circuit
+cur.P0A78.sub	Inverter for drive motor A
+cur.P0A78.sum	The inverter for drive motor A converts drive battery power into the alternating current that drives the motor. It is not performing as the control unit expects, for example current or voltage out of range.
+cur.P0A78.c1	Internal inverter fault
+cur.P0A78.c2	Overheating because of a cooling problem (look for cooling codes)
+cur.P0A78.c3	Problem with the motor or the high-voltage cables between inverter and motor
+cur.P0A78.c4	Low 12 V supply to the inverter's control electronics
+cur.P0A78.k1	@txt.hv_safety
+cur.P0A78.k2	@txt.check_12v
+cur.P0A78.k3	Read all codes: cooling, motor position sensor or insulation codes may point to the cause
+cur.P0A78.k4	@txt.pe_coolant_check
+cur.P0A78.k5	Have a Mitsubishi dealer diagnose the inverter; this needs high-voltage training and special tools
+cur.P0A3F.sub	Drive motor A position sensor (resolver)
+cur.P0A3F.sum	A position sensor (resolver) inside drive motor A tells the motor control unit the exact rotor position, which it needs to drive the motor. The sensor signal is missing or electrically wrong.
+cur.P0A3F.c1	Loose, wet or corroded connector on the resolver wiring between the motor and its control unit
+cur.P0A3F.c2	Damaged resolver wiring
+cur.P0A3F.c3	Faulty resolver inside the motor (usually means removing the motor)
+cur.P0A3F.c4	Fault in the motor control unit
+cur.P0A3F.k1	@txt.hv_safety
+cur.P0A3F.k2	Note whether the fault happened at start-up, while driving, or over bumps (bumps suggest a wiring problem)
+cur.P0A3F.k3	Have a workshop inspect the resolver connector and measure the resolver windings; the resolver circuit itself is low-voltage but sits next to high-voltage parts
+cur.P0A3F.adv	The car may lose drive from this motor, run with reduced power or refuse to go into READY. If it drives, go straight to a workshop and avoid long trips. If a message tells you to stop, stop safely.
+cur.hvil.sub	High-voltage interlock (safety loop)
+cur.hvil.intro	The high-voltage interlock is a low-voltage signal loop that runs through the high-voltage connectors and covers.
+cur.hvil.c1	@topic.hv_interlock.c1
+cur.hvil.c2	@topic.hv_interlock.c2
+cur.hvil.c3	@topic.hv_interlock.c3
+cur.hvil.c4	@topic.hv_interlock.c4
+cur.hvil.k1	@txt.hv_safety
+cur.hvil.k2	Think back: was any high-voltage part (battery, inverter, charger, air-conditioning compressor, heater) worked on recently? If so, return to that workshop first
+cur.hvil.k3	Have a high-voltage-trained technician check each connector in the interlock loop
+cur.hvil.k4	Clear the code and check whether the car goes into READY normally
+cur.P0A0A.sum	{@cur.hvil.intro} The control unit has found a fault in this loop, so it may assume a connector or cover is open and switch the high voltage off for safety.
+cur.P0A0D.sum	{@cur.hvil.intro} The voltage on the loop is too high, which often means the loop is open somewhere, so the system may switch the high voltage off for safety.
+cur.P0A95.sub	High-voltage fuse
+cur.P0A95.sum	A fuse in the high-voltage system is reported as blown or open. Depending on what it protects, functions such as electric heating, air conditioning, charging or drive may stop working.
+cur.P0A95.c1	Short circuit or overload in a high-voltage component after the fuse (for example the electric heater or air-conditioning compressor)
+cur.P0A95.c2	Fuse that has aged or failed by itself (less common)
+cur.P0A95.c3	Fault in the fuse monitoring circuit
+cur.P0A95.k1	@txt.hv_safety
+cur.P0A95.k2	Note which functions stopped working (heating, air conditioning, charging); this helps the workshop find the circuit
+cur.P0A95.k3	Have a high-voltage-trained technician find the cause before the fuse is replaced; a new fuse will blow again if the fault remains
+
+# ---- network (U) codes
+cur.mod.ecm	engine control module (ECM)
+cur.mod.tcm	transmission control module (TCM)
+cur.mod.mcu	drive motor control unit
+cur.mod.bmu	drive battery management unit (BMU)
+cur.mod.abs	ABS control module
+cur.mod.eps	power steering control module
+cur.mod.bcm	body control module (BCM)
+cur.mod.srs	airbag (restraints) control module
+cur.mod.ipc	instrument cluster
+cur.mod.hvac	climate control (HVAC) module
+cur.mod.hpcu	hybrid control unit
+cur.lost.sub	Lost communication with the {module}
+cur.lost.sum	Control modules share information over the car's data network (CAN bus), and messages from the {module} stopped arriving. {effect}
+cur.lost.c1	@txt.cause_12v
+cur.lost.c2	The {module} has no power: blown fuse, failed relay or poor ground connection
+cur.lost.c3	Loose, wet or corroded connector at the {module} or on the network wiring
+cur.lost.c4	@topic.lost_comm.c4
+cur.lost.c5	The {module} itself has failed (less common; rule out power and wiring first)
+cur.lost.k1	@txt.check_many_codes
+cur.lost.k2	@txt.check_12v
+cur.lost.k3	Check the fuses for the {module}; the owner's manual has the fuse chart
+cur.lost.k4	Look for water ingress or corrosion around the {module} and its connectors
+cur.lost.k5	@topic.lost_comm.k5
+cur.lost.k6	@txt.check_dongle
+cur.lost.k7	@topic.lost_comm.k7
+cur.lost.k8	@txt.check_dealer_tool
+cur.lostx.k1	@cur.lost.k1
+cur.lostx.k2	@cur.lost.k2
+cur.lostx.k3	{extra}
+cur.lostx.k4	@cur.lost.k3
+cur.lostx.k5	@cur.lost.k4
+cur.lostx.k6	@cur.lost.k5
+cur.lostx.k7	@cur.lost.k6
+cur.lostx.k8	@cur.lost.k7
+cur.lostx.k9	@cur.lost.k8
+cur.U0100.effect	The engine may not start or run, and the car may drive on electric power only with a warning shown.
+cur.U0100.extra	If the engine does not start, check the engine control module fuses and main relay first
+cur.U0100.adv	The car may still drive on electric power, but the engine may not be available. Get it checked within days and avoid long trips. If a message tells you to stop, stop safely.
+cur.U0101.effect	The Outlander PHEV has no conventional automatic gearbox; which unit answers as 'TCM' depends on the car's software, so have a Mitsubishi-compatible tool confirm which module is affected.
+cur.U0110.effect	This unit runs an electric drive motor through its inverter, so drive power may be reduced or the car may not go into READY.
+cur.U0110.extra	@txt.hv_safety
+cur.U0111.effect	This unit monitors the drive battery, so the car may limit power and charging, or refuse to go into READY.
+cur.U0111.extra	@txt.hv_safety
+cur.U0121.effect	ABS, traction and stability control may be switched off; normal braking still works.
+cur.U0121.adv	Normal braking still works, but ABS and stability control may be off, so wheels can lock under hard braking. Drive carefully, especially on wet, icy or snowy roads, and get it checked within days.
+cur.U0131.effect	Steering assistance may be reduced or lost, making the steering heavy.
+cur.U0131.adv	If the steering is heavy, drive slowly and carefully to a workshop or arrange recovery; heavy steering needs much more effort in emergencies. If the steering feels normal, get it checked within days.
+cur.U0140.effect	Lights, locks, wipers or other body functions may behave strangely or stop working.
+cur.U0151.effect	The airbag warning light will usually be on, and the airbags and seatbelt pretensioners may not deploy in a crash.
+cur.U0151.extra	@txt.srs_safety
+cur.U0151.adv	The car drives normally, but the airbags may not protect you in a crash. Get it repaired as soon as possible (within days).
+cur.U0155.effect	Gauges, warning lights or messages may not be shown correctly while this fault is present.
+cur.U0155.adv	Usually yes, but warning lights and messages may not be shown while the instrument cluster is offline, so you may miss other warnings. Have it checked within days.
+cur.U0164.effect	Heating, air conditioning or windscreen demisting may not work properly.
+cur.U0293.effect	This unit coordinates the engine, electric motors and drive battery, so the car may refuse to go into READY, or may run with reduced power and an EV system warning.
+cur.U0293.extra	@txt.hv_safety
+cur.bus.c1	@topic.bus.c1
+cur.bus.c2	@topic.bus.c2
+cur.bus.c3	@topic.bus.c3
+cur.bus.c4	@topic.bus.c4
+cur.bus.c5	@topic.bus.c5
+cur.bus.k1	@txt.check_12v
+cur.bus.k2	@txt.check_dongle
+cur.bus.k3	@topic.bus.k3
+cur.bus.k4	@topic.bus.k4
+cur.bus.k5	A workshop can measure the network wiring and terminating resistors (a healthy CAN bus normally measures about 60 ohms between CAN-High and CAN-Low with the car switched off) and disconnect modules one by one
+cur.bus.k6	@txt.check_dealer_tool
+cur.U0001.sub	Data network (high-speed CAN bus)
+cur.U0001.sum	The control modules share information over a high-speed data network (CAN bus). A module has detected a fault on the network itself rather than with one specific module.
+cur.U0073.sub	Data network (CAN bus A)
+cur.U0073.sum	A control module has detected so many errors on network A that it has disconnected itself from the network ('bus off'). Messages to and from that module are lost while this happens.
+cur.U3003.sub	12 V supply voltage to a control module
+cur.U3003.sum	A control module has measured its 12 V supply outside its normal operating range, usually too low.
+cur.U3003.c1	@txt.cause_12v
+cur.U3003.c2	DC/DC converter not charging properly (look for P0A94 or other DC/DC codes)
+cur.U3003.c3	Loose or corroded battery terminal or ground connection
+cur.U3003.c4	Voltage dip during jump-starting, while a charger was connected, or while the 12 V battery was flat
+cur.U3003.k1	@txt.check_12v
+cur.U3003.k2	@cur.P0562.k2
+cur.U3003.k3	@cur.P0562.k4
+cur.U3003.k4	@txt.check_dongle
+cur.U3003.k5	@txt.check_clear_see
+
+# ---- chassis (C) and body (B)
+cur.wheel.sub	Wheel speed sensor, {wheel}
+cur.wheel.sum	Each wheel has a speed sensor used by ABS, traction and stability control, and by other systems that need road speed. The {wheel} sensor's signal is missing, implausible or electrically faulty.
+cur.wheel.c1	Damaged or corroded sensor connector or wiring near the wheel (exposed to water, salt and stones)
+cur.wheel.c2	Dirt, rust or metal debris on the sensor tip or the magnetic encoder ring
+cur.wheel.c3	Faulty wheel speed sensor
+cur.wheel.c4	Wheel bearing play or a damaged encoder ring (the encoder is often part of the wheel bearing)
+cur.wheel.c5	Sensor not seated properly after brake or suspension work
+cur.wheel.k1	Inspect the wiring from the sensor along the suspension to the body for damage, especially after winter
+cur.wheel.k2	Unplug the connector and look for corrosion
+cur.wheel.k3	If your tool can read the ABS unit (generic OBD readers usually cannot), compare the four wheel speeds while driving slowly in a straight line
+cur.wheel.k4	Check the wheel bearing for play or noise
+cur.wheel.k5	Clean the sensor tip and its mounting, or replace the sensor
+cur.wheel.adv	Normal braking still works, but ABS, traction and stability control are probably switched off, so wheels can lock under hard braking. Drive carefully, especially on wet, icy or snowy roads, and get it checked within days.
+cur.C0077.sub	Tyre pressure monitoring (TPMS)
+cur.C0077.sum	The tyre pressure monitoring system has detected that one or more tyres are below the warning threshold.
+cur.C0077.c1	A tyre has lost pressure (puncture, leaking valve or rim)
+cur.C0077.c2	Natural pressure drop in cold weather (roughly 0.1 bar per 10 °C)
+cur.C0077.c3	Tyre pressures not adjusted after a seasonal tyre change
+cur.C0077.c4	Faulty tyre pressure sensor or flat sensor battery (usually gives a separate TPMS fault)
+cur.C0077.k1	Check all four tyres with a gauge when cold and set them to the pressures on the door-pillar label
+cur.C0077.k2	Look for nails, cuts or bulges and listen for hissing
+cur.C0077.k3	After adjusting, drive for a while; the warning should go off. Some systems need a reset or relearn after a tyre change, see the owner's manual
+cur.C0077.k4	If a tyre keeps losing pressure, have it repaired by a tyre shop
+cur.C0077.adv	Check the tyre pressures at the first safe opportunity. If a tyre is visibly flat, the car pulls to one side or you hear flapping, stop and change the wheel or call for assistance. Driving on a very under-inflated tyre can destroy it.
+cur.airbag.sub	Airbags (SRS): {which}
+cur.airbag.sum	The airbag control unit constantly checks the firing circuit of every airbag. It has found a fault in the {which} first-stage circuit, so this airbag may not deploy in a crash. The airbag warning light is normally on.
+cur.airbag.c1	{extra}
+cur.airbag.c2	Loose or corroded airbag connector
+cur.airbag.c3	Faulty airbag module
+cur.airbag.c4	Fault in the airbag control unit (less common)
+cur.airbag.k1	@txt.srs_safety
+cur.airbag.k2	Think back: was the steering wheel, dashboard, seat or radio area worked on recently?
+cur.airbag.k3	Have a workshop read the airbag unit with a suitable tool and check the connectors and wiring
+cur.airbag.k4	After the repair, make sure the airbag warning light goes out a few seconds after switching on
+cur.airbag.adv	The car drives normally, but the airbag may not protect you in a crash. Get it repaired as soon as possible (within days).
+cur.B0001.extra	Worn clock spring (the spiral cable in the steering wheel that connects the airbag while the wheel turns), a common cause
+cur.B0010.extra	Damaged wiring or connector behind the dashboard (for example after dashboard or radio work)

@@ -7,6 +7,7 @@ import io.github.anwo91.phevlink.data.SettingsStore
 import io.github.anwo91.phevlink.data.StateCache
 import io.github.anwo91.phevlink.link.CarRepository
 import io.github.anwo91.phevlink.notify.Notifier
+import io.github.anwo91.phevlink.obd.ObdRepository
 import io.github.anwo91.phevlink.schedule.DepartureScheduler
 import io.github.anwo91.phevlink.tile.PreheatTileService
 import io.github.anwo91.phevlink.widget.WidgetUpdater
@@ -42,6 +43,8 @@ class Graph(app: Application) {
     val cache = StateCache(app)
     val notifier = Notifier(app)
     val repo = CarRepository(app, settings, log, cache, notifier)
+    /** OBD-II adapter connection (ELM327 over Bluetooth Classic/LE or Wi-Fi). */
+    val obd: ObdRepository by lazy { ObdRepository(app, scope, log) }
 
     init {
         repo.onStateSaved = {

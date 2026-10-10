@@ -1,6 +1,7 @@
 package io.github.anwo91.phevlink.link
 
 import android.content.Context
+import io.github.anwo91.phevlink.R
 import android.net.ConnectivityManager
 import android.net.LinkProperties
 import android.net.MacAddress
@@ -12,6 +13,7 @@ import android.os.Handler
 import android.os.Looper
 import io.github.anwo91.phevlink.core.diag.DiagLog
 import io.github.anwo91.phevlink.core.session.SocketConnector
+import io.github.anwo91.phevlink.util.AppLocale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,7 +38,7 @@ import java.net.InetSocketAddress
  *    network dies -> we bind only the car socket, and follow onLost/onAvailable;
  *  - if the phone is already on the car's Wi-Fi (joined manually), we just use it.
  */
-class CarNetwork(context: Context, private val log: DiagLog) {
+class CarNetwork(private val context: Context, private val log: DiagLog) {
 
     data class Target(val ssid: String, val password: String, val bssid: String?)
 
@@ -106,7 +108,7 @@ class CarNetwork(context: Context, private val log: DiagLog) {
         val n = awaitNetwork(waitMs) ?: throw IOException(
             when (val s = state.value) {
                 is State.Failed -> s.reason
-                else -> "Car Wi-Fi not found — out of range, or the car's Wi-Fi is asleep"
+                else -> AppLocale.localized(context).getString(R.string.net_not_found)
             }
         )
         withContext(Dispatchers.IO) {
@@ -231,7 +233,7 @@ class CarNetwork(context: Context, private val log: DiagLog) {
                 .build()
         } catch (e: Exception) {
             log.error("Invalid car Wi-Fi details: ${e.message}")
-            _state.value = State.Failed("The SSID or password is not valid (${e.message})")
+            _state.value = State.Failed(AppLocale.localized(context).getString(R.string.net_invalid_details, e.message.toString()))
             return
         }
         val req = NetworkRequest.Builder()
@@ -265,7 +267,7 @@ class CarNetwork(context: Context, private val log: DiagLog) {
                     if (requestCb !== this) return
                     requestCb = null
                     log.warn("Android could not join the car Wi-Fi (declined, wrong password, or not in range)")
-                    _state.value = State.Failed("Could not join \"${t.ssid}\" — wrong password, declined, or not in range")
+                    _state.value = State.Failed(AppLocale.localized(context).getString(R.string.net_could_not_join, t.ssid))
                 }
             }
         }
@@ -275,7 +277,7 @@ class CarNetwork(context: Context, private val log: DiagLog) {
         runCatching { cm.requestNetwork(req, cb, main) }.onFailure {
             requestCb = null
             log.error("Network request refused: ${it.message}")
-            _state.value = State.Failed("Android refused the Wi-Fi request: ${it.message}")
+            _state.value = State.Failed(AppLocale.localized(context).getString(R.string.net_request_refused, it.message.toString()))
         }
     }
 

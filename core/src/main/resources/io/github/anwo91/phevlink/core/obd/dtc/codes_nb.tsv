@@ -1,0 +1,3501 @@
+# PHEV Link DTC titles (nb), CODE<TAB>Title. Original glossary-based translation of codes.tsv (gen_i18n.py), GPL-3.0-or-later. Codes not listed fall back to English.
+B0001	Førerens frontkollisjonspute, trinn 1 – utløsningsstyring
+B0002	Førerens frontkollisjonspute, trinn 2 – utløsningsstyring
+B0003	Førerens frontkollisjonspute, trinn 3 – utløsningsstyring
+B0004	Førerknepute – utløsningsstyring
+B0005	Sammenleggbar rattstamme – utløsningsstyring
+B0010	Passasjerens frontkollisjonspute, trinn 1 – utløsningsstyring
+B0011	Passasjerens frontkollisjonspute, trinn 2 – utløsningsstyring
+B0012	Passasjerens frontkollisjonspute, trinn 3 – utløsningsstyring
+B0013	Passasjerknepute – utløsningsstyring
+B0020	Kollisjonspute venstre side – utløsningsstyring
+B0021	Gardinpute venstre – utløsningsstyring 1
+B0022	Gardinpute venstre – utløsningsstyring 2
+B0028	Kollisjonspute høyre side – utløsningsstyring
+B0029	Gardinpute høyre – utløsningsstyring 1
+B002A	Gardinpute høyre – utløsningsstyring 2
+B0030	Kollisjonspute rad 2 venstre side – utløsningsstyring
+B0031	Frontkollisjonspute rad 2 venstre, trinn 1 – utløsningsstyring
+B0032	Frontkollisjonspute rad 2 venstre, trinn 2 – utløsningsstyring
+B0033	Frontkollisjonspute rad 2 venstre, trinn 3 – utløsningsstyring
+B0038	Kollisjonspute rad 2 høyre side – utløsningsstyring
+B0039	Frontkollisjonspute rad 2 høyre, trinn 1 – utløsningsstyring
+B003A	Frontkollisjonspute rad 2 høyre, trinn 2 – utløsningsstyring
+B003B	Frontkollisjonspute rad 2 høyre, trinn 3 – utløsningsstyring
+B0040	Kollisjonspute rad 3 venstre side – utløsningsstyring
+B0041	Frontkollisjonspute rad 3 venstre, trinn 1 – utløsningsstyring
+B0042	Frontkollisjonspute rad 3 venstre, trinn 2 – utløsningsstyring
+B0043	Frontkollisjonspute rad 3 venstre, trinn 3 – utløsningsstyring
+B0048	Kollisjonspute rad 3 høyre side – utløsningsstyring
+B0049	Frontkollisjonspute rad 3 høyre, trinn 1 – utløsningsstyring
+B004A	Frontkollisjonspute rad 3 høyre, trinn 2 – utløsningsstyring
+B004B	Frontkollisjonspute rad 3 høyre, trinn 3 – utløsningsstyring
+B0050	Førersetebeltesensor
+B0051	Setebeltesensor rad 1 midt
+B0052	Passasjersetebeltesensor
+B0053	Setebeltesensor rad 2 venstre
+B0054	Setebeltesensor rad 2 midt
+B0055	Setebeltesensor rad 2 høyre
+B0056	Setebeltesensor rad 3 venstre
+B0057	Setebeltesensor rad 3 midt
+B0058	Setebeltesensor rad 3 høyre
+B0060	Førerbeltestrammingssensor
+B0061	Passasjerbeltestrammingssensor
+B0070	Førerbeltestrammer – utløsningsstyring
+B0071	Beltestrammer rad 1 midt – utløsningsstyring
+B0072	Passasjerbeltestrammer – utløsningsstyring
+B0073	Beltestrammer rad 2 venstre – utløsningsstyring
+B0074	Beltestrammer rad 2 midt – utløsningsstyring
+B0075	Beltestrammer rad 2 høyre – utløsningsstyring
+B0076	Beltestrammer rad 3 venstre – utløsningsstyring
+B0077	Beltestrammer rad 3 midt – utløsningsstyring
+B0078	Beltestrammer rad 3 høyre – utløsningsstyring
+B0079	Førerbeltestrammer B – utløsningsstyring
+B007A	Passasjerbeltestrammer B – utløsningsstyring
+B0080	Førerbeltekraftbegrenser – utløsningsstyring
+B0081	Beltekraftbegrenser rad 1 midt – utløsningsstyring
+B0082	Passasjerbeltekraftbegrenser – utløsningsstyring
+B0083	Beltekraftbegrenser rad 2 venstre – utløsningsstyring
+B0084	Beltekraftbegrenser rad 2 midt – utløsningsstyring
+B0085	Beltekraftbegrenser rad 2 høyre – utløsningsstyring
+B0086	Beltekraftbegrenser rad 3 venstre – utløsningsstyring
+B0087	Beltekraftbegrenser rad 3 midt – utløsningsstyring
+B0088	Beltekraftbegrenser rad 3 høyre – utløsningsstyring
+B0090	Front-SRS-sensor venstre
+B0091	SRS-sensor 1 venstre side
+B0092	SRS-sensor 2 venstre side
+B0093	SRS-sensor 3 venstre side
+B0094	SRS-sensor midt foran
+B0095	Front-SRS-sensor høyre
+B0096	SRS-sensor 1 høyre side
+B0097	SRS-sensor 2 høyre side
+B0098	SRS-sensor 3 høyre side
+B0099	Veltsensor
+B00A0	Setevektsklassifiseringssystem
+B00A1	Sittestillingssystem
+B00B0	Førersete-setevektsklassifiseringssensor A
+B00B1	Førersete-setevektsklassifiseringssensor B
+B00B2	Førersete-setevektsklassifiseringssensor C
+B00B3	Førersete-setevektsklassifiseringssensor D
+B00B4	Førersete-setevektsklassifiseringssensor E
+B00B5	SRS-sensor for seteskinnestilling, førersete
+B00B6	SRS-sensor for seteryggstilling, førersete
+B00B7	Førersetesittestillingssensor A
+B00B8	Førersetesittestillingssensor B
+B00B9	Førersetesittestillingssensor C
+B00BA	Førersetesittestillingssensor D
+B00BB	Førersetesittestillingssensor E
+B00C0	Passasjersete-setevektsklassifiseringssensor A
+B00C1	Passasjersete-setevektsklassifiseringssensor B
+B00C2	Passasjersete-setevektsklassifiseringssensor C
+B00C3	Passasjersete-setevektsklassifiseringssensor D
+B00C4	Passasjersete-setevektsklassifiseringssensor E
+B00C5	SRS-sensor for seteskinnestilling, passasjersete
+B00C6	SRS-sensor for seteryggstilling, passasjersete
+B00C7	Passasjersete-sittestillingssensor A
+B00C8	Passasjersete-sittestillingssensor B
+B00C9	Passasjersete-sittestillingssensor C
+B00CA	Passasjersete-sittestillingssensor D
+B00CB	Passasjersete-sittestillingssensor E
+B00D0	Førersetebelteindikator
+B00D1	Passasjersetebelteindikator
+B00D2	Sikkerhetssystem (SRS) – feilindikator 1
+B00D3	Sikkerhetssystem (SRS) – feilindikator 2
+B00D4	Sikkerhetssystem (SRS) – akustisk feilindikator
+B00D5	SRS-passasjer-deaktiveringsindikator
+B00DF	Passasjer-SRS-deaktiverings-bryter
+B0100	Førerkollisjonspute – krets funksjonsfeil
+B0101	Førerkollisjonspute – krets område/ytelse
+B0102	Førerkollisjonspute – krets lavt inngangssignal
+B0103	Førerkollisjonspute – krets høyt inngangssignal
+B0105	Passasjerkollisjonspute – krets funksjonsfeil
+B0106	Passasjerkollisjonspute – krets område/ytelse
+B0107	Passasjerkollisjonspute – krets lavt inngangssignal
+B0108	Passasjerkollisjonspute – krets høyt inngangssignal
+B0110	Kollisjonspute på førersiden – krets funksjonsfeil
+B0111	Kollisjonspute på førersiden – krets område/ytelse
+B0112	Kollisjonspute på førersiden – krets lavt inngangssignal
+B0113	Kollisjonspute på førersiden – krets høyt inngangssignal
+B0115	Kollisjonspute på passasjersiden – krets funksjonsfeil
+B0116	Kollisjonspute på passasjersiden – krets område/ytelse
+B0117	Kollisjonspute på passasjersiden – krets lavt inngangssignal
+B0118	Kollisjonspute på passasjersiden – krets høyt inngangssignal
+B0120	Setebelte #1 bryterovervåking – krets funksjonsfeil
+B0121	Setebelte #1 bryterovervåking – krets område/ytelse
+B0122	Setebelte #1 bryterovervåking – krets lavt inngangssignal
+B0123	Setebelte #1 bryterovervåking – krets høyt inngangssignal
+B0125	Setebelte #2 bryterovervåking – krets funksjonsfeil
+B0126	Setebelte #2 bryterovervåking – krets område/ytelse
+B0127	Setebelte #2 bryterovervåking – krets lavt inngangssignal
+B0128	Setebelte #2 bryterovervåking – krets høyt inngangssignal
+B0130	Setebelte #1 opprulling – krets funksjonsfeil
+B0131	Setebelte #1 opprulling – krets område/ytelse
+B0132	Setebelte #1 opprulling – krets lavt inngangssignal
+B0133	Setebelte #1 opprulling – krets høyt inngangssignal
+B0135	Setebelte #2 opprulling – krets funksjonsfeil
+B0136	Setebelte #2 opprulling – krets område/ytelse
+B0137	Setebelte #2 opprulling – krets lavt inngangssignal
+B0138	Setebelte #2 opprulling – krets høyt inngangssignal
+B0200	Viftemotor #1 strøm – krets lav (hoved/primær/fremre)
+B0300	Kjølevifte #1 – krets funksjonsfeil
+B0301	Kjølevifte #1 – krets område/ytelse
+B0302	Kjølevifte #1 – krets lavt inngangssignal
+B0303	Kjølevifte #1 – krets høyt inngangssignal
+B0305	Kjølevifte #2 – krets funksjonsfeil
+B0306	Kjølevifte #2 – krets område/ytelse
+B0307	Kjølevifte #2 – krets lavt inngangssignal
+B0308	Kjølevifte #2 – krets høyt inngangssignal
+B0310	Klimaclutch – krets funksjonsfeil
+B0311	Klimaclutch – krets område/ytelse
+B0312	Klimaclutch – krets lavt inngangssignal
+B0313	Klimaclutch – krets høyt inngangssignal
+B0315	Klimatrykk #1 – krets funksjonsfeil
+B0316	Klimatrykk #1 – krets område/ytelse
+B0317	Klimatrykk #1 – krets lavt inngangssignal
+B0318	Klimatrykk #1 – krets høyt inngangssignal
+B0320	Klimatrykk #2 – krets funksjonsfeil
+B0321	Klimatrykk #2 – krets område/ytelse
+B0322	Klimatrykk #2 – krets lavt inngangssignal
+B0323	Klimatrykk #2 – krets høyt inngangssignal
+B0325	Klimatrykkreferanse – krets funksjonsfeil (signal)
+B0326	Klimatrykkreferanse – krets område/ytelse (signal)
+B0327	Klimatrykkreferanse – krets lavt inngangssignal (signal)
+B0328	Klimatrykkreferanse – krets høyt inngangssignal (signal)
+B0330	Utelufttemperatur – krets funksjonsfeil
+B0331	Utelufttemperatur – krets område/ytelse
+B0332	Utelufttemperatur – krets lavt inngangssignal
+B0333	Utelufttemperatur – krets høyt inngangssignal
+B0335	Kupétemperatursensor #1 – krets funksjonsfeil
+B0336	Kupétemperatursensor #1 – krets område/ytelse
+B0337	Kupétemperatursensor #1 – krets lavt inngangssignal
+B0338	Kupétemperatursensor #1 – krets høyt inngangssignal
+B0340	Kupétemperatursensor #2 – krets funksjonsfeil
+B0341	Kupétemperatursensor #2 – krets område/ytelse
+B0342	Kupétemperatursensor #2 – krets lavt inngangssignal
+B0343	Kupétemperatursensor #2 – krets høyt inngangssignal
+B0345	Solinnstrålingssensor 1 – krets funksjonsfeil
+B0346	Solinnstrålingssensor 1 – krets område/ytelse
+B0347	Solinnstrålingssensor 1 – krets lavt inngangssignal
+B0348	Solinnstrålingssensor 1 – krets høyt inngangssignal
+B0350	Solinnstrålingssensor 2 – krets funksjonsfeil
+B0351	Solinnstrålingssensor 2 – krets område/ytelse
+B0352	Solinnstrålingssensor 2 – krets lavt inngangssignal
+B0353	Solinnstrålingssensor 2 – krets høyt inngangssignal
+B0355	Viftemotor #1 hastighet – krets funksjonsfeil
+B0356	Viftemotor #1 hastighet – krets område/ytelse
+B0357	Viftemotor #1 hastighet – krets lavt inngangssignal
+B0358	Viftemotor #1 hastighet – krets høyt inngangssignal
+B0360	Viftemotor #1 strøm – krets funksjonsfeil
+B0361	Viftemotor #1 strøm – krets område/ytelse
+B0362	Viftemotor #1 strøm – krets lavt inngangssignal
+B0363	Viftemotor #1 strøm – krets høyt inngangssignal
+B0365	Viftemotor #1 jord – krets funksjonsfeil
+B0366	Viftemotor #1 jord – krets område/ytelse
+B0367	Viftemotor #1 jord – krets lavt inngangssignal
+B0368	Viftemotor #1 jord – krets høyt inngangssignal
+B0370	Klimaanlegg (AC) – temperatursensor høytrykksside funksjonsfeil
+B0371	Klimaanlegg (AC) – temperatursensor høytrykksside område/ytelse
+B0372	Klimaanlegg (AC) – temperatursensor høytrykksside lavt inngangssignal
+B0373	Klimaanlegg (AC) – temperatursensor høytrykksside høyt inngangssignal
+B0375	Klimafordamperinnløps-temperatursensor – funksjonsfeil
+B0376	Klimafordamperinnløps-temperatursensor – område/ytelse
+B0377	Klimafordamperinnløps-temperatursensor – lavt inngangssignal
+B0378	Klimafordamperinnløps-temperatursensor – høyt inngangssignal
+B0380	Undertrykk i kuldemediet (klimaanlegg)
+B0381	Overtrykk i kuldemediet (klimaanlegg)
+B0400	Luftstyring #1 avriming – funksjonsfeil
+B0401	Luftstyring #1 avriming – område/ytelse
+B0402	Luftstyring #1 avriming – lavt inngangssignal
+B0403	Luftstyring #1 avriming – høyt inngangssignal
+B0405	Luftstyring #2 varmer – funksjonsfeil
+B0406	Luftstyring #2 varmer – område/ytelse
+B0407	Luftstyring #2 varmer – lavt inngangssignal
+B0408	Luftstyring #2 varmer – høyt inngangssignal
+B0410	Luftstyring #3 blanding – funksjonsfeil
+B0411	Luftstyring #3 blanding – område/ytelse
+B0412	Luftstyring #3 blanding – lavt inngangssignal
+B0413	Luftstyring #3 blanding – høyt inngangssignal
+B0415	Luftstyring #4 lufting – funksjonsfeil
+B0416	Luftstyring #4 lufting – område/ytelse
+B0417	Luftstyring #4 lufting – lavt inngangssignal
+B0418	Luftstyring #4 lufting – høyt inngangssignal
+B0420	Luftstyring #5 klimaanlegg (AC) – funksjonsfeil
+B0421	Luftstyring #5 klimaanlegg (AC) – område/ytelse
+B0422	Luftstyring #5 klimaanlegg (AC) – lavt inngangssignal
+B0423	Luftstyring #5 klimaanlegg (AC) – høyt inngangssignal
+B0425	Luftstyring #6 resirkulasjon – funksjonsfeil
+B0426	Luftstyring #6 resirkulasjon – område/ytelse
+B0427	Luftstyring #6 resirkulasjon – lavt inngangssignal
+B0428	Luftstyring #6 resirkulasjon – høyt inngangssignal
+B0430	Bakrutevarme – krets funksjonsfeil
+B0431	Bakrutevarme – krets område/ytelse
+B0432	Bakrutevarme – krets lavt inngangssignal
+B0433	Bakrutevarme – krets høyt inngangssignal
+B0435	Klimaanlegg (AC) – forespørselskrets funksjonsfeil
+B0436	Klimaanlegg (AC) – forespørselskrets område/ytelse
+B0437	Klimaanlegg (AC) – forespørselskrets lavt inngangssignal
+B0438	Klimaanlegg (AC) – forespørselskrets høyt inngangssignal
+B0440	Betjeningspanel #1 tilbakemelding – funksjonsfeil
+B0441	Betjeningspanel #1 tilbakemelding – område/ytelse
+B0442	Betjeningspanel #1 tilbakemelding – lavt inngangssignal
+B0443	Betjeningspanel #1 tilbakemelding – høyt inngangssignal
+B0445	Betjeningspanel #2 tilbakemelding – funksjonsfeil
+B0446	Betjeningspanel #2 tilbakemelding – område/ytelse
+B0447	Betjeningspanel #2 tilbakemelding – lavt inngangssignal
+B0448	Betjeningspanel #2 tilbakemelding – høyt inngangssignal
+B0500	Blinklys høyre – krets funksjonsfeil
+B0501	Blinklys høyre – krets område/ytelse
+B0502	Blinklys høyre – krets lavt inngangssignal
+B0503	Blinklys høyre – krets høyt inngangssignal
+B0505	Blinklys venstre – krets funksjonsfeil
+B0506	Blinklys venstre – krets område/ytelse
+B0507	Blinklys venstre – krets lavt inngangssignal
+B0508	Blinklys venstre – krets høyt inngangssignal
+B0510	Frontlysindikatorer – krets funksjonsfeil
+B0511	Frontlysindikatorer – krets område/ytelse
+B0512	Frontlysindikatorer – krets lavt inngangssignal
+B0513	Frontlysindikatorer – krets høyt inngangssignal
+B0515	Speedometer – krets funksjonsfeil
+B0516	Speedometer – krets område/ytelse
+B0517	Speedometer – krets lavt inngangssignal
+B0518	Speedometer – krets høyt inngangssignal
+B0520	Turteller – krets funksjonsfeil
+B0521	Turteller – krets område/ytelse
+B0522	Turteller – krets lavt inngangssignal
+B0523	Turteller – krets høyt inngangssignal
+B0525	Temperaturmålere – krets funksjonsfeil
+B0526	Temperaturmålere – krets område/ytelse
+B0527	Temperaturmålere – krets lavt inngangssignal
+B0528	Temperaturmålere – krets høyt inngangssignal
+B0530	Drivstoffnivåmåler – krets funksjonsfeil
+B0531	Drivstoffnivåmåler – krets område/ytelse
+B0532	Drivstoffnivåmåler – krets lavt inngangssignal
+B0533	Drivstoffnivåmåler – krets høyt inngangssignal
+B0535	Turbo-/kompressorladetrykkmåler – funksjonsfeil
+B0536	Turbo-/kompressorladetrykkmåler – område/ytelse
+B0537	Turbo-/kompressorladetrykkmåler – lavt inngangssignal
+B0538	Turbo-/kompressorladetrykkmåler – høyt inngangssignal
+B0540	Setebelteindikator – funksjonsfeil
+B0541	Setebelteindikator – område/ytelse
+B0542	Setebelteindikator – lavt inngangssignal
+B0543	Setebelteindikator – høyt inngangssignal
+B0545	Dør åpen #1 indikator – funksjonsfeil
+B0546	Dør åpen #1 indikator – område/ytelse
+B0547	Dør åpen #1 indikator – lavt inngangssignal
+B0548	Dør åpen #1 indikator – høyt inngangssignal
+B0550	Dør åpen #2 indikator – funksjonsfeil
+B0551	Dør åpen #2 indikator – område/ytelse
+B0552	Dør åpen #2 indikator – lavt inngangssignal
+B0553	Dør åpen #2 indikator – høyt inngangssignal
+B0555	Bremseindikator – krets funksjonsfeil
+B0556	Bremseindikator – krets område/ytelse
+B0557	Bremseindikator – krets lavt inngangssignal
+B0558	Bremseindikator – krets høyt inngangssignal
+B0560	Kollisjonsputelampe #1 – krets funksjonsfeil
+B0561	Kollisjonsputelampe #1 – krets område/ytelse
+B0562	Kollisjonsputelampe #1 – krets lavt inngangssignal
+B0563	Kollisjonsputelampe #1 – krets høyt inngangssignal
+B0565	Sikkerhetsinformasjon – krets funksjonsfeil
+B0566	Sikkerhetsinformasjon – krets område/ytelse
+B0567	Sikkerhetsinformasjon – krets lavt inngangssignal
+B0568	Sikkerhetsinformasjon – krets høyt inngangssignal
+B0600	Alternativkonfigurasjon – feil
+B0601	KAM-nullstilling
+B0602	Oscillatorvakthund-COP – funksjonsfeil
+B0603	EEPROM-skriving – feil
+B0604	EEPROM-kalibrering – feil
+B0605	EEPROM-sjekksum – feil
+B0606	RAM – funksjonsfeil
+B0607	Intern – feil
+B0608	Initialisering – feil
+B0800	Enhetsstrøm #1 – krets funksjonsfeil
+B0801	Enhetsstrøm #1 – krets område/ytelse
+B0802	Enhetsstrøm #1 – krets lavt inngangssignal
+B0803	Enhetsstrøm #1 – krets høyt inngangssignal
+B0805	Enhetsstrøm #2 – krets funksjonsfeil
+B0806	Enhetsstrøm #2 – krets område/ytelse
+B0807	Enhetsstrøm #2 – krets lavt inngangssignal
+B0808	Enhetsstrøm #2 – krets høyt inngangssignal
+B0810	Enhetsstrøm #3 – krets funksjonsfeil
+B0811	Enhetsstrøm #3 – krets område/ytelse
+B0812	Enhetsstrøm #3 – krets lavt inngangssignal
+B0813	Enhetsstrøm #3 – krets høyt inngangssignal
+B0815	Enhetsjord #1 – krets funksjonsfeil
+B0816	Enhetsjord #1 – krets område/ytelse
+B0817	Enhetsjord #1 – krets lavt inngangssignal
+B0818	Enhetsjord #1 – krets høyt inngangssignal
+B0820	Enhetsjord #2 – krets funksjonsfeil
+B0821	Enhetsjord #2 – krets område/ytelse
+B0822	Enhetsjord #2 – krets lavt inngangssignal
+B0823	Enhetsjord #2 – krets høyt inngangssignal
+B0825	Enhetsjord #3 – krets funksjonsfeil
+B0826	Enhetsjord #3 – krets område/ytelse
+B0827	Enhetsjord #3 – krets lavt inngangssignal
+B0828	Enhetsjord #3 – krets høyt inngangssignal
+B0830	Tenning 0 – krets funksjonsfeil
+B0831	Tenning 0 – krets område/ytelse
+B0832	Tenning 0 – krets lavt inngangssignal
+B0833	Tenning 0 – krets høyt inngangssignal
+B0835	Tenning 1 – krets funksjonsfeil
+B0836	Tenning 1 – krets område/ytelse
+B0837	Tenning 1 – krets lavt inngangssignal
+B0838	Tenning 1 – krets høyt inngangssignal
+B0840	Tenning 3 – krets funksjonsfeil
+B0841	Tenning 3 – krets område/ytelse
+B0842	Tenning 3 – krets lavt inngangssignal
+B0843	Tenning 3 – krets høyt inngangssignal
+B0845	5 V-referanse for enhet – krets funksjonsfeil
+B0846	5 V-referanse for enhet – krets område/ytelse
+B0847	5 V-referanse for enhet – krets lavt inngangssignal
+B0848	5 V-referanse for enhet – krets høyt inngangssignal
+B0850	Batteri – krets funksjonsfeil (ren)
+B0851	Batteri – krets område/ytelse (ren)
+B0852	Batteri – krets lavt inngangssignal (ren)
+B0853	Batteri – krets høyt inngangssignal (ren)
+B0855	Batteri – krets funksjonsfeil (skitten)
+B0856	Batteri – krets område/ytelse (skitten)
+B0857	Batteri – krets lavt inngangssignal (skitten)
+B0858	Batteri – krets høyt inngangssignal (skitten)
+B0859	Systemspenning – lav
+B0860	Systemspenning – høy
+C0001	Antispinnstyrekanal A ventil 1
+C0002	Antispinnstyrekanal A ventil 2
+C0003	Antispinnstyrekanal B ventil 1
+C0004	Antispinnstyrekanal B ventil 2
+C0010	Innløp venstre foran – styring
+C0011	Utløp venstre foran – styring
+C0012	Hydraulisk avlasting venstre foran for lenge
+C0014	Innløp høyre foran – styring
+C0015	Utløp høyre foran – styring
+C0016	Hydraulisk avlasting høyre foran for lenge
+C0018	Innløp venstre bak – styring
+C0019	Utløp venstre bak – styring
+C001A	Hydraulisk avlasting venstre bak for lenge
+C001C	Innløp høyre bak – styring
+C001D	Utløp høyre bak – styring
+C001E	Hydraulisk avlasting høyre bak for lenge
+C0020	ABS-pumpemotor – styring
+C0021	Bremseforsterker – ytelse
+C0022	Bremseforsterkermagnetventil
+C0023	Bremselys – styring
+C0030	Pulsring venstre foran
+C0031	Hjulturtallssensor venstre foran
+C0032	Hjulturtallssensorforsyning venstre foran
+C0033	Pulsring høyre foran
+C0034	Hjulturtallssensor høyre foran
+C0035	Hjulturtallssensorforsyning høyre foran
+C0036	Pulsring venstre bak
+C0037	Hjulturtallssensor venstre bak
+C0038	Hjulturtallssensorforsyning venstre bak
+C0039	Pulsring høyre bak
+C003A	Hjulturtallssensor høyre bak
+C003B	Hjulturtallssensorforsyning høyre bak
+C003C	Pulsring bak
+C003D	Hjulturtallssensor bak
+C003E	Hjulturtallssensorforsyning bak
+C0040	Bremsepedalbryter A
+C0041	Bremsepedalbryter B
+C0042	Bremsepedalposisjonssensor – krets A
+C0043	Bremsepedalposisjonssensor – krets B
+C0044	Bremsetrykksensor A
+C0045	Bremsetrykksensor B
+C0046	Bremsetrykksensor A/B
+C0047	Bremseforsterkertrykksensor
+C0048	Bremseforsterker-vandringssensor
+C0049	Bremsevæske
+C004A	Bremsebeleggslitasjesensor
+C0051	Rattposisjonssensor
+C0052	Rattposisjonssensorsignal A
+C0053	Rattposisjonssensorsignal B
+C0054	Rattposisjonssensorsignal C
+C0055	Rattposisjonssensorsignal D
+C0061	Sideakselerasjonssensor
+C0062	Lengdeakselerasjonssensor
+C0063	Girratesensor
+C0064	Rulleratesensor
+C0069	Girrate-/lengdesensorer
+C006A	Fleraksel-akselerasjonssensor
+C006B	Stabilitetssystemaktiv for lenge
+C006C	Stabilitetssystem
+C0071	Hjuldrivstatusinngang 2/4
+C0072	Brems – temperatur for høy
+C0073	Levert kjøremoment
+C0074	Ønsket kjøremoment
+C0075	Signal om lang bremsepedalvandring til PCM
+C0076	PWM-signal for antispinn – styring
+C0077	Lavt dekktrykk
+C0078	Dekkdiameter
+C0079	Hastighetsavhengig servostyring
+C0081	ABS – feilindikator
+C0082	Bremsesystem – feilindikator
+C0083	Dekktrykkovervåking (TPMS) – feilindikator
+C0084	Indikator for aktiv antispinn
+C0085	Indikator for utkoblet antispinn
+C0086	Kjøredynamikkindikator
+C0089	Antispinndeaktiveringsbryter
+C008A	Antispinnmodus – styring
+C0200	Hjulturtallssensor høyre foran – krets funksjonsfeil
+C0201	Hjulturtallssensor høyre foran – krets område/ytelse
+C0202	Hjulturtallssensor høyre foran – krets lavt inngangssignal
+C0203	Hjulturtallssensor høyre foran – krets høyt inngangssignal
+C0205	Hjulturtallssensor venstre foran – krets funksjonsfeil
+C0206	Hjulturtallssensor venstre foran – krets område/ytelse
+C0207	Hjulturtallssensor venstre foran – krets lavt inngangssignal
+C0208	Hjulturtallssensor venstre foran – krets høyt inngangssignal
+C0210	Hjulturtallssensor høyre bak – krets funksjonsfeil
+C0211	Hjulturtallssensor høyre bak – krets område/ytelse
+C0212	Hjulturtallssensor høyre bak – krets lavt inngangssignal
+C0213	Hjulturtallssensor høyre bak – krets høyt inngangssignal
+C0215	Hjulturtallssensor venstre bak – krets funksjonsfeil
+C0216	Hjulturtallssensor venstre bak – krets område/ytelse
+C0217	Hjulturtallssensor venstre bak – krets lavt inngangssignal
+C0218	Hjulturtallssensor venstre bak – krets høyt inngangssignal
+C0220	Hjulturtallssensor bak – krets funksjonsfeil
+C0221	Hjulturtallssensor bak – krets område/ytelse
+C0222	Hjulturtallssensor bak – krets lavt inngangssignal
+C0223	Hjulturtallssensor bak – krets høyt inngangssignal
+C0225	Hjulturtallssensorfrekvens – feil
+C0226	ABS-magnetventil/måler #1 høyre foran – krets funksjonsfeil
+C0227	ABS-magnetventil/måler #1 høyre foran – krets område/ytelse
+C0228	ABS-magnetventil/måler #1 høyre foran – krets lavt inngangssignal
+C0229	ABS-magnetventil/måler #1 høyre foran – krets høyt inngangssignal
+C0231	ABS-magnetventil/måler #2 høyre foran – krets funksjonsfeil
+C0232	ABS-magnetventil/måler #2 høyre foran – krets område/ytelse
+C0233	ABS-magnetventil/måler #2 høyre foran – krets lavt inngangssignal
+C0234	ABS-magnetventil/måler #2 høyre foran – krets høyt inngangssignal
+C0236	ABS-magnetventil/måler #1 venstre foran – krets funksjonsfeil
+C0237	ABS-magnetventil/måler #1 venstre foran – krets område/ytelse
+C0238	ABS-magnetventil/måler #1 venstre foran – krets lavt inngangssignal
+C0239	ABS-magnetventil/måler #1 venstre foran – krets høyt inngangssignal
+C0241	ABS-magnetventil/måler #2 venstre foran – krets funksjonsfeil
+C0242	ABS-magnetventil/måler #2 venstre foran – krets område/ytelse
+C0243	ABS-magnetventil/måler #2 venstre foran – krets lavt inngangssignal
+C0244	ABS-magnetventil/måler #2 venstre foran – krets høyt inngangssignal
+C0246	ABS-magnetventil/måler #1 høyre bak – krets funksjonsfeil
+C0247	ABS-magnetventil/måler #1 høyre bak – krets område/ytelse
+C0248	ABS-magnetventil/måler #1 høyre bak – krets lavt inngangssignal
+C0249	ABS-magnetventil/måler #1 høyre bak – krets høyt inngangssignal
+C0251	ABS-magnetventil/måler #2 høyre bak – krets funksjonsfeil
+C0252	ABS-magnetventil/måler #2 høyre bak – krets område/ytelse
+C0253	ABS-magnetventil/måler #2 høyre bak – krets lavt inngangssignal
+C0254	ABS-magnetventil/måler #2 høyre bak – krets høyt inngangssignal
+C0256	ABS-magnetventil/måler #1 venstre bak – krets funksjonsfeil
+C0257	ABS-magnetventil/måler #1 venstre bak – krets område/ytelse
+C0258	ABS-magnetventil/måler #1 venstre bak – krets lavt inngangssignal
+C0259	ABS-magnetventil/måler #1 venstre bak – krets høyt inngangssignal
+C0261	ABS-magnetventil/måler #2 høyre bak – krets funksjonsfeil
+C0262	ABS-magnetventil/måler #2 høyre bak – krets område/ytelse
+C0263	ABS-magnetventil/måler #2 høyre bak – krets lavt inngangssignal
+C0264	ABS-magnetventil/måler #2 høyre bak – krets høyt inngangssignal
+C0266	Pumpemotor – krets funksjonsfeil
+C0267	Pumpemotor – krets område/ytelse
+C0268	Pumpemotor – krets lavt inngangssignal
+C0269	Pumpemotor – krets høyt inngangssignal
+C0271	Pumpemotorrelé – krets funksjonsfeil
+C0272	Pumpemotorrelé – krets område/ytelse
+C0273	Pumpemotorrelé – krets lavt inngangssignal
+C0274	Pumpemotorrelé – krets høyt inngangssignal
+C0276	Ventilrelé – krets funksjonsfeil
+C0277	Ventilrelé – krets område/ytelse
+C0278	Ventilrelé – krets lavt inngangssignal
+C0279	Ventilrelé – krets høyt inngangssignal
+C0300	Antispinnmagnetventil/måler #1 høyre foran – krets funksjonsfeil
+C0301	Antispinnmagnetventil/måler #1 høyre foran – krets område/ytelse
+C0302	Antispinnmagnetventil/måler #1 høyre foran – krets lavt inngangssignal
+C0303	Antispinnmagnetventil/måler #1 høyre foran – krets høyt inngangssignal
+C0305	Antispinnmagnetventil/måler #2 høyre foran – krets funksjonsfeil
+C0306	Antispinnmagnetventil/måler #2 høyre foran – krets område/ytelse
+C0307	Antispinnmagnetventil/måler #2 høyre foran – krets lavt inngangssignal
+C0308	Antispinnmagnetventil/måler #2 høyre foran – krets høyt inngangssignal
+C0310	Antispinnmagnetventil/måler #1 venstre foran – krets funksjonsfeil
+C0311	Antispinnmagnetventil/måler #1 venstre foran – krets område/ytelse
+C0312	Antispinnmagnetventil/måler #1 venstre foran – krets lavt inngangssignal
+C0313	Antispinnmagnetventil/måler #1 venstre foran – krets høyt inngangssignal
+C0315	Antispinnmagnetventil/måler #2 venstre foran – krets funksjonsfeil
+C0316	Antispinnmagnetventil/måler #2 venstre foran – krets område/ytelse
+C0317	Antispinnmagnetventil/måler #2 venstre foran – krets lavt inngangssignal
+C0318	Antispinnmagnetventil/måler #2 venstre foran – krets høyt inngangssignal
+C0320	Antispinnmagnetventil/måler #1 høyre bak – krets funksjonsfeil
+C0321	Antispinnmagnetventil/måler #1 høyre bak – krets område/ytelse
+C0322	Antispinnmagnetventil/måler #1 høyre bak – krets lavt inngangssignal
+C0323	Antispinnmagnetventil/måler #1 høyre bak – krets høyt inngangssignal
+C0325	Antispinnmagnetventil/måler #2 høyre bak – krets funksjonsfeil
+C0326	Antispinnmagnetventil/måler #2 høyre bak – krets område/ytelse
+C0327	Antispinnmagnetventil/måler #2 høyre bak – krets lavt inngangssignal
+C0328	Antispinnmagnetventil/måler #2 høyre bak – krets høyt inngangssignal
+C0330	Antispinnmagnetventil/måler #1 venstre bak – krets funksjonsfeil
+C0331	Antispinnmagnetventil/måler #1 venstre bak – krets område/ytelse
+C0332	Antispinnmagnetventil/måler #1 venstre bak – krets lavt inngangssignal
+C0333	Antispinnmagnetventil/måler #1 venstre bak – krets høyt inngangssignal
+C0335	Antispinnmagnetventil/måler #2 høyre bak – krets funksjonsfeil
+C0336	Antispinnmagnetventil/måler #2 høyre bak – krets område/ytelse
+C0337	Antispinnmagnetventil/måler #2 høyre bak – krets lavt inngangssignal
+C0338	Antispinnmagnetventil/måler #2 høyre bak – krets høyt inngangssignal
+C0340	ABS-/antispinnbremsebryter – krets funksjonsfeil
+C0341	ABS-/antispinnbremsebryter – krets område/ytelse
+C0342	ABS-/antispinnbremsebryter – krets lavt inngangssignal
+C0343	ABS-/antispinnbremsebryter – krets høyt inngangssignal
+C0345	Lite bremsevæske – krets funksjonsfeil
+C0346	Lite bremsevæske – krets område/ytelse
+C0347	Lite bremsevæske – krets lavt inngangssignal
+C0348	Lite bremsevæske – krets høyt inngangssignal
+C0350	Magnetventil/måler #1 bak – krets funksjonsfeil
+C0351	Magnetventil/måler #1 bak – krets område/ytelse
+C0352	Magnetventil/måler #1 bak – krets lavt inngangssignal
+C0353	Magnetventil/måler #1 bak – krets høyt inngangssignal
+C0355	Gasspjeldreduksjonsmåler – krets funksjonsfeil
+C0356	Gasspjeldreduksjonsmåler – krets område/ytelse
+C0357	Gasspjeldreduksjonsmåler – krets lavt inngangssignal
+C0358	Gasspjeldreduksjonsmåler – krets høyt inngangssignal
+C0360	Systemtrykk – krets funksjonsfeil
+C0361	Systemtrykk – krets område/ytelse
+C0362	Systemtrykk – krets lavt inngangssignal
+C0363	Systemtrykk – krets høyt inngangssignal
+C0365	Sideakselerasjonssensor – krets funksjonsfeil
+C0366	Sideakselerasjonssensor – krets område/ytelse
+C0367	Sideakselerasjonssensor – krets lavt inngangssignal
+C0368	Sideakselerasjonssensor – krets høyt inngangssignal
+C0370	Girrate – krets funksjonsfeil
+C0371	Girrate – krets område/ytelse
+C0372	Girrate – krets lavt inngangssignal
+C0373	Girrate – krets høyt inngangssignal
+C0500	Styremagnetventil – krets funksjonsfeil
+C0501	Styremagnetventil – krets område/ytelse
+C0502	Styremagnetventil – krets lavt inngangssignal
+C0503	Styremagnetventil – krets høyt inngangssignal
+C0505	Styreposisjonssensor – funksjonsfeil
+C0506	Styreposisjonssensor – område/ytelse
+C0507	Styreposisjonssensor – lavt inngangssignal
+C0508	Styreposisjonssensor – høyt inngangssignal
+C0510	Styrehastighetssensor – funksjonsfeil
+C0511	Styrehastighetssensor – område/ytelse
+C0512	Styrehastighetssensor – lavt inngangssignal
+C0513	Styrehastighetssensor – høyt inngangssignal
+C0700	Magnetventil venstre foran – krets funksjonsfeil
+C0701	Magnetventil venstre foran – krets område/ytelse
+C0702	Magnetventil venstre foran – krets lavt inngangssignal
+C0703	Magnetventil venstre foran – krets høyt inngangssignal
+C0705	Magnetventil høyre foran – krets funksjonsfeil
+C0706	Magnetventil høyre foran – krets område/ytelse
+C0707	Magnetventil høyre foran – krets lavt inngangssignal
+C0708	Magnetventil høyre foran – krets høyt inngangssignal
+C0710	Magnetventil venstre bak – krets funksjonsfeil
+C0711	Magnetventil venstre bak – krets område/ytelse
+C0712	Magnetventil venstre bak – krets lavt inngangssignal
+C0713	Magnetventil venstre bak – krets høyt inngangssignal
+C0715	Magnetventil høyre bak – krets funksjonsfeil
+C0716	Magnetventil høyre bak – krets område/ytelse
+C0717	Magnetventil høyre bak – krets lavt inngangssignal
+C0718	Magnetventil høyre bak – krets høyt inngangssignal
+C0720	Akselerasjonssensor venstre foran – krets funksjonsfeil
+C0721	Akselerasjonssensor venstre foran – krets område/ytelse
+C0722	Akselerasjonssensor venstre foran – krets lavt inngangssignal
+C0723	Akselerasjonssensor venstre foran – krets høyt inngangssignal
+C0725	Akselerasjonssensor høyre foran – krets funksjonsfeil
+C0726	Akselerasjonssensor høyre foran – krets område/ytelse
+C0727	Akselerasjonssensor høyre foran – krets lavt inngangssignal
+C0728	Akselerasjonssensor høyre foran – krets høyt inngangssignal
+C0730	Akselerasjonssensor venstre bak – krets funksjonsfeil
+C0731	Akselerasjonssensor venstre bak – krets område/ytelse
+C0732	Akselerasjonssensor venstre bak – krets lavt inngangssignal
+C0733	Akselerasjonssensor venstre bak – krets høyt inngangssignal
+C0735	Akselerasjonssensor høyre bak – krets funksjonsfeil
+C0736	Akselerasjonssensor høyre bak – krets område/ytelse
+C0737	Akselerasjonssensor høyre bak – krets lavt inngangssignal
+C0738	Akselerasjonssensor høyre bak – krets høyt inngangssignal
+C0740	Posisjonssensor venstre foran – krets funksjonsfeil
+C0741	Posisjonssensor venstre foran – krets område/ytelse
+C0742	Posisjonssensor venstre foran – krets lavt inngangssignal
+C0743	Posisjonssensor venstre foran – krets høyt inngangssignal
+C0745	Posisjonssensor høyre foran – krets funksjonsfeil
+C0746	Posisjonssensor høyre foran – krets område/ytelse
+C0747	Posisjonssensor høyre foran – krets lavt inngangssignal
+C0748	Posisjonssensor høyre foran – krets høyt inngangssignal
+C0750	Posisjonssensor venstre bak – krets funksjonsfeil
+C0751	Posisjonssensor venstre bak – krets område/ytelse
+C0752	Posisjonssensor venstre bak – krets lavt inngangssignal
+C0753	Posisjonssensor venstre bak – krets høyt inngangssignal
+C0755	Posisjonssensor høyre bak – krets funksjonsfeil
+C0756	Posisjonssensor høyre bak – krets område/ytelse
+C0757	Posisjonssensor høyre bak – krets lavt inngangssignal
+C0758	Posisjonssensor høyre bak – krets høyt inngangssignal
+P0001	Drivstoffmengderegulator – styrekrets brudd
+P0002	Drivstoffmengderegulator – styrekrets område/ytelse
+P0003	Drivstoffmengderegulator – styrekrets lav
+P0004	Drivstoffmengderegulator – styrekrets høy
+P0005	Drivstoffstengeventil A – styrekrets brudd
+P0006	Drivstoffstengeventil A – styrekrets lav
+P0007	Drivstoffstengeventil A – styrekrets høy
+P0008	Motorposisjonssystem – ytelse, bank 1
+P0009	Motorposisjonssystem – ytelse, bank 2
+P000A	Kamakselposisjon A – langsom respons, bank 1
+P000B	Kamakselposisjon B – langsom respons, bank 1
+P000C	Kamakselposisjon A – langsom respons, bank 2
+P000D	Kamakselposisjon B – langsom respons, bank 2
+P0010	Kamakselposisjonsaktuator A – krets brudd, bank 1
+P0011	Kamakselposisjon A – timing for tidlig eller systemytelse, bank 1
+P0012	Kamakselposisjon A – timing for sen, bank 1
+P0013	Kamakselposisjon B – aktuatorkrets brudd, bank 1
+P0014	Kamakselposisjon B – timing for tidlig eller systemytelse, bank 1
+P0015	Kamakselposisjon B – timing for sen, bank 1
+P0016	Veivakselposisjon – korrelasjon med kamakselposisjon, bank 1 sensor A
+P0017	Veivakselposisjon – korrelasjon med kamakselposisjon, bank 1 sensor B
+P0018	Veivakselposisjon – korrelasjon med kamakselposisjon, bank 2 sensor A
+P0019	Veivakselposisjon – korrelasjon med kamakselposisjon, bank 2 sensor B
+P0020	Kamakselposisjonsaktuator A – krets brudd, bank 2
+P0021	Kamakselposisjon A – timing for tidlig eller systemytelse, bank 2
+P0022	Kamakselposisjon A – timing for sen, bank 2
+P0023	Kamakselposisjon B – aktuatorkrets brudd, bank 2
+P0024	Kamakselposisjon B – timing for tidlig eller systemytelse, bank 2
+P0025	Kamakselposisjon B – timing for sen, bank 2
+P0026	Innsugsventilstyremagnetventil – krets område/ytelse, bank 1
+P0027	Eksosventilstyremagnetventil – krets område/ytelse, bank 1
+P0028	Innsugsventilstyremagnetventil – krets område/ytelse, bank 2
+P0029	Eksosventilstyremagnetventil – krets område/ytelse, bank 2
+P0030	Lambdasondevarmer – styrekrets, bank 1 sensor 1
+P0031	Lambdasondevarmer – styrekrets lav, bank 1 sensor 1
+P0032	Lambdasondevarmer – styrekrets høy, bank 1 sensor 1
+P0033	Turbo-/kompressorbypassventil – styrekrets
+P0034	Turbo-/kompressorbypassventil – styrekrets lav
+P0035	Turbo-/kompressorbypassventil – styrekrets høy
+P0036	Lambdasondevarmer – styrekrets, bank 1 sensor 2
+P0037	Lambdasondevarmer – styrekrets lav, bank 1 sensor 2
+P0038	Lambdasondevarmer – styrekrets høy, bank 1 sensor 2
+P0039	Turbo-/kompressorbypassventil – styrekrets område/ytelse
+P0040	Lambdasondesignaler forbyttet, bank 1 sensor 1, bank 2 sensor 1
+P0041	Lambdasondesignaler forbyttet, bank 1 sensor 2, bank 2 sensor 2
+P0042	Lambdasondevarmer – styrekrets, bank 1 sensor 3
+P0043	Lambdasondevarmer – styrekrets lav, bank 1 sensor 3
+P0044	Lambdasondevarmer – styrekrets høy, bank 1 sensor 3
+P0045	Turbo-/kompressorladetrykkreguleringsmagnetventil A – krets brudd
+P0046	Turbo-/kompressorladetrykkreguleringsmagnetventil A – krets område/ytelse
+P0047	Turbo-/kompressorladetrykkreguleringsmagnetventil A – krets lav
+P0048	Turbo-/kompressorladetrykkreguleringsmagnetventil A – krets høy
+P0049	Turbo-/kompressorturbin – overturtall
+P004A	Turbo-/kompressorladetrykkreguleringsmagnetventil B – krets brudd
+P004B	Turbo-/kompressorladetrykkreguleringsmagnetventil B – krets område/ytelse
+P004C	Turbo-/kompressorladetrykkreguleringsmagnetventil B – krets lav
+P004D	Turbo-/kompressorladetrykkreguleringsmagnetventil B – krets høy
+P004E	Turbo-/kompressorladetrykkreguleringsmagnetventil A – krets sporadisk/ustabil
+P004F	Turbo-/kompressorladetrykkreguleringsmagnetventil B – krets sporadisk/ustabil
+P0050	Lambdasondevarmer – styrekrets, bank 2 sensor 1
+P0051	Lambdasondevarmer – styrekrets lav, bank 2 sensor 1
+P0052	Lambdasondevarmer – styrekrets høy, bank 2 sensor 1
+P0053	Lambdasondevarmermotstand, bank 1 sensor 1
+P0054	Lambdasondevarmermotstand, bank 1 sensor 2
+P0055	Lambdasondevarmermotstand, bank 1 sensor 3
+P0056	Lambdasondevarmer – styrekrets, bank 2 sensor 2
+P0057	Lambdasondevarmer – styrekrets lav, bank 2 sensor 2
+P0058	Lambdasondevarmer – styrekrets høy, bank 2 sensor 2
+P0059	Lambdasondevarmermotstand, bank 2 sensor 1
+P0060	Lambdasondevarmermotstand, bank 2 sensor 2
+P0061	Lambdasondevarmermotstand, bank 2 sensor 3
+P0062	Lambdasondevarmer – styrekrets, bank 2 sensor 3
+P0063	Lambdasondevarmer – styrekrets lav, bank 2 sensor 3
+P0064	Lambdasondevarmer – styrekrets høy, bank 2 sensor 3
+P0065	Luftassistertinjektor – styring område/ytelse
+P0066	Luftassistertinjektor – styrekrets eller krets lav
+P0067	Luftassistertinjektor – styrekrets høy
+P0068	MAP/MAF – korrelasjon med gasspjeldposisjon
+P0069	Manifoldtrykk (MAP) – korrelasjon med barometertrykk
+P006A	MAP – korrelasjon med luftmasse/luftvolum
+P006B	MAP – korrelasjon med eksostrykk
+P006C	MAP – korrelasjon med innløpstrykk til turbo/kompressor
+P006D	Barometertrykk – korrelasjon med innløpstrykk til turbo/kompressor
+P0070	Utelufttemperatursensor – krets
+P0071	Utelufttemperatursensor – område/ytelse
+P0072	Utelufttemperatursensor – krets lav
+P0073	Utelufttemperatursensor – krets høy
+P0074	Utelufttemperatursensor – krets sporadisk
+P0075	Innsugsventilstyremagnetventil – krets, bank 1
+P0076	Innsugsventilstyremagnetventil – krets lav, bank 1
+P0077	Innsugsventilstyremagnetventil – krets høy, bank 1
+P0078	Eksosventilstyremagnetventil – krets, bank 1
+P0079	Eksosventilstyremagnetventil – krets lav, bank 1
+P0080	Eksosventilstyremagnetventil – krets høy, bank 1
+P0081	Innsugsventilstyremagnetventil – krets, bank 2
+P0082	Innsugsventilstyremagnetventil – krets lav, bank 2
+P0083	Innsugsventilstyremagnetventil – krets høy, bank 2
+P0084	Eksosventilstyremagnetventil – krets, bank 2
+P0085	Eksosventilstyremagnetventil – krets lav, bank 2
+P0086	Eksosventilstyremagnetventil – krets høy, bank 2
+P0087	Drivstoffrørs-/systemtrykk – for lav
+P0088	Drivstoffrørs-/systemtrykk – for høy
+P0089	Drivstofftrykkregulator 1 – ytelse
+P0090	Drivstofftrykkregulator 1 – styrekrets
+P0091	Drivstofftrykkregulator 1 – styrekrets lav
+P0092	Drivstofftrykkregulator 1 – styrekrets høy
+P0093	Drivstoffsystemlekkasje – registrert – stor lekkasje
+P0094	Drivstoffsystemlekkasje – registrert – liten lekkasje
+P0095	Innsugslufttemperatursensor 2 – krets
+P0096	Innsugslufttemperatursensor 2 – krets område/ytelse
+P0097	Innsugslufttemperatursensor 2 – krets lav
+P0098	Innsugslufttemperatursensor 2 – krets høy
+P0099	Innsugslufttemperatursensor 2 – krets sporadisk/ustabil
+P009A	Innsugslufttemperatur-/utelufttemperatur – korrelasjon
+P0100	Luftmasse/luftvolum A – krets
+P0101	Luftmasse/luftvolum A – krets område/ytelse
+P0102	Luftmasse/luftvolum A – krets lav
+P0103	Luftmasse/luftvolum A – krets høy
+P0104	Luftmasse/luftvolum A – krets sporadisk
+P0105	Manifoldtrykk (MAP)/barometertrykk – krets
+P0106	Manifoldtrykk (MAP)/barometertrykk – krets område/ytelse
+P0107	Manifoldtrykk (MAP)/barometertrykk – krets lav
+P0108	Manifoldtrykk (MAP)/barometertrykk – krets høy
+P0109	Manifoldtrykk (MAP)/barometertrykk – krets sporadisk
+P010A	Luftmasse/luftvolum B – krets
+P010B	Luftmasse/luftvolum B – krets område/ytelse
+P010C	Luftmasse/luftvolum B – krets lav
+P010D	Luftmasse/luftvolum B – krets høy
+P010E	Luftmasse/luftvolum B – krets sporadisk/ustabil
+P010F	Luftmasse-/luftvolumsensor A/B – korrelasjon
+P0110	Innsugslufttemperatursensor 1 – krets
+P0111	Innsugslufttemperatursensor 1 – krets område/ytelse
+P0112	Innsugslufttemperatursensor 1 – krets lav
+P0113	Innsugslufttemperatursensor 1 – krets høy
+P0114	Innsugslufttemperatursensor 1 – krets sporadisk
+P0115	Kjølevæsketemperatursensor 1 – krets
+P0116	Kjølevæsketemperatursensor 1 – krets område/ytelse
+P0117	Kjølevæsketemperatursensor 1 – krets lav
+P0118	Kjølevæsketemperatursensor 1 – krets høy
+P0119	Kjølevæsketemperatursensor 1 – krets sporadisk
+P011A	Kjølevæsketemperatursensor 1/2 – korrelasjon
+P0120	Gasspjeld-/pedalposisjonssensor/-bryter A – krets
+P0121	Gasspjeld-/pedalposisjonssensor/-bryter A – krets område/ytelse
+P0122	Gasspjeld-/pedalposisjonssensor/-bryter A – krets lav
+P0123	Gasspjeld-/pedalposisjonssensor/-bryter A – krets høy
+P0124	Gasspjeld-/pedalposisjonssensor/-bryter A – krets sporadisk
+P0125	For lav kjølevæsketemperatur for lambdaregulering (lukket sløyfe)
+P0126	For lav kjølevæsketemperatur for stabil drift
+P0127	Innsugsluft – temperatur for høy
+P0128	Termostat (kjølevæsketemperatur under termostatens reguleringstemperatur)
+P0129	Barometertrykk – for lav
+P012A	Turbo-/kompressorinnløpstrykksensor – krets
+P012B	Turbo-/kompressorinnløpstrykksensor – krets område/ytelse
+P012C	Turbo-/kompressorinnløpstrykksensor – krets lav
+P012D	Turbo-/kompressorinnløpstrykksensor – krets høy
+P012E	Turbo-/kompressorinnløpstrykksensor – krets sporadisk/ustabil
+P0130	Lambdasonde – krets, bank 1 sensor 1
+P0131	Lambdasonde – krets lav spenning, bank 1 sensor 1
+P0132	Lambdasonde – krets høy spenning, bank 1 sensor 1
+P0133	Lambdasonde – krets langsom respons, bank 1 sensor 1
+P0134	Lambdasonde – krets ingen aktivitet registrert, bank 1 sensor 1
+P0135	Lambdasondevarmer – krets, bank 1 sensor 1
+P0136	Lambdasonde – krets, bank 1 sensor 2
+P0137	Lambdasonde – krets lav spenning, bank 1 sensor 2
+P0138	Lambdasonde – krets høy spenning, bank 1 sensor 2
+P0139	Lambdasonde – krets langsom respons, bank 1 sensor 2
+P0140	Lambdasonde – krets ingen aktivitet registrert, bank 1 sensor 2
+P0141	Lambdasondevarmer – krets, bank 1 sensor 2
+P0142	Lambdasonde – krets, bank 1 sensor 3
+P0143	Lambdasonde – krets lav spenning, bank 1 sensor 3
+P0144	Lambdasonde – krets høy spenning, bank 1 sensor 3
+P0145	Lambdasonde – krets langsom respons, bank 1 sensor 3
+P0146	Lambdasonde – krets ingen aktivitet registrert, bank 1 sensor 3
+P0147	Lambdasondevarmer – krets, bank 1 sensor 3
+P0148	Drivstofftilførsel – feil
+P0149	Drivstofftiming – feil
+P0150	Lambdasonde – krets, bank 2 sensor 1
+P0151	Lambdasonde – krets lav spenning, bank 2 sensor 1
+P0152	Lambdasonde – krets høy spenning, bank 2 sensor 1
+P0153	Lambdasonde – krets langsom respons, bank 2 sensor 1
+P0154	Lambdasonde – krets ingen aktivitet registrert, bank 2 sensor 1
+P0155	Lambdasondevarmer – krets, bank 2 sensor 1
+P0156	Lambdasonde – krets, bank 2 sensor 2
+P0157	Lambdasonde – krets lav spenning, bank 2 sensor 2
+P0158	Lambdasonde – krets høy spenning, bank 2 sensor 2
+P0159	Lambdasonde – krets langsom respons, bank 2 sensor 2
+P0160	Lambdasonde – krets ingen aktivitet registrert, bank 2 sensor 2
+P0161	Lambdasondevarmer – krets, bank 2 sensor 2
+P0162	Lambdasonde – krets, bank 2 sensor 3
+P0163	Lambdasonde – krets lav spenning, bank 2 sensor 3
+P0164	Lambdasonde – krets høy spenning, bank 2 sensor 3
+P0165	Lambdasonde – krets langsom respons, bank 2 sensor 3
+P0166	Lambdasonde – krets ingen aktivitet registrert, bank 2 sensor 3
+P0167	Lambdasondevarmer – krets, bank 2 sensor 3
+P0168	Drivstoff – temperatur for høy
+P0169	Feil drivstoffsammensetning
+P0170	Drivstofftrim, bank 1
+P0171	Blandingen er for mager, bank 1
+P0172	Blandingen er for fet, bank 1
+P0173	Drivstofftrim, bank 2
+P0174	Blandingen er for mager, bank 2
+P0175	Blandingen er for fet, bank 2
+P0176	Drivstoffsammensetningssensor – krets
+P0177	Drivstoffsammensetningssensor – krets område/ytelse
+P0178	Drivstoffsammensetningssensor – krets lav
+P0179	Drivstoffsammensetningssensor – krets høy
+P0180	Drivstofftemperatursensor A – krets
+P0181	Drivstofftemperatursensor A – krets område/ytelse
+P0182	Drivstofftemperatursensor A – krets lav
+P0183	Drivstofftemperatursensor A – krets høy
+P0184	Drivstofftemperatursensor A – krets sporadisk
+P0185	Drivstofftemperatursensor B – krets
+P0186	Drivstofftemperatursensor B – krets område/ytelse
+P0187	Drivstofftemperatursensor B – krets lav
+P0188	Drivstofftemperatursensor B – krets høy
+P0189	Drivstofftemperatursensor B – krets sporadisk
+P018A	Drivstofftrykksensor B – krets
+P018B	Drivstofftrykksensor B – krets område/ytelse
+P018C	Drivstofftrykksensor B – krets lav
+P018D	Drivstofftrykksensor B – krets høy
+P018E	Drivstofftrykksensor B – krets sporadisk/ustabil
+P0190	Drivstoffrørstrykksensor A – krets
+P0191	Drivstoffrørstrykksensor A – krets område/ytelse
+P0192	Drivstoffrørstrykksensor A – krets lav
+P0193	Drivstoffrørstrykksensor A – krets høy
+P0194	Drivstoffrørstrykksensor A – krets sporadisk/ustabil
+P0195	Motoroljetemperatursensor
+P0196	Motoroljetemperatursensor – område/ytelse
+P0197	Motoroljetemperatursensor – lav
+P0198	Motoroljetemperatursensor – høy
+P0199	Motoroljetemperatursensor – sporadisk
+P0200	Injektor – krets brudd
+P0201	Injektor – krets brudd, sylinder 1
+P0202	Injektor – krets brudd, sylinder 2
+P0203	Injektor – krets brudd, sylinder 3
+P0204	Injektor – krets brudd, sylinder 4
+P0205	Injektor – krets brudd, sylinder 5
+P0206	Injektor – krets brudd, sylinder 6
+P0207	Injektor – krets brudd, sylinder 7
+P0208	Injektor – krets brudd, sylinder 8
+P0209	Injektor – krets brudd, sylinder 9
+P020A	Innsprøytingstidspunkt, sylinder 1
+P020B	Innsprøytingstidspunkt, sylinder 2
+P020C	Innsprøytingstidspunkt, sylinder 3
+P020D	Innsprøytingstidspunkt, sylinder 4
+P020E	Innsprøytingstidspunkt, sylinder 5
+P020F	Innsprøytingstidspunkt, sylinder 6
+P0210	Injektor – krets brudd, sylinder 10
+P0211	Injektor – krets brudd, sylinder 11
+P0212	Injektor – krets brudd, sylinder 12
+P0213	Kaldstartinjektor 1
+P0214	Kaldstartinjektor 2
+P0215	Motoravstengingsmagnetventil
+P0216	Injektor/innsprøytingstidspunkt – styrekrets
+P0217	Overtemperatur i kjølevæsken
+P0218	Girolje – overtemperatur
+P0219	Motor – overturtall
+P021A	Innsprøytingstidspunkt, sylinder 7
+P021B	Innsprøytingstidspunkt, sylinder 8
+P021C	Innsprøytingstidspunkt, sylinder 9
+P021D	Innsprøytingstidspunkt, sylinder 10
+P021E	Innsprøytingstidspunkt, sylinder 11
+P021F	Innsprøytingstidspunkt, sylinder 12
+P0220	Gasspjeld-/pedalposisjonssensor/-bryter B – krets
+P0221	Gasspjeld-/pedalposisjonssensor/-bryter B – krets område/ytelse
+P0222	Gasspjeld-/pedalposisjonssensor/-bryter B – krets lav
+P0223	Gasspjeld-/pedalposisjonssensor/-bryter B – krets høy
+P0224	Gasspjeld-/pedalposisjonssensor/-bryter B – krets sporadisk
+P0225	Gasspjeld-/pedalposisjonssensor/-bryter C – krets
+P0226	Gasspjeld-/pedalposisjonssensor/-bryter C – krets område/ytelse
+P0227	Gasspjeld-/pedalposisjonssensor/-bryter C – krets lav
+P0228	Gasspjeld-/pedalposisjonssensor/-bryter C – krets høy
+P0229	Gasspjeld-/pedalposisjonssensor/-bryter C – krets sporadisk
+P022A	Ladeluftkjølerbypassstyring A – krets brudd
+P022B	Ladeluftkjølerbypassstyring A – krets lav
+P022C	Ladeluftkjølerbypassstyring A – krets høy
+P022D	Ladeluftkjølerbypassstyring B – krets brudd
+P022E	Ladeluftkjølerbypassstyring B – krets lav
+P022F	Ladeluftkjølerbypassstyring B – krets høy
+P0230	Drivstoffpumpe – primærkrets
+P0231	Drivstoffpumpe sekundær – krets lav
+P0232	Drivstoffpumpe sekundær – krets høy
+P0233	Drivstoffpumpe sekundær – krets sporadisk
+P0234	Turbo/kompressor for høyt ladetrykk – tilstand
+P0235	Turbo-/kompressorladetrykksensor A – krets
+P0236	Turbo-/kompressorladetrykksensor A – krets område/ytelse
+P0237	Turbo-/kompressorladetrykksensor A – krets lav
+P0238	Turbo-/kompressorladetrykksensor A – krets høy
+P0239	Turbo-/kompressorladetrykksensor B – krets
+P023A	Ladeluftkjølerkjølevæskepumpe – styrekrets brudd
+P023B	Ladeluftkjølerkjølevæskepumpe – styrekrets lav
+P023C	Ladeluftkjølerkjølevæskepumpe – styrekrets høy
+P023D	Manifoldtrykk (MAP) – korrelasjon med ladetrykksensor A
+P023E	Manifoldtrykk (MAP) – korrelasjon med ladetrykksensor B
+P0240	Turbo-/kompressorladetrykksensor B – krets område/ytelse
+P0241	Turbo-/kompressorladetrykksensor B – krets lav
+P0242	Turbo-/kompressorladetrykksensor B – krets høy
+P0243	Turbo-/kompressorwastegatemagnetventil A
+P0244	Turbo-/kompressorwastegatemagnetventil A – område/ytelse
+P0245	Turbo-/kompressorwastegatemagnetventil A – lav
+P0246	Turbo-/kompressorwastegatemagnetventil A – høy
+P0247	Turbo-/kompressorwastegatemagnetventil B
+P0248	Turbo-/kompressorwastegatemagnetventil B – område/ytelse
+P0249	Turbo-/kompressorwastegatemagnetventil B – lav
+P024A	Ladeluftkjølerbypassstyring A – område/ytelse
+P024B	Ladeluftkjølerbypassstyring A – henger
+P024C	Ladeluftkjølerbypass-posisjonssensor A – krets
+P024D	Ladeluftkjølerbypass-posisjonssensor A – krets område/ytelse
+P024E	Ladeluftkjølerbypass-posisjonssensor A – krets lav
+P024F	Ladeluftkjølerbypass-posisjonssensor A – krets høy
+P0250	Turbo-/kompressorwastegatemagnetventil B – høy
+P0251	Innsprøytingspumpe-drivstoffdoseringsstyring A (kamaksel/rotor/injektor)
+P0252	Innsprøytingspumpe-drivstoffdoseringsstyring A – område/ytelse (kamaksel/rotor/injektor)
+P0253	Innsprøytingspumpe-drivstoffdoseringsstyring A – lav (kamaksel/rotor/injektor)
+P0254	Innsprøytingspumpe-drivstoffdoseringsstyring A – høy (kamaksel/rotor/injektor)
+P0255	Innsprøytingspumpe-drivstoffdoseringsstyring A – sporadisk (kamaksel/rotor/injektor)
+P0256	Innsprøytingspumpe-drivstoffdoseringsstyring B (kamaksel/rotor/injektor)
+P0257	Innsprøytingspumpe-drivstoffdoseringsstyring B – område/ytelse (kamaksel/rotor/injektor)
+P0258	Innsprøytingspumpe-drivstoffdoseringsstyring B – lav (kamaksel/rotor/injektor)
+P0259	Innsprøytingspumpe-drivstoffdoseringsstyring B – høy (kamaksel/rotor/injektor)
+P025A	Drivstoffpumpemodul – styrekrets brudd
+P025B	Drivstoffpumpemodul – styrekrets område/ytelse
+P025C	Drivstoffpumpemodul – styrekrets lav
+P025D	Drivstoffpumpemodul – styrekrets høy
+P0260	Innsprøytingspumpe-drivstoffdoseringsstyring B – sporadisk (kamaksel/rotor/injektor)
+P0261	Injektor – krets lav, sylinder 1
+P0262	Injektor – krets høy, sylinder 1
+P0263	Bidrag/balanse, sylinder 1
+P0264	Injektor – krets lav, sylinder 2
+P0265	Injektor – krets høy, sylinder 2
+P0266	Bidrag/balanse, sylinder 2
+P0267	Injektor – krets lav, sylinder 3
+P0268	Injektor – krets høy, sylinder 3
+P0269	Bidrag/balanse, sylinder 3
+P0270	Injektor – krets lav, sylinder 4
+P0271	Injektor – krets høy, sylinder 4
+P0272	Bidrag/balanse, sylinder 4
+P0273	Injektor – krets lav, sylinder 5
+P0274	Injektor – krets høy, sylinder 5
+P0275	Bidrag/balanse, sylinder 5
+P0276	Injektor – krets lav, sylinder 6
+P0277	Injektor – krets høy, sylinder 6
+P0278	Bidrag/balanse, sylinder 6
+P0279	Injektor – krets lav, sylinder 7
+P0280	Injektor – krets høy, sylinder 7
+P0281	Bidrag/balanse, sylinder 7
+P0282	Injektor – krets lav, sylinder 8
+P0283	Injektor – krets høy, sylinder 8
+P0284	Bidrag/balanse, sylinder 8
+P0285	Injektor – krets lav, sylinder 9
+P0286	Injektor – krets høy, sylinder 9
+P0287	Bidrag/balanse, sylinder 9
+P0288	Injektor – krets lav, sylinder 10
+P0289	Injektor – krets høy, sylinder 10
+P0290	Bidrag/balanse, sylinder 10
+P0291	Injektor – krets lav, sylinder 11
+P0292	Injektor – krets høy, sylinder 11
+P0293	Bidrag/balanse, sylinder 11
+P0294	Injektor – krets lav, sylinder 12
+P0295	Injektor – krets høy, sylinder 12
+P0296	Bidrag/balanse, sylinder 12
+P0297	Kjøretøy – overturtall
+P0298	Motorolje – overtemperatur
+P0299	Turbo/kompressor for lavt ladetrykk
+P0300	Feiltenning registrert i tilfeldige/flere sylindre
+P0301	Feiltenning registrert i sylinder 1
+P0302	Feiltenning registrert i sylinder 2
+P0303	Feiltenning registrert i sylinder 3
+P0304	Feiltenning registrert i sylinder 4
+P0305	Feiltenning registrert i sylinder 5
+P0306	Feiltenning registrert i sylinder 6
+P0307	Feiltenning registrert i sylinder 7
+P0308	Feiltenning registrert i sylinder 8
+P0309	Feiltenning registrert i sylinder 9
+P0310	Feiltenning registrert i sylinder 10
+P0311	Feiltenning registrert i sylinder 11
+P0312	Feiltenning registrert i sylinder 12
+P0313	Feiltenning – registrert med lite drivstoff
+P0314	Enkeltsylinderfeiltenning (sylinder ikke angitt)
+P0315	Veivakselposisjons-systemvariasjon – ikke innlært
+P0316	Motorfeiltenning – registrert ved oppstart (første 1000 omdreininger)
+P0317	Ujevnveimaskinvare – ikke til stede
+P0318	Ujevnveisensor A signal – krets
+P0319	Ujevnveisensor B signal – krets
+P0320	Tennings-/fordelermotorturtallsinngang – krets
+P0321	Tennings-/fordelermotorturtallsinngang – krets område/ytelse
+P0322	Tennings-/fordelermotorturtallsinngang – krets ikke noe signal
+P0323	Tennings-/fordelermotorturtallsinngang – krets sporadisk
+P0324	Bankereguleringssystem – feil
+P0325	Bankesensor 1 – krets, bank 1 eller eneste sensor
+P0326	Bankesensor 1 – krets område/ytelse, bank 1 eller eneste sensor
+P0327	Bankesensor 1 – krets lav, bank 1 eller eneste sensor
+P0328	Bankesensor 1 – krets høy, bank 1 eller eneste sensor
+P0329	Bankesensor 1 – krets sporadisk, bank 1 eller eneste sensor
+P0330	Bankesensor 2 – krets, bank 2
+P0331	Bankesensor 2 – krets område/ytelse, bank 2
+P0332	Bankesensor 2 – krets lav, bank 2
+P0333	Bankesensor 2 – krets høy, bank 2
+P0334	Bankesensor 2 – krets sporadisk, bank 2
+P0335	Veivakselposisjonssensor A – krets
+P0336	Veivakselposisjonssensor A – krets område/ytelse
+P0337	Veivakselposisjonssensor A – krets lav
+P0338	Veivakselposisjonssensor A – krets høy
+P0339	Veivakselposisjonssensor A – krets sporadisk
+P0340	Kamakselposisjonssensor A – krets, bank 1 eller eneste sensor
+P0341	Kamakselposisjonssensor A – krets område/ytelse, bank 1 eller eneste sensor
+P0342	Kamakselposisjonssensor A – krets lav, bank 1 eller eneste sensor
+P0343	Kamakselposisjonssensor A – krets høy, bank 1 eller eneste sensor
+P0344	Kamakselposisjonssensor A – krets sporadisk, bank 1 eller eneste sensor
+P0345	Kamakselposisjonssensor A – krets, bank 2
+P0346	Kamakselposisjonssensor A – krets område/ytelse, bank 2
+P0347	Kamakselposisjonssensor A – krets lav, bank 2
+P0348	Kamakselposisjonssensor A – krets høy, bank 2
+P0349	Kamakselposisjonssensor A – krets sporadisk, bank 2
+P0350	Tennspole primær/sekundær – krets
+P0351	Tennspole A primær/sekundær – krets
+P0352	Tennspole B primær/sekundær – krets
+P0353	Tennspole C primær/sekundær – krets
+P0354	Tennspole D primær/sekundær – krets
+P0355	Tennspole E primær/sekundær – krets
+P0356	Tennspole F primær/sekundær – krets
+P0357	Tennspole G primær/sekundær – krets
+P0358	Tennspole H primær/sekundær – krets
+P0359	Tennspole I primær/sekundær – krets
+P0360	Tennspole J primær/sekundær – krets
+P0361	Tennspole K primær/sekundær – krets
+P0362	Tennspole L primær/sekundær – krets
+P0363	Feiltenning – registrert – drivstofftilførsel avslått
+P0365	Kamakselposisjonssensor B – krets, bank 1
+P0366	Kamakselposisjonssensor B – krets område/ytelse, bank 1
+P0367	Kamakselposisjonssensor B – krets lav, bank 1
+P0368	Kamakselposisjonssensor B – krets høy, bank 1
+P0369	Kamakselposisjonssensor B – krets sporadisk, bank 1
+P0370	Tenningsreferanse – høyoppløsningssignal A
+P0371	Tenningsreferanse – høyoppløsningssignal A for mange pulser
+P0372	Tenningsreferanse – høyoppløsningssignal A for få pulser
+P0373	Tenningsreferanse – høyoppløsningssignal A sporadiske/ustabile pulser
+P0374	Tenningsreferanse – høyoppløsningssignal A ingen pulser
+P0375	Tenningsreferanse – høyoppløsningssignal B
+P0376	Tenningsreferanse – høyoppløsningssignal B for mange pulser
+P0377	Tenningsreferanse – høyoppløsningssignal B for få pulser
+P0378	Tenningsreferanse – høyoppløsningssignal B sporadiske/ustabile pulser
+P0379	Tenningsreferanse – høyoppløsningssignal B ingen pulser
+P0380	Glødeplugg/varmer – krets A
+P0381	Glødeplugg-/varmerindikator – krets
+P0382	Glødeplugg/varmer – krets B
+P0383	Glødepluggstyreenhet – styrekrets lav
+P0384	Glødepluggstyreenhet – styrekrets høy
+P0385	Veivakselposisjonssensor B – krets
+P0386	Veivakselposisjonssensor B – krets område/ytelse
+P0387	Veivakselposisjonssensor B – krets lav
+P0388	Veivakselposisjonssensor B – krets høy
+P0389	Veivakselposisjonssensor B – krets sporadisk
+P0390	Kamakselposisjonssensor B – krets, bank 2
+P0391	Kamakselposisjonssensor B – krets område/ytelse, bank 2
+P0392	Kamakselposisjonssensor B – krets lav, bank 2
+P0393	Kamakselposisjonssensor B – krets høy, bank 2
+P0394	Kamakselposisjonssensor B – krets sporadisk, bank 2
+P0400	EGR-strøm
+P0401	EGR-strøm – utilstrekkelig
+P0402	EGR-strøm for stor – registrert
+P0403	EGR – styrekrets
+P0404	EGR – styrekrets område/ytelse
+P0405	EGR-sensor A – krets lav
+P0406	EGR-sensor A – krets høy
+P0407	EGR-sensor B – krets lav
+P0408	EGR-sensor B – krets høy
+P0409	EGR-sensor A – krets
+P040A	EGR-temperatursensor A – krets
+P040B	EGR-temperatursensor A – krets område/ytelse
+P040C	EGR-temperatursensor A – krets lav
+P040D	EGR-temperatursensor A – krets høy
+P040E	EGR-temperatursensor A – krets sporadisk/ustabil
+P040F	EGR-temperatursensor A/B – korrelasjon
+P0410	Sekundærluftsystem
+P0411	Sekundærluftsystem – feil strømning registrert
+P0412	Sekundærluftomkoblingsventil A – krets
+P0413	Sekundærluftomkoblingsventil A – krets brudd
+P0414	Sekundærluftomkoblingsventil A – krets kortsluttet
+P0415	Sekundærluftomkoblingsventil B – krets
+P0416	Sekundærluftomkoblingsventil B – krets brudd
+P0417	Sekundærluftomkoblingsventil B – krets kortsluttet
+P0418	Sekundærluftstyring A – krets
+P0419	Sekundærluftstyring B – krets
+P041A	EGR-temperatursensor B – krets
+P041B	EGR-temperatursensor B – krets område/ytelse
+P041C	EGR-temperatursensor B – krets lav
+P041D	EGR-temperatursensor B – krets høy
+P041E	EGR-temperatursensor B – krets sporadisk/ustabil
+P0420	Katalysatorens effektivitet under grenseverdi, bank 1
+P0421	Oppvarmingskatalysator-effektivitet – under grenseverdi, bank 1
+P0422	Hovedkatalysatoreffektivitet – under grenseverdi, bank 1
+P0423	Katalysatoreffektivitet – under grenseverdi, bank 1
+P0424	Katalysatortemperatur – under grenseverdi, bank 1
+P0425	Katalysatortemperatursensor – krets, bank 1 sensor 1
+P0426	Katalysatortemperatursensor – krets område/ytelse, bank 1 sensor 1
+P0427	Katalysatortemperatursensor – krets lav, bank 1 sensor 1
+P0428	Katalysatortemperatursensor – krets høy, bank 1 sensor 1
+P0429	Katalysatorvarmer – styrekrets, bank 1
+P042A	Katalysatortemperatursensor – krets, bank 1 sensor 2
+P042B	Katalysatortemperatursensor – krets område/ytelse, bank 1 sensor 2
+P042C	Katalysatortemperatursensor – krets lav, bank 1 sensor 2
+P042D	Katalysatortemperatursensor – krets høy, bank 1 sensor 2
+P0430	Katalysatorsystemeffektivitet – under grenseverdi, bank 2
+P0431	Oppvarmingskatalysator-effektivitet – under grenseverdi, bank 2
+P0432	Hovedkatalysatoreffektivitet – under grenseverdi, bank 2
+P0433	Katalysatoreffektivitet – under grenseverdi, bank 2
+P0434	Katalysatortemperatur – under grenseverdi, bank 2
+P0435	Katalysatortemperatursensor – krets, bank 2 sensor 1
+P0436	Katalysatortemperatursensor – krets område/ytelse, bank 2 sensor 1
+P0437	Katalysatortemperatursensor – krets lav, bank 2 sensor 1
+P0438	Katalysatortemperatursensor – krets høy, bank 2 sensor 1
+P0439	Katalysatorvarmer – styrekrets, bank 2
+P043A	Katalysatortemperatursensor – krets, bank 2 sensor 2
+P043B	Katalysatortemperatursensor – krets område/ytelse, bank 2 sensor 2
+P043C	Katalysatortemperatursensor – krets lav, bank 2 sensor 2
+P043D	Katalysatortemperatursensor – krets høy, bank 2 sensor 2
+P043E	EVAP-lekkasjetest-referanseblende – lav strømning
+P043F	EVAP-lekkasjetest-referanseblende – høy strømning
+P0440	Fordampningssystem (EVAP)
+P0441	Fordampningssystem (EVAP) – feil spylestrøm
+P0442	EVAP-lekkasje – registrert (liten lekkasje)
+P0443	EVAP-spyleventil – krets
+P0444	EVAP-spyleventil – krets brudd
+P0445	EVAP-spyleventil – krets kortsluttet
+P0446	EVAP-lufting – styrekrets
+P0447	EVAP-lufting – styrekrets brudd
+P0448	EVAP-lufting – styrekrets kortsluttet
+P0449	EVAP-lufteventil/-magnetventil – krets
+P0450	EVAP-trykksensor/-bryter
+P0451	EVAP-trykksensor/-bryter – område/ytelse
+P0452	EVAP-trykksensor/-bryter – lav
+P0453	EVAP-trykksensor/-bryter – høy
+P0454	EVAP-trykksensor/-bryter – sporadisk
+P0455	EVAP-lekkasje – registrert (stor lekkasje)
+P0456	EVAP-lekkasje – registrert (svært liten lekkasje)
+P0457	EVAP-lekkasje – registrert (tanklokk løst/mangler)
+P0458	EVAP-spyleventil – krets lav
+P0459	EVAP-spyleventil – krets høy
+P0460	Drivstoffnivåsensor A – krets
+P0461	Drivstoffnivåsensor A – krets område/ytelse
+P0462	Drivstoffnivåsensor A – krets lav
+P0463	Drivstoffnivåsensor A – krets høy
+P0464	Drivstoffnivåsensor A – krets sporadisk
+P0465	EVAP-spylestrømssensor – krets
+P0466	EVAP-spylestrømssensor – krets område/ytelse
+P0467	EVAP-spylestrømssensor – krets lav
+P0468	EVAP-spylestrømssensor – krets høy
+P0469	EVAP-spylestrømssensor – krets sporadisk
+P0470	Eksostrykksensor A – krets
+P0471	Eksostrykksensor A – krets område/ytelse
+P0472	Eksostrykksensor A – krets lav
+P0473	Eksostrykksensor A – krets høy
+P0474	Eksostrykksensor A – krets sporadisk/ustabil
+P0475	Eksostrykkstyreventil
+P0476	Eksostrykkstyreventil – område/ytelse
+P0477	Eksostrykkstyreventil – lav
+P0478	Eksostrykkstyreventil – høy
+P0479	Eksostrykkstyreventil – sporadisk
+P047A	Eksostrykksensor B – krets
+P047B	Eksostrykksensor B – krets område/ytelse
+P047C	Eksostrykksensor B – krets lav
+P047D	Eksostrykksensor B – krets høy
+P047E	Eksostrykksensor B – krets sporadisk/ustabil
+P0480	Kjølevifte 1 – styrekrets
+P0481	Vifte 2 – styrekrets
+P0482	Vifte 3 – styrekrets
+P0483	Vifteplausibilitetskontroll
+P0484	Vifte – krets overstrøm
+P0485	Viftestrøm/-jord – krets
+P0486	EGR-sensor B – krets
+P0487	EGR-gasspjeld – styrekrets A brudd
+P0488	EGR-gasspjeld – styrekrets A område/ytelse
+P0489	EGR – styrekrets A lav
+P0490	EGR – styrekrets A høy
+P0491	Sekundærluftsystem – utilstrekkelig strømning, bank 1
+P0492	Sekundærluftsystem – utilstrekkelig strømning, bank 2
+P0493	Vifte – overturtall
+P0494	Viftehastighet – lav
+P0495	Viftehastighet – høy
+P0496	Fordampningssystem (EVAP) – for høy spylestrøm
+P0497	Fordampningssystem (EVAP) – for lav spylestrøm
+P0498	EVAP-lufteventil – styrekrets lav
+P0499	EVAP-lufteventil – styrekrets høy
+P0500	Hastighetssensor A
+P0501	Hastighetssensor A – område/ytelse
+P0502	Hastighetssensor A – krets lav
+P0503	Hastighetssensor A – sporadisk/ustabil/høy
+P0504	Bremsebryter A/B – korrelasjon
+P0505	Tomgangsregulering
+P0506	Tomgangsturtall lavere enn forventet
+P0507	Tomgangsturtall høyere enn forventet
+P0508	Tomgangsregulering – krets lav
+P0509	Tomgangsregulering – krets høy
+P050A	Kaldstarttomgangsregulering – ytelse
+P050B	Kaldstarttenningstidspunkt – ytelse
+P050C	Kaldstartkjølevæsketemperatur – ytelse
+P050D	Kaldstart ujevn tomgang
+P0510	Tomgangsstillingsbryter
+P0511	Tomgangsluft – styrekrets
+P0512	Startmotor – forespørselskrets
+P0513	Feil nøkkel for startsperre
+P0514	Batteritemperatursensor – krets område/ytelse
+P0515	Batteritemperatursensor – krets
+P0516	Batteritemperatursensor – krets lav
+P0517	Batteritemperatursensor – krets høy
+P0518	Tomgangsluft – styrekrets sporadisk
+P0519	Tomgangsregulering – ytelse
+P0520	Motoroljetrykksensor/-bryter – krets
+P0521	Motoroljetrykksensor/-bryter – område/ytelse
+P0522	Motoroljetrykksensor/-bryter – lav
+P0523	Motoroljetrykksensor/-bryter – høy
+P0524	Motoroljetrykk – for lav
+P0525	Cruisekontrollservo – styrekrets område/ytelse
+P0526	Viftehastighetssensor – krets
+P0527	Viftehastighetssensor – krets område/ytelse
+P0528	Viftehastighetssensor – krets ikke noe signal
+P0529	Viftehastighetssensor – krets sporadisk
+P0530	Kuldemedietrykksensor A (klimaanlegg) – krets
+P0531	Kuldemedietrykksensor A (klimaanlegg) – krets område/ytelse
+P0532	Kuldemedietrykksensor A (klimaanlegg) – krets lav
+P0533	Kuldemedietrykksensor A (klimaanlegg) – krets høy
+P0534	Tap av kuldemedium i klimaanlegget
+P0535	Klimafordampertemperatursensor – krets
+P0536	Klimafordampertemperatursensor – krets område/ytelse
+P0537	Klimafordampertemperatursensor – krets lav
+P0538	Klimafordampertemperatursensor – krets høy
+P0539	Klimafordampertemperatursensor – krets sporadisk
+P053A	Veivhusventilasjonsvarmer – styrekrets brudd
+P053B	Veivhusventilasjonsvarmer – styrekrets lav
+P053C	Veivhusventilasjonsvarmer – styrekrets høy
+P0540	Innsugsluftvarmer A – krets
+P0541	Innsugsluftvarmer A – krets lav
+P0542	Innsugsluftvarmer A – krets høy
+P0543	Innsugsluftvarmer A – krets brudd
+P0544	Eksostemperatursensor – krets, bank 1 sensor 1
+P0545	Eksostemperatursensor – krets lav, bank 1 sensor 1
+P0546	Eksostemperatursensor – krets høy, bank 1 sensor 1
+P0547	Eksostemperatursensor – krets, bank 2 sensor 1
+P0548	Eksostemperatursensor – krets lav, bank 2 sensor 1
+P0549	Eksostemperatursensor – krets høy, bank 2 sensor 1
+P0550	Servostyringstrykksensor/-bryter – krets
+P0551	Servostyringstrykksensor/-bryter – krets område/ytelse
+P0552	Servostyringstrykksensor/-bryter – krets lav
+P0553	Servostyringstrykksensor/-bryter – krets høy
+P0554	Servostyringstrykksensor/-bryter – krets sporadisk
+P0555	Bremseforsterkertrykksensor – krets
+P0556	Bremseforsterkertrykksensor – krets område/ytelse
+P0557	Bremseforsterkertrykksensor – krets lav
+P0558	Bremseforsterkertrykksensor – krets høy
+P0559	Bremseforsterkertrykksensor – krets sporadisk
+P0560	Systemspenning
+P0561	Systemspenning – ustabil
+P0562	Systemspenning – lav
+P0563	Systemspenning – høy
+P0564	Cruisekontroll-multifunksjonsinngang A – krets
+P0565	Cruisekontroll, signal «på»
+P0566	Cruisekontroll, signal «av»
+P0567	Cruisekontroll, signal «gjenoppta»
+P0568	Cruisekontroll, signal «sett»
+P0569	Cruisekontroll, signal «frirulling»
+P056A	Cruisekontroll, signal «øk avstand»
+P056B	Cruisekontroll, signal «reduser avstand»
+P0570	Cruisekontroll, signal «akselerer»
+P0571	Bremsebryter A – krets
+P0572	Bremsebryter A – krets lav
+P0573	Bremsebryter A – krets høy
+P0574	Cruisekontrollsystem – kjørehastighet for høy
+P0575	Cruisekontrollinngang – krets
+P0576	Cruisekontrollinngang – krets lav
+P0577	Cruisekontrollinngang – krets høy
+P0578	Cruisekontroll-multifunksjonsinngang A – krets henger
+P0579	Cruisekontroll-multifunksjonsinngang A – krets område/ytelse
+P0580	Cruisekontroll-multifunksjonsinngang A – krets lav
+P0581	Cruisekontroll-multifunksjonsinngang A – krets høy
+P0582	Cruisekontrollvakuum – styrekrets brudd
+P0583	Cruisekontrollvakuum – styrekrets lav
+P0584	Cruisekontrollvakuum – styrekrets høy
+P0585	Cruisekontroll-multifunksjonsinngang A/B – korrelasjon
+P0586	Cruisekontrolllufting – styrekrets brudd
+P0587	Cruisekontrolllufting – styrekrets lav
+P0588	Cruisekontrolllufting – styrekrets høy
+P0589	Cruisekontroll-multifunksjonsinngang B – krets
+P0590	Cruisekontroll-multifunksjonsinngang B – krets henger
+P0591	Cruisekontroll-multifunksjonsinngang B – krets område/ytelse
+P0592	Cruisekontroll-multifunksjonsinngang B – krets lav
+P0593	Cruisekontroll-multifunksjonsinngang B – krets høy
+P0594	Cruisekontrollservo – styrekrets brudd
+P0595	Cruisekontrollservo – styrekrets lav
+P0596	Cruisekontrollservo – styrekrets høy
+P0597	Termostatvarmer – styrekrets brudd
+P0598	Termostatvarmer – styrekrets lav
+P0599	Termostatvarmer – styrekrets høy
+P0600	Seriell kommunikasjonslinje
+P0601	Styreenhet (intern): minnesjekksum – feil
+P0602	Styreenhetsprogrammering – feil
+P0603	Styreenhet (intern): permanent minne (KAM) – feil (KAM)
+P0604	Styreenhet (intern): arbeidsminne (RAM) – feil (RAM)
+P0605	Styreenhet (intern): leseminne (ROM) – feil (ROM)
+P0606	ECM/PCM-prosessor
+P0607	Styreenhet – ytelse
+P0608	Styreenhets-VSS-utgang A
+P0609	Styreenhets-VSS-utgang B
+P060A	Styreenhet (intern): overvåkingsprosessor – ytelse
+P060B	Styreenhet (intern): behandling A/D – ytelse
+P060C	Styreenhet (intern): hovedprosessor – ytelse
+P060D	Styreenhet (intern): gasspedalposisjon – ytelse
+P060E	Styreenhet (intern): gasspjeldposisjon – ytelse
+P060F	Styreenhet (intern): kjølevæsketemperatur – ytelse
+P0610	Styreenhetskjøretøy-alternativer – feil
+P0611	Drivstoffinjektorstyreenhet – ytelse
+P0612	Drivstoffinjektor-styreenhetsrelé – styring
+P0613	TCM-prosessor
+P0614	ECM/TCM er ikke kompatible
+P0615	Startmotorrelé – krets
+P0616	Startmotorrelé – krets lav
+P0617	Startmotorrelé – krets høy
+P0618	Alternativdrivstoff-styreenhets-KAM – feil
+P0619	Alternativdrivstoffstyreenhets-RAM/ROM – feil
+P061A	Styreenhet (intern): moment – ytelse
+P061B	Styreenhet (intern): momentberegning – ytelse
+P061C	Styreenhet (intern): motorturtall – ytelse
+P061D	Styreenhet (intern): motorluftmasse – ytelse
+P061E	Styreenhet (intern): bremsesignal – ytelse
+P061F	Styreenhet (intern): gasspjeldaktuatorstyring – ytelse
+P0620	Generator – styrekrets
+P0621	Ladelampe/L-klemme – krets
+P0622	Generatorfelt/F-klemme – krets
+P0623	Ladelampe – styrekrets
+P0624	Tanklokklampe – styrekrets
+P0625	Generatorfelt/F-klemme – krets lav
+P0626	Generatorfelt/F-klemme – krets høy
+P0627	Drivstoffpumpe A – styrekrets brudd
+P0628	Drivstoffpumpe A – styrekrets lav
+P0629	Drivstoffpumpe A – styrekrets høy
+P062A	Drivstoffpumpe A – styrekrets område/ytelse
+P062B	Styreenhet (intern): drivstoffinjektor – styring ytelse
+P062C	Styreenhet (intern): kjørehastighet – ytelse
+P062D	Drivstoffinjektorfører – krets ytelse, bank 1
+P062E	Drivstoffinjektorfører – krets ytelse, bank 2
+P062F	Styreenhet (intern): EEPROM – feil
+P0630	VIN – ikke programmert eller inkompatibel – ECM/PCM
+P0631	VIN – ikke programmert eller inkompatibel – TCM
+P0632	Kilometerteller – ikke programmert – ECM/PCM
+P0633	Startsperrenøkkel – ikke programmert – ECM/PCM
+P0634	PCM/ECM/TCM intern – temperatur for høy
+P0635	Servostyring – styrekrets
+P0636	Servostyring – styrekrets lav
+P0637	Servostyring – styrekrets høy
+P0638	Gasspjeldaktuator – styring område/ytelse, bank 1
+P0639	Gasspjeldaktuator – styring område/ytelse, bank 2
+P063A	Generatorspenningsmåling – krets
+P063B	Generatorspenningsmåling – krets område/ytelse
+P063C	Generatorspenningsmåling – krets lav
+P063D	Generatorspenningsmåling – krets høy
+P063E	Autokonfigurasjons-gasspjeldinngang – ikke til stede
+P063F	Autokonfigurasjons-kjølevæsketemperaturinngang – ikke til stede
+P0640	Innsugsluftvarmer – styrekrets
+P0641	Sensorreferansespenning A – krets brudd
+P0642	Sensorreferansespenning A – krets lav
+P0643	Sensorreferansespenning A – krets høy
+P0644	Førerdisplay seriell kommunikasjon – krets
+P0645	Klimaclutchrelé – styrekrets
+P0646	Klimaclutchrelé – styrekrets lav
+P0647	Klimaclutchrelé – styrekrets høy
+P0648	Startsperrelampe – styrekrets
+P0649	Cruisekontrolllampe – styrekrets
+P0650	Motorlampe (MIL) – styrekrets (MIL)
+P0651	Sensorreferansespenning B – krets brudd
+P0652	Sensorreferansespenning B – krets lav
+P0653	Sensorreferansespenning B – krets høy
+P0654	Motorturtallsutgang – krets
+P0655	Motorvarmlampeutgang – styrekrets
+P0656	Drivstoffnivåutgang – krets
+P0657	Aktuatorforsyningsspenning A – krets brudd
+P0658	Aktuatorforsyningsspenning A – krets lav
+P0659	Aktuatorforsyningsspenning A – krets høy
+P065A	Generatorsystem – ytelse
+P065B	Generator – styrekrets område/ytelse
+P0660	Innsugsmanifoldresonansventil – styrekrets brudd, bank 1
+P0661	Innsugsmanifoldresonansventil – styrekrets lav, bank 1
+P0662	Innsugsmanifoldresonansventil – styrekrets høy, bank 1
+P0663	Innsugsmanifoldresonansventil – styrekrets brudd, bank 2
+P0664	Innsugsmanifoldresonansventil – styrekrets lav, bank 2
+P0665	Innsugsmanifoldresonansventil – styrekrets høy, bank 2
+P0666	PCM/ECM/TCM intern temperatursensor – krets
+P0667	PCM/ECM/TCM intern temperatursensor – område/ytelse
+P0668	PCM/ECM/TCM intern temperatursensor – krets lav
+P0669	PCM/ECM/TCM intern temperatursensor – krets høy
+P066A	Glødeplugg 1 – styrekrets lav
+P066B	Glødeplugg 1 – styrekrets høy
+P066C	Glødeplugg 2 – styrekrets lav
+P066D	Glødeplugg 2 – styrekrets høy
+P066E	Glødeplugg 3 – styrekrets lav
+P066F	Glødeplugg 3 – styrekrets høy
+P0670	Glødepluggstyreenhet – styrekrets brudd
+P0671	Glødeplugg – krets brudd, sylinder 1
+P0672	Glødeplugg – krets brudd, sylinder 2
+P0673	Glødeplugg – krets brudd, sylinder 3
+P0674	Glødeplugg – krets brudd, sylinder 4
+P0675	Glødeplugg – krets brudd, sylinder 5
+P0676	Glødeplugg – krets brudd, sylinder 6
+P0677	Glødeplugg – krets brudd, sylinder 7
+P0678	Glødeplugg – krets brudd, sylinder 8
+P0679	Glødeplugg – krets brudd, sylinder 9
+P067A	Glødeplugg 4 – styrekrets lav
+P067B	Glødeplugg 4 – styrekrets høy
+P067C	Glødeplugg 5 – styrekrets lav
+P067D	Glødeplugg 5 – styrekrets høy
+P067E	Glødeplugg 6 – styrekrets lav
+P067F	Glødeplugg 6 – styrekrets høy
+P0680	Glødeplugg – krets brudd, sylinder 10
+P0681	Glødeplugg – krets brudd, sylinder 11
+P0682	Glødeplugg – krets brudd, sylinder 12
+P0683	Kommunikasjon mellom glødepluggstyreenhet og PCM – krets
+P0684	Kommunikasjon mellom glødepluggstyreenhet og PCM – krets område/ytelse
+P0685	ECM/PCM-strømrelé – styrekrets brudd
+P0686	ECM/PCM-strømrelé – styrekrets lav
+P0687	ECM/PCM-strømrelé – styrekrets høy
+P0688	ECM/PCM-strømrelémåling – krets brudd
+P0689	ECM/PCM-strømrelémåling – krets lav
+P068A	ECM/PCM-strømrelé uten strøm – ytelse – for tidlig
+P068B	ECM/PCM-strømrelé uten strøm – ytelse – for sent
+P068C	Glødeplugg 7 – styrekrets lav
+P068D	Glødeplugg 7 – styrekrets høy
+P068E	Glødeplugg 8 – styrekrets lav
+P068F	Glødeplugg 8 – styrekrets høy
+P0690	ECM/PCM-strømrelémåling – krets høy
+P0691	Vifte 1 – styrekrets lav
+P0692	Vifte 1 – styrekrets høy
+P0693	Vifte 2 – styrekrets lav
+P0694	Vifte 2 – styrekrets høy
+P0695	Vifte 3 – styrekrets lav
+P0696	Vifte 3 – styrekrets høy
+P0697	Sensorreferansespenning C – krets brudd
+P0698	Sensorreferansespenning C – krets lav
+P0699	Sensorreferansespenning C – krets høy
+P069A	Glødeplugg 9 – styrekrets lav
+P069B	Glødeplugg 9 – styrekrets høy
+P069C	Glødeplugg 10 – styrekrets lav
+P069D	Glødeplugg 10 – styrekrets høy
+P0700	Girkassestyresystem (forespørsel om motorlampe)
+P0701	Girkassestyresystem – område/ytelse
+P0702	Girkassestyresystem elektrisk
+P0703	Bremsebryter B – krets
+P0704	Clutchbryterinngang – krets
+P0705	Girvelgerposisjonssensor A – krets (inngang for girvelger (PRNDL))
+P0706	Girvelgerposisjonssensor A – krets område/ytelse
+P0707	Girvelgerposisjonssensor A – krets lav
+P0708	Girvelgerposisjonssensor A – krets høy
+P0709	Girvelgerposisjonssensor A – krets sporadisk
+P070A	Giroljenivåsensor – krets
+P070B	Giroljenivåsensor – krets område/ytelse
+P070C	Giroljenivåsensor – krets lav
+P070D	Giroljenivåsensor – krets høy
+P070E	Giroljenivåsensor – krets sporadisk/ustabil
+P070F	Giroljenivå – for lav
+P0710	Giroljetemperatursensor A – krets
+P0711	Giroljetemperatursensor A – krets område/ytelse
+P0712	Giroljetemperatursensor A – krets lav
+P0713	Giroljetemperatursensor A – krets høy
+P0714	Giroljetemperatursensor A – krets sporadisk
+P0715	Inngangs-/turbinturtallssensor A – krets
+P0716	Inngangs-/turbinturtallssensor A – krets område/ytelse
+P0717	Inngangs-/turbinturtallssensor A – krets ikke noe signal
+P0718	Inngangs-/turbinturtallssensor A – krets sporadisk
+P0719	Bremsebryter B – krets lav
+P071A	Girkassemodusbryter A – krets
+P071B	Girkassemodusbryter A – krets lav
+P071C	Girkassemodusbryter A – krets høy
+P071D	Girkassemodusbryter B – krets
+P071E	Girkassemodusbryter B – krets lav
+P071F	Girkassemodusbryter B – krets høy
+P0720	Utgangsturtallssensor – krets
+P0721	Utgangsturtallssensor – krets område/ytelse
+P0722	Utgangsturtallssensor – krets ikke noe signal
+P0723	Utgangsturtallssensor – krets sporadisk
+P0724	Bremsebryter B – krets høy
+P0725	Motorturtallsinngang – krets
+P0726	Motorturtallsinngang – krets område/ytelse
+P0727	Motorturtallsinngang – krets ikke noe signal
+P0728	Motorturtallsinngang – krets sporadisk
+P0729	Gir 6 – feil utveksling
+P0730	Feil girutveksling
+P0731	Gir 1 – feil utveksling
+P0732	Gir 2 – feil utveksling
+P0733	Gir 3 – feil utveksling
+P0734	Gir 4 – feil utveksling
+P0735	Gir 5 – feil utveksling
+P0736	Revers – feil utveksling
+P0737	TCM-motorturtallsutgang – krets
+P0738	TCM-motorturtallsutgang – krets lav
+P0739	TCM-motorturtallsutgang – krets høy
+P0740	Låsekobling i momentomformer – krets brudd
+P0741	Låsekobling i momentomformer – krets ytelse/står av
+P0742	Låsekobling i momentomformer – krets står på
+P0743	Låsekobling i momentomformer – krets elektrisk
+P0744	Låsekobling i momentomformer – krets sporadisk
+P0745	Trykkstyringsmagnetventil A
+P0746	Trykkstyringsmagnetventil A – ytelse/står av
+P0747	Trykkstyringsmagnetventil A – står på
+P0748	Trykkstyringsmagnetventil A elektrisk
+P0749	Trykkstyringsmagnetventil A – sporadisk
+P0750	Girskiftmagnetventil A
+P0751	Girskiftmagnetventil A – ytelse/står av
+P0752	Girskiftmagnetventil A – står på
+P0753	Girskiftmagnetventil A elektrisk
+P0754	Girskiftmagnetventil A – sporadisk
+P0755	Girskiftmagnetventil B
+P0756	Girskiftmagnetventil B – ytelse/står av
+P0757	Girskiftmagnetventil B – står på
+P0758	Girskiftmagnetventil B elektrisk
+P0759	Girskiftmagnetventil B – sporadisk
+P075A	Girskiftmagnetventil G
+P075B	Girskiftmagnetventil G – ytelse/står av
+P075C	Girskiftmagnetventil G – står på
+P075D	Girskiftmagnetventil G elektrisk
+P075E	Girskiftmagnetventil G – sporadisk
+P0760	Girskiftmagnetventil C
+P0761	Girskiftmagnetventil C – ytelse/står av
+P0762	Girskiftmagnetventil C – står på
+P0763	Girskiftmagnetventil C elektrisk
+P0764	Girskiftmagnetventil C – sporadisk
+P0765	Girskiftmagnetventil D
+P0766	Girskiftmagnetventil D – ytelse/står av
+P0767	Girskiftmagnetventil D – står på
+P0768	Girskiftmagnetventil D elektrisk
+P0769	Girskiftmagnetventil D – sporadisk
+P076A	Girskiftmagnetventil H
+P076B	Girskiftmagnetventil H – ytelse/står av
+P076C	Girskiftmagnetventil H – står på
+P076D	Girskiftmagnetventil H elektrisk
+P076E	Girskiftmagnetventil H – sporadisk
+P076F	Gir 7 – feil utveksling
+P0770	Girskiftmagnetventil E
+P0771	Girskiftmagnetventil E – ytelse/står av
+P0772	Girskiftmagnetventil E – står på
+P0773	Girskiftmagnetventil E elektrisk
+P0774	Girskiftmagnetventil E – sporadisk
+P0775	Trykkstyringsmagnetventil B
+P0776	Trykkstyringsmagnetventil B – ytelse/står av
+P0777	Trykkstyringsmagnetventil B – står på
+P0778	Trykkstyringsmagnetventil B elektrisk
+P0779	Trykkstyringsmagnetventil B – sporadisk
+P0780	Girskift – feil
+P0781	Girskift 1-2
+P0782	Girskift 2-3
+P0783	Girskift 3-4
+P0784	Girskift 4-5
+P0785	Girskift-/timingmagnetventil
+P0786	Girskift-/timingmagnetventil – område/ytelse
+P0787	Girskift-/timingmagnetventil – lav
+P0788	Girskift-/timingmagnetventil – høy
+P0789	Girskift-/timingmagnetventil – sporadisk
+P0790	Normal-/sportbryter – krets
+P0791	Mellomakselturtallssensor A – krets
+P0792	Mellomakselturtallssensor A – krets område/ytelse
+P0793	Mellomakselturtallssensor A – krets ikke noe signal
+P0794	Mellomakselturtallssensor A – krets sporadisk
+P0795	Trykkstyringsmagnetventil C
+P0796	Trykkstyringsmagnetventil C – ytelse/står av
+P0797	Trykkstyringsmagnetventil C – står på
+P0798	Trykkstyringsmagnetventil C elektrisk
+P0799	Trykkstyringsmagnetventil C – sporadisk
+P0800	Fordelingsgirkassestyresystem (forespørsel om motorlampe)
+P0801	Reverssperre – styrekrets
+P0802	Girkassestyresystem-MIL – forespørselskrets brudd
+P0803	Opp-/hoppskiftmagnetventil – styrekrets
+P0804	Opp-/hoppskiftlampe – styrekrets
+P0805	Clutchposisjonssensor – krets
+P0806	Clutchposisjonssensor – krets område/ytelse
+P0807	Clutchposisjonssensor – krets lav
+P0808	Clutchposisjonssensor – krets høy
+P0809	Clutchposisjonssensor – krets sporadisk
+P080A	Clutchposisjon – ikke innlært
+P080B	Opp-/hoppskiftmagnetventil – styrekrets område/ytelse
+P080C	Opp-/hoppskiftmagnetventil – styrekrets lav
+P080D	Opp-/hoppskiftmagnetventil – styrekrets høy
+P0810	Clutchposisjon – styring feil
+P0811	For stor sluring i clutch A
+P0812	Reversinngang – krets
+P0813	Reversutgang – krets
+P0814	Girvelgerposisjonsdisplay – krets
+P0815	Oppgiringsbryter – krets
+P0816	Nedgiringsbryter – krets
+P0817	Startmotordeaktivering – krets brudd
+P0818	Drivlinjefrakoblings-bryterinngang – krets
+P0819	Opp-/nedgiringsbryter mot girvelgerposisjon – korrelasjon
+P081A	Startmotordeaktivering – krets lav
+P081B	Startmotordeaktivering – krets høy
+P081C	Parkeringsinngang – krets
+P081D	Friinngang – krets
+P081E	For stor sluring i clutch B
+P0820	Girspak X-Y posisjonssensor – krets
+P0821	Girspak X posisjon – krets
+P0822	Girspak Y posisjon – krets
+P0823	Girspak X posisjon – krets sporadisk
+P0824	Girspak Y posisjon – krets sporadisk
+P0825	Girspakskyv-/trekkbryter (girskiftvarsel)
+P0826	Opp-/nedgiringsbryter – krets
+P0827	Opp-/nedgiringsbryter – krets lav
+P0828	Opp-/nedgiringsbryter – krets høy
+P0829	Girskift 5-6
+P0830	Clutchpedalbryter A – krets
+P0831	Clutchpedalbryter A – krets lav
+P0832	Clutchpedalbryter A – krets høy
+P0833	Clutchpedalbryter B – krets
+P0834	Clutchpedalbryter B – krets lav
+P0835	Clutchpedalbryter B – krets høy
+P0836	Firehjulsdriftsbryter – krets (4WD)
+P0837	Firehjulsdriftsbryter – krets område/ytelse (4WD)
+P0838	Firehjulsdriftsbryter – krets lav (4WD)
+P0839	Firehjulsdriftsbryter – krets høy (4WD)
+P083A	Giroljetrykksensor/-bryter G – krets
+P083B	Giroljetrykksensor/-bryter G – krets område/ytelse
+P083C	Giroljetrykksensor/-bryter G – krets lav
+P083D	Giroljetrykksensor/-bryter G – krets høy
+P083E	Giroljetrykksensor/-bryter G – krets sporadisk
+P083F	Clutchpedalbryter A/B – korrelasjon
+P0840	Giroljetrykksensor/-bryter A – krets
+P0841	Giroljetrykksensor/-bryter A – krets område/ytelse
+P0842	Giroljetrykksensor/-bryter A – krets lav
+P0843	Giroljetrykksensor/-bryter A – krets høy
+P0844	Giroljetrykksensor/-bryter A – krets sporadisk
+P0845	Giroljetrykksensor/-bryter B – krets
+P0846	Giroljetrykksensor/-bryter B – krets område/ytelse
+P0847	Giroljetrykksensor/-bryter B – krets lav
+P0848	Giroljetrykksensor/-bryter B – krets høy
+P0849	Giroljetrykksensor/-bryter B – krets sporadisk
+P084A	Giroljetrykksensor/-bryter H – krets
+P084B	Giroljetrykksensor/-bryter H – krets område/ytelse
+P084C	Giroljetrykksensor/-bryter H – krets lav
+P084D	Giroljetrykksensor/-bryter H – krets høy
+P084E	Giroljetrykksensor/-bryter H – krets sporadisk
+P0850	P/Nbryterinngang – krets
+P0851	P/Nbryterinngang – krets lav
+P0852	P/Nbryterinngang – krets høy
+P0853	Drivbryterinngang – krets
+P0854	Drivbryterinngang – krets lav
+P0855	Drivbryterinngang – krets høy
+P0856	Antispinninngangssignal
+P0857	Antispinninngangssignal – område/ytelse
+P0858	Antispinninngangssignal – lav
+P0859	Antispinninngangssignal – høy
+P085A	Girskiftmodul B kommunikasjon – krets
+P085B	Girskiftmodul B kommunikasjon – krets lav
+P085C	Girskiftmodul B kommunikasjon – krets høy
+P0860	Girskiftmodul A kommunikasjon – krets
+P0861	Girskiftmodul A kommunikasjon – krets lav
+P0862	Girskiftmodul A kommunikasjon – krets høy
+P0863	TCM-kommunikasjon – krets
+P0864	TCM-kommunikasjon – krets område/ytelse
+P0865	TCM-kommunikasjon – krets lav
+P0866	TCM-kommunikasjon – krets høy
+P0867	Giroljetrykk
+P0868	Giroljetrykk – lav
+P0869	Giroljetrykk – høy
+P0870	Giroljetrykksensor/-bryter C – krets
+P0871	Giroljetrykksensor/-bryter C – krets område/ytelse
+P0872	Giroljetrykksensor/-bryter C – krets lav
+P0873	Giroljetrykksensor/-bryter C – krets høy
+P0874	Giroljetrykksensor/-bryter C – krets sporadisk
+P0875	Giroljetrykksensor/-bryter D – krets
+P0876	Giroljetrykksensor/-bryter D – krets område/ytelse
+P0877	Giroljetrykksensor/-bryter D – krets lav
+P0878	Giroljetrykksensor/-bryter D – krets høy
+P0879	Giroljetrykksensor/-bryter D – krets sporadisk
+P0880	TCM-strøminngangssignal
+P0881	TCM-strøminngangssignal – område/ytelse
+P0882	TCM-strøminngangssignal – lav
+P0883	TCM-strøminngangssignal – høy
+P0884	TCM-strøminngangssignal – sporadisk
+P0885	TCM-strømrelé – styrekrets brudd
+P0886	TCM-strømrelé – styrekrets lav
+P0887	TCM-strømrelé – styrekrets høy
+P0888	TCM-strømrelémåling – krets
+P0889	TCM-strømrelémåling – krets område/ytelse
+P0890	TCM-strømrelémåling – krets lav
+P0891	TCM-strømrelémåling – krets høy
+P0892	TCM-strømrelémåling – krets sporadisk
+P0893	Fleregir innkoblet
+P0894	Girkassekomponentsluring
+P0895	Girskifttid for kort
+P0896	Girskifttid for lenge
+P0897	Girolje svekket
+P0898	Girkassestyresystem-MIL – forespørselskrets lav
+P0899	Girkassestyresystem-MIL – forespørselskrets høy
+P0900	Clutchaktuator – krets brudd
+P0901	Clutchaktuator – krets område/ytelse
+P0902	Clutchaktuator – krets lav
+P0903	Clutchaktuator – krets høy
+P0904	Gassvalgposisjon – krets
+P0905	Gassvalgposisjon – krets område/ytelse
+P0906	Gassvalgposisjon – krets lav
+P0907	Gassvalgposisjon – krets høy
+P0908	Gassvalgposisjon – krets sporadisk
+P0909	Gassvalg – styring feil
+P0910	Gassvalgaktuator – krets brudd
+P0911	Gassvalgaktuator – krets område/ytelse
+P0912	Gassvalgaktuator – krets lav
+P0913	Gassvalgaktuator – krets høy
+P0914	Girskiftposisjon – krets
+P0915	Girskiftposisjon – krets område/ytelse
+P0916	Girskiftposisjon – krets lav
+P0917	Girskiftposisjon – krets høy
+P0918	Girskiftposisjon – krets sporadisk
+P0919	Girskiftposisjon – styring feil
+P0920	Girskiftforoveraktuator – krets brudd
+P0921	Girskiftforoveraktuator – krets område/ytelse
+P0922	Girskiftforoveraktuator – krets lav
+P0923	Girskiftforoveraktuator – krets høy
+P0924	Girskiftreversaktuator – krets brudd
+P0925	Girskiftreversaktuator – krets område/ytelse
+P0926	Girskiftreversaktuator – krets lav
+P0927	Girskiftreversaktuator – krets høy
+P0928	Girskiftlåsmagnetventil – styrekrets brudd
+P0929	Girskiftlåsmagnetventil – styrekrets område/ytelse
+P0930	Girskiftlåsmagnetventil – styrekrets lav
+P0931	Girskiftlåsmagnetventil – styrekrets høy
+P0932	Hydraulikktrykksensor – krets
+P0933	Hydraulikktrykksensor – område/ytelse
+P0934	Hydraulikktrykksensor – krets lav
+P0935	Hydraulikktrykksensor – krets høy
+P0936	Hydraulikktrykksensor – krets sporadisk
+P0937	Hydraulikkoljetemperatursensor – krets
+P0938	Hydraulikkoljetemperatursensor – område/ytelse
+P0939	Hydraulikkoljetemperatursensor – krets lav
+P0940	Hydraulikkoljetemperatursensor – krets høy
+P0941	Hydraulikkoljetemperatursensor – krets sporadisk
+P0942	Hydraulikktrykkenhet
+P0943	Hydraulikktrykk-enhetssyklingsperiode for kort
+P0944	Hydraulikktrykkenhet, trykktap
+P0945	Hydraulikkpumperelé – krets brudd
+P0946	Hydraulikkpumperelé – krets område/ytelse
+P0947	Hydraulikkpumperelé – krets lav
+P0948	Hydraulikkpumperelé – krets høy
+P0949	Automatisert girkasse adaptiv innlæring – ikke fullført
+P0950	Automatisert manuell girkasse – styrekrets
+P0951	Automatisert manuell girkasse – styrekrets område/ytelse
+P0952	Automatisert manuell girkasse – styrekrets lav
+P0953	Automatisert manuell girkasse – styrekrets høy
+P0954	Automatisert manuell girkasse – styrekrets sporadisk
+P0955	Automatisert girkasse modus – krets
+P0956	Automatisert girkasse modus – krets område/ytelse
+P0957	Automatisert girkasse modus – krets lav
+P0958	Automatisert girkasse modus – krets høy
+P0959	Automatisert girkasse modus – krets sporadisk
+P0960	Trykkstyringsmagnetventil A – styrekrets brudd
+P0961	Trykkstyringsmagnetventil A – styrekrets område/ytelse
+P0962	Trykkstyringsmagnetventil A – styrekrets lav
+P0963	Trykkstyringsmagnetventil A – styrekrets høy
+P0964	Trykkstyringsmagnetventil B – styrekrets brudd
+P0965	Trykkstyringsmagnetventil B – styrekrets område/ytelse
+P0966	Trykkstyringsmagnetventil B – styrekrets lav
+P0967	Trykkstyringsmagnetventil B – styrekrets høy
+P0968	Trykkstyringsmagnetventil C – styrekrets brudd
+P0969	Trykkstyringsmagnetventil C – styrekrets område/ytelse
+P0970	Trykkstyringsmagnetventil C – styrekrets lav
+P0971	Trykkstyringsmagnetventil C – styrekrets høy
+P0972	Girskiftmagnetventil A – styrekrets område/ytelse
+P0973	Girskiftmagnetventil A – styrekrets lav
+P0974	Girskiftmagnetventil A – styrekrets høy
+P0975	Girskiftmagnetventil B – styrekrets område/ytelse
+P0976	Girskiftmagnetventil B – styrekrets lav
+P0977	Girskiftmagnetventil B – styrekrets høy
+P0978	Girskiftmagnetventil C – styrekrets område/ytelse
+P0979	Girskiftmagnetventil C – styrekrets lav
+P0980	Girskiftmagnetventil C – styrekrets høy
+P0981	Girskiftmagnetventil D – styrekrets område/ytelse
+P0982	Girskiftmagnetventil D – styrekrets lav
+P0983	Girskiftmagnetventil D – styrekrets høy
+P0984	Girskiftmagnetventil E – styrekrets område/ytelse
+P0985	Girskiftmagnetventil E – styrekrets lav
+P0986	Girskiftmagnetventil E – styrekrets høy
+P0987	Giroljetrykksensor/-bryter E – krets
+P0988	Giroljetrykksensor/-bryter E – krets område/ytelse
+P0989	Giroljetrykksensor/-bryter E – krets lav
+P0990	Giroljetrykksensor/-bryter E – krets høy
+P0991	Giroljetrykksensor/-bryter E – krets sporadisk
+P0992	Giroljetrykksensor/-bryter F – krets
+P0993	Giroljetrykksensor/-bryter F – krets område/ytelse
+P0994	Giroljetrykksensor/-bryter F – krets lav
+P0995	Giroljetrykksensor/-bryter F – krets høy
+P0996	Giroljetrykksensor/-bryter F – krets sporadisk
+P0997	Girskiftmagnetventil F – styrekrets område/ytelse
+P0998	Girskiftmagnetventil F – styrekrets lav
+P0999	Girskiftmagnetventil F – styrekrets høy
+P099A	Girskiftmagnetventil G – styrekrets område/ytelse
+P099B	Girskiftmagnetventil G – styrekrets lav
+P099C	Girskiftmagnetventil G – styrekrets høy
+P099D	Girskiftmagnetventil H – styrekrets område/ytelse
+P099E	Girskiftmagnetventil H – styrekrets lav
+P099F	Girskiftmagnetventil H – styrekrets høy
+P0A00	Motorelektronikk-kjølevæsketemperatursensor – krets
+P0A01	Motorelektronikk-kjølevæsketemperatursensor – krets område/ytelse
+P0A02	Motorelektronikk-kjølevæsketemperatursensor – krets lav
+P0A03	Motorelektronikk-kjølevæsketemperatursensor – krets høy
+P0A04	Motorelektronikk-kjølevæsketemperatursensor – krets sporadisk
+P0A05	Kjølevæskepumpe for motorelektronikk – styrekrets brudd
+P0A06	Motorelektronikk-kjølevæskepumpe – styrekrets lav
+P0A07	Motorelektronikk-kjølevæskepumpe – styrekrets høy
+P0A08	DC/DC-omformerstatus – krets
+P0A09	DC/DC-omformerstatus – krets lav
+P0A0A	Høyspenningssystem-sperresløyfe (interlock) – krets
+P0A0B	Høyspenningssystem-sperresløyfe (interlock) – krets ytelse
+P0A0C	Høyspenningssystem-sperresløyfe (interlock) – krets lav
+P0A0D	Høyspenningssystem-sperresløyfe (interlock) – krets høy
+P0A0E	Høyspenningssystem-sperresløyfe (interlock) – krets sporadisk
+P0A0F	Motor startet ikke
+P0A10	DC/DC-omformerstatus – krets høy
+P0A11	DC/DC-omformeraktivering – krets brudd
+P0A12	DC/DC-omformeraktivering – krets lav
+P0A13	DC/DC-omformeraktivering – krets høy
+P0A14	Motoroppheng A – styrekrets brudd
+P0A15	Motoroppheng A – styrekrets lav
+P0A16	Motoroppheng A – styrekrets høy
+P0A17	Motormomentsensor – krets
+P0A18	Motormomentsensor – krets område/ytelse
+P0A19	Motormomentsensor – krets lav
+P0A1A	Generatorstyreenhet
+P0A1B	Styreenhet for drivmotor A
+P0A1C	Styreenhet for drivmotor B
+P0A1D	Hybriddrivlinjestyreenhet
+P0A1E	Startmotor-/generatorstyreenhet
+P0A1F	Batteristyreenhet
+P0A20	Motormomentsensor – krets høy
+P0A21	Motormomentsensor – krets sporadisk
+P0A22	Generatormomentsensor – krets
+P0A23	Generatormomentsensor – krets område/ytelse
+P0A24	Generatormomentsensor – krets lav
+P0A25	Generatormomentsensor – krets høy
+P0A26	Generatormomentsensor – krets sporadisk
+P0A27	Hybridbatteristrøm av – krets
+P0A28	Hybridbatteristrøm av – krets lav
+P0A29	Hybridbatteristrøm av – krets høy
+P0A2A	Temperatursensor for drivmotor A – krets
+P0A2B	Temperatursensor for drivmotor A – krets område/ytelse
+P0A2C	Temperatursensor for drivmotor A – krets lav
+P0A2D	Temperatursensor for drivmotor A – krets høy
+P0A2E	Temperatursensor for drivmotor A – krets sporadisk
+P0A2F	Drivmotor A – overtemperatur
+P0A30	Temperatursensor for drivmotor B – krets
+P0A31	Temperatursensor for drivmotor B – krets område/ytelse
+P0A32	Temperatursensor for drivmotor B – krets lav
+P0A33	Temperatursensor for drivmotor B – krets høy
+P0A34	Temperatursensor for drivmotor B – krets sporadisk
+P0A35	Drivmotor B – overtemperatur
+P0A36	Generatortemperatursensor – krets
+P0A37	Generatortemperatursensor – krets område/ytelse
+P0A38	Generatortemperatursensor – krets lav
+P0A39	Generatortemperatursensor – krets høy
+P0A3A	Generatortemperatursensor – krets sporadisk
+P0A3B	Generator – overtemperatur
+P0A3C	Vekselretter for drivmotor A – overtemperatur
+P0A3D	Vekselretter for drivmotor B – overtemperatur
+P0A3E	Generatorvekselretter – overtemperatur
+P0A3F	Posisjonssensor for drivmotor A – krets
+P0A40	Posisjonssensor for drivmotor A – krets område/ytelse
+P0A41	Posisjonssensor for drivmotor A – krets lav
+P0A42	Posisjonssensor for drivmotor A – krets høy
+P0A43	Posisjonssensor for drivmotor A – krets sporadisk
+P0A44	Posisjonssensor for drivmotor A – krets overturtall
+P0A45	Posisjonssensor for drivmotor B – krets
+P0A46	Posisjonssensor for drivmotor B – krets område/ytelse
+P0A47	Posisjonssensor for drivmotor B – krets lav
+P0A48	Posisjonssensor for drivmotor B – krets høy
+P0A49	Posisjonssensor for drivmotor B – krets sporadisk
+P0A4A	Posisjonssensor for drivmotor B – krets overturtall
+P0A4B	Generatorposisjonssensor – krets
+P0A4C	Generatorposisjonssensor – krets område/ytelse
+P0A4D	Generatorposisjonssensor – krets lav
+P0A4E	Generatorposisjonssensor – krets høy
+P0A4F	Generatorposisjonssensor – krets sporadisk
+P0A50	Generatorposisjonssensor – krets overturtall
+P0A51	Strømsensor for drivmotor A – krets
+P0A52	Strømsensor for drivmotor A – krets område/ytelse
+P0A53	Strømsensor for drivmotor A – krets lav
+P0A54	Strømsensor for drivmotor A – krets høy
+P0A55	Strømsensor for drivmotor B – krets
+P0A56	Strømsensor for drivmotor B – krets område/ytelse
+P0A57	Strømsensor for drivmotor B – krets lav
+P0A58	Strømsensor for drivmotor B – krets høy
+P0A59	Generatorstrømsensor – krets
+P0A5A	Generatorstrømsensor – krets område/ytelse
+P0A5B	Generatorstrømsensor – krets lav
+P0A5C	Generatorstrømsensor – krets høy
+P0A5D	Drivmotor A, strøm i fase U
+P0A5E	Drivmotor A, strøm i fase U – lav
+P0A5F	Drivmotor A, strøm i fase U – høy
+P0A60	Drivmotor A, strøm i fase V
+P0A61	Drivmotor A, strøm i fase V – lav
+P0A62	Drivmotor A, strøm i fase V – høy
+P0A63	Drivmotor A, strøm i fase W
+P0A64	Drivmotor A, strøm i fase W – lav
+P0A65	Drivmotor A, strøm i fase W – høy
+P0A66	Drivmotor B, strøm i fase U
+P0A67	Drivmotor B, strøm i fase U – lav
+P0A68	Drivmotor B, strøm i fase U – høy
+P0A69	Drivmotor B, strøm i fase V
+P0A6A	Drivmotor B, strøm i fase V – lav
+P0A6B	Drivmotor B, strøm i fase V – høy
+P0A6C	Drivmotor B, strøm i fase W
+P0A6D	Drivmotor B, strøm i fase W – lav
+P0A6E	Drivmotor B, strøm i fase W – høy
+P0A6F	Generator, strøm i fase U
+P0A70	Generator, strøm i fase U – lav
+P0A71	Generator, strøm i fase U – høy
+P0A72	Generator, strøm i fase V
+P0A73	Generator, strøm i fase V – lav
+P0A74	Generator, strøm i fase V – høy
+P0A75	Generator, strøm i fase W
+P0A76	Generator, strøm i fase W – lav
+P0A77	Generator, strøm i fase W – høy
+P0A78	Vekselretter for drivmotor A – ytelse
+P0A79	Vekselretter for drivmotor B – ytelse
+P0A7A	Generatorvekselretter – ytelse
+P0A7B	Batteristyreenhet – ber om tenning av motorlampen
+P0A7C	Motorelektronikk – overtemperatur
+P0A7D	Ladenivå i hybridbatteripakken lav
+P0A7E	Hybridbatteripakke – overtemperatur
+P0A7F	Hybridbatteripakken er svekket
+P0A80	Bytt hybridbatteripakke
+P0A81	Hybridbatteripakkekjølevifte 1 – styrekrets brudd
+P0A82	Hybridbatteripakkekjølevifte 1 – ytelse/står av
+P0A83	Hybridbatteripakkekjølevifte 1 – står på
+P0A84	Hybridbatteripakkekjølevifte 1 – styrekrets lav
+P0A85	Hybridbatteripakkekjølevifte 1 – styrekrets høy
+P0A86	14 V-strømmodul: strømsensor – krets
+P0A87	14 V-strømmodul: strømsensor – krets område/ytelse
+P0A88	14 V-strømmodul: strømsensor – krets lav
+P0A89	14 V-strømmodul: strømsensor – krets høy
+P0A8A	14 V-strømmodul: strømsensor – krets sporadisk
+P0A8B	14 V-strømmodul: systemspenning
+P0A8C	14 V-strømmodul: systemspenning – ustabil
+P0A8D	14 V-strømmodul: systemspenning – lav
+P0A8E	14 V-strømmodul: systemspenning – høy
+P0A8F	14 V-strømmodul: system – ytelse
+P0A90	Drivmotor A – ytelse
+P0A91	Drivmotor B – ytelse
+P0A92	Hybridgenerator – ytelse
+P0A93	Kjølesystem for vekselretter – ytelse
+P0A94	DC/DC-omformer – ytelse
+P0A95	Høyspenningssikring
+P0A96	Hybridbatteripakkekjølevifte 2 – styrekrets
+P0A97	Hybridbatteripakkekjølevifte 2 – ytelse/står av
+P0A98	Hybridbatteripakkekjølevifte 2 – står på
+P0A99	Hybridbatteripakkekjølevifte 2 – styrekrets lav
+P0A9A	Hybridbatteripakkekjølevifte 2 – styrekrets høy
+P0A9B	Hybridbatteritemperatursensor A – krets
+P0A9C	Hybridbatteritemperatursensor A – område/ytelse
+P0A9D	Hybridbatteritemperatursensor A – krets lav
+P0A9E	Hybridbatteritemperatursensor A – krets høy
+P0A9F	Hybridbatteritemperatursensor A – krets sporadisk/ustabil
+P0AA0	Hybridbatteripositivhovedrelé – krets
+P0AA1	Hybridbatteripositivhovedrelé – krets henger lukket
+P0AA2	Hybridbatteripositivhovedrelé – krets henger åpen
+P0AA3	Hybridbatterinegativhovedrelé – krets
+P0AA4	Hybridbatterinegativhovedrelé – krets henger lukket
+P0AA5	Hybridbatterinegativhovedrelé – krets henger åpen
+P0AA6	Isolasjonsfeil i hybridbatteriets spenningssystem
+P0AA7	Hybridbatteri-spenningsisolasjonssensor – krets
+P0AA8	Hybridbatteri-spenningsisolasjonssensor – krets område/ytelse
+P0AA9	Hybridbatteri-spenningsisolasjonssensor – krets lav
+P0AAA	Hybridbatteri-spenningsisolasjonssensor – krets høy
+P0AAB	Hybridbatteri-spenningsisolasjonssensor – krets sporadisk/ustabil
+P0AAC	Hybridbatteripakke-lufttemperatursensor A – krets
+P0AAD	Hybridbatteripakke-lufttemperatursensor A – krets område/ytelse
+P0AAE	Hybridbatteripakke-lufttemperatursensor A – krets lav
+P0AAF	Hybridbatteripakke-lufttemperatursensor A – krets høy
+P0AB0	Hybridbatteripakke-lufttemperatursensor A – krets sporadisk/ustabil
+P0AB1	Hybridbatteripakke-lufttemperatursensor B – krets
+P0AB2	Hybridbatteripakke-lufttemperatursensor B – krets område/ytelse
+P0AB3	Hybridbatteripakke-lufttemperatursensor B – krets lav
+P0AB4	Hybridbatteripakke-lufttemperatursensor B – krets høy
+P0AB5	Hybridbatteripakke-lufttemperatursensor B – krets sporadisk/ustabil
+P0AB6	Motoroppheng B – styrekrets brudd
+P0AB7	Motoroppheng B – styrekrets lav
+P0AB8	Motoroppheng B – styrekrets høy
+P0AB9	Hybridsystem – ytelse
+P0ABA	Hybridbatteripakke-spenningsmåling – krets
+P0ABB	Hybridbatteripakke-spenningsmåling – krets område/ytelse
+P0ABC	Hybridbatteripakke-spenningsmåling – krets lav
+P0ABD	Hybridbatteripakke-spenningsmåling – krets høy
+P0ABE	Hybridbatteripakke-spenningsmåling – krets sporadisk/ustabil
+P0ABF	Hybridbatteripakkestrømsensor – krets
+P0AC0	Hybridbatteripakkestrømsensor – krets område/ytelse
+P0AC1	Hybridbatteripakkestrømsensor – krets lav
+P0AC2	Hybridbatteripakkestrømsensor – krets høy
+P0AC3	Hybridbatteripakkestrømsensor – krets sporadisk/ustabil
+P0AC4	Hybriddrivlinjestyreenhet – ber om tenning av motorlampen
+P0AC5	Hybridbatteritemperatursensor B – krets
+P0AC6	Hybridbatteritemperatursensor B – område/ytelse
+P0AC7	Hybridbatteritemperatursensor B – krets lav
+P0AC8	Hybridbatteritemperatursensor B – krets høy
+P0AC9	Hybridbatteritemperatursensor B – krets sporadisk/ustabil
+P0ACA	Hybridbatteritemperatursensor C – krets
+P0ACB	Hybridbatteritemperatursensor C – område/ytelse
+P0ACC	Hybridbatteritemperatursensor C – krets lav
+P0ACD	Hybridbatteritemperatursensor C – krets høy
+P0ACE	Hybridbatteritemperatursensor C – krets sporadisk/ustabil
+P0ACF	Hybridbatteripakkekjølevifte 3 – styrekrets
+P0AD0	Hybridbatteripakkekjølevifte 3 – ytelse/står av
+P0AD1	Hybridbatteripakkekjølevifte 3 – står på
+P0AD2	Hybridbatteripakkekjølevifte 3 – styrekrets lav
+P0AD3	Hybridbatteripakkekjølevifte 3 – styrekrets høy
+P0AD4	Hybridbatteripakke-luftstrømssystem – utilstrekkelig luftstrøm
+P0AD5	Hybridbatteripakke-luftstrømsventil A – styrekrets brudd
+P0AD6	Hybridbatteripakke-luftstrømsventil A – styrekrets område/ytelse
+P0AD7	Hybridbatteripakke-luftstrømsventil A – styrekrets lav
+P0AD8	Hybridbatteripakke-luftstrømsventil A – styrekrets høy
+P0AD9	Hybridbatteripositivhovedrelé – styrekrets brudd
+P0ADA	Hybridbatteripositivhovedrelé – styrekrets område/ytelse
+P0ADB	Hybridbatteripositivhovedrelé – styrekrets lav
+P0ADC	Hybridbatteripositivhovedrelé – styrekrets høy
+P0ADD	Hybridbatterinegativhovedrelé – styrekrets brudd
+P0ADE	Hybridbatterinegativhovedrelé – styrekrets område/ytelse
+P0ADF	Hybridbatterinegativhovedrelé – styrekrets lav
+P0AE0	Hybridbatterinegativhovedrelé – styrekrets høy
+P0AE1	Hybridbatteriforladehovedrelé – krets
+P0AE2	Hybridbatteriforladehovedrelé – krets henger lukket
+P0AE3	Hybridbatteriforladehovedrelé – krets henger åpen
+P0AE4	Hybridbatteriforladehovedrelé – styrekrets
+P0AE5	Hybridbatteriforladehovedrelé – styrekrets område/ytelse
+P0AE6	Hybridbatteriforladehovedrelé – styrekrets lav
+P0AE7	Hybridbatteriforladehovedrelé – styrekrets høy
+P0AE8	Hybridbatteritemperatursensor D – krets
+P0AE9	Hybridbatteritemperatursensor D – område/ytelse
+P0AEA	Hybridbatteritemperatursensor D – krets lav
+P0AEB	Hybridbatteritemperatursensor D – krets høy
+P0AEC	Hybridbatteritemperatursensor D – krets sporadisk/ustabil
+P0AED	Drivmotorvekselretter-temperatursensor A – krets
+P0AEE	Drivmotorvekselretter-temperatursensor A – krets område/ytelse
+P0AEF	Drivmotorvekselretter-temperatursensor A – krets lav
+P0AF0	Drivmotorvekselretter-temperatursensor A – krets høy
+P0AF1	Drivmotorvekselretter-temperatursensor A – krets sporadisk/ustabil
+P0AF2	Drivmotorvekselretter-temperatursensor B – krets
+P0AF3	Drivmotorvekselretter-temperatursensor B – krets område/ytelse
+P0AF4	Drivmotorvekselretter-temperatursensor B – krets lav
+P0AF5	Drivmotorvekselretter-temperatursensor B – krets høy
+P0AF6	Drivmotorvekselretter-temperatursensor B – krets sporadisk/ustabil
+P0AF7	14 V-strømmodul: intern – temperatur for høy
+P0AF8	Hybridbatterisystemspenning
+P0AF9	Hybridbatterisystemspenning – ustabil
+P0AFA	Hybridbatterisystemspenning – lav
+P0AFB	Hybridbatterisystemspenning – høy
+P0B00	Hjelpegiroljepumpemotor, strøm i fase U
+P0B01	Hjelpegiroljepumpemotor, strøm i fase U – lav
+P0B02	Hjelpegiroljepumpemotor, strøm i fase U – høy
+P0B03	Hjelpegiroljepumpemotor, strøm i fase V
+P0B04	Hjelpegiroljepumpemotor, strøm i fase V – lav
+P0B05	Hjelpegiroljepumpemotor, strøm i fase V – høy
+P0B06	Hjelpegiroljepumpemotor, strøm i fase W
+P0B07	Hjelpegiroljepumpemotor, strøm i fase W – lav
+P0B08	Hjelpegiroljepumpemotor, strøm i fase W – høy
+P0B09	Hjelpegiroljepumpe-motorforsyningsspenning – krets brudd
+P0B0A	Hjelpegiroljepumpe-motorforsyningsspenning – krets lav
+P0B0B	Hjelpegiroljepumpe-motorforsyningsspenning – krets høy
+P0B0C	Hjelpegiroljepumpe-hydraulikklekkasje
+P0B0D	Hjelpegiroljepumpe-motorstyreenhet
+P2000	NOx-felleeffektivitet – under grenseverdi, bank 1
+P2001	NOx-felleeffektivitet – under grenseverdi, bank 2
+P2002	DPF-effektivitet – under grenseverdi, bank 1
+P2003	DPF-effektivitet – under grenseverdi, bank 2
+P2004	Innsugsmanifoldkanal – styring henger åpen, bank 1
+P2005	Innsugsmanifoldkanal – styring henger åpen, bank 2
+P2006	Innsugsmanifoldkanal – styring henger lukket, bank 1
+P2007	Innsugsmanifoldkanal – styring henger lukket, bank 2
+P2008	Innsugsmanifoldkanal – styrekrets brudd, bank 1
+P2009	Innsugsmanifoldkanal – styrekrets lav, bank 1
+P2010	Innsugsmanifoldkanal – styrekrets høy, bank 1
+P2011	Innsugsmanifoldkanal – styrekrets brudd, bank 2
+P2012	Innsugsmanifoldkanal – styrekrets lav, bank 2
+P2013	Innsugsmanifoldkanal – styrekrets høy, bank 2
+P2014	Innsugsmanifoldkanalposisjonssensor/-bryter – krets, bank 1
+P2015	Innsugsmanifoldkanalposisjonssensor/-bryter – krets område/ytelse, bank 1
+P2016	Innsugsmanifoldkanalposisjonssensor/-bryter – krets lav, bank 1
+P2017	Innsugsmanifoldkanalposisjonssensor/-bryter – krets høy, bank 1
+P2018	Innsugsmanifoldkanalposisjonssensor/-bryter – krets sporadisk, bank 1
+P2019	Innsugsmanifoldkanalposisjonssensor/-bryter – krets, bank 2
+P2020	Innsugsmanifoldkanalposisjonssensor/-bryter – krets område/ytelse, bank 2
+P2021	Innsugsmanifoldkanalposisjonssensor/-bryter – krets lav, bank 2
+P2022	Innsugsmanifoldkanalposisjonssensor/-bryter – krets høy, bank 2
+P2023	Innsugsmanifoldkanalposisjonssensor/-bryter – krets sporadisk, bank 2
+P2024	EVAP-drivstoffdamp-temperatursensor – krets (EVAP)
+P2025	EVAP-drivstoffdamp-temperatursensor – ytelse (EVAP)
+P2026	EVAP-drivstoffdamp-temperatursensor – krets lav spenning (EVAP)
+P2027	EVAP-drivstoffdamp-temperatursensor – krets høy spenning (EVAP)
+P2028	EVAP-drivstoffdamp-temperatursensor – krets sporadisk (EVAP)
+P2029	Drivstoffvarmer deaktivert
+P2030	Drivstoffvarmer – ytelse
+P2031	Eksostemperatursensor – krets, bank 1 sensor 2
+P2032	Eksostemperatursensor – krets lav, bank 1 sensor 2
+P2033	Eksostemperatursensor – krets høy, bank 1 sensor 2
+P2034	Eksostemperatursensor – krets, bank 2 sensor 2
+P2035	Eksostemperatursensor – krets lav, bank 2 sensor 2
+P2036	Eksostemperatursensor – krets høy, bank 2 sensor 2
+P2037	Reduksjonsmiddel-innsprøytingslufttrykksensor – krets
+P2038	Reduksjonsmiddel-innsprøytingslufttrykksensor – krets område/ytelse
+P2039	Reduksjonsmiddel-innsprøytingslufttrykksensor – krets lav
+P203A	Reduksjonsmiddelnivåsensor – krets
+P203B	Reduksjonsmiddelnivåsensor – krets område/ytelse
+P203C	Reduksjonsmiddelnivåsensor – krets lav
+P203D	Reduksjonsmiddelnivåsensor – krets høy
+P203E	Reduksjonsmiddelnivåsensor – krets sporadisk/ustabil
+P203F	Reduksjonsmiddelnivå – lav
+P2040	Reduksjonsmiddel-innsprøytingslufttrykksensor – krets høy
+P2041	Reduksjonsmiddel-innsprøytingslufttrykksensor – krets sporadisk
+P2042	Reduksjonsmiddel-temperatursensor – krets
+P2043	Reduksjonsmiddel-temperatursensor – krets område/ytelse
+P2044	Reduksjonsmiddel-temperatursensor – krets lav
+P2045	Reduksjonsmiddel-temperatursensor – krets høy
+P2046	Reduksjonsmiddel-temperatursensor – krets sporadisk
+P2047	Reduksjonsmiddelinjektor – krets brudd, bank 1, enhet 1
+P2048	Reduksjonsmiddelinjektor – krets lav, bank 1, enhet 1
+P2049	Reduksjonsmiddelinjektor – krets høy, bank 1, enhet 1
+P204A	Reduksjonsmiddeltrykksensor – krets
+P204B	Reduksjonsmiddeltrykksensor – krets område/ytelse
+P204C	Reduksjonsmiddeltrykksensor – krets lav
+P204D	Reduksjonsmiddeltrykksensor – krets høy
+P204E	Reduksjonsmiddeltrykksensor – krets sporadisk/ustabil
+P2050	Reduksjonsmiddelinjektor – krets brudd, bank 2, enhet 1
+P2051	Reduksjonsmiddelinjektor – krets lav, bank 2, enhet 1
+P2052	Reduksjonsmiddelinjektor – krets høy, bank 2, enhet 1
+P2053	Reduksjonsmiddelinjektor – krets brudd, bank 1, enhet 2
+P2054	Reduksjonsmiddelinjektor – krets lav, bank 1, enhet 2
+P2055	Reduksjonsmiddelinjektor – krets høy, bank 1, enhet 2
+P2056	Reduksjonsmiddelinjektor – krets brudd, bank 2, enhet 2
+P2057	Reduksjonsmiddelinjektor – krets lav, bank 2, enhet 2
+P2058	Reduksjonsmiddelinjektor – krets høy, bank 2, enhet 2
+P2059	Reduksjonsmiddel-innsprøytingsluftpumpe – styrekrets brudd
+P205A	Reduksjonsmiddel-tanktemperatursensor – krets
+P205B	Reduksjonsmiddel-tanktemperatursensor – krets område/ytelse
+P205C	Reduksjonsmiddel-tanktemperatursensor – krets lav
+P205D	Reduksjonsmiddel-tanktemperatursensor – krets høy
+P205E	Reduksjonsmiddel-tanktemperatursensor – krets sporadisk/ustabil
+P2060	Reduksjonsmiddel-innsprøytingsluftpumpe – styrekrets lav
+P2061	Reduksjonsmiddel-innsprøytingsluftpumpe – styrekrets høy
+P2062	Reduksjonsmiddel-/regenereringsforsyning – styrekrets brudd
+P2063	Reduksjonsmiddelforsyning – styrekrets lav
+P2064	Reduksjonsmiddelforsyning – styrekrets høy
+P2065	Drivstoffnivåsensor B – krets
+P2066	Drivstoffnivåsensor B – ytelse
+P2067	Drivstoffnivåsensor B – krets lav
+P2068	Drivstoffnivåsensor B – krets høy
+P2069	Drivstoffnivåsensor B – krets sporadisk
+P206E	Innsugsmanifoldresonansventil – henger åpen, bank 2 (IMT)
+P206F	Innsugsmanifoldresonansventil – henger lukket, bank 2 (IMT)
+P2070	Innsugsmanifoldresonansventil – henger åpen, bank 1 (IMT)
+P2071	Innsugsmanifoldresonansventil – henger lukket, bank 1 (IMT)
+P2072	Gasspjeldaktuatorstyresystem – blokkert av is
+P2073	Manifoldtrykk (MAP)/luftmasse – korrelasjon med gasspjeldposisjon på tomgang
+P2074	Manifoldtrykk (MAP)/luftmasse – korrelasjon med gasspjeldposisjon ved høyere belastning
+P2075	Innsugsmanifoldresonansventilposisjonssensor/-bryter – krets, bank 1 (IMT)
+P2076	Innsugsmanifoldresonansventilposisjonssensor/-bryter – krets område/ytelse, bank 1 (IMT)
+P2077	Innsugsmanifoldresonansventilposisjonssensor/-bryter – krets lav, bank 1 (IMT)
+P2078	Innsugsmanifoldresonansventilposisjonssensor/-bryter – krets høy, bank 1 (IMT)
+P2079	Innsugsmanifoldresonansventilposisjonssensor/-bryter – krets sporadisk, bank 1 (IMT)
+P207A	Innsugsmanifoldresonansventilposisjonssensor/-bryter – krets, bank 2 (IMT)
+P207B	Innsugsmanifoldresonansventilposisjonssensor/-bryter – krets område/ytelse, bank 2 (IMT)
+P207C	Innsugsmanifoldresonansventilposisjonssensor/-bryter – krets lav, bank 2 (IMT)
+P207D	Innsugsmanifoldresonansventilposisjonssensor/-bryter – krets høy, bank 2 (IMT)
+P207E	Innsugsmanifoldresonansventilposisjonssensor/-bryter – krets sporadisk, bank 2 (IMT)
+P2080	Eksostemperatursensor – krets område/ytelse, bank 1 sensor 1
+P2081	Eksostemperatursensor – krets sporadisk, bank 1 sensor 1
+P2082	Eksostemperatursensor – krets område/ytelse, bank 2 sensor 1
+P2083	Eksostemperatursensor – krets sporadisk, bank 2 sensor 1
+P2084	Eksostemperatursensor – krets område/ytelse, bank 1 sensor 2
+P2085	Eksostemperatursensor – krets sporadisk, bank 1 sensor 2
+P2086	Eksostemperatursensor – krets område/ytelse, bank 2 sensor 2
+P2087	Eksostemperatursensor – krets sporadisk, bank 2 sensor 2
+P2088	Kamakselposisjonsaktuator A – styrekrets lav, bank 1
+P2089	Kamakselposisjonsaktuator A – styrekrets høy, bank 1
+P2090	Kamakselposisjonsaktuator B – styrekrets lav, bank 1
+P2091	Kamakselposisjonsaktuator B – styrekrets høy, bank 1
+P2092	Kamakselposisjonsaktuator A – styrekrets lav, bank 2
+P2093	Kamakselposisjonsaktuator A – styrekrets høy, bank 2
+P2094	Kamakselposisjonsaktuator B – styrekrets lav, bank 2
+P2095	Kamakselposisjonsaktuator B – styrekrets høy, bank 2
+P2096	Blandingsregulering etter katalysator, for mager, bank 1
+P2097	Blandingsregulering etter katalysator, for fet, bank 1
+P2098	Blandingsregulering etter katalysator, for mager, bank 2
+P2099	Blandingsregulering etter katalysator, for fet, bank 2
+P2100	Gasspjeldaktuatorstyremotor – krets brudd
+P2101	Gasspjeldmotor – krets område/ytelse
+P2102	Gasspjeldaktuatorstyremotor – krets lav
+P2103	Gasspjeldaktuatorstyremotor – krets høy
+P2104	Gasspjeldaktuatorstyresystem – tvungen tomgang
+P2105	Gasspjeldaktuatorstyresystem – tvungen motorstans
+P2106	Gasspjeldaktuatorstyresystem – tvungen effektbegrensning
+P2107	Gasspjeldaktuator-styreenhetsprosessor
+P2108	Gasspjeldaktuatorstyreenhet – ytelse
+P2109	Gasspjeld-/pedalposisjonssensor A minimalanslag – ytelse
+P2110	Gasspjeldaktuatorstyresystem – tvungen turtallsbegrensning
+P2111	Gasspjeldaktuatorstyresystem – henger åpen
+P2112	Gasspjeldaktuatorstyresystem – henger lukket
+P2113	Gasspjeld-/pedalposisjonssensor B minimalanslag – ytelse
+P2114	Gasspjeld-/pedalposisjonssensor C minimalanslag – ytelse
+P2115	Gasspjeld-/pedalposisjonssensor D minimalanslag – ytelse
+P2116	Gasspjeld-/pedalposisjonssensor E minimalanslag – ytelse
+P2117	Gasspjeld-/pedalposisjonssensor F minimalanslag – ytelse
+P2118	Gasspjeldaktuator-styremotorstrøm – område/ytelse
+P2119	Gasspjeldaktuator-styregasspjeldhus – område/ytelse
+P2120	Gasspjeld-/pedalposisjonssensor/-bryter D – krets
+P2121	Gasspjeld-/pedalposisjonssensor/-bryter D – krets område/ytelse
+P2122	Gasspjeld-/pedalposisjonssensor/-bryter D – krets lav
+P2123	Gasspjeld-/pedalposisjonssensor/-bryter D – krets høy
+P2124	Gasspjeld-/pedalposisjonssensor/-bryter D – krets sporadisk
+P2125	Gasspjeld-/pedalposisjonssensor/-bryter E – krets
+P2126	Gasspjeld-/pedalposisjonssensor/-bryter E – krets område/ytelse
+P2127	Gasspjeld-/pedalposisjonssensor/-bryter E – krets lav
+P2128	Gasspjeld-/pedalposisjonssensor/-bryter E – krets høy
+P2129	Gasspjeld-/pedalposisjonssensor/-bryter E – krets sporadisk
+P2130	Gasspjeld-/pedalposisjonssensor/-bryter F – krets
+P2131	Gasspjeld-/pedalposisjonssensor/-bryter F – krets område/ytelse
+P2132	Gasspjeld-/pedalposisjonssensor/-bryter F – krets lav
+P2133	Gasspjeld-/pedalposisjonssensor/-bryter F – krets høy
+P2134	Gasspjeld-/pedalposisjonssensor/-bryter F – krets sporadisk
+P2135	Gasspjeld-/pedalposisjonssensor/-bryter A/B spenning – korrelasjon
+P2136	Gasspjeld-/pedalposisjonssensor/-bryter A/C spenning – korrelasjon
+P2137	Gasspjeld-/pedalposisjonssensor/-bryter B/C spenning – korrelasjon
+P2138	Gasspjeld-/pedalposisjonssensor/-bryter D/E spenning – korrelasjon
+P2139	Gasspjeld-/pedalposisjonssensor/-bryter D/F spenning – korrelasjon
+P213A	EGR-gasspjeld – styrekrets B brudd
+P213B	EGR-gasspjeld – styrekrets B område/ytelse
+P213C	EGR-gasspjeld – styrekrets B lav
+P213D	EGR-gasspjeld – styrekrets B høy
+P2140	Gasspjeld-/pedalposisjonssensor/-bryter E/F spenning – korrelasjon
+P2141	EGR-gasspjeld – styrekrets A lav
+P2142	EGR-gasspjeld – styrekrets A høy
+P2143	EGR-lufting – styrekrets brudd
+P2144	EGR-lufting – styrekrets lav
+P2145	EGR-lufting – styrekrets høy
+P2146	Drivstoffinjektorgruppe A forsyningsspenning – krets brudd
+P2147	Drivstoffinjektorgruppe A forsyningsspenning – krets lav
+P2148	Drivstoffinjektorgruppe A forsyningsspenning – krets høy
+P2149	Drivstoffinjektorgruppe B forsyningsspenning – krets brudd
+P2150	Drivstoffinjektorgruppe B forsyningsspenning – krets lav
+P2151	Drivstoffinjektorgruppe B forsyningsspenning – krets høy
+P2152	Drivstoffinjektorgruppe C forsyningsspenning – krets brudd
+P2153	Drivstoffinjektorgruppe C forsyningsspenning – krets lav
+P2154	Drivstoffinjektorgruppe C forsyningsspenning – krets høy
+P2155	Drivstoffinjektorgruppe D forsyningsspenning – krets brudd
+P2156	Drivstoffinjektorgruppe D forsyningsspenning – krets lav
+P2157	Drivstoffinjektorgruppe D forsyningsspenning – krets høy
+P2158	Hastighetssensor B
+P2159	Hastighetssensor B – område/ytelse
+P215A	Kjørehastighet – korrelasjon med hjulturtall
+P215B	Kjørehastighet – korrelasjon med utgående akselturtall
+P2160	Hastighetssensor B – krets lav
+P2161	Hastighetssensor B – sporadisk/ustabil
+P2162	Hastighetssensor A/B – korrelasjon
+P2163	Gasspjeld-/pedalposisjonssensor A maksimalanslag – ytelse
+P2164	Gasspjeld-/pedalposisjonssensor B maksimalanslag – ytelse
+P2165	Gasspjeld-/pedalposisjonssensor C maksimalanslag – ytelse
+P2166	Gasspjeld-/pedalposisjonssensor D maksimalanslag – ytelse
+P2167	Gasspjeld-/pedalposisjonssensor E maksimalanslag – ytelse
+P2168	Gasspjeld-/pedalposisjonssensor F maksimalanslag – ytelse
+P2169	Eksostrykkregulator-luftemagnetventil – styrekrets brudd
+P2170	Eksostrykkregulator-luftemagnetventil – styrekrets lav
+P2171	Eksostrykkregulator-luftemagnetventil – styrekrets høy
+P2172	Gasspjeldaktuatorstyresystem – plutselig høy luftstrøm registrert
+P2173	Gasspjeldaktuatorstyresystem – høy luftstrøm registrert
+P2174	Gasspjeldaktuatorstyresystem – plutselig lav luftstrøm registrert
+P2175	Gasspjeldaktuatorstyresystem – lav luftstrøm registrert
+P2176	Gasspjeldaktuatorstyresystem – tomgangsstilling ikke innlært
+P2177	Blandingen er for mager utenom tomgang, bank 1
+P2178	Blandingen er for fet utenom tomgang, bank 1
+P2179	Blandingen er for mager utenom tomgang, bank 2
+P2180	Blandingen er for fet utenom tomgang, bank 2
+P2181	Kjølesystem – ytelse
+P2182	Kjølevæsketemperatursensor 2 – krets
+P2183	Kjølevæsketemperatursensor 2 – krets område/ytelse
+P2184	Kjølevæsketemperatursensor 2 – krets lav
+P2185	Kjølevæsketemperatursensor 2 – krets høy
+P2186	Kjølevæsketemperatursensor 2 – krets sporadisk/ustabil
+P2187	Blandingen er for mager på tomgang, bank 1
+P2188	Blandingen er for fet på tomgang, bank 1
+P2189	Blandingen er for mager på tomgang, bank 2
+P2190	Blandingen er for fet på tomgang, bank 2
+P2191	Blandingen er for mager ved høyere belastning, bank 1
+P2192	Blandingen er for fet ved høyere belastning, bank 1
+P2193	Blandingen er for mager ved høyere belastning, bank 2
+P2194	Blandingen er for fet ved høyere belastning, bank 2
+P2195	Lambdasondesignal forskjøvet/står fast på magert, bank 1 sensor 1
+P2196	Lambdasondesignal forskjøvet/står fast på fett, bank 1 sensor 1
+P2197	Lambdasondesignal forskjøvet/står fast på magert, bank 2 sensor 1
+P2198	Lambdasondesignal forskjøvet/står fast på fett, bank 2 sensor 1
+P2199	Innsugslufttemperatursensor 1/2 – korrelasjon
+P2200	NOx-sensor – krets, bank 1
+P2201	NOx-sensor – krets område/ytelse, bank 1
+P2202	NOx-sensor – krets lav, bank 1
+P2203	NOx-sensor – krets høy, bank 1
+P2204	NOx-sensor – krets sporadisk, bank 1
+P2205	NOx-sensorvarmer – styrekrets brudd, bank 1
+P2206	NOx-sensorvarmer – styrekrets lav, bank 1
+P2207	NOx-sensorvarmer – styrekrets høy, bank 1
+P2208	NOx-sensorvarmermåling – krets, bank 1
+P2209	NOx-sensorvarmermåling – krets område/ytelse, bank 1
+P2210	NOx-sensorvarmermåling – krets lav, bank 1
+P2211	NOx-sensorvarmermåling – krets høy, bank 1
+P2212	NOx-sensorvarmermåling – krets sporadisk, bank 1
+P2213	NOx-sensor – krets, bank 2
+P2214	NOx-sensor – krets område/ytelse, bank 2
+P2215	NOx-sensor – krets lav, bank 2
+P2216	NOx-sensor – krets høy, bank 2
+P2217	NOx-sensor – krets sporadisk, bank 2
+P2218	NOx-sensorvarmer – styrekrets brudd, bank 2
+P2219	NOx-sensorvarmer – styrekrets lav, bank 2
+P2220	NOx-sensorvarmer – styrekrets høy, bank 2
+P2221	NOx-sensorvarmermåling – krets, bank 2
+P2222	NOx-sensorvarmermåling – krets område/ytelse, bank 2
+P2223	NOx-sensorvarmermåling – krets lav, bank 2
+P2224	NOx-sensorvarmermåling – krets høy, bank 2
+P2225	NOx-sensorvarmermåling – krets sporadisk, bank 2
+P2226	Barometertrykk – krets
+P2227	Barometertrykk – krets område/ytelse
+P2228	Barometertrykk – krets lav
+P2229	Barometertrykk – krets høy
+P2230	Barometertrykk – krets sporadisk
+P2231	Lambdasondesignal – krets kortsluttet til varmerkretsen, bank 1 sensor 1
+P2232	Lambdasondesignal – krets kortsluttet til varmerkretsen, bank 1 sensor 2
+P2233	Lambdasondesignal – krets kortsluttet til varmerkretsen, bank 1 sensor 3
+P2234	Lambdasondesignal – krets kortsluttet til varmerkretsen, bank 2 sensor 1
+P2235	Lambdasondesignal – krets kortsluttet til varmerkretsen, bank 2 sensor 2
+P2236	Lambdasondesignal – krets kortsluttet til varmerkretsen, bank 2 sensor 3
+P2237	Lambdasondepositivstrøm – styrekrets brudd, bank 1 sensor 1
+P2238	Lambdasondepositivstrøm – styrekrets lav, bank 1 sensor 1
+P2239	Lambdasondepositivstrøm – styrekrets høy, bank 1 sensor 1
+P2240	Lambdasondepositivstrøm – styrekrets brudd, bank 2 sensor 1
+P2241	Lambdasondepositivstrøm – styrekrets lav, bank 2 sensor 1
+P2242	Lambdasondepositivstrøm – styrekrets høy, bank 2 sensor 1
+P2243	Lambdasondereferansespenning – krets brudd, bank 1 sensor 1
+P2244	Lambdasondereferansespenning – ytelse, bank 1 sensor 1
+P2245	Lambdasondereferansespenning – krets lav, bank 1 sensor 1
+P2246	Lambdasondereferansespenning – krets høy, bank 1 sensor 1
+P2247	Lambdasondereferansespenning – krets brudd, bank 2 sensor 1
+P2248	Lambdasondereferansespenning – ytelse, bank 2 sensor 1
+P2249	Lambdasondereferansespenning – krets lav, bank 2 sensor 1
+P2250	Lambdasondereferansespenning – krets høy, bank 2 sensor 1
+P2251	Lambdasondenegativstrøm – styrekrets brudd, bank 1 sensor 1
+P2252	Lambdasondenegativstrøm – styrekrets lav, bank 1 sensor 1
+P2253	Lambdasondenegativstrøm – styrekrets høy, bank 1 sensor 1
+P2254	Lambdasondenegativstrøm – styrekrets brudd, bank 2 sensor 1
+P2255	Lambdasondenegativstrøm – styrekrets lav, bank 2 sensor 1
+P2256	Lambdasondenegativstrøm – styrekrets høy, bank 2 sensor 1
+P2257	Sekundærluftstyring A – krets lav
+P2258	Sekundærluftstyring A – krets høy
+P2259	Sekundærluftstyring B – krets lav
+P2260	Sekundærluftstyring B – krets høy
+P2261	Turbo-/kompressorbypassventil – mekanisk
+P2262	Turbo-/kompressorladetrykk – ikke registrert – mekanisk
+P2263	Turbo-/kompressorladetrykksystem – ytelse
+P2264	Vann-i-drivstoffsensor – krets
+P2265	Vann-i-drivstoffsensor – krets område/ytelse
+P2266	Vann-i-drivstoffsensor – krets lav
+P2267	Vann-i-drivstoffsensor – krets høy
+P2268	Vann-i-drivstoffsensor – krets sporadisk
+P2269	Vann i drivstoffet – tilstand
+P2270	Lambdasondesignal – står fast på magert, bank 1 sensor 2
+P2271	Lambdasondesignal – står fast på fett, bank 1 sensor 2
+P2272	Lambdasondesignal – står fast på magert, bank 2 sensor 2
+P2273	Lambdasondesignal – står fast på fett, bank 2 sensor 2
+P2274	Lambdasondesignal – står fast på magert, bank 1 sensor 3
+P2275	Lambdasondesignal – står fast på fett, bank 1 sensor 3
+P2276	Lambdasondesignal – står fast på magert, bank 2 sensor 3
+P2277	Lambdasondesignal – står fast på fett, bank 2 sensor 3
+P2278	Lambdasondesignaler forbyttet, bank 1 sensor 3, bank 2 sensor 3
+P2279	Innsugsluftsystemlekkasje
+P2280	Innsnevring i luftstrømmen/luftlekkasje mellom luftfilter og luftmassemåler
+P2281	Luftlekkasje mellom luftmassemåler og gasspjeldhus
+P2282	Luftlekkasje mellom gasspjeldhus og innsugsventiler
+P2283	Injektorstyretrykksensor – krets
+P2284	Injektorstyretrykksensor – krets område/ytelse
+P2285	Injektorstyretrykksensor – krets lav
+P2286	Injektorstyretrykksensor – krets høy
+P2287	Injektorstyretrykksensor – krets sporadisk
+P2288	Injektorstyretrykk – for høy
+P2289	Injektorstyretrykk – for høy – motor av
+P2290	Injektorstyretrykk – for lav
+P2291	Injektorstyretrykk – for lav – under start
+P2292	Injektorstyretrykk – ustabil
+P2293	Drivstofftrykkregulator 2 – ytelse
+P2294	Drivstofftrykkregulator 2 – styrekrets
+P2295	Drivstofftrykkregulator 2 – styrekrets lav
+P2296	Drivstofftrykkregulator 2 – styrekrets høy
+P2297	Lambdasonde utenfor område under motorbrems, bank 1 sensor 1
+P2298	Lambdasonde utenfor område under motorbrems, bank 2 sensor 1
+P2299	Bremsepedalposisjons-/gasspedalposisjon er ikke kompatible
+P2300	Tennspole A primær – styrekrets lav
+P2301	Tennspole A primær – styrekrets høy
+P2302	Tennspole A sekundær – krets
+P2303	Tennspole B primær – styrekrets lav
+P2304	Tennspole B primær – styrekrets høy
+P2305	Tennspole B sekundær – krets
+P2306	Tennspole C primær – styrekrets lav
+P2307	Tennspole C primær – styrekrets høy
+P2308	Tennspole C sekundær – krets
+P2309	Tennspole D primær – styrekrets lav
+P2310	Tennspole D primær – styrekrets høy
+P2311	Tennspole D sekundær – krets
+P2312	Tennspole E primær – styrekrets lav
+P2313	Tennspole E primær – styrekrets høy
+P2314	Tennspole E sekundær – krets
+P2315	Tennspole F primær – styrekrets lav
+P2316	Tennspole F primær – styrekrets høy
+P2317	Tennspole F sekundær – krets
+P2318	Tennspole G primær – styrekrets lav
+P2319	Tennspole G primær – styrekrets høy
+P2320	Tennspole G sekundær – krets
+P2321	Tennspole H primær – styrekrets lav
+P2322	Tennspole H primær – styrekrets høy
+P2323	Tennspole H sekundær – krets
+P2324	Tennspole I primær – styrekrets lav
+P2325	Tennspole I primær – styrekrets høy
+P2326	Tennspole I sekundær – krets
+P2327	Tennspole J primær – styrekrets lav
+P2328	Tennspole J primær – styrekrets høy
+P2329	Tennspole J sekundær – krets
+P2330	Tennspole K primær – styrekrets lav
+P2331	Tennspole K primær – styrekrets høy
+P2332	Tennspole K sekundær – krets
+P2333	Tennspole L primær – styrekrets lav
+P2334	Tennspole L primær – styrekrets høy
+P2335	Tennspole L sekundær – krets
+P2336	Over bankegrensen, sylinder 1
+P2337	Over bankegrensen, sylinder 2
+P2338	Over bankegrensen, sylinder 3
+P2339	Over bankegrensen, sylinder 4
+P2340	Over bankegrensen, sylinder 5
+P2341	Over bankegrensen, sylinder 6
+P2342	Over bankegrensen, sylinder 7
+P2343	Over bankegrensen, sylinder 8
+P2344	Over bankegrensen, sylinder 9
+P2345	Over bankegrensen, sylinder 10
+P2346	Over bankegrensen, sylinder 11
+P2347	Over bankegrensen, sylinder 12
+P2400	EVAP-lekkasjetestpumpe – styrekrets brudd
+P2401	EVAP-lekkasjetestpumpe – styrekrets lav
+P2402	EVAP-lekkasjetestpumpe – styrekrets høy
+P2403	EVAP-lekkasjetestpumpemåling – krets brudd
+P2404	EVAP-lekkasjetestpumpemåling – krets område/ytelse
+P2405	EVAP-lekkasjetestpumpemåling – krets lav
+P2406	EVAP-lekkasjetestpumpemåling – krets høy
+P2407	EVAP-lekkasjetestpumpemåling – krets sporadisk/ustabil
+P2408	Tanklokksensor/-bryter – krets
+P2409	Tanklokksensor/-bryter – krets område/ytelse
+P240A	EVAP-lekkasjetestpumpevarmer – styrekrets brudd
+P240B	EVAP-lekkasjetestpumpevarmer – styrekrets lav
+P240C	EVAP-lekkasjetestpumpevarmer – styrekrets høy
+P2410	Tanklokksensor/-bryter – krets lav
+P2411	Tanklokksensor/-bryter – krets høy
+P2412	Tanklokksensor/-bryter – krets sporadisk/ustabil
+P2413	EGR-system – ytelse
+P2414	Lambdasondeeksosprøve – feil, bank 1 sensor 1
+P2415	Lambdasondeeksosprøve – feil, bank 2 sensor 1
+P2416	Lambdasondesignaler forbyttet, bank 1 sensor 2, bank 1 sensor 3
+P2417	Lambdasondesignaler forbyttet, bank 2 sensor 2, bank 2 sensor 3
+P2418	EVAP-omkoblingsventil – styrekrets brudd
+P2419	EVAP-omkoblingsventil – styrekrets lav
+P2420	EVAP-omkoblingsventil – styrekrets høy
+P2421	EVAP-lufteventil – henger åpen
+P2422	EVAP-lufteventil – henger lukket
+P2423	HC-adsorpsjonskatalysator-effektivitet – under grenseverdi, bank 1
+P2424	HC-adsorpsjonskatalysator-effektivitet – under grenseverdi, bank 2
+P2425	EGR-kjøleventil – styrekrets brudd
+P2426	EGR-kjøleventil – styrekrets lav
+P2427	EGR-kjøleventil – styrekrets høy
+P2428	Eksos – temperatur for høy, bank 1
+P2429	Eksos – temperatur for høy, bank 2
+P242A	Eksostemperatursensor – krets, bank 1 sensor 3
+P242B	Eksostemperatursensor – krets område/ytelse, bank 1 sensor 3
+P242C	Eksostemperatursensor – krets lav, bank 1 sensor 3
+P242D	Eksostemperatursensor – krets høy, bank 1 sensor 3
+P242E	Eksostemperatursensor – krets sporadisk/ustabil, bank 1 sensor 3
+P242F	DPF-innsnevring – askeansamling
+P2430	Sekundærluftluftstrøms-/trykksensor – krets, bank 1
+P2431	Sekundærluftluftstrøms-/trykksensor – krets område/ytelse, bank 1
+P2432	Sekundærluftluftstrøms-/trykksensor – krets lav, bank 1
+P2433	Sekundærluftluftstrøms-/trykksensor – krets høy, bank 1
+P2434	Sekundærluftluftstrøms-/trykksensor – krets sporadisk/ustabil, bank 1
+P2435	Sekundærluftluftstrøms-/trykksensor – krets, bank 2
+P2436	Sekundærluftluftstrøms-/trykksensor – krets område/ytelse, bank 2
+P2437	Sekundærluftluftstrøms-/trykksensor – krets lav, bank 2
+P2438	Sekundærluftluftstrøms-/trykksensor – krets høy, bank 2
+P2439	Sekundærluftluftstrøms-/trykksensor – krets sporadisk/ustabil, bank 2
+P2440	Sekundærluftomkoblingsventil – henger åpen, bank 1
+P2441	Sekundærluftomkoblingsventil – henger lukket, bank 1
+P2442	Sekundærluftomkoblingsventil – henger åpen, bank 2
+P2443	Sekundærluftomkoblingsventil – henger lukket, bank 2
+P2444	Sekundærluftpumpe – står på, bank 1
+P2445	Sekundærluftpumpe – står av, bank 1
+P2446	Sekundærluftpumpe – står på, bank 2
+P2447	Sekundærluftpumpe – står av, bank 2
+P2448	Sekundærluftsystem – høy luftstrøm, bank 1
+P2449	Sekundærluftsystem – høy luftstrøm, bank 2
+P244A	DPF-differansetrykk – for lav, bank 1
+P244C	Partikkelfilter – for lav trykk (rad 1) (sensor 1)
+P2450	EVAP-omkoblingsventil – ytelse/henger åpen
+P2451	EVAP-omkoblingsventil – henger lukket
+P2452	DPF-differansetrykksensor – krets
+P2453	DPF-differansetrykksensor – krets område/ytelse
+P2454	DPF-differansetrykksensor – krets lav
+P2455	DPF-differansetrykksensor – krets høy
+P2456	DPF-differansetrykksensor – krets sporadisk/ustabil
+P2457	EGR-kjølesystem – ytelse
+P2458	DPF-regenereringsvarighet
+P2459	DPF-regenereringsfrekvens
+P245A	EGR-kjølerbypass – styrekrets brudd
+P245B	EGR-kjølerbypass – styrekrets område/ytelse
+P245C	EGR-kjølerbypass – styrekrets lav
+P245D	EGR-kjølerbypass – styrekrets høy
+P2463	Dieselpartikkelfilter (DPF), sotansamling
+P2500	Ladelampe/L-klemme – krets lav
+P2501	Ladelampe/L-klemme – krets høy
+P2502	Ladesystemspenning
+P2503	Ladesystemspenning – lav
+P2504	Ladesystemspenning – høy
+P2505	ECM/PCM-strøminngangssignal
+P2506	ECM/PCM-strøminngangssignal – område/ytelse
+P2507	ECM/PCM-strøminngangssignal – lav
+P2508	ECM/PCM-strøminngangssignal – høy
+P2509	ECM/PCM-strøminngangssignal – sporadisk
+P250A	Motoroljenivåsensor – krets
+P250B	Motoroljenivåsensor – krets område/ytelse
+P250C	Motoroljenivåsensor – krets lav
+P250D	Motoroljenivåsensor – krets høy
+P250E	Motoroljenivåsensor – krets sporadisk/ustabil
+P250F	Motoroljenivå – for lav
+P2510	ECM/PCM-strømrelémåling – krets område/ytelse
+P2511	ECM/PCM-strømrelémåling – krets sporadisk
+P2512	Hendelsesdataregistrator – forespørselskrets brudd
+P2513	Hendelsesdataregistrator – forespørselskrets lav
+P2514	Hendelsesdataregistrator – forespørselskrets høy
+P2515	Kuldemedietrykksensor B (klimaanlegg) – krets
+P2516	Kuldemedietrykksensor B (klimaanlegg) – krets område/ytelse
+P2517	Kuldemedietrykksensor B (klimaanlegg) – krets lav
+P2518	Kuldemedietrykksensor B (klimaanlegg) – krets høy
+P2519	Klimaanlegg (AC) – forespørsel A krets
+P251A	PTO-aktiveringsbryter – krets brudd
+P251B	PTO-aktiveringsbryter – krets lav
+P251C	PTO-aktiveringsbryter – krets høy
+P251D	PTO-motoravstenging – krets brudd
+P251E	PTO-motoravstenging – krets lav
+P251F	PTO-motoravstenging – krets høy
+P2520	Klimaanlegg (AC) – forespørsel A krets lav
+P2521	Klimaanlegg (AC) – forespørsel A krets høy
+P2522	Klimaanlegg (AC) – forespørsel B krets
+P2523	Klimaanlegg (AC) – forespørsel B krets lav
+P2524	Klimaanlegg (AC) – forespørsel B krets høy
+P2525	Vakuumbeholdertrykksensor – krets
+P2526	Vakuumbeholdertrykksensor – krets område/ytelse
+P2527	Vakuumbeholdertrykksensor – krets lav
+P2528	Vakuumbeholdertrykksensor – krets høy
+P2529	Vakuumbeholdertrykksensor – krets sporadisk
+P252A	Motoroljekvalitetssensor – krets
+P252B	Motoroljekvalitetssensor – krets område/ytelse
+P252C	Motoroljekvalitetssensor – krets lav
+P252D	Motoroljekvalitetssensor – krets høy
+P252E	Motoroljekvalitet – krets sporadisk/ustabil
+P252F	Motoroljenivå – for høy
+P2530	Tenningslåskjørposisjon – krets
+P2531	Tenningslåskjørposisjon – krets lav
+P2532	Tenningslåskjørposisjon – krets høy
+P2533	Tenningslåskjør-/startposisjon – krets
+P2534	Tenningslåskjør-/startposisjon – krets lav
+P2535	Tenningslåskjør-/startposisjon – krets høy
+P2536	Tenningslåstilbehørsposisjon – krets
+P2537	Tenningslåstilbehørsposisjon – krets lav
+P2538	Tenningslåstilbehørsposisjon – krets høy
+P2539	Lavtrykksdrivstoffsystemsensor – krets
+P253A	PTO-måling – krets brudd
+P253B	PTO-måling – krets område/ytelse
+P253C	PTO-måling – krets lav
+P253D	PTO-måling – krets høy
+P253E	PTO-måling – krets sporadisk/ustabil
+P253F	Motorolje svekket
+P2540	Lavtrykksdrivstoffsystemsensor – krets område/ytelse
+P2541	Lavtrykksdrivstoffsystemsensor – krets lav
+P2542	Lavtrykksdrivstoffsystemsensor – krets høy
+P2543	Lavtrykksdrivstoffsystemsensor – krets sporadisk
+P2544	Momentstyring – forespørsel, inngangssignal A
+P2545	Momentstyring – forespørsel, inngangssignal A område/ytelse
+P2546	Momentstyring – forespørsel, inngangssignal A lav
+P2547	Momentstyring – forespørsel, inngangssignal A høy
+P2548	Momentstyring – forespørsel, inngangssignal B
+P2549	Momentstyring – forespørsel, inngangssignal B område/ytelse
+P254A	PTO-hastighetsvelgersensor/-bryter 1 – krets brudd
+P254B	PTO-hastighetsvelgersensor/-bryter 1 – område/ytelse
+P254C	PTO-hastighetsvelgersensor/-bryter 1 – krets lav
+P254D	PTO-hastighetsvelgersensor/-bryter 1 – krets høy
+P254E	PTO-hastighetsvelgersensor/-bryter 1 – krets sporadisk/ustabil
+P254F	Motorpanserbryter – krets
+P2550	Momentstyring – forespørsel, inngangssignal B lav
+P2551	Momentstyring – forespørsel, inngangssignal B høy
+P2552	Gasspjeld-/drivstoffsperre – krets
+P2553	Gasspjeld-/drivstoffsperre – krets område/ytelse
+P2554	Gasspjeld-/drivstoffsperre – krets lav
+P2555	Gasspjeld-/drivstoffsperre – krets høy
+P2556	Kjølevæskenivåsensor/-bryter – krets
+P2557	Kjølevæskenivåsensor/-bryter – krets område/ytelse
+P2558	Kjølevæskenivåsensor/-bryter – krets lav
+P2559	Kjølevæskenivåsensor/-bryter – krets høy
+P255A	PTO-hastighetsvelgersensor/-bryter 2 – krets brudd
+P255B	PTO-hastighetsvelgersensor/-bryter 2 – område/ytelse
+P255C	PTO-hastighetsvelgersensor/-bryter 2 – krets lav
+P255D	PTO-hastighetsvelgersensor/-bryter 2 – krets høy
+P255E	PTO-hastighetsvelgersensor/-bryter 2 – krets sporadisk/ustabil
+P2560	Kjølevæskenivå – lav
+P2561	Klimastyreenhet – ber om tenning av motorlampen
+P2562	Turboladetrykkregulerings-posisjonssensor A – krets
+P2563	Turboladetrykkregulerings-posisjonssensor A – krets område/ytelse
+P2564	Turboladetrykkregulerings-posisjonssensor A – krets lav
+P2565	Turboladetrykkregulerings-posisjonssensor A – krets høy
+P2566	Turboladetrykkregulerings-posisjonssensor A – krets sporadisk
+P2567	Ozonkatalysator-temperatursensor – krets
+P2568	Ozonkatalysator-temperatursensor – krets område/ytelse
+P2569	Ozonkatalysator-temperatursensor – krets lav
+P256A	Motortomgangshastighetsvelgersensor/-bryter – krets brudd
+P256B	Motortomgangshastighetsvelgersensor/-bryter – område/ytelse
+P256C	Motortomgangshastighetsvelgersensor/-bryter – krets lav
+P256D	Motortomgangshastighetsvelgersensor/-bryter – krets høy
+P256E	Motortomgangshastighetsvelgersensor/-bryter – krets sporadisk/ustabil
+P2570	Ozonkatalysator-temperatursensor – krets høy
+P2571	Ozonkatalysator-temperatursensor – krets sporadisk/ustabil
+P2572	Ozonkatalysator-forringelsessensor – krets
+P2573	Ozonkatalysator-forringelsessensor – krets område/ytelse
+P2574	Ozonkatalysator-forringelsessensor – krets lav
+P2575	Ozonkatalysator-forringelsessensor – krets høy
+P2576	Ozonkatalysator-forringelsessensor – krets sporadisk/ustabil
+P2577	Ozonkatalysatoreffektivitet – under grenseverdi
+P2578	Turboturtallssensor – krets
+P2579	Turboturtallssensor – krets område/ytelse
+P257A	Vakuumbeholder – styrekrets brudd
+P257B	Vakuumbeholder – styrekrets lav
+P257C	Vakuumbeholder – styrekrets høy
+P257D	Motorpanserbryter – krets område/ytelse
+P257E	Motorpanserbryter – krets lav
+P257F	Motorpanserbryter – krets høy
+P2580	Turboturtallssensor – krets lav
+P2581	Turboturtallssensor – krets høy
+P2582	Turboturtallssensor – krets sporadisk
+P2583	Cruisekontrollavstandssensor foran
+P2584	Drivstofftilsetningsstyreenhet – ber om tenning av motorlampen
+P2585	Drivstofftilsetnings-styreenhetsvarsellampe – forespørsel
+P2586	Turboladetrykkregulerings-posisjonssensor B – krets
+P2587	Turboladetrykkregulerings-posisjonssensor B – krets område/ytelse
+P2588	Turboladetrykkregulerings-posisjonssensor B – krets lav
+P2589	Turboladetrykkregulerings-posisjonssensor B – krets høy
+P2590	Turboladetrykkregulerings-posisjonssensor B – krets sporadisk/ustabil
+P2600	Kjølevæskepumpe – styrekrets brudd
+P2601	Kjølevæskepumpe – styrekrets område/ytelse
+P2602	Kjølevæskepumpe – styrekrets lav
+P2603	Kjølevæskepumpe – styrekrets høy
+P2604	Innsugsluftvarmer A – krets område/ytelse
+P2605	Innsugsluftvarmer A – krets brudd
+P2606	Innsugsluftvarmer B – krets område/ytelse
+P2607	Innsugsluftvarmer B – krets lav
+P2608	Innsugsluftvarmer B – krets høy
+P2609	Innsugsluftvarmersystem – ytelse
+P260A	Kraftuttak (PTO) – styrekrets brudd
+P260B	Kraftuttak (PTO) – styrekrets lav
+P260C	Kraftuttak (PTO) – styrekrets høy
+P260D	PTO-lampe innkoblet – styrekrets
+P260F	EVAP-overvåkingsprosessor – ytelse
+P2610	ECM/PCM intern motor av tidsur – ytelse
+P2611	Fordelingsventil for kuldemedium (klimaanlegg) – styrekrets brudd
+P2612	Fordelingsventil for kuldemedium (klimaanlegg) – styrekrets lav
+P2613	Fordelingsventil for kuldemedium (klimaanlegg) – styrekrets høy
+P2614	Kamakselposisjonssignalutgang – krets brudd
+P2615	Kamakselposisjonssignalutgang – krets lav
+P2616	Kamakselposisjonssignalutgang – krets høy
+P2617	Veivakselposisjonssignalutgang – krets brudd
+P2618	Veivakselposisjonssignalutgang – krets lav
+P2619	Veivakselposisjonssignalutgang – krets høy
+P2620	Gasspjeldposisjonsutgang – krets brudd
+P2621	Gasspjeldposisjonsutgang – krets lav
+P2622	Gasspjeldposisjonsutgang – krets høy
+P2623	Injektorstyretrykkregulator – krets brudd
+P2624	Injektorstyretrykkregulator – krets lav
+P2625	Injektorstyretrykkregulator – krets høy
+P2626	Lambdasondepumpestrømtrim – krets brudd, bank 1 sensor 1
+P2627	Lambdasondepumpestrømtrim – krets lav, bank 1 sensor 1
+P2628	Lambdasondepumpestrømtrim – krets høy, bank 1 sensor 1
+P2629	Lambdasondepumpestrømtrim – krets brudd, bank 2 sensor 1
+P2630	Lambdasondepumpestrømtrim – krets lav, bank 2 sensor 1
+P2631	Lambdasondepumpestrømtrim – krets høy, bank 2 sensor 1
+P2632	Drivstoffpumpe B – styrekrets brudd
+P2633	Drivstoffpumpe B – styrekrets lav
+P2634	Drivstoffpumpe B – styrekrets høy
+P2635	Drivstoffpumpe A – lav strømning/ytelse
+P2636	Drivstoffpumpe B – lav strømning/ytelse
+P2637	Momentstyrings-tilbakemeldingssignal A
+P2638	Momentstyrings-tilbakemeldingssignal A – område/ytelse
+P2639	Momentstyrings-tilbakemeldingssignal A – lav
+P2640	Momentstyrings-tilbakemeldingssignal A – høy
+P2641	Momentstyrings-tilbakemeldingssignal B
+P2642	Momentstyrings-tilbakemeldingssignal B – område/ytelse
+P2643	Momentstyrings-tilbakemeldingssignal B – lav
+P2644	Momentstyrings-tilbakemeldingssignal B – høy
+P2645	Vippearmaktuator A – styrekrets brudd, bank 1
+P2646	Vippearmaktuatorsystem A – ytelse eller står av, bank 1
+P2647	Vippearmaktuatorsystem A – står på, bank 1
+P2648	Vippearmaktuator A – styrekrets lav, bank 1
+P2649	Vippearmaktuator A – styrekrets høy, bank 1
+P264A	Vippearmaktuator-posisjonssensor A – krets, bank 1
+P264B	Vippearmaktuator-posisjonssensor A – krets område/ytelse, bank 1
+P264C	Vippearmaktuator-posisjonssensor A – krets lav, bank 1
+P264D	Vippearmaktuator-posisjonssensor A – krets høy, bank 1
+P264E	Vippearmaktuator-posisjonssensor A – krets sporadisk/ustabil, bank 1
+P2650	Vippearmaktuator B – styrekrets brudd, bank 1
+P2651	Vippearmaktuatorsystem B – ytelse/står av, bank 1
+P2652	Vippearmaktuatorsystem B – står på, bank 1
+P2653	Vippearmaktuator B – styrekrets lav, bank 1
+P2654	Vippearmaktuator B – styrekrets høy, bank 1
+P2655	Vippearmaktuator A – styrekrets brudd, bank 2
+P2656	Vippearmaktuatorsystem A – ytelse eller står av, bank 2
+P2657	Vippearmaktuatorsystem A – står på, bank 2
+P2658	Vippearmaktuator A – styrekrets lav, bank 2
+P2659	Vippearmaktuator A – styrekrets høy, bank 2
+P265A	Vippearmaktuator-posisjonssensor B – krets, bank 1
+P265B	Vippearmaktuator-posisjonssensor B – krets område/ytelse, bank 1
+P265C	Vippearmaktuator-posisjonssensor B – krets lav, bank 1
+P265D	Vippearmaktuator-posisjonssensor B – krets høy, bank 1
+P265E	Vippearmaktuator-posisjonssensor B – krets sporadisk/ustabil, bank 1
+P2660	Vippearmaktuator B – styrekrets brudd, bank 2
+P2661	Vippearmaktuatorsystem B – ytelse/står av, bank 2
+P2662	Vippearmaktuatorsystem B – står på, bank 2
+P2663	Vippearmaktuator B – styrekrets lav, bank 2
+P2664	Vippearmaktuator B – styrekrets høy, bank 2
+P2665	Drivstoffstengeventil B – styrekrets brudd
+P2666	Drivstoffstengeventil B – styrekrets lav
+P2667	Drivstoffstengeventil B – styrekrets høy
+P2668	Drivstoffmoduskontrollampe – styrekrets
+P2669	Aktuatorforsyningsspenning B – krets brudd
+P266A	Vippearmaktuator-posisjonssensor A – krets, bank 2
+P266B	Vippearmaktuator-posisjonssensor A – krets område/ytelse, bank 2
+P266C	Vippearmaktuator-posisjonssensor A – krets lav, bank 2
+P266D	Vippearmaktuator-posisjonssensor A – krets høy, bank 2
+P266E	Vippearmaktuator-posisjonssensor A – krets sporadisk/ustabil, bank 2
+P2670	Aktuatorforsyningsspenning B – krets lav
+P2671	Aktuatorforsyningsspenning B – krets høy
+P2672	Innsprøytingspumpe-timingforskyvning
+P2673	Innsprøytingspumpe-timingkalibrering – ikke innlært
+P2674	Innsprøytingspumpe-drivstoffkalibrering – ikke innlært
+P2675	Luftfilterinnløp – styrekrets brudd
+P2676	Luftfilterinnløp – styrekrets lav
+P2677	Luftfilterinnløp – styrekrets høy
+P2678	Kjølevæskeavgassingsventil – styrekrets brudd
+P2679	Kjølevæskeavgassingsventil – styrekrets lav
+P267A	Vippearmaktuator-posisjonssensor B – krets, bank 2
+P267B	Vippearmaktuator-posisjonssensor B – krets område/ytelse, bank 2
+P267C	Vippearmaktuator-posisjonssensor B – krets lav, bank 2
+P267D	Vippearmaktuator-posisjonssensor B – krets høy, bank 2
+P267E	Vippearmaktuator-posisjonssensor B – krets sporadisk/ustabil, bank 2
+P2680	Kjølevæskeavgassingsventil – styrekrets høy
+P2681	Kjølevæskebypassventil – styrekrets brudd
+P2682	Kjølevæskebypassventil – styrekrets lav
+P2683	Kjølevæskebypassventil – styrekrets høy
+P2684	Aktuatorforsyningsspenning C – krets brudd
+P2685	Aktuatorforsyningsspenning C – krets lav
+P2686	Aktuatorforsyningsspenning C – krets høy
+P2687	Drivstoffforsyningsvarmer – styrekrets brudd
+P2688	Drivstoffforsyningsvarmer – styrekrets lav
+P2689	Drivstoffforsyningsvarmer – styrekrets høy
+P2700	Girkassefriksjonselement A innkoblingstid – område/ytelse
+P2701	Girkassefriksjonselement B innkoblingstid – område/ytelse
+P2702	Girkassefriksjonselement C innkoblingstid – område/ytelse
+P2703	Girkassefriksjonselement D innkoblingstid – område/ytelse
+P2704	Girkassefriksjonselement E innkoblingstid – område/ytelse
+P2705	Girkassefriksjonselement F innkoblingstid – område/ytelse
+P2706	Girskiftmagnetventil F
+P2707	Girskiftmagnetventil F – ytelse eller står av
+P2708	Girskiftmagnetventil F – står på
+P2709	Girskiftmagnetventil F elektrisk
+P2710	Girskiftmagnetventil F – sporadisk
+P2711	Uventet mekaniskgirutkobling
+P2712	Hydraulikkstrømenhetslekkasje
+P2713	Trykkstyringsmagnetventil D
+P2714	Trykkstyringsmagnetventil D – ytelse eller står av
+P2715	Trykkstyringsmagnetventil D – står på
+P2716	Trykkstyringsmagnetventil D elektrisk
+P2717	Trykkstyringsmagnetventil D – sporadisk
+P2718	Trykkstyringsmagnetventil D – styrekrets brudd
+P2719	Trykkstyringsmagnetventil D – styrekrets område/ytelse
+P2720	Trykkstyringsmagnetventil D – styrekrets lav
+P2721	Trykkstyringsmagnetventil D – styrekrets høy
+P2722	Trykkstyringsmagnetventil E
+P2723	Trykkstyringsmagnetventil E – ytelse eller står av
+P2724	Trykkstyringsmagnetventil E – står på
+P2725	Trykkstyringsmagnetventil E elektrisk
+P2726	Trykkstyringsmagnetventil E – sporadisk
+P2727	Trykkstyringsmagnetventil E – styrekrets brudd
+P2728	Trykkstyringsmagnetventil E – styrekrets område/ytelse
+P2729	Trykkstyringsmagnetventil E – styrekrets lav
+P2730	Trykkstyringsmagnetventil E – styrekrets høy
+P2731	Trykkstyringsmagnetventil F
+P2732	Trykkstyringsmagnetventil F – ytelse eller står av
+P2733	Trykkstyringsmagnetventil F – står på
+P2734	Trykkstyringsmagnetventil F elektrisk
+P2735	Trykkstyringsmagnetventil F – sporadisk
+P2736	Trykkstyringsmagnetventil F – styrekrets brudd
+P2737	Trykkstyringsmagnetventil F – styrekrets område/ytelse
+P2738	Trykkstyringsmagnetventil F – styrekrets lav
+P2739	Trykkstyringsmagnetventil F – styrekrets høy
+P273A	Girkassefriksjonselement G innkoblingstid – område/ytelse
+P273B	Girkassefriksjonselement H innkoblingstid – område/ytelse
+P2740	Giroljetemperatursensor B – krets
+P2741	Giroljetemperatursensor B – krets område/ytelse
+P2742	Giroljetemperatursensor B – krets lav
+P2743	Giroljetemperatursensor B – krets høy
+P2744	Giroljetemperatursensor B – krets sporadisk
+P2745	Mellomakselturtallssensor B – krets
+P2746	Mellomakselturtallssensor B – krets område/ytelse
+P2747	Mellomakselturtallssensor B – krets ikke noe signal
+P2748	Mellomakselturtallssensor B – krets sporadisk
+P2749	Mellomakselturtallssensor C – krets
+P2750	Mellomakselturtallssensor C – krets område/ytelse
+P2751	Mellomakselturtallssensor C – krets ikke noe signal
+P2752	Mellomakselturtallssensor C – krets sporadisk
+P2753	Giroljekjøler – styrekrets brudd
+P2754	Giroljekjøler – styrekrets lav
+P2755	Giroljekjøler – styrekrets høy
+P2756	Momentomformerlås-trykkstyringsmagnetventil
+P2757	Momentomformerlås-trykkstyringsmagnetventil – styrekrets ytelse eller står av
+P2758	Momentomformerlås-trykkstyringsmagnetventil – styrekrets står på
+P2759	Momentomformerlås-trykkstyringsmagnetventil – styrekrets elektrisk
+P2760	Momentomformerlås-trykkstyringsmagnetventil – styrekrets sporadisk
+P2761	Momentomformerlås-trykkstyringsmagnetventil – styrekrets brudd
+P2762	Momentomformerlås-trykkstyringsmagnetventil – styrekrets område/ytelse
+P2763	Momentomformerlås-trykkstyringsmagnetventil – styrekrets høy
+P2764	Momentomformerlås-trykkstyringsmagnetventil – styrekrets lav
+P2765	Inngangs-/turbinturtallssensor B – krets
+P2766	Inngangs-/turbinturtallssensor B – krets område/ytelse
+P2767	Inngangs-/turbinturtallssensor B – krets ikke noe signal
+P2768	Inngangs-/turbinturtallssensor B – krets sporadisk
+P2769	Låsekobling i momentomformer – krets lav
+P2770	Låsekobling i momentomformer – krets høy
+P2771	Firehjulsdrift – lavtrykksbryterkrets (4WD)
+P2772	Firehjulsdrift – lavtrykksbryterkrets område/ytelse (4WD)
+P2773	Firehjulsdrift – lavtrykksbryterkrets lav (4WD)
+P2774	Firehjulsdrift – lavtrykksbryterkrets høy (4WD)
+P2775	Oppgiringsbryter – krets område/ytelse
+P2776	Oppgiringsbryter – krets lav
+P2777	Oppgiringsbryter – krets høy
+P2778	Oppgiringsbryter – krets sporadisk/ustabil
+P2779	Nedgiringsbryter – krets område/ytelse
+P2780	Nedgiringsbryter – krets lav
+P2781	Nedgiringsbryter – krets høy
+P2782	Nedgiringsbryter – krets sporadisk/ustabil
+P2783	Momentomformer – temperatur for høy
+P2784	Inngangs-/turbinturtallssensor A/B – korrelasjon
+P2785	Clutchaktuator – temperatur for høy
+P2786	Girskiftaktuator – temperatur for høy
+P2787	Clutch – temperatur for høy
+P2788	Automatisert girkasse, adaptiv innlæring ved grensen
+P2789	Clutch, adaptiv innlæring ved grensen
+P278A	Kickdownbryter – krets
+P278B	Kickdownbryter – krets område/ytelse
+P278C	Kickdownbryter – krets lav
+P278D	Kickdownbryter – krets høy
+P278E	Kickdownbryter – krets sporadisk/ustabil
+P2790	Gassvalgretning – krets
+P2791	Gassvalgretning – krets lav
+P2792	Gassvalgretning – krets høy
+P2793	Girskiftretning – krets
+P2794	Girskiftretning – krets lav
+P2795	Girskiftretning – krets høy
+P2796	Hjelpegiroljepumpe – styrekrets brudd
+P2797	Hjelpegiroljepumpe – ytelse
+P2798	Hjelpegiroljepumpe – styrekrets lav
+P2799	Hjelpegiroljepumpe – styrekrets høy
+P2800	Girvelgerposisjonssensor B – krets (inngang for girvelger (PRNDL))
+P2801	Girvelgerposisjonssensor B – krets område/ytelse
+P2802	Girvelgerposisjonssensor B – krets lav
+P2803	Girvelgerposisjonssensor B – krets høy
+P2804	Girvelgerposisjonssensor B – sporadisk
+P2805	Girvelgerposisjonssensor A/B – korrelasjon
+P2806	Girvelgerposisjons-sensorjustering
+P2807	Trykkstyringsmagnetventil G
+P2808	Trykkstyringsmagnetventil G – ytelse/står av
+P2809	Trykkstyringsmagnetventil G – står på
+P2810	Trykkstyringsmagnetventil G elektrisk
+P2811	Trykkstyringsmagnetventil G – sporadisk
+P2812	Trykkstyringsmagnetventil G – styrekrets brudd
+P2813	Trykkstyringsmagnetventil G – styrekrets område/ytelse
+P2814	Trykkstyringsmagnetventil G – styrekrets lav
+P2815	Trykkstyringsmagnetventil G – styrekrets høy
+P2816	Trykkstyringsmagnetventil H
+P2817	Trykkstyringsmagnetventil H – ytelse/står av
+P2818	Trykkstyringsmagnetventil H – står på
+P2819	Trykkstyringsmagnetventil H elektrisk
+P281A	Trykkstyringsmagnetventil H – sporadisk
+P281B	Trykkstyringsmagnetventil H – styrekrets brudd
+P281C	Trykkstyringsmagnetventil H – styrekrets område/ytelse
+P281D	Trykkstyringsmagnetventil H – styrekrets lav
+P281E	Trykkstyringsmagnetventil H – styrekrets høy
+P281F	Trykkstyringsmagnetventil J
+P2820	Trykkstyringsmagnetventil J – ytelse/står av
+P2821	Trykkstyringsmagnetventil J – står på
+P2822	Trykkstyringsmagnetventil J elektrisk
+P2823	Trykkstyringsmagnetventil J – sporadisk
+P2824	Trykkstyringsmagnetventil J – styrekrets brudd
+P2825	Trykkstyringsmagnetventil J – styrekrets område/ytelse
+P2826	Trykkstyringsmagnetventil J – styrekrets lav
+P2827	Trykkstyringsmagnetventil J – styrekrets høy
+P2828	Trykkstyringsmagnetventil K
+P2829	Trykkstyringsmagnetventil K – ytelse/står av
+P282A	Trykkstyringsmagnetventil K – står på
+P282B	Trykkstyringsmagnetventil K elektrisk
+P282C	Trykkstyringsmagnetventil K – sporadisk
+P282D	Trykkstyringsmagnetventil K – styrekrets brudd
+P282E	Trykkstyringsmagnetventil K – styrekrets område/ytelse
+P282F	Trykkstyringsmagnetventil K – styrekrets lav
+P2830	Trykkstyringsmagnetventil K – styrekrets høy
+P2A00	Lambdasonde – krets område/ytelse, bank 1 sensor 1
+P2A01	Lambdasonde – krets område/ytelse, bank 1 sensor 2
+P2A02	Lambdasonde – krets område/ytelse, bank 1 sensor 3
+P2A03	Lambdasonde – krets område/ytelse, bank 2 sensor 1
+P2A04	Lambdasonde – krets område/ytelse, bank 2 sensor 2
+P2A05	Lambdasonde – krets område/ytelse, bank 2 sensor 3
+P2A06	Lambdasondenegativspenning, bank 1 sensor 1
+P2A07	Lambdasondenegativspenning, bank 1 sensor 2
+P2A08	Lambdasondenegativspenning, bank 1 sensor 3
+P2A09	Lambdasondenegativspenning, bank 2 sensor 1
+P2A10	Lambdasondenegativspenning, bank 2 sensor 2
+P2A11	Lambdasondenegativspenning, bank 2 sensor 3
+P3400	Sylinderutkoblingssystem, bank 1
+P3401	Utkobling/innsugsventil – styrekrets brudd, sylinder 1
+P3402	Utkobling/innsugsventil – styring ytelse, sylinder 1
+P3403	Utkobling/innsugsventil – styrekrets lav, sylinder 1
+P3404	Utkobling/innsugsventil – styrekrets høy, sylinder 1
+P3405	Eksosventil – styrekrets brudd, sylinder 1
+P3406	Eksosventil – styring ytelse, sylinder 1
+P3407	Eksosventil – styrekrets lav, sylinder 1
+P3408	Eksosventil – styrekrets høy, sylinder 1
+P3409	Utkobling/innsugsventil – styrekrets brudd, sylinder 2
+P3410	Utkobling/innsugsventil – styring ytelse, sylinder 2
+P3411	Utkobling/innsugsventil – styrekrets lav, sylinder 2
+P3412	Utkobling/innsugsventil – styrekrets høy, sylinder 2
+P3413	Eksosventil – styrekrets brudd, sylinder 2
+P3414	Eksosventil – styring ytelse, sylinder 2
+P3415	Eksosventil – styrekrets lav, sylinder 2
+P3416	Eksosventil – styrekrets høy, sylinder 2
+P3417	Utkobling/innsugsventil – styrekrets brudd, sylinder 3
+P3418	Utkobling/innsugsventil – styring ytelse, sylinder 3
+P3419	Utkobling/innsugsventil – styrekrets lav, sylinder 3
+P3420	Utkobling/innsugsventil – styrekrets høy, sylinder 3
+P3421	Eksosventil – styrekrets brudd, sylinder 3
+P3422	Eksosventil – styring ytelse, sylinder 3
+P3423	Eksosventil – styrekrets lav, sylinder 3
+P3424	Eksosventil – styrekrets høy, sylinder 3
+P3425	Utkobling/innsugsventil – styrekrets brudd, sylinder 4
+P3426	Utkobling/innsugsventil – styring ytelse, sylinder 4
+P3427	Utkobling/innsugsventil – styrekrets lav, sylinder 4
+P3428	Utkobling/innsugsventil – styrekrets høy, sylinder 4
+P3429	Eksosventil – styrekrets brudd, sylinder 4
+P3430	Eksosventil – styring ytelse, sylinder 4
+P3431	Eksosventil – styrekrets lav, sylinder 4
+P3432	Eksosventil – styrekrets høy, sylinder 4
+P3433	Utkobling/innsugsventil – styrekrets brudd, sylinder 5
+P3434	Utkobling/innsugsventil – styring ytelse, sylinder 5
+P3435	Utkobling/innsugsventil – styrekrets lav, sylinder 5
+P3436	Utkobling/innsugsventil – styrekrets høy, sylinder 5
+P3437	Eksosventil – styrekrets brudd, sylinder 5
+P3438	Eksosventil – styring ytelse, sylinder 5
+P3439	Eksosventil – styrekrets lav, sylinder 5
+P3440	Eksosventil – styrekrets høy, sylinder 5
+P3441	Utkobling/innsugsventil – styrekrets brudd, sylinder 6
+P3442	Utkobling/innsugsventil – styring ytelse, sylinder 6
+P3443	Utkobling/innsugsventil – styrekrets lav, sylinder 6
+P3444	Utkobling/innsugsventil – styrekrets høy, sylinder 6
+P3445	Eksosventil – styrekrets brudd, sylinder 6
+P3446	Eksosventil – styring ytelse, sylinder 6
+P3447	Eksosventil – styrekrets lav, sylinder 6
+P3448	Eksosventil – styrekrets høy, sylinder 6
+P3449	Utkobling/innsugsventil – styrekrets brudd, sylinder 7
+P3450	Utkobling/innsugsventil – styring ytelse, sylinder 7
+P3451	Utkobling/innsugsventil – styrekrets lav, sylinder 7
+P3452	Utkobling/innsugsventil – styrekrets høy, sylinder 7
+P3453	Eksosventil – styrekrets brudd, sylinder 7
+P3454	Eksosventil – styring ytelse, sylinder 7
+P3455	Eksosventil – styrekrets lav, sylinder 7
+P3456	Eksosventil – styrekrets høy, sylinder 7
+P3457	Utkobling/innsugsventil – styrekrets brudd, sylinder 8
+P3458	Utkobling/innsugsventil – styring ytelse, sylinder 8
+P3459	Utkobling/innsugsventil – styrekrets lav, sylinder 8
+P3460	Utkobling/innsugsventil – styrekrets høy, sylinder 8
+P3461	Eksosventil – styrekrets brudd, sylinder 8
+P3462	Eksosventil – styring ytelse, sylinder 8
+P3463	Eksosventil – styrekrets lav, sylinder 8
+P3464	Eksosventil – styrekrets høy, sylinder 8
+P3465	Utkobling/innsugsventil – styrekrets brudd, sylinder 9
+P3466	Utkobling/innsugsventil – styring ytelse, sylinder 9
+P3467	Utkobling/innsugsventil – styrekrets lav, sylinder 9
+P3468	Utkobling/innsugsventil – styrekrets høy, sylinder 9
+P3469	Eksosventil – styrekrets brudd, sylinder 9
+P3470	Eksosventil – styring ytelse, sylinder 9
+P3471	Eksosventil – styrekrets lav, sylinder 9
+P3472	Eksosventil – styrekrets høy, sylinder 9
+P3473	Utkobling/innsugsventil – styrekrets brudd, sylinder 10
+P3474	Utkobling/innsugsventil – styring ytelse, sylinder 10
+P3475	Utkobling/innsugsventil – styrekrets lav, sylinder 10
+P3476	Utkobling/innsugsventil – styrekrets høy, sylinder 10
+P3477	Eksosventil – styrekrets brudd, sylinder 10
+P3478	Eksosventil – styring ytelse, sylinder 10
+P3479	Eksosventil – styrekrets lav, sylinder 10
+P3480	Eksosventil – styrekrets høy, sylinder 10
+P3481	Utkobling/innsugsventil – styrekrets brudd, sylinder 11
+P3482	Utkobling/innsugsventil – styring ytelse, sylinder 11
+P3483	Utkobling/innsugsventil – styrekrets lav, sylinder 11
+P3484	Utkobling/innsugsventil – styrekrets høy, sylinder 11
+P3485	Eksosventil – styrekrets brudd, sylinder 11
+P3486	Eksosventil – styring ytelse, sylinder 11
+P3487	Eksosventil – styrekrets lav, sylinder 11
+P3488	Eksosventil – styrekrets høy, sylinder 11
+P3489	Utkobling/innsugsventil – styrekrets brudd, sylinder 12
+P3490	Utkobling/innsugsventil – styring ytelse, sylinder 12
+P3491	Utkobling/innsugsventil – styrekrets lav, sylinder 12
+P3492	Utkobling/innsugsventil – styrekrets høy, sylinder 12
+P3493	Eksosventil – styrekrets brudd, sylinder 12
+P3494	Eksosventil – styring ytelse, sylinder 12
+P3495	Eksosventil – styrekrets lav, sylinder 12
+P3496	Eksosventil – styrekrets høy, sylinder 12
+P3497	Sylinderutkoblingssystem, bank 2
+U0001	Høyhastighets-CAN-buss
+U0002	Høyhastighets-CAN-buss – ytelse
+U0003	Høyhastighets-CAN-buss brudd (+)
+U0004	Høyhastighets-CAN-buss – lav (+)
+U0005	Høyhastighets-CAN-buss – høy (+)
+U0006	Høyhastighets-CAN-buss brudd (-)
+U0007	Høyhastighets-CAN-buss – lav (-)
+U0008	Høyhastighets-CAN-buss – høy (-)
+U0009	Høyhastighets CAN-buss (-) kortsluttet til buss (+)
+U0010	Mellomhastighets-CAN-buss
+U0011	Mellomhastighets-CAN-buss – ytelse
+U0012	Mellomhastighets-CAN-buss brudd (+)
+U0013	Mellomhastighets-CAN-buss – lav (+)
+U0014	Mellomhastighets-CAN-buss – høy (+)
+U0015	Mellomhastighets-CAN-buss brudd (-)
+U0016	Mellomhastighets-CAN-buss – lav (-)
+U0017	Mellomhastighets-CAN-buss – høy (-)
+U0018	Middelshastighets CAN-buss (-) kortsluttet til buss (+)
+U0019	Lavhastighets-CAN-buss
+U0020	Lavhastighets-CAN-buss – ytelse
+U0021	Lavhastighets-CAN-buss brudd (+)
+U0022	Lavhastighets-CAN-buss – lav (+)
+U0023	Lavhastighets-CAN-buss – høy (+)
+U0024	Lavhastighets-CAN-buss brudd (-)
+U0025	Lavhastighets-CAN-buss – lav (-)
+U0026	Lavhastighets-CAN-buss – høy (-)
+U0027	Lavhastighets CAN-buss (-) kortsluttet til buss (+)
+U0028	Kommunikasjonsbuss A
+U0029	Kommunikasjonsbuss A – ytelse
+U0030	Kommunikasjonsbuss A brudd (+)
+U0031	Kommunikasjonsbuss A – lav (+)
+U0032	Kommunikasjonsbuss A – høy (+)
+U0033	Kommunikasjonsbuss A brudd (-)
+U0034	Kommunikasjonsbuss A – lav (-)
+U0035	Kommunikasjonsbuss A – høy (-)
+U0036	Kommunikasjonsbuss A (-) kortsluttet til buss A (+)
+U0037	Kommunikasjonsbuss B
+U0038	Kommunikasjonsbuss B – ytelse
+U0039	Kommunikasjonsbuss B brudd (+)
+U0040	Kommunikasjonsbuss B – lav (+)
+U0041	Kommunikasjonsbuss B – høy (+)
+U0042	Kommunikasjonsbuss B brudd (-)
+U0043	Kommunikasjonsbuss B – lav (-)
+U0044	Kommunikasjonsbuss B – høy (-)
+U0045	Kommunikasjonsbuss B (-) kortsluttet til buss B (+)
+U0046	Kommunikasjonsbuss C
+U0047	Kommunikasjonsbuss C – ytelse
+U0048	Kommunikasjonsbuss C brudd (+)
+U0049	Kommunikasjonsbuss C – lav (+)
+U0050	Kommunikasjonsbuss C – høy (+)
+U0051	Kommunikasjonsbuss C brudd (-)
+U0052	Kommunikasjonsbuss C – lav (-)
+U0053	Kommunikasjonsbuss C – høy (-)
+U0054	Kommunikasjonsbuss C (-) kortsluttet til buss C (+)
+U0055	Kommunikasjonsbuss D
+U0056	Kommunikasjonsbuss D – ytelse
+U0057	Kommunikasjonsbuss D brudd (+)
+U0058	Kommunikasjonsbuss D – lav (+)
+U0059	Kommunikasjonsbuss D – høy (+)
+U0060	Kommunikasjonsbuss D brudd (-)
+U0061	Kommunikasjonsbuss D – lav (-)
+U0062	Kommunikasjonsbuss D – høy (-)
+U0063	Kommunikasjonsbuss D (-) kortsluttet til buss D (+)
+U0064	Kommunikasjonsbuss E
+U0065	Kommunikasjonsbuss E – ytelse
+U0066	Kommunikasjonsbuss E brudd (+)
+U0067	Kommunikasjonsbuss E – lav (+)
+U0068	Kommunikasjonsbuss E – høy (+)
+U0069	Kommunikasjonsbuss E brudd (-)
+U0070	Kommunikasjonsbuss E – lav (-)
+U0071	Kommunikasjonsbuss E – høy (-)
+U0072	Kommunikasjonsbuss E (-) kortsluttet til buss E (+)
+U0073	Kommunikasjonsbuss A: styreenhet koblet fra (bus off)
+U0074	Styreenhetskommunikasjonsbuss B av
+U0100	Mistet kommunikasjon med ECM/PCM A
+U0101	Mistet kommunikasjon med TCM
+U0102	Mistet kommunikasjon med fordelingsgirkassestyreenhet
+U0103	Mistet kommunikasjon med girskiftmodul
+U0104	Mistet kommunikasjon med cruisekontrollmodul
+U0105	Mistet kommunikasjon med drivstoffinjektorstyreenhet
+U0106	Mistet kommunikasjon med glødepluggstyreenhet
+U0107	Mistet kommunikasjon med gasspjeldaktuatorstyreenhet
+U0108	Mistet kommunikasjon med alternativdrivstoffstyreenhet
+U0109	Mistet kommunikasjon med drivstoffpumpestyreenhet
+U0110	Mistet kommunikasjon med drivmotorstyreenhet
+U0111	Mistet kommunikasjon med batteristyreenhet A
+U0112	Mistet kommunikasjon med batteristyreenhet B
+U0113	Mistet kommunikasjon med utslippskritisk styreinformasjon
+U0114	Mistet kommunikasjon med firehjulsdrifts-clutchstyreenhet
+U0115	Mistet kommunikasjon med ECM/PCM B
+U0116	Mistet kommunikasjon med kjølevæsketemperaturstyreenhet
+U0117	Mistet kommunikasjon med PTO-styreenhet
+U0118	Mistet kommunikasjon med drivstofftilsetningsstyreenhet
+U0119	Mistet kommunikasjon med brenselcellestyreenhet
+U0120	Mistet kommunikasjon med startmotor-/generatorstyreenhet
+U0121	Mistet kommunikasjon med ABS-styreenhet
+U0122	Mistet kommunikasjon med kjøredynamikkstyreenhet
+U0123	Mistet kommunikasjon med girratesensormodul
+U0124	Mistet kommunikasjon med sideakselerasjonssensormodul
+U0125	Mistet kommunikasjon med fleraksel-akselerasjons-sensormodul
+U0126	Mistet kommunikasjon med styrevinkelsensormodul
+U0127	Mistet kommunikasjon med dekktrykkovervåkingsmodul
+U0128	Mistet kommunikasjon med parkeringsbremsestyreenhet
+U0129	Mistet kommunikasjon med bremsesystemstyreenhet
+U0130	Mistet kommunikasjon med styrekraftstyreenhet
+U0131	Mistet kommunikasjon med servostyringsstyreenhet
+U0132	Mistet kommunikasjon med nivåreguleringsstyreenhet
+U0133	Mistet kommunikasjon med krengningsdempingsstyreenhet (ARCM)
+U0134	Mistet kommunikasjon med servostyringsstyreenhet bak
+U0135	Mistet kommunikasjon med differensialstyreenhet foran
+U0136	Mistet kommunikasjon med differensialstyreenhet bak
+U0137	Mistet kommunikasjon med tilhengerbremsestyreenhet
+U0138	Mistet kommunikasjon med terrengmodusstyreenhet
+U0139	Mistet kommunikasjon med hjulopphengstyreenhet B
+U0140	Mistet kommunikasjon med karosseristyreenhet (BCM)
+U0141	Mistet kommunikasjon med karosseristyreenhet A
+U0142	Mistet kommunikasjon med karosseristyreenhet B
+U0143	Mistet kommunikasjon med karosseristyreenhet C
+U0144	Mistet kommunikasjon med karosseristyreenhet D
+U0145	Mistet kommunikasjon med karosseristyreenhet E
+U0146	Mistet kommunikasjon med gateway A
+U0147	Mistet kommunikasjon med gateway B
+U0148	Mistet kommunikasjon med gateway C
+U0149	Mistet kommunikasjon med gateway D
+U0150	Mistet kommunikasjon med gateway E
+U0151	Mistet kommunikasjon med SRS-styreenhet
+U0152	Mistet kommunikasjon med side-SRS-styreenhet (venstre)
+U0153	Mistet kommunikasjon med side-SRS-styreenhet (høyre)
+U0154	Mistet kommunikasjon med SRS-personregistrerings-styreenhet
+U0155	Mistet kommunikasjon med instrumentpanelets styreenhet (IPC)
+U0156	Mistet kommunikasjon med informasjonssenter A
+U0157	Mistet kommunikasjon med informasjonssenter B
+U0158	Mistet kommunikasjon med frontruteprojeksjon (HUD)
+U0159	Mistet kommunikasjon med parkeringshjelpstyreenhet
+U0160	Mistet kommunikasjon med lydvarselstyreenhet
+U0161	Mistet kommunikasjon med kompassmodul
+U0162	Mistet kommunikasjon med navigasjonsdisplaymodul
+U0163	Mistet kommunikasjon med navigasjonsstyreenhet
+U0164	Mistet kommunikasjon med klimastyreenhet
+U0165	Mistet kommunikasjon med klimastyreenhet
+U0166	Mistet kommunikasjon med tilleggsvarmerstyreenhet
+U0167	Mistet kommunikasjon med startsperrestyreenhet
+U0168	Mistet kommunikasjon med tyverisikringsstyreenhet
+U0169	Mistet kommunikasjon med soltakstyreenhet
+U0170	Mistet kommunikasjon med SRS-sensor A
+U0171	Mistet kommunikasjon med SRS-sensor B
+U0172	Mistet kommunikasjon med SRS-sensor C
+U0173	Mistet kommunikasjon med SRS-sensor D
+U0174	Mistet kommunikasjon med SRS-sensor E
+U0175	Mistet kommunikasjon med SRS-sensor F
+U0176	Mistet kommunikasjon med SRS-sensor G
+U0177	Mistet kommunikasjon med SRS-sensor H
+U0178	Mistet kommunikasjon med SRS-sensor I
+U0179	Mistet kommunikasjon med SRS-sensor J
+U017A	Mistet kommunikasjon med SRS-sensor K
+U017B	Mistet kommunikasjon med SRS-sensor L
+U017C	Mistet kommunikasjon med SRS-sensor M
+U017D	Mistet kommunikasjon med SRS-sensor N
+U0180	Mistet kommunikasjon med lysautomatikkstyreenhet
+U0181	Mistet kommunikasjon med lyshøydereguleringsstyreenhet
+U0182	Mistet kommunikasjon med lysstyreenhet foran
+U0183	Mistet kommunikasjon med lysstyreenhet bak
+U0184	Mistet kommunikasjon med radio
+U0185	Mistet kommunikasjon med antennestyreenhet
+U0186	Mistet kommunikasjon med lydforsterker
+U0187	Mistet kommunikasjon med CD-spiller-/vekslermodul A
+U0188	Mistet kommunikasjon med CD-spiller-/vekslermodul B
+U0189	Mistet kommunikasjon med CD-spiller-/vekslermodul C
+U0190	Mistet kommunikasjon med CD-spiller-/vekslermodul D
+U0191	Mistet kommunikasjon med TV
+U0192	Mistet kommunikasjon med PC
+U0193	Mistet kommunikasjon med digitallydstyreenhet A
+U0194	Mistet kommunikasjon med digitallydstyreenhet B
+U0195	Mistet kommunikasjon med abonnementsmottakermodul
+U0196	Mistet kommunikasjon med baksetesunderholdnings-styreenhet
+U0197	Mistet kommunikasjon med telefonstyreenhet
+U0198	Mistet kommunikasjon med telematikkstyreenhet
+U0199	Mistet kommunikasjon med dørstyreenhet A
+U0200	Mistet kommunikasjon med dørstyreenhet B
+U0201	Mistet kommunikasjon med dørstyreenhet C
+U0202	Mistet kommunikasjon med dørstyreenhet D
+U0203	Mistet kommunikasjon med dørstyreenhet E
+U0204	Mistet kommunikasjon med dørstyreenhet F
+U0205	Mistet kommunikasjon med dørstyreenhet G
+U0206	Mistet kommunikasjon med kalesjestyreenhet
+U0207	Mistet kommunikasjon med soltakstyreenhet
+U0208	Mistet kommunikasjon med setestyreenhet A
+U0209	Mistet kommunikasjon med setestyreenhet B
+U0210	Mistet kommunikasjon med setestyreenhet C
+U0211	Mistet kommunikasjon med setestyreenhet D
+U0212	Mistet kommunikasjon med rattstammestyreenhet
+U0213	Mistet kommunikasjon med speilstyreenhet
+U0214	Mistet kommunikasjon med fjernbetjente funksjoner
+U0215	Mistet kommunikasjon med dørbryter A
+U0216	Mistet kommunikasjon med dørbryter B
+U0217	Mistet kommunikasjon med dørbryter C
+U0218	Mistet kommunikasjon med dørbryter D
+U0219	Mistet kommunikasjon med dørbryter E
+U0220	Mistet kommunikasjon med dørbryter F
+U0221	Mistet kommunikasjon med dørbryter G
+U0222	Mistet kommunikasjon med vindusmotor A
+U0223	Mistet kommunikasjon med vindusmotor B
+U0224	Mistet kommunikasjon med vindusmotor C
+U0225	Mistet kommunikasjon med vindusmotor D
+U0226	Mistet kommunikasjon med vindusmotor E
+U0227	Mistet kommunikasjon med vindusmotor F
+U0228	Mistet kommunikasjon med vindusmotor G
+U0229	Mistet kommunikasjon med rattvarmemodul
+U0230	Mistet kommunikasjon med baklukemodul
+U0231	Mistet kommunikasjon med regnsensormodul
+U0232	Mistet kommunikasjon med styreenhet for blindsonevarsling, venstre
+U0233	Mistet kommunikasjon med styreenhet for blindsonevarsling, høyre
+U0234	Mistet kommunikasjon med minnefunksjonsmodul
+U0235	Mistet kommunikasjon med cruisekontrollavstandssensor foran
+U0236	Mistet kommunikasjon med rattlåsmodul
+U0237	Mistet kommunikasjon med digitallydstyreenhet C
+U0238	Mistet kommunikasjon med digitallydstyreenhet D
+U0239	Mistet kommunikasjon med klemsikringsstyreenhet A
+U0240	Mistet kommunikasjon med klemsikringsstyreenhet B
+U0241	Mistet kommunikasjon med frontlysstyreenhet A
+U0242	Mistet kommunikasjon med frontlysstyreenhet B
+U0243	Mistet kommunikasjon med parkeringshjelpstyreenhet B
+U0244	Mistet kommunikasjon med stigtrinnstyreenhet A
+U0245	Mistet kommunikasjon med underholdningsstyreenhet foran
+U0246	Mistet kommunikasjon med setestyreenhet E
+U0247	Mistet kommunikasjon med setestyreenhet F
+U0248	Mistet kommunikasjon med fjerntilbehørsmodul
+U0249	Mistet kommunikasjon med underholdningsstyreenhet B bak
+U0250	Mistet kommunikasjon med kollisjonsklassifiseringsmodul
+U0251	Mistet kommunikasjon med stigtrinnstyreenhet B
+U0252	Mistet kommunikasjon med lysstyreenhet B bak
+U0291	Mistet kommunikasjon med girskiftstyreenhet B
+U0292	Mistet kommunikasjon med drivmotorstyreenhet B
+U0293	Mistet kommunikasjon med hybriddrivlinjestyreenhet
+U0294	Mistet kommunikasjon med drivlinjeovervåkingsmodul
+U0295	Mistet kommunikasjon med AC/AC-omformerstyreenhet
+U0296	Mistet kommunikasjon med AC/DC-omformerstyreenhet A
+U0297	Mistet kommunikasjon med AC/DC-omformerstyreenhet B
+U0298	Mistet kommunikasjon med DC/DC-omformerstyreenhet A
+U0299	Mistet kommunikasjon med DC/DC-omformerstyreenhet B
+U0300	Styreenhet (intern): programvare ikke kompatibel
+U0301	Programvare ikke kompatibel med ECM/PCM
+U0302	Programvare ikke kompatibel med girkassestyreenhet
+U0303	Programvare ikke kompatibel med fordelingsgirkassestyreenhet
+U0304	Programvare ikke kompatibel med girskiftstyreenhet
+U0305	Programvare ikke kompatibel med cruisekontrollmodul
+U0306	Programvare ikke kompatibel med drivstoffinjektorstyreenhet
+U0307	Programvare ikke kompatibel med glødepluggstyreenhet
+U0308	Programvare ikke kompatibel med gasspjeldaktuatorstyreenhet
+U0309	Programvare ikke kompatibel med alternativdrivstoffstyreenhet
+U0310	Programvare ikke kompatibel med drivstoffpumpestyreenhet
+U0311	Programvare ikke kompatibel med drivmotorstyreenhet
+U0312	Programvare ikke kompatibel med batteristyreenhet A
+U0313	Programvare ikke kompatibel med batteristyreenhet B
+U0314	Programvare ikke kompatibel med firehjulsdrifts-clutchstyreenhet
+U0315	Programvare ikke kompatibel med ABS-styreenhet
+U0316	Programvare ikke kompatibel med kjøredynamikkstyreenhet
+U0317	Programvare ikke kompatibel med parkeringsbremsestyreenhet
+U0318	Programvare ikke kompatibel med bremsesystemstyreenhet
+U0319	Programvare ikke kompatibel med styrekraftstyreenhet
+U0320	Programvare ikke kompatibel med servostyringsstyreenhet
+U0321	Programvare ikke kompatibel med nivåreguleringsstyreenhet
+U0322	Programvare ikke kompatibel med karosseristyreenhet
+U0323	Programvare ikke kompatibel med instrumentpanelstyreenhet
+U0324	Programvare ikke kompatibel med klimastyreenhet
+U0325	Programvare ikke kompatibel med tilleggsvarmerstyreenhet
+U0326	Programvare ikke kompatibel med startsperrestyreenhet
+U0327	Programvare ikke kompatibel med tyverisikringsstyreenhet
+U0328	Programvare ikke kompatibel med styrevinkelsensormodul
+U0329	Programvare ikke kompatibel med rattstammestyreenhet
+U0330	Programvare ikke kompatibel med dekktrykkovervåkingsmodul
+U0331	Programvare ikke kompatibel med karosseristyreenhet A
+U0400	Ugyldige data mottatt
+U0401	Ugyldige data mottatt fra ECM/PCM
+U0402	Ugyldige data mottatt fra girkassestyreenhet
+U0403	Ugyldige data mottatt fra fordelingsgirkassestyreenhet
+U0404	Ugyldige data mottatt fra girskiftstyreenhet
+U0405	Ugyldige data mottatt fra cruisekontrollmodul
+U0406	Ugyldige data mottatt fra drivstoffinjektorstyreenhet
+U0407	Ugyldige data mottatt fra glødepluggstyreenhet
+U0408	Ugyldige data mottatt fra gasspjeldaktuatorstyreenhet
+U0409	Ugyldige data mottatt fra alternativdrivstoffstyreenhet
+U040A	Ugyldige data mottatt fra CD-spiller-/vekslermodul C
+U0410	Ugyldige data mottatt fra drivstoffpumpestyreenhet
+U0411	Ugyldige data mottatt fra drivmotorstyreenhet
+U0412	Ugyldige data mottatt fra batteristyreenhet A
+U0413	Ugyldige data mottatt fra batteristyreenhet B
+U0414	Ugyldige data mottatt fra firehjulsdrifts-clutchstyreenhet
+U0415	Ugyldige data mottatt fra ABS-styreenhet
+U0416	Ugyldige data mottatt fra kjøredynamikkstyreenhet
+U0417	Ugyldige data mottatt fra parkeringsbremsestyreenhet
+U0418	Ugyldige data mottatt fra bremsesystemstyreenhet
+U0419	Ugyldige data mottatt fra styrekraftstyreenhet
+U0420	Ugyldige data mottatt fra servostyringsstyreenhet
+U0421	Ugyldige data mottatt fra nivåreguleringsstyreenhet
+U0422	Ugyldige data mottatt fra karosseristyreenhet
+U0423	Ugyldige data mottatt fra instrumentpanelstyreenhet
+U0424	Ugyldige data mottatt fra klimastyreenhet
+U0425	Ugyldige data mottatt fra tilleggsvarmerstyreenhet
+U0426	Ugyldige data mottatt fra startsperrestyreenhet
+U0427	Ugyldige data mottatt fra tyverisikringsstyreenhet
+U0428	Ugyldige data mottatt fra styrevinkelsensormodul
+U0429	Ugyldige data mottatt fra rattstammestyreenhet
+U0430	Ugyldige data mottatt fra dekktrykkovervåkingsmodul
+U0431	Ugyldige data mottatt fra karosseristyreenhet A
+U0432	Ugyldige data mottatt fra fleraksel-akselerasjons-sensormodul
+U0433	Ugyldige data mottatt fra cruisekontrollavstandssensor foran
+U0434	Ugyldige data mottatt fra krengningsdempingsstyreenhet
+U0435	Ugyldige data mottatt fra servostyringsstyreenhet bak
+U0436	Ugyldige data mottatt fra differensialstyreenhet foran
+U0437	Ugyldige data mottatt fra differensialstyreenhet bak
+U0438	Ugyldige data mottatt fra tilhengerbremsestyreenhet
+U0439	Ugyldige data mottatt fra terrengmodusstyreenhet
+U0441	Ugyldige data mottatt fra utslippskritisk styreinformasjon
+U0442	Ugyldige data mottatt fra ECM/PCM B
+U0443	Ugyldige data mottatt fra karosseristyreenhet B
+U0444	Ugyldige data mottatt fra karosseristyreenhet C
+U0445	Ugyldige data mottatt fra karosseristyreenhet D
+U0446	Ugyldige data mottatt fra karosseristyreenhet E
+U0447	Ugyldige data mottatt fra gateway A
+U0448	Ugyldige data mottatt fra gateway B
+U0449	Ugyldige data mottatt fra gateway C
+U044A	Ugyldige data mottatt fra gateway D
+U0451	Ugyldige data mottatt fra gateway E
+U0452	Ugyldige data mottatt fra SRS-styreenhet
+U0453	Ugyldige data mottatt fra side-SRS-styreenhet venstre
+U0454	Ugyldige data mottatt fra side-SRS-styreenhet høyre
+U0455	Ugyldige data mottatt fra SRS-setevektsklassifiserings-systemmodul
+U0456	Ugyldige data mottatt fra kjølevæsketemperaturstyreenhet
+U0457	Ugyldige data mottatt fra informasjonssenter A
+U0458	Ugyldige data mottatt fra informasjonssenter B
+U0459	Ugyldige data mottatt fra frontruteprojeksjon (HUD)
+U045A	Ugyldige data mottatt fra parkeringshjelpstyreenhet A
+U0461	Ugyldige data mottatt fra lydvarselstyreenhet
+U0462	Ugyldige data mottatt fra kompassmodul
+U0463	Ugyldige data mottatt fra navigasjonsdisplaymodul
+U0464	Ugyldige data mottatt fra navigasjonsstyreenhet
+U0465	Ugyldige data mottatt fra PTO-styreenhet
+U0466	Ugyldige data mottatt fra klimastyreenhet bak
+U0467	Ugyldige data mottatt fra drivstofftilsetningsstyreenhet
+U0468	Ugyldige data mottatt fra brenselcellestyreenhet
+U0469	Ugyldige data mottatt fra startmotor-/generatorstyreenhet
+U046A	Ugyldige data mottatt fra soltakstyreenhet
+U0471	Ugyldige data mottatt fra SRS-sensor A
+U0472	Ugyldige data mottatt fra SRS-sensor B
+U0473	Ugyldige data mottatt fra SRS-sensor C
+U0474	Ugyldige data mottatt fra SRS-sensor D
+U0475	Ugyldige data mottatt fra SRS-sensor E
+U0476	Ugyldige data mottatt fra SRS-sensor F
+U0477	Ugyldige data mottatt fra SRS-sensor G
+U0478	Ugyldige data mottatt fra SRS-sensor H
+U0479	Ugyldige data mottatt fra SRS-sensor I
+U047A	Ugyldige data mottatt fra SRS-sensor J
+U047B	Ugyldige data mottatt fra SRS-sensor K
+U047C	Ugyldige data mottatt fra SRS-sensor L
+U047D	Ugyldige data mottatt fra SRS-sensor M
+U047E	Ugyldige data mottatt fra SRS-sensor N
+U0481	Ugyldige data mottatt fra lysautomatikkstyreenhet
+U0482	Ugyldige data mottatt fra lyshøydereguleringsstyreenhet
+U0483	Ugyldige data mottatt fra lysstyreenhet foran
+U0484	Ugyldige data mottatt fra lysstyreenhet A bak
+U0485	Ugyldige data mottatt fra radio
+U0486	Ugyldige data mottatt fra antennestyreenhet
+U0487	Ugyldige data mottatt fra lydforsterker
+U0488	Ugyldige data mottatt fra CD-spiller-/vekslermodul A
+U0489	Ugyldige data mottatt fra CD-spiller-/vekslermodul B
+U0491	Ugyldige data mottatt fra CD-spiller-/vekslermodul D
+U0492	Ugyldige data mottatt fra TV
+U0493	Ugyldige data mottatt fra PC
+U0494	Ugyldige data mottatt fra digitallydstyreenhet A
+U0495	Ugyldige data mottatt fra digitallydstyreenhet B
+U0496	Ugyldige data mottatt fra abonnementsmottakermodul
+U0497	Ugyldige data mottatt fra underholdningsstyreenhet A bak
+U0498	Ugyldige data mottatt fra telefonstyreenhet
+U0499	Ugyldige data mottatt fra telematikkstyreenhet
+U049A	Ugyldige data mottatt fra dørstyreenhet A
+U0501	Ugyldige data mottatt fra dørstyreenhet B
+U0502	Ugyldige data mottatt fra dørstyreenhet C
+U0503	Ugyldige data mottatt fra dørstyreenhet D
+U0504	Ugyldige data mottatt fra dørstyreenhet E
+U0505	Ugyldige data mottatt fra dørstyreenhet F
+U0506	Ugyldige data mottatt fra dørstyreenhet G
+U0507	Ugyldige data mottatt fra kalesjestyreenhet
+U0508	Ugyldige data mottatt fra soltakstyreenhet
+U0509	Ugyldige data mottatt fra setestyreenhet A
+U050A	Ugyldige data mottatt fra setestyreenhet B
+U0511	Ugyldige data mottatt fra setestyreenhet C
+U0512	Ugyldige data mottatt fra setestyreenhet D
+U0513	Ugyldige data mottatt fra girratesensormodul
+U0514	Ugyldige data mottatt fra speilstyreenhet A
+U0515	Ugyldige data mottatt fra fjernbetjente funksjoner
+U0516	Ugyldige data mottatt fra dørbryter A
+U0517	Ugyldige data mottatt fra dørbryter B
+U0518	Ugyldige data mottatt fra dørbryter C
+U0519	Ugyldige data mottatt fra dørbryter D
+U051A	Ugyldige data mottatt fra dørbryter E
+U0521	Ugyldige data mottatt fra dørbryter F
+U0522	Ugyldige data mottatt fra dørbryter G
+U0523	Ugyldige data mottatt fra vindusmotor A
+U0524	Ugyldige data mottatt fra vindusmotor B
+U0525	Ugyldige data mottatt fra vindusmotor C
+U0526	Ugyldige data mottatt fra vindusmotor D
+U0527	Ugyldige data mottatt fra vindusmotor E
+U0528	Ugyldige data mottatt fra vindusmotor F
+U0529	Ugyldige data mottatt fra vindusmotor G
+U052A	Ugyldige data mottatt fra rattvarmemodul
+U0531	Ugyldige data mottatt fra baklukemodul
+U0532	Ugyldige data mottatt fra regnsensormodul
+U0533	Ugyldige data mottatt fra blindsonevarslingsstyreenhet venstre
+U0534	Ugyldige data mottatt fra blindsonevarslingsstyreenhet høyre
+U0535	Ugyldige data mottatt fra minnefunksjonsmodul
+U0536	Ugyldige data mottatt fra sideakselerasjonssensormodul
+U0537	Ugyldige data mottatt fra rattlåsmodul
+U0538	Ugyldige data mottatt fra digitallydstyreenhet C
+U0539	Ugyldige data mottatt fra digitallydstyreenhet D
+U053A	Ugyldige data mottatt fra klemsikringsstyreenhet A
+U0541	Ugyldige data mottatt fra klemsikringsstyreenhet B
+U0542	Ugyldige data mottatt fra frontlysstyreenhet A
+U0543	Ugyldige data mottatt fra frontlysstyreenhet B
+U0544	Ugyldige data mottatt fra parkeringshjelpstyreenhet B
+U0545	Ugyldige data mottatt fra stigtrinnstyreenhet
+U0546	Ugyldige data mottatt fra underholdningsstyreenhet foran
+U0547	Ugyldige data mottatt fra setestyreenhet E
+U0548	Ugyldige data mottatt fra setestyreenhet F
+U0549	Ugyldige data mottatt fra fjerntilbehørsmodul
+U054A	Ugyldige data mottatt fra underholdningsstyreenhet B bak
+U0551	Ugyldige data mottatt fra kollisjonsklassifiseringsmodul
+U0552	Ugyldige data mottatt fra stigtrinnstyreenhet B
+U0553	Ugyldige data mottatt fra lysstyreenhet B bak
+U0592	Ugyldige data mottatt fra girskiftstyreenhet B
+U0593	Ugyldige data mottatt fra drivmotorstyreenhet B
+U0594	Ugyldige data mottatt fra hybriddrivlinjestyreenhet
+U0595	Ugyldige data mottatt fra drivlinjeovervåkingsmodul
+U0596	Ugyldige data mottatt fra AC/AC-omformerstyreenhet
+U0597	Ugyldige data mottatt fra AC/DC-omformerstyreenhet A
+U0598	Ugyldige data mottatt fra AC/DC-omformerstyreenhet B
+U0599	Ugyldige data mottatt fra DC/DC-omformerstyreenhet A
+U059A	Ugyldige data mottatt fra DC/DC-omformerstyreenhet B
+U3000	Styreenhet
+U3001	Styreenhet feil avslutning
+U3002	Understellsnummer (VIN)
+U3003	Batterispenning
+U3004	Tilbehørsstrømrelé
+U3005	Tilbehørsstrøm etter avslåing
+U3006	Styreenhetsinngangsstrøm A
+U3007	Styreenhetsinngangsstrøm B
+U3008	Styreenhetsjord A
+U3009	Styreenhetsjord B
+U300A	Tenningslås
+U300B	Tenningssignal tilbehør/på/start
+U300C	Tenningssignal av/på/start
+U300D	Tenningssignal på/start
+U300E	Tenningssignal på
+U300F	Tenningssignaltilbehør
+U3010	Tenningssignalstart
+U3FFF	Ingen feilkoder lagret

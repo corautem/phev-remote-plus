@@ -1,6 +1,7 @@
 package io.github.anwo91.phevlink.ui.diag
 
 import android.content.Intent
+import androidx.annotation.StringRes
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -46,8 +47,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
+import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.diag.LogEntry
 import io.github.anwo91.phevlink.core.diag.LogKind
 import io.github.anwo91.phevlink.core.model.CarCommand
@@ -59,14 +62,15 @@ import io.github.anwo91.phevlink.ui.common.SectionCard
 import io.github.anwo91.phevlink.ui.theme.LocalStatus
 import io.github.anwo91.phevlink.ui.theme.Mono
 import io.github.anwo91.phevlink.util.Format
+import io.github.anwo91.phevlink.util.Labels
 import java.time.LocalDateTime
 
-private enum class Filter(val label: String, val kinds: Set<LogKind>) {
-    ALL("All", LogKind.entries.toSet()),
-    LINK("Connection", setOf(LogKind.LINK, LogKind.WARN, LogKind.ERROR)),
-    CMDS("Commands", setOf(LogKind.CMD, LogKind.ERROR, LogKind.WARN)),
-    PACKETS("Packets", setOf(LogKind.TX, LogKind.RX)),
-    STATE("Car state", setOf(LogKind.STATE)),
+private enum class Filter(@StringRes val label: Int, val kinds: Set<LogKind>) {
+    ALL(R.string.diag_filter_all, LogKind.entries.toSet()),
+    LINK(R.string.diag_connection, setOf(LogKind.LINK, LogKind.WARN, LogKind.ERROR)),
+    CMDS(R.string.diag_filter_commands, setOf(LogKind.CMD, LogKind.ERROR, LogKind.WARN)),
+    PACKETS(R.string.diag_filter_packets, setOf(LogKind.TX, LogKind.RX)),
+    STATE(R.string.diag_filter_state, setOf(LogKind.STATE)),
 }
 
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
@@ -75,8 +79,8 @@ fun DiagnosticsScreen(vm: MainViewModel, modifier: Modifier) {
     var tab by rememberSaveable { mutableIntStateOf(0) }
     Column(modifier.fillMaxSize()) {
         PrimaryTabRow(selectedTabIndex = tab) {
-            listOf("Log", "Registers", "Tools").forEachIndexed { i, t ->
-                Tab(selected = tab == i, onClick = { tab = i }, text = { Text(t) })
+            listOf(R.string.diag_tab_log, R.string.diag_tab_registers, R.string.diag_tab_tools).forEachIndexed { i, t ->
+                Tab(selected = tab == i, onClick = { tab = i }, text = { Text(stringResource(t)) })
             }
         }
         when (tab) {
@@ -102,19 +106,21 @@ private fun LogTab(vm: MainViewModel) {
             Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically,
         ) {
-            Filter.entries.forEach { f -> FilterChip(selected = filter == f, onClick = { filter = f }, label = { Text(f.label) }) }
-            IconButton(onClick = { previous = !previous }) { Icon(Icons.Outlined.History, "Previous session") }
+            Filter.entries.forEach { f -> FilterChip(selected = filter == f, onClick = { filter = f }, label = { Text(stringResource(f.label)) }) }
+            IconButton(onClick = { previous = !previous }) { Icon(Icons.Outlined.History, stringResource(R.string.diag_previous_session)) }
             IconButton(onClick = {
                 val text = if (previous) vm.previousSessionLog() else vm.log.dump()
                 val send = Intent(Intent.ACTION_SEND).setType("text/plain")
-                    .putExtra(Intent.EXTRA_SUBJECT, "PHEV Link log ${LocalDateTime.now()}")
+                    .putExtra(Intent.EXTRA_SUBJECT, ctx.getString(R.string.diag_share_subject, LocalDateTime.now().toString()))
                     .putExtra(Intent.EXTRA_TEXT, text)
-                ctx.startActivity(Intent.createChooser(send, "Share log"))
-            }) { Icon(Icons.Outlined.Share, "Share") }
-            IconButton(onClick = { vm.log.clear(); vm.toast("Log cleared") }) { Icon(Icons.Outlined.DeleteSweep, "Clear") }
+                ctx.startActivity(Intent.createChooser(send, ctx.getString(R.string.diag_share_log)))
+            }) { Icon(Icons.Outlined.Share, stringResource(R.string.diag_share)) }
+            val msgCleared = stringResource(R.string.msg_log_cleared)
+            IconButton(onClick = { vm.log.clear(); vm.toast(msgCleared) }) { Icon(Icons.Outlined.DeleteSweep, stringResource(R.string.diag_clear)) }
         }
         if (previous) {
-            val text = remember { vm.previousSessionLog().ifBlank { "No saved session yet." } }
+            val noSession = stringResource(R.string.diag_no_saved_session)
+            val text = remember { vm.previousSessionLog().ifBlank { noSession } }
             Text(
                 text, style = Mono,
                 modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).horizontalScroll(rememberScrollState()).padding(8.dp),
@@ -151,11 +157,11 @@ private fun RegistersTab(vm: MainViewModel) {
     LazyColumn(contentPadding = PaddingValues(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
         item {
             Text(
-                "Every register the car has reported, raw. Values that change while you operate the car are clues for new features.",
+                stringResource(R.string.diag_registers_explain),
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        if (regs.isEmpty()) item { Text("Nothing yet — connect to the car first.") }
+        if (regs.isEmpty()) item { Text(stringResource(R.string.diag_registers_empty)) }
         items(regs, key = { it.register }) { r ->
             Column(Modifier.fillMaxWidth()) {
                 Row {
@@ -177,52 +183,62 @@ private fun ToolsTab(vm: MainViewModel) {
     val pending by vm.pending.collectAsState()
     var reg by rememberSaveable { mutableStateOf("") }
     var data by rememberSaveable { mutableStateOf("") }
+    val ctx = LocalContext.current
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        SectionCard(title = "Connection") {
-            LabeledValue("Status", link.text)
+        SectionCard(title = stringResource(R.string.diag_connection)) {
+            LabeledValue(stringResource(R.string.diag_status), link.text)
             link.detail?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
-            LabeledValue("Protocol", car.modelYear.label)
+            LabeledValue(stringResource(R.string.settings_protocol), Labels.modelYear(ctx, car.modelYear))
             LabeledValue("ECU", car.ecuVersion ?: "–")
-            LabeledValue("Car Wi-Fi", car.ssid ?: settings.ssid.ifBlank { "–" })
-            LabeledValue("Paired access point", settings.bssid.ifBlank { "not paired" })
+            LabeledValue(stringResource(R.string.settings_car_wifi), car.ssid ?: settings.ssid.ifBlank { "–" })
+            val notPaired = stringResource(R.string.diag_not_paired)
+            LabeledValue(stringResource(R.string.diag_paired_ap), settings.bssid.ifBlank { notPaired })
             Spacer(Modifier.height(8.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Button(onClick = { vm.reconnect() }, modifier = Modifier.weight(1f)) { Text("Reconnect") }
-                FilledTonalButton(onClick = { vm.refresh() }, enabled = pending == null, modifier = Modifier.weight(1f)) { Text("Full refresh") }
+                Button(onClick = { vm.reconnect() }, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.diag_reconnect)) }
+                FilledTonalButton(onClick = { vm.refresh() }, enabled = pending == null, modifier = Modifier.weight(1f)) {
+                    Text(stringResource(R.string.diag_full_refresh))
+                }
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Log keepalive pings", modifier = Modifier.weight(1f))
+                Text(stringResource(R.string.diag_log_pings), modifier = Modifier.weight(1f))
                 Switch(checked = settings.recordPings, onCheckedChange = { on -> vm.updateSettings { it.copy(recordPings = on) } })
             }
         }
-        SectionCard(title = "Car") {
+        SectionCard(title = stringResource(R.string.diag_car)) {
+            val msgClockSet = stringResource(R.string.msg_car_clock_set)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                FilledTonalButton(onClick = { vm.run(CarCommand.SyncClock(LocalDateTime.now()), "Car clock set") }, enabled = pending == null, modifier = Modifier.weight(1f)) { Text("Sync clock") }
-                FilledTonalButton(onClick = { vm.run(CarCommand.AckClimateCancelled) }, enabled = pending == null, modifier = Modifier.weight(1f)) { Text("Clear climate warning") }
+                FilledTonalButton(onClick = { vm.run(CarCommand.SyncClock(LocalDateTime.now()), msgClockSet) }, enabled = pending == null, modifier = Modifier.weight(1f)) {
+                    Text(stringResource(R.string.diag_sync_clock))
+                }
+                FilledTonalButton(onClick = { vm.run(CarCommand.AckClimateCancelled) }, enabled = pending == null, modifier = Modifier.weight(1f)) {
+                    Text(stringResource(R.string.diag_clear_climate_warning))
+                }
             }
         }
-        SectionCard(title = "Raw register write") {
+        SectionCard(title = stringResource(R.string.diag_raw_title)) {
             Text(
-                "For experiments. Writes go straight to the car — only use values you understand.",
+                stringResource(R.string.diag_raw_warning),
                 style = MaterialTheme.typography.bodySmall, color = LocalStatus.current.warn,
             )
             Spacer(Modifier.height(8.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(reg, { reg = it.trim() }, label = { Text("Register (hex)") }, singleLine = true, modifier = Modifier.weight(1f),
+                OutlinedTextField(reg, { reg = it.trim() }, label = { Text(stringResource(R.string.diag_register_hex)) }, singleLine = true, modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None))
-                OutlinedTextField(data, { data = it.trim() }, label = { Text("Data (hex)") }, singleLine = true, modifier = Modifier.weight(2f))
+                OutlinedTextField(data, { data = it.trim() }, label = { Text(stringResource(R.string.diag_data_hex)) }, singleLine = true, modifier = Modifier.weight(2f))
             }
             Spacer(Modifier.height(8.dp))
+            val msgInvalid = stringResource(R.string.msg_raw_invalid)
             Button(
                 onClick = {
                     val r = reg.removePrefix("0x").toIntOrNull(16)
                     val d = runCatching { data.removePrefix("0x").hexToBytes() }.getOrNull()
                     val cmd = if (r != null && d != null) runCatching { CarCommand.Raw(r, d) }.getOrNull() else null
-                    if (cmd == null) vm.toast("Enter a register (00–ff) and 1–64 bytes of hex data")
+                    if (cmd == null) vm.toast(msgInvalid)
                     else vm.run(cmd)
                 },
                 enabled = pending == null,
-            ) { Text("Send") }
+            ) { Text(stringResource(R.string.diag_send)) }
         }
     }
 }

@@ -22,9 +22,19 @@
     <uses-permission android:name="android.permission.REQUEST_COMPANION_USE_DATA_IN_BACKGROUND" />
     <!-- Optional: weather location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- OBD adapters (ELM327 over Bluetooth Classic / LE) -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="s" />
 
     <uses-feature android:name="android.hardware.wifi" android:required="true" />
     <uses-feature android:name="android.software.companion_device_setup" android:required="false" />
+    <uses-feature android:name="android.hardware.bluetooth" android:required="false" />
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
 
     <application
         android:name=".PhevApp"
@@ -35,6 +45,7 @@
         android:usesCleartextTraffic="true"
         android:allowBackup="false"
         android:supportsRtl="true"
+        android:localeConfig="@xml/locales_config"
         tools:targetApi="35">
 
         <activity
@@ -63,10 +74,15 @@
             android:foregroundServiceType="connectedDevice" />
 
         <service
+            android:name=".obd.ObdService"
+            android:exported="false"
+            android:foregroundServiceType="connectedDevice" />
+
+        <service
             android:name=".tile.PreheatTileService"
             android:exported="true"
             android:icon="@drawable/ic_tile"
-            android:label="Preheat"
+            android:label="@string/tile_label"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -89,7 +105,7 @@
         <receiver
             android:name=".widget.CarWidgetReceiver"
             android:exported="true"
-            android:label="PHEV Link">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

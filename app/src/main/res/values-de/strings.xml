@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Deutsch. Same names as values/strings.xml. -->
+<resources>
+    <string name="app_name">PHEV Link</string>
+    <string name="app_language_code">de</string>
+
+    <!-- Launcher shortcuts, widget, quick-settings tile -->
+    <string name="widget_description">Batterie, Laden und Vorheizen per Fingertipp</string>
+    <string name="sc_preheat_short">Vorheizen</string>
+    <string name="sc_preheat_long">Klima starten (smart)</string>
+    <string name="sc_stop_short">Klima stoppen</string>
+    <string name="sc_flash_short">Lichthupe</string>
+    <string name="sc_flash_long">Auto finden: Licht blinken lassen</string>
+    <string name="sc_refresh_short">Neu laden</string>
+    <string name="tile_label">Vorheizen</string>
+    <string name="tile_running">Läuft</string>
+    <string name="climate_on_status">Klima an</string>
+    <string name="climate_off_status">Klima aus</string>
+    <string name="widget_live">Live · %1$s</string>
+    <string name="widget_updated">aktualisiert %1$s</string>
+    <string name="widget_no_data">noch keine Daten</string>
+    <string name="widget_charging_left">Lädt · noch %1$s</string>
+
+    <!-- Common -->
+    <string name="common_save">Speichern</string>
+    <string name="common_cancel">Abbrechen</string>
+    <string name="common_test">Testen</string>
+    <string name="common_back">Zurück</string>
+    <string name="common_next">Weiter</string>
+    <string name="common_stop">Stopp</string>
+    <string name="common_refresh">Neu laden</string>
+    <string name="common_on">An</string>
+    <string name="common_off">Aus</string>
+    <string name="common_delete">Löschen</string>
+
+    <!-- Bottom tabs (keep short) -->
+    <string name="tab_car">Auto</string>
+    <string name="tab_schedule">Abfahrten</string>
+    <string name="tab_diagnostics">Diagnose</string>
+    <string name="tab_settings">Optionen</string>
+
+    <!-- Times and durations -->
+    <string name="ago_just_now">gerade eben</string>
+    <plurals name="ago_minutes">
+        <item quantity="one">vor %1$d Min.</item>
+        <item quantity="other">vor %1$d Min.</item>
+    </plurals>
+    <plurals name="ago_hours">
+        <item quantity="one">vor %1$d Std.</item>
+        <item quantity="other">vor %1$d Std.</item>
+    </plurals>
+    <string name="ago_yesterday">gestern</string>
+    <plurals name="ago_days">
+        <item quantity="one">vor %1$d Tag</item>
+        <item quantity="other">vor %1$d Tagen</item>
+    </plurals>
+    <string name="dur_min">%1$d Min.</string>
+    <string name="dur_h">%1$d Std.</string>
+    <string name="dur_h_min">%1$d Std. %2$d Min.</string>
+    <string name="unit_min">Min.</string>
+
+    <!-- Climate modes -->
+    <string name="mode_cool">Kühlen</string>
+    <string name="mode_heat">Heizen</string>
+    <string name="mode_defrost">Enteisen</string>
+    <string name="mode_cool_inline">Kühlen</string>
+    <string name="mode_heat_inline">Heizen</string>
+    <string name="mode_defrost_inline">Enteisen</string>
+
+    <!-- Command names -->
+    <string name="cmd_climate_on">%1$s für %2$d Min.</string>
+    <string name="cmd_climate_on_delayed">%1$s für %2$d Min. in %3$d Min.</string>
+    <string name="cmd_climate_off">Klima aus</string>
+    <string name="cmd_headlights_on">Fahrlicht an</string>
+    <string name="cmd_headlights_off">Fahrlicht aus</string>
+    <string name="cmd_parking_on">Standlicht an</string>
+    <string name="cmd_parking_off">Standlicht aus</string>
+    <string name="cmd_locate">Licht blinken lassen</string>
+    <string name="cmd_register">Handy registrieren</string>
+    <string name="cmd_unregister">Handy abmelden</string>
+    <string name="cmd_ack_climate">Klimawarnung zurücksetzen</string>
+    <string name="cmd_charge_now">Jetzt laden</string>
+    <string name="cmd_sync_clock">Uhr im Auto stellen</string>
+
+    <!-- Messages -->
+    <string name="msg_cmd_done">%1$s – erledigt</string>
+    <string name="msg_cmd_failed">%1$s fehlgeschlagen: %2$s</string>
+    <string name="msg_refreshed">Aktualisiert</string>
+    <string name="msg_reconnecting">Verbinde neu…</string>
+    <string name="msg_connected_battery">Verbunden! Batterie %1$s%%</string>
+    <string name="msg_climate_started">%1$s gestartet – bereit in %2$d Min.</string>
+    <string name="msg_climate_warning_cleared">Klimawarnung zurückgesetzt</string>
+    <string name="msg_headlights_flashed">Licht hat geblinkt</string>
+    <string name="msg_charge_requested">Ladestart beim Auto angefordert</string>
+    <string name="msg_phone_registered">Handy registriert</string>
+    <string name="msg_phone_unregistered">Handy abgemeldet</string>
+    <string name="msg_bridge_ok">Bridge OK – Autodaten %1$s</string>
+    <string name="msg_bridge_no_car_data">noch nicht verfügbar</string>
+    <string name="msg_bridge_unreachable">Bridge nicht erreichbar – siehe Diagnose</string>
+    <string name="msg_location_saved">Standort gespeichert</string>
+    <string name="msg_location_none">Noch kein Standort verfügbar – öffne einmal eine Karten-App und versuch es erneut</string>
+    <string name="msg_location_denied">Standortberechtigung verweigert – Koordinaten bitte von Hand eingeben</string>
+    <string name="msg_location_invalid">Gib einen gültigen Breiten- und Längengrad ein</string>
+    <string name="msg_saved">Gespeichert</string>
+    <string name="msg_paired">Mit dem Wi-Fi des Autos gekoppelt (%1$s)</string>
+    <string name="msg_pairing_cancelled">Kopplung abgebrochen</string>
+    <string name="msg_log_cleared">Log geleert</string>
+    <string name="msg_car_clock_set">Uhr im Auto gestellt</string>
+    <string name="msg_raw_invalid">Gib ein Register (00–ff) und 1–64 Byte Hexdaten ein</string>
+
+    <!-- Shortcut / widget / tile actions -->
+    <string name="action_starting_climate">Starte Klima…</string>
+    <string name="action_stopping_climate">Stoppe Klima…</string>
+    <string name="action_flashing">Lasse Licht blinken…</string>
+    <string name="action_refreshing">Lade neu…</string>
+    <string name="action_set_up_first">Öffne PHEV Link und richte zuerst dein Auto ein</string>
+
+    <!-- Car tab -->
+    <string name="home_updated">Aktualisiert %1$s</string>
+    <string name="home_no_data">Noch keine Daten vom Auto</string>
+    <string name="home_electric_range">elektrische Reichweite</string>
+    <string name="home_charging">Lädt</string>
+    <string name="home_full_at">Voll ≈ %1$s (%2$s)</string>
+    <string name="home_plugged_in">Kabel eingesteckt</string>
+    <string name="home_not_charging">Lädt nicht (Timer oder voll)</string>
+    <string name="home_unplugged">Kabel abgezogen</string>
+    <plurals name="home_phones_registered">
+        <item quantity="one">%1$d Handy registriert</item>
+        <item quantity="other">%1$d Handys registriert</item>
+    </plurals>
+    <string name="climate_title">Klima</string>
+    <string name="climate_running_pill">%1$s · %2$s Min.</string>
+    <string name="climate_stopped_by_car">Vom Auto gestoppt</string>
+    <string name="climate_running_until">Läuft – der Innenraum ist gegen %1$s Uhr bereit.</string>
+    <string name="climate_running">Läuft.</string>
+    <string name="climate_cancelled_explain">Das Auto hat die Vorklimatisierung abgeschaltet – meist wurde eine Tür geöffnet oder die Batterie ist zu schwach. Setze die Warnung zurück, bevor du neu startest.</string>
+    <string name="climate_clear_warning">Warnung zurücksetzen</string>
+    <string name="climate_start">Starten</string>
+    <string name="climate_smart">Smart</string>
+    <string name="climate_smart_explain">Smart wählt Modus und Dauer anhand der Außentemperatur.</string>
+    <string name="quick_title">Schnellaktionen</string>
+    <string name="quick_flash">Blinken</string>
+    <string name="quick_headlights">Fahrlicht</string>
+    <string name="quick_lights_off">Licht aus</string>
+    <string name="quick_parking_lights">Standlicht</string>
+    <string name="quick_parking_off">Standlicht aus</string>
+    <string name="quick_charge_now">Jetzt laden (Timer überspringen)</string>
+    <string name="security_title">Türen &amp; Licht</string>
+    <string name="security_locked">Verriegelt</string>
+    <string name="security_unlocked">Entriegelt</string>
+    <string name="security_doors">Türen, Heckklappe, Motorhaube</string>
+    <string name="security_all_closed">Alles geschlossen</string>
+    <string name="security_lights">Licht</string>
+    <string name="security_power">Zündung</string>
+    <string name="security_car_clock">Uhr im Auto</string>
+    <string name="ignition_acc">Zubehör</string>
+    <string name="door_driver">Fahrertür</string>
+    <string name="door_passenger">Beifahrertür</string>
+    <string name="door_rear_left">Tür hinten links</string>
+    <string name="door_rear_right">Tür hinten rechts</string>
+    <string name="door_boot">Heckklappe</string>
+    <string name="door_bonnet">Motorhaube</string>
+    <string name="light_headlights">Fahrlicht</string>
+    <string name="light_parking">Standlicht</string>
+    <string name="light_hazards">Warnblinker</string>
+    <string name="light_interior">Innenlicht</string>
+    <string name="departure_next_title">Nächste Abfahrt</string>
+    <string name="departure_set_up">Einrichten</string>
+    <string name="departure_edit">Bearbeiten</string>
+    <string name="departure_empty">Sag der App, wann du normalerweise losfährst – dann heizt oder enteist sie das Auto rechtzeitig und wählt den Modus anhand der Wettervorhersage.</string>
+    <string name="departure_weather_check">Wettercheck %1$s</string>
+
+    <!-- Connection status -->
+    <string name="link_route">Verbindung: %1$s</string>
+    <string name="link_since">Seit %1$s</string>
+    <string name="link_tips">Tipps: Das Wi-Fi des Autos reicht etwa 10–20 m. Nach mehreren Tagen Standzeit schläft es ein – ein Druck auf eine Taste am Schlüssel oder das Entriegeln weckt es meist auf. Wenn es heißt, das Handy sei nicht registriert, registriere es unter Optionen.</string>
+    <string name="link_try_again">Jetzt erneut versuchen</string>
+    <string name="link_not_connected">Nicht verbunden</string>
+    <string name="link_not_set_up">Nicht eingerichtet</string>
+    <string name="link_not_set_up_detail">Gib das Wi-Fi des Autos unter Optionen ein</string>
+    <string name="link_checking_bridge">Prüfe Bridge…</string>
+    <string name="link_connecting_bridge">Verbinde mit Bridge…</string>
+    <string name="link_err_not_set_up">Nicht eingerichtet – gib das Wi-Fi des Autos unter Optionen ein</string>
+    <string name="link_err_timeout">Auto nicht rechtzeitig erreicht</string>
+    <string name="link_last_data">Letzte Daten %1$s</string>
+    <string name="link_cant_join">Keine Verbindung zum Wi-Fi des Autos</string>
+    <string name="link_searching">Suche das Auto…</string>
+    <string name="link_not_found">Noch nicht gefunden – ist das Auto in Wi-Fi-Reichweite? Sein Wi-Fi schläft nach einigen Tagen Standzeit ein.</string>
+    <string name="link_connecting">Verbinde…</string>
+    <string name="link_attempt">Versuch %1$d</string>
+    <string name="link_handshake">Begrüße das Auto…</string>
+    <string name="link_connected">Verbunden</string>
+    <string name="link_connected_detail">Wi-Fi des Autos · Protokoll %1$s</string>
+    <string name="link_retrying">Neuer Versuch in %1$d s</string>
+    <string name="link_bridge_unreachable">Bridge nicht erreichbar</string>
+    <string name="link_via_bridge">Über Bridge verbunden</string>
+    <string name="link_bridge_live">Bridge ist gerade mit dem Auto verbunden</string>
+    <string name="link_bridge_online">Bridge online</string>
+    <string name="link_bridge_idle">Auto zuletzt geprüft: %1$s – Befehle wecken die Verbindung</string>
+    <string name="link_never">nie</string>
+    <string name="link_bridge_cant_reach">Bridge erreicht das Auto nicht</string>
+    <string name="link_bridge_connecting_car">Bridge verbindet sich mit dem Auto…</string>
+    <string name="protocol_unknown">unbekannt</string>
+    <string name="net_not_found">Wi-Fi des Autos nicht gefunden – außer Reichweite oder im Ruhezustand</string>
+    <string name="net_invalid_details">SSID oder Passwort ungültig (%1$s)</string>
+    <string name="net_could_not_join">Verbindung mit „%1$s“ nicht möglich – falsches Passwort, abgelehnt oder außer Reichweite</string>
+    <string name="net_request_refused">Android hat die Wi-Fi-Anfrage abgelehnt: %1$s</string>
+    <string name="bridge_err_token">Bridge hat das Token abgelehnt</string>
+    <string name="bridge_err_http">Bridge antwortete mit HTTP %1$d</string>
+    <string name="bridge_err_unreachable">Bridge nicht erreichbar: %1$s</string>
+    <string name="bridge_err_events">Bridge-Ereignisse: %1$s</string>
+    <string name="pair_unsupported">Dieses Handy unterstützt keine Gerätekopplung</string>
+    <string name="pair_failed">Kopplung fehlgeschlagen</string>
+
+    <!-- Background service and notifications -->
+    <string name="svc_contacting">Kontaktiere das Auto…</string>
+    <string name="svc_charging">lädt</string>
+    <string name="svc_climate_on">Klima an</string>
+    <string name="notif_cmd_failed">%1$s fehlgeschlagen</string>
+    <string name="notif_climate_running">Läuft %1$d Min. – bereit gegen %2$s Uhr.</string>
+    <string name="notif_climate_off">Klima ausgeschaltet.</string>
+    <string name="notif_flashed">Licht hat geblinkt.</string>
+    <string name="notif_done">Erledigt.</string>
+    <string name="notif_no_preheat_title">Kein Vorheizen nötig</string>
+    <string name="notif_no_preheat_text">Um %2$s Uhr sind es etwa %1$s °C – die Klimatisierung bleibt aus.</string>
+    <string name="notif_departure_started">%1$s gestartet</string>
+    <string name="notif_departure_ready">Dein Auto ist um %1$s Uhr bereit.</string>
+    <string name="notif_departure_failed">Geplantes %1$s fehlgeschlagen</string>
+    <string name="notif_departure_retry">%1$s\nTippe, um die App zu öffnen und es erneut zu versuchen.</string>
+    <string name="ch_link_name">Verbindung zum Auto</string>
+    <string name="ch_link_desc">Wird angezeigt, während die App im Hintergrund mit dem Auto spricht</string>
+    <string name="ch_alerts_name">Hinweise zum Auto</string>
+    <string name="ch_alerts_desc">Laden fertig, Auto nicht verriegelt, Licht an…</string>
+    <string name="ch_results_name">Befehlsergebnisse</string>
+    <string name="ch_results_desc">Ergebnis von Vorheizen, geplanten Abfahrten und Schnellaktionen</string>
+
+    <!-- Alerts -->
+    <string name="alert_title_charge_complete">Laden abgeschlossen</string>
+    <string name="alert_title_charge_stopped">Laden gestoppt</string>
+    <string name="alert_title_charge_started">Laden gestartet</string>
+    <string name="alert_title_climate_started">Klima gestartet</string>
+    <string name="alert_title_climate_finished">Auto ist bereit</string>
+    <string name="alert_title_climate_cancelled">Klima gestoppt</string>
+    <string name="alert_title_left_unlocked">Auto nicht verriegelt</string>
+    <string name="alert_title_door_open">Tür offen</string>
+    <string name="alert_title_lights_on">Licht ist an</string>
+    <string name="alert_battery_full">Batterie ist voll.</string>
+    <string name="alert_battery_full_pct">Batterie ist voll (%1$d%%).</string>
+    <string name="alert_charge_stopped">Laden vor voller Batterie gestoppt. Stromausfall, Ladetimer oder Kabel lose?</string>
+    <string name="alert_charge_stopped_pct">Laden vor voller Batterie gestoppt (%1$d%%). Stromausfall, Ladetimer oder Kabel lose?</string>
+    <string name="alert_charging">Lädt.</string>
+    <string name="alert_charging_pct">Lädt (%1$d%%).</string>
+    <string name="alert_charge_eta">Noch etwa %1$s bis voll.</string>
+    <string name="alert_climate_running">Vorklimatisierung läuft.</string>
+    <string name="alert_climate_finished">Vorklimatisierung beendet – der Innenraum ist bereit.</string>
+    <string name="alert_climate_cancelled">Die Vorklimatisierung wurde vom Auto gestoppt (Tür geöffnet oder Batterie zu schwach).</string>
+    <plurals name="alert_left_unlocked">
+        <item quantity="one">Seit %1$d+ Minute entriegelt, während das Auto aus ist.</item>
+        <item quantity="other">Seit %1$d+ Minuten entriegelt, während das Auto aus ist.</item>
+    </plurals>
+    <plurals name="alert_door_open">
+        <item quantity="one">Seit %1$d+ Minute offen: %2$s.</item>
+        <item quantity="other">Seit %1$d+ Minuten offen: %2$s.</item>
+    </plurals>
+    <string name="alert_lights_on_head">Das Fahrlicht ist an, während das Auto aus ist.</string>
+    <string name="alert_lights_on_parking">Das Standlicht ist an, während das Auto aus ist.</string>
+    <string name="alert_lights_on_both">Fahrlicht und Standlicht sind an, während das Auto aus ist.</string>
+
+    <!-- Schedule tab -->
+    <string name="sched_title">Abfahrten</string>
+    <string name="sched_explain">35 Minuten vor jeder Abfahrt prüft die App die Wettervorhersage (MET Norway), wählt Heizen, Kühlen oder Enteisen samt Dauer und startet die Klimatisierung, damit das Auto bereit ist, wenn du losfährst.</string>
+    <string name="sched_exact_title">Exakte Alarme erlauben</string>
+    <string name="sched_exact_explain">Ohne diese Erlaubnis kann Android die Abfahrtsprüfung um einige Minuten verzögern.</string>
+    <string name="sched_open_settings">Einstellungen öffnen</string>
+    <string name="sched_no_location_title">Wetterort nicht festgelegt</string>
+    <string name="sched_no_location_explain">Lege deinen Heimatort unter Optionen → Wetterort fest, damit die Vorhersage für den Ort gilt, an dem das Auto parkt. Bis dahin wird der letzte bekannte Standort des Handys verwendet – oder dein Standardmodus, wenn dieser unbekannt ist.</string>
+    <string name="sched_next">Nächste: %1$s · Wettercheck %2$s</string>
+    <string name="sched_add">Abfahrt hinzufügen</string>
+    <string name="days_every">Jeden Tag</string>
+    <string name="days_weekends">Wochenenden</string>
+    <string name="days_weekdays">Mo–Fr</string>
+    <string name="days_none">Keine Tage</string>
+    <string name="sched_smart_row">Smart – Modus nach Wetter</string>
+    <string name="sched_fixed_row">%1$s, %2$d Min.</string>
+    <string name="sched_dialog_title">Abfahrtbereit um</string>
+    <string name="sched_smart_switch">Smart (Vorhersage nutzen)</string>
+    <string name="sched_smart_fallback">Deine Auswahl unten gilt nur, wenn die Vorhersage nicht abrufbar ist.</string>
+    <string name="sched_always_mode">Verwendet immer den Modus unten.</string>
+
+    <!-- Settings tab -->
+    <string name="settings_title">Einstellungen</string>
+    <string name="settings_language">Sprache</string>
+    <string name="settings_language_system">Systemstandard</string>
+    <string name="settings_car_wifi">Wi-Fi des Autos</string>
+    <string name="settings_car_wifi_explain">SSID (REMOTExxxxxx) und Passwort stehen auf der Karte, die bei den Autoschlüsseln lag.</string>
+    <string name="settings_password">Passwort</string>
+    <string name="settings_hide">Ausblenden</string>
+    <string name="settings_show">Anzeigen</string>
+    <string name="settings_testing">Teste…</string>
+    <string name="settings_silent_title">Verbinden ohne Nachfrage</string>
+    <string name="settings_paired_with">Gekoppelt mit %1$s. Android verbindet ohne Nachfrage, auch im Hintergrund.</string>
+    <string name="settings_pair_explain">Einmal koppeln (mit dem Auto in der Nähe), dann fragt Android nicht mehr „Mit Gerät verbinden?“, und Widget, Kachel und Abfahrten funktionieren im Hintergrund.</string>
+    <string name="settings_pair_again">Erneut koppeln</string>
+    <string name="settings_pair">Mit Auto koppeln</string>
+    <string name="settings_forget">Vergessen</string>
+    <string name="pw_too_short">Mindestens 8 Zeichen</string>
+    <string name="pw_too_long">Höchstens 63 Zeichen</string>
+    <string name="pw_bad_chars">Nur einfache Buchstaben, Ziffern und Zeichen (keine Umlaute, æøå oder Emojis)</string>
+    <string name="settings_registration_title">Handy registrieren</string>
+    <string name="settings_registration_intro">Das Auto spricht nur mit registrierten Handys (es merkt sich einige wenige). So registrierst du dieses Handy:</string>
+    <string name="registration_steps">1. Setz dich mit dem Schlüssel ins Auto, Zündung AUS (OFF).\n2. Drück den Startknopf einmal auf ACC (nicht auf die Bremse treten).\n3. Drück innerhalb von 10 Sekunden auf dem Schlüssel abwechselnd VERRIEGELN und ENTRIEGELN, je 5-mal (10 Drücke, mit VERRIEGELN beginnen).\n4. Die Warnblinker blinken: Das Auto ist einige Minuten im Registriermodus. Tippe auf Registrieren (das Handy muss mit dem Wi-Fi des Autos verbunden sein).</string>
+    <string name="settings_registered_phones">Registrierte Handys (laut Auto)</string>
+    <string name="settings_register">Registrieren</string>
+    <string name="settings_unregister">Abmelden</string>
+    <string name="settings_route_title">So wird das Auto erreicht</string>
+    <string name="route_auto">Automatisch</string>
+    <string name="route_direct">Nur Auto-Wi-Fi</string>
+    <string name="route_bridge">Nur Bridge</string>
+    <string name="settings_route_explain">Automatisch nutzt die Bridge, wenn sie aktuelle Daten vom Auto hat (Auto steht zu Hause), sonst das Wi-Fi des Autos.</string>
+    <string name="settings_bridge_address">Bridge-Adresse</string>
+    <string name="settings_bridge_token">Bridge-Token</string>
+    <string name="settings_quick_title">Klima per Fingertipp (Widget, Kachel, Verknüpfungen)</string>
+    <string name="settings_quick_smart">Smart (nach Wetter wählen)</string>
+    <string name="settings_quick_fallback">Ersatz, wenn keine Vorhersage verfügbar ist:</string>
+    <string name="settings_quick_always">Immer:</string>
+    <string name="settings_weather_title">Wetterort</string>
+    <string name="settings_weather_explain">Wo das Auto morgens meistens steht. Wird nur für die Vorhersage von MET Norway verwendet.</string>
+    <string name="settings_latitude">Breitengrad</string>
+    <string name="settings_longitude">Längengrad</string>
+    <string name="settings_use_current">Aktuellen nutzen</string>
+    <string name="settings_alerts_title">Benachrichtigungen auf diesem Handy</string>
+    <string name="settings_alerts">Benachrichtigungen</string>
+    <string name="settings_alert_charge_complete">Laden abgeschlossen</string>
+    <string name="settings_alert_charge_stopped">Laden vorzeitig gestoppt</string>
+    <string name="settings_alert_climate_finished">Innenraum bereit (Klima fertig)</string>
+    <string name="settings_alert_climate_cancelled">Klima vom Auto gestoppt</string>
+    <string name="settings_alert_left_unlocked">Nicht verriegelt (10 Min.)</string>
+    <string name="settings_alert_door_open">Tür/Heckklappe offen</string>
+    <string name="settings_alert_lights_on">Licht angelassen</string>
+    <string name="settings_watch">Beim Laden oder Vorheizen weiter beobachten</string>
+    <string name="settings_watch_explain">Prüft das Auto alle %1$d Min. im Hintergrund (Handy muss in Wi-Fi-Reichweite sein, oder die Bridge nutzen).</string>
+    <string name="settings_advanced">Erweitert</string>
+    <string name="settings_sync_clock">Uhr im Auto beim Verbinden stellen</string>
+    <string name="settings_full_range" formatted="false">Elektrische Reichweite bei 100 % (km)</string>
+    <string name="settings_protocol">Protokoll</string>
+    <string name="settings_protocol_auto">Auto</string>
+    <string name="settings_test_address">Testadresse (Emulator), Host:Port</string>
+    <string name="settings_test_address_hint">Für das echte Auto leer lassen</string>
+    <string name="settings_apply">Übernehmen</string>
+    <string name="settings_about">Über</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_about_text">Spricht das eigene Wi-Fi-Protokoll des Autos. Basiert auf dem Reverse Engineering von phev2mqtt (Ben Buxton und Mitwirkende) und phev-remote (Jamie Nuttall), abgeglichen mit der offiziellen App. Nicht mit Mitsubishi Motors verbunden.</string>
+    <string name="settings_run_setup">Einrichtung erneut starten</string>
+
+    <!-- Setup -->
+    <string name="setup_intro">Steuere deinen Outlander PHEV über sein eigenes Wi-Fi: Batterie und Laden, Klima (Heizen, Kühlen, Enteisen), Licht und Türen – dazu Abfahrtstimer, die das Wetter berücksichtigen, ein Widget für den Startbildschirm, eine Schnelleinstellungs-Kachel und Benachrichtigungen. Optional über eine kleine Bridge (Raspberry Pi) zu Hause, damit es von überall funktioniert.</string>
+    <string name="setup_intro_2">Die Einrichtung dauert ein paar Minuten. Halte das Auto mit Schlüssel in der Nähe bereit, dazu die Wi-Fi-Karte, die bei den Schlüsseln lag.</string>
+    <string name="setup_start">Loslegen</string>
+    <string name="setup_step1_title">1 · Das Wi-Fi des Autos</string>
+    <string name="setup_pairing_note">Koppeln ist optional, aber empfohlen: Ohne Kopplung fragt Android ab und zu „Mit Gerät verbinden?“, und Hintergrundfunktionen (Widget, Abfahrten) können sich nicht selbst verbinden.</string>
+    <string name="setup_bridge_only">Ich nutze nur eine Bridge – überspringen</string>
+    <string name="setup_step2_title">2 · Verbinden und registrieren</string>
+    <string name="setup_connect">Verbinden</string>
+    <string name="setup_status">Status: %1$s</string>
+    <string name="setup_car_line">Auto: %1$s · %2$s%%</string>
+    <string name="setup_not_registered_title">Noch nicht registriert?</string>
+    <string name="setup_not_registered_explain">Wenn die Verbindung bei „Begrüße das Auto“ hängen bleibt und dann fehlschlägt, ist dieses Handy noch nicht im Auto registriert. Handys, die die offizielle App genutzt haben, sind meist schon registriert.</string>
+    <string name="setup_register_phone">Dieses Handy registrieren</string>
+    <string name="setup_skip_for_now">Vorerst überspringen</string>
+    <string name="setup_step3_title">3 · Alles bereit</string>
+    <string name="setup_good_to_know">Gut zu wissen:\n• Lange auf das App-Symbol drücken für Verknüpfungen (Vorheizen, Enteisen, Licht blinken lassen).\n• Füge das Widget und die Schnelleinstellungs-Kachel „Vorheizen“ hinzu.\n• Plane deine üblichen Abfahrten im Tab „Abfahrten“.\n• Jeder Verbindungsversuch wird unter Diagnose protokolliert – teile das Log, wenn etwas nicht klappt.\n• Für die Steuerung von überall: Richte die Bridge ein (siehe README) und gib ihre Adresse unter Optionen ein.</string>
+    <string name="setup_open_app">App öffnen</string>
+
+    <!-- Diagnostics tab -->
+    <string name="diag_tab_log">Log</string>
+    <string name="diag_tab_registers">Register</string>
+    <string name="diag_tab_tools">Werkzeuge</string>
+    <string name="diag_filter_all">Alle</string>
+    <string name="diag_connection">Verbindung</string>
+    <string name="diag_filter_commands">Befehle</string>
+    <string name="diag_filter_packets">Pakete</string>
+    <string name="diag_filter_state">Autostatus</string>
+    <string name="diag_previous_session">Vorherige Sitzung</string>
+    <string name="diag_share">Teilen</string>
+    <string name="diag_clear">Leeren</string>
+    <string name="diag_share_subject">PHEV-Link-Log %1$s</string>
+    <string name="diag_share_log">Log teilen</string>
+    <string name="diag_no_saved_session">Noch keine gespeicherte Sitzung.</string>
+    <string name="diag_registers_explain">Alle Register, die das Auto gemeldet hat, als Rohdaten. Werte, die sich beim Bedienen des Autos ändern, sind Hinweise auf neue Funktionen.</string>
+    <string name="diag_registers_empty">Noch nichts – verbinde dich zuerst mit dem Auto.</string>
+    <string name="diag_status">Status</string>
+    <string name="diag_paired_ap">Gekoppelter Zugangspunkt</string>
+    <string name="diag_not_paired">nicht gekoppelt</string>
+    <string name="diag_reconnect">Neu verbinden</string>
+    <string name="diag_full_refresh">Alles abrufen</string>
+    <string name="diag_log_pings">Keepalive-Pings protokollieren</string>
+    <string name="diag_car">Auto</string>
+    <string name="diag_sync_clock">Uhr stellen</string>
+    <string name="diag_clear_climate_warning">Klimawarnung zurücksetzen</string>
+    <string name="diag_raw_title">Register direkt schreiben</string>
+    <string name="diag_raw_warning">Für Experimente. Schreibvorgänge gehen direkt an das Auto – nur Werte verwenden, die du verstehst.</string>
+    <string name="diag_register_hex">Register (hex)</string>
+    <string name="diag_data_hex">Daten (hex)</string>
+    <string name="diag_send">Senden</string>
+</resources>

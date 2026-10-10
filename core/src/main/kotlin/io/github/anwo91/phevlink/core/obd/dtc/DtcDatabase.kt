@@ -1,18 +1,22 @@
 package io.github.anwo91.phevlink.core.obd.dtc
 
 import java.util.Locale
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Diagnostic trouble code (DTC) lookup: titles for ~3500 generic OBD-II codes plus a plain-English
- * explanation (system, severity, likely causes, what to check, drive advice) for any valid code.
+ * (or Norwegian, Swedish, Danish, German) explanation — system, severity, likely causes, what to
+ * check, drive advice — for any valid code.
  *
- * Titles come from codes.tsv (generated from AndrOBD and python-OBD, see THIRD_PARTY_NOTICES.md),
- * loaded lazily from the classpath. Explanations come from, in order:
+ * English titles come from codes.tsv (generated from AndrOBD and python-OBD, see THIRD_PARTY_NOTICES.md),
+ * translated titles from codes_<lang>.tsv. Explanations come from, in order:
  *  1. hand-written entries for codes an Outlander PHEV owner is likely to see ([curatedCodes]),
- *  2. rules based on the code number and the wording of the title,
+ *  2. rules based on the code number and the wording of the English title,
  *  3. a generic "manufacturer-specific / unknown code" explanation.
+ * All text is in strings_<lang>.txt; anything not translated falls back to English for that piece.
  *
- * Thread-safe. Never throws for a syntactically valid code, and never crashes if the resource is missing.
+ * Every `lang` parameter accepts one of [languages] or any BCP-47 tag (see [languageFor]).
+ * Thread-safe. Never throws for a syntactically valid code, and never crashes if a resource is missing.
  */
 object DtcDatabase {
 
@@ -20,27 +24,52 @@ object DtcDatabase {
     private val CODE = Regex("^[PCBU][0-9A-F]{4}$")
     private val WHITESPACE = Regex("\\s+")
 
+    /** Supported languages: English, Norwegian bokmål, Swedish, Danish, German. */
+    val languages: List<String> = DtcI18n.LANGUAGES
+
+    /** Maps a BCP-47 tag ("nb", "nn", "no", "nb-NO", "sv-SE", "da-DK", "de-AT", ...) to one of [languages]; default "en". */
+    fun languageFor(tag: String): String = DtcI18n.languageFor(tag)
+
     private class Data(val titles: Map<String, String>, val error: String?) {
         /** All codes, sorted. */
         val sorted: List<String> = titles.keys.sorted()
 
         /** Search order for title matches: curated codes first, then the rest, each sorted. */
         val searchOrder: List<String> = sorted.filter { it in CuratedDtcs.codes } + sorted.filter { it !in CuratedDtcs.codes }
-
-        /** Lower-case text searched for each code: title plus curated subsystem. */
-        val haystack: Map<String, String> = titles.mapValues { (code, title) ->
-            val sub = CuratedDtcs[code]?.subsystem
-            (if (sub == null) title else "$title $sub").lowercase(Locale.ROOT)
-        }
     }
 
+    /** Per-language titles and search text. */
+    private class LangData(val titles: Map<String, String>, val haystack: Map<String, String>)
+
     private val data: Data by lazy { load() }
+    private val langData = ConcurrentHashMap<String, LangData>()
+
+    private fun langData(lang: String): LangData = langData.getOrPut(lang) {
+        val d = data
+        val local = if (lang == DtcI18n.EN) emptyMap() else DtcI18n.readTable("codes_$lang.tsv")
+        val titles = d.titles.mapValues { (code, en) -> local[code] ?: en }
+        val haystack = d.titles.mapValues { (code, en) ->
+            buildString {
+                append(en)
+                local[code]?.let { append(' ').append(it) }
+                CuratedDtcs[code]?.let { def ->
+                    append(' ').append(DtcI18n.text(DtcI18n.EN, def.sub, def.args))
+                    if (lang != DtcI18n.EN) append(' ').append(DtcI18n.text(lang, def.sub, def.args))
+                }
+            }.lowercase(Locale.ROOT)
+        }
+        LangData(titles, haystack)
+    }
 
     /** Number of codes with a known title. */
     val size: Int get() = data.titles.size
 
-    /** A problem found while loading codes.tsv (missing, unreadable or malformed lines), or null. For a diagnostics screen. */
-    val loadError: String? get() = data.error
+    /** A problem found while loading codes.tsv or strings_en.txt (missing, unreadable or malformed lines), or null. */
+    val loadError: String?
+        get() {
+            DtcI18n.strings(DtcI18n.EN)
+            return data.error ?: DtcI18n.loadProblems()["strings_en.txt"]
+        }
 
     /** Codes that have a hand-written (curated) explanation, sorted. */
     val curatedCodes: Set<String> by lazy { java.util.Collections.unmodifiableSet(CuratedDtcs.codes.toSortedSet()) }
@@ -51,58 +80,50 @@ object DtcDatabase {
     /** True for P/C/B/U followed by exactly 4 hex digits (after [normalize]). */
     fun isValid(code: String): Boolean = CODE.matches(normalize(code))
 
-    /** Title only, null when unknown. Accepts "p0a80", " P0A80 ". */
-    fun title(code: String): String? = data.titles[normalize(code)]
+    /** Title in [lang] (English when not translated), null when the code is unknown. Accepts "p0a80", " P0A80 ". */
+    fun title(code: String, lang: String = "en"): String? {
+        val c = normalize(code)
+        val l = languageFor(lang)
+        return if (l == DtcI18n.EN) data.titles[c] else langData(l).titles[c]
+    }
 
     /**
-     * Full explanation for any syntactically valid code (P/C/B/U + 4 hex digits).
+     * Full explanation in [lang] for any syntactically valid code (P/C/B/U + 4 hex digits).
      * @throws IllegalArgumentException for invalid syntax.
      */
-    fun explain(code: String): DtcExplanation {
+    fun explain(code: String, lang: String = "en"): DtcExplanation {
         val c = normalize(code)
         require(CODE.matches(c)) {
             "Not a valid trouble code: '$code' (expected P, C, B or U followed by 4 hex digits, e.g. P0A80)"
         }
-        val dbTitle = data.titles[c]
-        val curated = CuratedDtcs[c]
-        if (curated != null) {
-            return DtcExplanation(
-                code = c,
-                title = dbTitle ?: curated.subsystem,
-                system = curated.system,
-                subsystem = curated.subsystem,
-                severity = curated.severity,
-                summary = curated.summary,
-                causes = curated.causes,
-                checks = curated.checks,
-                driveAdvice = curated.driveAdvice,
-                manufacturerSpecific = DtcRules.isManufacturerRange(c),
-                curated = true,
-                known = true,
-            )
-        }
-        return DtcRules.explain(c, dbTitle)
+        val l = languageFor(lang)
+        val enTitle = data.titles[c]
+        val localTitle = if (enTitle == null) null else title(c, l)
+        CuratedDtcs[c]?.let { return CuratedDtcs.explain(c, it, l, localTitle) }
+        return DtcRules.explain(c, enTitle, l, localTitle)
     }
 
     /**
      * Search titles and codes, for a lookup screen. Case-insensitive, at most [limit] results.
-     * Order: exact code match, then codes starting with the query, then title matches (all words
-     * must appear; codes with a curated explanation first). Pairs are (code, title).
+     * Matches titles in [lang] and in English. Order: exact code match, then codes starting with the
+     * query, then title matches (all words must appear; curated codes first). Pairs are (code, title in [lang]).
      */
-    fun search(query: String, limit: Int = 50): List<Pair<String, String>> {
+    fun search(query: String, limit: Int = 50, lang: String = "en"): List<Pair<String, String>> {
         if (limit <= 0) return emptyList()
         val q = query.trim()
         if (q.isEmpty()) return emptyList()
+        val l = languageFor(lang)
         val d = data
+        val ld = langData(l)
         val upper = q.uppercase(Locale.ROOT)
         val out = LinkedHashMap<String, String>()
 
-        if (CODE.matches(upper)) out[upper] = d.titles[upper] ?: explain(upper).title
+        if (CODE.matches(upper)) out[upper] = ld.titles[upper] ?: explain(upper, l).title
 
         if (upper.length <= 5 && upper.all { it.isLetterOrDigit() }) {
             for (code in d.sorted) {
                 if (out.size >= limit) break
-                if (code.startsWith(upper)) out.putIfAbsent(code, d.titles.getValue(code))
+                if (code.startsWith(upper)) out.putIfAbsent(code, ld.titles.getValue(code))
             }
         }
 
@@ -111,8 +132,8 @@ object DtcDatabase {
             for (code in d.searchOrder) {
                 if (out.size >= limit) break
                 if (code in out) continue
-                val text = d.haystack.getValue(code)
-                if (words.all { text.contains(it) }) out[code] = d.titles.getValue(code)
+                val text = ld.haystack.getValue(code)
+                if (words.all { text.contains(it) }) out[code] = ld.titles.getValue(code)
             }
         }
         return out.entries.take(limit).map { it.key to it.value }

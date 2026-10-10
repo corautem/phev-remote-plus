@@ -1,0 +1,1676 @@
+# PHEV Link DTC texts - sv. Translates the keys of strings_en.txt (see that file for the format).
+# Keys not listed here fall back to English. Original text for this project (GPL-3.0-or-later).
+
+sev.INFO.label	Information
+sev.INFO.advice	Ingen omedelbar påverkan på körningen. Nämn det vid nästa service.
+sev.CHECK_SOON.label	Kontrollera snart
+sev.CHECK_SOON.advice	Du kan köra som vanligt. Låt titta på det inom de närmaste veckorna eller vid nästa service.
+sev.CHECK_NOW.label	Kontrollera nu
+sev.CHECK_NOW.advice	Låt kontrollera det inom några dagar. Prestanda, utsläpp eller ett säkerhetssystem kan påverkas, eller skador kan uppstå. Undvik långa resor, släpvagn och hård körning tills felet är åtgärdat.
+sev.STOP.label	Stanna bilen
+sev.STOP.advice	Stanna så snart det är säkert och stäng av bilen. Fortsatt körning riskerar allvarliga skador eller ett säkerhetsproblem. Ordna kontroll eller bärgning av bilen.
+sys.POWERTRAIN_ENGINE.label	Motor
+sys.FUEL_AIR.label	Bränsle- och luftmätning
+sys.IGNITION_MISFIRE.label	Tändning och feltändning
+sys.EMISSIONS.label	Avgasrening
+sys.SPEED_IDLE.label	Hastighet, tomgångsreglering och hjälpsignaler
+sys.COMPUTER_OUTPUTS.label	Styrenheter, strömförsörjning och utgångar
+sys.TRANSMISSION.label	Växellåda och drivlina
+sys.HYBRID_EV.label	Hybrid- / elektriskt drivsystem
+sys.CHASSIS.label	Chassi (bromsar, ABS, styrning, hjulupphängning, däck)
+sys.BODY.label	Kaross (krockkuddar, klimat, belysning, komfort)
+sys.NETWORK.label	Nätverkskommunikation mellan styrenheter
+sys.MANUFACTURER.label	Tillverkarspecifik (drivlina)
+sys.UNKNOWN.label	Okänd
+
+txt.hv_safety	Säkerheten först: de orange kablarna och högspänningsdelarna (drivbatteri, växelriktare, elmotorer, inbyggd laddare, DC/DC-omvandlare) har farlig spänning, även när bilen är avstängd. Öppna inte, koppla inte loss och mät inte på dem själv; det arbetet får bara göras av tekniker som är utbildade på högspänningssystem.
+txt.srs_safety	Säkerheten först: mät aldrig på kontakterna till krockkuddar eller bältessträckare med testlampa eller multimeter, och koppla aldrig loss dem när 12 V-batteriet är anslutet. En oavsiktlig utlösning kan orsaka allvarliga skador.
+txt.cause_12v	Svagt eller åldrat 12 V-hjälpbatteri. På Outlander PHEV laddas det bara av DC/DC-omvandlaren (främst när bilen är i READY eller laddar), och låg spänning gör att styrenheter beter sig konstigt eller faller bort från nätverket
+txt.check_12v	Testa 12 V-hjälpbatteriet: när bilen har stått några timmar bör det visa cirka 12,6 V eller mer; med bilen i READY bör spänningen stiga till ungefär 13–14,5 V. En batteritestare på en verkstad eller i en reservdelsbutik ger ett säkrare svar än bara spänningen. Kontrollera också att polerna och jordanslutningarna är rena och ordentligt åtdragna.
+txt.check_many_codes	Om flera orelaterade koder dök upp samtidigt, testa 12 V-hjälpbatteriet före allt annat
+txt.check_dongle	Koppla ur OBD-donglen (och annan eftermonterad utrustning i diagnosuttaget) när du inte använder den: vissa adaptrar håller nätverket vaket eller laddar ur 12 V-batteriet medan bilen står parkerad
+txt.check_dealer_tool	Låt en Mitsubishi-återförsäljare eller en verkstad med Mitsubishi-kompatibelt diagnosverktyg (MUT-III eller motsvarande) läsa av alla styrenheter; en vanlig OBD-läsare ser bara en del av systemet
+txt.check_clear_retest	Efter en reparation: radera koden och kör som vanligt i några dagar; kommer den inte tillbaka fungerade åtgärden
+txt.check_clear_see	Radera koden och se om den kommer tillbaka: en kod som snabbt kommer tillbaka tyder på ett verkligt, aktuellt fel
+txt.check_freeze_frame	Notera när koden kom och, om din läsare visar det, de ”freeze frame”-data (hastighet, temperaturer, last) som sparades med koden: de visar förhållandena när felet uppstod
+txt.check_oil	Kontrollera oljenivån och oljans skick på oljestickan; fyll på eller byt oljan om den är låg, gammal eller slammig (på en laddhybrid går motorn mindre, men oljan åldras ändå med tiden)
+txt.check_charge_mode	För att testa motorn längre, håll den igång med funktionen Charge (eller Save) så att den når full arbetstemperatur
+txt.check_fresh_fuel	Om motorn sällan går kan bensinen vara flera månader gammal: tanka färsk bensin på en välbesökt station och låt motorn gå regelbundet
+txt.read_all	Läs av alla koder; koder som sparats samtidigt visar ofta orsaken
+txt.hv_cause_12v_relay	Låg 12 V-matningsspänning till styrelektroniken eller reläerna
+txt.pe_coolant_check	När allt är kallt: kontrollera kylvätskenivån i expansionskärlet för kraftelektroniken (laddhybrider har normalt en egen krets skild från motorns; se instruktionsboken). Öppna aldrig ett varmt kylsystem
+txt.advice_info	Ja. Det här påverkar inte hur bilen kör.
+txt.advice_check_soon	Ja, du kan köra som vanligt. Låt kontrollera det inom de närmaste veckorna, och tidigare om fler varningslampor tänds eller bilen börjar bete sig annorlunda.
+txt.advice_check_now	Korta, lugna resor går oftast bra, men låt kontrollera det inom några dagar. Undvik långa resor, släpvagn och hård körning tills felet är åtgärdat. Om bilen visar ett meddelande om att stanna, eller en varningslampa blinkar, stanna så snart det är säkert.
+txt.advice_stop	Nej. Stanna så snart det är säkert, stäng av och kör inte vidare. Se till att bilen blir undersökt eller bärgad.
+txt.advice_misfire	Om motorlampan blinkar, eller motorn skakar eller tappar kraft, stanna så snart det är säkert: oförbränt bränsle kan överhetta och förstöra katalysatorn. Om lampan lyser med fast sken och motorn går jämnt går korta resor bra, men låt kontrollera det inom några dagar. Lugn körning på batteriet håller motorn avstängd det mesta av tiden, men bilen startar ändå motorn när den behöver.
+txt.advice_hv	Bilen går ofta fortfarande att köra, ibland med reducerad effekt eller elräckvidd, men låt kontrollera den inom några dagar. Följ meddelandena på instrumentpanelen: om bilen uppmanar dig att stanna, stanna på ett säkert ställe och starta inte igen. Försök inte reparera högspänningsdelar själv.
+txt.advice_network	Oftast ja, om bilen kör normalt och inga andra varningar visas. Om varningslampor eller meddelanden visas (till exempel ”Check EV system”) kan bilen stänga av funktioner; låt kontrollera det inom några dagar.
+txt.advice_unknown	Appen kan inte avgöra hur allvarlig koden är. Om bilen kör normalt och inte visar några varningslampor eller meddelanden går det oftast bra att köra vidare medan du tar reda på vad koden betyder. Om ett varningsmeddelande visas (som ”Check EV system”), motorlampan blinkar eller bilen beter sig annorlunda, följ instruktionsboken och låt kontrollera bilen direkt.
+txt.advice_abs	Vanlig bromsning fungerar fortfarande, men ABS, antispinn och stabilitetssystem kan vara avstängda, så hjulen kan låsa sig vid hård inbromsning. Kör försiktigt, särskilt på våt, isig eller snöig väg, och låt kontrollera det inom några dagar.
+txt.advice_srs	Bilen kör normalt, men krockkuddarna eller bältessträckarna kanske inte skyddar dig vid en krock. Låt reparera det så snart som möjligt (inom några dagar).
+txt.advice_throttle	Bilen kan begränsa motoreffekten (nödläge) av säkerhetsskäl; ett fel på pedalgivaren kan också begränsa elkörning. Kör försiktigt, undvik situationer där du behöver full effekt och låt kontrollera det inom några dagar.
+txt.advice_steering	Om styrningen är tung eller beter sig konstigt, kör långsamt och försiktigt till en verkstad eller beställ bärgning. Om den känns normal, låt kontrollera det inom några dagar.
+txt.advice_cooling	Håll noga koll på temperaturvarningen. Om den tänds, eller det kommer ånga, stanna på ett säkert ställe och stäng av. Undvik köer, varmt väder och släpvagn tills felet är åtgärdat, och låt kontrollera det inom några dagar.
+txt.advice_oil_low	Nej. Stanna så snart det är säkert och stäng av. Kontrollera oljenivån: om den var låg och varningen försvinner efter påfyllning, kör lugnt till en verkstad; annars beställ bärgning. Kom ihåg att bilen kan starta motorn automatiskt när den är i READY.
+txt.advice_isolation	Följ varningarna på instrumentpanelen. Om bilen visar ett meddelande om att stanna, eller inte vill gå i READY, stanna på ett säkert ställe, fortsätt inte att starta om den, och beställ bärgning. Om bilen kör normalt, låt kontrollera den inom några dagar och undvik djupt vatten. Rör aldrig skadade orange kablar.
+txt.advice_dcdc	Begränsa körningen och låt kontrollera det inom några dagar. Om 12 V-batteriet inte laddas laddas det ur medan du kör, och bilen kan stänga av sig utan större förvarning. Stäng av onödiga strömförbrukare.
+txt.advice_brake_switch	Själva bromsarna fungerar normalt fortfarande, men bromsljus, farthållare eller växelspärren kan påverkas. Kontrollera att bromsljusen fungerar (be någon titta) och låt kontrollera det inom några dagar.
+note.turbo	Outlander PHEV 2014–2017 har en 2,0-liters bensinmotor utan turbo eller kompressor, så koden förväntas inte på den här bilen; låt bekräfta den med ett Mitsubishi-kompatibelt verktyg.
+note.diesel	Det här gäller utrustning för dieselmotorer, som bensinmotorn i Outlander PHEV inte har, så koden förväntas inte på den här bilen; låt bekräfta den med ett Mitsubishi-kompatibelt verktyg.
+note.nox	NOx-givare och NOx-efterbehandling används främst på diesel- och magerkörande motorer och förväntas inte på bensinmotorn i Outlander PHEV; låt bekräfta koden med ett Mitsubishi-kompatibelt verktyg.
+note.cyl_deact	Fyrcylindermotorn i Outlander PHEV använder inte cylinderavstängning, så koden förväntas inte på den här bilen; låt bekräfta den med ett Mitsubishi-kompatibelt verktyg.
+note.alternator	Outlander PHEV har ingen vanlig generator (DC/DC-omvandlaren laddar 12 V-batteriet), så koden förväntas inte på den här bilen; kontrollera 12 V-batteriet, leta efter koder för DC/DC-omvandlaren och låt bekräfta koden med ett Mitsubishi-kompatibelt verktyg.
+note.gearbox	Outlander PHEV har ingen vanlig växellåda med flera växlar (den har en transaxel med fast utväxling och en koppling för direkt motordrift i högre hastigheter), så koden gäller kanske inte; låt bekräfta den med ett Mitsubishi-kompatibelt verktyg.
+word.component	komponent
+loc.bank_sensor	bank {bank}, givare {sensor}
+loc.bank	bank {bank}
+loc.cylinder	cylinder {cyl}
+loc.o2_before	(före katalysatorn)
+loc.o2_after	(efter katalysatorn)
+note.bank2	Bank 2 finns bara på motorer med två cylinderrader (V-motorer); fyrcylindermotorn i Outlander PHEV har bara bank 1, så koden förväntas inte på den här bilen och kan vara felavläst.
+note.cyl5	Motorn i Outlander PHEV har fyra cylindrar, så koden förväntas inte på den här bilen och kan vara felavläst.
+area.P	drivlina (motor, hybridsystem eller drivenhet)
+area.C	chassi (bromsar, ABS, styrning, hjulupphängning, däck)
+area.B	kaross (krockkuddar, klimatanläggning, belysning, lås och komfort)
+area.U	nätverkskommunikation mellan styrenheter
+unk.title.mfr	Tillverkarspecifik kod (Mitsubishi)
+unk.title.unknown	Okänd kod
+unk.sub.mfr	Mitsubishi-definierad kod: {area}
+unk.sub.std	Område för standardkoder: {area}
+unk.sum.mfr	Det här är en tillverkarspecifik kod: Mitsubishi bestämmer vad den betyder, och den ingår inte i den offentliga listan över generiska koder, så appen kan inte säga exakt vad den betyder. Bokstaven {letter} visar vilket område den hör till: {area}.
+unk.sum.std	Numret ligger i området för standardkoder (SAE/ISO), men det finns inte i appens kodlista. Det kan vara en nyare standardkod, ett reserverat nummer som tillverkaren använder eller en felavläsning. Bokstaven {letter} visar vilket område den hör till: {area}.
+unk.sum.impossible	En riktig felkod har alltid 0, 1, 2 eller 3 som andra tecken, så koden har troligen skrivits fel eller lästs fel av läsaren.
+unk.mfr.c1	Den exakta orsaken beror på Mitsubishis egen definition av koden
+unk.std.c1	Den exakta orsaken beror på kodens officiella definition
+unk.c2	Om flera koder kom samtidigt: ett svagt 12 V-hjälpbatteri eller ett matnings-/jordfel som påverkar flera styrenheter
+unk.c3	Ett verkligt fel inom området: {area}
+unk.k4	Låt en Mitsubishi-återförsäljare eller en verkstad med Mitsubishi-kompatibelt diagnosverktyg (MUT-III eller motsvarande) läsa av den; de kan se den exakta definitionen och vilken styrenhet som sparade den
+unk.k5	Sök på koden tillsammans med ”Outlander PHEV” i ägarforum för att se andra ägares erfarenheter (var kritisk till forumråd)
+unk.imp.c1	Skrivfel när koden matades in
+unk.imp.c2	Läsare eller adapter som läser koden fel (prova att läsa av koderna igen)
+unk.imp.k1	Kontrollera koden på läsarens display och skriv in den igen
+unk.imp.k2	Läs av koderna igen med bilen påslagen; visas den fortfarande, prova en annan läsare eller app
+fail.fallback.sum	Styrenheten har satt koden för ”{component}”.
+fail.general.sum	Styrenheten har upptäckt ett fel som gäller ”{component}”.
+fail.low.act.sum	Spänningen i styrkretsen till ”{component}” är lägre än väntat, vilket oftast tyder på kortslutning mot jord eller saknad matning.
+fail.low.sen.sum	Signalen från ”{component}” är lägre än det lägsta värde den någonsin ska ha, vilket oftast tyder på kortslutning mot jord, saknad matning eller en defekt givare.
+fail.high.act.sum	Spänningen i styrkretsen till ”{component}” är högre än väntat, vilket oftast tyder på avbrott i kretsen eller kortslutning mot en spänningskälla.
+fail.high.sen.sum	Signalen från ”{component}” är högre än det högsta värde den någonsin ska ha, vilket oftast tyder på avbrott (trasig ledning, urkopplad kontakt), kortslutning mot en spänningskälla eller en defekt givare.
+fail.open.sum	Styrenheten har hittat ett avbrott (en bruten elektrisk förbindelse) i kretsen till ”{component}”.
+fail.circuit.sen.sum	Styrenheten har hittat ett elektriskt fel i kretsen till ”{component}”: signalen saknas eller ligger utanför vad kretsen kan ge.
+fail.circuit.act.sum	Styrenheten har hittat ett elektriskt fel i kretsen till ”{component}”, typiskt ett avbrott, en kortslutning eller en defekt del.
+fail.circuit.other.sum	Styrenheten har hittat ett elektriskt fel i kretsen till ”{component}”.
+fail.intermittent.sum	Signalen från ”{component}” faller bort eller hoppar ibland, vilket är typiskt för en glappande förbindelse eller en skadad ledning.
+fail.range.sen.sum	Signalen från ”{component}” ligger inom de elektriska gränserna men stämmer inte med andra mätvärden, så givaren kan ha drivit, eller så har systemet den mäter ett verkligt fel.
+fail.range.other.sum	”{component}” reagerar inte som styrenheten förväntar sig.
+fail.slow.sum	”{component}” reagerar långsammare än den ska när förhållandena ändras.
+fail.noact.sum	Signalen från ”{component}” ändras inte alls, som om givaren vore död eller urkopplad.
+fail.stuck.sum	”{component}” verkar ha fastnat: den går inte till, eller stannar inte i, begärt läge eller tillstånd.
+fail.corr.sum	Två signaler som hör ihop ({subject}) stämmer inte överens som de ska.
+fail.internal.sum	En styrenhet har hittat ett fel i sitt eget minne, sin programvara eller konfiguration.
+fail.perf.sum	”{component}”, eller systemet den hör till, fungerar inte så bra som styrenheten förväntar sig.
+fail.overtemp.sum	”{subject}” har blivit varmare än den säkra gränsen.
+fail.toolow.sum	”{subject}” är lägre än styrenheten förväntar sig.
+fail.toohigh.sum	”{subject}” är högre än styrenheten förväntar sig.
+fail.low.act.c1	Styrledningen till ”{component}” kortsluten mot jord
+fail.low.act.c2	Defekt ”{component}” (intern kortslutning)
+fail.low.act.c3	Trasig säkring eller defekt relä i matningen till ”{component}”
+fail.low.act.c4	Skadad eller korroderad kontakt
+fail.low.sen.c1	Signalledning kortsluten mot jord, till exempel på grund av nött isolering
+fail.low.sen.c2	Defekt ”{component}”
+fail.low.sen.c3	Skadad eller korroderad kontakt vid ”{component}”
+fail.low.sen.c4	Saknad eller för låg matnings-/referensspänning till givaren
+fail.high.act.c1	Styrledning kortsluten mot en spänningskälla
+fail.high.act.c2	Avbrott eller urkopplad kontakt vid ”{component}”
+fail.high.act.c3	Defekt ”{component}”
+fail.high.act.c4	Fel i styrenhetens utgång (mindre vanligt)
+fail.high.sen.c1	Avbrott: trasig ledning eller urkopplad/glappande kontakt vid ”{component}”
+fail.high.sen.c2	Signalledning kortsluten mot en spänningskälla
+fail.high.sen.c3	Defekt ”{component}”
+fail.high.sen.c4	Dålig jordanslutning för givaren
+fail.open.act.c1	Urkopplad, glappande eller korroderad kontakt vid ”{component}”
+fail.open.act.c2	Trasig eller nött ledning mellan ”{component}” och styrenheten
+fail.open.act.c3	Defekt ”{component}” (avbrott i lindning eller element)
+fail.open.act.c4	Trasig säkring i matningen till ”{component}”
+fail.open.sen.c1	Urkopplad, glappande eller korroderad kontakt vid ”{component}”
+fail.open.sen.c2	Trasiga eller nötta ledningar mellan ”{component}” och styrenheten
+fail.open.sen.c3	Defekt ”{component}”
+fail.open.sen.c4	Matnings- eller jordproblem för ”{component}”
+fail.intermittent.c1	Glappande kontakt eller stift som tappar kontakten vid vibrationer eller temperaturväxlingar
+fail.intermittent.c2	Nött ledning som kortsluter eller bryts ibland
+fail.intermittent.c3	Fukt eller korrosion i kontakten
+fail.intermittent.c4	”{component}” håller på att gå sönder internt
+fail.range.sen.c1	”{component}” har drivit, är smutsig eller åldrad
+fail.range.sen.c2	Ett verkligt fel i systemet som givaren mäter
+fail.range.sen.c3	Högt motstånd i ledningar eller kontakt (korrosion)
+fail.range.sen.c4	Andra fel samtidigt som stör jämförelsen
+fail.range.other.c1	”{component}” kärvar, är sliten eller smutsig
+fail.range.other.c2	Svag matningsspänning eller dålig förbindelse till ”{component}”
+fail.range.other.c3	Defekt ”{component}”
+fail.slow.c1	Åldrad ”{component}” (normalt slitage under många år)
+fail.slow.c2	Nedsmutsning av ”{component}” (olja, kylvätska, beläggningar eller tillsatser)
+fail.slow.c3	Lednings- eller kontaktproblem
+fail.slow.c4	Läcka nära givaren som späder ut mätningen (till exempel en avgas- eller luftläcka)
+fail.noact.c1	Defekt ”{component}”
+fail.noact.c2	Avbrott eller urkopplad kontakt
+fail.noact.c3	För uppvärmda givare: ett värmarfel som håller givaren för kall för att fungera
+fail.stuck.c1	”{component}” kärvar mekaniskt (smuts, beläggningar, korrosion eller is)
+fail.stuck.c2	Defekt ”{component}”
+fail.stuck.c3	Lednings- eller kontaktproblem som hindrar funktionen
+fail.stuck.c4	Fel i delarna den rör eller styr
+fail.corr.c1	En av de två givarna är defekt eller har drivit
+fail.corr.c2	Lednings- eller kontaktproblem på en av signalerna
+fail.corr.c3	Ett verkligt mekaniskt problem som gör att de två mätvärdena inte stämmer
+fail.internal.c1	Internt fel i styrenheten
+fail.internal.c2	Låg eller instabil 12 V-matning vid start, laddning eller programmering
+fail.internal.c3	Avbruten eller inkompatibel programuppdatering, eller en styrenhet som inte konfigurerats efter byte
+fail.internal.c4	Dålig jordanslutning till styrenheten
+fail.perf.c1	Sliten eller defekt ”{component}”
+fail.perf.c2	Lednings- eller kontaktproblem
+fail.perf.c3	Relaterade fel i samma system (kontrollera andra koder)
+fail.overtemp.c1	Kylproblem: låg kylvätskenivå, defekt pump eller fläkt, igensatt kylare eller luftintag
+fail.overtemp.c2	Hög belastning i varmt väder
+fail.overtemp.c3	Defekt temperaturgivare som visar ett falskt högt värde
+fail.measured.c1	Ett verkligt fel i ”{component}” eller systemet runt den
+fail.measured.c2	Defekt givare som ger fel värde
+fail.measured.c3	Lednings- eller kontaktproblem
+fail.generic.c1	Defekt komponent i den här kretsen
+fail.generic.c2	Lednings- eller kontaktproblem (korrosion, glappande stift, nött isolering)
+fail.generic.c3	Relaterat fel någon annanstans i samma system (kontrollera andra sparade koder)
+fail.elec.k1	Kontrollera kontakten till ”{component}”: med bilen avstängd, koppla loss den, leta efter korrosion, vatten eller böjda stift och sätt tillbaka den ordentligt tills den klickar
+fail.elec.k2	Följ ledningarna från ”{component}” och leta efter nötning, smält isolering eller gnagarskador
+fail.elec.wiggle	Med motorn igång (eller bilen i READY): rucka försiktigt på ledningar och kontakt medan du tittar på realtidsdata eller varningslampan; en förändring visar var felet sitter
+fail.elec.sen	Kontrollera givarens matning, jord och signal i kontakten med multimeter och kopplingsschema
+fail.elec.act	Kontrollera säkringen för ”{component}” och mät resistansen mot verkstadsdata
+fail.elec.other	Låt en verkstad mäta kretsen enligt kopplingsschemat
+fail.elec.replace	Byt ”{component}” först när ledningarna har bekräftats vara hela
+fail.analyse.k1	Läs av alla koder och åtgärda kretsfel i samma system först
+fail.analyse.k2	Jämför realtidsdata för ”{component}” med närliggande mätvärden och förväntade värden
+fail.analyse.k3	Kontrollera kontakt och ledningar efter korrosion eller skador
+fail.stuck.k2	Kontrollera att ”{component}” rör sig fritt och inte blockeras av smuts, beläggningar eller is (bara om den är lätt att komma åt)
+fail.stuck.k3	En verkstad kan styra ”{component}” med ett aktuatortest
+fail.measured.k2	Kontrollera tillhörande realtidsdata för att se om värdet är verkligt eller beror på en defekt givare
+fail.internal.k3	Fråga en Mitsubishi-återförsäljare om programuppdateringar, konfiguration eller omprogrammering av styrenheten
+fail.hv.elec.k1	Koppla inte själv loss kontakter på eller nära högspänningsdelar; låt en tekniker med högspänningsutbildning kontrollera ledningar och kontakter till ”{component}”
+fail.hv.elec.k2	Notera när felet uppstår (start, körning, laddning, vått väder) för att hjälpa verkstaden
+fail.hv.internal.k2	Fråga en Mitsubishi-återförsäljare om programuppdateringar, konfiguration eller omprogrammering av styrenheten
+notfitted.c1	Läsaren läste koden fel, eller så matades den in fel
+notfitted.c2	Ett fel i komponenten som koden gäller (bara möjligt om bilen faktiskt har den)
+notfitted.k1	Läs av koderna igen och jämför med vad läsaren visar
+net.effect.abs	ABS, antispinn eller stabilitetssystem kan vara avstängda; vanlig bromsning ska fortfarande fungera.
+net.effect.steering	Servostyrningen eller funktioner som använder rattvinkeln kan påverkas.
+net.effect.srs	Varningslampan för krockkuddar lyser oftast, och krockkuddarna kanske inte löser ut vid en krock.
+net.effect.cluster	Mätare, varningslampor eller meddelanden kanske inte visas korrekt.
+net.effect.hvac	Värme, luftkonditionering eller avimning av vindrutan kanske inte fungerar som de ska.
+net.effect.engine	Motorn kanske inte startar, eller går med begränsad funktion.
+net.effect.hv	Bilen kan begränsa effekt eller laddning, visa en varning om EV-systemet eller inte gå i READY.
+topic.lost_comm.sub	Kommunikation förlorad med ”{module}”
+topic.lost_comm.about	Styrenheterna delar information över bilens datanätverk (CAN-buss), och meddelandena från ”{module}” har slutat komma fram.
+topic.lost_comm.c2	Trasig säkring, defekt relä eller dålig jord vid ”{module}”
+topic.lost_comm.c3	Glappande, våt eller korroderad kontakt vid ”{module}” eller på nätverkskablaget
+topic.lost_comm.c4	Skadat nätverkskablage (CAN), till exempel nött eller klämt kablage
+topic.lost_comm.c5	Själva styrenheten har gått sönder (mindre vanligt; uteslut matning och kablage först)
+topic.lost_comm.k3	Kontrollera säkringarna till styrenheten som nämns i koden (säkringsschema i instruktionsboken)
+topic.lost_comm.k4	Leta efter vatteninträngning eller korrosion runt styrenheten och dess kontakter
+topic.lost_comm.k5	Radera alla koder, kör och läs av igen: koderna som kommer tillbaka pekar på det egentliga problemet
+topic.lost_comm.k7	En verkstad kan kontrollera nätverkskablaget och termineringsmotstånden (en frisk CAN-buss mäter normalt cirka 60 ohm mellan CAN-High och CAN-Low med bilen avstängd)
+topic.invalid_data.sub	Ogiltiga data från ”{module}”
+topic.invalid_data.about	Meddelandena från ”{module}” kommer fram över datanätverket men innehåller värden som är orimliga eller utanför giltigt område.
+topic.invalid_data.c1	Ett fel inuti ”{module}” eller i en av dess givare, som gör att den skickar orimliga värden (leta efter koder sparade i den enheten)
+topic.invalid_data.c3	Programvara som inte passar ihop, eller saknad konfiguration efter att en styrenhet bytts eller uppdaterats
+topic.invalid_data.c4	Dåliga förbindelser eller störningar på nätverkskablaget
+topic.invalid_data.k1	Låt läsa av ”{module}” med ett kapabelt diagnosverktyg: dess egna koder visar oftast grundorsaken
+topic.invalid_data.k4	Tänk efter: har någon styrenhet bytts, uppdaterats eller kopplats loss nyligen?
+topic.fuel_trim.about	Motorstyrningen korrigerar hela tiden bränslemängden (bränsletrim) för att hålla blandningen av luft och bränsle rätt, och korrigeringarna har nått sin gräns.
+topic.fuel_trim.about.lean	{@topic.fuel_trim.about} Motorn går magert: för mycket luft eller för lite bränsle.
+topic.fuel_trim.about.rich	{@topic.fuel_trim.about} Motorn går fett: för mycket bränsle eller för lite luft.
+topic.fuel_trim.lean.c1	Luftläcka efter luftmassemätaren (slangar, klämmor, packningar, vevhusventilation)
+topic.fuel_trim.lean.c2	Smutsig eller defekt luftmassemätare
+topic.fuel_trim.lean.c3	Lågt bränsletryck (pump, filter, regulator) eller igensatta insprutningsventiler
+topic.fuel_trim.lean.c4	Avgasläcka framför lambdasonden
+topic.fuel_trim.lean.c5	Möjligt på en laddhybrid: gammal bensin om motorn sällan går
+topic.fuel_trim.rich.c1	Läckande insprutningsventil eller för högt bränsletryck
+topic.fuel_trim.rich.c2	Defekt luftmassemätare eller kylvätsketemperaturgivare
+topic.fuel_trim.rich.c3	Spolventil (purge) som har fastnat öppen
+topic.fuel_trim.rich.c4	Igensatt luftfilter
+topic.fuel_trim.rich.c5	Motorolja utspädd med bränsle (möjligt vid många korta, kalla motorkörningar)
+topic.fuel_trim.c1	Luftläcka eller problem med bränsletillförseln
+topic.fuel_trim.c2	Defekt givare som används för blandningsregleringen
+topic.fuel_trim.c3	Problem med insprutningsventilerna
+topic.hybrid_other.sub_fallback	Hybridsystem
+topic.no_codes.sub	Inget fel sparat
+topic.no_codes.about	Den här posten betyder ”inga felkoder sparade”; det är inget fel.
+topic.no_codes.c1	Rapporteras av vissa styrenheter som platshållare när inget fel är sparat
+topic.no_codes.c2	Möjligen en felavläsning av läsaren
+topic.no_codes.k1	Ingen åtgärd behövs
+topic.no_codes.k2	Läs av koderna igen för att bekräfta
+topic.u_power.sub	Matning till styrenhet
+topic.u_power.about	En styrenhet rapporterar ett problem med matningen, jord eller tändningssignalen (strömläge).
+topic.u_power.c2	Trasig säkring eller defekt relä som matar styrenheten
+topic.u_power.c3	Glappande eller korroderad matnings- eller jordanslutning vid styrenheten
+topic.u_power.c4	Fel i tändnings-/strömlägessignalen
+topic.u_power.c5	Strömmen försvann medan styrenheten fortfarande arbetade (till exempel ett batteri som kopplades loss med bilen påslagen)
+topic.u_power.k2	Kontrollera säkringarna till den berörda styrenheten
+topic.u_power.k3	Kontrollera jordanslutningar och batteripoler
+topic.u_module.sub	Styrenhet
+topic.u_module.about	En styrenhet rapporterar ett fel i sig själv, sin programvara eller sin konfiguration (till exempel sparat VIN).
+topic.u_module.c1	Styrenhet som inte är konfigurerad eller kodad rätt, till exempel efter byte
+topic.u_module.c2	Programvara som inte passar ihop mellan styrenheter
+topic.u_module.c4	Internt fel i styrenheten
+topic.u_module.k2	Tänk efter: har någon styrenhet bytts, uppdaterats eller kopplats loss nyligen?
+topic.bus.sub	Datanätverk (CAN-buss)
+topic.bus.about	Styrenheterna delar information över datanätverk (CAN-bussar). En styrenhet har upptäckt ett fel på själva nätverket, inte hos en viss styrenhet.
+topic.bus.c2	Skadat nätverkskablage: CAN-High och CAN-Low kortslutna mot varandra, mot jord eller mot spänning
+topic.bus.c3	En defekt styrenhet som stör nätverket
+topic.bus.c4	Vatten eller korrosion i en kontakt på nätverket
+topic.bus.c5	Eftermonterad utrustning i diagnosuttaget eller skarvad in i kablaget (donglar, spårsändare, instrumentbrädeskameror)
+topic.bus.k3	Notera vilka funktioner som slutade fungera när koden kom; det visar vilken del av nätverket som berörs
+topic.bus.k4	Leta efter vatteninträngning (våta mattor, fuktiga kontakter) och nyligen utfört arbete på kablaget
+topic.bus.k5	En verkstad kan mäta nätverkskablaget och termineringsmotstånden och koppla loss styrenheter en i taget
+topic.u_other.sub	Nätverkskommunikation
+topic.u_other.about	Den här koden gäller kommunikationen mellan bilens styrenheter.
+topic.u_other.c2	Kablage- eller kontaktfel på datanätverket
+topic.u_other.c3	Fel i en av styrenheterna
+topic.mil_request.sub	Begäran om varningslampa från en annan styrenhet
+topic.mil_request.about	En annan styrenhet har sparat sitt eget fel och begärt att motorlampan tänds. Själva felkoden är sparad i den styrenheten.
+topic.mil_request.c1	Ett fel sparat i styrenheten som begärde lampan (läs av den enheten för den egentliga koden)
+topic.mil_request.c3	Kablage- eller nätverksproblem mellan styrenheter
+topic.mil_request.k3	Notera eventuella förändringar i hur bilen kör och berätta för verkstaden
+topic.mil_request.adv	Oftast ja, om bilen kör normalt. Låt läsa av den andra styrenheten inom några veckor, eller inom några dagar om bilen beter sig annorlunda eller visar fler varningar.
+topic.hv_isolation_fault.sub	Övervakning av högspänningsisolering
+topic.hv_isolation_fault.about	Högspänningssystemet är isolerat från karossen, och en övervakare kontrollerar isoleringen hela tiden. Den har mätt för lågt isolationsmotstånd, så högspänning kan läcka mot karossen.
+topic.hv_isolation_fault.c1	Fukt eller vatten i en högspänningskomponent eller -kontakt (kraftigt regn, tvätt av motorrummet, djupt vatten)
+topic.hv_isolation_fault.c2	Skadad isolering på en orange högspänningskabel (nötning, gnagar- eller krockskada)
+topic.hv_isolation_fault.c3	Isolationsfel inuti en högspänningskomponent (AC-kompressor, värmare, laddare, växelriktare, elmotor eller drivbatteri)
+topic.hv_isolation_fault.c4	Fel i själva isolationsövervakningen (mindre vanligt)
+topic.hv_isolation_fault.k1	Notera när felet uppstår: bara i vått väder, bara vid laddning, eller bara med värme eller luftkonditionering på
+topic.hv_isolation_fault.k2	Titta, utan att röra, efter synliga skador på orange kablar under bilen och i motorrummet
+topic.hv_isolation_fault.k3	Låt en Mitsubishi-återförsäljare eller en verkstad med högspänningskompetens hitta felet med en isolationsprovare
+topic.hv_isolation_sensor.sub	Övervakning av högspänningsisolering (givarkrets)
+topic.hv_isolation_sensor.about	Isolationsövervakningen kontrollerar att högspänningssystemet förblir isolerat från karossen.
+topic.hv_isolation_sensor.c1	Fel i isolationsövervakningskretsen eller enheten den ingår i
+topic.hv_isolation_sensor.c2	Lednings- eller kontaktproblem
+topic.hv_interlock.sub	Högspänningsspärr (säkerhetsslinga)
+topic.hv_interlock.about	Högspänningsspärren är en lågspänd signalslinga genom högspänningskontakterna och kåporna; bryts den slår systemet av högspänningen av säkerhetsskäl.
+topic.hv_interlock.c1	Högspänningskontakt eller servicekontakt som inte är helt låst, ofta efter en reparation eller kontroll
+topic.hv_interlock.c2	Skadat eller korroderat spärrstift eller -ledning i en högspänningskontakt
+topic.hv_interlock.c3	Vatten i en kontakt
+topic.hv_interlock.c4	Fel i styrenheten som övervakar slingan (mindre vanligt)
+topic.hv_interlock.k1	Tänk efter: har någon högspänningsdel arbetats på nyligen? Åk i så fall tillbaka till den verkstaden först
+topic.hv_interlock.k2	Låt en tekniker med högspänningsutbildning kontrollera varje kontakt i spärrslingan
+topic.hv_interlock.cc1	Högspänningskontakt eller servicekontakt som inte är helt låst, ofta efter en reparation eller kontroll
+topic.hv_interlock.adv	Bilen kan vägra gå i READY eller stänga av högspänningssystemet. Om den går att köra, låt kontrollera den inom några dagar. Om ett meddelande uppmanar dig att stanna, stanna på ett säkert ställe. Försök aldrig själv sätta tillbaka högspänningskontakter.
+topic.hv_contactor.sub	Huvudreläer för drivbatteriet (kontaktorer)
+topic.hv_contactor.about	Huvudreläer (kontaktorer) kopplar drivbatteriet till resten av högspänningssystemet, och en förladdningskrets begränsar strömrusningen när de sluter.
+topic.hv_contactor.c1	Defekt huvudrelä eller förladdningsrelä/-motstånd
+topic.hv_contactor.c2	Kablage- eller kontaktfel i reläets styrkrets
+topic.hv_contactor.c3	Fel i batteriets styrenhet som styr reläerna
+topic.hv_contactor.k2	Låt en Mitsubishi-återförsäljare eller en verkstad med högspänningskompetens testa reläerna och deras styrkrets
+topic.hv_contactor.adv	Bilen kan vägra gå i READY eller stänga av högspänningssystemet. Ett relä som fastnat i slutet läge betyder att högspänningen kan förbli påslagen, så håll dig borta från högspänningsdelar. Låt kontrollera det inom några dagar; om ett meddelande uppmanar dig att stanna, stanna på ett säkert ställe.
+topic.hv_fuse.sub	Högspänningssäkring
+topic.hv_fuse.about	En säkring i högspänningssystemet rapporteras som trasig eller bruten; funktioner som den skyddar kan sluta fungera.
+topic.hv_fuse.c1	Kortslutning eller överbelastning i en högspänningskomponent efter säkringen
+topic.hv_fuse.c2	Säkring som åldrats eller gått av sig själv (mindre vanligt)
+topic.hv_fuse.c3	Fel i säkringens övervakningskrets
+topic.hv_fuse.k1	Notera vilka funktioner som slutade fungera (värme, luftkonditionering, laddning, framdrift)
+topic.hv_fuse.k2	Låt en tekniker med högspänningsutbildning hitta orsaken innan säkringen byts
+topic.batt_temp.sub	Temperaturgivare i drivbatteriet
+topic.batt_temp.about	Temperaturgivare i drivbatteriet gör att batteristyrningen kan skydda det mot överhettning och mot laddning när det är för kallt.
+topic.batt_temp.c1	Defekt temperaturgivare
+topic.batt_temp.c2	Kablage- eller kontaktproblem inne i batteripaketet
+topic.batt_temp.c3	En verklig temperaturskillnad på grund av ett kylproblem
+topic.batt_temp.c4	Fel i batteriets styrenhet
+topic.batt_temp.k1	Låt en återförsäljare jämföra alla temperaturvärden i batteriet; efter att bilen stått över natten bör de vara nästan lika
+topic.batt_temp.k2	Reparation innebär oftast att drivbatteriet måste öppnas och ska göras av en tekniker med högspänningsutbildning
+topic.batt_cooling.sub	Kylning av drivbatteriet
+topic.batt_cooling.about	Drivbatteriet hålls inom ett säkert temperaturområde av ett kylsystem med fläktar, kanaler eller ventiler.
+topic.batt_cooling.c1	Fläkt, kanal eller ventil blockerad av smuts eller skräp
+topic.batt_cooling.c2	Defekt fläktmotor eller ventil
+topic.batt_cooling.c3	Trasig säkring eller defekt relä
+topic.batt_cooling.c4	Kablage- eller kontaktfel
+topic.batt_cooling.k1	Kontrollera säkringar och reläer för batterikylningen (instruktionsboken eller verkstadens säkringsschema)
+topic.batt_cooling.k2	Undvik hård körning och upprepad snabbladdning i varmt väder tills felet är åtgärdat
+topic.batt_cooling.adv	Kör lugnt; effekt och laddning kan begränsas för att skydda drivbatteriet. Undvik upprepad snabbladdning i varmt väder och låt kontrollera det inom några dagar.
+topic.batt_sense.sub	Mätning av ström och spänning i drivbatteriet
+topic.batt_sense.about	Batteristyrningen mäter drivbatteriets spänning och ström för att beräkna laddningsnivån och skydda cellerna.
+topic.batt_sense.c1	Defekt givare
+topic.batt_sense.c2	Lednings- eller kontaktproblem
+topic.batt_sense.c3	Fel i batteriets styrenhet
+topic.batt_sense.k1	Låt en Mitsubishi-återförsäljare kontrollera övervakningen av drivbatteriet med sitt diagnosverktyg
+topic.batt.sub	Drivbatteri (högspännings traktionsbatteri)
+topic.batt.about	Drivbatteriet lagrar energin för elkörning, och dess styrenhet övervakar cellernas spänning, temperatur och laddningsnivå.
+topic.batt.c1	Åldrat drivbatteri, svaga celler eller celler i obalans
+topic.batt.c2	Fel i batteriets övervakningskretsar eller styrenhet
+topic.batt.c3	Kylproblem
+topic.batt.c4	Djupurladdning efter lång tids stillastående eller efter tom tank
+topic.batt.k2	Anslut och ladda fullt, och se om koden kommer tillbaka
+topic.batt.k3	Låt en Mitsubishi-återförsäljare göra en kontroll av drivbatteriet
+topic.dcdc.sub	DC/DC-omvandlare (12 V-matning)
+topic.dcdc.about	DC/DC-omvandlaren omvandlar drivbatteriets spänning till cirka 12–14 V för att försörja bilens elektronik och ladda 12 V-batteriet; Outlander PHEV har ingen vanlig generator.
+topic.dcdc.c1	Fel i DC/DC-omvandlaren
+topic.dcdc.c2	Dålig förbindelse, korrosion eller trasig huvudsäkring mellan omvandlaren och 12 V-batteriet
+topic.dcdc.c3	Sviktande 12 V-batteri som drar onormalt mycket ström
+topic.dcdc.c4	Möjlig överhettning på grund av ett fel i kraftelektronikens kylning
+topic.dcdc.k1	Mät spänningen på 12 V-batteriet med bilen avstängd och sedan i READY: i READY bör den stiga till ungefär 13–14,5 V; gör den inte det laddar inte omvandlaren
+topic.dcdc.k2	Kontrollera polerna på 12 V-batteriet och jordflätan efter korrosion och att de sitter fast ordentligt
+topic.dcdc.k3	Låt testa 12 V-batteriet; byt det om det är svagt
+topic.pe_cooling.sub	Kylning av kraftelektroniken
+topic.pe_cooling.about	Växelriktarna och motorelektroniken kyls av en egen kylkrets med elektrisk pump.
+topic.pe_cooling.c1	Låg kylvätskenivå i kraftelektronikens krets (läcka)
+topic.pe_cooling.c2	Svag eller defekt elektrisk kylvätskepump
+topic.pe_cooling.c3	Luft i kretsen efter en reparation
+topic.pe_cooling.c4	Kylare igensatt av smuts eller löv, eller ett problem med kylfläkten
+topic.pe_cooling.k2	Leta efter kylvätskeläckage under bilens front
+topic.pe_cooling.k3	Ta bort löv och smuts framför kylarna
+topic.pe_cooling.adv	Effekten kan begränsas för att skydda elektroniken. Kör lugnt och låt kontrollera det inom några dagar; undvik branta backar, släpvagn och hög belastning i varmt väder. Stanna om en temperaturvarning eller ett meddelande om att stanna visas.
+topic.inverter.sub	Växelriktare (kraftelektronik för motor/generator)
+topic.inverter.about	Växelriktarna omvandlar drivbatteriets likström till den växelström som driver elmotorerna, och tvärtom när batteriet laddas av generatorn eller vid regenerativ bromsning.
+topic.inverter.c1	Internt fel i växelriktaren
+topic.inverter.c2	Kylproblem (leta efter koder för kraftelektronikens kylning)
+topic.inverter.c3	Problem med elmotorn eller högspänningskablarna
+topic.inverter.k2	Låt en Mitsubishi-återförsäljare felsöka växelriktaren; det kräver högspänningsutbildning och specialverktyg
+topic.motor_gen.sub	Elektriska drivmotorer och generator
+topic.motor_gen.about	Outlander PHEV har elektriska drivmotorer och en generator som drivs av förbränningsmotorn; var och en har givare och styrelektronik som övervakas hela tiden.
+topic.motor_gen.c1	Fel i elmotorns styrenhet eller i växelriktaren
+topic.motor_gen.c2	Defekt givare inne i motorn eller generatorn
+topic.motor_gen.c3	Kylproblem (för temperaturrelaterade koder)
+topic.motor_gen.c4	Kablage- eller kontaktfel mellan motorn och dess styrenhet
+topic.motor_gen.k1	Läs av alla koder och notera när felet uppstod (start, acceleration, laddning, över gupp)
+topic.motor_gen.k2	Låt en Mitsubishi-återförsäljare felsöka motorn och dess styrenhet
+topic.engine_start.sub	Motorstart (hybridsystem)
+topic.engine_start.about	Hybridsystemet försökte starta bensinmotorn, men den startade inte och gick inte som väntat.
+topic.engine_start.c1	Mycket lite bränsle, eller gammal bensin
+topic.engine_start.c2	Problem med bränsletillförseln (pump, relä, säkring)
+topic.engine_start.c3	Fel på vevaxel- eller kamaxelgivare, tändning eller startspärr
+topic.engine_start.c4	Svagt 12 V-batteri
+topic.engine_start.k1	Kontrollera bränslenivån och tanka färsk bensin
+topic.engine_start.k2	Läs av alla koder för att hitta den egentliga orsaken
+topic.engine_mount.sub	Elektroniskt styrd motorkudde
+topic.engine_mount.about	Vissa bilar använder elektroniskt styrda motorkuddar för att minska vibrationer.
+topic.engine_mount.c1	Kablage- eller kontaktfel vid motorkudden
+topic.engine_mount.c2	Defekt ställdon i motorkudden
+topic.engine_mount.c3	Trasig säkring
+topic.engine_mount.k1	Kontrollera kontakten och ledningarna till motorkudden
+topic.engine_mount.k2	Lyssna och känn efter ökade vibrationer när motorn startar och stannar
+topic.aux_trans_pump.sub	Extra oljepump för transmissionen
+topic.aux_trans_pump.about	En elektrisk tillsatspump håller transmissionsoljan i cirkulation när den motordrivna pumpen inte går.
+topic.aux_trans_pump.c1	Defekt elektrisk pump eller dess styrenhet
+topic.aux_trans_pump.c2	Kablage- eller kontaktfel
+topic.aux_trans_pump.c3	Låg oljenivå eller inre läckage
+topic.aux_trans_pump.k1	Låt en verkstad kontrollera oljenivån och pumpkretsen
+topic.hybrid_other.about	Hybridstyrningen samordnar förbränningsmotorn, elmotorerna och drivbatteriet och övervakar deras delar.
+topic.hybrid_other.c1	Fel i en komponent i hybridsystemet eller dess styrenhet
+topic.hybrid_other.c2	Lednings- eller kontaktproblem
+topic.turbo.sub	Turbo / kompressor
+topic.turbo.about	Den här koden gäller en turbo eller kompressor, som höjer lufttrycket i motorns insug.
+topic.glow.sub	Glödstift (dieselmotorer)
+topic.glow.about	Den här koden gäller glödstift eller en insugsluftvärmare, som hjälper en dieselmotor att starta i kyla.
+topic.diesel.sub	Dieselbränsle och avgasefterbehandling
+topic.diesel.about	Den här koden gäller utrustning för dieselbränsle eller avgasefterbehandling (partikelfilter, dosering av avgasvätska).
+topic.nox.sub	NOx-givare / NOx-efterbehandling
+topic.nox.about	Den här koden gäller en NOx-givare eller NOx-efterbehandling i avgassystemet.
+topic.cyl_deact.sub	Cylinderavstängning
+topic.cyl_deact.about	Den här koden gäller cylinderavstängning, som stänger av några cylindrar vid låg last för att spara bränsle.
+topic.misfire.sub	Feltändningsövervakning
+topic.misfire.about	Motorstyrningen har upptäckt feltändning: bränslet i en eller flera cylindrar förbränns inte ordentligt. Oförbränt bränsle kan överhetta och skada katalysatorn.
+topic.misfire.c1	Slitna tändstift eller en sviktande tändspole
+topic.misfire.c2	Igensatt eller defekt insprutningsventil
+topic.misfire.c3	Gammalt bränsle eller bränsle av dålig kvalitet (möjligt om motorn sällan går)
+topic.misfire.c4	Luftläcka i insuget eller smutsig luftmassemätare
+topic.misfire.c5	Lågt bränsletryck
+topic.misfire.c6	Fel ventiltider eller låg kompression (mindre vanligt)
+topic.misfire.k1	Läs av alla koder: koder för feltändning i en viss cylinder, bränsletrim eller givare ringar in felet
+topic.misfire.k2	Kontrollera tändstift och tändspolar; flytta en spole till en annan cylinder för att se om feltändningen följer med
+topic.misfire.k4	En verkstad kan kontrollera bränsletryck, insprutningsventiler och kompression
+topic.cam_crank_corr.sub	Ventiltider (samstämmighet mellan vevaxel och kamaxel)
+topic.cam_crank_corr.about	Motorstyrningen jämför signalerna från vevaxel- och kamaxelgivaren. De stämmer inte längre överens som de ska, så antingen har ventiltiderna förskjutits eller så är en av signalerna fel.
+topic.cam_crank_corr.c1	Utsträckt kamkedja, slitna kedjeskenor eller svag sträckare
+topic.cam_crank_corr.c2	Låg nivå eller smutsig motorolja som stör de variabla ventiltiderna
+topic.cam_crank_corr.c3	Oljestyrventil som kärvar, eller defekt kamaxeljusterare
+topic.cam_crank_corr.c4	Defekt kamaxel- eller vevaxelgivare
+topic.cam_crank_corr.k2	Lyssna efter skrammel från kamkedjesidan av motorn direkt efter en kallstart
+topic.cam_crank_corr.k3	En verkstad kan kontrollera inställningsmärken eller kedjans töjning; åtgärda det tidigt, eftersom en kedja som hoppar en kugge kan skada motorn
+topic.cam_sensor.sub	Kamaxelgivare
+topic.cam_sensor.about	Kamaxelgivaren talar om för motorstyrningen vilken cylinder som ska tända.
+topic.cam_sensor.c1	Defekt kamaxelgivare
+topic.cam_sensor.c2	Olja i givarens kontakt
+topic.cam_sensor.c3	Problem med kamkedja eller kamaxelns triggerhjul (mindre vanligt)
+topic.cam_sensor.k1	Kontrollera om det finns olja inne i givarens kontakt och sätt tillbaka den ordentligt
+topic.cam_sensor.adv	Bilen kan fortfarande köras på el, men motorn kan starta dåligt eller stanna. Låt kontrollera det inom några dagar.
+topic.vvt.sub	Variabla ventiltider / ventilstyrning
+topic.vvt.about	Motorstyrningen justerar ventiltiderna med oljetrycksstyrda ställdon som styrs av magnetventiler.
+topic.vvt.c1	Låg nivå, gammal eller fel typ av motorolja
+topic.vvt.c2	Oljestyrventil som kärvar eller är defekt, eller en igensatt filtersil
+topic.vvt.c3	Defekt kamaxeljusterare (variabla ventiltider)
+topic.vvt.c4	Utsträckt kamkedja
+topic.vvt.k2	En verkstad kan testa oljestyrventilen och jämföra begärd och verklig kamaxelvinkel
+topic.crank.sub	Vevaxelgivare
+topic.crank.about	Vevaxelgivaren talar om för motorstyrningen motorvarvtalet och kolvarnas läge.
+topic.crank.c1	Defekt vevaxelgivare
+topic.crank.c2	Metallrester på givaren eller skadat triggerhjul
+topic.crank.c3	Kablagefel som kommer och går
+topic.crank.k1	Kontrollera givarens kontakt och ledningar efter olja, nötning eller gnagarskador
+topic.crank.adv	Bilen kan fortfarande köras på el, men motorn kan vägra starta eller stanna. Låt kontrollera det inom några dagar.
+topic.knock.sub	Knacksensor
+topic.knock.about	Knacksensorn lyssnar efter motorknack så att motorstyrningen kan justera tändningen.
+topic.knock.c1	Defekt knacksensor
+topic.knock.c2	Givaren sitter löst på motorblocket
+topic.knock.c3	Verkligt mekaniskt ljud från motorn
+topic.knock.k1	Kontrollera att givaren är ordentligt fastskruvad i motorblocket
+topic.knock.k2	Använd rekommenderat oktantal
+topic.knock.adv	Ja, du kan köra vidare. Motorstyrningen använder en säkrare tändning, så motorn kan kännas lite svagare. Undvik tung belastning och låt kontrollera det inom några veckor.
+topic.ignition.sub	Tändsystem
+topic.ignition.about	Tändspolarna skapar gnistan som tänder bränslet i varje cylinder.
+topic.ignition.c1	Defekt tändspole
+topic.ignition.c2	Slitet tändstift
+topic.ignition.c3	Kablage- eller kontaktfel vid spolen
+topic.ignition.k1	Byt plats på spolen och en grannsylinders spole och se om koden följer spolen
+topic.o2_heater.sub	Värmare i lambdasond
+topic.o2_heater.about	Lambdasonder fungerar bara när de är varma, så var och en har en inbyggd elektrisk värmare.
+topic.o2_heater.c1	Utbränd värmare (vanligt på äldre sonder)
+topic.o2_heater.c2	Trasig säkring för värmaren
+topic.o2_heater.c3	Smälta eller nötta ledningar nära avgassystemet
+topic.o2_heater.k1	Kontrollera säkringen för lambdasondens värmare
+topic.o2_heater.k2	Mät värmarens resistans i sondens kontakt och jämför med verkstadsdata
+topic.o2_heater.cc1	Utbränd eller kortsluten värmare (sonden måste då bytas)
+topic.o2_heater.adv	Ja, du kan köra vidare. Utsläpp och förbrukning kan öka, mest efter kallstarter. Låt åtgärda det inom några veckor.
+topic.o2.sub	Lambdasond
+topic.o2.about	Lambdasonderna mäter syret i avgaserna: den främre sonden hjälper till att hålla blandningen rätt och den bakre sonden kontrollerar katalysatorn.
+topic.o2.c1	Åldrad eller förorenad lambdasond
+topic.o2.c2	Avgasläcka nära sonden
+topic.o2.c3	Ett verkligt blandningsproblem (leta efter bränsletrimkoder)
+topic.o2.c4	Ledningar skadade av värme från avgassystemet
+topic.o2.k1	Leta efter avgasläckor nära sonden (tickande eller pysande ljud, sotmärken)
+topic.o2.k2	Åtgärda bränsletrim-, feltändnings- och värmarkoder först
+topic.fuel_trim.sub	Bränsleblandning (bränsletrim)
+topic.fuel_trim.k1	Kontrollera bränsletrim i realtidsdata på tomgång och vid högre varvtal
+topic.fuel_trim.k2	Titta och lyssna efter luftläckor i insuget
+topic.fuel_trim.k3	Åtgärda feltändnings-, luftmassemätar- och lambdasondkoder först
+topic.secondary_air.sub	Sekundärluftinsprutning
+topic.secondary_air.about	Vissa bensinmotorer blåser in frisk luft i avgaserna efter en kallstart för att värma upp katalysatorn snabbare.
+topic.secondary_air.c1	Defekt luftpump eller relä
+topic.secondary_air.c2	Omkopplings-/backventil som kärvar eller läcker
+topic.secondary_air.c3	Läckande eller igensatta slangar
+topic.secondary_air.k1	Kontrollera slangar och ventiler efter skador
+topic.secondary_air.k2	Kontrollera pumpens säkring och relä
+topic.intake_manifold.sub	Spjäll / ventil i insugsröret
+topic.intake_manifold.about	Vissa motorer använder spjäll eller ventiler i insugsröret för att ändra luftvägen och ge bättre vridmoment och effekt.
+topic.intake_manifold.c1	Spjäll eller ventil som kärvar på grund av sotbeläggningar
+topic.intake_manifold.c2	Defekt ställdon eller lägesgivare
+topic.intake_manifold.c3	Vakuumläcka eller kablagefel
+topic.intake_manifold.k1	Kontrollera ledningarna till ställdonet och eventuella vakuumslangar till det
+topic.maf.sub	Luftmassemätare (MAF)
+topic.maf.about	Luftmassemätaren mäter hur mycket luft motorn suger in, vilket används för att beräkna bränslemängden.
+topic.maf.c1	Luftläcka i insugskanalen efter givaren
+topic.maf.c2	Smutsigt eller förorenat givarelement
+topic.maf.c3	Igensatt luftfilter
+topic.maf.k1	Kontrollera luftfiltret och insugskanalen mellan givaren och gasspjällhuset
+topic.maf.k2	Rengör givarelementet med särskilt MAF-rengöringsmedel (rör aldrig elementet)
+topic.map.sub	Givare för insugs- / barometertryck
+topic.map.about	Trycksensorer mäter trycket i insugsröret och lufttrycket ute för beräkning av bränsle och tändning.
+topic.map.c1	Sprucken eller lossnad vakuumslang till givaren
+topic.map.c2	Luftläcka i insuget
+topic.map.c3	Defekt tryckgivare
+topic.map.k1	Kontrollera givarens vakuumslang och insuget efter läckor
+topic.iat.sub	Lufttemperaturgivare
+topic.iat.about	Lufttemperaturgivare talar om för motorstyrningen hur varm insugsluften eller uteluften är.
+topic.iat.c1	Defekt eller felvisande temperaturgivare
+topic.iat.c2	Givarens kontakt rubbad vid arbete med luftfiltret
+topic.iat.k1	På kall motor efter att bilen stått över natten bör luft- och kylvätsketemperaturen i realtidsdata vara ungefär lika
+topic.engine_overtemp.sub	Motorkylning (överhettning)
+topic.engine_overtemp.about	Kylvätsketemperaturen har gått över den säkra gränsen: motorn är överhettad.
+topic.engine_overtemp.c1	Låg kylvätskenivå på grund av läcka
+topic.engine_overtemp.c2	Kylfläkten fungerar inte
+topic.engine_overtemp.c3	Termostat som fastnat stängd, eller defekt vattenpump
+topic.engine_overtemp.c4	Igensatt kylare
+topic.engine_overtemp.c5	Topplockspackning trasig (mindre vanligt)
+topic.engine_overtemp.k1	Stanna och låt motorn svalna i minst 30 minuter; öppna aldrig kylvätskelocket på en varm motor
+topic.engine_overtemp.k2	Med kall motor: kontrollera kylvätskenivån och leta efter läckor
+topic.engine_overtemp.k3	Låt en verkstad trycktesta kylsystemet
+topic.engine_overspeed.sub	Varvtalsgräns för motorn
+topic.engine_overspeed.about	Motorvarvtalet gick över det högsta tillåtna.
+topic.engine_overspeed.c1	Motorn varvades för högt, till exempel vid ett fel i gas- eller framdrivningsstyrningen
+topic.engine_overspeed.c2	Felaktig varvtalssignal
+topic.engine_overspeed.k1	Läs av alla koder för att hitta relaterade fel
+topic.engine_overspeed.k2	Notera vad du gjorde när det hände
+topic.thermostat.sub	Termostat / motoruppvärmning
+topic.thermostat.about	Motorn nådde inte normal arbetstemperatur inom väntad tid; termostaten kan öppna för tidigt eller ha fastnat öppen.
+topic.thermostat.c1	Termostat som fastnat öppen eller öppnar för tidigt
+topic.thermostat.c2	Defekt kylvätsketemperaturgivare
+topic.thermostat.c3	Låg kylvätskenivå
+topic.thermostat.c4	Möjlig bidragande orsak på en laddhybrid: mycket kallt väder med korta perioder av motordrift
+topic.thermostat.k1	Kontrollera kylvätskenivån med kall motor
+topic.thermostat.k2	Följ kylvätsketemperaturen i realtidsdata under uppvärmningen
+topic.ect.sub	Kylvätsketemperaturgivare
+topic.ect.about	Kylvätsketemperaturgivaren talar om för motorstyrningen hur varm motorn är.
+topic.ect.c1	Defekt eller felvisande kylvätsketemperaturgivare
+topic.ect.c2	Termostatproblem
+topic.ect.c3	Låg kylvätskenivå
+topic.ect.k1	Kontrollera kylvätskenivån med kall motor
+topic.ect.k2	Efter att bilen stått över natten bör kylvätske- och lufttemperaturen i realtidsdata ligga inom några få grader
+topic.cooling.sub	Motorns kylsystem
+topic.cooling.about	Kylsystemet håller motorn på arbetstemperatur med kylvätska, pump, kylare och fläktar.
+topic.cooling.c1	Låg kylvätskenivå eller läcka
+topic.cooling.c2	Fel på fläkt, fläktrelä eller säkring
+topic.cooling.c3	Defekt pump eller termostat
+topic.cooling.k1	Kontrollera kylvätskenivån med kall motor
+topic.cooling.k2	Kontrollera kylfläktens säkringar och relä
+topic.oil_low.sub	Motorns oljetryck
+topic.oil_low.about	Motorns oljetryck eller oljenivå har sjunkit under den säkra gränsen, vilket kan skada motorn inom några minuter.
+topic.oil_low.c1	Låg oljenivå
+topic.oil_low.c2	Sliten eller sviktande oljepump
+topic.oil_low.c3	Fel eller mycket gammal olja
+topic.oil_low.c4	Defekt oljetrycksgivare eller -brytare
+topic.oil_low.k1	Stanna och kontrollera oljenivån på oljestickan med bilen på plant underlag
+topic.oil_low.k2	Om nivån är okej men varningen kvarstår, låt mäta oljetrycket med en mekanisk manometer
+topic.oil.sub	Motorns oljesystem
+topic.oil.about	Motorstyrningen övervakar motoroljans tryck, nivå eller temperatur.
+topic.oil.c1	Låg nivå eller gammal motorolja
+topic.oil.c2	Defekt oljegivare eller -brytare
+topic.oil.c3	Kablage- eller kontaktfel
+topic.egr.sub	Avgasåterföring (EGR)
+topic.egr.about	EGR-systemet leder tillbaka lite avgaser till insuget för att sänka förbränningstemperaturen och NOx-utsläppen.
+topic.egr.c1	Sotbeläggningar i EGR-ventilen eller kanalerna
+topic.egr.c2	EGR-ventil som kärvar eller är defekt
+topic.egr.c3	Defekt givare som används för att bedöma EGR-flödet
+topic.egr.k1	Rengör eller byt EGR-ventilen och rengör kanalerna
+topic.throttle.sub	Elektroniskt gasspjäll / gaspedal
+topic.throttle.about	Motorn har ett elektroniskt gasspjäll, och gaspedalen har lägesgivare, var och en med två signaler som måste stämma överens.
+topic.throttle.c1	Smutsigt eller kärvande gasspjällhus (sotbeläggningar, eller is vid sträng kyla)
+topic.throttle.c2	Defekt gasspjällhus eller gaspedalgivare
+topic.throttle.c3	Vatten eller korrosion i kontakten
+topic.throttle.c4	Problem med den gemensamma 5 V-matningen till givarna
+topic.throttle.k1	Rengör gasspjällhuset försiktigt om det är smutsigt (tändningen av); gasspjället kan behöva läras in efteråt
+topic.throttle.k2	Kontrollera fotutrymmet efter fukt om pedalen är inblandad
+topic.idle.sub	Tomgångsreglering
+topic.idle.about	När motorn går på tomgång styr motorstyrningen varvtalet med det elektroniska gasspjället.
+topic.idle.c1	Smutsigt gasspjällhus
+topic.idle.c2	Luftläcka i insuget
+topic.idle.c3	Gasspjället behöver lära in tomgången igen efter rengöring eller batteriurkoppling
+topic.idle.k1	Rengör gasspjällhuset försiktigt och gör en inlärning av tomgången
+topic.idle.k2	Lyssna efter luftläckor i insuget på tomgång
+topic.injector.sub	Insprutningsventiler
+topic.injector.about	Insprutningsventilerna sprutar in bensin i motorn och styrs av motorstyrningen.
+topic.injector.c1	Igensatt eller läckande insprutningsventil
+topic.injector.c2	Defekt spole i insprutningsventilen
+topic.injector.c3	Kablage- eller kontaktfel
+topic.injector.k1	Mät insprutningsventilernas resistans och jämför dem med varandra
+topic.injector.k2	En verkstad kan testa insprutningsventilernas flöde och täthet
+topic.injector.adv	Motorn kan feltända och gå ojämnt, vilket kan skada katalysatorn. Låt reparera det inom några dagar; om motorlampan blinkar, stanna så snart det är säkert.
+topic.fuel_pump.sub	Bränslepump
+topic.fuel_pump.about	Den elektriska bränslepumpen i tanken förser motorn med bensin.
+topic.fuel_pump.c1	Defekt bränslepumprelä eller trasig säkring
+topic.fuel_pump.c2	Sliten bränslepump
+topic.fuel_pump.c3	Kablage- eller kontaktfel
+topic.fuel_pump.k1	Kontrollera bränslepumpens säkring och relä
+topic.fuel_pump.k2	En verkstad kan mäta bränsletryck och pumpström
+topic.fuel_pump.adv	Du kan oftast köra vidare på el, men motorn kanske inte startar eller kan stanna. Låt kontrollera det inom några dagar.
+topic.fuel_pressure.sub	Bränsletryck / -tillförsel
+topic.fuel_pressure.about	Bränslesystemet måste leverera bensin med rätt tryck för att insprutningsventilerna ska fungera rätt.
+topic.fuel_pressure.c1	Svag bränslepump eller igensatt bränslefilter
+topic.fuel_pressure.c2	Defekt tryckregulator eller givare
+topic.fuel_pressure.c3	Bränsleläcka
+topic.fuel_pressure.k1	Om du känner bensinlukt, kör inte; låt kontrollera bilen efter läckor
+topic.fuel_pressure.k2	En verkstad kan mäta bränsletrycket
+topic.evap_leak.sub	Avdunstningssystem (EVAP)
+topic.evap_leak.about	Avdunstningssystemet (EVAP) samlar bensinångor från tanken i ett kolfilter. Motorstyrningen stänger systemet och kontrollerar att det håller tryck eller vakuum, och den har hittat en läcka.
+topic.evap_leak.c1	Glappande, slitet eller fel tanklock (vanligast)
+topic.evap_leak.c2	Sprucken eller lossnad EVAP-slang
+topic.evap_leak.c3	Spol- eller ventilationsventil som inte tätar
+topic.evap_leak.c4	Korroderat påfyllningsrör eller skadat kolfilter
+topic.evap_leak.k1	Kontrollera tanklocket: det ska klicka när det dras åt, och packningen ska vara ren och utan sprickor
+topic.evap_leak.k2	Kontrollera synliga EVAP-slangar och påfyllningsröret
+topic.evap_leak.k3	Laddhybrider har ofta en sluten, trycksatt tank: tanka enligt instruktionsboken
+topic.evap_leak.k4	Kommer den tillbaka kan en verkstad hitta läckan med ett röktest
+topic.evap_leak.adv	Ja, du kan köra vidare. Bensinångor läcker ut, så låt åtgärda det inom några veckor. Om det luktar mycket bensin, låt kontrollera det snart.
+topic.evap.sub	Avdunstningssystem (EVAP)
+topic.evap.about	Avdunstningssystemet (EVAP) samlar bensinångor från tanken i ett kolfilter och förbränner dem senare i motorn.
+topic.evap.c1	Defekt spol- eller ventilationsventil
+topic.evap.c2	Igensatt eller lossnad EVAP-slang
+topic.evap.c3	Defekt tanktrycksgivare
+topic.evap.k1	Laddhybrider har ofta en sluten, trycksatt tank: tanka enligt instruktionsboken
+topic.evap.k2	Kontrollera EVAP-slangar och ventiler
+topic.fuel_level.sub	Bränslenivågivare
+topic.fuel_level.about	Bränslenivågivaren i tanken styr bränslemätaren och räckviddsberäkningen.
+topic.fuel_level.c1	Sliten eller defekt nivågivare (flottör och motståndsbana)
+topic.fuel_level.c2	Korroderad kontakt på nivågivaren i tanken
+topic.fuel_level.c3	Kablagefel
+topic.fuel_level.k1	Jämför bränslemätaren med hur mycket bränsle som går i när du tankar
+topic.fuel_level.k2	Kom ihåg att på en laddhybrid kan mätaren stå still i flera veckor när motorn sällan går; det i sig är inget fel
+topic.fuel_misc.sub	Bränslesystem
+topic.fuel_misc.about	Motorstyrningen övervakar bränslesystemet (nivå, temperatur, sammansättning och tillförsel).
+topic.fuel_misc.c1	Defekt givare i bränslesystemet
+topic.fuel_misc.c2	Kablage- eller kontaktfel
+topic.fuel_misc.c3	Gammalt eller förorenat bränsle
+topic.cat_eff.sub	Katalysator
+topic.cat_eff.about	Motorstyrningen jämför lambdasonderna före och efter katalysatorn och har konstaterat att katalysatorn inte längre renar avgaserna tillräckligt bra.
+topic.cat_eff.c1	Åldrad eller skadad katalysator
+topic.cat_eff.c2	Avgasläcka nära lambdasonderna
+topic.cat_eff.c3	Defekt eller trög lambdasond som ger felaktigt resultat
+topic.cat_eff.c4	Blandningsproblem eller feltändning i motorn
+topic.cat_eff.k1	Åtgärda feltändnings-, bränsletrim- och lambdasondkoder först
+topic.cat_eff.k2	Kontrollera om det finns avgasläckor
+topic.cat_eff.k4	Byt katalysatorn mot en typgodkänd kvalitetsdel om det bekräftas att den är utsliten
+topic.catalyst.sub	Katalysator
+topic.catalyst.about	Katalysatorn renar avgaserna; vissa bilar övervakar dess temperatur eller värmer den elektriskt.
+topic.catalyst.c1	Defekt temperaturgivare eller värmare för katalysatorn
+topic.catalyst.c2	Kablage skadat av värme från avgassystemet
+topic.catalyst.k1	Undersök kablaget nära avgassystemet efter värmeskador
+topic.pcv.sub	Vevhusventilation (PCV)
+topic.pcv.about	Vevhusventilationen leder oljeångor från motorn tillbaka till insuget, där de förbränns.
+topic.pcv.c1	Sprucken eller lossnad ventilationsslang
+topic.pcv.c2	PCV-ventil som kärvar
+topic.pcv.c3	Defekt PCV-värmare (om sådan finns)
+topic.pcv.k1	Undersök vevhusventilationens slangar efter sprickor och lösa ändar
+topic.exhaust.sub	Givare i avgassystemet
+topic.exhaust.about	Motorstyrningen övervakar avgastryck eller avgastemperatur med givare i avgassystemet.
+topic.exhaust.c1	Defekt avgasgivare
+topic.exhaust.c2	Kablage skadat av värme från avgassystemet
+topic.exhaust.c3	Läcka eller strypning i avgassystemet
+topic.exhaust.k1	Undersök kablaget nära avgassystemet efter värmeskador
+topic.vss.sub	Hastighetssignal
+topic.vss.about	Fordonets hastighet beräknas normalt från hjulhastighetsgivarna och delas via datanätverket.
+topic.vss.c1	Fel på hjulhastighetsgivare eller ABS
+topic.vss.c2	Kommunikationsproblem i nätverket
+topic.vss.k1	Kontrollera om hastighetsmätaren fungerar och om ABS-varningslampan lyser
+topic.cruise.sub	Farthållare
+topic.cruise.about	Farthållaren och dess reglage övervakas av styrenheten.
+topic.cruise.c1	Defekt reglage för farthållaren
+topic.cruise.c2	Fel på bromsljuskontakten
+topic.cruise.c3	Kablage- eller kontaktfel
+topic.cruise.k1	Kontrollera om bromsljusen fungerar (bromsljuskontakten kopplar också ur farthållaren)
+topic.cruise.adv	Ja. Farthållaren fungerar kanske inte förrän felet är åtgärdat.
+topic.brake_p.sub	Bromspedalkontakt / signaler från bromsservo
+topic.brake_p.about	Bromspedalkontakten talar om för flera styrenheter när du bromsar (bromsljus, farthållare och drivstyrningen); vissa bilar övervakar även bromsservot.
+topic.brake_p.c1	Defekt eller feljusterad bromspedalkontakt
+topic.brake_p.c2	Kablage- eller kontaktfel
+topic.brake_p.c3	Defekt givare i bromsservot
+topic.brake_p.k1	Kontrollera att bromsljusen fungerar (be någon titta)
+topic.brake_p.k2	Kontrollera kontakten högst upp vid bromspedalen efter skador eller feljustering
+topic.power_steering_p.sub	Signal från servostyrningen
+topic.power_steering_p.about	Motor- eller drivstyrningen tar emot en signal från servostyrningen.
+topic.power_steering_p.c1	Fel på givare eller kontakt i servostyrningen
+topic.power_steering_p.c2	Kablage- eller kontaktfel
+topic.power_steering_p.k1	Känn efter om styrningen känns normal
+topic.ac_p.sub	Luftkonditionering
+topic.ac_p.about	Luftkonditioneringen övervakas och styrs tillsammans med motorn och drivsystemet.
+topic.ac_p.c1	Låg köldmedienivå (läcka)
+topic.ac_p.c2	Defekt tryckgivare eller relä
+topic.ac_p.c3	Kablage- eller kontaktfel
+topic.ac_p.k1	Kontrollera om luftkonditioneringen kyler; låt kontrollera köldmedienivån om den inte gör det
+topic.ac_p.k2	På många laddhybrider hjälper luftkonditioneringen även till att kyla drivbatteriet, så lämna inte felet oreparerat
+topic.alternator.sub	12 V-laddsystem
+topic.alternator.about	Denna kod gäller laddsystemet (generatorn) som normalt skulle ladda 12 V-batteriet.
+topic.alternator.c2	Fel på DC/DC-omvandlaren
+topic.alternator.c3	Diagnosverktyget läste koden fel
+topic.alternator.k2	Leta efter koder för DC/DC-omvandlaren
+topic.voltage.sub	12 V-matning
+topic.voltage.about	12 V-systemet matas av 12 V-hjälpbatteriet, som på Outlander PHEV laddas av DC/DC-omvandlaren i stället för en generator.
+topic.voltage.c2	DC/DC-omvandlaren laddar inte som den ska (leta efter DC/DC-koder)
+topic.voltage.c3	Lösa eller korroderade batteripoler eller jordflätor
+topic.voltage.c4	Batteriet urladdat efter lång tids stillastående eller av utrustning som lämnats ansluten
+topic.voltage.k2	Rengör och dra åt batteripolerna och kontrollera jordflätorna
+topic.voltage.adv	Låt kontrollera det inom några dagar. Ett svagt 12 V-system kan hindra bilen från att gå i READY eller få funktioner att stängas av utan förvarning.
+topic.sensor_ref.sub	Matningsspänning till givare (5 V-referens)
+topic.sensor_ref.about	Motorstyrningen levererar en reglerad 5 V-referensspänning till flera givare. Denna matning är bruten, kortsluten eller utanför tillåtet område, vilket kan påverka flera givare samtidigt.
+topic.sensor_ref.c1	En givare på den gemensamma matningen med intern kortslutning
+topic.sensor_ref.c2	Kablage kortslutet mot jord eller spänning
+topic.sensor_ref.c3	Vatten i en kontakt
+topic.sensor_ref.c4	Fel i styrenheten (mindre vanligt)
+topic.sensor_ref.k1	Notera vilka givarkoder som är lagrade samtidigt; de delar troligen denna matning
+topic.sensor_ref.k2	Undersök motorns kablage efter skavskador nära varma eller rörliga delar, och kontakterna efter vatten
+topic.sensor_ref.k3	En verkstad kan koppla bort givarna på denna matning en i taget: försvinner felet är den givaren kortsluten
+topic.starter.sub	Startkrets för motorn
+topic.starter.about	Styrenheten övervakar kretsen som används för att starta motorn.
+topic.starter.c1	Fel på relä eller säkring
+topic.starter.c2	Kablage- eller kontaktfel
+topic.starter.k1	Kontrollera de aktuella säkringarna och reläerna
+topic.power_relay.sub	Strömförsörjning och reläer för styrenheten
+topic.power_relay.about	Styrenheten övervakar sin egen strömförsörjning, sitt huvudrelä eller tändningssignalen (strömläge).
+topic.power_relay.c2	Defekt huvudrelä eller trasig säkring
+topic.power_relay.c3	Lös eller korroderad ström- eller jordanslutning
+topic.power_relay.k2	Kontrollera säkringarna och huvudreläet för motorstyrningen
+topic.module_internal.sub	Styrenhet (intern)
+topic.module_internal.c1	Internt fel i styrenheten
+topic.module_internal.c2	Avbruten programvaruuppdatering
+topic.module_internal.c3	Kraftigt spänningsfall eller spänningstopp i 12 V-systemet
+topic.module_internal.k2	Fråga en Mitsubishi-verkstad om programvaruuppdateringar eller omprogrammering
+topic.module.sub	Styrenhet
+topic.module.c1	Styrenheten är inte korrekt programmerad eller konfigurerad (till exempel efter byte)
+topic.module.c2	Internt fel i styrenheten
+topic.module.k2	Tänk efter: har någon styrenhet bytts, uppdaterats eller kopplats loss nyligen?
+topic.transmission.sub	Växellåda / drivenhet
+topic.transmission.about	Drivenhetens styrsystem övervakar sina givare, kontakter och ställdon.
+topic.transmission.c1	Defekt givare, kontakt eller magnetventil i drivenheten
+topic.transmission.c2	Kablage- eller kontaktfel
+topic.transmission.c3	Låg nivå eller gammal växellådsolja
+topic.transmission.k1	Lägg märke till förändringar i hur bilen kör (ryck, ljud, förlorad drivkraft)
+topic.outputs.sub	Varningslampor och utgångskretsar
+topic.outputs.about	Styrenheten driver varningslampor, mätare eller andra utgångar och övervakar dessa kretsar.
+topic.outputs.c1	Kablage- eller kontaktfel
+topic.outputs.c2	Fel i instrumentpanelen eller utgångsenheten
+topic.outputs.k1	Kontrollera att varningslamporna tänds en kort stund när bilen slås på
+topic.p_other.c1	Defekt komponent i detta system
+topic.p_other.c2	Lednings- eller kontaktproblem
+topic.p_other.c3	Relaterat fel någon annanstans (kontrollera andra lagrade koder)
+topic.c_wheel.sub	Hjulhastighetsgivare (ABS)
+topic.c_wheel.about	Varje hjul har en hastighetsgivare som används av ABS, antispinn och stabilitetskontroll, och av andra system som behöver fordonets hastighet.
+topic.c_wheel.c1	Skadat eller korroderat givarkablage eller kontakt nära hjulet (vatten, salt, sten)
+topic.c_wheel.c2	Smuts, rost eller metallspån på givarspetsen eller pulsringen
+topic.c_wheel.c3	Defekt hjulhastighetsgivare
+topic.c_wheel.c4	Glapp i hjullagret eller skadad pulsring
+topic.c_wheel.k1	Undersök kablaget från varje givare längs hjulupphängningen, särskilt efter vintern
+topic.c_wheel.k2	Kontrollera hjullagren efter glapp eller missljud
+topic.c_wheel.k3	Om ditt verktyg kan läsa ABS-enheten, jämför de fyra hjulhastigheterna medan du kör långsamt rakt fram
+topic.c_brake_fluid.sub	Bromsvätska
+topic.c_brake_fluid.about	Bromssystemet övervakar bromsvätskans nivå eller tryck.
+topic.c_brake_fluid.c1	Låg bromsvätskenivå (slitna bromsbelägg eller läcka)
+topic.c_brake_fluid.c2	Defekt nivåvakt
+topic.c_brake_fluid.c3	Kablagefel
+topic.c_brake_fluid.k1	Kontrollera bromsvätskenivån i behållaren
+topic.c_brake_fluid.k2	Leta efter läckor vid hjulen och under bilen
+topic.c_brake_fluid.adv	Kontrollera bromsvätskenivån nu. Om den är under MIN, eller om bromspedalen känns mjuk eller går längre ner än vanligt, kör inte: ordna bärgning.
+topic.c_brake_temp.sub	Bromstemperatur
+topic.c_brake_temp.about	Bromssystemet har beräknat eller mätt att bromsarna överhettas.
+topic.c_brake_temp.c1	Lång nedförsbacke med bromsning eller mycket hård användning
+topic.c_brake_temp.c2	Bromsok eller handbroms som kärvar
+topic.c_brake_temp.c3	Fel i givaren eller beräkningen
+topic.c_brake_temp.k1	Låt bromsarna svalna och kontrollera sedan om ett hjul är mycket varmare än de andra (kärvande broms)
+topic.c_brake_temp.adv	Stanna så snart det är säkert och låt bromsarna svalna; överhettade bromsar tappar verkan. Om ett hjul förblir varmt eller luktar bränt, låt kontrollera bromsarna innan du kör vidare.
+topic.c_brake_switch.sub	Bromspedalkontakt / bromsljussignal
+topic.c_brake_switch.about	Bromspedalkontakten eller -givaren talar om för ABS, stabilitetskontrollen och andra enheter när, och hur hårt, du bromsar.
+topic.c_brake_switch.c1	Defekt eller feljusterad bromspedalkontakt eller -givare
+topic.c_brake_switch.c2	Kablage- eller kontaktfel
+topic.c_brake_switch.c3	Trasig säkring eller glödlampa för bromsljus (för bromsljuskretsar)
+topic.c_brake_switch.k1	Kontrollera att bromsljusen fungerar (be någon titta)
+topic.c_brake_switch.k2	Kontrollera kontakten högst upp vid bromspedalen efter skador eller feljustering
+topic.c_abs.sub	ABS, antispinn och stabilitetskontroll
+topic.c_abs.about	ABS-enheten styr bromstrycket vid varje hjul för ABS, antispinn och stabilitetskontroll.
+topic.c_abs.c1	Fel i ABS-hydraulenheten eller dess styrenhet
+topic.c_abs.c2	Kablage- eller kontaktfel
+topic.c_abs.k1	Kontrollera om varningslamporna för ABS eller stabilitetskontroll lyser
+topic.c_abs.k2	Kontrollera bromsvätskenivån
+topic.c_steering.sub	Styrning
+topic.c_steering.about	Rattvinkelgivaren och den elektriska servostyrningen övervakas av sina styrenheter.
+topic.c_steering.c1	Rattvinkelgivaren behöver kalibreras (till exempel efter hjulinställning)
+topic.c_steering.c2	Defekt givare
+topic.c_steering.c3	Kablage- eller kontaktfel
+topic.c_steering.k1	Känn efter om styrningen känns normal
+topic.c_steering.k2	En verkstad kan kalibrera rattvinkelgivaren
+topic.c_tyre_low.sub	Däcktrycksövervakning (TPMS)
+topic.c_tyre_low.about	Däcktrycksövervakningen har upptäckt att ett eller flera däck ligger under varningsgränsen.
+topic.c_tyre_low.c1	Punktering eller långsam läcka
+topic.c_tyre_low.c2	Naturligt tryckfall i kallt väder
+topic.c_tyre_low.c3	Lufttrycket justerades inte efter däckbyte
+topic.c_tyre_low.k1	Kontrollera alla fyra däcken med tryckmätare när de är kalla och ställ in trycken enligt dekalen i dörrstolpen
+topic.c_tyre_low.k2	Leta efter spikar, skärskador eller bulor
+topic.c_tyre_low.adv	Kontrollera däcktrycken vid första säkra tillfälle. Om ett däck är synbart platt eller bilen drar åt ena sidan, stanna och byt hjul eller ring efter hjälp.
+topic.c_tyre.sub	Däcktrycksövervakning (TPMS)
+topic.c_tyre.about	Däcktrycksövervakningen använder givare eller hjulhastighetsdata för att hålla koll på däcktrycken.
+topic.c_tyre.c1	Defekt däcktrycksgivare eller urladdat givarbatteri
+topic.c_tyre.c2	Givarna har inte registrerats efter hjulbyte
+topic.c_tyre.c3	Fel däckdimension
+topic.c_tyre.k1	Kontrollera däcktrycken manuellt
+topic.c_tyre.k2	En däckverkstad kan testa och registrera givarna
+topic.c_susp.sub	Hjulupphängning
+topic.c_susp.c1	Defekt givare eller ställdon i hjulupphängningen
+topic.c_susp.c2	Kablage- eller kontaktfel
+topic.c_susp.k1	Leta efter skador på hjulupphängningen och dess kablage
+topic.c_4wd.sub	Fyrhjulsdriftstyrning
+topic.c_4wd.c1	Fel i fyrhjulsdriftstyrningen eller dess signaler
+topic.c_4wd.c2	Kablage- eller kontaktfel
+topic.c_4wd.k1	Lägg märke till om fyrhjulsdriften eller väggreppet beter sig annorlunda
+topic.c_other.c1	Defekt givare eller ställdon i chassit
+topic.c_other.c2	Kablage- eller kontaktfel
+topic.c_other.k1	Kontrollera om några varningslampor för chassit (ABS, broms, styrning) lyser
+topic.b_srs.sub	Krockkuddar och bältessträckare (SRS)
+topic.b_srs.about	Krockkuddarnas styrenhet (SRS) kontrollerar hela tiden krockkuddarna, bältessträckarna och krockgivarna. Den har hittat ett fel i den del som nämns i koden, så den kanske inte fungerar vid en krock; varningslampan för krockkuddar lyser normalt.
+topic.b_srs.c1	Lös eller korroderad kontakt (ofta under sätena, bakom instrumentbrädan eller i ratten)
+topic.b_srs.c2	Sliten kontaktrulle (klockfjäder) i ratten (för förarkrockkudde och rattreglagekretsar)
+topic.b_srs.c3	Defekt krockkudde, bältessträckare eller givare
+topic.b_srs.c4	Nyligen utfört arbete på säten, instrumentbräda eller ratt
+topic.b_srs.k1	Tänk efter: har det nyligen gjorts arbete på sätena, instrumentbrädan eller ratten?
+topic.b_srs.k2	Låt en verkstad läsa av krockkuddeenheten med lämpligt verktyg och kontrollera kontakter och kablage
+topic.b_climate.sub	Klimatanläggning
+topic.b_climate.about	Klimatanläggningen övervakar sina givare, fläkten, spjällen och luftkonditioneringens komponenter.
+topic.b_climate.c1	Defekt givare, spjällmotor eller fläkt
+topic.b_climate.c2	Kablage- eller kontaktfel
+topic.b_climate.c3	Låg köldmedienivå (för koder som gäller luftkonditioneringen)
+topic.b_climate.k1	Kontrollera vilka klimatfunktioner som inte fungerar (värme, kyla, fläkthastighet, luftriktning)
+topic.b_climate.adv	Ja, så länge vindrutan hålls klar. I kallt eller blött väder ska du inte köra om du inte kan hålla vindrutan fri från imma och is. Låt kontrollera det inom några veckor.
+topic.b_power.sub	Strömförsörjning till styrenheten
+topic.b_power.about	En styrenhet för karossen rapporterar ett problem med strömförsörjning, jord eller tändningssignal.
+topic.b_power.c2	Trasig säkring eller defekt relä
+topic.b_power.c3	Lös eller korroderad ström- eller jordanslutning
+topic.b_power.k2	Kontrollera säkringarna för de berörda funktionerna
+topic.b_module.sub	Styrenhet för kaross (intern)
+topic.b_module.c1	Internt fel i styrenheten
+topic.b_module.c2	Styrenheten har inte konfigurerats efter byte
+topic.b_security.sub	Nycklar, startspärr och säkerhet
+topic.b_security.c1	Svagt batteri i nyckeln
+topic.b_security.c2	Defekt nyckel, antenn eller startspärrenhet
+topic.b_security.c3	Kablage- eller kontaktfel
+topic.b_security.k1	Prova reservnyckeln
+topic.b_security.k2	Byt batteriet i nyckeln
+topic.b_lights.sub	Belysning och körriktningsvisare
+topic.b_lights.c1	Trasig glödlampa eller defekt LED-enhet
+topic.b_lights.c2	Korroderad lampkontakt
+topic.b_lights.c3	Kabelfel eller trasig säkring
+topic.b_lights.k1	Gå runt bilen och kontrollera all belysning, även bromsljus och körriktningsvisare
+topic.b_lights.adv	Oftast ja, men kontrollera all belysning först: ett trasigt bromsljus, en körriktningsvisare eller ett strålkastarljus måste åtgärdas innan du kör, särskilt i mörker.
+topic.b_instruments.sub	Instrumentpanel och varningar
+topic.b_instruments.c1	Fel i instrumentpanelen
+topic.b_instruments.c2	Defekt kontakt eller givare som skickar signal till displayen
+topic.b_instruments.c3	Kablage- eller kontaktfel
+topic.b_instruments.k1	Kontrollera att varningslamporna tänds en kort stund när bilen slås på
+topic.b_comfort.sub	Dörrar, fönster, säten och komfort
+topic.b_comfort.c1	Defekt kontakt, motor eller ställdon
+topic.b_comfort.c2	Kabelbrott vid ett dörrgångjärn eller under ett säte
+topic.b_comfort.c3	Trasig säkring
+topic.b_comfort.k1	Kontrollera vilken funktion som inte fungerar
+topic.b_comfort.k2	Kontrollera säkringarna för den funktionen
+topic.b_audio.sub	Ljud och infotainment
+topic.b_audio.c1	Defekt ljud- eller infotainmentenhet
+topic.b_audio.c2	Kablage- eller kontaktfel
+topic.b_audio.k1	Kontrollera vilken ljudfunktion som inte fungerar
+topic.b_audio.k2	Starta om systemet genom att stänga av bilen helt och slå på den igen
+topic.b_other.c1	Defekt givare, kontakt eller ställdon i karossen
+topic.b_other.c2	Kablage- eller kontaktfel
+topic.b_other.k1	Kontrollera vilken karossfunktion som inte fungerar
+cur.w.intake_cam	normalt insugskamaxeln
+cur.w.exhaust_cam	normalt avgaskamaxeln
+cur.w.front	främre
+cur.w.rear	bakre
+cur.w.before_cat	före katalysatorn
+cur.w.after_cat	efter katalysatorn
+cur.w.leak_small	liten
+cur.w.leak_large	stor
+cur.w.leak_very_small	mycket liten
+cur.w.wheel_lf	vänster framhjul
+cur.w.wheel_rf	höger framhjul
+cur.w.wheel_lr	vänster bakhjul
+cur.w.wheel_rr	höger bakhjul
+cur.w.airbag_driver	förarens främre krockkudde
+cur.w.airbag_passenger	passagerarens främre krockkudde
+cur.vvt.sub	Variabel ventiltidsinställning, kamaxel {cam} ({camname}), bank 1
+cur.vvt.sum	Motorstyrningen justerar tidsinställningen för kamaxel {cam} med motoroljans tryck via en oljestyrventil. Den uppmätta kamaxelpositionen är mer förställd än begärt, eller följer inte kommandot tillräckligt bra.
+cur.vvt.c1	Låg nivå, gammal eller fel sorts motorolja (den variabla ventiltidsinställningen drivs av oljetrycket)
+cur.vvt.c2	Oljestyrventilen för kamaxel {cam} kärvar eller är defekt, eller silen framför den är igensatt
+cur.vvt.c3	Defekt justerenhet (kamaxelvariator) på kamaxeln
+cur.vvt.c4	Sträckt kamkedja eller sliten kedjesträckare (ofta tillsammans med P0016 eller P0017)
+cur.vvt.c5	Kabel- eller kontaktfel vid oljestyrventilen
+cur.vvt.k2	Läs alla koder: P0016/P0017 tillsammans med denna kod pekar mot kamkedjan; kretskoder (P0010/P0013) pekar mot oljestyrventilens kablage
+cur.vvt.k3	Koppla loss kontakten på oljestyrventilen, leta efter olja eller korrosion inuti och sätt tillbaka den ordentligt
+cur.vvt.k4	En verkstad kan testa oljestyrventilen och jämföra begärd och verklig kamaxelvinkel i realtidsdata
+cur.vvt.k5	Om kamkedjan misstänks, låt kontrollera den före långa resor: en kedja som hoppar en kugge kan skada motorn
+cur.vvt.adv	Går oftast att köra korta sträckor, men motorn kan gå ojämnt på tomgång, sakna kraft och dra mer bränsle. Låt kontrollera det inom några dagar och byt olja om det är dags. Stanna om motorn börjar skramla kraftigt eller oljetrycksvarningen tänds.
+cur.corr.sub	Ventiltider: vevaxel mot kamaxel {cam} ({camname})
+cur.corr.sum	Motorstyrningen jämför signalerna från vevaxel- och kamaxelgivaren. De stämmer inte längre överens som de ska, så antingen har ventiltiderna förskjutits eller så är en av signalerna fel.
+cur.corr.c1	Sträckt kamkedja, slitna kedjestyrningar eller svag kedjesträckare
+cur.corr.c2	Låg nivå eller smutsig motorolja som stör de variabla ventiltiderna
+cur.corr.c3	Oljestyrventil som kärvar, eller defekt kamaxeljusterare
+cur.corr.c4	Defekt kamaxel- eller vevaxelgivare, eller skadat givarkablage
+cur.corr.c5	Kamkedjan monterad en kugge fel efter en tidigare reparation
+cur.corr.k2	Lyssna efter skrammel från kamkedjesidan av motorn de första sekunderna efter en kallstart
+cur.corr.k3	Undersök kontakterna och kablaget till kamaxel- och vevaxelgivarna
+cur.corr.k4	Om ditt verktyg visar det, jämför begärd och verklig kamaxelvinkel i realtidsdata med varm motor
+cur.corr.k5	En verkstad kan kontrollera inställningsmärkena eller mäta kedjans förlängning; åtgärda detta tidigt, eftersom en kedja som hoppar en kugge kan skada motorn
+cur.corr.adv	Går oftast att köra korta sträckor, men motorn kan starta dåligt, gå ojämnt och sakna kraft. Låt kontrollera det inom några dagar. Stanna om motorn skramlar kraftigt, feltänder mycket eller oljetrycksvarningen tänds.
+cur.P0335.sub	Vevaxelgivare
+cur.P0335.sum	Vevaxelgivaren talar om för motorstyrningen motorvarvtalet och kolvarnas läge. Signalen saknas eller är elektriskt felaktig, så motorn kanske inte startar eller kan stanna.
+cur.P0335.c1	Skadat kablage eller en lös eller korroderad kontakt vid vevaxelgivaren
+cur.P0335.c2	Defekt vevaxelgivare
+cur.P0335.c3	Metallspån på givarspetsen, eller skadat pulshjul
+cur.P0335.c4	Problem med matning eller jord till givaren
+cur.P0335.k1	Undersök givarkontakten och kablaget efter olja, skavskador eller gnagarskador
+cur.P0335.k2	Om motorn går, följ motorvarvtalet i realtidsdata: avbrott bekräftar en signal som faller bort ibland
+cur.P0335.k3	En verkstad kan kontrollera givarsignalen med oscilloskop innan givaren byts
+cur.P0335.k4	Efter reparationen: radera koden och bekräfta att motorn startar pålitligt flera gånger
+cur.P0335.adv	Bilen kan fortfarande köra på el, men motorn kan vägra starta eller stanna. Låt kontrollera det inom några dagar och undvik resor där du är beroende av motorn (långa sträckor, lågt drivbatteri).
+cur.P0336.sum	Signalen från vevaxelgivaren finns men är oregelbunden: pulser saknas, tillkommer eller kommer vid fel tidpunkt. Motorn kan feltända, stanna eller inte starta.
+cur.P0336.c1	Lös kontakt eller skadat kablage som ger en signal som faller bort ibland
+cur.P0336.c2	Metallspån på givarspetsen eller skadat pulshjul
+cur.P0336.c3	Defekt vevaxelgivare
+cur.P0336.c4	Elektriska störningar från en skadad tändkomponent eller dåligt dragna kablar
+cur.P0336.k1	Undersök givarkontakten och kablaget; se till att kablaget är fastklämt i sin ursprungliga dragning
+cur.P0336.k2	Ta bort givaren och kontrollera spetsen efter smuts eller skador (bara om den är lätt åtkomlig)
+cur.P0336.k3	Leta efter feltändnings- eller tändningskoder lagrade samtidigt
+cur.P0336.k4	En verkstad kan kontrollera signalen med oscilloskop
+cur.P0340.sub	Kamaxelgivare (bank 1 eller enda givare)
+cur.P0340.sum	Kamaxelgivaren talar om för motorstyrningen vilken cylinder som står i tur att tända. Signalen saknas eller är elektriskt felaktig, så motorn kan ta längre tid att starta, gå dåligt eller inte starta.
+cur.P0340.c1	Lös, oljig eller korroderad kontakt vid kamaxelgivaren
+cur.P0340.c2	Skadat kablage
+cur.P0340.c3	Defekt kamaxelgivare
+cur.P0340.c4	Problem med kamkedjan eller kamaxelns pulshjul (mindre vanligt; se P0016)
+cur.P0340.c5	Låg 12 V-spänning vid motorstart
+cur.P0340.k1	Undersök givarkontakten efter olja inuti (en läckande tätning kan släppa in olja) och sätt tillbaka den ordentligt
+cur.P0340.k2	Kontrollera kablaget efter skavskador
+cur.P0340.k4	Byt givaren om kablage och matning är i ordning, radera sedan koden och testa flera starter
+cur.P0A0F.sub	Motorstart (hybridsystem)
+cur.P0A0F.sum	Hybridsystemet försökte starta bensinmotorn, men den startade inte och gick inte som väntat. Motorn startas automatiskt vid behov, så du har kanske inte märkt försöket.
+cur.P0A0F.c1	Mycket lite bränsle, eller tanken blev tom
+cur.P0A0F.c2	Gammal bensin (möjligt om motorn sällan har gått på flera månader)
+cur.P0A0F.c3	Problem med bränsletillförseln: bränslepump, pumprelä eller säkring
+cur.P0A0F.c4	Fel på vevaxel- eller kamaxelgivare (leta efter P0335 eller P0340)
+cur.P0A0F.c5	Problem med tändning eller startspärr
+cur.P0A0F.c6	Svagt 12 V-batteri som påverkar motorstyrningen vid starten
+cur.P0A0F.k1	Kontrollera bränslenivån; tanka en rejäl mängd färsk bensin om det är lite eller bränslet är gammalt
+cur.P0A0F.k2	Läs alla koder: andra motorkoder lagrade samtidigt visar oftast den verkliga orsaken
+cur.P0A0F.k4	Kontrollera säkringar och reläer för bränslepumpen och motorstyrningen (säkringsschemat i instruktionsboken)
+cur.P0A0F.k5	Om det händer igen, låt en verkstad kontrollera bränsletryck, gnista och givarsignaler
+cur.P0A0F.adv	Du kan oftast fortsätta köra på el så länge drivbatteriet har laddning, men motorn är kanske inte tillgänglig för drift eller laddning. Låt kontrollera det inom några dagar och undvik långa resor. Om ett meddelande uppmanar dig att stanna, stanna på ett säkert ställe.
+cur.P0116.sub	Kylvätsketemperaturgivare
+cur.P0116.sum	Kylvätsketemperaturen beter sig inte som väntat: till exempel stiger den inte när motorn värms upp, eller den stämmer inte med andra temperaturgivare efter att bilen har stått.
+cur.P0116.c1	Termostaten har fastnat i öppet läge, så motorn värms upp för långsamt (se även P0128)
+cur.P0116.c2	Kylvätsketemperaturgivare som driver
+cur.P0116.c3	Låg kylvätskenivå, så att givaren hamnar i luft
+cur.P0116.c4	Hög resistans eller korrosion i givarkontakten
+cur.P0116.k1	Kontrollera kylvätskenivån i expansionskärlet med kall motor
+cur.P0116.k2	Efter att bilen har stått över natten: jämför kylvätsketemperaturen med insugsluft- och utetemperaturen i realtidsdata; de bör ligga inom några få grader
+cur.P0116.k3	Följ kylvätsketemperaturen med motorn igång: den bör stiga jämnt till normal arbetstemperatur (vanligen cirka 80–100 °C)
+cur.P0116.k5	Undersök givarkontakten efter korrosion
+cur.P0117.sum	Signalspänningen från kylvätsketemperaturgivaren är för låg, vilket motorstyrningen tolkar som en omöjligt varm motor. Den använder ett ersättningsvärde i stället.
+cur.P0117.c1	Defekt kylvätsketemperaturgivare (intern kortslutning)
+cur.P0117.c2	Signalledningen kortsluten mot jord
+cur.P0117.c3	Kylvätska eller vatten inne i givarkontakten
+cur.P0117.k1	Jämför kylvätsketemperaturen i realtidsdata med verkligheten: ett alldeles för högt värde bekräftar felet
+cur.P0117.k2	Undersök kontakten och kablaget efter skador, skavskador och fukt
+cur.P0117.k3	Mät givarens resistans och jämför med servicedata vid känd temperatur
+cur.P0117.k4	Byt givaren om kablaget är i ordning, fyll på kylvätska efteråt och radera koden
+cur.P0117.adv	Du kan oftast köra, men kylfläkten kan gå hela tiden och motorn kan starta eller gå dåligt. Håll koll på temperaturvarningslampan och låt åtgärda det inom några veckor.
+cur.P0118.sum	Signalspänningen från kylvätsketemperaturgivaren är för hög, vilket motorstyrningen tolkar som en omöjligt kall motor, vanligen för att kretsen är bruten. Den använder ett ersättningsvärde i stället.
+cur.P0118.c1	Urkopplad, lös eller korroderad kontakt vid givaren
+cur.P0118.c2	Brott på signalledningen eller bruten krets
+cur.P0118.c3	Defekt kylvätsketemperaturgivare (internt avbrott)
+cur.P0118.c4	Dålig jord till givaren
+cur.P0118.k1	Kontrollera realtidsdata: ett värde runt -40 °C betyder oftast avbrott i kretsen
+cur.P0118.k2	Kontrollera att kontakten sitter helt i och är ren
+cur.P0118.k3	Följ kablaget och leta efter brott eller skador
+cur.P0118.adv	Du kan oftast köra, men motorn kan gå fett, dra mer bränsle och kylfläkten kan gå hela tiden. Låt åtgärda det inom några veckor.
+cur.P0125.sub	Uppvärmning av motorn (sluten bränslereglering)
+cur.P0125.sum	Motorn tog för lång tid på sig att bli tillräckligt varm för att motorstyrningen skulle kunna börja använda återkoppling från lambdasonden för bränsleregleringen.
+cur.P0125.c1	Termostat som fastnat öppen eller öppnar för tidigt
+cur.P0125.c2	Defekt eller felvisande kylvätsketemperaturgivare
+cur.P0125.c3	Låg kylvätskenivå
+cur.P0125.c4	Möjlig bidragande orsak på en laddhybrid: mycket kallt väder i kombination med korta perioder då motorn går
+cur.P0125.k1	Kontrollera kylvätskenivån med kall motor
+cur.P0125.k2	Följ kylvätsketemperaturen i realtidsdata medan motorn värms upp; den bör stiga jämnt
+cur.P0125.k4	Leta efter P0128 eller koder för kylvätsketemperaturgivaren; byte av en defekt termostat löser ofta båda
+cur.P0128.sub	Termostat / motoruppvärmning
+cur.P0128.sum	Motorn nådde inte normal arbetstemperatur inom förväntad tid. Motorstyrningen misstänker att termostaten öppnar för tidigt eller har fastnat i öppet läge.
+cur.P0128.c1	Termostaten har fastnat i öppet läge eller öppnar för tidigt (vanligast)
+cur.P0128.c4	Kylfläkten går hela tiden (fel på fläktrelä eller styrning)
+cur.P0128.c5	Möjlig bidragande orsak på en laddhybrid: i mycket kallt väder går motorn i korta perioder och kyls snabbt, vilket gör att en något svag termostat avslöjas tidigare
+cur.P0128.k2	Följ kylvätsketemperaturen i realtidsdata under uppvärmningen: en långsam ökning som stannar en bra bit under normal arbetstemperatur pekar mot termostaten
+cur.P0128.k4	Kontrollera att kylfläkten inte går när motorn är kall
+cur.P0128.k5	Byt termostaten (med ny packning) och fyll på kylvätska av den typ som anges för bilen
+cur.P0128.adv	Ja, du kan fortsätta köra. Räkna med något högre bränsleförbrukning och långsammare uppvärmning av kupén när värmen kommer från motorn. Låt åtgärda det inom några veckor.
+cur.P0217.sub	Motorkylning (överhettning)
+cur.P0217.sum	Kylvätsketemperaturen har gått över den säkra gränsen: motorn är överhettad.
+cur.P0217.c1	Låg kylvätskenivå på grund av läcka
+cur.P0217.c2	Kylfläkten fungerar inte (säkring, relä, fläktmotor)
+cur.P0217.c3	Termostaten har fastnat i stängt läge
+cur.P0217.c4	Fel på vattenpumpen eller slirande drivning
+cur.P0217.c5	Kylaren igensatt av smuts eller igensatt invändigt
+cur.P0217.c6	Topplockspackning trasig (mindre vanligt)
+cur.P0217.c7	Defekt temperaturgivare som ger falsklarm (mindre vanligt)
+cur.P0217.k1	Stanna och låt motorn svalna i minst 30 minuter; öppna aldrig kylvätskelocket på en varm motor
+cur.P0217.k2	Med kall motor: kontrollera kylvätskenivån och leta efter läckor under bilen och runt slangarna
+cur.P0217.k3	Kontrollera säkringen och reläet för kylfläkten
+cur.P0217.k4	Låt en verkstad trycktesta kylsystemet och kontrollera fläkt, termostat och vattenpump
+cur.P0217.adv	Nej. Stanna så snart det är säkert och stäng av bilen: att köra med överhettad motor kan ge ett skevt topplock eller förstöra motorn. Bilen kan starta motorn automatiskt i READY, så håll den avstängd tills orsaken är åtgärdad.
+cur.P0480.sub	Styrning av kylfläkten
+cur.P0480.sum	Motorstyrningen styr kylfläkten via ett relä eller en fläktstyrenhet. Den har hittat ett elektriskt fel i denna styrkrets, så fläkten kanske inte går när den behövs.
+cur.P0480.c1	Trasig fläktsäkring eller defekt fläktrelä
+cur.P0480.c2	Defekt fläktmotor eller fläktstyrenhet
+cur.P0480.c3	Skadat kablage eller korroderad kontakt vid fläkten (utsatt för vägstänk)
+cur.P0480.k1	Kontrollera fläktsäkringarna och reläet (säkringsschemat i instruktionsboken)
+cur.P0480.k2	Med varm motor, eller med luftkonditioneringen på, kontrollera om fläkten går
+cur.P0480.k3	Undersök fläktkontakten och kablaget efter korrosion och skador
+cur.P0480.k4	En verkstad kan köra fläkten med ett ställdonstest för att skilja kabelfel från fläktfel
+cur.P0480.adv	Håll noga koll på temperaturvarningen. Korta resor i svalt väder går oftast bra, men i långsam kö, varmt väder eller med släpvagn kan motorn överhettas. Om temperaturvarningen tänds, stanna på ett säkert ställe och stäng av.
+cur.P0524.sub	Motorns oljetryck
+cur.P0524.sum	Motoroljetrycket har sjunkit under säker miniminivå. Utan tillräckligt oljetryck kan motorn skadas allvarligt inom några minuter.
+cur.P0524.c1	Låg motoroljenivå (läcka eller oljeförbrukning)
+cur.P0524.c2	Sliten eller sviktande oljepump, eller igensatt sugrör till oljepumpen
+cur.P0524.c3	Fel oljeviskositet eller mycket gammal olja
+cur.P0524.c4	Defekt oljetrycksgivare eller -kontakt som ger falsk varning
+cur.P0524.c5	Slitna motorlager (hög körsträcka)
+cur.P0524.k1	Stanna och kontrollera oljenivån på oljestickan med bilen på plan mark; fyll på rätt olja om nivån är låg
+cur.P0524.k2	Leta efter oljeläckor under bilen
+cur.P0524.k3	Om nivån är i ordning men varningen står kvar: kör inte motorn; låt en verkstad mäta oljetrycket med en mekanisk manometer
+cur.P0524.k4	Byt givaren eller kontakten först när det verkliga oljetrycket har bekräftats vara bra
+cur.P0100.sub	Luftmassemätare (MAF)
+cur.P0100.sum	Luftmassemätaren i insugskanalen mäter hur mycket luft motorn suger in, och motorstyrningen använder det för att beräkna hur mycket bränsle som ska sprutas in. Kretsen har ett elektriskt fel, så styrningen använder ett ersättningsvärde.
+cur.P0100.c1	Lös eller korroderad kontakt vid luftmassemätaren (rubbas ofta vid byte av luftfilter)
+cur.P0100.c2	Skadat kablage
+cur.P0100.c3	Defekt luftmassemätare
+cur.P0100.c4	Problem med matning eller jord till givaren (kontrollera säkringen)
+cur.P0100.k1	Kontrollera att clipsen på luftfilterhuset och insugskanalen sitter rätt och att kontakten är helt låst
+cur.P0100.k2	Undersök kablage och kontakt efter skador och korrosion
+cur.P0100.k3	Kontrollera att luftmassevärdet i realtidsdata stiger jämnt med varvtalet
+cur.P0100.k4	Byt givaren om kablage, matning och jord är i ordning
+cur.P0100.adv	Oftast ja, men motorn kan gå mindre jämnt, tveka eller dra mer bränsle. Låt kontrollera det inom några veckor.
+cur.P0101.sum	Luftmassevärdet stämmer inte med vad motorstyrningen förväntar sig utifrån varvtal, trottelläge och andra givare.
+cur.P0101.c1	Luftläcka i insugskanalen mellan givaren och motorn (sprucken slang, lös klämma)
+cur.P0101.c2	Smutsig eller förorenad luftmassemätare (till exempel från ett överoljat eftermarknadsluftfilter)
+cur.P0101.c3	Mycket smutsigt eller igensatt luftfilter
+cur.P0101.k1	Undersök luftfiltret och byt det om det är smutsigt
+cur.P0101.k2	Kontrollera insugskanalen mellan givaren och trottelhuset efter sprickor och lösa klämmor
+cur.P0101.k3	Rengör mätelementet endast med särskild rengöringsspray för luftmassemätare; rör aldrig elementet
+cur.P0101.k4	Kontrollera bränsletrimmen i realtidsdata: stora positiva värden tyder på en läcka i insuget
+cur.P0101.k5	Prova en givare som du vet fungerar innan du köper en ny, om möjligt
+cur.P0102.sum	Signalen från luftmassemätaren är lägre än den någonsin ska vara, vilket oftast tyder på en bruten eller kortsluten krets eller en defekt givare.
+cur.P0102.c1	Urkopplad, lös eller korroderad kontakt vid luftmassemätaren
+cur.P0102.c2	Signalledningen bruten eller kortsluten mot jord
+cur.P0102.c4	Mycket stor luftläcka i insuget (mindre vanligt)
+cur.P0102.k1	Kontrollera att kontakten är helt låst; undersök stiften efter korrosion
+cur.P0102.k2	Undersök kablaget efter skador
+cur.P0102.k3	Kontrollera matning, jord och signal vid kontakten med multimeter och kopplingsschema
+cur.P0102.k4	Byt givaren om kablaget är i ordning
+cur.P0103.sum	Signalen från luftmassemätaren är högre än den någonsin ska vara, vilket oftast tyder på kortslutning mot spänning, dålig jord eller en defekt givare.
+cur.P0103.c1	Signalledning kortsluten mot en spänningskälla
+cur.P0103.c2	Dålig jord till givaren
+cur.P0103.c4	Skadat kablage eller kontakt
+cur.P0103.k1	Undersök kontakt och kablage efter skador och korrosion
+cur.P0112.sub	Insugslufttemperaturgivare
+cur.P0112.sum	Signalspänningen från insugslufttemperaturgivaren är för låg, vilket motorstyrningen tolkar som omöjligt varm insugsluft. På många motorer är givaren inbyggd i luftmassemätarens hus.
+cur.P0112.c1	Defekt insugslufttemperaturgivare (eller luftmassemätaren den är inbyggd i)
+cur.P0112.c2	Signalledningen kortsluten mot jord
+cur.P0112.c3	Skadad eller blöt kontakt
+cur.P0112.k1	Jämför insugslufttemperaturen i realtidsdata med utetemperaturen med kall motor: ett alldeles för högt värde bekräftar felet
+cur.P0112.k2	Undersök kontakten och kablaget
+cur.P0112.k3	Byt givaren om kablaget är i ordning
+cur.P0112.adv	Ja, du kan fortsätta köra. Motorgång och bränsleförbrukning kan påverkas något. Låt åtgärda det inom några veckor.
+cur.P0113.sum	Signalspänningen från insugslufttemperaturgivaren är för hög, vilket motorstyrningen tolkar som omöjligt kall luft, oftast för att kretsen är bruten. Realtidsdata visar ofta runt -40 °C.
+cur.P0113.c1	Urkopplad eller lös kontakt (vanligt efter arbete på luftfilter eller insug)
+cur.P0113.c2	Kabelbrott eller bruten krets
+cur.P0113.c3	Defekt insugslufttemperaturgivare
+cur.P0113.c4	Dålig jord till givaren
+cur.P0113.k1	Kontrollera att kontakten på luftmassemätaren / insugskanalen sitter i och är låst
+cur.P0113.k2	Undersök kablaget efter brott
+cur.P0121.sub	Elektroniskt trottelhus (trottellägesgivare A)
+cur.P0121.sum	Den elektroniska trotteln har två lägesgivare. Givare A (normalt en av de två i trottelhuset) ger värden som inte stämmer med vad motorstyrningen förväntar sig utifrån den andra givaren, luftflödet eller det begärda läget.
+cur.P0121.c1	Smutsigt trottelhus (sotavlagringar) som gör att spjället kärvar eller rör sig ojämnt
+cur.P0121.c2	Sliten eller defekt trottellägesgivare (inbyggd i trottelhuset)
+cur.P0121.c3	Dålig anslutning eller korrosion i trottelhusets kontakt
+cur.P0121.c4	Skadat kablage
+cur.P0121.k1	Undersök trottelhusets kontakt och kablage efter korrosion, vatten och skador
+cur.P0121.k2	Med tändningen av: ta bort insugsslangen och leta efter kraftiga sotavlagringar i trottelhuset; rengör försiktigt med trottelrengöring utan att tvinga spjället
+cur.P0121.k3	Efter rengöring eller byte kan en inlärning av trotteln (initiering) behövas; följ serviceproceduren eller låt en verkstad göra det
+cur.P0121.k4	Om koden kommer tillbaka, byt hela trottelhuset (givarna är oftast inbyggda)
+cur.P0121.adv	Motorstyrningen kan begränsa motoreffekten (nödläge) av säkerhetsskäl. Eldrift kan fortfarande vara möjlig, men undvik situationer där du behöver full effekt och låt kontrollera det inom några dagar.
+cur.P0122.sum	Signalen från trottellägesgivare A är under det lägsta värde den någonsin ska skicka, vilket oftast tyder på kortslutning mot jord, saknad 5 V-matning eller en defekt givare.
+cur.P0122.c1	Signal- eller 5 V-matningsledning kortsluten mot jord, eller avbrott i matningen
+cur.P0122.c2	Defekt trottellägesgivare (trottelhus)
+cur.P0122.c3	Korroderad eller lös kontakt på trottelhuset
+cur.P0122.c4	En annan givare på samma 5 V-matning som drar ner den (leta efter andra givarkoder)
+cur.P0123.sum	Signalen från trottellägesgivare A är över det högsta värde den någonsin ska skicka, vilket oftast tyder på avbrott i jord, kortslutning mot spänning eller en defekt givare.
+cur.P0123.c1	Avbrott i givarjord eller signal kortsluten mot en spänningsmatning
+cur.P2101.sub	Elektroniskt trottelhus (trottelmotor)
+cur.P2101.sum	Motorstyrningen manövrerar trottelspjället med en elmotor. Motorn rör inte spjället som begärt eller drar oväntad ström.
+cur.P2101.c1	Smutsigt eller kärvande gasspjällhus (sotbeläggningar, eller is vid sträng kyla)
+cur.P2101.c2	Defekt trottelmotor (trottelhus)
+cur.P2101.c3	Kabel- eller kontaktfel till trottelmotorn
+cur.P2101.c4	Låg 12 V-matningsspänning
+cur.P2101.k1	Undersök trottelhusets kontakt och kablage
+cur.P2101.k2	Rengör trottelhuset försiktigt om det är smutsigt (tändningen av)
+cur.P2101.k4	Inlärning av trotteln kan behövas efter rengöring eller byte
+cur.P2101.k5	Byt trottelhuset om felet kommer tillbaka
+cur.P2135.sub	Elektroniskt trottelhus (givare A och B)
+cur.P2135.sum	Trottelhuset har två lägesgivare som alltid ska stämma överens. Signalerna skiljer sig nu mer än tillåtet, så motorstyrningen kan inte lita på trottelläget.
+cur.P2135.c1	Slitna eller defekta lägesgivare inne i trottelhuset
+cur.P2135.c2	Vatten eller korrosion i trottelhusets kontakt
+cur.P2135.c3	Skadat kablage, eller ett problem med gemensam 5 V-matning eller jord
+cur.P2135.c4	Smutsigt trottelhus (mindre vanligt för denna kod)
+cur.P2138.sub	Gaspedalsgivare (D och E)
+cur.P2138.sum	Gaspedalen har två lägesgivare (normalt givare D och E) som alltid ska stämma överens. Signalerna skiljer sig nu åt, så bilen kan inte lita på hur långt pedalen är nedtryckt.
+cur.P2138.c1	Sliten eller defekt gaspedalsgivare (del av pedalenheten)
+cur.P2138.c2	Vatten eller korrosion i pedalkontakten (till exempel från blöta golvmattor)
+cur.P2138.c3	Skadat kablage mellan pedalen och styrenheten
+cur.P2138.c4	Problem med 5 V-matningen eller jorden som pedalgivarna delar
+cur.P2138.k1	Kontrollera fotutrymmet efter fukt och pedalkontakten efter korrosion; sätt tillbaka kontakten ordentligt
+cur.P2138.k2	Om ditt verktyg visar båda pedalsignalerna, kontrollera att båda ändras jämnt och lika när du trycker ner pedalen långsamt
+cur.P2138.k3	Undersök kablaget under instrumentbrädan efter skador
+cur.P2138.k4	Byt gaspedalenheten om kablaget är i ordning
+cur.P2138.adv	Räkna med minskad effekt eller begränsad hastighet (nödläge), och det kan även påverka eldriften eftersom pedalsignalen styr hela drivsystemet. Kör försiktigt till en verkstad och undvik snabba vägar om effekten är kraftigt begränsad.
+cur.P0171.sub	Blandningsförhållande (bränsletrim), bank 1
+cur.P0171.sum	Motorstyrningen har fått tillsätta mycket mer bränsle än normalt för att hålla rätt luft/bränsle-blandning. Motorn får för mycket luft eller för lite bränsle.
+cur.P0171.c1	Luftläcka efter luftmassemätaren: sprucken insugsslang, lös klämma, läckande insugspackning, vakuum- eller vevhusventilationsslang
+cur.P0171.c2	Smutsig eller defekt luftmassemätare som mäter för lågt
+cur.P0171.c3	Lågt bränsletryck: svag bränslepump, igensatt filter eller defekt tryckregulator
+cur.P0171.c4	Igensatta bränsleinsprutare
+cur.P0171.c5	Avgasläcka före den främre lambdasonden
+cur.P0171.c6	Möjligt på en laddhybrid: gammalt bränsle om motorn sällan har gått
+cur.P0171.k1	Lyssna och leta efter luftläckor runt insugsslangar och insugsgrenrör med motorn igång
+cur.P0171.k2	Kontrollera bränsletrimmen i realtidsdata: är långtidstrimmen hög på tomgång men bättre vid högre varvtal är en läcka i insuget trolig; blir den sämre under belastning, misstänk bränsletillförseln
+cur.P0171.k3	Rengör luftmassemätaren med särskild rengöringsspray
+cur.P0171.k4	Åtgärda feltändnings-, luftmassemätar- eller lambdasondkoder först om de finns
+cur.P0171.k6	En verkstad kan göra ett röktest för läckor och mäta bränsletrycket
+cur.P0171.adv	Ja, du kan fortsätta köra, men låt kontrollera det inom några veckor. En motor som går mycket magert kan feltända; om motorlampan börjar blinka, stanna.
+cur.P0172.sum	Motorstyrningen har fått dra ner bränslet mycket mer än normalt för att hålla rätt luft/bränsle-blandning. Motorn får för mycket bränsle eller för lite luft.
+cur.P0172.c1	Läckande eller droppande bränsleinsprutare
+cur.P0172.c2	Defekt luftmassemätare som mäter för högt, eller kylvätsketemperaturgivare som visar för kallt
+cur.P0172.c3	För högt bränsletryck (fel på tryckregulatorn)
+cur.P0172.c4	Spolventilen har fastnat öppen och släpper in bränsleångor i insuget (ofta tillsammans med koder för avdunstningssystemet)
+cur.P0172.c5	Mycket smutsigt luftfilter eller blockerat luftintag
+cur.P0172.c6	Motorolja utspädd med bränsle (möjligt när motorn ofta bara går en kort stund medan den är kall)
+cur.P0172.k1	Kontrollera luftfiltret och luftintaget
+cur.P0172.k2	Kontrollera att kylvätsketemperatur och luftmassa i realtidsdata är rimliga
+cur.P0172.k3	Kontrollera oljenivån: stiger den med tiden eller luktar oljan bensin är den utspädd med bränsle; byt oljan
+cur.P0172.k4	Leta efter koder för avdunstningssystemet; en verkstad kan testa om spolventilen tätar
+cur.P0172.k5	En verkstad kan kontrollera bränsletrycket och om insprutarna läcker
+cur.P0172.adv	Ja, du kan fortsätta köra, men låt kontrollera det inom några veckor. En fet blandning ökar bränsleförbrukningen och kan skada katalysatorn med tiden.
+cur.inj.sub	Bränsleinsprutare, cylinder {cyl}
+cur.inj.sum	Motorstyrningen har hittat ett elektriskt fel (oftast avbrott) i insprutarkretsen för cylinder {cyl}. Den cylindern får inget bränsle och kommer att feltända.
+cur.inj.c1	Urkopplad, lös eller korroderad kontakt på insprutaren till cylinder {cyl}
+cur.inj.c2	Kabelbrott i insprutarnas kablage
+cur.inj.c3	Defekt insprutare (avbrott i spolen)
+cur.inj.c4	Fel på säkring eller relä i insprutarnas matning (påverkar oftast flera insprutare)
+cur.inj.k1	Kontrollera att kontakten på insprutaren till cylinder {cyl} är helt låst och ren
+cur.inj.k2	Undersök insprutarnas kablage efter skador
+cur.inj.k3	Mät insprutarens resistans och jämför med de andra insprutarna; de ska vara mycket lika
+cur.inj.k4	Kontrollera säkringen och reläet som matar insprutarna
+cur.inj.k5	Reparera kablaget eller byt insprutaren, radera sedan koden och kontrollera om det finns feltändning
+cur.inj.adv	Motorn kommer att gå ojämnt på tre cylindrar, och oförbränt bränsle kan skada katalysatorn. Låt reparera det inom några dagar och undvik långa resor där motorn måste gå. Om motorlampan blinkar, stanna så snart det är säkert.
+cur.P0230.sub	Styrkrets för bränslepumpen
+cur.P0230.sum	Motorstyrningen styr bränslepumpen via ett relä eller en pumpstyrenhet. Den har hittat ett elektriskt fel i denna krets, så pumpen går kanske inte och motorn startar kanske inte.
+cur.P0230.c1	Defekt pumprelä eller trasig säkring
+cur.P0230.c2	Skadat kablage eller korroderad kontakt i pumpkretsen
+cur.P0230.c3	Defekt styrenhet för bränslepumpen, om sådan finns
+cur.P0230.c4	Defekt bränslepump som drar för mycket ström
+cur.P0230.k1	Kontrollera säkringen och reläet för bränslepumpen (säkringsschemat i instruktionsboken)
+cur.P0230.k2	Kontrollera om motorn startar och går normalt; notera eventuell tvekan eller motorstopp
+cur.P0230.k3	Undersök kablage och kontakter i pumpkretsen
+cur.P0230.k4	En verkstad kan kontrollera pumpström och bränsletryck
+cur.P0230.adv	Du kan oftast fortsätta köra på el, men motorn kanske inte startar eller kan stanna. Låt kontrollera det inom några dagar och undvik långa resor som kräver motorn.
+cur.P0300.sub	Feltändningsdetektering (flera cylindrar)
+cur.P0300.sum	Motorstyrningen har upptäckt feltändningar som inte är begränsade till en cylinder, eller som flyttar sig mellan cylindrarna. Feltändning betyder att bränslet i en cylinder inte förbrändes som det skulle.
+cur.P0300.c1	Slitna tändstift (de åldras med tiden såväl som med körsträckan; kontrollera serviceprogrammet)
+cur.P0300.c2	Sviktande tändspole/-ar
+cur.P0300.c3	Gammalt eller dåligt bränsle, eller vatten i bränslet (möjligt om motorn sällan går)
+cur.P0300.c4	Luftläcka i insuget eller smutsig luftmassemätare som ger mager blandning
+cur.P0300.c5	Lågt bränsletryck (bränslepump, filter)
+cur.P0300.c6	Problem med ventiltiderna (se P0016) eller låg kompression (mindre vanligt)
+cur.P0300.k1	Läs alla koder: P0171, P0016 eller P0335 lagrade samtidigt kan förklara feltändningen
+cur.P0300.k2	Undersök och byt tändstiften om det är dags; kontrollera spolhattarna efter olja, sprickor eller brännmärken
+cur.P0300.k4	Om ditt verktyg visar feltändningsräknare per cylinder, se om en eller två cylindrar dominerar
+cur.P0300.k5	En verkstad kan kontrollera bränsletryck, kompression och tändsystemet
+cur.mis.sub	Feltändningsdetektering, cylinder {cyl}
+cur.mis.sum	Motorstyrningen har upptäckt upprepade feltändningar i cylinder {cyl}: bränslet i den cylindern förbränns inte som det ska.
+cur.mis.c1	Defekt tändspole på cylinder {cyl} (vanligast)
+cur.mis.c2	Slitet eller sotigt tändstift på cylinder {cyl}
+cur.mis.c3	Igensatt eller defekt bränsleinsprutare på cylinder {cyl}
+cur.mis.c4	Luftläcka nära insugsporten till cylinder {cyl}
+cur.mis.c5	Låg kompression i cylinder {cyl} (ventil- eller kolvringsproblem, mindre vanligt)
+cur.mis.k1	Byt plats på tändspolen från cylinder {cyl} och en grannecylinder, radera koderna och kör: om feltändningen flyttar med spolen, byt spolen
+cur.mis.k2	Ta ut och undersök tändstiftet: byt det om det är slitet, oljigt eller sprucket (normalt alla fyra samtidigt)
+cur.mis.k3	Kontrollera kontakter och kablage till spole och insprutare på cylinder {cyl}
+cur.mis.k4	Om spole och tändstift är i ordning, låt en verkstad testa insprutaren och kompressionen
+cur.P0325.sub	Knackgivare (bank 1 eller enda givare)
+cur.P0325.sum	Knackgivaren lyssnar efter motorknack (okontrollerad förbränning) så att motorstyrningen kan justera tändläget. Kretsen har ett elektriskt fel.
+cur.P0325.c1	Skadat kablage eller korroderad kontakt vid knackgivaren
+cur.P0325.c2	Defekt knacksensor
+cur.P0325.c3	Givaren sitter löst på motorblocket
+cur.P0325.k1	Undersök knackgivarens kontakt och kablage (ofta dolda under insugsgrenröret)
+cur.P0325.k2	Kontrollera att givaren är ordentligt fastskruvad i motorblocket (en lös givare kan inte känna av knack)
+cur.P0325.k3	Mät givaren och kablaget mot servicedata, eller låt en verkstad kontrollera signalen
+cur.P0325.k4	Byt givaren vid behov och dra åt den med angivet åtdragningsmoment
+cur.P0325.adv	Ja, du kan fortsätta köra. Motorstyrningen använder ett säkrare, senare tändläge, så motorn kan kännas något svagare och dra lite mer bränsle. Använd rekommenderad bränslekvalitet och undvik tung belastning tills felet är åtgärdat.
+cur.P0327.sum	Signalen från knackgivaren är lägre än väntat, oftast på grund av en bruten eller kortsluten krets eller en defekt givare. Motorstyrningen går över till ett säkrare tändläge.
+cur.P0327.c1	Signalledningen bruten eller kortsluten mot jord
+cur.P0327.c3	Korroderad eller lös kontakt
+cur.P0328.sum	Signalen från knackgivaren är högre än väntat, oftast på grund av kabelfel, en defekt givare eller kraftigt mekaniskt ljud från motorn.
+cur.P0328.c1	Signalledningen kortsluten mot en spänningsmatning eller fångar upp störningar
+cur.P0328.c3	Verkligt mekaniskt ljud från motorn (löst värmeskydd, slitna lager, ventilljud)
+cur.P0328.k5	Lyssna efter ovanliga mekaniska ljud från motorn
+cur.coil.sub	Tändspole {letter} (normalt cylinder {cyl})
+cur.coil.sum	Motorstyrningen har hittat ett elektriskt fel i kretsen för tändspole {letter} (spole A är normalt cylinder 1, B cylinder 2 och så vidare). Den cylindern kommer troligen att feltända.
+cur.coil.c1	Defekt tändspole
+cur.coil.c2	Lös, korroderad eller skadad spolkontakt
+cur.coil.c3	Skadat kablage mellan spolen och motorstyrningen
+cur.coil.c4	Fel i spolarnas strömförsörjning (säkring eller relä; påverkar oftast flera spolar)
+cur.coil.k1	Kontrollera att spolkontakten är helt låst; leta efter korrosion eller en trasig låsning
+cur.coil.k2	Byt plats på spolen och en grannecylinders, radera koderna och se om koden följer spolen
+cur.coil.k3	Undersök kablaget till spolarna
+cur.coil.k4	Byt spolen om koden följer den; annars låt kontrollera kablage och matning
+cur.o2h.sub	Lambdasondvärmare, bank 1 givare {n} ({where})
+cur.o2h.intro	Lambdasonder fungerar bara när de är varma, så var och en har en inbyggd elektrisk värmare.
+cur.o2h_low.sum	{@cur.o2h.intro} Motorstyrningen har konstaterat att värmarens styrkrets i den {side} sonden ({where}) visar lägre än väntat. {@cur.o2h.monitored}
+cur.o2h_high.sum	{@cur.o2h.intro} Motorstyrningen har konstaterat att värmarens styrkrets i den {side} sonden ({where}) visar högre än väntat. {@cur.o2h.monitored}
+cur.o2h_circ.sum	{@cur.o2h.intro} Motorstyrningen har hittat ett elektriskt fel i värmarkretsen till den {side} sonden ({where}).
+cur.o2h.monitored	Beroende på hur kretsen övervakas kan detta betyda kortslutning, avbrott eller en defekt värmare.
+cur.o2h.c1	Värmeelementet inne i sonden har gått sönder (bränt av eller kortslutet; vanligt på äldre sonder, och sonden måste då bytas)
+cur.o2h.c2	Kablage skadat av värme från avgaserna (smält, skavt, kortslutet eller av)
+cur.o2h.c3	Lös eller korroderad kontakt
+cur.o2h.c4	Trasig säkring för lambdasondvärmarna
+cur.o2h.k1	Kontrollera säkringen för lambdasondvärmarna (säkringsschemat i instruktionsboken)
+cur.o2h.k2	Undersök sondkontakten och kablaget längs avgassystemet efter smältskador eller skavskador
+cur.o2h.k3	Mät värmarens resistans vid sondkontakten och jämför med servicedata; avbrott betyder att värmaren är död
+cur.o2h.k4	Byt sonden om värmaren har avbrott eller är kortsluten (använd rätt typ för bilen)
+cur.o2h.adv	Ja, du kan fortsätta köra. Utsläpp och bränsleförbrukning kan öka, mest efter kallstarter; eftersom motorn på en laddhybrid ofta kallstartar bör du inte vänta för länge.
+cur.o2.sub	Lambdasond bank 1 givare {n} ({where})
+cur.o2.role_front	Den främre lambdasonden mäter syre i avgaserna så att motorstyrningen kan hålla rätt blandning.
+cur.o2.role_rear	Den bakre lambdasonden kontrollerar hur väl katalysatorn renar avgaserna.
+cur.o2.k1	Undersök sondkontakten och kablaget längs avgassystemet efter smältskador, skavskador eller korrosion
+cur.o2.k2	Leta efter avgasläckor nära sonden (tickande eller pysande ljud, sotmärken)
+cur.o2.k3	Med helt varm motor: följ sonden i realtidsdata; en främre sond ska reagera snabbt på ändringar i blandningen, en bakre sond är normalt ganska stabil
+cur.o2.k4	Åtgärda koder för bränsletrim, feltändning och sondvärmare först; de förklarar ofta lambdasondkoder
+cur.o2.k5	Byt sonden om kablage och avgassystem är i ordning (använd rätt typ för bilen)
+cur.o2f.adv	Ja, du kan fortsätta köra. Bränsleförbrukning och utsläpp kan öka och motorn kan gå mindre jämnt. Låt kontrollera det inom några veckor; ett långvarigt blandningsproblem kan skada katalysatorn.
+cur.o2r.adv	Ja, du kan fortsätta köra. Den bakre sonden övervakar främst katalysatorn, så motorn går oftast normalt. Låt kontrollera det inom några veckor.
+cur.o2_circ.sum	{role} Motorstyrningen har hittat ett fel i denna sonds signalkrets.
+cur.o2_circ.c1	Skadat kablage eller korroderad kontakt (kablaget går nära det heta avgassystemet)
+cur.o2_circ.c2	Defekt eller åldrad lambdasond
+cur.o2_circ.c3	Avgasläcka nära sonden
+cur.o2_circ.c4	Sonden förorenad av olja, kylvätska eller bränsletillsatser
+cur.o2_low_f.sum	{role} Signalen ligger kvar på låg spänning. På en vanlig lambdasond betyder det att den hela tiden rapporterar mager avgas (för mycket syre); på en bredbandssond (luft/bränsle-förhållande) pekar det mer mot ett krets- eller sondfel.
+cur.o2_low_r.sum	{role} Signalen ligger kvar på låg spänning, vilket betyder att den hela tiden rapporterar mager avgas (för mycket syre).
+cur.o2_low.c1	Avgasläcka före eller nära sonden som släpper in uteluft
+cur.o2_low.c3	Signalledningen kortsluten mot jord
+cur.o2_low.c4	En verklig mager blandning (luftläcka i insuget, lågt bränsletryck; leta efter P0171)
+cur.o2_high_f.sum	{role} Signalen ligger kvar på hög spänning. På en vanlig lambdasond betyder det att den hela tiden rapporterar fet avgas (för lite syre); på en bredbandssond (luft/bränsle-förhållande) pekar det mer mot ett krets- eller sondfel.
+cur.o2_high_r.sum	{role} Signalen ligger kvar på hög spänning, vilket betyder att den hela tiden rapporterar fet avgas (för lite syre).
+cur.o2_high.c1	Defekt eller förorenad lambdasond (olje-, kylvätske- eller silikonförorening)
+cur.o2_high.c2	Signalledning kortsluten mot en spänningskälla
+cur.o2_high.c3	En verklig fet blandning (läckande insprutare, spolventil som fastnat öppen; leta efter P0172)
+cur.o2_slow.sum	{role} Sonden reagerar för långsamt när blandningen ändras.
+cur.o2_slow.c1	Åldrad lambdasond (normalt slitage under många år)
+cur.o2_slow.c4	Problem med värmaren som håller sonden för kall (leta efter värmarkoder)
+cur.o2_noact.sum	{role} Signalen ändras inte alls, som om sonden vore död eller urkopplad.
+cur.o2_noact.c1	Defekt lambdasond
+cur.o2_noact.c2	Avbrott eller urkopplad kontakt
+cur.o2_noact.c3	Fel på värmaren som håller sonden för kall för att fungera
+cur.P2195.sum	{role} Signalen lutar åt magert eller har fastnat på magert: den rapporterar mer syre än bränsleregleringen förväntar sig.
+cur.P2195.c1	Luftläcka i insuget eller avgasläcka före sonden
+cur.P2195.c2	Åldrad eller förorenad främre lambdasond
+cur.P2195.c3	Luftmassemätaren mäter för lågt
+cur.P2195.c4	Lågt bränsletryck eller igensatta insprutare
+cur.P2196.sum	{role} Signalen lutar åt fett eller har fastnat på fett: den rapporterar mindre syre än bränsleregleringen förväntar sig.
+cur.P2196.c1	Förorenad eller åldrad främre lambdasond
+cur.P2196.c2	Läckande insprutningsventil eller för högt bränsletryck
+cur.P2196.c3	Spolventil (purge) som har fastnat öppen
+cur.P2196.c4	Motorolja utspädd med bränsle
+cur.P0420.sub	Katalysator, bank 1
+cur.P0420.sum	Motorstyrningen använder lambdasonderna före och efter katalysatorn för att bedöma hur väl katalysatorn lagrar syre och renar avgaserna. Resultatet ligger under kravet, så katalysatorn fungerar troligen inte längre tillräckligt bra.
+cur.P0420.c1	Åldrad katalysator (effektiviteten sjunker med ålder och körsträcka)
+cur.P0420.c2	Katalysatorn skadad av tidigare feltändningar, eller av olja eller kylvätska som förbränts
+cur.P0420.c3	Avgasläcka nära lambdasonderna
+cur.P0420.c4	Defekt eller trög bakre (eller främre) lambdasond som ger felaktigt resultat
+cur.P0420.c5	Motorn går för fett eller för magert (åtgärda bränsletrimkoder först)
+cur.P0420.k1	Åtgärda eventuella feltändnings-, bränsletrim- eller lambdasondkoder först; de kan orsaka eller efterlikna denna kod
+cur.P0420.k2	Leta efter avgasläckor (tickande eller pysande ljud, sotmärken) mellan motorn och den bakre lambdasonden
+cur.P0420.k3	Jämför signalerna från främre och bakre lambdasond i realtidsdata med helt varm motor: den bakre ska vara ganska stabil
+cur.P0420.k5	Radera koden och kör; kommer den snabbt tillbaka är katalysatorn troligen utsliten
+cur.P0420.k6	Byt katalysatorn mot en typgodkänd kvalitetsdel; billiga universalkatalysatorer får ofta koden att komma tillbaka
+cur.P0420.adv	Ja, du kan fortsätta köra. Bilen kan få underkänt vid besiktningen med detta fel, och en katalysator som går sönder kan skramla eller strypa avgassystemet med tiden.
+cur.evap.sub	Avdunstningssystem (EVAP)
+cur.evap.intro	Avdunstningssystemet (EVAP) samlar upp bensinångor från tanken i ett kolfilter och förbränner dem senare i motorn.
+cur.evap.adv	Ja, du kan fortsätta köra. Det påverkar inte hur bilen kör, men släpper ut bensinångor och kan ge underkänt vid besiktningen. Om det luktar starkt av bensin, låt kontrollera det snart.
+cur.evap.cap	Kontrollera tanklocket: det ska klicka när det dras åt, och gummitätningen ska vara ren, mjuk och utan sprickor. Byt ett slitet lock mot ett av rätt typ
+cur.evap.refuel	Laddhybrider har ofta en sluten, trycksatt bränsletank: tanka alltid enligt instruktionsboken (till exempel genom att använda knappen för tanklocksluckan och vänta tills luckan öppnas)
+cur.P0440.sum	{@cur.evap.intro} Motorstyrningen har hittat ett allmänt fel i detta system.
+cur.P0440.c1	Löst, slitet eller fel tanklock
+cur.P0440.c2	Läckande eller lossnad slang i avdunstningssystemet
+cur.P0440.c3	Defekt spolventil eller ventilationsventil
+cur.P0440.c4	Skadat kolfilter
+cur.P0440.c5	Fel på trycksgivaren i bränsletanken
+cur.P0440.k3	Läs alla koder; mer specifika EVAP-koder (P0441–P0457) ringar in felet
+cur.P0440.k4	En verkstad kan göra ett röktest för att hitta läckor
+cur.P0441.sum	{@cur.evap.intro} Ångflödet från kolfiltret till motorn (spolflöde) är inte som väntat: för litet, för stort, eller det flödar när det inte ska.
+cur.P0441.c1	Spolventilen har fastnat öppen eller stängd
+cur.P0441.c2	Igensatt, vikt eller lossnad spolslang
+cur.P0441.c3	Elektriskt fel på spolventilen (leta efter P0443)
+cur.P0441.c4	Igensatt kolfilter (till exempel efter upprepad överfyllning av tanken)
+cur.P0441.k1	Undersök spolslangarna mellan kolfilter, spolventil och insug efter sprickor och lösa ändar
+cur.P0441.k2	En verkstad kan testa om spolventilen öppnar och stänger på kommando och tätar när den är stängd
+cur.P0441.k3	Undvik att fylla på tanken efter att pistolen har slagit av; flytande bränsle kan skada kolfiltret
+cur.evap_leak.sum	{@cur.evap.intro} Motorstyrningen stänger systemet och kontrollerar att det håller tryck eller vakuum; den har hittat en {size} läcka.
+cur.evap_leak.k2	Undersök de synliga EVAP-slangarna och påfyllningsröret efter sprickor, rost och lösa anslutningar
+cur.evap_leak.k4	Radera koden och kör några dagar; läcktestet körs bara under vissa förhållanden, så det kan ta tid att bekräfta att felet är åtgärdat
+cur.evap_leak.k5	Kommer den tillbaka kan en verkstad hitta läckan med ett röktest
+cur.P0442.c1	Tanklockets tätning är sliten, sprucken eller smutsig, eller locket är inte åtdraget
+cur.P0442.c2	Liten spricka i en EVAP-slang eller lös slangklämma
+cur.P0442.c3	Spol- eller ventilationsventilen tätar inte helt
+cur.P0442.c4	Korroderat påfyllningsrör eller läckande kolfilter
+cur.P0455.c1	Tanklocket saknas, sitter löst eller har inte klickat fast
+cur.P0455.c2	Lossnad eller sprucken EVAP-slang
+cur.P0455.c3	Spolventilen har fastnat öppen, eller ventilationsventilen har fastnat
+cur.P0455.c4	Skadat kolfilter
+cur.P0456.c1	Tanklockets tätning är något sliten eller smutsig (vanligast)
+cur.P0456.c2	Pytteliten spricka i en EVAP-slang eller tätning
+cur.P0456.c3	Spol- eller ventilationsventilen tätar inte perfekt
+cur.P0456.c4	Liten läcka vid påfyllningsröret eller bränsletankens tätningar
+cur.P0457.sum	{@cur.evap.intro} Läcktestet tyder på att tanklocket sitter löst eller saknas.
+cur.P0457.c1	Tanklocket är inte åtdraget tills det klickar, eller glömdes efter tankning
+cur.P0457.c2	Sliten eller skadad tätning i tanklocket
+cur.P0457.c3	Smuts på påfyllningsrörets tätningsyta
+cur.P0457.c4	Fel (icke originalt) tanklock
+cur.P0457.k1	Kontrollera att tanklocket sitter på och är vridet tills det klickar
+cur.P0457.k2	Rengör lockets tätning och påfyllningsrörets kant; byt locket om tätningen är sprucken eller hård
+cur.P0457.k4	Radera koden; det kan ta några dagars körning innan systemet testar igen och lampan förblir släckt
+cur.P0457.adv	Ja. Dra åt eller sätt på tanklocket och kör som vanligt.
+cur.P0443.sum	{@cur.evap.intro} Motorstyrningen har hittat ett elektriskt fel i kretsen till spolventilen, som släpper fram ångorna till motorn.
+cur.P0443.c1	Urkopplad, lös eller korroderad kontakt på spolventilen
+cur.P0443.c2	Defekt spolventil (avbrott eller kortslutning i spolen)
+cur.P0443.c3	Skadat kablage
+cur.P0443.c4	Trasig säkring i ventilens matning
+cur.P0443.k1	Kontrollera kontakten på spolventilen (oftast i motorrummet på ångslangen till insuget)
+cur.P0443.k2	Mät ventilspolens resistans och jämför med servicedata
+cur.P0443.k3	Undersök kablaget och säkringen
+cur.P0443.k4	Byt spolventilen om spolen har avbrott eller är kortsluten
+cur.P0446.sum	{@cur.evap.intro} Ventilationsventilen, som släpper in frisk luft i kolfiltret och stänger vid läcktester, fungerar inte korrekt eller har ett elektriskt fel.
+cur.P0446.c1	Ventilationsventilen eller dess filter igensatt av smuts, insekter eller is
+cur.P0446.c2	Defekt ventilationsventil
+cur.P0446.c3	Kabel- eller kontaktfel (ventilen sitter oftast nära kolfiltret, utsatt för vägsmuts)
+cur.P0446.c4	Igensatt ventilationsslang
+cur.P0446.k1	Undersök ventilationsventilen, slangen och filtret efter smuts och blockering
+cur.P0446.k2	Kontrollera kontakten och kablaget efter korrosion
+cur.P0446.k3	En verkstad kan testa ventilen med ett ställdonstest
+cur.P0401.sub	Avgasåterföring (EGR)
+cur.P0401.sum	EGR-systemet leder tillbaka en liten mängd avgaser till insuget för att sänka förbränningstemperaturen och NOx-utsläppen. Motorstyrningen mätte mindre EGR-flöde än väntat.
+cur.P0401.c1	Sotavlagringar som blockerar EGR-ventilen eller kanalerna (vanligast)
+cur.P0401.c2	EGR-ventilen kärvar eller är defekt
+cur.P0401.c3	Elektriskt fel på EGR-ventilen (leta efter P0403)
+cur.P0401.c4	Defekt givare som används för att bedöma EGR-flödet, till exempel grenrörstrycksgivaren
+cur.P0401.k1	Leta efter andra EGR- eller givarkoder
+cur.P0401.k2	En verkstad kan öppna EGR-ventilen på tomgång med diagnosverktyg: motorn ska gå märkbart ojämnare om gasen flödar
+cur.P0401.k3	Rengör eller byt EGR-ventilen och rengör kanalerna
+cur.P0403.sum	Motorstyrningen har hittat ett elektriskt fel i EGR-ventilens styrkrets.
+cur.P0403.c1	Urkopplad, lös eller korroderad kontakt på EGR-ventilen
+cur.P0403.c2	Defekt EGR-ventil (motor eller magnetventil)
+cur.P0403.c3	Skadat kablage (ventilen sitter i ett varmt område)
+cur.P0403.k1	Undersök EGR-ventilens kontakt och kablage efter värmeskador och korrosion
+cur.P0403.k2	Mät ventilens resistans mot servicedata
+cur.P0403.k3	Byt EGR-ventilen om den är defekt
+cur.P0500.sub	Hastighetssignal
+cur.P0500.sum	Motorstyrningen får ingen giltig hastighetssignal. På moderna bilar beräknas hastigheten oftast från hjulhastighetsgivarna och delas via datanätverket.
+cur.P0500.c1	Fel på hjulhastighetsgivare eller ABS (titta efter ABS-varningslampa och C- eller U-koder)
+cur.P0500.c2	Kommunikationsproblem i nätverket med ABS-enheten
+cur.P0500.c3	Kablage- eller kontaktfel
+cur.P0500.k1	Kontrollera om hastighetsmätaren fungerar och om ABS-varningslampan lyser
+cur.P0500.k2	Läs av ABS-enheten med ett kapabelt verktyg om möjligt
+cur.P0500.k4	Undersök kablaget till hjulhastighetsgivarna vid alla fyra hjul
+cur.P0500.adv	Går oftast att köra, men hastighetsmätare, farthållare eller andra funktioner kanske inte fungerar korrekt. Låt kontrollera det inom några veckor, eller inom några dagar om även ABS-varningslampan lyser.
+cur.P0506.sub	Tomgångsreglering
+cur.P0506.intro	När motorn går på tomgång styr motorstyrningen varvtalet med det elektroniska gasspjället.
+cur.P0506.sum	{@cur.P0506.intro} Tomgångsvarvtalet ligger lägre än målvärdet.
+cur.P0506.c1	Smutsigt trottelhus (sotavlagringar som stryper luften på tomgång)
+cur.P0506.c2	Igensatt luftfilter eller insug
+cur.P0506.c3	Trottelhuset behöver tomgångsinlärning efter rengöring, byte eller urkoppling av batteriet
+cur.P0506.c4	Motorn går dåligt av annan orsak (leta efter feltändningskoder)
+cur.P0506.k1	Kontrollera luftfiltret
+cur.P0506.k2	Rengör trottelhuset försiktigt (tändningen av) och utför inlärningsproceduren för tomgång
+cur.P0506.k3	Leta efter andra motorkoder
+cur.P0507.sum	{@cur.P0506.intro} Tomgångsvarvtalet ligger högre än målvärdet.
+cur.P0507.c1	Luftläcka i insuget (sprucken slang, läckande packning, vakuum- eller vevhusventilationsslang)
+cur.P0507.c2	Smutsigt eller kärvande trottelhus
+cur.P0507.c4	Defekt kylvätsketemperaturgivare som får motorstyrningen att tro att motorn är kall
+cur.P0507.k1	Lyssna efter väsande luftläckor runt insuget med motorn på tomgång
+cur.P0507.k3	Kontrollera att kylvätsketemperaturen i realtidsdata är rimlig
+cur.P0562.sub	12 V-matning (systemspänning)
+cur.P0562.sum	Motorstyrningen har mätt sin 12 V-matning under normalt område. På Outlander PHEV matas 12 V-systemet av 12 V-hjälpbatteriet och laddas av DC/DC-omvandlaren, så orsaken är oftast batteriet, omvandlaren eller anslutningarna mellan dem.
+cur.P0562.c2	DC/DC-omvandlaren laddar inte (leta efter P0A94 eller andra DC/DC-koder)
+cur.P0562.c3	Lösa eller korroderade batteripoler eller jordflätor
+cur.P0562.c4	Bilen har stått länge, eller utrustning eller en OBD-dongel har laddat ur batteriet medan bilen stod parkerad
+cur.P0562.c5	Spänningsfall i matningskablaget eller säkringen till motorstyrningen
+cur.P0562.k2	Rengör och dra åt batteripolerna och kontrollera jordflätorna
+cur.P0562.k4	Leta efter koder för DC/DC-omvandlaren
+cur.P0562.k5	Om batteriet är gammalt (många håller runt 4–6 år) eller inte klarar ett test, byt det mot rätt typ
+cur.P0562.adv	Låt kontrollera det inom några dagar. Ett svagt 12 V-system kan hindra bilen från att gå i READY eller få funktioner att stängas av utan förvarning. Undvik långa resor tills orsaken är hittad.
+cur.P0563.sum	Motorstyrningen har mätt sin 12 V-matning över normalt område. För hög spänning kan skada elektronik och 12 V-batteriet.
+cur.P0563.c1	DC/DC-omvandlaren reglerar 12 V-utgången för högt
+cur.P0563.c2	Extern batteriladdare eller starthjälp ansluten medan bilen var på
+cur.P0563.c3	Dålig jordanslutning som ger felaktiga mätvärden
+cur.P0563.c4	Internt fel i 12 V-batteriet
+cur.P0563.k1	Mät 12 V-batteriets spänning med bilen i READY; klart över cirka 15 V är för högt
+cur.P0563.k2	Koppla bort eventuell laddare eller starthjälp och se om koden kommer tillbaka
+cur.P0563.k3	Kontrollera jordflätorna och batteripolerna
+cur.P0563.k4	Låt en återförsäljare kontrollera DC/DC-omvandlarens utgång
+cur.P0563.adv	Låt kontrollera det inom några dagar. För hög spänning kan skada 12 V-batteriet och elektroniken.
+cur.P0601.sub	Motorstyrenhet (intern)
+cur.P0601.sum	Motorstyrenheten har hittat ett fel vid kontroll av sitt eget programminne (kontrollsumma). Den lagrade programvaran kan vara skadad.
+cur.P0601.c1	Internt fel i motorstyrenheten
+cur.P0601.c2	Avbruten eller misslyckad programvaruuppdatering
+cur.P0601.c3	Kraftigt spänningsfall eller spänningstopp i 12 V-systemet (till exempel vid starthjälp)
+cur.P0601.c4	Vatten- eller korrosionsskada på enheten eller dess kontakter
+cur.P0601.k3	Fråga en Mitsubishi-verkstad om det finns en programvaruuppdatering eller omprogrammering för enheten
+cur.P0601.k4	Om felet fortsätter att komma tillbaka kan enheten behöva bytas och programmeras för bilen
+cur.P0601.adv	Motorn kan gå dåligt, stanna eller vägra starta, och andra funktioner kan påverkas. Låt kontrollera det inom några dagar.
+cur.P0606.sum	Motorstyrenheten har hittat ett fel i sin egen processor vid ett självtest.
+cur.P0700.sub	Styrning av växellåda / drivenhet (begäran om varningslampa)
+cur.P0700.sum	En annan styrenhet, som ansvarar för växellådan eller drivenheten, har lagrat en egen felkod och bett motorstyrningen tända motorlampan. Den egentliga felkoden finns lagrad i den andra styrenheten.
+cur.P0700.c1	Ett fel lagrat i styrenheten för växellådan eller drivenheten (läs av den enheten för att få den faktiska koden)
+cur.P0700.c3	Kabel- eller nätverksfel mellan styrenheterna
+cur.P0700.k3	Lägg märke till förändringar i hur bilen kör (ryck, ljud, förlorad drivkraft) och berätta det för verkstaden
+cur.P0700.k4	Outlander PHEV har ingen vanlig växellåda med flera växlar, så det lagrade felet kan gälla transaxeln, dess koppling eller en annan funktion i drivenheten
+cur.P0700.adv	Oftast ja, om bilen kör normalt. Låt läsa av den andra styrenheten inom några veckor, eller inom några dagar om bilen rycker, låter eller tappar drivkraft.
+cur.P0AA6.sub	Övervakning av högspänningsisolering
+cur.P0AA6.sum	Högspänningssystemet är elektriskt isolerat från karossen, och en övervakare kontrollerar isoleringen hela tiden. Den har mätt för låg isolationsresistans: någonstans kan högspänning läcka mot karossen eller chassit.
+cur.P0AA6.c1	Fukt eller vatten i en högspänningskomponent eller -kontakt (till exempel efter kraftigt regn, tvätt av motorrummet eller körning genom djupt vatten)
+cur.P0AA6.c2	Skadad isolering på en orange högspänningskabel (skavskador, gnagarskador eller tidigare krockskada)
+cur.P0AA6.c3	Isolationsfel inne i en högspänningskomponent, till exempel den elektriska AC-kompressorn, elvärmaren, den inbyggda laddaren, en växelriktare, en elmotor eller drivbatteriet
+cur.P0AA6.c4	Fel i själva isolationsövervakningen (mindre vanligt)
+cur.P0AA6.k2	Lägg märke till när felet uppstår: bara i blött väder eller efter tvätt pekar mot fukt; bara vid laddning pekar mot laddkomponenterna; bara när värme eller luftkonditionering används kan peka mot de enheterna
+cur.P0AA6.k3	Titta, utan att röra, efter synliga skador på orange kablar under bilen och i motorrummet
+cur.P0AA6.k4	Högtryckstvätta inte motorrummet eller undersidan nära högspänningsdelar
+cur.P0AA6.k5	Låt en Mitsubishi-verkstad eller en verkstad med högspänningsbehörighet hitta felet; de isolerar komponenterna en i taget med en isolationstestare
+cur.batt.sub	Drivbatteri (högspännings traktionsbatteri)
+cur.P0A80.sum	Batteriövervakningssystemet har bedömt att drivbatteriet har försämrats bortom gränsen, till exempel genom förlorad kapacitet eller celler som har glidit för långt isär, och att det behöver repareras eller bytas.
+cur.P0A80.c1	Kapacitetsförlust på grund av ålder och användning (alla litiumjonbatterier förlorar kapacitet med tiden)
+cur.P0A80.c2	En eller flera svaga celler eller moduler som inte längre håller balansen med resten
+cur.P0A80.c3	Problem med batterikylningen som har påskyndat åldrandet
+cur.P0A80.c4	Mindre vanligt: ett fel i spännings- eller temperaturmätningen som får batteriet att se sämre ut än det är
+cur.P0A80.k2	Läs alla koder: koder för drivbatterigivare, kylning eller spänningsmätning lagrade samtidigt kan peka mot en orsak som går att reparera
+cur.P0A80.k3	Låt en Mitsubishi-verkstad köra en drivbatterikontroll (mätning av kapacitet/hälsa) med sitt diagnosverktyg
+cur.P0A80.k4	Fråga om garantin för drivbatteriet: drivbatterier har ofta längre garanti än resten av bilen (se garantihäftet)
+cur.P0A80.k5	Begär offerter både på modulreparation hos en högspänningsspecialist och på helt nytt batteri; ibland går det att byta enskilda moduler
+cur.P0A80.adv	Bilen går oftast fortfarande att köra, men räkna med minskad elräckvidd och effekt och att motorn går oftare. Låt kontrollera det inom några dagar. Om instrumentpanelen uppmanar dig att stanna, stanna på ett säkert ställe. Öppna aldrig drivbatteriet.
+cur.P0A7F.sum	Batteriövervakningssystemet har upptäckt att drivbatteriet har försämrats, till exempel förlorad kapacitet eller celler som glider isär. Bilen kan begränsa elräckvidd eller effekt.
+cur.P0A7F.c1	Normal kapacitetsförlust på grund av ålder och användning
+cur.P0A7F.c2	Celler eller moduler som hamnar i obalans
+cur.P0A7F.c3	Problem med batterikylningen som påskyndar åldrandet
+cur.P0A7F.c4	Fel i spännings- eller temperaturmätningen (leta efter andra drivbatterikoder)
+cur.P0A7F.k2	Läs alla koder: givar- eller kylkoder lagrade samtidigt kan peka mot en orsak som går att reparera
+cur.P0A7F.k3	Låt en Mitsubishi-verkstad köra en drivbatterikontroll för att mäta återstående kapacitet
+cur.P0A7F.k4	Fråga om garantin för drivbatteriet (se garantihäftet)
+cur.P0A7F.k5	Att ladda fullt ibland (i stället för att alltid avbryta halvvägs) hjälper systemet att bedöma batteriet rätt
+cur.P0A7F.adv	Ja, du kan köra som vanligt. Räkna med kortare elräckvidd än när bilen var ny. Låt kontrollera batteriet inom några veckor, och tidigare om fler varningar dyker upp.
+cur.P0A7D.sum	Drivbatteriets laddnivå har sjunkit under den minimireserv som hybridsystemet vill behålla.
+cur.P0A7D.c1	Bilen fick slut på bensin, så motorn kunde inte ladda drivbatteriet
+cur.P0A7D.c2	Bilen stod oanvänd länge med nästan tomt drivbatteri
+cur.P0A7D.c3	Motor- eller generatorproblem som hindrar självladdning (leta efter andra koder)
+cur.P0A7D.c4	Fel i drivbatteriet eller dess övervakning
+cur.P0A7D.k2	Tanka om tanken är nästan tom
+cur.P0A7D.k3	Sätt bilen på laddning, ladda den fullt och radera koden
+cur.P0A7D.k4	Leta efter motor- eller generatorkoder som skulle hindra bilen från att ladda sig själv
+cur.P0A7D.k5	Kommer den tillbaka med bränsle i tanken och efter full laddning, låt en återförsäljare kontrollera drivbatteriet
+cur.P0A7D.adv	Ladda bilen (eller tanka) så snart som möjligt. Med mycket lågt drivbatteri kan bilen begränsa effekten eller kanske inte kunna starta motorn. Låt inte bilen stå i veckor med tomt drivbatteri.
+cur.P0A7E.sum	Drivbatteriet har blivit varmare än den säkra gränsen. Bilen begränsar oftast effekt och laddning för att skydda det.
+cur.P0A7E.c1	Fel i drivbatteriets kylsystem
+cur.P0A7E.c2	Upprepad snabbladdning (CHAdeMO) i kombination med hård körning i varmt väder
+cur.P0A7E.c3	Defekt temperaturgivare som visar falskt högt värde (leta efter P0A9B–P0A9E)
+cur.P0A7E.c4	Internt batterifel (mindre vanligt)
+cur.P0A7E.k2	Låt bilen stå avstängd i skuggan tills batteriet har svalnat
+cur.P0A7E.k3	Kontrollera att luftkonditioneringen fungerar som den ska; på många laddhybrider hjälper den även till att kyla drivbatteriet
+cur.P0A7E.k4	Undvik snabbladdning flera gånger i rad i varmt väder
+cur.P0A7E.k5	Händer det under normala förhållanden, låt en återförsäljare kontrollera batterikylningen och temperaturgivarna
+cur.P0A7E.adv	Effekt och laddning kan begränsas. Låt bilen svalna innan du kör vidare, kör lugnt och låt kontrollera det inom några dagar. Om ett meddelande uppmanar dig att stanna bilen, stanna på ett säkert ställe.
+cur.P0A9C.sub	Temperaturgivare A i drivbatteriet
+cur.P0A9C.sum	Flera temperaturgivare inne i drivbatteriet gör att batteriövervakningssystemet kan skydda det. Givare A ger värden som inte stämmer med de andra givarna eller med hur temperaturen borde ändras.
+cur.P0A9C.c1	Defekt temperaturgivare inne i batteripaketet
+cur.P0A9C.c2	Kabel- eller kontaktproblem inne i paketet eller vid batteriövervakningsenheten
+cur.P0A9C.c3	En verklig ojämn temperatur i paketet orsakad av ett kylproblem
+cur.P0A9C.c4	Fel i batteriets styrenhet
+cur.P0A9C.k2	Läs alla koder, även andra koder för drivbatteriets temperatur och kylning
+cur.P0A9C.k3	Låt en återförsäljare jämföra alla batteritemperaturer i realtidsdata; efter att bilen stått över natten bör de vara nästan lika
+cur.P0A9C.k4	Reparation kräver att drivbatteriet öppnas och måste utföras av en tekniker med högspänningsbehörighet
+cur.P0AFA.sum	Drivbatteriets totala spänning är lägre än hybridsystemet tillåter.
+cur.P0AFA.c1	Drivbatteriet är djupurladdat (har stått länge eller fått slut på bränsle)
+cur.P0AFA.c2	Svaga celler eller moduler vars spänning sjunker under belastning
+cur.P0AFA.c3	Fel i spänningsmätkretsen
+cur.P0AFA.c4	Problem med högspänningsanslutningen (huvudrelä eller kontakt)
+cur.P0AFA.k2	Sätt bilen på laddning och ladda fullt, radera sedan koden och se om den kommer tillbaka
+cur.P0AFA.k3	Lägg märke till om den bara kommer vid kraftig acceleration eller i mycket kallt väder (pekar mot svaga celler)
+cur.P0AFA.k4	Låt en återförsäljare köra en drivbatterikontroll
+cur.P0AFB.sum	Drivbatteriets totala spänning är högre än hybridsystemet tillåter.
+cur.P0AFB.c1	Fel i spänningsmätkretsen eller batteriövervakningsenheten
+cur.P0AFB.c2	Fel i laddstyrningen (inbyggd laddare eller styrning av regenerativ bromsning)
+cur.P0AFB.c3	Celler i obalans så att en del av paketet visar hög spänning
+cur.P0AFB.k2	Lägg märke till om den kommer vid laddning, vid lång regenerering i nedförsbacke eller direkt efter full laddning
+cur.P0AFB.k3	Kommer den vid laddning, avbryt laddningen och låt kontrollera det
+cur.P0AFB.k4	Låt en återförsäljare kontrollera drivbatteriet och laddsystemet
+cur.P0A94.sub	DC/DC-omvandlare (laddar 12 V-batteriet)
+cur.P0A94.sum	DC/DC-omvandlaren omvandlar drivbatteriets spänning till cirka 12–14 V för att försörja bilens elektronik och ladda 12 V-batteriet; Outlander PHEV har ingen vanlig generator. Omvandlaren levererar inte förväntad effekt, så 12 V-batteriet kan sakta laddas ur.
+cur.P0A94.c1	Internt fel i DC/DC-omvandlaren
+cur.P0A94.c2	Dålig förbindelse, korrosion eller trasig huvudsäkring mellan omvandlaren och 12 V-batteriet
+cur.P0A94.c3	Sviktande 12 V-batteri som drar onormalt mycket ström
+cur.P0A94.c4	Möjlig överhettning på grund av fel i kraftelektronikens kylning
+cur.P0A94.k2	Mät 12 V-batteriets spänning med bilen avstängd och sedan i READY: i READY bör den stiga till cirka 13–14,5 V. Ligger den kvar på eller under vilospänningen laddar inte omvandlaren
+cur.P0A94.k3	Kontrollera 12 V-batteriets poler och jordflätan till karossen efter korrosion och att de sitter fast
+cur.P0A94.k4	Testa 12 V-batteriet och byt det om det är svagt
+cur.P0A94.k5	Med allt kallt: kontrollera kylvätskenivån i kraftelektronikens kylkrets (se instruktionsboken)
+cur.P0A94.k6	Låt en återförsäljare testa DC/DC-omvandlaren
+cur.P0A94.adv	Begränsa körningen och låt kontrollera det inom några dagar. Om omvandlaren inte laddar töms 12 V-batteriet medan du kör, och bilen kan stängas av utan större förvarning. Stäng av onödiga strömförbrukare (sätesvärme, bakrutevärme, hög fläkthastighet).
+cur.pec.sub	Kylkrets för kraftelektronik
+cur.pec.adv	Effekten kan begränsas för att skydda elektroniken. Kör lugnt och låt kontrollera det inom några dagar; undvik körning med hög belastning i varmt väder, branta backar och släpvagn. Stanna om en temperaturvarning eller ett meddelande om att stanna visas.
+cur.P0A93.sum	Växelriktarna och annan kraftelektronik kyls av en kylkrets med elektrisk pump. Styrenheten har konstaterat att kretsen inte kyler så bra som väntat.
+cur.P0A93.c1	Låg kylvätskenivå i kraftelektronikens krets (läcka)
+cur.P0A93.c2	Svag eller defekt elektrisk kylvätskepump
+cur.P0A93.c3	Luft i kretsen efter en reparation
+cur.P0A93.c4	Kylare igensatt av smuts eller löv, eller ett problem med kylfläkten
+cur.P0A93.c5	Defekt kylvätsketemperaturgivare
+cur.P0A93.k3	Leta efter kylvätskeläckor (pölar eller intorkade rester) under bilens front
+cur.P0A93.k4	Ta bort löv och smuts framför kylarna
+cur.P0A93.k5	Om nivån är rätt, låt en verkstad lufta kretsen och testa pumpen
+cur.P0A05.sum	Den elektriska pump som cirkulerar kylvätska genom kraftelektroniken har ett elektriskt fel i sin styrkrets, så den kanske inte går. Utan den kan växelriktarna och elmotorerna överhettas.
+cur.P0A05.c1	Trasig säkring eller defekt relä för den elektriska pumpen
+cur.P0A05.c2	Urkopplad, lös eller korroderad kontakt vid pumpen
+cur.P0A05.c3	Kabelbrott i pumpkretsen
+cur.P0A05.c4	Defekt elektrisk pump
+cur.P0A05.k2	Kontrollera säkringen och reläet för den elektriska vattenpumpen (instruktionsboken eller säkringsschemat i servicehandboken)
+cur.P0A05.k3	Undersök pumpkontakten, som ofta sitter lågt i motorrummet och är utsatt för vägstänk
+cur.P0A05.k5	En verkstad kan testa pumpen med ett ställdonstest
+cur.P0A7C.sum	Kraftelektroniken (växelriktare och elmotorernas styrenheter) har blivit varmare än den säkra gränsen, och bilen begränsar effekten för att skydda den.
+cur.P0A7C.c1	Låg kylvätskenivå eller läcka i kraftelektronikens kylkrets
+cur.P0A7C.c2	Den elektriska kylvätskepumpen går inte (leta efter P0A05)
+cur.P0A7C.c3	Igensatt kylare eller kylfläkt som inte fungerar
+cur.P0A7C.c4	Långvarig hög belastning i varmt väder (släpvagn, långa branta backar)
+cur.P0A7C.c5	Defekt temperaturgivare (mindre vanligt)
+cur.P0A7C.k2	Stanna och låt bilen svalna
+cur.P0A7C.k4	Kontrollera kylarna efter igensättning och att kylfläkten går
+cur.P0A7C.k5	Låt en verkstad kontrollera pumpen och kylkretsen
+cur.P0A78.sub	Växelriktare för drivmotor A
+cur.P0A78.sum	Växelriktaren för drivmotor A omvandlar ström från drivbatteriet till den växelström som driver motorn. Den fungerar inte som styrenheten förväntar sig, till exempel ligger ström eller spänning utanför tillåtet område.
+cur.P0A78.c1	Internt fel i växelriktaren
+cur.P0A78.c2	Överhettning på grund av ett kylproblem (leta efter kylkoder)
+cur.P0A78.c3	Problem med motorn eller högspänningskablarna mellan växelriktare och motor
+cur.P0A78.c4	Låg 12 V-matning till växelriktarens styrelektronik
+cur.P0A78.k3	Läs alla koder: koder för kylning, motorlägesgivare eller isolering kan peka mot orsaken
+cur.P0A78.k5	Låt en Mitsubishi-återförsäljare felsöka växelriktaren; det kräver högspänningsutbildning och specialverktyg
+cur.P0A3F.sub	Lägesgivare för drivmotor A (resolver)
+cur.P0A3F.sum	En lägesgivare (resolver) inne i drivmotor A talar om för elmotorns styrenhet rotorns exakta läge, vilket den behöver för att driva motorn. Givarsignalen saknas eller är elektriskt felaktig.
+cur.P0A3F.c1	Lös, blöt eller korroderad kontakt på resolverkablaget mellan motorn och styrenheten
+cur.P0A3F.c2	Skadat resolverkablage
+cur.P0A3F.c3	Defekt resolver inne i motorn (innebär oftast att motorn måste demonteras)
+cur.P0A3F.c4	Fel i elmotorns styrenhet
+cur.P0A3F.k2	Lägg märke till om felet kom vid start, under körning eller över gupp (gupp tyder på ett kabelproblem)
+cur.P0A3F.k3	Låt en verkstad undersöka resolverkontakten och mäta resolverlindningarna; resolverkretsen har själv låg spänning men sitter bredvid högspänningsdelar
+cur.P0A3F.adv	Bilen kan förlora drivkraft från denna motor, köra med minskad effekt eller vägra gå i READY. Om den går att köra, kör direkt till en verkstad och undvik långa resor. Om ett meddelande uppmanar dig att stanna, stanna på ett säkert ställe.
+cur.hvil.sub	Högspänningsspärr (säkerhetsslinga)
+cur.hvil.intro	Högspänningsspärren (interlock) är en lågspänd signalslinga som går genom högspänningskontakterna och -kåporna.
+cur.hvil.k2	Tänk efter: har någon högspänningsdel (batteri, växelriktare, laddare, AC-kompressor, värmare) åtgärdats nyligen? Åk i så fall tillbaka till den verkstaden först
+cur.hvil.k3	Låt en tekniker med högspänningsutbildning kontrollera varje kontakt i spärrslingan
+cur.hvil.k4	Radera koden och kontrollera om bilen går i READY som vanligt
+cur.P0A0A.sum	{@cur.hvil.intro} Styrenheten har hittat ett fel i denna slinga, så den kan anta att en kontakt eller kåpa är öppen och stänga av högspänningen av säkerhetsskäl.
+cur.P0A0D.sum	{@cur.hvil.intro} Spänningen i slingan är för hög, vilket ofta betyder att slingan är bruten någonstans, så systemet kan stänga av högspänningen av säkerhetsskäl.
+cur.P0A95.sub	Högspänningssäkring
+cur.P0A95.sum	En säkring i högspänningssystemet rapporteras som trasig eller bruten. Beroende på vad den skyddar kan funktioner som elvärme, luftkonditionering, laddning eller drift sluta fungera.
+cur.P0A95.c1	Kortslutning eller överbelastning i en högspänningskomponent efter säkringen (till exempel elvärmaren eller AC-kompressorn)
+cur.P0A95.c2	Säkring som åldrats eller gått av sig själv (mindre vanligt)
+cur.P0A95.c3	Fel i säkringens övervakningskrets
+cur.P0A95.k2	Lägg märke till vilka funktioner som slutade fungera (värme, luftkonditionering, laddning); det hjälper verkstaden att hitta kretsen
+cur.P0A95.k3	Låt en tekniker med högspänningsbehörighet hitta orsaken innan säkringen byts; en ny säkring går igen om felet finns kvar
+cur.mod.ecm	motorstyrenheten (ECM)
+cur.mod.tcm	växellådans styrenhet (TCM)
+cur.mod.mcu	drivmotorns styrenhet
+cur.mod.bmu	drivbatteriets övervakningsenhet (BMU)
+cur.mod.abs	ABS-styrenheten
+cur.mod.eps	servostyrningens styrenhet
+cur.mod.bcm	karosstyrenheten (BCM)
+cur.mod.srs	krockkuddarnas styrenhet (SRS)
+cur.mod.ipc	instrumentpanelen
+cur.mod.hvac	klimatanläggningens styrenhet (HVAC)
+cur.mod.hpcu	hybridstyrenheten
+cur.lost.sub	Förlorad kommunikation med {module}
+cur.lost.sum	Styrenheterna delar information via bilens datanätverk (CAN-buss), och meddelandena från {module} har slutat komma fram. {effect}
+cur.lost.c2	Ingen ström till {module}: trasig säkring, defekt relä eller dålig jordanslutning
+cur.lost.c3	Lös, blöt eller korroderad kontakt vid {module} eller på nätverkskablaget
+cur.lost.c5	Fel i själva {module} (mindre vanligt; uteslut strömförsörjning och kablage först)
+cur.lost.k3	Kontrollera säkringarna för {module}; instruktionsboken har säkringsschemat
+cur.lost.k4	Leta efter vatteninträngning eller korrosion runt {module} och kontakterna
+cur.lostx.k3	{extra}
+cur.U0100.effect	Motorn kanske inte startar eller går, och bilen kan köra enbart på el med en varning i displayen.
+cur.U0100.extra	Om motorn inte startar, kontrollera motorstyrenhetens säkringar och huvudrelä först
+cur.U0100.adv	Bilen kan fortfarande köra på el, men motorn är kanske inte tillgänglig. Låt kontrollera det inom några dagar och undvik långa resor. Om ett meddelande uppmanar dig att stanna, stanna på ett säkert ställe.
+cur.U0101.effect	Outlander PHEV har ingen vanlig automatlåda; vilken enhet som svarar som ”TCM” beror på bilens programvara, så låt ett Mitsubishi-kompatibelt verktyg bekräfta vilken enhet som berörs.
+cur.U0110.effect	Denna enhet driver en elektrisk drivmotor via sin växelriktare, så drivkraften kan minska eller bilen kan vägra gå i READY.
+cur.U0111.effect	Denna enhet övervakar drivbatteriet, så bilen kan begränsa effekt och laddning eller vägra gå i READY.
+cur.U0121.effect	ABS, antispinn och stabilitetskontroll kan vara urkopplade; vanlig bromsning fungerar fortfarande.
+cur.U0121.adv	Vanlig bromsning fungerar fortfarande, men ABS och stabilitetskontroll kan vara urkopplade, så hjulen kan låsa sig vid hård inbromsning. Kör försiktigt, särskilt på blöt, isig eller snöig väg, och låt kontrollera det inom några dagar.
+cur.U0131.effect	Styrservot kan minska eller försvinna, så att ratten blir tung.
+cur.U0131.adv	Om ratten är tung, kör långsamt och försiktigt till en verkstad eller ordna bärgning; tung styrning kräver mycket mer kraft i en nödsituation. Känns styrningen normal, låt kontrollera det inom några dagar.
+cur.U0140.effect	Belysning, lås, torkare eller andra karossfunktioner kan bete sig konstigt eller sluta fungera.
+cur.U0151.effect	Varningslampan för krockkuddar lyser oftast, och krockkuddarna och bältessträckarna kanske inte löser ut vid en krock.
+cur.U0151.adv	Bilen kör normalt, men krockkuddarna kanske inte skyddar dig vid en krock. Låt reparera det så snart som möjligt (inom några dagar).
+cur.U0155.effect	Mätare, varningslampor eller meddelanden kanske inte visas korrekt så länge felet finns.
+cur.U0155.adv	Oftast ja, men varningslampor och meddelanden kanske inte visas medan instrumentpanelen är frånkopplad, så du kan missa andra varningar. Låt kontrollera det inom några dagar.
+cur.U0164.effect	Värme, luftkonditionering eller avimning av vindrutan kanske inte fungerar som de ska.
+cur.U0293.effect	Denna enhet samordnar motorn, elmotorerna och drivbatteriet, så bilen kan vägra gå i READY eller köra med minskad effekt och en varning om EV-systemet.
+cur.bus.k5	En verkstad kan mäta nätverkskablaget och ändmotstånden (en frisk CAN-buss mäter normalt cirka 60 ohm mellan CAN-High och CAN-Low med bilen avstängd) och koppla bort styrenheter en i taget
+cur.U0001.sub	Datanätverk (höghastighets-CAN-buss)
+cur.U0001.sum	Styrenheterna delar information via ett höghastighetsdatanätverk (CAN-buss). En styrenhet har upptäckt ett fel i själva nätverket snarare än med en viss styrenhet.
+cur.U0073.sub	Datanätverk (CAN-buss A)
+cur.U0073.sum	En styrenhet har upptäckt så många fel på nätverk A att den har kopplat bort sig själv från nätverket (”bus off”). Meddelanden till och från den enheten går förlorade medan detta pågår.
+cur.U3003.sub	12 V-matningsspänning till en styrenhet
+cur.U3003.sum	En styrenhet har mätt sin 12 V-matning utanför normalt arbetsområde, oftast för låg.
+cur.U3003.c2	DC/DC-omvandlaren laddar inte som den ska (leta efter P0A94 eller andra DC/DC-koder)
+cur.U3003.c3	Lös eller korroderad batteripol eller jordanslutning
+cur.U3003.c4	Spänningsfall vid starthjälp, medan en laddare var ansluten eller medan 12 V-batteriet var urladdat
+cur.wheel.sub	Hjulhastighetsgivare, {wheel}
+cur.wheel.sum	Varje hjul har en hastighetsgivare som används av ABS, antispinn och stabilitetskontroll, och av andra system som behöver fordonets hastighet. Signalen från givaren vid {wheel} saknas, är orimlig eller elektriskt felaktig.
+cur.wheel.c1	Skadad eller korroderad givarkontakt eller kabel nära hjulet (utsatt för vatten, salt och sten)
+cur.wheel.c2	Smuts, rost eller metallspån på givarspetsen eller den magnetiska pulsringen
+cur.wheel.c3	Defekt hjulhastighetsgivare
+cur.wheel.c4	Glapp i hjullagret eller skadad pulsring (pulsringen är ofta en del av hjullagret)
+cur.wheel.c5	Givaren sitter inte rätt efter arbete på bromsar eller hjulupphängning
+cur.wheel.k1	Undersök kabeln från givaren längs hjulupphängningen till karossen efter skador, särskilt efter vintern
+cur.wheel.k2	Koppla loss kontakten och leta efter korrosion
+cur.wheel.k3	Om ditt verktyg kan läsa ABS-enheten (vanliga OBD-läsare kan oftast inte det), jämför de fyra hjulhastigheterna medan du kör långsamt rakt fram
+cur.wheel.k4	Kontrollera hjullagret efter glapp eller missljud
+cur.wheel.k5	Rengör givarspetsen och fästet, eller byt givaren
+cur.wheel.adv	Vanlig bromsning fungerar fortfarande, men ABS, antispinn och stabilitetskontroll är troligen urkopplade, så hjulen kan låsa sig vid hård inbromsning. Kör försiktigt, särskilt på blöt, isig eller snöig väg, och låt kontrollera det inom några dagar.
+cur.C0077.sub	Däcktrycksövervakning (TPMS)
+cur.C0077.sum	Däcktrycksövervakningen har upptäckt att ett eller flera däck ligger under varningsgränsen.
+cur.C0077.c1	Ett däck har tappat tryck (punktering, läckande ventil eller fälg)
+cur.C0077.c2	Naturligt tryckfall i kallt väder (ungefär 0,1 bar per 10 °C)
+cur.C0077.c3	Lufttrycket justerades inte efter säsongsbyte av däck
+cur.C0077.c4	Defekt däcktrycksgivare eller urladdat givarbatteri (ger oftast ett eget TPMS-fel)
+cur.C0077.k1	Kontrollera alla fyra däcken med tryckmätare när de är kalla och ställ in trycken enligt dekalen i dörrstolpen
+cur.C0077.k2	Leta efter spikar, skärskador eller bulor och lyssna efter väsande
+cur.C0077.k3	Kör en stund efter justeringen; varningen ska slockna. Vissa system behöver nollställning eller inlärning efter däckbyte, se instruktionsboken
+cur.C0077.k4	Tappar ett däck tryck gång på gång, låt en däckverkstad reparera det
+cur.C0077.adv	Kontrollera däcktrycken vid första säkra tillfälle. Om ett däck är synbart platt, bilen drar åt ena sidan eller du hör fladdrande ljud, stanna och byt hjul eller ring efter hjälp. Att köra på ett däck med mycket lågt tryck kan förstöra det.
+cur.airbag.sub	Krockkuddar (SRS): {which}
+cur.airbag.sum	Krockkuddarnas styrenhet kontrollerar hela tiden varje krockkuddes utlösningskrets. Den har hittat ett fel i utlösningskretsen (steg 1) för {which}, så denna krockkudde kanske inte löser ut vid en krock. Varningslampan för krockkuddar lyser normalt.
+cur.airbag.c1	{extra}
+cur.airbag.c2	Lös eller korroderad krockkuddekontakt
+cur.airbag.c3	Defekt krockkuddemodul
+cur.airbag.c4	Fel i krockkuddarnas styrenhet (mindre vanligt)
+cur.airbag.k2	Tänk efter: har det nyligen gjorts arbete på ratt, instrumentbräda, säte eller radioområdet?
+cur.airbag.k3	Låt en verkstad läsa av krockkuddeenheten med lämpligt verktyg och kontrollera kontakter och kablage
+cur.airbag.k4	Efter reparationen: se till att varningslampan för krockkuddar slocknar några sekunder efter att bilen slagits på
+cur.airbag.adv	Bilen kör normalt, men krockkudden kanske inte skyddar dig vid en krock. Låt reparera det så snart som möjligt (inom några dagar).
+cur.B0001.extra	Sliten kontaktrulle (spiralkabeln i ratten som ansluter krockkudden medan ratten vrids), en vanlig orsak
+cur.B0010.extra	Skadat kablage eller kontakt bakom instrumentbrädan (till exempel efter arbete på instrumentbräda eller radio)

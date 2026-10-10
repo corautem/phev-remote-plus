@@ -1,5 +1,9 @@
 package io.github.anwo91.phevlink.link
 
+import android.content.Context
+import androidx.annotation.StringRes
+import io.github.anwo91.phevlink.PhevApp
+import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.diag.DiagLog
 import io.github.anwo91.phevlink.core.json.Codecs
 import io.github.anwo91.phevlink.core.json.Json
@@ -10,6 +14,7 @@ import io.github.anwo91.phevlink.core.model.CarCommand
 import io.github.anwo91.phevlink.core.model.CarState
 import io.github.anwo91.phevlink.core.model.CommandResult
 import io.github.anwo91.phevlink.core.session.LinkStatus
+import io.github.anwo91.phevlink.util.AppLocale
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -29,11 +34,13 @@ import java.net.URLEncoder
 /**
  * Talks to the PHEV Link bridge (a small always-on computer near the car).
  * Live state arrives over server-sent events; commands are plain POSTs.
+ * Error texts are in the app language ([context] is only used for that).
  */
 class BridgeClient(
     private val baseUrl: String,
     private val token: String,
     private val log: DiagLog,
+    private val context: Context = PhevApp.instance,
 ) {
     data class Snapshot(val link: LinkStatus, val car: CarState, val bridgeNowMs: Long?)
 
@@ -49,21 +56,26 @@ class BridgeClient(
 
     private fun url(path: String) = baseUrl.trimEnd('/') + "/api/" + path
 
+    private fun errorText(@StringRes id: Int, vararg args: Any): String {
+        val res = AppLocale.localized(context)
+        return if (args.isEmpty()) res.getString(id) else res.getString(id, *args)
+    }
+
     suspend fun fetchStatus(timeoutMs: Int = 4_000): Snapshot? = withContext(Dispatchers.IO) {
         try {
             val c = open("status", "GET", timeoutMs)
             val code = c.responseCode
             if (code == 401) {
-                fail("Bridge rejected the token"); return@withContext null
+                fail(errorText(R.string.bridge_err_token)); return@withContext null
             }
             if (code != 200) {
-                fail("Bridge answered HTTP $code"); return@withContext null
+                fail(errorText(R.string.bridge_err_http, code)); return@withContext null
             }
             val text = c.inputStream.bufferedReader().use { it.readText() }
             c.disconnect()
             parse(text).also { _snapshot.value = it; _reachable.value = true; _error.value = null }
         } catch (e: Exception) {
-            fail("Bridge not reachable: ${e.message ?: e.javaClass.simpleName}")
+            fail(errorText(R.string.bridge_err_unreachable, e.message ?: e.javaClass.simpleName))
             null
         }
     }
@@ -81,11 +93,11 @@ class BridgeClient(
             if (code in 200..299 && m["ok"] == true) {
                 CommandResult.Success(cmd, m.long("tookMs") ?: 0)
             } else {
-                CommandResult.Failure(cmd, m.str("error") ?: "Bridge answered HTTP $code")
+                CommandResult.Failure(cmd, m.str("error") ?: errorText(R.string.bridge_err_http, code))
             }
         } catch (e: Exception) {
             _reachable.value = false
-            CommandResult.Failure(cmd, "Bridge not reachable: ${e.message ?: e.javaClass.simpleName}", retryable = true)
+            CommandResult.Failure(cmd, errorText(R.string.bridge_err_unreachable, e.message ?: e.javaClass.simpleName), retryable = true)
         }
     }
 
@@ -132,7 +144,7 @@ class BridgeClient(
                     c.disconnect()
                 } catch (e: Exception) {
                     if (!isActive) break
-                    fail("Bridge events: ${e.message ?: e.javaClass.simpleName}")
+                    fail(errorText(R.string.bridge_err_events, e.message ?: e.javaClass.simpleName))
                 }
                 delay(backoff)
                 backoff = (backoff * 2).coerceAtMost(30_000)

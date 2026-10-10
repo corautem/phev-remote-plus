@@ -15,6 +15,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import io.github.anwo91.phevlink.R
+import io.github.anwo91.phevlink.util.AppLocale
 import java.util.concurrent.Executor
 import java.util.regex.Pattern
 
@@ -31,7 +33,7 @@ class CarPairing(
     fun start(ssid: String, onError: (String) -> Unit) {
         val cdm = context.getSystemService(CompanionDeviceManager::class.java)
         if (cdm == null) {
-            onError("This phone does not support companion pairing"); return
+            onError(AppLocale.localized(context).getString(R.string.pair_unsupported)); return
         }
         val pattern = if (ssid.isNotBlank()) Pattern.compile(Pattern.quote(ssid)) else Pattern.compile("REMOTE.*")
         val filter = WifiDeviceFilter.Builder().setNamePattern(pattern).build()
@@ -41,14 +43,14 @@ class CarPairing(
             cdm.associate(request, exec, object : CompanionDeviceManager.Callback() {
                 override fun onAssociationPending(intentSender: IntentSender) = launch(intentSender)
                 override fun onAssociationCreated(associationInfo: AssociationInfo) {}
-                override fun onFailure(error: CharSequence?) = onError(error?.toString() ?: "Pairing failed")
+                override fun onFailure(error: CharSequence?) = onError(error?.toString() ?: AppLocale.localized(context).getString(R.string.pair_failed))
             })
         } else {
             @Suppress("DEPRECATION")
             cdm.associate(request, object : CompanionDeviceManager.Callback() {
                 @Deprecated("Deprecated in Java")
                 override fun onDeviceFound(chooserLauncher: IntentSender) = launch(chooserLauncher)
-                override fun onFailure(error: CharSequence?) = onError(error?.toString() ?: "Pairing failed")
+                override fun onFailure(error: CharSequence?) = onError(error?.toString() ?: AppLocale.localized(context).getString(R.string.pair_failed))
             }, null)
         }
     }

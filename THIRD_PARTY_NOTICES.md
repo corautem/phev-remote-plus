@@ -61,3 +61,25 @@ for the Mitsubishi Outlander.
 - Test data: the emulator `core/src/main/kotlin/io/github/anwo91/phevlink/core/obd/emulator/FakeElm.kt` and
   `core/src/test/kotlin/io/github/anwo91/phevlink/core/ObdDecodeTest.kt` reuse a few response/expected-value
   pairs from the same repository (`tests/test_cases/2011/commands/`).
+
+## Diagnostic trouble code translations
+
+The fault-code explanations are available in English, Norwegian bokmål, Swedish, Danish and German.
+The explanation texts (now in `strings_<lang>.txt` next to `codes.tsv`), the component names
+(`components_<lang>.tsv`) and the Norwegian, Swedish and Danish code titles (`codes_nb.tsv`,
+`codes_sv.tsv`, `codes_da.tsv`) were written or generated for this project from an original glossary.
+They are covered by this project's GPL-3.0-or-later license, and the guidance and safety notes under
+"Original explanations" above apply to every language.
+
+### AndrOBD (German titles)
+
+- Project: https://github.com/fr3ts0n/AndrOBD
+- File used: `library/src/main/java/com/fr3ts0n/ecu/prot/obd/res/codes_de.properties`
+  (commit `c4608dddd3bedc78256be6f4507a0b562a87b478`, version V3.0.2)
+- Copyright: the AndrOBD authors and translators (fr3ts0n and contributors)
+- License: GNU General Public License v3.0 (GPL-3.0)
+- Used as the main source for the German titles in `codes_de.tsv`, for the same codes as `codes.tsv`.
+  Spacing and old spellings were normalised and a few obvious errors were fixed. 3285 titles come from
+  this file. The other 215 (titles that did not match the English one, for example a different bank,
+  sensor letter, side or component, plus some hand-reviewed titles) are translations from this project's
+  glossary.

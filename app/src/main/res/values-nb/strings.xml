@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Norsk bokmål. Same names as values/strings.xml. -->
+<resources>
+    <string name="app_name">PHEV Link</string>
+    <string name="app_language_code">nb</string>
+
+    <!-- Launcher shortcuts, widget, quick-settings tile -->
+    <string name="widget_description">Batteri, lading og forvarming med ett trykk</string>
+    <string name="sc_preheat_short">Forvarm</string>
+    <string name="sc_preheat_long">Start klima (smart)</string>
+    <string name="sc_stop_short">Stopp klima</string>
+    <string name="sc_flash_short">Blink lys</string>
+    <string name="sc_flash_long">Finn bilen: blink med lysene</string>
+    <string name="sc_refresh_short">Oppdater</string>
+    <string name="tile_label">Forvarming</string>
+    <string name="tile_running">I gang</string>
+    <string name="climate_on_status">Klima på</string>
+    <string name="climate_off_status">Klima av</string>
+    <string name="widget_live">Tilkoblet · %1$s</string>
+    <string name="widget_updated">oppdatert %1$s</string>
+    <string name="widget_no_data">ingen data ennå</string>
+    <string name="widget_charging_left">Lader · %1$s igjen</string>
+
+    <!-- Common -->
+    <string name="common_save">Lagre</string>
+    <string name="common_cancel">Avbryt</string>
+    <string name="common_test">Test</string>
+    <string name="common_back">Tilbake</string>
+    <string name="common_next">Neste</string>
+    <string name="common_stop">Stopp</string>
+    <string name="common_refresh">Oppdater</string>
+    <string name="common_on">På</string>
+    <string name="common_off">Av</string>
+    <string name="common_delete">Slett</string>
+
+    <!-- Bottom tabs (keep short) -->
+    <string name="tab_car">Bil</string>
+    <string name="tab_schedule">Avreiser</string>
+    <string name="tab_diagnostics">Diagnose</string>
+    <string name="tab_settings">Innstillinger</string>
+
+    <!-- Times and durations -->
+    <string name="ago_just_now">akkurat nå</string>
+    <plurals name="ago_minutes">
+        <item quantity="one">for %1$d min siden</item>
+        <item quantity="other">for %1$d min siden</item>
+    </plurals>
+    <plurals name="ago_hours">
+        <item quantity="one">for %1$d t siden</item>
+        <item quantity="other">for %1$d t siden</item>
+    </plurals>
+    <string name="ago_yesterday">i går</string>
+    <plurals name="ago_days">
+        <item quantity="one">for %1$d dag siden</item>
+        <item quantity="other">for %1$d dager siden</item>
+    </plurals>
+    <string name="dur_min">%1$d min</string>
+    <string name="dur_h">%1$d t</string>
+    <string name="dur_h_min">%1$d t %2$d min</string>
+    <string name="unit_min">min</string>
+
+    <!-- Climate modes -->
+    <string name="mode_cool">Kjøling</string>
+    <string name="mode_heat">Varme</string>
+    <string name="mode_defrost">Avising</string>
+    <string name="mode_cool_inline">kjøling</string>
+    <string name="mode_heat_inline">varme</string>
+    <string name="mode_defrost_inline">avising</string>
+
+    <!-- Command names -->
+    <string name="cmd_climate_on">%1$s i %2$d min</string>
+    <string name="cmd_climate_on_delayed">%1$s i %2$d min om %3$d min</string>
+    <string name="cmd_climate_off">Klima av</string>
+    <string name="cmd_headlights_on">Frontlys på</string>
+    <string name="cmd_headlights_off">Frontlys av</string>
+    <string name="cmd_parking_on">Parklys på</string>
+    <string name="cmd_parking_off">Parklys av</string>
+    <string name="cmd_locate">Blink med lysene</string>
+    <string name="cmd_register">Registrer telefon</string>
+    <string name="cmd_unregister">Avregistrer telefon</string>
+    <string name="cmd_ack_climate">Nullstill klimavarsel</string>
+    <string name="cmd_charge_now">Lad nå</string>
+    <string name="cmd_sync_clock">Still bilens klokke</string>
+
+    <!-- Messages -->
+    <string name="msg_cmd_done">%1$s – ferdig</string>
+    <string name="msg_cmd_failed">%1$s mislyktes: %2$s</string>
+    <string name="msg_refreshed">Oppdatert</string>
+    <string name="msg_reconnecting">Kobler til på nytt…</string>
+    <string name="msg_connected_battery">Tilkoblet! Batteri %1$s%%</string>
+    <string name="msg_climate_started">%1$s startet – klar om %2$d min</string>
+    <string name="msg_climate_warning_cleared">Klimavarsel fjernet</string>
+    <string name="msg_headlights_flashed">Lysene blinket</string>
+    <string name="msg_charge_requested">Ba bilen starte ladingen</string>
+    <string name="msg_phone_registered">Telefonen er registrert</string>
+    <string name="msg_phone_unregistered">Telefonen er avregistrert</string>
+    <string name="msg_bridge_ok">Broen OK – bildata %1$s</string>
+    <string name="msg_bridge_no_car_data">ikke tilgjengelig ennå</string>
+    <string name="msg_bridge_unreachable">Får ikke kontakt med broen – se Diagnose</string>
+    <string name="msg_location_saved">Posisjon lagret</string>
+    <string name="msg_location_none">Ingen posisjon tilgjengelig ennå – åpne en kartapp én gang og prøv igjen</string>
+    <string name="msg_location_denied">Posisjonstillatelse avslått – skriv inn koordinatene selv</string>
+    <string name="msg_location_invalid">Skriv inn gyldig breddegrad og lengdegrad</string>
+    <string name="msg_saved">Lagret</string>
+    <string name="msg_paired">Sammenkoblet med bilens Wi-Fi (%1$s)</string>
+    <string name="msg_pairing_cancelled">Sammenkobling avbrutt</string>
+    <string name="msg_log_cleared">Loggen er tømt</string>
+    <string name="msg_car_clock_set">Bilens klokke er stilt</string>
+    <string name="msg_raw_invalid">Skriv inn et register (00–ff) og 1–64 byte hex-data</string>
+
+    <!-- Shortcut / widget / tile actions -->
+    <string name="action_starting_climate">Starter klimaanlegget…</string>
+    <string name="action_stopping_climate">Stopper klimaanlegget…</string>
+    <string name="action_flashing">Blinker med lysene…</string>
+    <string name="action_refreshing">Oppdaterer…</string>
+    <string name="action_set_up_first">Åpne PHEV Link og sett opp bilen først</string>
+
+    <!-- Car tab -->
+    <string name="home_updated">Oppdatert %1$s</string>
+    <string name="home_no_data">Ingen data fra bilen ennå</string>
+    <string name="home_electric_range">elektrisk rekkevidde</string>
+    <string name="home_charging">Lader</string>
+    <string name="home_full_at">Fullt ≈ %1$s (%2$s)</string>
+    <string name="home_plugged_in">Kabel tilkoblet</string>
+    <string name="home_not_charging">Lader ikke (timer eller fullt)</string>
+    <string name="home_unplugged">Kabel frakoblet</string>
+    <plurals name="home_phones_registered">
+        <item quantity="one">%1$d telefon registrert</item>
+        <item quantity="other">%1$d telefoner registrert</item>
+    </plurals>
+    <string name="climate_title">Klima</string>
+    <string name="climate_running_pill">%1$s · %2$s min</string>
+    <string name="climate_stopped_by_car">Stoppet av bilen</string>
+    <string name="climate_running_until">I gang – kupeen er klar ca. kl. %1$s.</string>
+    <string name="climate_running">I gang.</string>
+    <string name="climate_cancelled_explain">Bilen slo av klimatiseringen – som regel fordi en dør ble åpnet eller batteriet er for lavt. Fjern varselet før du starter igjen.</string>
+    <string name="climate_clear_warning">Fjern varsel</string>
+    <string name="climate_start">Start</string>
+    <string name="climate_smart">Smart</string>
+    <string name="climate_smart_explain">Smart velger modus og varighet ut fra utetemperaturen.</string>
+    <string name="quick_title">Hurtighandlinger</string>
+    <string name="quick_flash">Blink</string>
+    <string name="quick_headlights">Frontlys</string>
+    <string name="quick_lights_off">Lys av</string>
+    <string name="quick_parking_lights">Parklys</string>
+    <string name="quick_parking_off">Parklys av</string>
+    <string name="quick_charge_now">Lad nå (hopp over timer)</string>
+    <string name="security_title">Dører og lys</string>
+    <string name="security_locked">Låst</string>
+    <string name="security_unlocked">Ulåst</string>
+    <string name="security_doors">Dører, bakluke, panser</string>
+    <string name="security_all_closed">Alt lukket</string>
+    <string name="security_lights">Lys</string>
+    <string name="security_power">Tenning</string>
+    <string name="security_car_clock">Bilens klokke</string>
+    <string name="ignition_acc">Tilbehør</string>
+    <string name="door_driver">førerdør</string>
+    <string name="door_passenger">passasjerdør</string>
+    <string name="door_rear_left">bakdør venstre</string>
+    <string name="door_rear_right">bakdør høyre</string>
+    <string name="door_boot">bakluke</string>
+    <string name="door_bonnet">panser</string>
+    <string name="light_headlights">frontlys</string>
+    <string name="light_parking">parklys</string>
+    <string name="light_hazards">nødblink</string>
+    <string name="light_interior">kupélys</string>
+    <string name="departure_next_title">Neste avreise</string>
+    <string name="departure_set_up">Sett opp</string>
+    <string name="departure_edit">Endre</string>
+    <string name="departure_empty">Fortell appen når du pleier å dra, så varmer eller aviser den bilen akkurat i tide – og velger modus ut fra værmeldingen.</string>
+    <string name="departure_weather_check">Værsjekk %1$s</string>
+
+    <!-- Connection status -->
+    <string name="link_route">Rute: %1$s</string>
+    <string name="link_since">Siden %1$s</string>
+    <string name="link_tips">Tips: Bilens Wi-Fi rekker omtrent 10–20 m. Etter flere dager parkert går det i dvale – et trykk på en knapp på nøkkelen, eller å låse opp, vekker det som regel. Står det at telefonen ikke er registrert, registrer den under Innstillinger.</string>
+    <string name="link_try_again">Prøv igjen nå</string>
+    <string name="link_not_connected">Frakoblet</string>
+    <string name="link_not_set_up">Ikke satt opp</string>
+    <string name="link_not_set_up_detail">Legg inn bilens Wi-Fi under Innstillinger</string>
+    <string name="link_checking_bridge">Sjekker broen…</string>
+    <string name="link_connecting_bridge">Kobler til broen…</string>
+    <string name="link_err_not_set_up">Ikke satt opp – legg inn bilens Wi-Fi under Innstillinger</string>
+    <string name="link_err_timeout">Fikk ikke kontakt med bilen i tide</string>
+    <string name="link_last_data">Siste data %1$s</string>
+    <string name="link_cant_join">Får ikke koblet til bilens Wi-Fi</string>
+    <string name="link_searching">Leter etter bilen…</string>
+    <string name="link_not_found">Ikke funnet ennå – er bilen innen Wi-Fi-rekkevidde? Bilens Wi-Fi sovner etter noen dager parkert.</string>
+    <string name="link_connecting">Kobler til…</string>
+    <string name="link_attempt">Forsøk %1$d</string>
+    <string name="link_handshake">Hilser på bilen…</string>
+    <string name="link_connected">Tilkoblet</string>
+    <string name="link_connected_detail">Bilens Wi-Fi · protokoll %1$s</string>
+    <string name="link_retrying">Kobler til igjen om %1$d s</string>
+    <string name="link_bridge_unreachable">Får ikke kontakt med broen</string>
+    <string name="link_via_bridge">Tilkoblet via bro</string>
+    <string name="link_bridge_live">Broen er i kontakt med bilen nå</string>
+    <string name="link_bridge_online">Broen er tilkoblet</string>
+    <string name="link_bridge_idle">Bilen sist sjekket: %1$s – kommandoer vekker forbindelsen</string>
+    <string name="link_never">aldri</string>
+    <string name="link_bridge_cant_reach">Broen når ikke bilen</string>
+    <string name="link_bridge_connecting_car">Broen kobler til bilen…</string>
+    <string name="protocol_unknown">ukjent</string>
+    <string name="net_not_found">Fant ikke bilens Wi-Fi – utenfor rekkevidde, eller bilens Wi-Fi sover</string>
+    <string name="net_invalid_details">SSID eller passord er ugyldig (%1$s)</string>
+    <string name="net_could_not_join">Fikk ikke koblet til «%1$s» – feil passord, avslått eller utenfor rekkevidde</string>
+    <string name="net_request_refused">Android avviste Wi-Fi-forespørselen: %1$s</string>
+    <string name="bridge_err_token">Broen avviste tokenet</string>
+    <string name="bridge_err_http">Broen svarte med HTTP %1$d</string>
+    <string name="bridge_err_unreachable">Får ikke kontakt med broen: %1$s</string>
+    <string name="bridge_err_events">Hendelser fra broen: %1$s</string>
+    <string name="pair_unsupported">Denne telefonen støtter ikke sammenkobling med enheter</string>
+    <string name="pair_failed">Sammenkoblingen mislyktes</string>
+
+    <!-- Background service and notifications -->
+    <string name="svc_contacting">Kontakter bilen…</string>
+    <string name="svc_charging">lader</string>
+    <string name="svc_climate_on">klima på</string>
+    <string name="notif_cmd_failed">%1$s mislyktes</string>
+    <string name="notif_climate_running">Går i %1$d min – klar ca. kl. %2$s.</string>
+    <string name="notif_climate_off">Klimaanlegget er slått av.</string>
+    <string name="notif_flashed">Lysene blinket.</string>
+    <string name="notif_done">Ferdig.</string>
+    <string name="notif_no_preheat_title">Forvarming trengs ikke</string>
+    <string name="notif_no_preheat_text">Det er rundt %1$s °C kl. %2$s – lar klimaanlegget være av.</string>
+    <string name="notif_departure_started">%1$s startet</string>
+    <string name="notif_departure_ready">Bilen er klar kl. %1$s.</string>
+    <string name="notif_departure_failed">Planlagt %1$s mislyktes</string>
+    <string name="notif_departure_retry">%1$s\nTrykk for å åpne appen og prøve igjen.</string>
+    <string name="ch_link_name">Biltilkobling</string>
+    <string name="ch_link_desc">Vises mens appen snakker med bilen i bakgrunnen</string>
+    <string name="ch_alerts_name">Bilvarsler</string>
+    <string name="ch_alerts_desc">Lading ferdig, bilen står ulåst, lys på…</string>
+    <string name="ch_results_name">Resultater</string>
+    <string name="ch_results_desc">Utfall av forvarming, planlagte avreiser og hurtighandlinger</string>
+
+    <!-- Alerts -->
+    <string name="alert_title_charge_complete">Lading fullført</string>
+    <string name="alert_title_charge_stopped">Ladingen stoppet</string>
+    <string name="alert_title_charge_started">Lading startet</string>
+    <string name="alert_title_climate_started">Klima startet</string>
+    <string name="alert_title_climate_finished">Bilen er klar</string>
+    <string name="alert_title_climate_cancelled">Klima stoppet</string>
+    <string name="alert_title_left_unlocked">Bilen står ulåst</string>
+    <string name="alert_title_door_open">Dør står åpen</string>
+    <string name="alert_title_lights_on">Lys står på</string>
+    <string name="alert_battery_full">Batteriet er fullt.</string>
+    <string name="alert_battery_full_pct">Batteriet er fullt (%1$d%%).</string>
+    <string name="alert_charge_stopped">Ladingen stoppet før batteriet var fullt. Strømbrudd, ladetimer eller løs kabel?</string>
+    <string name="alert_charge_stopped_pct">Ladingen stoppet før batteriet var fullt (%1$d%%). Strømbrudd, ladetimer eller løs kabel?</string>
+    <string name="alert_charging">Lader.</string>
+    <string name="alert_charging_pct">Lader (%1$d%%).</string>
+    <string name="alert_charge_eta">Omtrent %1$s til fullt.</string>
+    <string name="alert_climate_running">Klimatiseringen er i gang.</string>
+    <string name="alert_climate_finished">Klimatiseringen er ferdig – kupeen er klar.</string>
+    <string name="alert_climate_cancelled">Klimatiseringen ble stoppet av bilen (dør åpnet eller for lavt batteri).</string>
+    <plurals name="alert_left_unlocked">
+        <item quantity="one">Ulåst i %1$d+ minutt mens bilen er avslått.</item>
+        <item quantity="other">Ulåst i %1$d+ minutter mens bilen er avslått.</item>
+    </plurals>
+    <plurals name="alert_door_open">
+        <item quantity="one">Åpen i %1$d+ minutt: %2$s.</item>
+        <item quantity="other">Åpen i %1$d+ minutter: %2$s.</item>
+    </plurals>
+    <string name="alert_lights_on_head">Frontlysene står på mens bilen er avslått.</string>
+    <string name="alert_lights_on_parking">Parklysene står på mens bilen er avslått.</string>
+    <string name="alert_lights_on_both">Frontlysene og parklysene står på mens bilen er avslått.</string>
+
+    <!-- Schedule tab -->
+    <string name="sched_title">Avreiser</string>
+    <string name="sched_explain">35 minutter før hver avreise sjekker appen værmeldingen (Meteorologisk institutt), velger varme, kjøling eller avising og hvor lenge, og starter klimaanlegget så bilen er klar når du drar.</string>
+    <string name="sched_exact_title">Tillat nøyaktige alarmer</string>
+    <string name="sched_exact_explain">Uten dette kan Android utsette avreisesjekken med flere minutter.</string>
+    <string name="sched_open_settings">Åpne innstillinger</string>
+    <string name="sched_no_location_title">Værsted er ikke angitt</string>
+    <string name="sched_no_location_explain">Angi hjemstedet ditt under Innstillinger → Værsted, så værmeldingen gjelder der bilen står parkert. Inntil da brukes telefonens sist kjente posisjon, eller standardmodusen din hvis den er ukjent.</string>
+    <string name="sched_next">Neste: %1$s · værsjekk %2$s</string>
+    <string name="sched_add">Legg til avreise</string>
+    <string name="days_every">Hver dag</string>
+    <string name="days_weekends">Helger</string>
+    <string name="days_weekdays">Hverdager</string>
+    <string name="days_none">Ingen dager</string>
+    <string name="sched_smart_row">Smart – modus etter været</string>
+    <string name="sched_fixed_row">%1$s, %2$d min</string>
+    <string name="sched_dialog_title">Klar til å dra kl.</string>
+    <string name="sched_smart_switch">Smart (bruk værmeldingen)</string>
+    <string name="sched_smart_fallback">Valget nedenfor brukes bare hvis værmeldingen ikke kan hentes.</string>
+    <string name="sched_always_mode">Bruker alltid modusen nedenfor.</string>
+
+    <!-- Settings tab -->
+    <string name="settings_title">Innstillinger</string>
+    <string name="settings_language">Språk</string>
+    <string name="settings_language_system">Systemstandard</string>
+    <string name="settings_car_wifi">Bilens Wi-Fi</string>
+    <string name="settings_car_wifi_explain">SSID (REMOTExxxxxx) og passord står på kortet som fulgte med bilnøklene.</string>
+    <string name="settings_password">Passord</string>
+    <string name="settings_hide">Skjul</string>
+    <string name="settings_show">Vis</string>
+    <string name="settings_testing">Tester…</string>
+    <string name="settings_silent_title">Stille tilkobling</string>
+    <string name="settings_paired_with">Sammenkoblet med %1$s. Android kobler til uten å spørre, også i bakgrunnen.</string>
+    <string name="settings_pair_explain">Koble sammen én gang (med bilen i nærheten), så slutter Android å spørre «Koble til enheten?», og widgeten, hurtiginnstillingen og avreisene virker i bakgrunnen.</string>
+    <string name="settings_pair_again">Koble sammen på nytt</string>
+    <string name="settings_pair">Koble sammen med bilen</string>
+    <string name="settings_forget">Glem</string>
+    <string name="pw_too_short">Minst 8 tegn</string>
+    <string name="pw_too_long">Høyst 63 tegn</string>
+    <string name="pw_bad_chars">Bare vanlige bokstaver, sifre og tegn (ikke æøå eller emoji)</string>
+    <string name="settings_registration_title">Registrering av telefon</string>
+    <string name="settings_registration_intro">Bilen snakker bare med telefoner den har registrert (den husker noen få). Slik registrerer du denne telefonen:</string>
+    <string name="registration_steps">1. Sett deg i bilen med nøkkelen, tenningen AV (OFF).\n2. Trykk én gang på startknappen til ACC (ikke trå på bremsen).\n3. Innen 10 sekunder: trykk LÅS og så LÅS OPP på nøkkelen, vekselvis, 5 ganger hver (10 trykk, start med LÅS).\n4. Nødblinken blinker: bilen er i registreringsmodus i noen minutter. Trykk Registrer (telefonen må være på bilens Wi-Fi).</string>
+    <string name="settings_registered_phones">Registrerte telefoner (ifølge bilen)</string>
+    <string name="settings_register">Registrer</string>
+    <string name="settings_unregister">Avregistrer</string>
+    <string name="settings_route_title">Slik nås bilen</string>
+    <string name="route_auto">Automatisk</string>
+    <string name="route_direct">Kun bilens Wi-Fi</string>
+    <string name="route_bridge">Kun bro</string>
+    <string name="settings_route_explain">Automatisk bruker broen når den har ferske data fra bilen (bilen står hjemme), ellers bilens eget Wi-Fi.</string>
+    <string name="settings_bridge_address">Adresse til broen</string>
+    <string name="settings_bridge_token">Token for broen</string>
+    <string name="settings_quick_title">Klima med ett trykk (widget, hurtiginnstilling, snarveier)</string>
+    <string name="settings_quick_smart">Smart (velg ut fra været)</string>
+    <string name="settings_quick_fallback">Reserve når værmeldingen ikke er tilgjengelig:</string>
+    <string name="settings_quick_always">Alltid:</string>
+    <string name="settings_weather_title">Værsted</string>
+    <string name="settings_weather_explain">Der bilen vanligvis står om morgenen. Brukes bare til værmeldingen fra Meteorologisk institutt.</string>
+    <string name="settings_latitude">Breddegrad</string>
+    <string name="settings_longitude">Lengdegrad</string>
+    <string name="settings_use_current">Bruk nåværende</string>
+    <string name="settings_alerts_title">Varsler på denne telefonen</string>
+    <string name="settings_alerts">Varsler</string>
+    <string name="settings_alert_charge_complete">Lading fullført</string>
+    <string name="settings_alert_charge_stopped">Ladingen stoppet for tidlig</string>
+    <string name="settings_alert_climate_finished">Kupeen er klar (klima ferdig)</string>
+    <string name="settings_alert_climate_cancelled">Klima stoppet av bilen</string>
+    <string name="settings_alert_left_unlocked">Står ulåst (10 min)</string>
+    <string name="settings_alert_door_open">Dør/bakluke står åpen</string>
+    <string name="settings_alert_lights_on">Lys står på</string>
+    <string name="settings_watch">Følg med under lading eller forvarming</string>
+    <string name="settings_watch_explain">Sjekker bilen hvert %1$d. minutt i bakgrunnen (telefonen må være innen Wi-Fi-rekkevidde, eller bruk broen).</string>
+    <string name="settings_advanced">Avansert</string>
+    <string name="settings_sync_clock">Still bilens klokke ved tilkobling</string>
+    <string name="settings_full_range" formatted="false">Elektrisk rekkevidde ved 100 % (km)</string>
+    <string name="settings_protocol">Protokoll</string>
+    <string name="settings_protocol_auto">Auto</string>
+    <string name="settings_test_address">Testadresse (emulator), vert:port</string>
+    <string name="settings_test_address_hint">La stå tomt for den ekte bilen</string>
+    <string name="settings_apply">Bruk</string>
+    <string name="settings_about">Om</string>
+    <string name="settings_version">Versjon</string>
+    <string name="settings_about_text">Snakker bilens egen Wi-Fi-protokoll. Bygger på omvendt utvikling fra phev2mqtt (Ben Buxton med flere) og phev-remote (Jamie Nuttall), kontrollert mot den offisielle appen. Ikke tilknyttet Mitsubishi Motors.</string>
+    <string name="settings_run_setup">Kjør oppsettet på nytt</string>
+
+    <!-- Setup -->
+    <string name="setup_intro">Styr Outlander PHEV via bilens eget Wi-Fi: batteri og lading, klima (varme, kjøling, avising), lys og dører – pluss avreisetidtakere som sjekker været, en widget på startskjermen, en hurtiginnstilling og varsler. Valgfritt via en liten bro (Raspberry Pi) hjemme, så det virker overalt.</string>
+    <string name="setup_intro_2">Oppsettet tar noen minutter. Ha bilen i nærheten med nøkkelen, og Wi-Fi-kortet som fulgte med nøklene.</string>
+    <string name="setup_start">Kom i gang</string>
+    <string name="setup_step1_title">1 · Bilens Wi-Fi</string>
+    <string name="setup_pairing_note">Sammenkobling er valgfritt, men anbefalt: uten den spør Android «Koble til enheten?» nå og da, og bakgrunnsfunksjoner (widget, avreiser) kan ikke koble til på egen hånd.</string>
+    <string name="setup_bridge_only">Jeg bruker bare bro – hopp over</string>
+    <string name="setup_step2_title">2 · Koble til og registrer</string>
+    <string name="setup_connect">Koble til</string>
+    <string name="setup_status">Status: %1$s</string>
+    <string name="setup_car_line">Bil: %1$s · %2$s%%</string>
+    <string name="setup_not_registered_title">Ikke registrert ennå?</string>
+    <string name="setup_not_registered_explain">Hvis tilkoblingen stopper på «Hilser på bilen» og så feiler, er ikke telefonen registrert i bilen ennå. Telefoner som har brukt den offisielle appen, er som regel allerede registrert.</string>
+    <string name="setup_register_phone">Registrer denne telefonen</string>
+    <string name="setup_skip_for_now">Hopp over nå</string>
+    <string name="setup_step3_title">3 · Alt klart</string>
+    <string name="setup_good_to_know">Greit å vite:\n• Trykk lenge på appikonet for snarveier (forvarming, avising, blink med lysene).\n• Legg til widgeten og hurtiginnstillingen «Forvarming».\n• Legg inn de vanlige avreisene dine i fanen Avreiser.\n• Hvert tilkoblingsforsøk logges under Diagnose – del loggen hvis noe oppfører seg rart.\n• For styring fra hvor som helst: sett opp broen (se README) og skriv inn adressen under Innstillinger.</string>
+    <string name="setup_open_app">Åpne appen</string>
+
+    <!-- Diagnostics tab -->
+    <string name="diag_tab_log">Logg</string>
+    <string name="diag_tab_registers">Registre</string>
+    <string name="diag_tab_tools">Verktøy</string>
+    <string name="diag_filter_all">Alt</string>
+    <string name="diag_connection">Tilkobling</string>
+    <string name="diag_filter_commands">Kommandoer</string>
+    <string name="diag_filter_packets">Pakker</string>
+    <string name="diag_filter_state">Bilstatus</string>
+    <string name="diag_previous_session">Forrige økt</string>
+    <string name="diag_share">Del</string>
+    <string name="diag_clear">Tøm</string>
+    <string name="diag_share_subject">PHEV Link-logg %1$s</string>
+    <string name="diag_share_log">Del logg</string>
+    <string name="diag_no_saved_session">Ingen lagret økt ennå.</string>
+    <string name="diag_registers_explain">Alle registre bilen har rapportert, som rådata. Verdier som endrer seg når du bruker bilen, er spor til nye funksjoner.</string>
+    <string name="diag_registers_empty">Ingenting ennå – koble til bilen først.</string>
+    <string name="diag_status">Status</string>
+    <string name="diag_paired_ap">Sammenkoblet tilgangspunkt</string>
+    <string name="diag_not_paired">ikke sammenkoblet</string>
+    <string name="diag_reconnect">Koble til igjen</string>
+    <string name="diag_full_refresh">Oppdater alt</string>
+    <string name="diag_log_pings">Logg keepalive-ping</string>
+    <string name="diag_car">Bil</string>
+    <string name="diag_sync_clock">Still klokken</string>
+    <string name="diag_clear_climate_warning">Fjern klimavarsel</string>
+    <string name="diag_raw_title">Rå registerskriving</string>
+    <string name="diag_raw_warning">For eksperimenter. Skrivinger går rett til bilen – bruk bare verdier du forstår.</string>
+    <string name="diag_register_hex">Register (hex)</string>
+    <string name="diag_data_hex">Data (hex)</string>
+    <string name="diag_send">Send</string>
+</resources>

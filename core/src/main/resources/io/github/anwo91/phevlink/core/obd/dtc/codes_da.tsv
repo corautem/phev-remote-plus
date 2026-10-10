@@ -1,0 +1,3501 @@
+# PHEV Link DTC titles (da), CODE<TAB>Title. Original glossary-based translation of codes.tsv (gen_i18n.py), GPL-3.0-or-later. Codes not listed fall back to English.
+B0001	Førerens frontairbag, trin 1 – udløsningsstyring
+B0002	Førerens frontairbag, trin 2 – udløsningsstyring
+B0003	Førerens frontairbag, trin 3 – udløsningsstyring
+B0004	Førerknæairbag – udløsningsstyring
+B0005	Sammenklappelig ratstamme – udløsningsstyring
+B0010	Passagerens frontairbag, trin 1 – udløsningsstyring
+B0011	Passagerens frontairbag, trin 2 – udløsningsstyring
+B0012	Passagerens frontairbag, trin 3 – udløsningsstyring
+B0013	Passagerknæairbag – udløsningsstyring
+B0020	Airbag venstre side – udløsningsstyring
+B0021	Gardinairbag venstre – udløsningsstyring 1
+B0022	Gardinairbag venstre – udløsningsstyring 2
+B0028	Airbag højre side – udløsningsstyring
+B0029	Gardinairbag højre – udløsningsstyring 1
+B002A	Gardinairbag højre – udløsningsstyring 2
+B0030	Airbag række 2 venstre side – udløsningsstyring
+B0031	Frontairbag række 2 venstre, trin 1 – udløsningsstyring
+B0032	Frontairbag række 2 venstre, trin 2 – udløsningsstyring
+B0033	Frontairbag række 2 venstre, trin 3 – udløsningsstyring
+B0038	Airbag række 2 højre side – udløsningsstyring
+B0039	Frontairbag række 2 højre, trin 1 – udløsningsstyring
+B003A	Frontairbag række 2 højre, trin 2 – udløsningsstyring
+B003B	Frontairbag række 2 højre, trin 3 – udløsningsstyring
+B0040	Airbag række 3 venstre side – udløsningsstyring
+B0041	Frontairbag række 3 venstre, trin 1 – udløsningsstyring
+B0042	Frontairbag række 3 venstre, trin 2 – udløsningsstyring
+B0043	Frontairbag række 3 venstre, trin 3 – udløsningsstyring
+B0048	Airbag række 3 højre side – udløsningsstyring
+B0049	Frontairbag række 3 højre, trin 1 – udløsningsstyring
+B004A	Frontairbag række 3 højre, trin 2 – udløsningsstyring
+B004B	Frontairbag række 3 højre, trin 3 – udløsningsstyring
+B0050	Førerselesensor
+B0051	Selesensor række 1 midt
+B0052	Passagerselesensor
+B0053	Selesensor række 2 venstre
+B0054	Selesensor række 2 midt
+B0055	Selesensor række 2 højre
+B0056	Selesensor række 3 venstre
+B0057	Selesensor række 3 midt
+B0058	Selesensor række 3 højre
+B0060	Førerselestramningssensor
+B0061	Passagerselestramningssensor
+B0070	Førerselestrammer – udløsningsstyring
+B0071	Selestrammer række 1 midt – udløsningsstyring
+B0072	Passagerselestrammer – udløsningsstyring
+B0073	Selestrammer række 2 venstre – udløsningsstyring
+B0074	Selestrammer række 2 midt – udløsningsstyring
+B0075	Selestrammer række 2 højre – udløsningsstyring
+B0076	Selestrammer række 3 venstre – udløsningsstyring
+B0077	Selestrammer række 3 midt – udløsningsstyring
+B0078	Selestrammer række 3 højre – udløsningsstyring
+B0079	Førerselestrammer B – udløsningsstyring
+B007A	Passagerselestrammer B – udløsningsstyring
+B0080	Førerselekraftbegrænser – udløsningsstyring
+B0081	Selekraftbegrænser række 1 midt – udløsningsstyring
+B0082	Passagerselekraftbegrænser – udløsningsstyring
+B0083	Selekraftbegrænser række 2 venstre – udløsningsstyring
+B0084	Selekraftbegrænser række 2 midt – udløsningsstyring
+B0085	Selekraftbegrænser række 2 højre – udløsningsstyring
+B0086	Selekraftbegrænser række 3 venstre – udløsningsstyring
+B0087	Selekraftbegrænser række 3 midt – udløsningsstyring
+B0088	Selekraftbegrænser række 3 højre – udløsningsstyring
+B0090	Front-SRS-sensor venstre
+B0091	SRS-sensor 1 venstre side
+B0092	SRS-sensor 2 venstre side
+B0093	SRS-sensor 3 venstre side
+B0094	SRS-sensor midt for
+B0095	Front-SRS-sensor højre
+B0096	SRS-sensor 1 højre side
+B0097	SRS-sensor 2 højre side
+B0098	SRS-sensor 3 højre side
+B0099	Væltningssensor
+B00A0	Passagerklassificeringssystem
+B00A1	Siddepositionssystem
+B00B0	Førersæde-passagerklassificeringssensor A
+B00B1	Førersæde-passagerklassificeringssensor B
+B00B2	Førersæde-passagerklassificeringssensor C
+B00B3	Førersæde-passagerklassificeringssensor D
+B00B4	Førersæde-passagerklassificeringssensor E
+B00B5	SRS-sensor for sædeskinnens position, førersæde
+B00B6	SRS-sensor for ryglænets position, førersæde
+B00B7	Førersædesiddepositionssensor A
+B00B8	Førersædesiddepositionssensor B
+B00B9	Førersædesiddepositionssensor C
+B00BA	Førersædesiddepositionssensor D
+B00BB	Førersædesiddepositionssensor E
+B00C0	Passagersæde-passagerklassificeringssensor A
+B00C1	Passagersæde-passagerklassificeringssensor B
+B00C2	Passagersæde-passagerklassificeringssensor C
+B00C3	Passagersæde-passagerklassificeringssensor D
+B00C4	Passagersæde-passagerklassificeringssensor E
+B00C5	SRS-sensor for sædeskinnens position, passagersæde
+B00C6	SRS-sensor for ryglænets position, passagersæde
+B00C7	Passagersæde-siddepositionssensor A
+B00C8	Passagersæde-siddepositionssensor B
+B00C9	Passagersæde-siddepositionssensor C
+B00CA	Passagersæde-siddepositionssensor D
+B00CB	Passagersæde-siddepositionssensor E
+B00D0	Førerseleindikator
+B00D1	Passagerseleindikator
+B00D2	Sikkerhedssystem (SRS) – fejlindikator 1
+B00D3	Sikkerhedssystem (SRS) – fejlindikator 2
+B00D4	Sikkerhedssystem (SRS) – akustisk fejlindikator
+B00D5	SRS-passager-deaktiveringsindikator
+B00DF	Passager-SRS-deaktiverings-kontakt
+B0100	Førerairbag – kredsløb funktionsfejl
+B0101	Førerairbag – kredsløb område/ydeevne
+B0102	Førerairbag – kredsløb lavt indgangssignal
+B0103	Førerairbag – kredsløb højt indgangssignal
+B0105	Passagerairbag – kredsløb funktionsfejl
+B0106	Passagerairbag – kredsløb område/ydeevne
+B0107	Passagerairbag – kredsløb lavt indgangssignal
+B0108	Passagerairbag – kredsløb højt indgangssignal
+B0110	Airbag i førersiden – kredsløb funktionsfejl
+B0111	Airbag i førersiden – kredsløb område/ydeevne
+B0112	Airbag i førersiden – kredsløb lavt indgangssignal
+B0113	Airbag i førersiden – kredsløb højt indgangssignal
+B0115	Airbag i passagersiden – kredsløb funktionsfejl
+B0116	Airbag i passagersiden – kredsløb område/ydeevne
+B0117	Airbag i passagersiden – kredsløb lavt indgangssignal
+B0118	Airbag i passagersiden – kredsløb højt indgangssignal
+B0120	Sikkerhedssele #1 kontaktovervågning – kredsløb funktionsfejl
+B0121	Sikkerhedssele #1 kontaktovervågning – kredsløb område/ydeevne
+B0122	Sikkerhedssele #1 kontaktovervågning – kredsløb lavt indgangssignal
+B0123	Sikkerhedssele #1 kontaktovervågning – kredsløb højt indgangssignal
+B0125	Sikkerhedssele #2 kontaktovervågning – kredsløb funktionsfejl
+B0126	Sikkerhedssele #2 kontaktovervågning – kredsløb område/ydeevne
+B0127	Sikkerhedssele #2 kontaktovervågning – kredsløb lavt indgangssignal
+B0128	Sikkerhedssele #2 kontaktovervågning – kredsløb højt indgangssignal
+B0130	Sikkerhedssele #1 oprulning – kredsløb funktionsfejl
+B0131	Sikkerhedssele #1 oprulning – kredsløb område/ydeevne
+B0132	Sikkerhedssele #1 oprulning – kredsløb lavt indgangssignal
+B0133	Sikkerhedssele #1 oprulning – kredsløb højt indgangssignal
+B0135	Sikkerhedssele #2 oprulning – kredsløb funktionsfejl
+B0136	Sikkerhedssele #2 oprulning – kredsløb område/ydeevne
+B0137	Sikkerhedssele #2 oprulning – kredsløb lavt indgangssignal
+B0138	Sikkerhedssele #2 oprulning – kredsløb højt indgangssignal
+B0200	Blæsermotor #1 strøm – kredsløb lav (hoved/primær/forreste)
+B0300	Køleblæser #1 – kredsløb funktionsfejl
+B0301	Køleblæser #1 – kredsløb område/ydeevne
+B0302	Køleblæser #1 – kredsløb lavt indgangssignal
+B0303	Køleblæser #1 – kredsløb højt indgangssignal
+B0305	Køleblæser #2 – kredsløb funktionsfejl
+B0306	Køleblæser #2 – kredsløb område/ydeevne
+B0307	Køleblæser #2 – kredsløb lavt indgangssignal
+B0308	Køleblæser #2 – kredsløb højt indgangssignal
+B0310	Airconditionkobling – kredsløb funktionsfejl
+B0311	Airconditionkobling – kredsløb område/ydeevne
+B0312	Airconditionkobling – kredsløb lavt indgangssignal
+B0313	Airconditionkobling – kredsløb højt indgangssignal
+B0315	Airconditiontryk #1 – kredsløb funktionsfejl
+B0316	Airconditiontryk #1 – kredsløb område/ydeevne
+B0317	Airconditiontryk #1 – kredsløb lavt indgangssignal
+B0318	Airconditiontryk #1 – kredsløb højt indgangssignal
+B0320	Airconditiontryk #2 – kredsløb funktionsfejl
+B0321	Airconditiontryk #2 – kredsløb område/ydeevne
+B0322	Airconditiontryk #2 – kredsløb lavt indgangssignal
+B0323	Airconditiontryk #2 – kredsløb højt indgangssignal
+B0325	Airconditiontrykreference – kredsløb funktionsfejl (signal)
+B0326	Airconditiontrykreference – kredsløb område/ydeevne (signal)
+B0327	Airconditiontrykreference – kredsløb lavt indgangssignal (signal)
+B0328	Airconditiontrykreference – kredsløb højt indgangssignal (signal)
+B0330	Udelufttemperatur – kredsløb funktionsfejl
+B0331	Udelufttemperatur – kredsløb område/ydeevne
+B0332	Udelufttemperatur – kredsløb lavt indgangssignal
+B0333	Udelufttemperatur – kredsløb højt indgangssignal
+B0335	Kabinetemperatursensor #1 – kredsløb funktionsfejl
+B0336	Kabinetemperatursensor #1 – kredsløb område/ydeevne
+B0337	Kabinetemperatursensor #1 – kredsløb lavt indgangssignal
+B0338	Kabinetemperatursensor #1 – kredsløb højt indgangssignal
+B0340	Kabinetemperatursensor #2 – kredsløb funktionsfejl
+B0341	Kabinetemperatursensor #2 – kredsløb område/ydeevne
+B0342	Kabinetemperatursensor #2 – kredsløb lavt indgangssignal
+B0343	Kabinetemperatursensor #2 – kredsløb højt indgangssignal
+B0345	Solindstrålingssensor 1 – kredsløb funktionsfejl
+B0346	Solindstrålingssensor 1 – kredsløb område/ydeevne
+B0347	Solindstrålingssensor 1 – kredsløb lavt indgangssignal
+B0348	Solindstrålingssensor 1 – kredsløb højt indgangssignal
+B0350	Solindstrålingssensor 2 – kredsløb funktionsfejl
+B0351	Solindstrålingssensor 2 – kredsløb område/ydeevne
+B0352	Solindstrålingssensor 2 – kredsløb lavt indgangssignal
+B0353	Solindstrålingssensor 2 – kredsløb højt indgangssignal
+B0355	Blæsermotor #1 hastighed – kredsløb funktionsfejl
+B0356	Blæsermotor #1 hastighed – kredsløb område/ydeevne
+B0357	Blæsermotor #1 hastighed – kredsløb lavt indgangssignal
+B0358	Blæsermotor #1 hastighed – kredsløb højt indgangssignal
+B0360	Blæsermotor #1 strøm – kredsløb funktionsfejl
+B0361	Blæsermotor #1 strøm – kredsløb område/ydeevne
+B0362	Blæsermotor #1 strøm – kredsløb lavt indgangssignal
+B0363	Blæsermotor #1 strøm – kredsløb højt indgangssignal
+B0365	Blæsermotor #1 stel – kredsløb funktionsfejl
+B0366	Blæsermotor #1 stel – kredsløb område/ydeevne
+B0367	Blæsermotor #1 stel – kredsløb lavt indgangssignal
+B0368	Blæsermotor #1 stel – kredsløb højt indgangssignal
+B0370	Aircondition – temperatursensor højtryksside funktionsfejl
+B0371	Aircondition – temperatursensor højtryksside område/ydeevne
+B0372	Aircondition – temperatursensor højtryksside lavt indgangssignal
+B0373	Aircondition – temperatursensor højtryksside højt indgangssignal
+B0375	Airconditionfordamper-indløbstemperatursensor – funktionsfejl
+B0376	Airconditionfordamper-indløbstemperatursensor – område/ydeevne
+B0377	Airconditionfordamper-indløbstemperatursensor – lavt indgangssignal
+B0378	Airconditionfordamper-indløbstemperatursensor – højt indgangssignal
+B0380	Undertryk i kølemidlet (aircondition)
+B0381	Overtryk i kølemidlet (aircondition)
+B0400	Luftstyring #1 afrimning – funktionsfejl
+B0401	Luftstyring #1 afrimning – område/ydeevne
+B0402	Luftstyring #1 afrimning – lavt indgangssignal
+B0403	Luftstyring #1 afrimning – højt indgangssignal
+B0405	Luftstyring #2 varmer – funktionsfejl
+B0406	Luftstyring #2 varmer – område/ydeevne
+B0407	Luftstyring #2 varmer – lavt indgangssignal
+B0408	Luftstyring #2 varmer – højt indgangssignal
+B0410	Luftstyring #3 blanding – funktionsfejl
+B0411	Luftstyring #3 blanding – område/ydeevne
+B0412	Luftstyring #3 blanding – lavt indgangssignal
+B0413	Luftstyring #3 blanding – højt indgangssignal
+B0415	Luftstyring #4 ventilation – funktionsfejl
+B0416	Luftstyring #4 ventilation – område/ydeevne
+B0417	Luftstyring #4 ventilation – lavt indgangssignal
+B0418	Luftstyring #4 ventilation – højt indgangssignal
+B0420	Luftstyring #5 aircondition – funktionsfejl
+B0421	Luftstyring #5 aircondition – område/ydeevne
+B0422	Luftstyring #5 aircondition – lavt indgangssignal
+B0423	Luftstyring #5 aircondition – højt indgangssignal
+B0425	Luftstyring #6 recirkulation – funktionsfejl
+B0426	Luftstyring #6 recirkulation – område/ydeevne
+B0427	Luftstyring #6 recirkulation – lavt indgangssignal
+B0428	Luftstyring #6 recirkulation – højt indgangssignal
+B0430	Bagrudevarme – kredsløb funktionsfejl
+B0431	Bagrudevarme – kredsløb område/ydeevne
+B0432	Bagrudevarme – kredsløb lavt indgangssignal
+B0433	Bagrudevarme – kredsløb højt indgangssignal
+B0435	Aircondition – anmodningskredsløb funktionsfejl
+B0436	Aircondition – anmodningskredsløb område/ydeevne
+B0437	Aircondition – anmodningskredsløb lavt indgangssignal
+B0438	Aircondition – anmodningskredsløb højt indgangssignal
+B0440	Betjeningspanel #1 tilbagemelding – funktionsfejl
+B0441	Betjeningspanel #1 tilbagemelding – område/ydeevne
+B0442	Betjeningspanel #1 tilbagemelding – lavt indgangssignal
+B0443	Betjeningspanel #1 tilbagemelding – højt indgangssignal
+B0445	Betjeningspanel #2 tilbagemelding – funktionsfejl
+B0446	Betjeningspanel #2 tilbagemelding – område/ydeevne
+B0447	Betjeningspanel #2 tilbagemelding – lavt indgangssignal
+B0448	Betjeningspanel #2 tilbagemelding – højt indgangssignal
+B0500	Blinklys højre – kredsløb funktionsfejl
+B0501	Blinklys højre – kredsløb område/ydeevne
+B0502	Blinklys højre – kredsløb lavt indgangssignal
+B0503	Blinklys højre – kredsløb højt indgangssignal
+B0505	Blinklys venstre – kredsløb funktionsfejl
+B0506	Blinklys venstre – kredsløb område/ydeevne
+B0507	Blinklys venstre – kredsløb lavt indgangssignal
+B0508	Blinklys venstre – kredsløb højt indgangssignal
+B0510	Forlygteindikatorer – kredsløb funktionsfejl
+B0511	Forlygteindikatorer – kredsløb område/ydeevne
+B0512	Forlygteindikatorer – kredsløb lavt indgangssignal
+B0513	Forlygteindikatorer – kredsløb højt indgangssignal
+B0515	Speedometer – kredsløb funktionsfejl
+B0516	Speedometer – kredsløb område/ydeevne
+B0517	Speedometer – kredsløb lavt indgangssignal
+B0518	Speedometer – kredsløb højt indgangssignal
+B0520	Omdrejningstæller – kredsløb funktionsfejl
+B0521	Omdrejningstæller – kredsløb område/ydeevne
+B0522	Omdrejningstæller – kredsløb lavt indgangssignal
+B0523	Omdrejningstæller – kredsløb højt indgangssignal
+B0525	Temperaturmålere – kredsløb funktionsfejl
+B0526	Temperaturmålere – kredsløb område/ydeevne
+B0527	Temperaturmålere – kredsløb lavt indgangssignal
+B0528	Temperaturmålere – kredsløb højt indgangssignal
+B0530	Brændstofniveaumåler – kredsløb funktionsfejl
+B0531	Brændstofniveaumåler – kredsløb område/ydeevne
+B0532	Brændstofniveaumåler – kredsløb lavt indgangssignal
+B0533	Brændstofniveaumåler – kredsløb højt indgangssignal
+B0535	Turbo-/kompressorladetrykmåler – funktionsfejl
+B0536	Turbo-/kompressorladetrykmåler – område/ydeevne
+B0537	Turbo-/kompressorladetrykmåler – lavt indgangssignal
+B0538	Turbo-/kompressorladetrykmåler – højt indgangssignal
+B0540	Seleindikator – funktionsfejl
+B0541	Seleindikator – område/ydeevne
+B0542	Seleindikator – lavt indgangssignal
+B0543	Seleindikator – højt indgangssignal
+B0545	Dør åben #1 indikator – funktionsfejl
+B0546	Dør åben #1 indikator – område/ydeevne
+B0547	Dør åben #1 indikator – lavt indgangssignal
+B0548	Dør åben #1 indikator – højt indgangssignal
+B0550	Dør åben #2 indikator – funktionsfejl
+B0551	Dør åben #2 indikator – område/ydeevne
+B0552	Dør åben #2 indikator – lavt indgangssignal
+B0553	Dør åben #2 indikator – højt indgangssignal
+B0555	Bremseindikator – kredsløb funktionsfejl
+B0556	Bremseindikator – kredsløb område/ydeevne
+B0557	Bremseindikator – kredsløb lavt indgangssignal
+B0558	Bremseindikator – kredsløb højt indgangssignal
+B0560	Airbaglampe #1 – kredsløb funktionsfejl
+B0561	Airbaglampe #1 – kredsløb område/ydeevne
+B0562	Airbaglampe #1 – kredsløb lavt indgangssignal
+B0563	Airbaglampe #1 – kredsløb højt indgangssignal
+B0565	Sikkerhedsinformation – kredsløb funktionsfejl
+B0566	Sikkerhedsinformation – kredsløb område/ydeevne
+B0567	Sikkerhedsinformation – kredsløb lavt indgangssignal
+B0568	Sikkerhedsinformation – kredsløb højt indgangssignal
+B0600	Optionskonfiguration – fejl
+B0601	KAM-nulstilling
+B0602	Oscillatorvagthund-COP – funktionsfejl
+B0603	EEPROM-skrivning – fejl
+B0604	EEPROM-kalibrering – fejl
+B0605	EEPROM-kontrolsum – fejl
+B0606	RAM – funktionsfejl
+B0607	Intern – fejl
+B0608	Initialisering – fejl
+B0800	Enhedsstrøm #1 – kredsløb funktionsfejl
+B0801	Enhedsstrøm #1 – kredsløb område/ydeevne
+B0802	Enhedsstrøm #1 – kredsløb lavt indgangssignal
+B0803	Enhedsstrøm #1 – kredsløb højt indgangssignal
+B0805	Enhedsstrøm #2 – kredsløb funktionsfejl
+B0806	Enhedsstrøm #2 – kredsløb område/ydeevne
+B0807	Enhedsstrøm #2 – kredsløb lavt indgangssignal
+B0808	Enhedsstrøm #2 – kredsløb højt indgangssignal
+B0810	Enhedsstrøm #3 – kredsløb funktionsfejl
+B0811	Enhedsstrøm #3 – kredsløb område/ydeevne
+B0812	Enhedsstrøm #3 – kredsløb lavt indgangssignal
+B0813	Enhedsstrøm #3 – kredsløb højt indgangssignal
+B0815	Enhedsstel #1 – kredsløb funktionsfejl
+B0816	Enhedsstel #1 – kredsløb område/ydeevne
+B0817	Enhedsstel #1 – kredsløb lavt indgangssignal
+B0818	Enhedsstel #1 – kredsløb højt indgangssignal
+B0820	Enhedsstel #2 – kredsløb funktionsfejl
+B0821	Enhedsstel #2 – kredsløb område/ydeevne
+B0822	Enhedsstel #2 – kredsløb lavt indgangssignal
+B0823	Enhedsstel #2 – kredsløb højt indgangssignal
+B0825	Enhedsstel #3 – kredsløb funktionsfejl
+B0826	Enhedsstel #3 – kredsløb område/ydeevne
+B0827	Enhedsstel #3 – kredsløb lavt indgangssignal
+B0828	Enhedsstel #3 – kredsløb højt indgangssignal
+B0830	Tænding 0 – kredsløb funktionsfejl
+B0831	Tænding 0 – kredsløb område/ydeevne
+B0832	Tænding 0 – kredsløb lavt indgangssignal
+B0833	Tænding 0 – kredsløb højt indgangssignal
+B0835	Tænding 1 – kredsløb funktionsfejl
+B0836	Tænding 1 – kredsløb område/ydeevne
+B0837	Tænding 1 – kredsløb lavt indgangssignal
+B0838	Tænding 1 – kredsløb højt indgangssignal
+B0840	Tænding 3 – kredsløb funktionsfejl
+B0841	Tænding 3 – kredsløb område/ydeevne
+B0842	Tænding 3 – kredsløb lavt indgangssignal
+B0843	Tænding 3 – kredsløb højt indgangssignal
+B0845	5 V-reference til enhed – kredsløb funktionsfejl
+B0846	5 V-reference til enhed – kredsløb område/ydeevne
+B0847	5 V-reference til enhed – kredsløb lavt indgangssignal
+B0848	5 V-reference til enhed – kredsløb højt indgangssignal
+B0850	Batteri – kredsløb funktionsfejl (ren)
+B0851	Batteri – kredsløb område/ydeevne (ren)
+B0852	Batteri – kredsløb lavt indgangssignal (ren)
+B0853	Batteri – kredsløb højt indgangssignal (ren)
+B0855	Batteri – kredsløb funktionsfejl (snavset)
+B0856	Batteri – kredsløb område/ydeevne (snavset)
+B0857	Batteri – kredsløb lavt indgangssignal (snavset)
+B0858	Batteri – kredsløb højt indgangssignal (snavset)
+B0859	Systemspænding – lav
+B0860	Systemspænding – høj
+C0001	Antispinstyrekanal A ventil 1
+C0002	Antispinstyrekanal A ventil 2
+C0003	Antispinstyrekanal B ventil 1
+C0004	Antispinstyrekanal B ventil 2
+C0010	Indløb venstre for – styring
+C0011	Udløb venstre for – styring
+C0012	Hydraulisk aflastning venstre for for længe
+C0014	Indløb højre for – styring
+C0015	Udløb højre for – styring
+C0016	Hydraulisk aflastning højre for for længe
+C0018	Indløb venstre bag – styring
+C0019	Udløb venstre bag – styring
+C001A	Hydraulisk aflastning venstre bag for længe
+C001C	Indløb højre bag – styring
+C001D	Udløb højre bag – styring
+C001E	Hydraulisk aflastning højre bag for længe
+C0020	ABS-pumpemotor – styring
+C0021	Bremseservo – ydeevne
+C0022	Bremseservomagnetventil
+C0023	Bremselygte – styring
+C0030	Impulsring venstre for
+C0031	Hjulhastighedssensor venstre for
+C0032	Hjulhastighedssensorforsyning venstre for
+C0033	Impulsring højre for
+C0034	Hjulhastighedssensor højre for
+C0035	Hjulhastighedssensorforsyning højre for
+C0036	Impulsring venstre bag
+C0037	Hjulhastighedssensor venstre bag
+C0038	Hjulhastighedssensorforsyning venstre bag
+C0039	Impulsring højre bag
+C003A	Hjulhastighedssensor højre bag
+C003B	Hjulhastighedssensorforsyning højre bag
+C003C	Impulsring bag
+C003D	Hjulhastighedssensor bag
+C003E	Hjulhastighedssensorforsyning bag
+C0040	Bremsepedalkontakt A
+C0041	Bremsepedalkontakt B
+C0042	Bremsepedalpositionssensor – kredsløb A
+C0043	Bremsepedalpositionssensor – kredsløb B
+C0044	Bremsetryksensor A
+C0045	Bremsetryksensor B
+C0046	Bremsetryksensor A/B
+C0047	Bremseservotryksensor
+C0048	Bremseservovandringssensor
+C0049	Bremsevæske
+C004A	Bremsebelægningsslidsensor
+C0051	Ratpositionssensor
+C0052	Ratpositionssensorsignal A
+C0053	Ratpositionssensorsignal B
+C0054	Ratpositionssensorsignal C
+C0055	Ratpositionssensorsignal D
+C0061	Sideaccelerationssensor
+C0062	Længdeaccelerationssensor
+C0063	Girhastighedssensor
+C0064	Rullehastighedssensor
+C0069	Girhastigheds-/længdesensorer
+C006A	Flerakse-accelerationssensor
+C006B	Stabilitetssystemaktiv for længe
+C006C	Stabilitetssystem
+C0071	Hjuldrivstatusindgang 2/4
+C0072	Bremse – temperatur for høj
+C0073	Leveret køremoment
+C0074	Ønsket køremoment
+C0075	Signal om lang bremsepedalvandring til PCM
+C0076	PWM-signal til antispin – styring
+C0077	Lavt dæktryk
+C0078	Dækdiameter
+C0079	Hastighedsafhængig servostyring
+C0081	ABS – fejlindikator
+C0082	Bremsesystem – fejlindikator
+C0083	Dæktryksovervågning (TPMS) – fejlindikator
+C0084	Indikator for aktiv antispin
+C0085	Indikator for deaktiveret antispin
+C0086	Køredynamikindikator
+C0089	Antispindeaktiveringskontakt
+C008A	Antispintilstand – styring
+C0200	Hjulhastighedssensor højre for – kredsløb funktionsfejl
+C0201	Hjulhastighedssensor højre for – kredsløb område/ydeevne
+C0202	Hjulhastighedssensor højre for – kredsløb lavt indgangssignal
+C0203	Hjulhastighedssensor højre for – kredsløb højt indgangssignal
+C0205	Hjulhastighedssensor venstre for – kredsløb funktionsfejl
+C0206	Hjulhastighedssensor venstre for – kredsløb område/ydeevne
+C0207	Hjulhastighedssensor venstre for – kredsløb lavt indgangssignal
+C0208	Hjulhastighedssensor venstre for – kredsløb højt indgangssignal
+C0210	Hjulhastighedssensor højre bag – kredsløb funktionsfejl
+C0211	Hjulhastighedssensor højre bag – kredsløb område/ydeevne
+C0212	Hjulhastighedssensor højre bag – kredsløb lavt indgangssignal
+C0213	Hjulhastighedssensor højre bag – kredsløb højt indgangssignal
+C0215	Hjulhastighedssensor venstre bag – kredsløb funktionsfejl
+C0216	Hjulhastighedssensor venstre bag – kredsløb område/ydeevne
+C0217	Hjulhastighedssensor venstre bag – kredsløb lavt indgangssignal
+C0218	Hjulhastighedssensor venstre bag – kredsløb højt indgangssignal
+C0220	Hjulhastighedssensor bag – kredsløb funktionsfejl
+C0221	Hjulhastighedssensor bag – kredsløb område/ydeevne
+C0222	Hjulhastighedssensor bag – kredsløb lavt indgangssignal
+C0223	Hjulhastighedssensor bag – kredsløb højt indgangssignal
+C0225	Hjulhastighedssensorfrekvens – fejl
+C0226	ABS-magnetventil/måler #1 højre for – kredsløb funktionsfejl
+C0227	ABS-magnetventil/måler #1 højre for – kredsløb område/ydeevne
+C0228	ABS-magnetventil/måler #1 højre for – kredsløb lavt indgangssignal
+C0229	ABS-magnetventil/måler #1 højre for – kredsløb højt indgangssignal
+C0231	ABS-magnetventil/måler #2 højre for – kredsløb funktionsfejl
+C0232	ABS-magnetventil/måler #2 højre for – kredsløb område/ydeevne
+C0233	ABS-magnetventil/måler #2 højre for – kredsløb lavt indgangssignal
+C0234	ABS-magnetventil/måler #2 højre for – kredsløb højt indgangssignal
+C0236	ABS-magnetventil/måler #1 venstre for – kredsløb funktionsfejl
+C0237	ABS-magnetventil/måler #1 venstre for – kredsløb område/ydeevne
+C0238	ABS-magnetventil/måler #1 venstre for – kredsløb lavt indgangssignal
+C0239	ABS-magnetventil/måler #1 venstre for – kredsløb højt indgangssignal
+C0241	ABS-magnetventil/måler #2 venstre for – kredsløb funktionsfejl
+C0242	ABS-magnetventil/måler #2 venstre for – kredsløb område/ydeevne
+C0243	ABS-magnetventil/måler #2 venstre for – kredsløb lavt indgangssignal
+C0244	ABS-magnetventil/måler #2 venstre for – kredsløb højt indgangssignal
+C0246	ABS-magnetventil/måler #1 højre bag – kredsløb funktionsfejl
+C0247	ABS-magnetventil/måler #1 højre bag – kredsløb område/ydeevne
+C0248	ABS-magnetventil/måler #1 højre bag – kredsløb lavt indgangssignal
+C0249	ABS-magnetventil/måler #1 højre bag – kredsløb højt indgangssignal
+C0251	ABS-magnetventil/måler #2 højre bag – kredsløb funktionsfejl
+C0252	ABS-magnetventil/måler #2 højre bag – kredsløb område/ydeevne
+C0253	ABS-magnetventil/måler #2 højre bag – kredsløb lavt indgangssignal
+C0254	ABS-magnetventil/måler #2 højre bag – kredsløb højt indgangssignal
+C0256	ABS-magnetventil/måler #1 venstre bag – kredsløb funktionsfejl
+C0257	ABS-magnetventil/måler #1 venstre bag – kredsløb område/ydeevne
+C0258	ABS-magnetventil/måler #1 venstre bag – kredsløb lavt indgangssignal
+C0259	ABS-magnetventil/måler #1 venstre bag – kredsløb højt indgangssignal
+C0261	ABS-magnetventil/måler #2 højre bag – kredsløb funktionsfejl
+C0262	ABS-magnetventil/måler #2 højre bag – kredsløb område/ydeevne
+C0263	ABS-magnetventil/måler #2 højre bag – kredsløb lavt indgangssignal
+C0264	ABS-magnetventil/måler #2 højre bag – kredsløb højt indgangssignal
+C0266	Pumpemotor – kredsløb funktionsfejl
+C0267	Pumpemotor – kredsløb område/ydeevne
+C0268	Pumpemotor – kredsløb lavt indgangssignal
+C0269	Pumpemotor – kredsløb højt indgangssignal
+C0271	Pumpemotorrelæ – kredsløb funktionsfejl
+C0272	Pumpemotorrelæ – kredsløb område/ydeevne
+C0273	Pumpemotorrelæ – kredsløb lavt indgangssignal
+C0274	Pumpemotorrelæ – kredsløb højt indgangssignal
+C0276	Ventilrelæ – kredsløb funktionsfejl
+C0277	Ventilrelæ – kredsløb område/ydeevne
+C0278	Ventilrelæ – kredsløb lavt indgangssignal
+C0279	Ventilrelæ – kredsløb højt indgangssignal
+C0300	Antispinmagnetventil/måler #1 højre for – kredsløb funktionsfejl
+C0301	Antispinmagnetventil/måler #1 højre for – kredsløb område/ydeevne
+C0302	Antispinmagnetventil/måler #1 højre for – kredsløb lavt indgangssignal
+C0303	Antispinmagnetventil/måler #1 højre for – kredsløb højt indgangssignal
+C0305	Antispinmagnetventil/måler #2 højre for – kredsløb funktionsfejl
+C0306	Antispinmagnetventil/måler #2 højre for – kredsløb område/ydeevne
+C0307	Antispinmagnetventil/måler #2 højre for – kredsløb lavt indgangssignal
+C0308	Antispinmagnetventil/måler #2 højre for – kredsløb højt indgangssignal
+C0310	Antispinmagnetventil/måler #1 venstre for – kredsløb funktionsfejl
+C0311	Antispinmagnetventil/måler #1 venstre for – kredsløb område/ydeevne
+C0312	Antispinmagnetventil/måler #1 venstre for – kredsløb lavt indgangssignal
+C0313	Antispinmagnetventil/måler #1 venstre for – kredsløb højt indgangssignal
+C0315	Antispinmagnetventil/måler #2 venstre for – kredsløb funktionsfejl
+C0316	Antispinmagnetventil/måler #2 venstre for – kredsløb område/ydeevne
+C0317	Antispinmagnetventil/måler #2 venstre for – kredsløb lavt indgangssignal
+C0318	Antispinmagnetventil/måler #2 venstre for – kredsløb højt indgangssignal
+C0320	Antispinmagnetventil/måler #1 højre bag – kredsløb funktionsfejl
+C0321	Antispinmagnetventil/måler #1 højre bag – kredsløb område/ydeevne
+C0322	Antispinmagnetventil/måler #1 højre bag – kredsløb lavt indgangssignal
+C0323	Antispinmagnetventil/måler #1 højre bag – kredsløb højt indgangssignal
+C0325	Antispinmagnetventil/måler #2 højre bag – kredsløb funktionsfejl
+C0326	Antispinmagnetventil/måler #2 højre bag – kredsløb område/ydeevne
+C0327	Antispinmagnetventil/måler #2 højre bag – kredsløb lavt indgangssignal
+C0328	Antispinmagnetventil/måler #2 højre bag – kredsløb højt indgangssignal
+C0330	Antispinmagnetventil/måler #1 venstre bag – kredsløb funktionsfejl
+C0331	Antispinmagnetventil/måler #1 venstre bag – kredsløb område/ydeevne
+C0332	Antispinmagnetventil/måler #1 venstre bag – kredsløb lavt indgangssignal
+C0333	Antispinmagnetventil/måler #1 venstre bag – kredsløb højt indgangssignal
+C0335	Antispinmagnetventil/måler #2 højre bag – kredsløb funktionsfejl
+C0336	Antispinmagnetventil/måler #2 højre bag – kredsløb område/ydeevne
+C0337	Antispinmagnetventil/måler #2 højre bag – kredsløb lavt indgangssignal
+C0338	Antispinmagnetventil/måler #2 højre bag – kredsløb højt indgangssignal
+C0340	ABS-/antispinbremsekontakt – kredsløb funktionsfejl
+C0341	ABS-/antispinbremsekontakt – kredsløb område/ydeevne
+C0342	ABS-/antispinbremsekontakt – kredsløb lavt indgangssignal
+C0343	ABS-/antispinbremsekontakt – kredsløb højt indgangssignal
+C0345	For lidt bremsevæske – kredsløb funktionsfejl
+C0346	For lidt bremsevæske – kredsløb område/ydeevne
+C0347	For lidt bremsevæske – kredsløb lavt indgangssignal
+C0348	For lidt bremsevæske – kredsløb højt indgangssignal
+C0350	Magnetventil/måler #1 bag – kredsløb funktionsfejl
+C0351	Magnetventil/måler #1 bag – kredsløb område/ydeevne
+C0352	Magnetventil/måler #1 bag – kredsløb lavt indgangssignal
+C0353	Magnetventil/måler #1 bag – kredsløb højt indgangssignal
+C0355	Gasspjældreduktionsmåler – kredsløb funktionsfejl
+C0356	Gasspjældreduktionsmåler – kredsløb område/ydeevne
+C0357	Gasspjældreduktionsmåler – kredsløb lavt indgangssignal
+C0358	Gasspjældreduktionsmåler – kredsløb højt indgangssignal
+C0360	Systemtryk – kredsløb funktionsfejl
+C0361	Systemtryk – kredsløb område/ydeevne
+C0362	Systemtryk – kredsløb lavt indgangssignal
+C0363	Systemtryk – kredsløb højt indgangssignal
+C0365	Sideaccelerationssensor – kredsløb funktionsfejl
+C0366	Sideaccelerationssensor – kredsløb område/ydeevne
+C0367	Sideaccelerationssensor – kredsløb lavt indgangssignal
+C0368	Sideaccelerationssensor – kredsløb højt indgangssignal
+C0370	Girhastighed – kredsløb funktionsfejl
+C0371	Girhastighed – kredsløb område/ydeevne
+C0372	Girhastighed – kredsløb lavt indgangssignal
+C0373	Girhastighed – kredsløb højt indgangssignal
+C0500	Styremagnetventil – kredsløb funktionsfejl
+C0501	Styremagnetventil – kredsløb område/ydeevne
+C0502	Styremagnetventil – kredsløb lavt indgangssignal
+C0503	Styremagnetventil – kredsløb højt indgangssignal
+C0505	Styrepositionssensor – funktionsfejl
+C0506	Styrepositionssensor – område/ydeevne
+C0507	Styrepositionssensor – lavt indgangssignal
+C0508	Styrepositionssensor – højt indgangssignal
+C0510	Styrehastighedssensor – funktionsfejl
+C0511	Styrehastighedssensor – område/ydeevne
+C0512	Styrehastighedssensor – lavt indgangssignal
+C0513	Styrehastighedssensor – højt indgangssignal
+C0700	Magnetventil venstre for – kredsløb funktionsfejl
+C0701	Magnetventil venstre for – kredsløb område/ydeevne
+C0702	Magnetventil venstre for – kredsløb lavt indgangssignal
+C0703	Magnetventil venstre for – kredsløb højt indgangssignal
+C0705	Magnetventil højre for – kredsløb funktionsfejl
+C0706	Magnetventil højre for – kredsløb område/ydeevne
+C0707	Magnetventil højre for – kredsløb lavt indgangssignal
+C0708	Magnetventil højre for – kredsløb højt indgangssignal
+C0710	Magnetventil venstre bag – kredsløb funktionsfejl
+C0711	Magnetventil venstre bag – kredsløb område/ydeevne
+C0712	Magnetventil venstre bag – kredsløb lavt indgangssignal
+C0713	Magnetventil venstre bag – kredsløb højt indgangssignal
+C0715	Magnetventil højre bag – kredsløb funktionsfejl
+C0716	Magnetventil højre bag – kredsløb område/ydeevne
+C0717	Magnetventil højre bag – kredsløb lavt indgangssignal
+C0718	Magnetventil højre bag – kredsløb højt indgangssignal
+C0720	Accelerationssensor venstre for – kredsløb funktionsfejl
+C0721	Accelerationssensor venstre for – kredsløb område/ydeevne
+C0722	Accelerationssensor venstre for – kredsløb lavt indgangssignal
+C0723	Accelerationssensor venstre for – kredsløb højt indgangssignal
+C0725	Accelerationssensor højre for – kredsløb funktionsfejl
+C0726	Accelerationssensor højre for – kredsløb område/ydeevne
+C0727	Accelerationssensor højre for – kredsløb lavt indgangssignal
+C0728	Accelerationssensor højre for – kredsløb højt indgangssignal
+C0730	Accelerationssensor venstre bag – kredsløb funktionsfejl
+C0731	Accelerationssensor venstre bag – kredsløb område/ydeevne
+C0732	Accelerationssensor venstre bag – kredsløb lavt indgangssignal
+C0733	Accelerationssensor venstre bag – kredsløb højt indgangssignal
+C0735	Accelerationssensor højre bag – kredsløb funktionsfejl
+C0736	Accelerationssensor højre bag – kredsløb område/ydeevne
+C0737	Accelerationssensor højre bag – kredsløb lavt indgangssignal
+C0738	Accelerationssensor højre bag – kredsløb højt indgangssignal
+C0740	Positionssensor venstre for – kredsløb funktionsfejl
+C0741	Positionssensor venstre for – kredsløb område/ydeevne
+C0742	Positionssensor venstre for – kredsløb lavt indgangssignal
+C0743	Positionssensor venstre for – kredsløb højt indgangssignal
+C0745	Positionssensor højre for – kredsløb funktionsfejl
+C0746	Positionssensor højre for – kredsløb område/ydeevne
+C0747	Positionssensor højre for – kredsløb lavt indgangssignal
+C0748	Positionssensor højre for – kredsløb højt indgangssignal
+C0750	Positionssensor venstre bag – kredsløb funktionsfejl
+C0751	Positionssensor venstre bag – kredsløb område/ydeevne
+C0752	Positionssensor venstre bag – kredsløb lavt indgangssignal
+C0753	Positionssensor venstre bag – kredsløb højt indgangssignal
+C0755	Positionssensor højre bag – kredsløb funktionsfejl
+C0756	Positionssensor højre bag – kredsløb område/ydeevne
+C0757	Positionssensor højre bag – kredsløb lavt indgangssignal
+C0758	Positionssensor højre bag – kredsløb højt indgangssignal
+P0001	Brændstofmængderegulator – styrekredsløb afbrudt
+P0002	Brændstofmængderegulator – styrekredsløb område/ydeevne
+P0003	Brændstofmængderegulator – styrekredsløb lav
+P0004	Brændstofmængderegulator – styrekredsløb høj
+P0005	Brændstofafbryderventil A – styrekredsløb afbrudt
+P0006	Brændstofafbryderventil A – styrekredsløb lav
+P0007	Brændstofafbryderventil A – styrekredsløb høj
+P0008	Motorpositionssystem – ydeevne, bank 1
+P0009	Motorpositionssystem – ydeevne, bank 2
+P000A	Knastakselposition A – langsom respons, bank 1
+P000B	Knastakselposition B – langsom respons, bank 1
+P000C	Knastakselposition A – langsom respons, bank 2
+P000D	Knastakselposition B – langsom respons, bank 2
+P0010	Knastakselpositionsaktuator A – kredsløb afbrudt, bank 1
+P0011	Knastakselposition A – timing for tidlig eller systemydeevne, bank 1
+P0012	Knastakselposition A – timing for sen, bank 1
+P0013	Knastakselposition B – aktuatorkredsløb afbrudt, bank 1
+P0014	Knastakselposition B – timing for tidlig eller systemydeevne, bank 1
+P0015	Knastakselposition B – timing for sen, bank 1
+P0016	Krumtapakselposition – korrelation med knastakselposition, bank 1 sensor A
+P0017	Krumtapakselposition – korrelation med knastakselposition, bank 1 sensor B
+P0018	Krumtapakselposition – korrelation med knastakselposition, bank 2 sensor A
+P0019	Krumtapakselposition – korrelation med knastakselposition, bank 2 sensor B
+P0020	Knastakselpositionsaktuator A – kredsløb afbrudt, bank 2
+P0021	Knastakselposition A – timing for tidlig eller systemydeevne, bank 2
+P0022	Knastakselposition A – timing for sen, bank 2
+P0023	Knastakselposition B – aktuatorkredsløb afbrudt, bank 2
+P0024	Knastakselposition B – timing for tidlig eller systemydeevne, bank 2
+P0025	Knastakselposition B – timing for sen, bank 2
+P0026	Indsugningsventil-styremagnetventil – kredsløb område/ydeevne, bank 1
+P0027	Udstødningsventil-styremagnetventil – kredsløb område/ydeevne, bank 1
+P0028	Indsugningsventil-styremagnetventil – kredsløb område/ydeevne, bank 2
+P0029	Udstødningsventil-styremagnetventil – kredsløb område/ydeevne, bank 2
+P0030	Lambdasondevarmer – styrekredsløb, bank 1 sensor 1
+P0031	Lambdasondevarmer – styrekredsløb lav, bank 1 sensor 1
+P0032	Lambdasondevarmer – styrekredsløb høj, bank 1 sensor 1
+P0033	Turbo-/kompressorbypassventil – styrekredsløb
+P0034	Turbo-/kompressorbypassventil – styrekredsløb lav
+P0035	Turbo-/kompressorbypassventil – styrekredsløb høj
+P0036	Lambdasondevarmer – styrekredsløb, bank 1 sensor 2
+P0037	Lambdasondevarmer – styrekredsløb lav, bank 1 sensor 2
+P0038	Lambdasondevarmer – styrekredsløb høj, bank 1 sensor 2
+P0039	Turbo-/kompressorbypassventil – styrekredsløb område/ydeevne
+P0040	Lambdasondesignaler ombyttet, bank 1 sensor 1, bank 2 sensor 1
+P0041	Lambdasondesignaler ombyttet, bank 1 sensor 2, bank 2 sensor 2
+P0042	Lambdasondevarmer – styrekredsløb, bank 1 sensor 3
+P0043	Lambdasondevarmer – styrekredsløb lav, bank 1 sensor 3
+P0044	Lambdasondevarmer – styrekredsløb høj, bank 1 sensor 3
+P0045	Turbo-/kompressorladetrykreguleringsmagnetventil A – kredsløb afbrudt
+P0046	Turbo-/kompressorladetrykreguleringsmagnetventil A – kredsløb område/ydeevne
+P0047	Turbo-/kompressorladetrykreguleringsmagnetventil A – kredsløb lav
+P0048	Turbo-/kompressorladetrykreguleringsmagnetventil A – kredsløb høj
+P0049	Turbo-/kompressorturbine – overomdrejninger
+P004A	Turbo-/kompressorladetrykreguleringsmagnetventil B – kredsløb afbrudt
+P004B	Turbo-/kompressorladetrykreguleringsmagnetventil B – kredsløb område/ydeevne
+P004C	Turbo-/kompressorladetrykreguleringsmagnetventil B – kredsløb lav
+P004D	Turbo-/kompressorladetrykreguleringsmagnetventil B – kredsløb høj
+P004E	Turbo-/kompressorladetrykreguleringsmagnetventil A – kredsløb sporadisk/ustabil
+P004F	Turbo-/kompressorladetrykreguleringsmagnetventil B – kredsløb sporadisk/ustabil
+P0050	Lambdasondevarmer – styrekredsløb, bank 2 sensor 1
+P0051	Lambdasondevarmer – styrekredsløb lav, bank 2 sensor 1
+P0052	Lambdasondevarmer – styrekredsløb høj, bank 2 sensor 1
+P0053	Lambdasondevarmermodstand, bank 1 sensor 1
+P0054	Lambdasondevarmermodstand, bank 1 sensor 2
+P0055	Lambdasondevarmermodstand, bank 1 sensor 3
+P0056	Lambdasondevarmer – styrekredsløb, bank 2 sensor 2
+P0057	Lambdasondevarmer – styrekredsløb lav, bank 2 sensor 2
+P0058	Lambdasondevarmer – styrekredsløb høj, bank 2 sensor 2
+P0059	Lambdasondevarmermodstand, bank 2 sensor 1
+P0060	Lambdasondevarmermodstand, bank 2 sensor 2
+P0061	Lambdasondevarmermodstand, bank 2 sensor 3
+P0062	Lambdasondevarmer – styrekredsløb, bank 2 sensor 3
+P0063	Lambdasondevarmer – styrekredsløb lav, bank 2 sensor 3
+P0064	Lambdasondevarmer – styrekredsløb høj, bank 2 sensor 3
+P0065	Luftassisteret-indsprøjtningsventil – styring område/ydeevne
+P0066	Luftassisteret-indsprøjtningsventil – styrekredsløb eller kredsløb lav
+P0067	Luftassisteret-indsprøjtningsventil – styrekredsløb høj
+P0068	MAP/MAF – korrelation med gasspjældposition
+P0069	Manifoldtryk (MAP) – korrelation med barometertryk
+P006A	MAP – korrelation med luftmasse/luftvolumen
+P006B	MAP – korrelation med udstødningstryk
+P006C	MAP – korrelation med indløbstryk til turbo/kompressor
+P006D	Barometertryk – korrelation med indløbstryk til turbo/kompressor
+P0070	Udelufttemperatursensor – kredsløb
+P0071	Udelufttemperatursensor – område/ydeevne
+P0072	Udelufttemperatursensor – kredsløb lav
+P0073	Udelufttemperatursensor – kredsløb høj
+P0074	Udelufttemperatursensor – kredsløb sporadisk
+P0075	Indsugningsventil-styremagnetventil – kredsløb, bank 1
+P0076	Indsugningsventil-styremagnetventil – kredsløb lav, bank 1
+P0077	Indsugningsventil-styremagnetventil – kredsløb høj, bank 1
+P0078	Udstødningsventil-styremagnetventil – kredsløb, bank 1
+P0079	Udstødningsventil-styremagnetventil – kredsløb lav, bank 1
+P0080	Udstødningsventil-styremagnetventil – kredsløb høj, bank 1
+P0081	Indsugningsventil-styremagnetventil – kredsløb, bank 2
+P0082	Indsugningsventil-styremagnetventil – kredsløb lav, bank 2
+P0083	Indsugningsventil-styremagnetventil – kredsløb høj, bank 2
+P0084	Udstødningsventil-styremagnetventil – kredsløb, bank 2
+P0085	Udstødningsventil-styremagnetventil – kredsløb lav, bank 2
+P0086	Udstødningsventil-styremagnetventil – kredsløb høj, bank 2
+P0087	Brændstofrørs-/systemtryk – for lav
+P0088	Brændstofrørs-/systemtryk – for høj
+P0089	Brændstoftrykregulator 1 – ydeevne
+P0090	Brændstoftrykregulator 1 – styrekredsløb
+P0091	Brændstoftrykregulator 1 – styrekredsløb lav
+P0092	Brændstoftrykregulator 1 – styrekredsløb høj
+P0093	Brændstofsystemutæthed – registreret – stor utæthed
+P0094	Brændstofsystemutæthed – registreret – lille utæthed
+P0095	Indsugningsluft-temperatursensor 2 – kredsløb
+P0096	Indsugningsluft-temperatursensor 2 – kredsløb område/ydeevne
+P0097	Indsugningsluft-temperatursensor 2 – kredsløb lav
+P0098	Indsugningsluft-temperatursensor 2 – kredsløb høj
+P0099	Indsugningsluft-temperatursensor 2 – kredsløb sporadisk/ustabil
+P009A	Indsugningslufttemperatur-/udelufttemperatur – korrelation
+P0100	Luftmasse/luftvolumen A – kredsløb
+P0101	Luftmasse/luftvolumen A – kredsløb område/ydeevne
+P0102	Luftmasse/luftvolumen A – kredsløb lav
+P0103	Luftmasse/luftvolumen A – kredsløb høj
+P0104	Luftmasse/luftvolumen A – kredsløb sporadisk
+P0105	Manifoldtryk (MAP)/barometertryk – kredsløb
+P0106	Manifoldtryk (MAP)/barometertryk – kredsløb område/ydeevne
+P0107	Manifoldtryk (MAP)/barometertryk – kredsløb lav
+P0108	Manifoldtryk (MAP)/barometertryk – kredsløb høj
+P0109	Manifoldtryk (MAP)/barometertryk – kredsløb sporadisk
+P010A	Luftmasse/luftvolumen B – kredsløb
+P010B	Luftmasse/luftvolumen B – kredsløb område/ydeevne
+P010C	Luftmasse/luftvolumen B – kredsløb lav
+P010D	Luftmasse/luftvolumen B – kredsløb høj
+P010E	Luftmasse/luftvolumen B – kredsløb sporadisk/ustabil
+P010F	Luftmasse-/luftvolumensensor A/B – korrelation
+P0110	Indsugningsluft-temperatursensor 1 – kredsløb
+P0111	Indsugningsluft-temperatursensor 1 – kredsløb område/ydeevne
+P0112	Indsugningsluft-temperatursensor 1 – kredsløb lav
+P0113	Indsugningsluft-temperatursensor 1 – kredsløb høj
+P0114	Indsugningsluft-temperatursensor 1 – kredsløb sporadisk
+P0115	Kølevæsketemperatursensor 1 – kredsløb
+P0116	Kølevæsketemperatursensor 1 – kredsløb område/ydeevne
+P0117	Kølevæsketemperatursensor 1 – kredsløb lav
+P0118	Kølevæsketemperatursensor 1 – kredsløb høj
+P0119	Kølevæsketemperatursensor 1 – kredsløb sporadisk
+P011A	Kølevæsketemperatursensor 1/2 – korrelation
+P0120	Gasspjæld-/pedalpositionssensor/-kontakt A – kredsløb
+P0121	Gasspjæld-/pedalpositionssensor/-kontakt A – kredsløb område/ydeevne
+P0122	Gasspjæld-/pedalpositionssensor/-kontakt A – kredsløb lav
+P0123	Gasspjæld-/pedalpositionssensor/-kontakt A – kredsløb høj
+P0124	Gasspjæld-/pedalpositionssensor/-kontakt A – kredsløb sporadisk
+P0125	For lav kølevæsketemperatur til lambdaregulering (lukket sløjfe)
+P0126	For lav kølevæsketemperatur til stabil drift
+P0127	Indsugningsluft – temperatur for høj
+P0128	Termostat (kølevæsketemperatur under termostatens reguleringstemperatur)
+P0129	Barometertryk – for lav
+P012A	Turbo-/kompressorindløbstryksensor – kredsløb
+P012B	Turbo-/kompressorindløbstryksensor – kredsløb område/ydeevne
+P012C	Turbo-/kompressorindløbstryksensor – kredsløb lav
+P012D	Turbo-/kompressorindløbstryksensor – kredsløb høj
+P012E	Turbo-/kompressorindløbstryksensor – kredsløb sporadisk/ustabil
+P0130	Lambdasonde – kredsløb, bank 1 sensor 1
+P0131	Lambdasonde – kredsløb lav spænding, bank 1 sensor 1
+P0132	Lambdasonde – kredsløb høj spænding, bank 1 sensor 1
+P0133	Lambdasonde – kredsløb langsom respons, bank 1 sensor 1
+P0134	Lambdasonde – kredsløb ingen aktivitet registreret, bank 1 sensor 1
+P0135	Lambdasondevarmer – kredsløb, bank 1 sensor 1
+P0136	Lambdasonde – kredsløb, bank 1 sensor 2
+P0137	Lambdasonde – kredsløb lav spænding, bank 1 sensor 2
+P0138	Lambdasonde – kredsløb høj spænding, bank 1 sensor 2
+P0139	Lambdasonde – kredsløb langsom respons, bank 1 sensor 2
+P0140	Lambdasonde – kredsløb ingen aktivitet registreret, bank 1 sensor 2
+P0141	Lambdasondevarmer – kredsløb, bank 1 sensor 2
+P0142	Lambdasonde – kredsløb, bank 1 sensor 3
+P0143	Lambdasonde – kredsløb lav spænding, bank 1 sensor 3
+P0144	Lambdasonde – kredsløb høj spænding, bank 1 sensor 3
+P0145	Lambdasonde – kredsløb langsom respons, bank 1 sensor 3
+P0146	Lambdasonde – kredsløb ingen aktivitet registreret, bank 1 sensor 3
+P0147	Lambdasondevarmer – kredsløb, bank 1 sensor 3
+P0148	Brændstoftilførsel – fejl
+P0149	Brændstoftiming – fejl
+P0150	Lambdasonde – kredsløb, bank 2 sensor 1
+P0151	Lambdasonde – kredsløb lav spænding, bank 2 sensor 1
+P0152	Lambdasonde – kredsløb høj spænding, bank 2 sensor 1
+P0153	Lambdasonde – kredsløb langsom respons, bank 2 sensor 1
+P0154	Lambdasonde – kredsløb ingen aktivitet registreret, bank 2 sensor 1
+P0155	Lambdasondevarmer – kredsløb, bank 2 sensor 1
+P0156	Lambdasonde – kredsløb, bank 2 sensor 2
+P0157	Lambdasonde – kredsløb lav spænding, bank 2 sensor 2
+P0158	Lambdasonde – kredsløb høj spænding, bank 2 sensor 2
+P0159	Lambdasonde – kredsløb langsom respons, bank 2 sensor 2
+P0160	Lambdasonde – kredsløb ingen aktivitet registreret, bank 2 sensor 2
+P0161	Lambdasondevarmer – kredsløb, bank 2 sensor 2
+P0162	Lambdasonde – kredsløb, bank 2 sensor 3
+P0163	Lambdasonde – kredsløb lav spænding, bank 2 sensor 3
+P0164	Lambdasonde – kredsløb høj spænding, bank 2 sensor 3
+P0165	Lambdasonde – kredsløb langsom respons, bank 2 sensor 3
+P0166	Lambdasonde – kredsløb ingen aktivitet registreret, bank 2 sensor 3
+P0167	Lambdasondevarmer – kredsløb, bank 2 sensor 3
+P0168	Brændstof – temperatur for høj
+P0169	Forkert brændstofsammensætning
+P0170	Brændstoftrim, bank 1
+P0171	Blandingen er for mager, bank 1
+P0172	Blandingen er for fed, bank 1
+P0173	Brændstoftrim, bank 2
+P0174	Blandingen er for mager, bank 2
+P0175	Blandingen er for fed, bank 2
+P0176	Brændstofsammensætningssensor – kredsløb
+P0177	Brændstofsammensætningssensor – kredsløb område/ydeevne
+P0178	Brændstofsammensætningssensor – kredsløb lav
+P0179	Brændstofsammensætningssensor – kredsløb høj
+P0180	Brændstoftemperatursensor A – kredsløb
+P0181	Brændstoftemperatursensor A – kredsløb område/ydeevne
+P0182	Brændstoftemperatursensor A – kredsløb lav
+P0183	Brændstoftemperatursensor A – kredsløb høj
+P0184	Brændstoftemperatursensor A – kredsløb sporadisk
+P0185	Brændstoftemperatursensor B – kredsløb
+P0186	Brændstoftemperatursensor B – kredsløb område/ydeevne
+P0187	Brændstoftemperatursensor B – kredsløb lav
+P0188	Brændstoftemperatursensor B – kredsløb høj
+P0189	Brændstoftemperatursensor B – kredsløb sporadisk
+P018A	Brændstoftryksensor B – kredsløb
+P018B	Brændstoftryksensor B – kredsløb område/ydeevne
+P018C	Brændstoftryksensor B – kredsløb lav
+P018D	Brændstoftryksensor B – kredsløb høj
+P018E	Brændstoftryksensor B – kredsløb sporadisk/ustabil
+P0190	Brændstofrørstryksensor A – kredsløb
+P0191	Brændstofrørstryksensor A – kredsløb område/ydeevne
+P0192	Brændstofrørstryksensor A – kredsløb lav
+P0193	Brændstofrørstryksensor A – kredsløb høj
+P0194	Brændstofrørstryksensor A – kredsløb sporadisk/ustabil
+P0195	Motorolietemperatursensor
+P0196	Motorolietemperatursensor – område/ydeevne
+P0197	Motorolietemperatursensor – lav
+P0198	Motorolietemperatursensor – høj
+P0199	Motorolietemperatursensor – sporadisk
+P0200	Indsprøjtningsventil – kredsløb afbrudt
+P0201	Indsprøjtningsventil – kredsløb afbrudt, cylinder 1
+P0202	Indsprøjtningsventil – kredsløb afbrudt, cylinder 2
+P0203	Indsprøjtningsventil – kredsløb afbrudt, cylinder 3
+P0204	Indsprøjtningsventil – kredsløb afbrudt, cylinder 4
+P0205	Indsprøjtningsventil – kredsløb afbrudt, cylinder 5
+P0206	Indsprøjtningsventil – kredsløb afbrudt, cylinder 6
+P0207	Indsprøjtningsventil – kredsløb afbrudt, cylinder 7
+P0208	Indsprøjtningsventil – kredsløb afbrudt, cylinder 8
+P0209	Indsprøjtningsventil – kredsløb afbrudt, cylinder 9
+P020A	Indsprøjtningstidspunkt, cylinder 1
+P020B	Indsprøjtningstidspunkt, cylinder 2
+P020C	Indsprøjtningstidspunkt, cylinder 3
+P020D	Indsprøjtningstidspunkt, cylinder 4
+P020E	Indsprøjtningstidspunkt, cylinder 5
+P020F	Indsprøjtningstidspunkt, cylinder 6
+P0210	Indsprøjtningsventil – kredsløb afbrudt, cylinder 10
+P0211	Indsprøjtningsventil – kredsløb afbrudt, cylinder 11
+P0212	Indsprøjtningsventil – kredsløb afbrudt, cylinder 12
+P0213	Koldstartsindsprøjtningsventil 1
+P0214	Koldstartsindsprøjtningsventil 2
+P0215	Motorafbrydelsesmagnetventil
+P0216	Indsprøjtningsventil/indsprøjtningstidspunkt – styrekredsløb
+P0217	Overtemperatur i kølevæsken
+P0218	Gearolie – overtemperatur
+P0219	Motor – overomdrejninger
+P021A	Indsprøjtningstidspunkt, cylinder 7
+P021B	Indsprøjtningstidspunkt, cylinder 8
+P021C	Indsprøjtningstidspunkt, cylinder 9
+P021D	Indsprøjtningstidspunkt, cylinder 10
+P021E	Indsprøjtningstidspunkt, cylinder 11
+P021F	Indsprøjtningstidspunkt, cylinder 12
+P0220	Gasspjæld-/pedalpositionssensor/-kontakt B – kredsløb
+P0221	Gasspjæld-/pedalpositionssensor/-kontakt B – kredsløb område/ydeevne
+P0222	Gasspjæld-/pedalpositionssensor/-kontakt B – kredsløb lav
+P0223	Gasspjæld-/pedalpositionssensor/-kontakt B – kredsløb høj
+P0224	Gasspjæld-/pedalpositionssensor/-kontakt B – kredsløb sporadisk
+P0225	Gasspjæld-/pedalpositionssensor/-kontakt C – kredsløb
+P0226	Gasspjæld-/pedalpositionssensor/-kontakt C – kredsløb område/ydeevne
+P0227	Gasspjæld-/pedalpositionssensor/-kontakt C – kredsløb lav
+P0228	Gasspjæld-/pedalpositionssensor/-kontakt C – kredsløb høj
+P0229	Gasspjæld-/pedalpositionssensor/-kontakt C – kredsløb sporadisk
+P022A	Ladeluftkølerbypassstyring A – kredsløb afbrudt
+P022B	Ladeluftkølerbypassstyring A – kredsløb lav
+P022C	Ladeluftkølerbypassstyring A – kredsløb høj
+P022D	Ladeluftkølerbypassstyring B – kredsløb afbrudt
+P022E	Ladeluftkølerbypassstyring B – kredsløb lav
+P022F	Ladeluftkølerbypassstyring B – kredsløb høj
+P0230	Brændstofpumpe – primærkredsløb
+P0231	Brændstofpumpe sekundær – kredsløb lav
+P0232	Brændstofpumpe sekundær – kredsløb høj
+P0233	Brændstofpumpe sekundær – kredsløb sporadisk
+P0234	Turbo/kompressor for højt ladetryk – tilstand
+P0235	Turbo-/kompressorladetryksensor A – kredsløb
+P0236	Turbo-/kompressorladetryksensor A – kredsløb område/ydeevne
+P0237	Turbo-/kompressorladetryksensor A – kredsløb lav
+P0238	Turbo-/kompressorladetryksensor A – kredsløb høj
+P0239	Turbo-/kompressorladetryksensor B – kredsløb
+P023A	Ladeluftkølerkølevæskepumpe – styrekredsløb afbrudt
+P023B	Ladeluftkølerkølevæskepumpe – styrekredsløb lav
+P023C	Ladeluftkølerkølevæskepumpe – styrekredsløb høj
+P023D	Manifoldtryk (MAP) – korrelation med ladetryksensor A
+P023E	Manifoldtryk (MAP) – korrelation med ladetryksensor B
+P0240	Turbo-/kompressorladetryksensor B – kredsløb område/ydeevne
+P0241	Turbo-/kompressorladetryksensor B – kredsløb lav
+P0242	Turbo-/kompressorladetryksensor B – kredsløb høj
+P0243	Turbo-/kompressorwastegatemagnetventil A
+P0244	Turbo-/kompressorwastegatemagnetventil A – område/ydeevne
+P0245	Turbo-/kompressorwastegatemagnetventil A – lav
+P0246	Turbo-/kompressorwastegatemagnetventil A – høj
+P0247	Turbo-/kompressorwastegatemagnetventil B
+P0248	Turbo-/kompressorwastegatemagnetventil B – område/ydeevne
+P0249	Turbo-/kompressorwastegatemagnetventil B – lav
+P024A	Ladeluftkølerbypassstyring A – område/ydeevne
+P024B	Ladeluftkølerbypassstyring A – hænger fast
+P024C	Ladeluftkølerbypass-positionssensor A – kredsløb
+P024D	Ladeluftkølerbypass-positionssensor A – kredsløb område/ydeevne
+P024E	Ladeluftkølerbypass-positionssensor A – kredsløb lav
+P024F	Ladeluftkølerbypass-positionssensor A – kredsløb høj
+P0250	Turbo-/kompressorwastegatemagnetventil B – høj
+P0251	Indsprøjtningspumpe-brændstofdoseringsstyring A (knastaksel/rotor/indsprøjtningsventil)
+P0252	Indsprøjtningspumpe-brændstofdoseringsstyring A – område/ydeevne (knastaksel/rotor/indsprøjtningsventil)
+P0253	Indsprøjtningspumpe-brændstofdoseringsstyring A – lav (knastaksel/rotor/indsprøjtningsventil)
+P0254	Indsprøjtningspumpe-brændstofdoseringsstyring A – høj (knastaksel/rotor/indsprøjtningsventil)
+P0255	Indsprøjtningspumpe-brændstofdoseringsstyring A – sporadisk (knastaksel/rotor/indsprøjtningsventil)
+P0256	Indsprøjtningspumpe-brændstofdoseringsstyring B (knastaksel/rotor/indsprøjtningsventil)
+P0257	Indsprøjtningspumpe-brændstofdoseringsstyring B – område/ydeevne (knastaksel/rotor/indsprøjtningsventil)
+P0258	Indsprøjtningspumpe-brændstofdoseringsstyring B – lav (knastaksel/rotor/indsprøjtningsventil)
+P0259	Indsprøjtningspumpe-brændstofdoseringsstyring B – høj (knastaksel/rotor/indsprøjtningsventil)
+P025A	Brændstofpumpemodul – styrekredsløb afbrudt
+P025B	Brændstofpumpemodul – styrekredsløb område/ydeevne
+P025C	Brændstofpumpemodul – styrekredsløb lav
+P025D	Brændstofpumpemodul – styrekredsløb høj
+P0260	Indsprøjtningspumpe-brændstofdoseringsstyring B – sporadisk (knastaksel/rotor/indsprøjtningsventil)
+P0261	Indsprøjtningsventil – kredsløb lav, cylinder 1
+P0262	Indsprøjtningsventil – kredsløb høj, cylinder 1
+P0263	Bidrag/balance, cylinder 1
+P0264	Indsprøjtningsventil – kredsløb lav, cylinder 2
+P0265	Indsprøjtningsventil – kredsløb høj, cylinder 2
+P0266	Bidrag/balance, cylinder 2
+P0267	Indsprøjtningsventil – kredsløb lav, cylinder 3
+P0268	Indsprøjtningsventil – kredsløb høj, cylinder 3
+P0269	Bidrag/balance, cylinder 3
+P0270	Indsprøjtningsventil – kredsløb lav, cylinder 4
+P0271	Indsprøjtningsventil – kredsløb høj, cylinder 4
+P0272	Bidrag/balance, cylinder 4
+P0273	Indsprøjtningsventil – kredsløb lav, cylinder 5
+P0274	Indsprøjtningsventil – kredsløb høj, cylinder 5
+P0275	Bidrag/balance, cylinder 5
+P0276	Indsprøjtningsventil – kredsløb lav, cylinder 6
+P0277	Indsprøjtningsventil – kredsløb høj, cylinder 6
+P0278	Bidrag/balance, cylinder 6
+P0279	Indsprøjtningsventil – kredsløb lav, cylinder 7
+P0280	Indsprøjtningsventil – kredsløb høj, cylinder 7
+P0281	Bidrag/balance, cylinder 7
+P0282	Indsprøjtningsventil – kredsløb lav, cylinder 8
+P0283	Indsprøjtningsventil – kredsløb høj, cylinder 8
+P0284	Bidrag/balance, cylinder 8
+P0285	Indsprøjtningsventil – kredsløb lav, cylinder 9
+P0286	Indsprøjtningsventil – kredsløb høj, cylinder 9
+P0287	Bidrag/balance, cylinder 9
+P0288	Indsprøjtningsventil – kredsløb lav, cylinder 10
+P0289	Indsprøjtningsventil – kredsløb høj, cylinder 10
+P0290	Bidrag/balance, cylinder 10
+P0291	Indsprøjtningsventil – kredsløb lav, cylinder 11
+P0292	Indsprøjtningsventil – kredsløb høj, cylinder 11
+P0293	Bidrag/balance, cylinder 11
+P0294	Indsprøjtningsventil – kredsløb lav, cylinder 12
+P0295	Indsprøjtningsventil – kredsløb høj, cylinder 12
+P0296	Bidrag/balance, cylinder 12
+P0297	Køretøj – overomdrejninger
+P0298	Motorolie – overtemperatur
+P0299	Turbo/kompressor for lavt ladetryk
+P0300	Fejltænding registreret i tilfældige/flere cylindre
+P0301	Fejltænding registreret i cylinder 1
+P0302	Fejltænding registreret i cylinder 2
+P0303	Fejltænding registreret i cylinder 3
+P0304	Fejltænding registreret i cylinder 4
+P0305	Fejltænding registreret i cylinder 5
+P0306	Fejltænding registreret i cylinder 6
+P0307	Fejltænding registreret i cylinder 7
+P0308	Fejltænding registreret i cylinder 8
+P0309	Fejltænding registreret i cylinder 9
+P0310	Fejltænding registreret i cylinder 10
+P0311	Fejltænding registreret i cylinder 11
+P0312	Fejltænding registreret i cylinder 12
+P0313	Fejltænding – registreret med lidt brændstof
+P0314	Enkeltcylinderfejltænding (cylinder ikke angivet)
+P0315	Krumtapakselpositions-systemvariation – ikke indlært
+P0316	Motorfejltænding – registreret ved opstart (første 1000 omdrejninger)
+P0317	Ujævnvejshardware – ikke til stede
+P0318	Ujævnvejssensor A signal – kredsløb
+P0319	Ujævnvejssensor B signal – kredsløb
+P0320	Tændings-/fordelermotoromdrejningsindgang – kredsløb
+P0321	Tændings-/fordelermotoromdrejningsindgang – kredsløb område/ydeevne
+P0322	Tændings-/fordelermotoromdrejningsindgang – kredsløb intet signal
+P0323	Tændings-/fordelermotoromdrejningsindgang – kredsløb sporadisk
+P0324	Bankereguleringssystem – fejl
+P0325	Bankesensor 1 – kredsløb, bank 1 eller eneste sensor
+P0326	Bankesensor 1 – kredsløb område/ydeevne, bank 1 eller eneste sensor
+P0327	Bankesensor 1 – kredsløb lav, bank 1 eller eneste sensor
+P0328	Bankesensor 1 – kredsløb høj, bank 1 eller eneste sensor
+P0329	Bankesensor 1 – kredsløb sporadisk, bank 1 eller eneste sensor
+P0330	Bankesensor 2 – kredsløb, bank 2
+P0331	Bankesensor 2 – kredsløb område/ydeevne, bank 2
+P0332	Bankesensor 2 – kredsløb lav, bank 2
+P0333	Bankesensor 2 – kredsløb høj, bank 2
+P0334	Bankesensor 2 – kredsløb sporadisk, bank 2
+P0335	Krumtapakselpositionssensor A – kredsløb
+P0336	Krumtapakselpositionssensor A – kredsløb område/ydeevne
+P0337	Krumtapakselpositionssensor A – kredsløb lav
+P0338	Krumtapakselpositionssensor A – kredsløb høj
+P0339	Krumtapakselpositionssensor A – kredsløb sporadisk
+P0340	Knastakselpositionssensor A – kredsløb, bank 1 eller eneste sensor
+P0341	Knastakselpositionssensor A – kredsløb område/ydeevne, bank 1 eller eneste sensor
+P0342	Knastakselpositionssensor A – kredsløb lav, bank 1 eller eneste sensor
+P0343	Knastakselpositionssensor A – kredsløb høj, bank 1 eller eneste sensor
+P0344	Knastakselpositionssensor A – kredsløb sporadisk, bank 1 eller eneste sensor
+P0345	Knastakselpositionssensor A – kredsløb, bank 2
+P0346	Knastakselpositionssensor A – kredsløb område/ydeevne, bank 2
+P0347	Knastakselpositionssensor A – kredsløb lav, bank 2
+P0348	Knastakselpositionssensor A – kredsløb høj, bank 2
+P0349	Knastakselpositionssensor A – kredsløb sporadisk, bank 2
+P0350	Tændspole primær/sekundær – kredsløb
+P0351	Tændspole A primær/sekundær – kredsløb
+P0352	Tændspole B primær/sekundær – kredsløb
+P0353	Tændspole C primær/sekundær – kredsløb
+P0354	Tændspole D primær/sekundær – kredsløb
+P0355	Tændspole E primær/sekundær – kredsløb
+P0356	Tændspole F primær/sekundær – kredsløb
+P0357	Tændspole G primær/sekundær – kredsløb
+P0358	Tændspole H primær/sekundær – kredsløb
+P0359	Tændspole I primær/sekundær – kredsløb
+P0360	Tændspole J primær/sekundær – kredsløb
+P0361	Tændspole K primær/sekundær – kredsløb
+P0362	Tændspole L primær/sekundær – kredsløb
+P0363	Fejltænding – registreret – brændstoftilførsel slået fra
+P0365	Knastakselpositionssensor B – kredsløb, bank 1
+P0366	Knastakselpositionssensor B – kredsløb område/ydeevne, bank 1
+P0367	Knastakselpositionssensor B – kredsløb lav, bank 1
+P0368	Knastakselpositionssensor B – kredsløb høj, bank 1
+P0369	Knastakselpositionssensor B – kredsløb sporadisk, bank 1
+P0370	Tændingsreference – højopløsningssignal A
+P0371	Tændingsreference – højopløsningssignal A for mange impulser
+P0372	Tændingsreference – højopløsningssignal A for få impulser
+P0373	Tændingsreference – højopløsningssignal A sporadiske/ustabile impulser
+P0374	Tændingsreference – højopløsningssignal A ingen impulser
+P0375	Tændingsreference – højopløsningssignal B
+P0376	Tændingsreference – højopløsningssignal B for mange impulser
+P0377	Tændingsreference – højopløsningssignal B for få impulser
+P0378	Tændingsreference – højopløsningssignal B sporadiske/ustabile impulser
+P0379	Tændingsreference – højopløsningssignal B ingen impulser
+P0380	Gløderør/varmer – kredsløb A
+P0381	Gløderørs-/varmerindikator – kredsløb
+P0382	Gløderør/varmer – kredsløb B
+P0383	Gløderørsstyreenhed – styrekredsløb lav
+P0384	Gløderørsstyreenhed – styrekredsløb høj
+P0385	Krumtapakselpositionssensor B – kredsløb
+P0386	Krumtapakselpositionssensor B – kredsløb område/ydeevne
+P0387	Krumtapakselpositionssensor B – kredsløb lav
+P0388	Krumtapakselpositionssensor B – kredsløb høj
+P0389	Krumtapakselpositionssensor B – kredsløb sporadisk
+P0390	Knastakselpositionssensor B – kredsløb, bank 2
+P0391	Knastakselpositionssensor B – kredsløb område/ydeevne, bank 2
+P0392	Knastakselpositionssensor B – kredsløb lav, bank 2
+P0393	Knastakselpositionssensor B – kredsløb høj, bank 2
+P0394	Knastakselpositionssensor B – kredsløb sporadisk, bank 2
+P0400	EGR-strøm
+P0401	EGR-strøm – utilstrækkelig
+P0402	EGR-strøm for stor – registreret
+P0403	EGR – styrekredsløb
+P0404	EGR – styrekredsløb område/ydeevne
+P0405	EGR-sensor A – kredsløb lav
+P0406	EGR-sensor A – kredsløb høj
+P0407	EGR-sensor B – kredsløb lav
+P0408	EGR-sensor B – kredsløb høj
+P0409	EGR-sensor A – kredsløb
+P040A	EGR-temperatursensor A – kredsløb
+P040B	EGR-temperatursensor A – kredsløb område/ydeevne
+P040C	EGR-temperatursensor A – kredsløb lav
+P040D	EGR-temperatursensor A – kredsløb høj
+P040E	EGR-temperatursensor A – kredsløb sporadisk/ustabil
+P040F	EGR-temperatursensor A/B – korrelation
+P0410	Sekundærluftsystem
+P0411	Sekundærluftsystem – forkert strømning registreret
+P0412	Sekundærluftomskiftningsventil A – kredsløb
+P0413	Sekundærluftomskiftningsventil A – kredsløb afbrudt
+P0414	Sekundærluftomskiftningsventil A – kredsløb kortsluttet
+P0415	Sekundærluftomskiftningsventil B – kredsløb
+P0416	Sekundærluftomskiftningsventil B – kredsløb afbrudt
+P0417	Sekundærluftomskiftningsventil B – kredsløb kortsluttet
+P0418	Sekundærluftstyring A – kredsløb
+P0419	Sekundærluftstyring B – kredsløb
+P041A	EGR-temperatursensor B – kredsløb
+P041B	EGR-temperatursensor B – kredsløb område/ydeevne
+P041C	EGR-temperatursensor B – kredsløb lav
+P041D	EGR-temperatursensor B – kredsløb høj
+P041E	EGR-temperatursensor B – kredsløb sporadisk/ustabil
+P0420	Katalysatorens effektivitet under grænseværdien, bank 1
+P0421	Opvarmningskatalysator-effektivitet – under grænseværdi, bank 1
+P0422	Hovedkatalysatoreffektivitet – under grænseværdi, bank 1
+P0423	Katalysatoreffektivitet – under grænseværdi, bank 1
+P0424	Katalysatortemperatur – under grænseværdi, bank 1
+P0425	Katalysatortemperatursensor – kredsløb, bank 1 sensor 1
+P0426	Katalysatortemperatursensor – kredsløb område/ydeevne, bank 1 sensor 1
+P0427	Katalysatortemperatursensor – kredsløb lav, bank 1 sensor 1
+P0428	Katalysatortemperatursensor – kredsløb høj, bank 1 sensor 1
+P0429	Katalysatorvarmer – styrekredsløb, bank 1
+P042A	Katalysatortemperatursensor – kredsløb, bank 1 sensor 2
+P042B	Katalysatortemperatursensor – kredsløb område/ydeevne, bank 1 sensor 2
+P042C	Katalysatortemperatursensor – kredsløb lav, bank 1 sensor 2
+P042D	Katalysatortemperatursensor – kredsløb høj, bank 1 sensor 2
+P0430	Katalysatorsystemeffektivitet – under grænseværdi, bank 2
+P0431	Opvarmningskatalysator-effektivitet – under grænseværdi, bank 2
+P0432	Hovedkatalysatoreffektivitet – under grænseværdi, bank 2
+P0433	Katalysatoreffektivitet – under grænseværdi, bank 2
+P0434	Katalysatortemperatur – under grænseværdi, bank 2
+P0435	Katalysatortemperatursensor – kredsløb, bank 2 sensor 1
+P0436	Katalysatortemperatursensor – kredsløb område/ydeevne, bank 2 sensor 1
+P0437	Katalysatortemperatursensor – kredsløb lav, bank 2 sensor 1
+P0438	Katalysatortemperatursensor – kredsløb høj, bank 2 sensor 1
+P0439	Katalysatorvarmer – styrekredsløb, bank 2
+P043A	Katalysatortemperatursensor – kredsløb, bank 2 sensor 2
+P043B	Katalysatortemperatursensor – kredsløb område/ydeevne, bank 2 sensor 2
+P043C	Katalysatortemperatursensor – kredsløb lav, bank 2 sensor 2
+P043D	Katalysatortemperatursensor – kredsløb høj, bank 2 sensor 2
+P043E	EVAP-lækagetestreferenceblænde – lav strømning
+P043F	EVAP-lækagetestreferenceblænde – høj strømning
+P0440	Fordampningssystem (EVAP)
+P0441	Fordampningssystem (EVAP) – forkert udluftningsstrøm
+P0442	EVAP-utæthed – registreret (lille utæthed)
+P0443	EVAP-udluftningsventil – kredsløb
+P0444	EVAP-udluftningsventil – kredsløb afbrudt
+P0445	EVAP-udluftningsventil – kredsløb kortsluttet
+P0446	EVAP-ventilation – styrekredsløb
+P0447	EVAP-ventilation – styrekredsløb afbrudt
+P0448	EVAP-ventilation – styrekredsløb kortsluttet
+P0449	EVAP-ventilationsventil/-magnetventil – kredsløb
+P0450	EVAP-tryksensor/-kontakt
+P0451	EVAP-tryksensor/-kontakt – område/ydeevne
+P0452	EVAP-tryksensor/-kontakt – lav
+P0453	EVAP-tryksensor/-kontakt – høj
+P0454	EVAP-tryksensor/-kontakt – sporadisk
+P0455	EVAP-utæthed – registreret (stor utæthed)
+P0456	EVAP-utæthed – registreret (meget lille utæthed)
+P0457	EVAP-utæthed – registreret (tankdæksel løst/mangler)
+P0458	EVAP-udluftningsventil – kredsløb lav
+P0459	EVAP-udluftningsventil – kredsløb høj
+P0460	Brændstofniveausensor A – kredsløb
+P0461	Brændstofniveausensor A – kredsløb område/ydeevne
+P0462	Brændstofniveausensor A – kredsløb lav
+P0463	Brændstofniveausensor A – kredsløb høj
+P0464	Brændstofniveausensor A – kredsløb sporadisk
+P0465	EVAP-udluftningsstrømssensor – kredsløb
+P0466	EVAP-udluftningsstrømssensor – kredsløb område/ydeevne
+P0467	EVAP-udluftningsstrømssensor – kredsløb lav
+P0468	EVAP-udluftningsstrømssensor – kredsløb høj
+P0469	EVAP-udluftningsstrømssensor – kredsløb sporadisk
+P0470	Udstødningstryksensor A – kredsløb
+P0471	Udstødningstryksensor A – kredsløb område/ydeevne
+P0472	Udstødningstryksensor A – kredsløb lav
+P0473	Udstødningstryksensor A – kredsløb høj
+P0474	Udstødningstryksensor A – kredsløb sporadisk/ustabil
+P0475	Udstødningstrykstyreventil
+P0476	Udstødningstrykstyreventil – område/ydeevne
+P0477	Udstødningstrykstyreventil – lav
+P0478	Udstødningstrykstyreventil – høj
+P0479	Udstødningstrykstyreventil – sporadisk
+P047A	Udstødningstryksensor B – kredsløb
+P047B	Udstødningstryksensor B – kredsløb område/ydeevne
+P047C	Udstødningstryksensor B – kredsløb lav
+P047D	Udstødningstryksensor B – kredsløb høj
+P047E	Udstødningstryksensor B – kredsløb sporadisk/ustabil
+P0480	Køleblæser 1 – styrekredsløb
+P0481	Blæser 2 – styrekredsløb
+P0482	Blæser 3 – styrekredsløb
+P0483	Blæserplausibilitetskontrol
+P0484	Blæser – kredsløb overstrøm
+P0485	Blæserstrøm/-stel – kredsløb
+P0486	EGR-sensor B – kredsløb
+P0487	EGR-gasspjæld – styrekredsløb A afbrudt
+P0488	EGR-gasspjæld – styrekredsløb A område/ydeevne
+P0489	EGR – styrekredsløb A lav
+P0490	EGR – styrekredsløb A høj
+P0491	Sekundærluftsystem – utilstrækkelig strømning, bank 1
+P0492	Sekundærluftsystem – utilstrækkelig strømning, bank 2
+P0493	Blæser – overomdrejninger
+P0494	Blæserhastighed – lav
+P0495	Blæserhastighed – høj
+P0496	Fordampningssystem (EVAP) – for høj udluftningsstrøm
+P0497	Fordampningssystem (EVAP) – for lav udluftningsstrøm
+P0498	EVAP-ventilationsventil – styrekredsløb lav
+P0499	EVAP-ventilationsventil – styrekredsløb høj
+P0500	Hastighedssensor A
+P0501	Hastighedssensor A – område/ydeevne
+P0502	Hastighedssensor A – kredsløb lav
+P0503	Hastighedssensor A – sporadisk/ustabil/høj
+P0504	Bremsekontakt A/B – korrelation
+P0505	Tomgangsregulering
+P0506	Tomgangsomdrejningstal lavere end forventet
+P0507	Tomgangsomdrejningstal højere end forventet
+P0508	Tomgangsregulering – kredsløb lav
+P0509	Tomgangsregulering – kredsløb høj
+P050A	Koldstartstomgangsregulering – ydeevne
+P050B	Koldstartstændingstidspunkt – ydeevne
+P050C	Koldstartskølevæsketemperatur – ydeevne
+P050D	Koldstart ujævn tomgang
+P0510	Tomgangspositionskontakt
+P0511	Tomgangsluft – styrekredsløb
+P0512	Startmotor – anmodningskredsløb
+P0513	Forkert nøgle til startspærre
+P0514	Batteritemperatursensor – kredsløb område/ydeevne
+P0515	Batteritemperatursensor – kredsløb
+P0516	Batteritemperatursensor – kredsløb lav
+P0517	Batteritemperatursensor – kredsløb høj
+P0518	Tomgangsluft – styrekredsløb sporadisk
+P0519	Tomgangsregulering – ydeevne
+P0520	Motorolietryksensor/-kontakt – kredsløb
+P0521	Motorolietryksensor/-kontakt – område/ydeevne
+P0522	Motorolietryksensor/-kontakt – lav
+P0523	Motorolietryksensor/-kontakt – høj
+P0524	Motorolietryk – for lav
+P0525	Fartpilotservo – styrekredsløb område/ydeevne
+P0526	Blæserhastighedssensor – kredsløb
+P0527	Blæserhastighedssensor – kredsløb område/ydeevne
+P0528	Blæserhastighedssensor – kredsløb intet signal
+P0529	Blæserhastighedssensor – kredsløb sporadisk
+P0530	Kølemiddeltryksensor A (aircondition) – kredsløb
+P0531	Kølemiddeltryksensor A (aircondition) – kredsløb område/ydeevne
+P0532	Kølemiddeltryksensor A (aircondition) – kredsløb lav
+P0533	Kølemiddeltryksensor A (aircondition) – kredsløb høj
+P0534	Tab af kølemiddel i airconditionanlægget
+P0535	Airconditionfordamper-temperatursensor – kredsløb
+P0536	Airconditionfordamper-temperatursensor – kredsløb område/ydeevne
+P0537	Airconditionfordamper-temperatursensor – kredsløb lav
+P0538	Airconditionfordamper-temperatursensor – kredsløb høj
+P0539	Airconditionfordamper-temperatursensor – kredsløb sporadisk
+P053A	Krumtaphusventilationsvarmer – styrekredsløb afbrudt
+P053B	Krumtaphusventilationsvarmer – styrekredsløb lav
+P053C	Krumtaphusventilationsvarmer – styrekredsløb høj
+P0540	Indsugningsluftvarmer A – kredsløb
+P0541	Indsugningsluftvarmer A – kredsløb lav
+P0542	Indsugningsluftvarmer A – kredsløb høj
+P0543	Indsugningsluftvarmer A – kredsløb afbrudt
+P0544	Udstødningstemperatursensor – kredsløb, bank 1 sensor 1
+P0545	Udstødningstemperatursensor – kredsløb lav, bank 1 sensor 1
+P0546	Udstødningstemperatursensor – kredsløb høj, bank 1 sensor 1
+P0547	Udstødningstemperatursensor – kredsløb, bank 2 sensor 1
+P0548	Udstødningstemperatursensor – kredsløb lav, bank 2 sensor 1
+P0549	Udstødningstemperatursensor – kredsløb høj, bank 2 sensor 1
+P0550	Servostyringstryksensor/-kontakt – kredsløb
+P0551	Servostyringstryksensor/-kontakt – kredsløb område/ydeevne
+P0552	Servostyringstryksensor/-kontakt – kredsløb lav
+P0553	Servostyringstryksensor/-kontakt – kredsløb høj
+P0554	Servostyringstryksensor/-kontakt – kredsløb sporadisk
+P0555	Bremseservotryksensor – kredsløb
+P0556	Bremseservotryksensor – kredsløb område/ydeevne
+P0557	Bremseservotryksensor – kredsløb lav
+P0558	Bremseservotryksensor – kredsløb høj
+P0559	Bremseservotryksensor – kredsløb sporadisk
+P0560	Systemspænding
+P0561	Systemspænding – ustabil
+P0562	Systemspænding – lav
+P0563	Systemspænding – høj
+P0564	Fartpilotmultifunktionsindgang A – kredsløb
+P0565	Fartpilot, signal »til«
+P0566	Fartpilot, signal »fra«
+P0567	Fartpilot, signal »genoptag«
+P0568	Fartpilot, signal »sæt«
+P0569	Fartpilot, signal »friløb«
+P056A	Fartpilot, signal »øg afstand«
+P056B	Fartpilot, signal »reducer afstand«
+P0570	Fartpilot, signal »accelerer«
+P0571	Bremsekontakt A – kredsløb
+P0572	Bremsekontakt A – kredsløb lav
+P0573	Bremsekontakt A – kredsløb høj
+P0574	Fartpilotsystem – kørehastighed for høj
+P0575	Fartpilotindgang – kredsløb
+P0576	Fartpilotindgang – kredsløb lav
+P0577	Fartpilotindgang – kredsløb høj
+P0578	Fartpilotmultifunktionsindgang A – kredsløb hænger fast
+P0579	Fartpilotmultifunktionsindgang A – kredsløb område/ydeevne
+P0580	Fartpilotmultifunktionsindgang A – kredsløb lav
+P0581	Fartpilotmultifunktionsindgang A – kredsløb høj
+P0582	Fartpilotvakuum – styrekredsløb afbrudt
+P0583	Fartpilotvakuum – styrekredsløb lav
+P0584	Fartpilotvakuum – styrekredsløb høj
+P0585	Fartpilotmultifunktionsindgang A/B – korrelation
+P0586	Fartpilotventilation – styrekredsløb afbrudt
+P0587	Fartpilotventilation – styrekredsløb lav
+P0588	Fartpilotventilation – styrekredsløb høj
+P0589	Fartpilotmultifunktionsindgang B – kredsløb
+P0590	Fartpilotmultifunktionsindgang B – kredsløb hænger fast
+P0591	Fartpilotmultifunktionsindgang B – kredsløb område/ydeevne
+P0592	Fartpilotmultifunktionsindgang B – kredsløb lav
+P0593	Fartpilotmultifunktionsindgang B – kredsløb høj
+P0594	Fartpilotservo – styrekredsløb afbrudt
+P0595	Fartpilotservo – styrekredsløb lav
+P0596	Fartpilotservo – styrekredsløb høj
+P0597	Termostatvarmer – styrekredsløb afbrudt
+P0598	Termostatvarmer – styrekredsløb lav
+P0599	Termostatvarmer – styrekredsløb høj
+P0600	Seriel kommunikationslinje
+P0601	Styreenhed (intern): hukommelseskontrolsum – fejl
+P0602	Styreenhedsprogrammering – fejl
+P0603	Styreenhed (intern): permanent hukommelse (KAM) – fejl (KAM)
+P0604	Styreenhed (intern): arbejdshukommelse (RAM) – fejl (RAM)
+P0605	Styreenhed (intern): læsehukommelse (ROM) – fejl (ROM)
+P0606	ECM/PCM-processor
+P0607	Styreenhed – ydeevne
+P0608	Styreenheds-VSS-udgang A
+P0609	Styreenheds-VSS-udgang B
+P060A	Styreenhed (intern): overvågningsprocessor – ydeevne
+P060B	Styreenhed (intern): behandling A/D – ydeevne
+P060C	Styreenhed (intern): hovedprocessor – ydeevne
+P060D	Styreenhed (intern): speederpedalposition – ydeevne
+P060E	Styreenhed (intern): gasspjældposition – ydeevne
+P060F	Styreenhed (intern): kølevæsketemperatur – ydeevne
+P0610	Styreenhedskøretøjsoptioner – fejl
+P0611	Indsprøjtningsventilstyreenhed – ydeevne
+P0612	Indsprøjtningsventil-styreenhedsrelæ – styring
+P0613	TCM-processor
+P0614	ECM/TCM er ikke kompatible
+P0615	Startmotorrelæ – kredsløb
+P0616	Startmotorrelæ – kredsløb lav
+P0617	Startmotorrelæ – kredsløb høj
+P0618	Alternativbrændstof-styreenheds-KAM – fejl
+P0619	Alternativbrændstofstyreenheds-RAM/ROM – fejl
+P061A	Styreenhed (intern): moment – ydeevne
+P061B	Styreenhed (intern): momentberegning – ydeevne
+P061C	Styreenhed (intern): motoromdrejningstal – ydeevne
+P061D	Styreenhed (intern): motorluftmasse – ydeevne
+P061E	Styreenhed (intern): bremsesignal – ydeevne
+P061F	Styreenhed (intern): gasspjældaktuatorstyring – ydeevne
+P0620	Generator – styrekredsløb
+P0621	Ladelampe/L-klemme – kredsløb
+P0622	Generatorfelt/F-klemme – kredsløb
+P0623	Ladelampe – styrekredsløb
+P0624	Tankdæksellampe – styrekredsløb
+P0625	Generatorfelt/F-klemme – kredsløb lav
+P0626	Generatorfelt/F-klemme – kredsløb høj
+P0627	Brændstofpumpe A – styrekredsløb afbrudt
+P0628	Brændstofpumpe A – styrekredsløb lav
+P0629	Brændstofpumpe A – styrekredsløb høj
+P062A	Brændstofpumpe A – styrekredsløb område/ydeevne
+P062B	Styreenhed (intern): brændstofindsprøjtningsventil – styring ydeevne
+P062C	Styreenhed (intern): kørehastighed – ydeevne
+P062D	Indsprøjtningsventilfører – kredsløb ydeevne, bank 1
+P062E	Indsprøjtningsventilfører – kredsløb ydeevne, bank 2
+P062F	Styreenhed (intern): EEPROM – fejl
+P0630	VIN – ikke programmeret eller inkompatibel – ECM/PCM
+P0631	VIN – ikke programmeret eller inkompatibel – TCM
+P0632	Kilometertæller – ikke programmeret – ECM/PCM
+P0633	Startspærrenøgle – ikke programmeret – ECM/PCM
+P0634	PCM/ECM/TCM intern – temperatur for høj
+P0635	Servostyring – styrekredsløb
+P0636	Servostyring – styrekredsløb lav
+P0637	Servostyring – styrekredsløb høj
+P0638	Gasspjældaktuator – styring område/ydeevne, bank 1
+P0639	Gasspjældaktuator – styring område/ydeevne, bank 2
+P063A	Generatorspændingsmåling – kredsløb
+P063B	Generatorspændingsmåling – kredsløb område/ydeevne
+P063C	Generatorspændingsmåling – kredsløb lav
+P063D	Generatorspændingsmåling – kredsløb høj
+P063E	Autokonfigurations-gasspjældindgang – ikke til stede
+P063F	Autokonfigurations-kølevæsketemperaturindgang – ikke til stede
+P0640	Indsugningsluftvarmer – styrekredsløb
+P0641	Sensorreferencespænding A – kredsløb afbrudt
+P0642	Sensorreferencespænding A – kredsløb lav
+P0643	Sensorreferencespænding A – kredsløb høj
+P0644	Førerdisplay seriel kommunikation – kredsløb
+P0645	Airconditionkoblingsrelæ – styrekredsløb
+P0646	Airconditionkoblingsrelæ – styrekredsløb lav
+P0647	Airconditionkoblingsrelæ – styrekredsløb høj
+P0648	Startspærrelampe – styrekredsløb
+P0649	Fartpilotlampe – styrekredsløb
+P0650	Motorlampe (MIL) – styrekredsløb (MIL)
+P0651	Sensorreferencespænding B – kredsløb afbrudt
+P0652	Sensorreferencespænding B – kredsløb lav
+P0653	Sensorreferencespænding B – kredsløb høj
+P0654	Motoromdrejningsudgang – kredsløb
+P0655	Motorvarmlampeudgang – styrekredsløb
+P0656	Brændstofniveauudgang – kredsløb
+P0657	Aktuatorforsyningsspænding A – kredsløb afbrudt
+P0658	Aktuatorforsyningsspænding A – kredsløb lav
+P0659	Aktuatorforsyningsspænding A – kredsløb høj
+P065A	Generatorsystem – ydeevne
+P065B	Generator – styrekredsløb område/ydeevne
+P0660	Indsugningsmanifold-resonansventil – styrekredsløb afbrudt, bank 1
+P0661	Indsugningsmanifold-resonansventil – styrekredsløb lav, bank 1
+P0662	Indsugningsmanifold-resonansventil – styrekredsløb høj, bank 1
+P0663	Indsugningsmanifold-resonansventil – styrekredsløb afbrudt, bank 2
+P0664	Indsugningsmanifold-resonansventil – styrekredsløb lav, bank 2
+P0665	Indsugningsmanifold-resonansventil – styrekredsløb høj, bank 2
+P0666	PCM/ECM/TCM intern temperatursensor – kredsløb
+P0667	PCM/ECM/TCM intern temperatursensor – område/ydeevne
+P0668	PCM/ECM/TCM intern temperatursensor – kredsløb lav
+P0669	PCM/ECM/TCM intern temperatursensor – kredsløb høj
+P066A	Gløderør 1 – styrekredsløb lav
+P066B	Gløderør 1 – styrekredsløb høj
+P066C	Gløderør 2 – styrekredsløb lav
+P066D	Gløderør 2 – styrekredsløb høj
+P066E	Gløderør 3 – styrekredsløb lav
+P066F	Gløderør 3 – styrekredsløb høj
+P0670	Gløderørsstyreenhed – styrekredsløb afbrudt
+P0671	Gløderør – kredsløb afbrudt, cylinder 1
+P0672	Gløderør – kredsløb afbrudt, cylinder 2
+P0673	Gløderør – kredsløb afbrudt, cylinder 3
+P0674	Gløderør – kredsløb afbrudt, cylinder 4
+P0675	Gløderør – kredsløb afbrudt, cylinder 5
+P0676	Gløderør – kredsløb afbrudt, cylinder 6
+P0677	Gløderør – kredsløb afbrudt, cylinder 7
+P0678	Gløderør – kredsløb afbrudt, cylinder 8
+P0679	Gløderør – kredsløb afbrudt, cylinder 9
+P067A	Gløderør 4 – styrekredsløb lav
+P067B	Gløderør 4 – styrekredsløb høj
+P067C	Gløderør 5 – styrekredsløb lav
+P067D	Gløderør 5 – styrekredsløb høj
+P067E	Gløderør 6 – styrekredsløb lav
+P067F	Gløderør 6 – styrekredsløb høj
+P0680	Gløderør – kredsløb afbrudt, cylinder 10
+P0681	Gløderør – kredsløb afbrudt, cylinder 11
+P0682	Gløderør – kredsløb afbrudt, cylinder 12
+P0683	Kommunikation mellem gløderørsstyreenhed og PCM – kredsløb
+P0684	Kommunikation mellem gløderørsstyreenhed og PCM – kredsløb område/ydeevne
+P0685	ECM/PCM-strømrelæ – styrekredsløb afbrudt
+P0686	ECM/PCM-strømrelæ – styrekredsløb lav
+P0687	ECM/PCM-strømrelæ – styrekredsløb høj
+P0688	ECM/PCM-strømrelæmåling – kredsløb afbrudt
+P0689	ECM/PCM-strømrelæmåling – kredsløb lav
+P068A	ECM/PCM-strømrelæ uden strøm – ydeevne – for tidligt
+P068B	ECM/PCM-strømrelæ uden strøm – ydeevne – for sent
+P068C	Gløderør 7 – styrekredsløb lav
+P068D	Gløderør 7 – styrekredsløb høj
+P068E	Gløderør 8 – styrekredsløb lav
+P068F	Gløderør 8 – styrekredsløb høj
+P0690	ECM/PCM-strømrelæmåling – kredsløb høj
+P0691	Blæser 1 – styrekredsløb lav
+P0692	Blæser 1 – styrekredsløb høj
+P0693	Blæser 2 – styrekredsløb lav
+P0694	Blæser 2 – styrekredsløb høj
+P0695	Blæser 3 – styrekredsløb lav
+P0696	Blæser 3 – styrekredsløb høj
+P0697	Sensorreferencespænding C – kredsløb afbrudt
+P0698	Sensorreferencespænding C – kredsløb lav
+P0699	Sensorreferencespænding C – kredsløb høj
+P069A	Gløderør 9 – styrekredsløb lav
+P069B	Gløderør 9 – styrekredsløb høj
+P069C	Gløderør 10 – styrekredsløb lav
+P069D	Gløderør 10 – styrekredsløb høj
+P0700	Gearkassestyresystem (anmodning om motorlampe)
+P0701	Gearkassestyresystem – område/ydeevne
+P0702	Gearkassestyresystem elektrisk
+P0703	Bremsekontakt B – kredsløb
+P0704	Koblingskontaktindgang – kredsløb
+P0705	Gearvælgerpositionssensor A – kredsløb (indgang for gearvælger (PRNDL))
+P0706	Gearvælgerpositionssensor A – kredsløb område/ydeevne
+P0707	Gearvælgerpositionssensor A – kredsløb lav
+P0708	Gearvælgerpositionssensor A – kredsløb høj
+P0709	Gearvælgerpositionssensor A – kredsløb sporadisk
+P070A	Gearolieniveausensor – kredsløb
+P070B	Gearolieniveausensor – kredsløb område/ydeevne
+P070C	Gearolieniveausensor – kredsløb lav
+P070D	Gearolieniveausensor – kredsløb høj
+P070E	Gearolieniveausensor – kredsløb sporadisk/ustabil
+P070F	Gearolieniveau – for lav
+P0710	Gearolietemperatursensor A – kredsløb
+P0711	Gearolietemperatursensor A – kredsløb område/ydeevne
+P0712	Gearolietemperatursensor A – kredsløb lav
+P0713	Gearolietemperatursensor A – kredsløb høj
+P0714	Gearolietemperatursensor A – kredsløb sporadisk
+P0715	Indgangs-/turbineomdrejningssensor A – kredsløb
+P0716	Indgangs-/turbineomdrejningssensor A – kredsløb område/ydeevne
+P0717	Indgangs-/turbineomdrejningssensor A – kredsløb intet signal
+P0718	Indgangs-/turbineomdrejningssensor A – kredsløb sporadisk
+P0719	Bremsekontakt B – kredsløb lav
+P071A	Gearkassetilstandskontakt A – kredsløb
+P071B	Gearkassetilstandskontakt A – kredsløb lav
+P071C	Gearkassetilstandskontakt A – kredsløb høj
+P071D	Gearkassetilstandskontakt B – kredsløb
+P071E	Gearkassetilstandskontakt B – kredsløb lav
+P071F	Gearkassetilstandskontakt B – kredsløb høj
+P0720	Udgangsomdrejningssensor – kredsløb
+P0721	Udgangsomdrejningssensor – kredsløb område/ydeevne
+P0722	Udgangsomdrejningssensor – kredsløb intet signal
+P0723	Udgangsomdrejningssensor – kredsløb sporadisk
+P0724	Bremsekontakt B – kredsløb høj
+P0725	Motoromdrejningsindgang – kredsløb
+P0726	Motoromdrejningsindgang – kredsløb område/ydeevne
+P0727	Motoromdrejningsindgang – kredsløb intet signal
+P0728	Motoromdrejningsindgang – kredsløb sporadisk
+P0729	Gear 6 – forkert udveksling
+P0730	Forkert gearudveksling
+P0731	Gear 1 – forkert udveksling
+P0732	Gear 2 – forkert udveksling
+P0733	Gear 3 – forkert udveksling
+P0734	Gear 4 – forkert udveksling
+P0735	Gear 5 – forkert udveksling
+P0736	Bakgear – forkert udveksling
+P0737	TCM-motoromdrejningsudgang – kredsløb
+P0738	TCM-motoromdrejningsudgang – kredsløb lav
+P0739	TCM-motoromdrejningsudgang – kredsløb høj
+P0740	Lockup-kobling – kredsløb afbrudt
+P0741	Lockup-kobling – kredsløb ydeevne/hænger i fra
+P0742	Lockup-kobling – kredsløb hænger i til
+P0743	Lockup-kobling – kredsløb elektrisk
+P0744	Lockup-kobling – kredsløb sporadisk
+P0745	Trykstyringsmagnetventil A
+P0746	Trykstyringsmagnetventil A – ydeevne/hænger i fra
+P0747	Trykstyringsmagnetventil A – hænger i til
+P0748	Trykstyringsmagnetventil A elektrisk
+P0749	Trykstyringsmagnetventil A – sporadisk
+P0750	Gearskiftmagnetventil A
+P0751	Gearskiftmagnetventil A – ydeevne/hænger i fra
+P0752	Gearskiftmagnetventil A – hænger i til
+P0753	Gearskiftmagnetventil A elektrisk
+P0754	Gearskiftmagnetventil A – sporadisk
+P0755	Gearskiftmagnetventil B
+P0756	Gearskiftmagnetventil B – ydeevne/hænger i fra
+P0757	Gearskiftmagnetventil B – hænger i til
+P0758	Gearskiftmagnetventil B elektrisk
+P0759	Gearskiftmagnetventil B – sporadisk
+P075A	Gearskiftmagnetventil G
+P075B	Gearskiftmagnetventil G – ydeevne/hænger i fra
+P075C	Gearskiftmagnetventil G – hænger i til
+P075D	Gearskiftmagnetventil G elektrisk
+P075E	Gearskiftmagnetventil G – sporadisk
+P0760	Gearskiftmagnetventil C
+P0761	Gearskiftmagnetventil C – ydeevne/hænger i fra
+P0762	Gearskiftmagnetventil C – hænger i til
+P0763	Gearskiftmagnetventil C elektrisk
+P0764	Gearskiftmagnetventil C – sporadisk
+P0765	Gearskiftmagnetventil D
+P0766	Gearskiftmagnetventil D – ydeevne/hænger i fra
+P0767	Gearskiftmagnetventil D – hænger i til
+P0768	Gearskiftmagnetventil D elektrisk
+P0769	Gearskiftmagnetventil D – sporadisk
+P076A	Gearskiftmagnetventil H
+P076B	Gearskiftmagnetventil H – ydeevne/hænger i fra
+P076C	Gearskiftmagnetventil H – hænger i til
+P076D	Gearskiftmagnetventil H elektrisk
+P076E	Gearskiftmagnetventil H – sporadisk
+P076F	Gear 7 – forkert udveksling
+P0770	Gearskiftmagnetventil E
+P0771	Gearskiftmagnetventil E – ydeevne/hænger i fra
+P0772	Gearskiftmagnetventil E – hænger i til
+P0773	Gearskiftmagnetventil E elektrisk
+P0774	Gearskiftmagnetventil E – sporadisk
+P0775	Trykstyringsmagnetventil B
+P0776	Trykstyringsmagnetventil B – ydeevne/hænger i fra
+P0777	Trykstyringsmagnetventil B – hænger i til
+P0778	Trykstyringsmagnetventil B elektrisk
+P0779	Trykstyringsmagnetventil B – sporadisk
+P0780	Gearskift – fejl
+P0781	Gearskift 1-2
+P0782	Gearskift 2-3
+P0783	Gearskift 3-4
+P0784	Gearskift 4-5
+P0785	Gearskift-/timingmagnetventil
+P0786	Gearskift-/timingmagnetventil – område/ydeevne
+P0787	Gearskift-/timingmagnetventil – lav
+P0788	Gearskift-/timingmagnetventil – høj
+P0789	Gearskift-/timingmagnetventil – sporadisk
+P0790	Normal-/sportkontakt – kredsløb
+P0791	Mellemakselomdrejningssensor A – kredsløb
+P0792	Mellemakselomdrejningssensor A – kredsløb område/ydeevne
+P0793	Mellemakselomdrejningssensor A – kredsløb intet signal
+P0794	Mellemakselomdrejningssensor A – kredsløb sporadisk
+P0795	Trykstyringsmagnetventil C
+P0796	Trykstyringsmagnetventil C – ydeevne/hænger i fra
+P0797	Trykstyringsmagnetventil C – hænger i til
+P0798	Trykstyringsmagnetventil C elektrisk
+P0799	Trykstyringsmagnetventil C – sporadisk
+P0800	Transfergearkassestyresystem (anmodning om motorlampe)
+P0801	Bakgearspærre – styrekredsløb
+P0802	Gearkassestyresystem-MIL – anmodningskredsløb afbrudt
+P0803	Op-/springskiftmagnetventil – styrekredsløb
+P0804	Op-/springskiftlampe – styrekredsløb
+P0805	Koblingspositionssensor – kredsløb
+P0806	Koblingspositionssensor – kredsløb område/ydeevne
+P0807	Koblingspositionssensor – kredsløb lav
+P0808	Koblingspositionssensor – kredsløb høj
+P0809	Koblingspositionssensor – kredsløb sporadisk
+P080A	Koblingsposition – ikke indlært
+P080B	Op-/springskiftmagnetventil – styrekredsløb område/ydeevne
+P080C	Op-/springskiftmagnetventil – styrekredsløb lav
+P080D	Op-/springskiftmagnetventil – styrekredsløb høj
+P0810	Koblingsposition – styring fejl
+P0811	For stor slip i kobling A
+P0812	Bakgearindgang – kredsløb
+P0813	Bakgearudgang – kredsløb
+P0814	Gearvælgerpositionsdisplay – kredsløb
+P0815	Opgearingskontakt – kredsløb
+P0816	Nedgearingskontakt – kredsløb
+P0817	Startmotordeaktivering – kredsløb afbrudt
+P0818	Drivlinjefrakoblings-kontaktindgang – kredsløb
+P0819	Op-/nedgearingskontakt mod gearvælgerposition – korrelation
+P081A	Startmotordeaktivering – kredsløb lav
+P081B	Startmotordeaktivering – kredsløb høj
+P081C	Parkeringsindgang – kredsløb
+P081D	Frigearindgang – kredsløb
+P081E	For stor slip i kobling B
+P0820	Gearstang X-Y positionssensor – kredsløb
+P0821	Gearstang X position – kredsløb
+P0822	Gearstang Y position – kredsløb
+P0823	Gearstang X position – kredsløb sporadisk
+P0824	Gearstang Y position – kredsløb sporadisk
+P0825	Gearstangskub-/trækkontakt (gearskiftvarsel)
+P0826	Op-/nedgearingskontakt – kredsløb
+P0827	Op-/nedgearingskontakt – kredsløb lav
+P0828	Op-/nedgearingskontakt – kredsløb høj
+P0829	Gearskift 5-6
+P0830	Koblingspedalkontakt A – kredsløb
+P0831	Koblingspedalkontakt A – kredsløb lav
+P0832	Koblingspedalkontakt A – kredsløb høj
+P0833	Koblingspedalkontakt B – kredsløb
+P0834	Koblingspedalkontakt B – kredsløb lav
+P0835	Koblingspedalkontakt B – kredsløb høj
+P0836	Firehjulstrækkontakt – kredsløb (4WD)
+P0837	Firehjulstrækkontakt – kredsløb område/ydeevne (4WD)
+P0838	Firehjulstrækkontakt – kredsløb lav (4WD)
+P0839	Firehjulstrækkontakt – kredsløb høj (4WD)
+P083A	Gearolietryksensor/-kontakt G – kredsløb
+P083B	Gearolietryksensor/-kontakt G – kredsløb område/ydeevne
+P083C	Gearolietryksensor/-kontakt G – kredsløb lav
+P083D	Gearolietryksensor/-kontakt G – kredsløb høj
+P083E	Gearolietryksensor/-kontakt G – kredsløb sporadisk
+P083F	Koblingspedalkontakt A/B – korrelation
+P0840	Gearolietryksensor/-kontakt A – kredsløb
+P0841	Gearolietryksensor/-kontakt A – kredsløb område/ydeevne
+P0842	Gearolietryksensor/-kontakt A – kredsløb lav
+P0843	Gearolietryksensor/-kontakt A – kredsløb høj
+P0844	Gearolietryksensor/-kontakt A – kredsløb sporadisk
+P0845	Gearolietryksensor/-kontakt B – kredsløb
+P0846	Gearolietryksensor/-kontakt B – kredsløb område/ydeevne
+P0847	Gearolietryksensor/-kontakt B – kredsløb lav
+P0848	Gearolietryksensor/-kontakt B – kredsløb høj
+P0849	Gearolietryksensor/-kontakt B – kredsløb sporadisk
+P084A	Gearolietryksensor/-kontakt H – kredsløb
+P084B	Gearolietryksensor/-kontakt H – kredsløb område/ydeevne
+P084C	Gearolietryksensor/-kontakt H – kredsløb lav
+P084D	Gearolietryksensor/-kontakt H – kredsløb høj
+P084E	Gearolietryksensor/-kontakt H – kredsløb sporadisk
+P0850	P/Nkontaktindgang – kredsløb
+P0851	P/Nkontaktindgang – kredsløb lav
+P0852	P/Nkontaktindgang – kredsløb høj
+P0853	Drivkontaktindgang – kredsløb
+P0854	Drivkontaktindgang – kredsløb lav
+P0855	Drivkontaktindgang – kredsløb høj
+P0856	Antispinindgangssignal
+P0857	Antispinindgangssignal – område/ydeevne
+P0858	Antispinindgangssignal – lav
+P0859	Antispinindgangssignal – høj
+P085A	Gearskiftmodul B kommunikation – kredsløb
+P085B	Gearskiftmodul B kommunikation – kredsløb lav
+P085C	Gearskiftmodul B kommunikation – kredsløb høj
+P0860	Gearskiftmodul A kommunikation – kredsløb
+P0861	Gearskiftmodul A kommunikation – kredsløb lav
+P0862	Gearskiftmodul A kommunikation – kredsløb høj
+P0863	TCM-kommunikation – kredsløb
+P0864	TCM-kommunikation – kredsløb område/ydeevne
+P0865	TCM-kommunikation – kredsløb lav
+P0866	TCM-kommunikation – kredsløb høj
+P0867	Gearolietryk
+P0868	Gearolietryk – lav
+P0869	Gearolietryk – høj
+P0870	Gearolietryksensor/-kontakt C – kredsløb
+P0871	Gearolietryksensor/-kontakt C – kredsløb område/ydeevne
+P0872	Gearolietryksensor/-kontakt C – kredsløb lav
+P0873	Gearolietryksensor/-kontakt C – kredsløb høj
+P0874	Gearolietryksensor/-kontakt C – kredsløb sporadisk
+P0875	Gearolietryksensor/-kontakt D – kredsløb
+P0876	Gearolietryksensor/-kontakt D – kredsløb område/ydeevne
+P0877	Gearolietryksensor/-kontakt D – kredsløb lav
+P0878	Gearolietryksensor/-kontakt D – kredsløb høj
+P0879	Gearolietryksensor/-kontakt D – kredsløb sporadisk
+P0880	TCM-strømindgangssignal
+P0881	TCM-strømindgangssignal – område/ydeevne
+P0882	TCM-strømindgangssignal – lav
+P0883	TCM-strømindgangssignal – høj
+P0884	TCM-strømindgangssignal – sporadisk
+P0885	TCM-strømrelæ – styrekredsløb afbrudt
+P0886	TCM-strømrelæ – styrekredsløb lav
+P0887	TCM-strømrelæ – styrekredsløb høj
+P0888	TCM-strømrelæmåling – kredsløb
+P0889	TCM-strømrelæmåling – kredsløb område/ydeevne
+P0890	TCM-strømrelæmåling – kredsløb lav
+P0891	TCM-strømrelæmåling – kredsløb høj
+P0892	TCM-strømrelæmåling – kredsløb sporadisk
+P0893	Fleregear indkoblet
+P0894	Gearkassekomponentslip
+P0895	Gearskifttid for kort
+P0896	Gearskifttid for længe
+P0897	Gearolie forringet
+P0898	Gearkassestyresystem-MIL – anmodningskredsløb lav
+P0899	Gearkassestyresystem-MIL – anmodningskredsløb høj
+P0900	Koblingsaktuator – kredsløb afbrudt
+P0901	Koblingsaktuator – kredsløb område/ydeevne
+P0902	Koblingsaktuator – kredsløb lav
+P0903	Koblingsaktuator – kredsløb høj
+P0904	Gearbanevalgposition – kredsløb
+P0905	Gearbanevalgposition – kredsløb område/ydeevne
+P0906	Gearbanevalgposition – kredsløb lav
+P0907	Gearbanevalgposition – kredsløb høj
+P0908	Gearbanevalgposition – kredsløb sporadisk
+P0909	Gearbanevalg – styring fejl
+P0910	Gearbanevalgaktuator – kredsløb afbrudt
+P0911	Gearbanevalgaktuator – kredsløb område/ydeevne
+P0912	Gearbanevalgaktuator – kredsløb lav
+P0913	Gearbanevalgaktuator – kredsløb høj
+P0914	Gearskiftposition – kredsløb
+P0915	Gearskiftposition – kredsløb område/ydeevne
+P0916	Gearskiftposition – kredsløb lav
+P0917	Gearskiftposition – kredsløb høj
+P0918	Gearskiftposition – kredsløb sporadisk
+P0919	Gearskiftposition – styring fejl
+P0920	Gearskiftfremadaktuator – kredsløb afbrudt
+P0921	Gearskiftfremadaktuator – kredsløb område/ydeevne
+P0922	Gearskiftfremadaktuator – kredsløb lav
+P0923	Gearskiftfremadaktuator – kredsløb høj
+P0924	Gearskiftbakgearaktuator – kredsløb afbrudt
+P0925	Gearskiftbakgearaktuator – kredsløb område/ydeevne
+P0926	Gearskiftbakgearaktuator – kredsløb lav
+P0927	Gearskiftbakgearaktuator – kredsløb høj
+P0928	Gearskiftlåsmagnetventil – styrekredsløb afbrudt
+P0929	Gearskiftlåsmagnetventil – styrekredsløb område/ydeevne
+P0930	Gearskiftlåsmagnetventil – styrekredsløb lav
+P0931	Gearskiftlåsmagnetventil – styrekredsløb høj
+P0932	Hydrauliktryksensor – kredsløb
+P0933	Hydrauliktryksensor – område/ydeevne
+P0934	Hydrauliktryksensor – kredsløb lav
+P0935	Hydrauliktryksensor – kredsløb høj
+P0936	Hydrauliktryksensor – kredsløb sporadisk
+P0937	Hydraulikolietemperatursensor – kredsløb
+P0938	Hydraulikolietemperatursensor – område/ydeevne
+P0939	Hydraulikolietemperatursensor – kredsløb lav
+P0940	Hydraulikolietemperatursensor – kredsløb høj
+P0941	Hydraulikolietemperatursensor – kredsløb sporadisk
+P0942	Hydrauliktrykenhed
+P0943	Hydrauliktrykenheds-cyklingsperiode for kort
+P0944	Hydraulisk trykenhed, tryktab
+P0945	Hydraulikpumperelæ – kredsløb afbrudt
+P0946	Hydraulikpumperelæ – kredsløb område/ydeevne
+P0947	Hydraulikpumperelæ – kredsløb lav
+P0948	Hydraulikpumperelæ – kredsløb høj
+P0949	Automatiseret gearkasse adaptiv indlæring – ikke fuldført
+P0950	Automatiseret manuel gearkasse – styrekredsløb
+P0951	Automatiseret manuel gearkasse – styrekredsløb område/ydeevne
+P0952	Automatiseret manuel gearkasse – styrekredsløb lav
+P0953	Automatiseret manuel gearkasse – styrekredsløb høj
+P0954	Automatiseret manuel gearkasse – styrekredsløb sporadisk
+P0955	Automatiseret gearkasse tilstand – kredsløb
+P0956	Automatiseret gearkasse tilstand – kredsløb område/ydeevne
+P0957	Automatiseret gearkasse tilstand – kredsløb lav
+P0958	Automatiseret gearkasse tilstand – kredsløb høj
+P0959	Automatiseret gearkasse tilstand – kredsløb sporadisk
+P0960	Trykstyringsmagnetventil A – styrekredsløb afbrudt
+P0961	Trykstyringsmagnetventil A – styrekredsløb område/ydeevne
+P0962	Trykstyringsmagnetventil A – styrekredsløb lav
+P0963	Trykstyringsmagnetventil A – styrekredsløb høj
+P0964	Trykstyringsmagnetventil B – styrekredsløb afbrudt
+P0965	Trykstyringsmagnetventil B – styrekredsløb område/ydeevne
+P0966	Trykstyringsmagnetventil B – styrekredsløb lav
+P0967	Trykstyringsmagnetventil B – styrekredsløb høj
+P0968	Trykstyringsmagnetventil C – styrekredsløb afbrudt
+P0969	Trykstyringsmagnetventil C – styrekredsløb område/ydeevne
+P0970	Trykstyringsmagnetventil C – styrekredsløb lav
+P0971	Trykstyringsmagnetventil C – styrekredsløb høj
+P0972	Gearskiftmagnetventil A – styrekredsløb område/ydeevne
+P0973	Gearskiftmagnetventil A – styrekredsløb lav
+P0974	Gearskiftmagnetventil A – styrekredsløb høj
+P0975	Gearskiftmagnetventil B – styrekredsløb område/ydeevne
+P0976	Gearskiftmagnetventil B – styrekredsløb lav
+P0977	Gearskiftmagnetventil B – styrekredsløb høj
+P0978	Gearskiftmagnetventil C – styrekredsløb område/ydeevne
+P0979	Gearskiftmagnetventil C – styrekredsløb lav
+P0980	Gearskiftmagnetventil C – styrekredsløb høj
+P0981	Gearskiftmagnetventil D – styrekredsløb område/ydeevne
+P0982	Gearskiftmagnetventil D – styrekredsløb lav
+P0983	Gearskiftmagnetventil D – styrekredsløb høj
+P0984	Gearskiftmagnetventil E – styrekredsløb område/ydeevne
+P0985	Gearskiftmagnetventil E – styrekredsløb lav
+P0986	Gearskiftmagnetventil E – styrekredsløb høj
+P0987	Gearolietryksensor/-kontakt E – kredsløb
+P0988	Gearolietryksensor/-kontakt E – kredsløb område/ydeevne
+P0989	Gearolietryksensor/-kontakt E – kredsløb lav
+P0990	Gearolietryksensor/-kontakt E – kredsløb høj
+P0991	Gearolietryksensor/-kontakt E – kredsløb sporadisk
+P0992	Gearolietryksensor/-kontakt F – kredsløb
+P0993	Gearolietryksensor/-kontakt F – kredsløb område/ydeevne
+P0994	Gearolietryksensor/-kontakt F – kredsløb lav
+P0995	Gearolietryksensor/-kontakt F – kredsløb høj
+P0996	Gearolietryksensor/-kontakt F – kredsløb sporadisk
+P0997	Gearskiftmagnetventil F – styrekredsløb område/ydeevne
+P0998	Gearskiftmagnetventil F – styrekredsløb lav
+P0999	Gearskiftmagnetventil F – styrekredsløb høj
+P099A	Gearskiftmagnetventil G – styrekredsløb område/ydeevne
+P099B	Gearskiftmagnetventil G – styrekredsløb lav
+P099C	Gearskiftmagnetventil G – styrekredsløb høj
+P099D	Gearskiftmagnetventil H – styrekredsløb område/ydeevne
+P099E	Gearskiftmagnetventil H – styrekredsløb lav
+P099F	Gearskiftmagnetventil H – styrekredsløb høj
+P0A00	Motorelektronik-kølevæsketemperatursensor – kredsløb
+P0A01	Motorelektronik-kølevæsketemperatursensor – kredsløb område/ydeevne
+P0A02	Motorelektronik-kølevæsketemperatursensor – kredsløb lav
+P0A03	Motorelektronik-kølevæsketemperatursensor – kredsløb høj
+P0A04	Motorelektronik-kølevæsketemperatursensor – kredsløb sporadisk
+P0A05	Kølevæskepumpe til motorelektronik – styrekredsløb afbrudt
+P0A06	Motorelektronikkølevæskepumpe – styrekredsløb lav
+P0A07	Motorelektronikkølevæskepumpe – styrekredsløb høj
+P0A08	DC/DC-omformerstatus – kredsløb
+P0A09	DC/DC-omformerstatus – kredsløb lav
+P0A0A	Højspændingssystem-spærresløjfe (interlock) – kredsløb
+P0A0B	Højspændingssystem-spærresløjfe (interlock) – kredsløb ydeevne
+P0A0C	Højspændingssystem-spærresløjfe (interlock) – kredsløb lav
+P0A0D	Højspændingssystem-spærresløjfe (interlock) – kredsløb høj
+P0A0E	Højspændingssystem-spærresløjfe (interlock) – kredsløb sporadisk
+P0A0F	Motor startede ikke
+P0A10	DC/DC-omformerstatus – kredsløb høj
+P0A11	DC/DC-omformeraktivering – kredsløb afbrudt
+P0A12	DC/DC-omformeraktivering – kredsløb lav
+P0A13	DC/DC-omformeraktivering – kredsløb høj
+P0A14	Motorophæng A – styrekredsløb afbrudt
+P0A15	Motorophæng A – styrekredsløb lav
+P0A16	Motorophæng A – styrekredsløb høj
+P0A17	Motormomentsensor – kredsløb
+P0A18	Motormomentsensor – kredsløb område/ydeevne
+P0A19	Motormomentsensor – kredsløb lav
+P0A1A	Generatorstyreenhed
+P0A1B	Styreenhed til drivmotor A
+P0A1C	Styreenhed til drivmotor B
+P0A1D	Hybriddrivlinjestyreenhed
+P0A1E	Startmotor-/generatorstyreenhed
+P0A1F	Batteristyreenhed
+P0A20	Motormomentsensor – kredsløb høj
+P0A21	Motormomentsensor – kredsløb sporadisk
+P0A22	Generatormomentsensor – kredsløb
+P0A23	Generatormomentsensor – kredsløb område/ydeevne
+P0A24	Generatormomentsensor – kredsløb lav
+P0A25	Generatormomentsensor – kredsløb høj
+P0A26	Generatormomentsensor – kredsløb sporadisk
+P0A27	Hybridbatteristrøm fra – kredsløb
+P0A28	Hybridbatteristrøm fra – kredsløb lav
+P0A29	Hybridbatteristrøm fra – kredsløb høj
+P0A2A	Temperatursensor til drivmotor A – kredsløb
+P0A2B	Temperatursensor til drivmotor A – kredsløb område/ydeevne
+P0A2C	Temperatursensor til drivmotor A – kredsløb lav
+P0A2D	Temperatursensor til drivmotor A – kredsløb høj
+P0A2E	Temperatursensor til drivmotor A – kredsløb sporadisk
+P0A2F	Drivmotor A – overtemperatur
+P0A30	Temperatursensor til drivmotor B – kredsløb
+P0A31	Temperatursensor til drivmotor B – kredsløb område/ydeevne
+P0A32	Temperatursensor til drivmotor B – kredsløb lav
+P0A33	Temperatursensor til drivmotor B – kredsløb høj
+P0A34	Temperatursensor til drivmotor B – kredsløb sporadisk
+P0A35	Drivmotor B – overtemperatur
+P0A36	Generatortemperatursensor – kredsløb
+P0A37	Generatortemperatursensor – kredsløb område/ydeevne
+P0A38	Generatortemperatursensor – kredsløb lav
+P0A39	Generatortemperatursensor – kredsløb høj
+P0A3A	Generatortemperatursensor – kredsløb sporadisk
+P0A3B	Generator – overtemperatur
+P0A3C	Inverter til drivmotor A – overtemperatur
+P0A3D	Inverter til drivmotor B – overtemperatur
+P0A3E	Generatorinverter – overtemperatur
+P0A3F	Positionssensor til drivmotor A – kredsløb
+P0A40	Positionssensor til drivmotor A – kredsløb område/ydeevne
+P0A41	Positionssensor til drivmotor A – kredsløb lav
+P0A42	Positionssensor til drivmotor A – kredsløb høj
+P0A43	Positionssensor til drivmotor A – kredsløb sporadisk
+P0A44	Positionssensor til drivmotor A – kredsløb overomdrejninger
+P0A45	Positionssensor til drivmotor B – kredsløb
+P0A46	Positionssensor til drivmotor B – kredsløb område/ydeevne
+P0A47	Positionssensor til drivmotor B – kredsløb lav
+P0A48	Positionssensor til drivmotor B – kredsløb høj
+P0A49	Positionssensor til drivmotor B – kredsløb sporadisk
+P0A4A	Positionssensor til drivmotor B – kredsløb overomdrejninger
+P0A4B	Generatorpositionssensor – kredsløb
+P0A4C	Generatorpositionssensor – kredsløb område/ydeevne
+P0A4D	Generatorpositionssensor – kredsløb lav
+P0A4E	Generatorpositionssensor – kredsløb høj
+P0A4F	Generatorpositionssensor – kredsløb sporadisk
+P0A50	Generatorpositionssensor – kredsløb overomdrejninger
+P0A51	Strømsensor til drivmotor A – kredsløb
+P0A52	Strømsensor til drivmotor A – kredsløb område/ydeevne
+P0A53	Strømsensor til drivmotor A – kredsløb lav
+P0A54	Strømsensor til drivmotor A – kredsløb høj
+P0A55	Strømsensor til drivmotor B – kredsløb
+P0A56	Strømsensor til drivmotor B – kredsløb område/ydeevne
+P0A57	Strømsensor til drivmotor B – kredsløb lav
+P0A58	Strømsensor til drivmotor B – kredsløb høj
+P0A59	Generatorstrømsensor – kredsløb
+P0A5A	Generatorstrømsensor – kredsløb område/ydeevne
+P0A5B	Generatorstrømsensor – kredsløb lav
+P0A5C	Generatorstrømsensor – kredsløb høj
+P0A5D	Drivmotor A, strøm i fase U
+P0A5E	Drivmotor A, strøm i fase U – lav
+P0A5F	Drivmotor A, strøm i fase U – høj
+P0A60	Drivmotor A, strøm i fase V
+P0A61	Drivmotor A, strøm i fase V – lav
+P0A62	Drivmotor A, strøm i fase V – høj
+P0A63	Drivmotor A, strøm i fase W
+P0A64	Drivmotor A, strøm i fase W – lav
+P0A65	Drivmotor A, strøm i fase W – høj
+P0A66	Drivmotor B, strøm i fase U
+P0A67	Drivmotor B, strøm i fase U – lav
+P0A68	Drivmotor B, strøm i fase U – høj
+P0A69	Drivmotor B, strøm i fase V
+P0A6A	Drivmotor B, strøm i fase V – lav
+P0A6B	Drivmotor B, strøm i fase V – høj
+P0A6C	Drivmotor B, strøm i fase W
+P0A6D	Drivmotor B, strøm i fase W – lav
+P0A6E	Drivmotor B, strøm i fase W – høj
+P0A6F	Generator, strøm i fase U
+P0A70	Generator, strøm i fase U – lav
+P0A71	Generator, strøm i fase U – høj
+P0A72	Generator, strøm i fase V
+P0A73	Generator, strøm i fase V – lav
+P0A74	Generator, strøm i fase V – høj
+P0A75	Generator, strøm i fase W
+P0A76	Generator, strøm i fase W – lav
+P0A77	Generator, strøm i fase W – høj
+P0A78	Inverter til drivmotor A – ydeevne
+P0A79	Inverter til drivmotor B – ydeevne
+P0A7A	Generatorinverter – ydeevne
+P0A7B	Batteristyreenhed – anmoder om tænding af motorlampen
+P0A7C	Motorelektronik – overtemperatur
+P0A7D	Lav ladetilstand i hybridbatteripakken
+P0A7E	Hybridbatteripakke – overtemperatur
+P0A7F	Hybridbatteripakken er forringet
+P0A80	Udskift hybridbatteripakke
+P0A81	Hybridbatteripakkekøleblæser 1 – styrekredsløb afbrudt
+P0A82	Hybridbatteripakkekøleblæser 1 – ydeevne/hænger i fra
+P0A83	Hybridbatteripakkekøleblæser 1 – hænger i til
+P0A84	Hybridbatteripakkekøleblæser 1 – styrekredsløb lav
+P0A85	Hybridbatteripakkekøleblæser 1 – styrekredsløb høj
+P0A86	14 V-strømmodul: strømsensor – kredsløb
+P0A87	14 V-strømmodul: strømsensor – kredsløb område/ydeevne
+P0A88	14 V-strømmodul: strømsensor – kredsløb lav
+P0A89	14 V-strømmodul: strømsensor – kredsløb høj
+P0A8A	14 V-strømmodul: strømsensor – kredsløb sporadisk
+P0A8B	14 V-strømmodul: systemspænding
+P0A8C	14 V-strømmodul: systemspænding – ustabil
+P0A8D	14 V-strømmodul: systemspænding – lav
+P0A8E	14 V-strømmodul: systemspænding – høj
+P0A8F	14 V-strømmodul: system – ydeevne
+P0A90	Drivmotor A – ydeevne
+P0A91	Drivmotor B – ydeevne
+P0A92	Hybridgenerator – ydeevne
+P0A93	Kølesystem til inverter – ydeevne
+P0A94	DC/DC-omformer – ydeevne
+P0A95	Højspændingssikring
+P0A96	Hybridbatteripakkekøleblæser 2 – styrekredsløb
+P0A97	Hybridbatteripakkekøleblæser 2 – ydeevne/hænger i fra
+P0A98	Hybridbatteripakkekøleblæser 2 – hænger i til
+P0A99	Hybridbatteripakkekøleblæser 2 – styrekredsløb lav
+P0A9A	Hybridbatteripakkekøleblæser 2 – styrekredsløb høj
+P0A9B	Hybridbatteritemperatursensor A – kredsløb
+P0A9C	Hybridbatteritemperatursensor A – område/ydeevne
+P0A9D	Hybridbatteritemperatursensor A – kredsløb lav
+P0A9E	Hybridbatteritemperatursensor A – kredsløb høj
+P0A9F	Hybridbatteritemperatursensor A – kredsløb sporadisk/ustabil
+P0AA0	Hybridbatteripositivkontaktor – kredsløb
+P0AA1	Hybridbatteripositivkontaktor – kredsløb hænger lukket
+P0AA2	Hybridbatteripositivkontaktor – kredsløb hænger åben
+P0AA3	Hybridbatterinegativkontaktor – kredsløb
+P0AA4	Hybridbatterinegativkontaktor – kredsløb hænger lukket
+P0AA5	Hybridbatterinegativkontaktor – kredsløb hænger åben
+P0AA6	Isolationsfejl i hybridbatteriets spændingssystem
+P0AA7	Hybridbatteri-spændingsisoleringssensor – kredsløb
+P0AA8	Hybridbatteri-spændingsisoleringssensor – kredsløb område/ydeevne
+P0AA9	Hybridbatteri-spændingsisoleringssensor – kredsløb lav
+P0AAA	Hybridbatteri-spændingsisoleringssensor – kredsløb høj
+P0AAB	Hybridbatteri-spændingsisoleringssensor – kredsløb sporadisk/ustabil
+P0AAC	Hybridbatteripakke-lufttemperatursensor A – kredsløb
+P0AAD	Hybridbatteripakke-lufttemperatursensor A – kredsløb område/ydeevne
+P0AAE	Hybridbatteripakke-lufttemperatursensor A – kredsløb lav
+P0AAF	Hybridbatteripakke-lufttemperatursensor A – kredsløb høj
+P0AB0	Hybridbatteripakke-lufttemperatursensor A – kredsløb sporadisk/ustabil
+P0AB1	Hybridbatteripakke-lufttemperatursensor B – kredsløb
+P0AB2	Hybridbatteripakke-lufttemperatursensor B – kredsløb område/ydeevne
+P0AB3	Hybridbatteripakke-lufttemperatursensor B – kredsløb lav
+P0AB4	Hybridbatteripakke-lufttemperatursensor B – kredsløb høj
+P0AB5	Hybridbatteripakke-lufttemperatursensor B – kredsløb sporadisk/ustabil
+P0AB6	Motorophæng B – styrekredsløb afbrudt
+P0AB7	Motorophæng B – styrekredsløb lav
+P0AB8	Motorophæng B – styrekredsløb høj
+P0AB9	Hybridsystem – ydeevne
+P0ABA	Hybridbatteripakke-spændingsmåling – kredsløb
+P0ABB	Hybridbatteripakke-spændingsmåling – kredsløb område/ydeevne
+P0ABC	Hybridbatteripakke-spændingsmåling – kredsløb lav
+P0ABD	Hybridbatteripakke-spændingsmåling – kredsløb høj
+P0ABE	Hybridbatteripakke-spændingsmåling – kredsløb sporadisk/ustabil
+P0ABF	Hybridbatteripakkestrømsensor – kredsløb
+P0AC0	Hybridbatteripakkestrømsensor – kredsløb område/ydeevne
+P0AC1	Hybridbatteripakkestrømsensor – kredsløb lav
+P0AC2	Hybridbatteripakkestrømsensor – kredsløb høj
+P0AC3	Hybridbatteripakkestrømsensor – kredsløb sporadisk/ustabil
+P0AC4	Hybriddrivlinjestyreenhed – anmoder om tænding af motorlampen
+P0AC5	Hybridbatteritemperatursensor B – kredsløb
+P0AC6	Hybridbatteritemperatursensor B – område/ydeevne
+P0AC7	Hybridbatteritemperatursensor B – kredsløb lav
+P0AC8	Hybridbatteritemperatursensor B – kredsløb høj
+P0AC9	Hybridbatteritemperatursensor B – kredsløb sporadisk/ustabil
+P0ACA	Hybridbatteritemperatursensor C – kredsløb
+P0ACB	Hybridbatteritemperatursensor C – område/ydeevne
+P0ACC	Hybridbatteritemperatursensor C – kredsløb lav
+P0ACD	Hybridbatteritemperatursensor C – kredsløb høj
+P0ACE	Hybridbatteritemperatursensor C – kredsløb sporadisk/ustabil
+P0ACF	Hybridbatteripakkekøleblæser 3 – styrekredsløb
+P0AD0	Hybridbatteripakkekøleblæser 3 – ydeevne/hænger i fra
+P0AD1	Hybridbatteripakkekøleblæser 3 – hænger i til
+P0AD2	Hybridbatteripakkekøleblæser 3 – styrekredsløb lav
+P0AD3	Hybridbatteripakkekøleblæser 3 – styrekredsløb høj
+P0AD4	Hybridbatteripakke-luftstrømssystem – utilstrækkelig luftstrøm
+P0AD5	Hybridbatteripakke-luftstrømsventil A – styrekredsløb afbrudt
+P0AD6	Hybridbatteripakke-luftstrømsventil A – styrekredsløb område/ydeevne
+P0AD7	Hybridbatteripakke-luftstrømsventil A – styrekredsløb lav
+P0AD8	Hybridbatteripakke-luftstrømsventil A – styrekredsløb høj
+P0AD9	Hybridbatteripositivkontaktor – styrekredsløb afbrudt
+P0ADA	Hybridbatteripositivkontaktor – styrekredsløb område/ydeevne
+P0ADB	Hybridbatteripositivkontaktor – styrekredsløb lav
+P0ADC	Hybridbatteripositivkontaktor – styrekredsløb høj
+P0ADD	Hybridbatterinegativkontaktor – styrekredsløb afbrudt
+P0ADE	Hybridbatterinegativkontaktor – styrekredsløb område/ydeevne
+P0ADF	Hybridbatterinegativkontaktor – styrekredsløb lav
+P0AE0	Hybridbatterinegativkontaktor – styrekredsløb høj
+P0AE1	Hybridbatteri-forladningskontaktor – kredsløb
+P0AE2	Hybridbatteri-forladningskontaktor – kredsløb hænger lukket
+P0AE3	Hybridbatteri-forladningskontaktor – kredsløb hænger åben
+P0AE4	Hybridbatteri-forladningskontaktor – styrekredsløb
+P0AE5	Hybridbatteri-forladningskontaktor – styrekredsløb område/ydeevne
+P0AE6	Hybridbatteri-forladningskontaktor – styrekredsløb lav
+P0AE7	Hybridbatteri-forladningskontaktor – styrekredsløb høj
+P0AE8	Hybridbatteritemperatursensor D – kredsløb
+P0AE9	Hybridbatteritemperatursensor D – område/ydeevne
+P0AEA	Hybridbatteritemperatursensor D – kredsløb lav
+P0AEB	Hybridbatteritemperatursensor D – kredsløb høj
+P0AEC	Hybridbatteritemperatursensor D – kredsløb sporadisk/ustabil
+P0AED	Drivmotorinverter-temperatursensor A – kredsløb
+P0AEE	Drivmotorinverter-temperatursensor A – kredsløb område/ydeevne
+P0AEF	Drivmotorinverter-temperatursensor A – kredsløb lav
+P0AF0	Drivmotorinverter-temperatursensor A – kredsløb høj
+P0AF1	Drivmotorinverter-temperatursensor A – kredsløb sporadisk/ustabil
+P0AF2	Drivmotorinverter-temperatursensor B – kredsløb
+P0AF3	Drivmotorinverter-temperatursensor B – kredsløb område/ydeevne
+P0AF4	Drivmotorinverter-temperatursensor B – kredsløb lav
+P0AF5	Drivmotorinverter-temperatursensor B – kredsløb høj
+P0AF6	Drivmotorinverter-temperatursensor B – kredsløb sporadisk/ustabil
+P0AF7	14 V-strømmodul: intern – temperatur for høj
+P0AF8	Hybridbatterisystemspænding
+P0AF9	Hybridbatterisystemspænding – ustabil
+P0AFA	Hybridbatterisystemspænding – lav
+P0AFB	Hybridbatterisystemspænding – høj
+P0B00	Hjælpegearoliepumpemotor, strøm i fase U
+P0B01	Hjælpegearoliepumpemotor, strøm i fase U – lav
+P0B02	Hjælpegearoliepumpemotor, strøm i fase U – høj
+P0B03	Hjælpegearoliepumpemotor, strøm i fase V
+P0B04	Hjælpegearoliepumpemotor, strøm i fase V – lav
+P0B05	Hjælpegearoliepumpemotor, strøm i fase V – høj
+P0B06	Hjælpegearoliepumpemotor, strøm i fase W
+P0B07	Hjælpegearoliepumpemotor, strøm i fase W – lav
+P0B08	Hjælpegearoliepumpemotor, strøm i fase W – høj
+P0B09	Hjælpegearoliepumpe-motorforsyningsspænding – kredsløb afbrudt
+P0B0A	Hjælpegearoliepumpe-motorforsyningsspænding – kredsløb lav
+P0B0B	Hjælpegearoliepumpe-motorforsyningsspænding – kredsløb høj
+P0B0C	Hjælpegearoliepumpe-hydrauliklækage
+P0B0D	Hjælpegearoliepumpe-motorstyreenhed
+P2000	NOx-fældeeffektivitet – under grænseværdi, bank 1
+P2001	NOx-fældeeffektivitet – under grænseværdi, bank 2
+P2002	DPF-effektivitet – under grænseværdi, bank 1
+P2003	DPF-effektivitet – under grænseværdi, bank 2
+P2004	Indsugningsmanifoldkanal – styring hænger åben, bank 1
+P2005	Indsugningsmanifoldkanal – styring hænger åben, bank 2
+P2006	Indsugningsmanifoldkanal – styring hænger lukket, bank 1
+P2007	Indsugningsmanifoldkanal – styring hænger lukket, bank 2
+P2008	Indsugningsmanifoldkanal – styrekredsløb afbrudt, bank 1
+P2009	Indsugningsmanifoldkanal – styrekredsløb lav, bank 1
+P2010	Indsugningsmanifoldkanal – styrekredsløb høj, bank 1
+P2011	Indsugningsmanifoldkanal – styrekredsløb afbrudt, bank 2
+P2012	Indsugningsmanifoldkanal – styrekredsløb lav, bank 2
+P2013	Indsugningsmanifoldkanal – styrekredsløb høj, bank 2
+P2014	Indsugningsmanifoldkanalpositionssensor/-kontakt – kredsløb, bank 1
+P2015	Indsugningsmanifoldkanalpositionssensor/-kontakt – kredsløb område/ydeevne, bank 1
+P2016	Indsugningsmanifoldkanalpositionssensor/-kontakt – kredsløb lav, bank 1
+P2017	Indsugningsmanifoldkanalpositionssensor/-kontakt – kredsløb høj, bank 1
+P2018	Indsugningsmanifoldkanalpositionssensor/-kontakt – kredsløb sporadisk, bank 1
+P2019	Indsugningsmanifoldkanalpositionssensor/-kontakt – kredsløb, bank 2
+P2020	Indsugningsmanifoldkanalpositionssensor/-kontakt – kredsløb område/ydeevne, bank 2
+P2021	Indsugningsmanifoldkanalpositionssensor/-kontakt – kredsløb lav, bank 2
+P2022	Indsugningsmanifoldkanalpositionssensor/-kontakt – kredsløb høj, bank 2
+P2023	Indsugningsmanifoldkanalpositionssensor/-kontakt – kredsløb sporadisk, bank 2
+P2024	EVAP-brændstofdamp-temperatursensor – kredsløb (EVAP)
+P2025	EVAP-brændstofdamp-temperatursensor – ydeevne (EVAP)
+P2026	EVAP-brændstofdamp-temperatursensor – kredsløb lav spænding (EVAP)
+P2027	EVAP-brændstofdamp-temperatursensor – kredsløb høj spænding (EVAP)
+P2028	EVAP-brændstofdamp-temperatursensor – kredsløb sporadisk (EVAP)
+P2029	Brændstofvarmer deaktiveret
+P2030	Brændstofvarmer – ydeevne
+P2031	Udstødningstemperatursensor – kredsløb, bank 1 sensor 2
+P2032	Udstødningstemperatursensor – kredsløb lav, bank 1 sensor 2
+P2033	Udstødningstemperatursensor – kredsløb høj, bank 1 sensor 2
+P2034	Udstødningstemperatursensor – kredsløb, bank 2 sensor 2
+P2035	Udstødningstemperatursensor – kredsløb lav, bank 2 sensor 2
+P2036	Udstødningstemperatursensor – kredsløb høj, bank 2 sensor 2
+P2037	Reduktionsmiddel-indsprøjtningslufttryksensor – kredsløb
+P2038	Reduktionsmiddel-indsprøjtningslufttryksensor – kredsløb område/ydeevne
+P2039	Reduktionsmiddel-indsprøjtningslufttryksensor – kredsløb lav
+P203A	Reduktionsmiddelniveausensor – kredsløb
+P203B	Reduktionsmiddelniveausensor – kredsløb område/ydeevne
+P203C	Reduktionsmiddelniveausensor – kredsløb lav
+P203D	Reduktionsmiddelniveausensor – kredsløb høj
+P203E	Reduktionsmiddelniveausensor – kredsløb sporadisk/ustabil
+P203F	Reduktionsmiddelniveau – lav
+P2040	Reduktionsmiddel-indsprøjtningslufttryksensor – kredsløb høj
+P2041	Reduktionsmiddel-indsprøjtningslufttryksensor – kredsløb sporadisk
+P2042	Reduktionsmiddel-temperatursensor – kredsløb
+P2043	Reduktionsmiddel-temperatursensor – kredsløb område/ydeevne
+P2044	Reduktionsmiddel-temperatursensor – kredsløb lav
+P2045	Reduktionsmiddel-temperatursensor – kredsløb høj
+P2046	Reduktionsmiddel-temperatursensor – kredsløb sporadisk
+P2047	Reduktionsmiddel-indsprøjtningsventil – kredsløb afbrudt, bank 1, enhed 1
+P2048	Reduktionsmiddel-indsprøjtningsventil – kredsløb lav, bank 1, enhed 1
+P2049	Reduktionsmiddel-indsprøjtningsventil – kredsløb høj, bank 1, enhed 1
+P204A	Reduktionsmiddeltryksensor – kredsløb
+P204B	Reduktionsmiddeltryksensor – kredsløb område/ydeevne
+P204C	Reduktionsmiddeltryksensor – kredsløb lav
+P204D	Reduktionsmiddeltryksensor – kredsløb høj
+P204E	Reduktionsmiddeltryksensor – kredsløb sporadisk/ustabil
+P2050	Reduktionsmiddel-indsprøjtningsventil – kredsløb afbrudt, bank 2, enhed 1
+P2051	Reduktionsmiddel-indsprøjtningsventil – kredsløb lav, bank 2, enhed 1
+P2052	Reduktionsmiddel-indsprøjtningsventil – kredsløb høj, bank 2, enhed 1
+P2053	Reduktionsmiddel-indsprøjtningsventil – kredsløb afbrudt, bank 1, enhed 2
+P2054	Reduktionsmiddel-indsprøjtningsventil – kredsløb lav, bank 1, enhed 2
+P2055	Reduktionsmiddel-indsprøjtningsventil – kredsløb høj, bank 1, enhed 2
+P2056	Reduktionsmiddel-indsprøjtningsventil – kredsløb afbrudt, bank 2, enhed 2
+P2057	Reduktionsmiddel-indsprøjtningsventil – kredsløb lav, bank 2, enhed 2
+P2058	Reduktionsmiddel-indsprøjtningsventil – kredsløb høj, bank 2, enhed 2
+P2059	Reduktionsmiddel-indsprøjtningsluftpumpe – styrekredsløb afbrudt
+P205A	Reduktionsmiddel-tanktemperatursensor – kredsløb
+P205B	Reduktionsmiddel-tanktemperatursensor – kredsløb område/ydeevne
+P205C	Reduktionsmiddel-tanktemperatursensor – kredsløb lav
+P205D	Reduktionsmiddel-tanktemperatursensor – kredsløb høj
+P205E	Reduktionsmiddel-tanktemperatursensor – kredsløb sporadisk/ustabil
+P2060	Reduktionsmiddel-indsprøjtningsluftpumpe – styrekredsløb lav
+P2061	Reduktionsmiddel-indsprøjtningsluftpumpe – styrekredsløb høj
+P2062	Reduktionsmiddel-/regenereringsforsyning – styrekredsløb afbrudt
+P2063	Reduktionsmiddelforsyning – styrekredsløb lav
+P2064	Reduktionsmiddelforsyning – styrekredsløb høj
+P2065	Brændstofniveausensor B – kredsløb
+P2066	Brændstofniveausensor B – ydeevne
+P2067	Brændstofniveausensor B – kredsløb lav
+P2068	Brændstofniveausensor B – kredsløb høj
+P2069	Brændstofniveausensor B – kredsløb sporadisk
+P206E	Indsugningsmanifold-resonansventil – hænger åben, bank 2 (IMT)
+P206F	Indsugningsmanifold-resonansventil – hænger lukket, bank 2 (IMT)
+P2070	Indsugningsmanifold-resonansventil – hænger åben, bank 1 (IMT)
+P2071	Indsugningsmanifold-resonansventil – hænger lukket, bank 1 (IMT)
+P2072	Gasspjældaktuatorstyresystem – blokeret af is
+P2073	Manifoldtryk (MAP)/luftmasse – korrelation med gasspjældposition i tomgang
+P2074	Manifoldtryk (MAP)/luftmasse – korrelation med gasspjældposition ved højere belastning
+P2075	Indsugningsmanifoldresonansventilpositionssensor/-kontakt – kredsløb, bank 1 (IMT)
+P2076	Indsugningsmanifoldresonansventilpositionssensor/-kontakt – kredsløb område/ydeevne, bank 1 (IMT)
+P2077	Indsugningsmanifoldresonansventilpositionssensor/-kontakt – kredsløb lav, bank 1 (IMT)
+P2078	Indsugningsmanifoldresonansventilpositionssensor/-kontakt – kredsløb høj, bank 1 (IMT)
+P2079	Indsugningsmanifoldresonansventilpositionssensor/-kontakt – kredsløb sporadisk, bank 1 (IMT)
+P207A	Indsugningsmanifoldresonansventilpositionssensor/-kontakt – kredsløb, bank 2 (IMT)
+P207B	Indsugningsmanifoldresonansventilpositionssensor/-kontakt – kredsløb område/ydeevne, bank 2 (IMT)
+P207C	Indsugningsmanifoldresonansventilpositionssensor/-kontakt – kredsløb lav, bank 2 (IMT)
+P207D	Indsugningsmanifoldresonansventilpositionssensor/-kontakt – kredsløb høj, bank 2 (IMT)
+P207E	Indsugningsmanifoldresonansventilpositionssensor/-kontakt – kredsløb sporadisk, bank 2 (IMT)
+P2080	Udstødningstemperatursensor – kredsløb område/ydeevne, bank 1 sensor 1
+P2081	Udstødningstemperatursensor – kredsløb sporadisk, bank 1 sensor 1
+P2082	Udstødningstemperatursensor – kredsløb område/ydeevne, bank 2 sensor 1
+P2083	Udstødningstemperatursensor – kredsløb sporadisk, bank 2 sensor 1
+P2084	Udstødningstemperatursensor – kredsløb område/ydeevne, bank 1 sensor 2
+P2085	Udstødningstemperatursensor – kredsløb sporadisk, bank 1 sensor 2
+P2086	Udstødningstemperatursensor – kredsløb område/ydeevne, bank 2 sensor 2
+P2087	Udstødningstemperatursensor – kredsløb sporadisk, bank 2 sensor 2
+P2088	Knastakselpositionsaktuator A – styrekredsløb lav, bank 1
+P2089	Knastakselpositionsaktuator A – styrekredsløb høj, bank 1
+P2090	Knastakselpositionsaktuator B – styrekredsløb lav, bank 1
+P2091	Knastakselpositionsaktuator B – styrekredsløb høj, bank 1
+P2092	Knastakselpositionsaktuator A – styrekredsløb lav, bank 2
+P2093	Knastakselpositionsaktuator A – styrekredsløb høj, bank 2
+P2094	Knastakselpositionsaktuator B – styrekredsløb lav, bank 2
+P2095	Knastakselpositionsaktuator B – styrekredsløb høj, bank 2
+P2096	Brændstoftrim efter katalysator, for mager, bank 1
+P2097	Brændstoftrim efter katalysator, for fed, bank 1
+P2098	Brændstoftrim efter katalysator, for mager, bank 2
+P2099	Brændstoftrim efter katalysator, for fed, bank 2
+P2100	Gasspjældaktuatorstyremotor – kredsløb afbrudt
+P2101	Gasspjældmotor – kredsløb område/ydeevne
+P2102	Gasspjældaktuatorstyremotor – kredsløb lav
+P2103	Gasspjældaktuatorstyremotor – kredsløb høj
+P2104	Gasspjældaktuatorstyresystem – tvungen tomgang
+P2105	Gasspjældaktuatorstyresystem – tvungent motorstop
+P2106	Gasspjældaktuatorstyresystem – tvungen effektbegrænsning
+P2107	Gasspjældaktuator-styreenhedsprocessor
+P2108	Gasspjældaktuatorstyreenhed – ydeevne
+P2109	Gasspjæld-/pedalpositionssensor A minimalanslag – ydeevne
+P2110	Gasspjældaktuatorstyresystem – tvungen omdrejningsbegrænsning
+P2111	Gasspjældaktuatorstyresystem – hænger åben
+P2112	Gasspjældaktuatorstyresystem – hænger lukket
+P2113	Gasspjæld-/pedalpositionssensor B minimalanslag – ydeevne
+P2114	Gasspjæld-/pedalpositionssensor C minimalanslag – ydeevne
+P2115	Gasspjæld-/pedalpositionssensor D minimalanslag – ydeevne
+P2116	Gasspjæld-/pedalpositionssensor E minimalanslag – ydeevne
+P2117	Gasspjæld-/pedalpositionssensor F minimalanslag – ydeevne
+P2118	Gasspjældaktuator-styremotorstrøm – område/ydeevne
+P2119	Gasspjældaktuator-styregasspjældhus – område/ydeevne
+P2120	Gasspjæld-/pedalpositionssensor/-kontakt D – kredsløb
+P2121	Gasspjæld-/pedalpositionssensor/-kontakt D – kredsløb område/ydeevne
+P2122	Gasspjæld-/pedalpositionssensor/-kontakt D – kredsløb lav
+P2123	Gasspjæld-/pedalpositionssensor/-kontakt D – kredsløb høj
+P2124	Gasspjæld-/pedalpositionssensor/-kontakt D – kredsløb sporadisk
+P2125	Gasspjæld-/pedalpositionssensor/-kontakt E – kredsløb
+P2126	Gasspjæld-/pedalpositionssensor/-kontakt E – kredsløb område/ydeevne
+P2127	Gasspjæld-/pedalpositionssensor/-kontakt E – kredsløb lav
+P2128	Gasspjæld-/pedalpositionssensor/-kontakt E – kredsløb høj
+P2129	Gasspjæld-/pedalpositionssensor/-kontakt E – kredsløb sporadisk
+P2130	Gasspjæld-/pedalpositionssensor/-kontakt F – kredsløb
+P2131	Gasspjæld-/pedalpositionssensor/-kontakt F – kredsløb område/ydeevne
+P2132	Gasspjæld-/pedalpositionssensor/-kontakt F – kredsløb lav
+P2133	Gasspjæld-/pedalpositionssensor/-kontakt F – kredsløb høj
+P2134	Gasspjæld-/pedalpositionssensor/-kontakt F – kredsløb sporadisk
+P2135	Gasspjæld-/pedalpositionssensor/-kontakt A/B spænding – korrelation
+P2136	Gasspjæld-/pedalpositionssensor/-kontakt A/C spænding – korrelation
+P2137	Gasspjæld-/pedalpositionssensor/-kontakt B/C spænding – korrelation
+P2138	Gasspjæld-/pedalpositionssensor/-kontakt D/E spænding – korrelation
+P2139	Gasspjæld-/pedalpositionssensor/-kontakt D/F spænding – korrelation
+P213A	EGR-gasspjæld – styrekredsløb B afbrudt
+P213B	EGR-gasspjæld – styrekredsløb B område/ydeevne
+P213C	EGR-gasspjæld – styrekredsløb B lav
+P213D	EGR-gasspjæld – styrekredsløb B høj
+P2140	Gasspjæld-/pedalpositionssensor/-kontakt E/F spænding – korrelation
+P2141	EGR-gasspjæld – styrekredsløb A lav
+P2142	EGR-gasspjæld – styrekredsløb A høj
+P2143	EGR-ventilation – styrekredsløb afbrudt
+P2144	EGR-ventilation – styrekredsløb lav
+P2145	EGR-ventilation – styrekredsløb høj
+P2146	Indsprøjtningsventilgruppe A forsyningsspænding – kredsløb afbrudt
+P2147	Indsprøjtningsventilgruppe A forsyningsspænding – kredsløb lav
+P2148	Indsprøjtningsventilgruppe A forsyningsspænding – kredsløb høj
+P2149	Indsprøjtningsventilgruppe B forsyningsspænding – kredsløb afbrudt
+P2150	Indsprøjtningsventilgruppe B forsyningsspænding – kredsløb lav
+P2151	Indsprøjtningsventilgruppe B forsyningsspænding – kredsløb høj
+P2152	Indsprøjtningsventilgruppe C forsyningsspænding – kredsløb afbrudt
+P2153	Indsprøjtningsventilgruppe C forsyningsspænding – kredsløb lav
+P2154	Indsprøjtningsventilgruppe C forsyningsspænding – kredsløb høj
+P2155	Indsprøjtningsventilgruppe D forsyningsspænding – kredsløb afbrudt
+P2156	Indsprøjtningsventilgruppe D forsyningsspænding – kredsløb lav
+P2157	Indsprøjtningsventilgruppe D forsyningsspænding – kredsløb høj
+P2158	Hastighedssensor B
+P2159	Hastighedssensor B – område/ydeevne
+P215A	Kørehastighed – korrelation med hjulhastighed
+P215B	Kørehastighed – korrelation med udgangsakslens omdrejningstal
+P2160	Hastighedssensor B – kredsløb lav
+P2161	Hastighedssensor B – sporadisk/ustabil
+P2162	Hastighedssensor A/B – korrelation
+P2163	Gasspjæld-/pedalpositionssensor A maksimalanslag – ydeevne
+P2164	Gasspjæld-/pedalpositionssensor B maksimalanslag – ydeevne
+P2165	Gasspjæld-/pedalpositionssensor C maksimalanslag – ydeevne
+P2166	Gasspjæld-/pedalpositionssensor D maksimalanslag – ydeevne
+P2167	Gasspjæld-/pedalpositionssensor E maksimalanslag – ydeevne
+P2168	Gasspjæld-/pedalpositionssensor F maksimalanslag – ydeevne
+P2169	Udstødningstrykregulator-ventilationsmagnetventil – styrekredsløb afbrudt
+P2170	Udstødningstrykregulator-ventilationsmagnetventil – styrekredsløb lav
+P2171	Udstødningstrykregulator-ventilationsmagnetventil – styrekredsløb høj
+P2172	Gasspjældaktuatorstyresystem – pludselig høj luftstrøm registreret
+P2173	Gasspjældaktuatorstyresystem – høj luftstrøm registreret
+P2174	Gasspjældaktuatorstyresystem – pludselig lav luftstrøm registreret
+P2175	Gasspjældaktuatorstyresystem – lav luftstrøm registreret
+P2176	Gasspjældaktuatorstyresystem – tomgangsposition ikke indlært
+P2177	Blandingen er for mager uden for tomgang, bank 1
+P2178	Blandingen er for fed uden for tomgang, bank 1
+P2179	Blandingen er for mager uden for tomgang, bank 2
+P2180	Blandingen er for fed uden for tomgang, bank 2
+P2181	Kølesystem – ydeevne
+P2182	Kølevæsketemperatursensor 2 – kredsløb
+P2183	Kølevæsketemperatursensor 2 – kredsløb område/ydeevne
+P2184	Kølevæsketemperatursensor 2 – kredsløb lav
+P2185	Kølevæsketemperatursensor 2 – kredsløb høj
+P2186	Kølevæsketemperatursensor 2 – kredsløb sporadisk/ustabil
+P2187	Blandingen er for mager i tomgang, bank 1
+P2188	Blandingen er for fed i tomgang, bank 1
+P2189	Blandingen er for mager i tomgang, bank 2
+P2190	Blandingen er for fed i tomgang, bank 2
+P2191	Blandingen er for mager ved højere belastning, bank 1
+P2192	Blandingen er for fed ved højere belastning, bank 1
+P2193	Blandingen er for mager ved højere belastning, bank 2
+P2194	Blandingen er for fed ved højere belastning, bank 2
+P2195	Lambdasondesignal forskudt/hænger på magert, bank 1 sensor 1
+P2196	Lambdasondesignal forskudt/hænger på fedt, bank 1 sensor 1
+P2197	Lambdasondesignal forskudt/hænger på magert, bank 2 sensor 1
+P2198	Lambdasondesignal forskudt/hænger på fedt, bank 2 sensor 1
+P2199	Indsugningsluft-temperatursensor 1/2 – korrelation
+P2200	NOx-sensor – kredsløb, bank 1
+P2201	NOx-sensor – kredsløb område/ydeevne, bank 1
+P2202	NOx-sensor – kredsløb lav, bank 1
+P2203	NOx-sensor – kredsløb høj, bank 1
+P2204	NOx-sensor – kredsløb sporadisk, bank 1
+P2205	NOx-sensorvarmer – styrekredsløb afbrudt, bank 1
+P2206	NOx-sensorvarmer – styrekredsløb lav, bank 1
+P2207	NOx-sensorvarmer – styrekredsløb høj, bank 1
+P2208	NOx-sensorvarmermåling – kredsløb, bank 1
+P2209	NOx-sensorvarmermåling – kredsløb område/ydeevne, bank 1
+P2210	NOx-sensorvarmermåling – kredsløb lav, bank 1
+P2211	NOx-sensorvarmermåling – kredsløb høj, bank 1
+P2212	NOx-sensorvarmermåling – kredsløb sporadisk, bank 1
+P2213	NOx-sensor – kredsløb, bank 2
+P2214	NOx-sensor – kredsløb område/ydeevne, bank 2
+P2215	NOx-sensor – kredsløb lav, bank 2
+P2216	NOx-sensor – kredsløb høj, bank 2
+P2217	NOx-sensor – kredsløb sporadisk, bank 2
+P2218	NOx-sensorvarmer – styrekredsløb afbrudt, bank 2
+P2219	NOx-sensorvarmer – styrekredsløb lav, bank 2
+P2220	NOx-sensorvarmer – styrekredsløb høj, bank 2
+P2221	NOx-sensorvarmermåling – kredsløb, bank 2
+P2222	NOx-sensorvarmermåling – kredsløb område/ydeevne, bank 2
+P2223	NOx-sensorvarmermåling – kredsløb lav, bank 2
+P2224	NOx-sensorvarmermåling – kredsløb høj, bank 2
+P2225	NOx-sensorvarmermåling – kredsløb sporadisk, bank 2
+P2226	Barometertryk – kredsløb
+P2227	Barometertryk – kredsløb område/ydeevne
+P2228	Barometertryk – kredsløb lav
+P2229	Barometertryk – kredsløb høj
+P2230	Barometertryk – kredsløb sporadisk
+P2231	Lambdasondesignal – kredsløb kortsluttet til varmekredsløbet, bank 1 sensor 1
+P2232	Lambdasondesignal – kredsløb kortsluttet til varmekredsløbet, bank 1 sensor 2
+P2233	Lambdasondesignal – kredsløb kortsluttet til varmekredsløbet, bank 1 sensor 3
+P2234	Lambdasondesignal – kredsløb kortsluttet til varmekredsløbet, bank 2 sensor 1
+P2235	Lambdasondesignal – kredsløb kortsluttet til varmekredsløbet, bank 2 sensor 2
+P2236	Lambdasondesignal – kredsløb kortsluttet til varmekredsløbet, bank 2 sensor 3
+P2237	Lambdasondepositivstrøm – styrekredsløb afbrudt, bank 1 sensor 1
+P2238	Lambdasondepositivstrøm – styrekredsløb lav, bank 1 sensor 1
+P2239	Lambdasondepositivstrøm – styrekredsløb høj, bank 1 sensor 1
+P2240	Lambdasondepositivstrøm – styrekredsløb afbrudt, bank 2 sensor 1
+P2241	Lambdasondepositivstrøm – styrekredsløb lav, bank 2 sensor 1
+P2242	Lambdasondepositivstrøm – styrekredsløb høj, bank 2 sensor 1
+P2243	Lambdasondereferencespænding – kredsløb afbrudt, bank 1 sensor 1
+P2244	Lambdasondereferencespænding – ydeevne, bank 1 sensor 1
+P2245	Lambdasondereferencespænding – kredsløb lav, bank 1 sensor 1
+P2246	Lambdasondereferencespænding – kredsløb høj, bank 1 sensor 1
+P2247	Lambdasondereferencespænding – kredsløb afbrudt, bank 2 sensor 1
+P2248	Lambdasondereferencespænding – ydeevne, bank 2 sensor 1
+P2249	Lambdasondereferencespænding – kredsløb lav, bank 2 sensor 1
+P2250	Lambdasondereferencespænding – kredsløb høj, bank 2 sensor 1
+P2251	Lambdasondenegativstrøm – styrekredsløb afbrudt, bank 1 sensor 1
+P2252	Lambdasondenegativstrøm – styrekredsløb lav, bank 1 sensor 1
+P2253	Lambdasondenegativstrøm – styrekredsløb høj, bank 1 sensor 1
+P2254	Lambdasondenegativstrøm – styrekredsløb afbrudt, bank 2 sensor 1
+P2255	Lambdasondenegativstrøm – styrekredsløb lav, bank 2 sensor 1
+P2256	Lambdasondenegativstrøm – styrekredsløb høj, bank 2 sensor 1
+P2257	Sekundærluftstyring A – kredsløb lav
+P2258	Sekundærluftstyring A – kredsløb høj
+P2259	Sekundærluftstyring B – kredsløb lav
+P2260	Sekundærluftstyring B – kredsløb høj
+P2261	Turbo-/kompressorbypassventil – mekanisk
+P2262	Turbo-/kompressorladetryk – ikke registreret – mekanisk
+P2263	Turbo-/kompressorladetryksystem – ydeevne
+P2264	Vand-i-brændstofsensor – kredsløb
+P2265	Vand-i-brændstofsensor – kredsløb område/ydeevne
+P2266	Vand-i-brændstofsensor – kredsløb lav
+P2267	Vand-i-brændstofsensor – kredsløb høj
+P2268	Vand-i-brændstofsensor – kredsløb sporadisk
+P2269	Vand i brændstoffet – tilstand
+P2270	Lambdasondesignal – hænger på magert, bank 1 sensor 2
+P2271	Lambdasondesignal – hænger på fedt, bank 1 sensor 2
+P2272	Lambdasondesignal – hænger på magert, bank 2 sensor 2
+P2273	Lambdasondesignal – hænger på fedt, bank 2 sensor 2
+P2274	Lambdasondesignal – hænger på magert, bank 1 sensor 3
+P2275	Lambdasondesignal – hænger på fedt, bank 1 sensor 3
+P2276	Lambdasondesignal – hænger på magert, bank 2 sensor 3
+P2277	Lambdasondesignal – hænger på fedt, bank 2 sensor 3
+P2278	Lambdasondesignaler ombyttet, bank 1 sensor 3, bank 2 sensor 3
+P2279	Indsugningsluftsystemutæthed
+P2280	Forsnævret luftstrøm/luftutæthed mellem luftfilter og luftmassemåler
+P2281	Luftutæthed mellem luftmassemåler og gasspjældhus
+P2282	Luftutæthed mellem gasspjældhus og indsugningsventiler
+P2283	Indsprøjtningsventil-styretryksensor – kredsløb
+P2284	Indsprøjtningsventil-styretryksensor – kredsløb område/ydeevne
+P2285	Indsprøjtningsventil-styretryksensor – kredsløb lav
+P2286	Indsprøjtningsventil-styretryksensor – kredsløb høj
+P2287	Indsprøjtningsventil-styretryksensor – kredsløb sporadisk
+P2288	Indsprøjtningsventilstyretryk – for høj
+P2289	Indsprøjtningsventilstyretryk – for høj – motor slukket
+P2290	Indsprøjtningsventilstyretryk – for lav
+P2291	Indsprøjtningsventilstyretryk – for lav – under start
+P2292	Indsprøjtningsventilstyretryk – ustabil
+P2293	Brændstoftrykregulator 2 – ydeevne
+P2294	Brændstoftrykregulator 2 – styrekredsløb
+P2295	Brændstoftrykregulator 2 – styrekredsløb lav
+P2296	Brændstoftrykregulator 2 – styrekredsløb høj
+P2297	Lambdasonde uden for området under motorbremsning, bank 1 sensor 1
+P2298	Lambdasonde uden for området under motorbremsning, bank 2 sensor 1
+P2299	Bremsepedalpositions-/speederpedalposition er ikke kompatible
+P2300	Tændspole A primær – styrekredsløb lav
+P2301	Tændspole A primær – styrekredsløb høj
+P2302	Tændspole A sekundær – kredsløb
+P2303	Tændspole B primær – styrekredsløb lav
+P2304	Tændspole B primær – styrekredsløb høj
+P2305	Tændspole B sekundær – kredsløb
+P2306	Tændspole C primær – styrekredsløb lav
+P2307	Tændspole C primær – styrekredsløb høj
+P2308	Tændspole C sekundær – kredsløb
+P2309	Tændspole D primær – styrekredsløb lav
+P2310	Tændspole D primær – styrekredsløb høj
+P2311	Tændspole D sekundær – kredsløb
+P2312	Tændspole E primær – styrekredsløb lav
+P2313	Tændspole E primær – styrekredsløb høj
+P2314	Tændspole E sekundær – kredsløb
+P2315	Tændspole F primær – styrekredsløb lav
+P2316	Tændspole F primær – styrekredsløb høj
+P2317	Tændspole F sekundær – kredsløb
+P2318	Tændspole G primær – styrekredsløb lav
+P2319	Tændspole G primær – styrekredsløb høj
+P2320	Tændspole G sekundær – kredsløb
+P2321	Tændspole H primær – styrekredsløb lav
+P2322	Tændspole H primær – styrekredsløb høj
+P2323	Tændspole H sekundær – kredsløb
+P2324	Tændspole I primær – styrekredsløb lav
+P2325	Tændspole I primær – styrekredsløb høj
+P2326	Tændspole I sekundær – kredsløb
+P2327	Tændspole J primær – styrekredsløb lav
+P2328	Tændspole J primær – styrekredsløb høj
+P2329	Tændspole J sekundær – kredsløb
+P2330	Tændspole K primær – styrekredsløb lav
+P2331	Tændspole K primær – styrekredsløb høj
+P2332	Tændspole K sekundær – kredsløb
+P2333	Tændspole L primær – styrekredsløb lav
+P2334	Tændspole L primær – styrekredsløb høj
+P2335	Tændspole L sekundær – kredsløb
+P2336	Over bankegrænsen, cylinder 1
+P2337	Over bankegrænsen, cylinder 2
+P2338	Over bankegrænsen, cylinder 3
+P2339	Over bankegrænsen, cylinder 4
+P2340	Over bankegrænsen, cylinder 5
+P2341	Over bankegrænsen, cylinder 6
+P2342	Over bankegrænsen, cylinder 7
+P2343	Over bankegrænsen, cylinder 8
+P2344	Over bankegrænsen, cylinder 9
+P2345	Over bankegrænsen, cylinder 10
+P2346	Over bankegrænsen, cylinder 11
+P2347	Over bankegrænsen, cylinder 12
+P2400	EVAP-lækagetestpumpe – styrekredsløb afbrudt
+P2401	EVAP-lækagetestpumpe – styrekredsløb lav
+P2402	EVAP-lækagetestpumpe – styrekredsløb høj
+P2403	EVAP-lækagetestpumpemåling – kredsløb afbrudt
+P2404	EVAP-lækagetestpumpemåling – kredsløb område/ydeevne
+P2405	EVAP-lækagetestpumpemåling – kredsløb lav
+P2406	EVAP-lækagetestpumpemåling – kredsløb høj
+P2407	EVAP-lækagetestpumpemåling – kredsløb sporadisk/ustabil
+P2408	Tankdækselsensor/-kontakt – kredsløb
+P2409	Tankdækselsensor/-kontakt – kredsløb område/ydeevne
+P240A	EVAP-lækagetestpumpevarmer – styrekredsløb afbrudt
+P240B	EVAP-lækagetestpumpevarmer – styrekredsløb lav
+P240C	EVAP-lækagetestpumpevarmer – styrekredsløb høj
+P2410	Tankdækselsensor/-kontakt – kredsløb lav
+P2411	Tankdækselsensor/-kontakt – kredsløb høj
+P2412	Tankdækselsensor/-kontakt – kredsløb sporadisk/ustabil
+P2413	EGR-system – ydeevne
+P2414	Lambdasondeudstødningsprøve – fejl, bank 1 sensor 1
+P2415	Lambdasondeudstødningsprøve – fejl, bank 2 sensor 1
+P2416	Lambdasondesignaler ombyttet, bank 1 sensor 2, bank 1 sensor 3
+P2417	Lambdasondesignaler ombyttet, bank 2 sensor 2, bank 2 sensor 3
+P2418	EVAP-omskiftningsventil – styrekredsløb afbrudt
+P2419	EVAP-omskiftningsventil – styrekredsløb lav
+P2420	EVAP-omskiftningsventil – styrekredsløb høj
+P2421	EVAP-ventilationsventil – hænger åben
+P2422	EVAP-ventilationsventil – hænger lukket
+P2423	HC-adsorptionskatalysator-effektivitet – under grænseværdi, bank 1
+P2424	HC-adsorptionskatalysator-effektivitet – under grænseværdi, bank 2
+P2425	EGR-køleventil – styrekredsløb afbrudt
+P2426	EGR-køleventil – styrekredsløb lav
+P2427	EGR-køleventil – styrekredsløb høj
+P2428	Udstødningsgas – temperatur for høj, bank 1
+P2429	Udstødningsgas – temperatur for høj, bank 2
+P242A	Udstødningstemperatursensor – kredsløb, bank 1 sensor 3
+P242B	Udstødningstemperatursensor – kredsløb område/ydeevne, bank 1 sensor 3
+P242C	Udstødningstemperatursensor – kredsløb lav, bank 1 sensor 3
+P242D	Udstødningstemperatursensor – kredsløb høj, bank 1 sensor 3
+P242E	Udstødningstemperatursensor – kredsløb sporadisk/ustabil, bank 1 sensor 3
+P242F	DPF-forsnævring – askeophobning
+P2430	Sekundærluftluftstrøms-/tryksensor – kredsløb, bank 1
+P2431	Sekundærluftluftstrøms-/tryksensor – kredsløb område/ydeevne, bank 1
+P2432	Sekundærluftluftstrøms-/tryksensor – kredsløb lav, bank 1
+P2433	Sekundærluftluftstrøms-/tryksensor – kredsløb høj, bank 1
+P2434	Sekundærluftluftstrøms-/tryksensor – kredsløb sporadisk/ustabil, bank 1
+P2435	Sekundærluftluftstrøms-/tryksensor – kredsløb, bank 2
+P2436	Sekundærluftluftstrøms-/tryksensor – kredsløb område/ydeevne, bank 2
+P2437	Sekundærluftluftstrøms-/tryksensor – kredsløb lav, bank 2
+P2438	Sekundærluftluftstrøms-/tryksensor – kredsløb høj, bank 2
+P2439	Sekundærluftluftstrøms-/tryksensor – kredsløb sporadisk/ustabil, bank 2
+P2440	Sekundærluftomskiftningsventil – hænger åben, bank 1
+P2441	Sekundærluftomskiftningsventil – hænger lukket, bank 1
+P2442	Sekundærluftomskiftningsventil – hænger åben, bank 2
+P2443	Sekundærluftomskiftningsventil – hænger lukket, bank 2
+P2444	Sekundærluftpumpe – hænger i til, bank 1
+P2445	Sekundærluftpumpe – hænger i fra, bank 1
+P2446	Sekundærluftpumpe – hænger i til, bank 2
+P2447	Sekundærluftpumpe – hænger i fra, bank 2
+P2448	Sekundærluftsystem – høj luftstrøm, bank 1
+P2449	Sekundærluftsystem – høj luftstrøm, bank 2
+P244A	DPF-differenstryk – for lav, bank 1
+P244C	Partikelfilter – for lav tryk (række 1) (sensor 1)
+P2450	EVAP-omskiftningsventil – ydeevne/hænger åben
+P2451	EVAP-omskiftningsventil – hænger lukket
+P2452	DPF-differenstryksensor – kredsløb
+P2453	DPF-differenstryksensor – kredsløb område/ydeevne
+P2454	DPF-differenstryksensor – kredsløb lav
+P2455	DPF-differenstryksensor – kredsløb høj
+P2456	DPF-differenstryksensor – kredsløb sporadisk/ustabil
+P2457	EGR-kølesystem – ydeevne
+P2458	DPF-regenereringsvarighed
+P2459	DPF-regenereringsfrekvens
+P245A	EGR-kølerbypass – styrekredsløb afbrudt
+P245B	EGR-kølerbypass – styrekredsløb område/ydeevne
+P245C	EGR-kølerbypass – styrekredsløb lav
+P245D	EGR-kølerbypass – styrekredsløb høj
+P2463	Dieselpartikelfilter (DPF), sodophobning
+P2500	Ladelampe/L-klemme – kredsløb lav
+P2501	Ladelampe/L-klemme – kredsløb høj
+P2502	Ladesystemspænding
+P2503	Ladesystemspænding – lav
+P2504	Ladesystemspænding – høj
+P2505	ECM/PCM-strømindgangssignal
+P2506	ECM/PCM-strømindgangssignal – område/ydeevne
+P2507	ECM/PCM-strømindgangssignal – lav
+P2508	ECM/PCM-strømindgangssignal – høj
+P2509	ECM/PCM-strømindgangssignal – sporadisk
+P250A	Motorolieniveausensor – kredsløb
+P250B	Motorolieniveausensor – kredsløb område/ydeevne
+P250C	Motorolieniveausensor – kredsløb lav
+P250D	Motorolieniveausensor – kredsløb høj
+P250E	Motorolieniveausensor – kredsløb sporadisk/ustabil
+P250F	Motorolieniveau – for lav
+P2510	ECM/PCM-strømrelæmåling – kredsløb område/ydeevne
+P2511	ECM/PCM-strømrelæmåling – kredsløb sporadisk
+P2512	Hændelsesdataregistrering – anmodningskredsløb afbrudt
+P2513	Hændelsesdataregistrering – anmodningskredsløb lav
+P2514	Hændelsesdataregistrering – anmodningskredsløb høj
+P2515	Kølemiddeltryksensor B (aircondition) – kredsløb
+P2516	Kølemiddeltryksensor B (aircondition) – kredsløb område/ydeevne
+P2517	Kølemiddeltryksensor B (aircondition) – kredsløb lav
+P2518	Kølemiddeltryksensor B (aircondition) – kredsløb høj
+P2519	Aircondition – anmodning A kredsløb
+P251A	PTO-aktiveringskontakt – kredsløb afbrudt
+P251B	PTO-aktiveringskontakt – kredsløb lav
+P251C	PTO-aktiveringskontakt – kredsløb høj
+P251D	PTO-motorafbrydelse – kredsløb afbrudt
+P251E	PTO-motorafbrydelse – kredsløb lav
+P251F	PTO-motorafbrydelse – kredsløb høj
+P2520	Aircondition – anmodning A kredsløb lav
+P2521	Aircondition – anmodning A kredsløb høj
+P2522	Aircondition – anmodning B kredsløb
+P2523	Aircondition – anmodning B kredsløb lav
+P2524	Aircondition – anmodning B kredsløb høj
+P2525	Vakuumbeholdertryksensor – kredsløb
+P2526	Vakuumbeholdertryksensor – kredsløb område/ydeevne
+P2527	Vakuumbeholdertryksensor – kredsløb lav
+P2528	Vakuumbeholdertryksensor – kredsløb høj
+P2529	Vakuumbeholdertryksensor – kredsløb sporadisk
+P252A	Motoroliekvalitetssensor – kredsløb
+P252B	Motoroliekvalitetssensor – kredsløb område/ydeevne
+P252C	Motoroliekvalitetssensor – kredsløb lav
+P252D	Motoroliekvalitetssensor – kredsløb høj
+P252E	Motoroliekvalitet – kredsløb sporadisk/ustabil
+P252F	Motorolieniveau – for høj
+P2530	Tændingslåskørposition – kredsløb
+P2531	Tændingslåskørposition – kredsløb lav
+P2532	Tændingslåskørposition – kredsløb høj
+P2533	Tændingslåskør-/startposition – kredsløb
+P2534	Tændingslåskør-/startposition – kredsløb lav
+P2535	Tændingslåskør-/startposition – kredsløb høj
+P2536	Tændingslåstilbehørsposition – kredsløb
+P2537	Tændingslåstilbehørsposition – kredsløb lav
+P2538	Tændingslåstilbehørsposition – kredsløb høj
+P2539	Lavtryksbrændstofsystemsensor – kredsløb
+P253A	PTO-måling – kredsløb afbrudt
+P253B	PTO-måling – kredsløb område/ydeevne
+P253C	PTO-måling – kredsløb lav
+P253D	PTO-måling – kredsløb høj
+P253E	PTO-måling – kredsløb sporadisk/ustabil
+P253F	Motorolie forringet
+P2540	Lavtryksbrændstofsystemsensor – kredsløb område/ydeevne
+P2541	Lavtryksbrændstofsystemsensor – kredsløb lav
+P2542	Lavtryksbrændstofsystemsensor – kredsløb høj
+P2543	Lavtryksbrændstofsystemsensor – kredsløb sporadisk
+P2544	Momentstyring – anmodning, indgangssignal A
+P2545	Momentstyring – anmodning, indgangssignal A område/ydeevne
+P2546	Momentstyring – anmodning, indgangssignal A lav
+P2547	Momentstyring – anmodning, indgangssignal A høj
+P2548	Momentstyring – anmodning, indgangssignal B
+P2549	Momentstyring – anmodning, indgangssignal B område/ydeevne
+P254A	PTO-hastighedsvælgersensor/-kontakt 1 – kredsløb afbrudt
+P254B	PTO-hastighedsvælgersensor/-kontakt 1 – område/ydeevne
+P254C	PTO-hastighedsvælgersensor/-kontakt 1 – kredsløb lav
+P254D	PTO-hastighedsvælgersensor/-kontakt 1 – kredsløb høj
+P254E	PTO-hastighedsvælgersensor/-kontakt 1 – kredsløb sporadisk/ustabil
+P254F	Motormotorhjelmkontakt – kredsløb
+P2550	Momentstyring – anmodning, indgangssignal B lav
+P2551	Momentstyring – anmodning, indgangssignal B høj
+P2552	Gasspjæld-/brændstofspærre – kredsløb
+P2553	Gasspjæld-/brændstofspærre – kredsløb område/ydeevne
+P2554	Gasspjæld-/brændstofspærre – kredsløb lav
+P2555	Gasspjæld-/brændstofspærre – kredsløb høj
+P2556	Kølevæskeniveausensor/-kontakt – kredsløb
+P2557	Kølevæskeniveausensor/-kontakt – kredsløb område/ydeevne
+P2558	Kølevæskeniveausensor/-kontakt – kredsløb lav
+P2559	Kølevæskeniveausensor/-kontakt – kredsløb høj
+P255A	PTO-hastighedsvælgersensor/-kontakt 2 – kredsløb afbrudt
+P255B	PTO-hastighedsvælgersensor/-kontakt 2 – område/ydeevne
+P255C	PTO-hastighedsvælgersensor/-kontakt 2 – kredsløb lav
+P255D	PTO-hastighedsvælgersensor/-kontakt 2 – kredsløb høj
+P255E	PTO-hastighedsvælgersensor/-kontakt 2 – kredsløb sporadisk/ustabil
+P2560	Kølevæskeniveau – lav
+P2561	Airconditionstyreenhed – anmoder om tænding af motorlampen
+P2562	Turboladetrykregulerings-positionssensor A – kredsløb
+P2563	Turboladetrykregulerings-positionssensor A – kredsløb område/ydeevne
+P2564	Turboladetrykregulerings-positionssensor A – kredsløb lav
+P2565	Turboladetrykregulerings-positionssensor A – kredsløb høj
+P2566	Turboladetrykregulerings-positionssensor A – kredsløb sporadisk
+P2567	Ozonkatalysator-temperatursensor – kredsløb
+P2568	Ozonkatalysator-temperatursensor – kredsløb område/ydeevne
+P2569	Ozonkatalysator-temperatursensor – kredsløb lav
+P256A	Motortomgangshastighedsvælgersensor/-kontakt – kredsløb afbrudt
+P256B	Motortomgangshastighedsvælgersensor/-kontakt – område/ydeevne
+P256C	Motortomgangshastighedsvælgersensor/-kontakt – kredsløb lav
+P256D	Motortomgangshastighedsvælgersensor/-kontakt – kredsløb høj
+P256E	Motortomgangshastighedsvælgersensor/-kontakt – kredsløb sporadisk/ustabil
+P2570	Ozonkatalysator-temperatursensor – kredsløb høj
+P2571	Ozonkatalysator-temperatursensor – kredsløb sporadisk/ustabil
+P2572	Ozonkatalysator-forringelsessensor – kredsløb
+P2573	Ozonkatalysator-forringelsessensor – kredsløb område/ydeevne
+P2574	Ozonkatalysator-forringelsessensor – kredsløb lav
+P2575	Ozonkatalysator-forringelsessensor – kredsløb høj
+P2576	Ozonkatalysator-forringelsessensor – kredsløb sporadisk/ustabil
+P2577	Ozonkatalysatoreffektivitet – under grænseværdi
+P2578	Turboomdrejningssensor – kredsløb
+P2579	Turboomdrejningssensor – kredsløb område/ydeevne
+P257A	Vakuumbeholder – styrekredsløb afbrudt
+P257B	Vakuumbeholder – styrekredsløb lav
+P257C	Vakuumbeholder – styrekredsløb høj
+P257D	Motormotorhjelmkontakt – kredsløb område/ydeevne
+P257E	Motormotorhjelmkontakt – kredsløb lav
+P257F	Motormotorhjelmkontakt – kredsløb høj
+P2580	Turboomdrejningssensor – kredsløb lav
+P2581	Turboomdrejningssensor – kredsløb høj
+P2582	Turboomdrejningssensor – kredsløb sporadisk
+P2583	Fartpilotafstandssensor for
+P2584	Brændstofadditivstyreenhed – anmoder om tænding af motorlampen
+P2585	Brændstofadditiv-styreenhedsadvarselslampe – anmodning
+P2586	Turboladetrykregulerings-positionssensor B – kredsløb
+P2587	Turboladetrykregulerings-positionssensor B – kredsløb område/ydeevne
+P2588	Turboladetrykregulerings-positionssensor B – kredsløb lav
+P2589	Turboladetrykregulerings-positionssensor B – kredsløb høj
+P2590	Turboladetrykregulerings-positionssensor B – kredsløb sporadisk/ustabil
+P2600	Kølevæskepumpe – styrekredsløb afbrudt
+P2601	Kølevæskepumpe – styrekredsløb område/ydeevne
+P2602	Kølevæskepumpe – styrekredsløb lav
+P2603	Kølevæskepumpe – styrekredsløb høj
+P2604	Indsugningsluftvarmer A – kredsløb område/ydeevne
+P2605	Indsugningsluftvarmer A – kredsløb afbrudt
+P2606	Indsugningsluftvarmer B – kredsløb område/ydeevne
+P2607	Indsugningsluftvarmer B – kredsløb lav
+P2608	Indsugningsluftvarmer B – kredsløb høj
+P2609	Indsugningsluftvarmersystem – ydeevne
+P260A	Kraftudtag (PTO) – styrekredsløb afbrudt
+P260B	Kraftudtag (PTO) – styrekredsløb lav
+P260C	Kraftudtag (PTO) – styrekredsløb høj
+P260D	PTO-lampe indkoblet – styrekredsløb
+P260F	EVAP-overvågningsprocessor – ydeevne
+P2610	ECM/PCM intern motor fra timer – ydeevne
+P2611	Fordelingsventil til kølemiddel (aircondition) – styrekredsløb afbrudt
+P2612	Fordelingsventil til kølemiddel (aircondition) – styrekredsløb lav
+P2613	Fordelingsventil til kølemiddel (aircondition) – styrekredsløb høj
+P2614	Knastakselpositions-signaludgang – kredsløb afbrudt
+P2615	Knastakselpositions-signaludgang – kredsløb lav
+P2616	Knastakselpositions-signaludgang – kredsløb høj
+P2617	Krumtapakselpositions-signaludgang – kredsløb afbrudt
+P2618	Krumtapakselpositions-signaludgang – kredsløb lav
+P2619	Krumtapakselpositions-signaludgang – kredsløb høj
+P2620	Gasspjældpositionsudgang – kredsløb afbrudt
+P2621	Gasspjældpositionsudgang – kredsløb lav
+P2622	Gasspjældpositionsudgang – kredsløb høj
+P2623	Indsprøjtningsventil-styretrykregulator – kredsløb afbrudt
+P2624	Indsprøjtningsventil-styretrykregulator – kredsløb lav
+P2625	Indsprøjtningsventil-styretrykregulator – kredsløb høj
+P2626	Lambdasondepumpestrømtrim – kredsløb afbrudt, bank 1 sensor 1
+P2627	Lambdasondepumpestrømtrim – kredsløb lav, bank 1 sensor 1
+P2628	Lambdasondepumpestrømtrim – kredsløb høj, bank 1 sensor 1
+P2629	Lambdasondepumpestrømtrim – kredsløb afbrudt, bank 2 sensor 1
+P2630	Lambdasondepumpestrømtrim – kredsløb lav, bank 2 sensor 1
+P2631	Lambdasondepumpestrømtrim – kredsløb høj, bank 2 sensor 1
+P2632	Brændstofpumpe B – styrekredsløb afbrudt
+P2633	Brændstofpumpe B – styrekredsløb lav
+P2634	Brændstofpumpe B – styrekredsløb høj
+P2635	Brændstofpumpe A – lav strømning/ydeevne
+P2636	Brændstofpumpe B – lav strømning/ydeevne
+P2637	Momentstyrings-tilbagemeldingssignal A
+P2638	Momentstyrings-tilbagemeldingssignal A – område/ydeevne
+P2639	Momentstyrings-tilbagemeldingssignal A – lav
+P2640	Momentstyrings-tilbagemeldingssignal A – høj
+P2641	Momentstyrings-tilbagemeldingssignal B
+P2642	Momentstyrings-tilbagemeldingssignal B – område/ydeevne
+P2643	Momentstyrings-tilbagemeldingssignal B – lav
+P2644	Momentstyrings-tilbagemeldingssignal B – høj
+P2645	Vippearmaktuator A – styrekredsløb afbrudt, bank 1
+P2646	Vippearmaktuatorsystem A – ydeevne eller hænger i fra, bank 1
+P2647	Vippearmaktuatorsystem A – hænger i til, bank 1
+P2648	Vippearmaktuator A – styrekredsløb lav, bank 1
+P2649	Vippearmaktuator A – styrekredsløb høj, bank 1
+P264A	Vippearmaktuator-positionssensor A – kredsløb, bank 1
+P264B	Vippearmaktuator-positionssensor A – kredsløb område/ydeevne, bank 1
+P264C	Vippearmaktuator-positionssensor A – kredsløb lav, bank 1
+P264D	Vippearmaktuator-positionssensor A – kredsløb høj, bank 1
+P264E	Vippearmaktuator-positionssensor A – kredsløb sporadisk/ustabil, bank 1
+P2650	Vippearmaktuator B – styrekredsløb afbrudt, bank 1
+P2651	Vippearmaktuatorsystem B – ydeevne/hænger i fra, bank 1
+P2652	Vippearmaktuatorsystem B – hænger i til, bank 1
+P2653	Vippearmaktuator B – styrekredsløb lav, bank 1
+P2654	Vippearmaktuator B – styrekredsløb høj, bank 1
+P2655	Vippearmaktuator A – styrekredsløb afbrudt, bank 2
+P2656	Vippearmaktuatorsystem A – ydeevne eller hænger i fra, bank 2
+P2657	Vippearmaktuatorsystem A – hænger i til, bank 2
+P2658	Vippearmaktuator A – styrekredsløb lav, bank 2
+P2659	Vippearmaktuator A – styrekredsløb høj, bank 2
+P265A	Vippearmaktuator-positionssensor B – kredsløb, bank 1
+P265B	Vippearmaktuator-positionssensor B – kredsløb område/ydeevne, bank 1
+P265C	Vippearmaktuator-positionssensor B – kredsløb lav, bank 1
+P265D	Vippearmaktuator-positionssensor B – kredsløb høj, bank 1
+P265E	Vippearmaktuator-positionssensor B – kredsløb sporadisk/ustabil, bank 1
+P2660	Vippearmaktuator B – styrekredsløb afbrudt, bank 2
+P2661	Vippearmaktuatorsystem B – ydeevne/hænger i fra, bank 2
+P2662	Vippearmaktuatorsystem B – hænger i til, bank 2
+P2663	Vippearmaktuator B – styrekredsløb lav, bank 2
+P2664	Vippearmaktuator B – styrekredsløb høj, bank 2
+P2665	Brændstofafbryderventil B – styrekredsløb afbrudt
+P2666	Brændstofafbryderventil B – styrekredsløb lav
+P2667	Brændstofafbryderventil B – styrekredsløb høj
+P2668	Brændstoftilstandskontrollampe – styrekredsløb
+P2669	Aktuatorforsyningsspænding B – kredsløb afbrudt
+P266A	Vippearmaktuator-positionssensor A – kredsløb, bank 2
+P266B	Vippearmaktuator-positionssensor A – kredsløb område/ydeevne, bank 2
+P266C	Vippearmaktuator-positionssensor A – kredsløb lav, bank 2
+P266D	Vippearmaktuator-positionssensor A – kredsløb høj, bank 2
+P266E	Vippearmaktuator-positionssensor A – kredsløb sporadisk/ustabil, bank 2
+P2670	Aktuatorforsyningsspænding B – kredsløb lav
+P2671	Aktuatorforsyningsspænding B – kredsløb høj
+P2672	Indsprøjtningspumpe-timingforskydning
+P2673	Indsprøjtningspumpe-timingkalibrering – ikke indlært
+P2674	Indsprøjtningspumpe-brændstofkalibrering – ikke indlært
+P2675	Luftfilterindløb – styrekredsløb afbrudt
+P2676	Luftfilterindløb – styrekredsløb lav
+P2677	Luftfilterindløb – styrekredsløb høj
+P2678	Kølevæskeafgasningsventil – styrekredsløb afbrudt
+P2679	Kølevæskeafgasningsventil – styrekredsløb lav
+P267A	Vippearmaktuator-positionssensor B – kredsløb, bank 2
+P267B	Vippearmaktuator-positionssensor B – kredsløb område/ydeevne, bank 2
+P267C	Vippearmaktuator-positionssensor B – kredsløb lav, bank 2
+P267D	Vippearmaktuator-positionssensor B – kredsløb høj, bank 2
+P267E	Vippearmaktuator-positionssensor B – kredsløb sporadisk/ustabil, bank 2
+P2680	Kølevæskeafgasningsventil – styrekredsløb høj
+P2681	Kølevæskebypassventil – styrekredsløb afbrudt
+P2682	Kølevæskebypassventil – styrekredsløb lav
+P2683	Kølevæskebypassventil – styrekredsløb høj
+P2684	Aktuatorforsyningsspænding C – kredsløb afbrudt
+P2685	Aktuatorforsyningsspænding C – kredsløb lav
+P2686	Aktuatorforsyningsspænding C – kredsløb høj
+P2687	Brændstofforsyningsvarmer – styrekredsløb afbrudt
+P2688	Brændstofforsyningsvarmer – styrekredsløb lav
+P2689	Brændstofforsyningsvarmer – styrekredsløb høj
+P2700	Gearkassefriktionselement A indkoblingstid – område/ydeevne
+P2701	Gearkassefriktionselement B indkoblingstid – område/ydeevne
+P2702	Gearkassefriktionselement C indkoblingstid – område/ydeevne
+P2703	Gearkassefriktionselement D indkoblingstid – område/ydeevne
+P2704	Gearkassefriktionselement E indkoblingstid – område/ydeevne
+P2705	Gearkassefriktionselement F indkoblingstid – område/ydeevne
+P2706	Gearskiftmagnetventil F
+P2707	Gearskiftmagnetventil F – ydeevne eller hænger i fra
+P2708	Gearskiftmagnetventil F – hænger i til
+P2709	Gearskiftmagnetventil F elektrisk
+P2710	Gearskiftmagnetventil F – sporadisk
+P2711	Uventet mekaniskgearudkobling
+P2712	Hydraulikstrømenhedslækage
+P2713	Trykstyringsmagnetventil D
+P2714	Trykstyringsmagnetventil D – ydeevne eller hænger i fra
+P2715	Trykstyringsmagnetventil D – hænger i til
+P2716	Trykstyringsmagnetventil D elektrisk
+P2717	Trykstyringsmagnetventil D – sporadisk
+P2718	Trykstyringsmagnetventil D – styrekredsløb afbrudt
+P2719	Trykstyringsmagnetventil D – styrekredsløb område/ydeevne
+P2720	Trykstyringsmagnetventil D – styrekredsløb lav
+P2721	Trykstyringsmagnetventil D – styrekredsløb høj
+P2722	Trykstyringsmagnetventil E
+P2723	Trykstyringsmagnetventil E – ydeevne eller hænger i fra
+P2724	Trykstyringsmagnetventil E – hænger i til
+P2725	Trykstyringsmagnetventil E elektrisk
+P2726	Trykstyringsmagnetventil E – sporadisk
+P2727	Trykstyringsmagnetventil E – styrekredsløb afbrudt
+P2728	Trykstyringsmagnetventil E – styrekredsløb område/ydeevne
+P2729	Trykstyringsmagnetventil E – styrekredsløb lav
+P2730	Trykstyringsmagnetventil E – styrekredsløb høj
+P2731	Trykstyringsmagnetventil F
+P2732	Trykstyringsmagnetventil F – ydeevne eller hænger i fra
+P2733	Trykstyringsmagnetventil F – hænger i til
+P2734	Trykstyringsmagnetventil F elektrisk
+P2735	Trykstyringsmagnetventil F – sporadisk
+P2736	Trykstyringsmagnetventil F – styrekredsløb afbrudt
+P2737	Trykstyringsmagnetventil F – styrekredsløb område/ydeevne
+P2738	Trykstyringsmagnetventil F – styrekredsløb lav
+P2739	Trykstyringsmagnetventil F – styrekredsløb høj
+P273A	Gearkassefriktionselement G indkoblingstid – område/ydeevne
+P273B	Gearkassefriktionselement H indkoblingstid – område/ydeevne
+P2740	Gearolietemperatursensor B – kredsløb
+P2741	Gearolietemperatursensor B – kredsløb område/ydeevne
+P2742	Gearolietemperatursensor B – kredsløb lav
+P2743	Gearolietemperatursensor B – kredsløb høj
+P2744	Gearolietemperatursensor B – kredsløb sporadisk
+P2745	Mellemakselomdrejningssensor B – kredsløb
+P2746	Mellemakselomdrejningssensor B – kredsløb område/ydeevne
+P2747	Mellemakselomdrejningssensor B – kredsløb intet signal
+P2748	Mellemakselomdrejningssensor B – kredsløb sporadisk
+P2749	Mellemakselomdrejningssensor C – kredsløb
+P2750	Mellemakselomdrejningssensor C – kredsløb område/ydeevne
+P2751	Mellemakselomdrejningssensor C – kredsløb intet signal
+P2752	Mellemakselomdrejningssensor C – kredsløb sporadisk
+P2753	Gearoliekøler – styrekredsløb afbrudt
+P2754	Gearoliekøler – styrekredsløb lav
+P2755	Gearoliekøler – styrekredsløb høj
+P2756	Lockup-koblings-trykstyringsmagnetventil
+P2757	Lockup-koblings-trykstyringsmagnetventil – styrekredsløb ydeevne eller hænger i fra
+P2758	Lockup-koblings-trykstyringsmagnetventil – styrekredsløb hænger i til
+P2759	Lockup-koblings-trykstyringsmagnetventil – styrekredsløb elektrisk
+P2760	Lockup-koblings-trykstyringsmagnetventil – styrekredsløb sporadisk
+P2761	Lockup-koblings-trykstyringsmagnetventil – styrekredsløb afbrudt
+P2762	Lockup-koblings-trykstyringsmagnetventil – styrekredsløb område/ydeevne
+P2763	Lockup-koblings-trykstyringsmagnetventil – styrekredsløb høj
+P2764	Lockup-koblings-trykstyringsmagnetventil – styrekredsløb lav
+P2765	Indgangs-/turbineomdrejningssensor B – kredsløb
+P2766	Indgangs-/turbineomdrejningssensor B – kredsløb område/ydeevne
+P2767	Indgangs-/turbineomdrejningssensor B – kredsløb intet signal
+P2768	Indgangs-/turbineomdrejningssensor B – kredsløb sporadisk
+P2769	Lockup-kobling – kredsløb lav
+P2770	Lockup-kobling – kredsløb høj
+P2771	Firehjulstræk – lavtrykskontaktkredsløb (4WD)
+P2772	Firehjulstræk – lavtrykskontaktkredsløb område/ydeevne (4WD)
+P2773	Firehjulstræk – lavtrykskontaktkredsløb lav (4WD)
+P2774	Firehjulstræk – lavtrykskontaktkredsløb høj (4WD)
+P2775	Opgearingskontakt – kredsløb område/ydeevne
+P2776	Opgearingskontakt – kredsløb lav
+P2777	Opgearingskontakt – kredsløb høj
+P2778	Opgearingskontakt – kredsløb sporadisk/ustabil
+P2779	Nedgearingskontakt – kredsløb område/ydeevne
+P2780	Nedgearingskontakt – kredsløb lav
+P2781	Nedgearingskontakt – kredsløb høj
+P2782	Nedgearingskontakt – kredsløb sporadisk/ustabil
+P2783	Momentomformer – temperatur for høj
+P2784	Indgangs-/turbineomdrejningssensor A/B – korrelation
+P2785	Koblingsaktuator – temperatur for høj
+P2786	Gearskiftaktuator – temperatur for høj
+P2787	Kobling – temperatur for høj
+P2788	Automatiseret gearkasse, adaptiv indlæring ved grænsen
+P2789	Kobling, adaptiv indlæring ved grænsen
+P278A	Kickdownkontakt – kredsløb
+P278B	Kickdownkontakt – kredsløb område/ydeevne
+P278C	Kickdownkontakt – kredsløb lav
+P278D	Kickdownkontakt – kredsløb høj
+P278E	Kickdownkontakt – kredsløb sporadisk/ustabil
+P2790	Gearbanevalgretning – kredsløb
+P2791	Gearbanevalgretning – kredsløb lav
+P2792	Gearbanevalgretning – kredsløb høj
+P2793	Gearskiftretning – kredsløb
+P2794	Gearskiftretning – kredsløb lav
+P2795	Gearskiftretning – kredsløb høj
+P2796	Hjælpegearoliepumpe – styrekredsløb afbrudt
+P2797	Hjælpegearoliepumpe – ydeevne
+P2798	Hjælpegearoliepumpe – styrekredsløb lav
+P2799	Hjælpegearoliepumpe – styrekredsløb høj
+P2800	Gearvælgerpositionssensor B – kredsløb (indgang for gearvælger (PRNDL))
+P2801	Gearvælgerpositionssensor B – kredsløb område/ydeevne
+P2802	Gearvælgerpositionssensor B – kredsløb lav
+P2803	Gearvælgerpositionssensor B – kredsløb høj
+P2804	Gearvælgerpositionssensor B – sporadisk
+P2805	Gearvælgerpositionssensor A/B – korrelation
+P2806	Gearvælgerpositions-sensorjustering
+P2807	Trykstyringsmagnetventil G
+P2808	Trykstyringsmagnetventil G – ydeevne/hænger i fra
+P2809	Trykstyringsmagnetventil G – hænger i til
+P2810	Trykstyringsmagnetventil G elektrisk
+P2811	Trykstyringsmagnetventil G – sporadisk
+P2812	Trykstyringsmagnetventil G – styrekredsløb afbrudt
+P2813	Trykstyringsmagnetventil G – styrekredsløb område/ydeevne
+P2814	Trykstyringsmagnetventil G – styrekredsløb lav
+P2815	Trykstyringsmagnetventil G – styrekredsløb høj
+P2816	Trykstyringsmagnetventil H
+P2817	Trykstyringsmagnetventil H – ydeevne/hænger i fra
+P2818	Trykstyringsmagnetventil H – hænger i til
+P2819	Trykstyringsmagnetventil H elektrisk
+P281A	Trykstyringsmagnetventil H – sporadisk
+P281B	Trykstyringsmagnetventil H – styrekredsløb afbrudt
+P281C	Trykstyringsmagnetventil H – styrekredsløb område/ydeevne
+P281D	Trykstyringsmagnetventil H – styrekredsløb lav
+P281E	Trykstyringsmagnetventil H – styrekredsløb høj
+P281F	Trykstyringsmagnetventil J
+P2820	Trykstyringsmagnetventil J – ydeevne/hænger i fra
+P2821	Trykstyringsmagnetventil J – hænger i til
+P2822	Trykstyringsmagnetventil J elektrisk
+P2823	Trykstyringsmagnetventil J – sporadisk
+P2824	Trykstyringsmagnetventil J – styrekredsløb afbrudt
+P2825	Trykstyringsmagnetventil J – styrekredsløb område/ydeevne
+P2826	Trykstyringsmagnetventil J – styrekredsløb lav
+P2827	Trykstyringsmagnetventil J – styrekredsløb høj
+P2828	Trykstyringsmagnetventil K
+P2829	Trykstyringsmagnetventil K – ydeevne/hænger i fra
+P282A	Trykstyringsmagnetventil K – hænger i til
+P282B	Trykstyringsmagnetventil K elektrisk
+P282C	Trykstyringsmagnetventil K – sporadisk
+P282D	Trykstyringsmagnetventil K – styrekredsløb afbrudt
+P282E	Trykstyringsmagnetventil K – styrekredsløb område/ydeevne
+P282F	Trykstyringsmagnetventil K – styrekredsløb lav
+P2830	Trykstyringsmagnetventil K – styrekredsløb høj
+P2A00	Lambdasonde – kredsløb område/ydeevne, bank 1 sensor 1
+P2A01	Lambdasonde – kredsløb område/ydeevne, bank 1 sensor 2
+P2A02	Lambdasonde – kredsløb område/ydeevne, bank 1 sensor 3
+P2A03	Lambdasonde – kredsløb område/ydeevne, bank 2 sensor 1
+P2A04	Lambdasonde – kredsløb område/ydeevne, bank 2 sensor 2
+P2A05	Lambdasonde – kredsløb område/ydeevne, bank 2 sensor 3
+P2A06	Lambdasondenegativspænding, bank 1 sensor 1
+P2A07	Lambdasondenegativspænding, bank 1 sensor 2
+P2A08	Lambdasondenegativspænding, bank 1 sensor 3
+P2A09	Lambdasondenegativspænding, bank 2 sensor 1
+P2A10	Lambdasondenegativspænding, bank 2 sensor 2
+P2A11	Lambdasondenegativspænding, bank 2 sensor 3
+P3400	Cylinderudkoblingssystem, bank 1
+P3401	Udkobling/indsugningsventil – styrekredsløb afbrudt, cylinder 1
+P3402	Udkobling/indsugningsventil – styring ydeevne, cylinder 1
+P3403	Udkobling/indsugningsventil – styrekredsløb lav, cylinder 1
+P3404	Udkobling/indsugningsventil – styrekredsløb høj, cylinder 1
+P3405	Udstødningsventil – styrekredsløb afbrudt, cylinder 1
+P3406	Udstødningsventil – styring ydeevne, cylinder 1
+P3407	Udstødningsventil – styrekredsløb lav, cylinder 1
+P3408	Udstødningsventil – styrekredsløb høj, cylinder 1
+P3409	Udkobling/indsugningsventil – styrekredsløb afbrudt, cylinder 2
+P3410	Udkobling/indsugningsventil – styring ydeevne, cylinder 2
+P3411	Udkobling/indsugningsventil – styrekredsløb lav, cylinder 2
+P3412	Udkobling/indsugningsventil – styrekredsløb høj, cylinder 2
+P3413	Udstødningsventil – styrekredsløb afbrudt, cylinder 2
+P3414	Udstødningsventil – styring ydeevne, cylinder 2
+P3415	Udstødningsventil – styrekredsløb lav, cylinder 2
+P3416	Udstødningsventil – styrekredsløb høj, cylinder 2
+P3417	Udkobling/indsugningsventil – styrekredsløb afbrudt, cylinder 3
+P3418	Udkobling/indsugningsventil – styring ydeevne, cylinder 3
+P3419	Udkobling/indsugningsventil – styrekredsløb lav, cylinder 3
+P3420	Udkobling/indsugningsventil – styrekredsløb høj, cylinder 3
+P3421	Udstødningsventil – styrekredsløb afbrudt, cylinder 3
+P3422	Udstødningsventil – styring ydeevne, cylinder 3
+P3423	Udstødningsventil – styrekredsløb lav, cylinder 3
+P3424	Udstødningsventil – styrekredsløb høj, cylinder 3
+P3425	Udkobling/indsugningsventil – styrekredsløb afbrudt, cylinder 4
+P3426	Udkobling/indsugningsventil – styring ydeevne, cylinder 4
+P3427	Udkobling/indsugningsventil – styrekredsløb lav, cylinder 4
+P3428	Udkobling/indsugningsventil – styrekredsløb høj, cylinder 4
+P3429	Udstødningsventil – styrekredsløb afbrudt, cylinder 4
+P3430	Udstødningsventil – styring ydeevne, cylinder 4
+P3431	Udstødningsventil – styrekredsløb lav, cylinder 4
+P3432	Udstødningsventil – styrekredsløb høj, cylinder 4
+P3433	Udkobling/indsugningsventil – styrekredsløb afbrudt, cylinder 5
+P3434	Udkobling/indsugningsventil – styring ydeevne, cylinder 5
+P3435	Udkobling/indsugningsventil – styrekredsløb lav, cylinder 5
+P3436	Udkobling/indsugningsventil – styrekredsløb høj, cylinder 5
+P3437	Udstødningsventil – styrekredsløb afbrudt, cylinder 5
+P3438	Udstødningsventil – styring ydeevne, cylinder 5
+P3439	Udstødningsventil – styrekredsløb lav, cylinder 5
+P3440	Udstødningsventil – styrekredsløb høj, cylinder 5
+P3441	Udkobling/indsugningsventil – styrekredsløb afbrudt, cylinder 6
+P3442	Udkobling/indsugningsventil – styring ydeevne, cylinder 6
+P3443	Udkobling/indsugningsventil – styrekredsløb lav, cylinder 6
+P3444	Udkobling/indsugningsventil – styrekredsløb høj, cylinder 6
+P3445	Udstødningsventil – styrekredsløb afbrudt, cylinder 6
+P3446	Udstødningsventil – styring ydeevne, cylinder 6
+P3447	Udstødningsventil – styrekredsløb lav, cylinder 6
+P3448	Udstødningsventil – styrekredsløb høj, cylinder 6
+P3449	Udkobling/indsugningsventil – styrekredsløb afbrudt, cylinder 7
+P3450	Udkobling/indsugningsventil – styring ydeevne, cylinder 7
+P3451	Udkobling/indsugningsventil – styrekredsløb lav, cylinder 7
+P3452	Udkobling/indsugningsventil – styrekredsløb høj, cylinder 7
+P3453	Udstødningsventil – styrekredsløb afbrudt, cylinder 7
+P3454	Udstødningsventil – styring ydeevne, cylinder 7
+P3455	Udstødningsventil – styrekredsløb lav, cylinder 7
+P3456	Udstødningsventil – styrekredsløb høj, cylinder 7
+P3457	Udkobling/indsugningsventil – styrekredsløb afbrudt, cylinder 8
+P3458	Udkobling/indsugningsventil – styring ydeevne, cylinder 8
+P3459	Udkobling/indsugningsventil – styrekredsløb lav, cylinder 8
+P3460	Udkobling/indsugningsventil – styrekredsløb høj, cylinder 8
+P3461	Udstødningsventil – styrekredsløb afbrudt, cylinder 8
+P3462	Udstødningsventil – styring ydeevne, cylinder 8
+P3463	Udstødningsventil – styrekredsløb lav, cylinder 8
+P3464	Udstødningsventil – styrekredsløb høj, cylinder 8
+P3465	Udkobling/indsugningsventil – styrekredsløb afbrudt, cylinder 9
+P3466	Udkobling/indsugningsventil – styring ydeevne, cylinder 9
+P3467	Udkobling/indsugningsventil – styrekredsløb lav, cylinder 9
+P3468	Udkobling/indsugningsventil – styrekredsløb høj, cylinder 9
+P3469	Udstødningsventil – styrekredsløb afbrudt, cylinder 9
+P3470	Udstødningsventil – styring ydeevne, cylinder 9
+P3471	Udstødningsventil – styrekredsløb lav, cylinder 9
+P3472	Udstødningsventil – styrekredsløb høj, cylinder 9
+P3473	Udkobling/indsugningsventil – styrekredsløb afbrudt, cylinder 10
+P3474	Udkobling/indsugningsventil – styring ydeevne, cylinder 10
+P3475	Udkobling/indsugningsventil – styrekredsløb lav, cylinder 10
+P3476	Udkobling/indsugningsventil – styrekredsløb høj, cylinder 10
+P3477	Udstødningsventil – styrekredsløb afbrudt, cylinder 10
+P3478	Udstødningsventil – styring ydeevne, cylinder 10
+P3479	Udstødningsventil – styrekredsløb lav, cylinder 10
+P3480	Udstødningsventil – styrekredsløb høj, cylinder 10
+P3481	Udkobling/indsugningsventil – styrekredsløb afbrudt, cylinder 11
+P3482	Udkobling/indsugningsventil – styring ydeevne, cylinder 11
+P3483	Udkobling/indsugningsventil – styrekredsløb lav, cylinder 11
+P3484	Udkobling/indsugningsventil – styrekredsløb høj, cylinder 11
+P3485	Udstødningsventil – styrekredsløb afbrudt, cylinder 11
+P3486	Udstødningsventil – styring ydeevne, cylinder 11
+P3487	Udstødningsventil – styrekredsløb lav, cylinder 11
+P3488	Udstødningsventil – styrekredsløb høj, cylinder 11
+P3489	Udkobling/indsugningsventil – styrekredsløb afbrudt, cylinder 12
+P3490	Udkobling/indsugningsventil – styring ydeevne, cylinder 12
+P3491	Udkobling/indsugningsventil – styrekredsløb lav, cylinder 12
+P3492	Udkobling/indsugningsventil – styrekredsløb høj, cylinder 12
+P3493	Udstødningsventil – styrekredsløb afbrudt, cylinder 12
+P3494	Udstødningsventil – styring ydeevne, cylinder 12
+P3495	Udstødningsventil – styrekredsløb lav, cylinder 12
+P3496	Udstødningsventil – styrekredsløb høj, cylinder 12
+P3497	Cylinderudkoblingssystem, bank 2
+U0001	Højhastigheds-CAN-bus
+U0002	Højhastigheds-CAN-bus – ydeevne
+U0003	Højhastigheds-CAN-bus afbrudt (+)
+U0004	Højhastigheds-CAN-bus – lav (+)
+U0005	Højhastigheds-CAN-bus – høj (+)
+U0006	Højhastigheds-CAN-bus afbrudt (-)
+U0007	Højhastigheds-CAN-bus – lav (-)
+U0008	Højhastigheds-CAN-bus – høj (-)
+U0009	Højhastigheds-CAN-bus (-) kortsluttet til bus (+)
+U0010	Mellemhastigheds-CAN-bus
+U0011	Mellemhastigheds-CAN-bus – ydeevne
+U0012	Mellemhastigheds-CAN-bus afbrudt (+)
+U0013	Mellemhastigheds-CAN-bus – lav (+)
+U0014	Mellemhastigheds-CAN-bus – høj (+)
+U0015	Mellemhastigheds-CAN-bus afbrudt (-)
+U0016	Mellemhastigheds-CAN-bus – lav (-)
+U0017	Mellemhastigheds-CAN-bus – høj (-)
+U0018	Mellemhastigheds-CAN-bus (-) kortsluttet til bus (+)
+U0019	Lavhastigheds-CAN-bus
+U0020	Lavhastigheds-CAN-bus – ydeevne
+U0021	Lavhastigheds-CAN-bus afbrudt (+)
+U0022	Lavhastigheds-CAN-bus – lav (+)
+U0023	Lavhastigheds-CAN-bus – høj (+)
+U0024	Lavhastigheds-CAN-bus afbrudt (-)
+U0025	Lavhastigheds-CAN-bus – lav (-)
+U0026	Lavhastigheds-CAN-bus – høj (-)
+U0027	Lavhastigheds-CAN-bus (-) kortsluttet til bus (+)
+U0028	Kommunikationsbus A
+U0029	Kommunikationsbus A – ydeevne
+U0030	Kommunikationsbus A afbrudt (+)
+U0031	Kommunikationsbus A – lav (+)
+U0032	Kommunikationsbus A – høj (+)
+U0033	Kommunikationsbus A afbrudt (-)
+U0034	Kommunikationsbus A – lav (-)
+U0035	Kommunikationsbus A – høj (-)
+U0036	Kommunikationsbus A (-) kortsluttet til bus A (+)
+U0037	Kommunikationsbus B
+U0038	Kommunikationsbus B – ydeevne
+U0039	Kommunikationsbus B afbrudt (+)
+U0040	Kommunikationsbus B – lav (+)
+U0041	Kommunikationsbus B – høj (+)
+U0042	Kommunikationsbus B afbrudt (-)
+U0043	Kommunikationsbus B – lav (-)
+U0044	Kommunikationsbus B – høj (-)
+U0045	Kommunikationsbus B (-) kortsluttet til bus B (+)
+U0046	Kommunikationsbus C
+U0047	Kommunikationsbus C – ydeevne
+U0048	Kommunikationsbus C afbrudt (+)
+U0049	Kommunikationsbus C – lav (+)
+U0050	Kommunikationsbus C – høj (+)
+U0051	Kommunikationsbus C afbrudt (-)
+U0052	Kommunikationsbus C – lav (-)
+U0053	Kommunikationsbus C – høj (-)
+U0054	Kommunikationsbus C (-) kortsluttet til bus C (+)
+U0055	Kommunikationsbus D
+U0056	Kommunikationsbus D – ydeevne
+U0057	Kommunikationsbus D afbrudt (+)
+U0058	Kommunikationsbus D – lav (+)
+U0059	Kommunikationsbus D – høj (+)
+U0060	Kommunikationsbus D afbrudt (-)
+U0061	Kommunikationsbus D – lav (-)
+U0062	Kommunikationsbus D – høj (-)
+U0063	Kommunikationsbus D (-) kortsluttet til bus D (+)
+U0064	Kommunikationsbus E
+U0065	Kommunikationsbus E – ydeevne
+U0066	Kommunikationsbus E afbrudt (+)
+U0067	Kommunikationsbus E – lav (+)
+U0068	Kommunikationsbus E – høj (+)
+U0069	Kommunikationsbus E afbrudt (-)
+U0070	Kommunikationsbus E – lav (-)
+U0071	Kommunikationsbus E – høj (-)
+U0072	Kommunikationsbus E (-) kortsluttet til bus E (+)
+U0073	Kommunikationsbus A: styreenhed koblet fra (bus off)
+U0074	Styreenhedskommunikationsbus B fra
+U0100	Mistet kommunikation med ECM/PCM A
+U0101	Mistet kommunikation med TCM
+U0102	Mistet kommunikation med transfergearkassestyreenhed
+U0103	Mistet kommunikation med gearskiftmodul
+U0104	Mistet kommunikation med fartpilotmodul
+U0105	Mistet kommunikation med indsprøjtningsventilstyreenhed
+U0106	Mistet kommunikation med gløderørsstyreenhed
+U0107	Mistet kommunikation med gasspjældaktuatorstyreenhed
+U0108	Mistet kommunikation med alternativbrændstofstyreenhed
+U0109	Mistet kommunikation med brændstofpumpestyreenhed
+U0110	Mistet kommunikation med drivmotorstyreenhed
+U0111	Mistet kommunikation med batteristyreenhed A
+U0112	Mistet kommunikation med batteristyreenhed B
+U0113	Mistet kommunikation med emissionskritisk styreinformation
+U0114	Mistet kommunikation med firehjulstræk-koblingsstyreenhed
+U0115	Mistet kommunikation med ECM/PCM B
+U0116	Mistet kommunikation med kølevæsketemperaturstyreenhed
+U0117	Mistet kommunikation med PTO-styreenhed
+U0118	Mistet kommunikation med brændstofadditivstyreenhed
+U0119	Mistet kommunikation med brændselscellestyreenhed
+U0120	Mistet kommunikation med startmotor-/generatorstyreenhed
+U0121	Mistet kommunikation med ABS-styreenhed
+U0122	Mistet kommunikation med køredynamikstyreenhed
+U0123	Mistet kommunikation med girhastighedssensormodul
+U0124	Mistet kommunikation med sideaccelerationssensormodul
+U0125	Mistet kommunikation med flerakse-accelerations-sensormodul
+U0126	Mistet kommunikation med styrevinkelsensormodul
+U0127	Mistet kommunikation med dæktryksovervågningsmodul
+U0128	Mistet kommunikation med parkeringsbremsestyreenhed
+U0129	Mistet kommunikation med bremsesystemstyreenhed
+U0130	Mistet kommunikation med styrekraftstyreenhed
+U0131	Mistet kommunikation med servostyringsstyreenhed
+U0132	Mistet kommunikation med niveaureguleringsstyreenhed
+U0133	Mistet kommunikation med krængningsdæmpningsstyreenhed (ARCM)
+U0134	Mistet kommunikation med servostyringsstyreenhed bag
+U0135	Mistet kommunikation med differentialestyreenhed for
+U0136	Mistet kommunikation med differentialestyreenhed bag
+U0137	Mistet kommunikation med anhængerbremsestyreenhed
+U0138	Mistet kommunikation med terrænmodusstyreenhed
+U0139	Mistet kommunikation med undervognsstyreenhed B
+U0140	Mistet kommunikation med karrosseristyreenhed (BCM)
+U0141	Mistet kommunikation med karrosseristyreenhed A
+U0142	Mistet kommunikation med karrosseristyreenhed B
+U0143	Mistet kommunikation med karrosseristyreenhed C
+U0144	Mistet kommunikation med karrosseristyreenhed D
+U0145	Mistet kommunikation med karrosseristyreenhed E
+U0146	Mistet kommunikation med gateway A
+U0147	Mistet kommunikation med gateway B
+U0148	Mistet kommunikation med gateway C
+U0149	Mistet kommunikation med gateway D
+U0150	Mistet kommunikation med gateway E
+U0151	Mistet kommunikation med SRS-styreenhed
+U0152	Mistet kommunikation med side-SRS-styreenhed (venstre)
+U0153	Mistet kommunikation med side-SRS-styreenhed (højre)
+U0154	Mistet kommunikation med SRS-persondetekterings-styreenhed
+U0155	Mistet kommunikation med instrumentpanelets styreenhed (IPC)
+U0156	Mistet kommunikation med informationscenter A
+U0157	Mistet kommunikation med informationscenter B
+U0158	Mistet kommunikation med head-up-display (HUD)
+U0159	Mistet kommunikation med parkeringshjælpstyreenhed
+U0160	Mistet kommunikation med lydadvarselsstyreenhed
+U0161	Mistet kommunikation med kompasmodul
+U0162	Mistet kommunikation med navigationsdisplaymodul
+U0163	Mistet kommunikation med navigationsstyreenhed
+U0164	Mistet kommunikation med klimastyreenhed
+U0165	Mistet kommunikation med klimastyreenhed
+U0166	Mistet kommunikation med ekstravarmerstyreenhed
+U0167	Mistet kommunikation med startspærrestyreenhed
+U0168	Mistet kommunikation med tyverisikringsstyreenhed
+U0169	Mistet kommunikation med soltagstyreenhed
+U0170	Mistet kommunikation med SRS-sensor A
+U0171	Mistet kommunikation med SRS-sensor B
+U0172	Mistet kommunikation med SRS-sensor C
+U0173	Mistet kommunikation med SRS-sensor D
+U0174	Mistet kommunikation med SRS-sensor E
+U0175	Mistet kommunikation med SRS-sensor F
+U0176	Mistet kommunikation med SRS-sensor G
+U0177	Mistet kommunikation med SRS-sensor H
+U0178	Mistet kommunikation med SRS-sensor I
+U0179	Mistet kommunikation med SRS-sensor J
+U017A	Mistet kommunikation med SRS-sensor K
+U017B	Mistet kommunikation med SRS-sensor L
+U017C	Mistet kommunikation med SRS-sensor M
+U017D	Mistet kommunikation med SRS-sensor N
+U0180	Mistet kommunikation med lysautomatikstyreenhed
+U0181	Mistet kommunikation med lygtehøjderegulerings-styreenhed
+U0182	Mistet kommunikation med lysstyreenhed for
+U0183	Mistet kommunikation med lysstyreenhed bag
+U0184	Mistet kommunikation med radio
+U0185	Mistet kommunikation med antennestyreenhed
+U0186	Mistet kommunikation med lydforstærker
+U0187	Mistet kommunikation med cd-afspiller-/skiftermodul A
+U0188	Mistet kommunikation med cd-afspiller-/skiftermodul B
+U0189	Mistet kommunikation med cd-afspiller-/skiftermodul C
+U0190	Mistet kommunikation med cd-afspiller-/skiftermodul D
+U0191	Mistet kommunikation med tv
+U0192	Mistet kommunikation med pc
+U0193	Mistet kommunikation med digitallydstyreenhed A
+U0194	Mistet kommunikation med digitallydstyreenhed B
+U0195	Mistet kommunikation med abonnementsmodtagermodul
+U0196	Mistet kommunikation med bagsædeunderholdnings-styreenhed
+U0197	Mistet kommunikation med telefonstyreenhed
+U0198	Mistet kommunikation med telematikstyreenhed
+U0199	Mistet kommunikation med dørstyreenhed A
+U0200	Mistet kommunikation med dørstyreenhed B
+U0201	Mistet kommunikation med dørstyreenhed C
+U0202	Mistet kommunikation med dørstyreenhed D
+U0203	Mistet kommunikation med dørstyreenhed E
+U0204	Mistet kommunikation med dørstyreenhed F
+U0205	Mistet kommunikation med dørstyreenhed G
+U0206	Mistet kommunikation med kalechestyreenhed
+U0207	Mistet kommunikation med soltagstyreenhed
+U0208	Mistet kommunikation med sædestyreenhed A
+U0209	Mistet kommunikation med sædestyreenhed B
+U0210	Mistet kommunikation med sædestyreenhed C
+U0211	Mistet kommunikation med sædestyreenhed D
+U0212	Mistet kommunikation med ratstammestyreenhed
+U0213	Mistet kommunikation med spejlstyreenhed
+U0214	Mistet kommunikation med fjernbetjente funktioner
+U0215	Mistet kommunikation med dørkontakt A
+U0216	Mistet kommunikation med dørkontakt B
+U0217	Mistet kommunikation med dørkontakt C
+U0218	Mistet kommunikation med dørkontakt D
+U0219	Mistet kommunikation med dørkontakt E
+U0220	Mistet kommunikation med dørkontakt F
+U0221	Mistet kommunikation med dørkontakt G
+U0222	Mistet kommunikation med rudemotor A
+U0223	Mistet kommunikation med rudemotor B
+U0224	Mistet kommunikation med rudemotor C
+U0225	Mistet kommunikation med rudemotor D
+U0226	Mistet kommunikation med rudemotor E
+U0227	Mistet kommunikation med rudemotor F
+U0228	Mistet kommunikation med rudemotor G
+U0229	Mistet kommunikation med ratvarmemodul
+U0230	Mistet kommunikation med bagklapmodul
+U0231	Mistet kommunikation med regnsensormodul
+U0232	Mistet kommunikation med styreenhed til blindvinkelvarsling, venstre
+U0233	Mistet kommunikation med styreenhed til blindvinkelvarsling, højre
+U0234	Mistet kommunikation med hukommelsesfunktionsmodul
+U0235	Mistet kommunikation med fartpilotafstandssensor for
+U0236	Mistet kommunikation med ratlåsmodul
+U0237	Mistet kommunikation med digitallydstyreenhed C
+U0238	Mistet kommunikation med digitallydstyreenhed D
+U0239	Mistet kommunikation med klemsikringsstyreenhed A
+U0240	Mistet kommunikation med klemsikringsstyreenhed B
+U0241	Mistet kommunikation med forlygtestyreenhed A
+U0242	Mistet kommunikation med forlygtestyreenhed B
+U0243	Mistet kommunikation med parkeringshjælpstyreenhed B
+U0244	Mistet kommunikation med trinbrætstyreenhed A
+U0245	Mistet kommunikation med underholdningsstyreenhed for
+U0246	Mistet kommunikation med sædestyreenhed E
+U0247	Mistet kommunikation med sædestyreenhed F
+U0248	Mistet kommunikation med fjerntilbehørsmodul
+U0249	Mistet kommunikation med underholdningsstyreenhed B bag
+U0250	Mistet kommunikation med kollisionsklassificeringsmodul
+U0251	Mistet kommunikation med trinbrætstyreenhed B
+U0252	Mistet kommunikation med lysstyreenhed B bag
+U0291	Mistet kommunikation med gearskiftstyreenhed B
+U0292	Mistet kommunikation med drivmotorstyreenhed B
+U0293	Mistet kommunikation med hybriddrivlinjestyreenhed
+U0294	Mistet kommunikation med drivlinjeovervågningsmodul
+U0295	Mistet kommunikation med AC/AC-omformerstyreenhed
+U0296	Mistet kommunikation med AC/DC-omformerstyreenhed A
+U0297	Mistet kommunikation med AC/DC-omformerstyreenhed B
+U0298	Mistet kommunikation med DC/DC-omformerstyreenhed A
+U0299	Mistet kommunikation med DC/DC-omformerstyreenhed B
+U0300	Styreenhed (intern): software ikke kompatibel
+U0301	Software ikke kompatibel med ECM/PCM
+U0302	Software ikke kompatibel med gearkassestyreenhed
+U0303	Software ikke kompatibel med transfergearkassestyreenhed
+U0304	Software ikke kompatibel med gearskiftstyreenhed
+U0305	Software ikke kompatibel med fartpilotmodul
+U0306	Software ikke kompatibel med indsprøjtningsventilstyreenhed
+U0307	Software ikke kompatibel med gløderørsstyreenhed
+U0308	Software ikke kompatibel med gasspjældaktuatorstyreenhed
+U0309	Software ikke kompatibel med alternativbrændstofstyreenhed
+U0310	Software ikke kompatibel med brændstofpumpestyreenhed
+U0311	Software ikke kompatibel med drivmotorstyreenhed
+U0312	Software ikke kompatibel med batteristyreenhed A
+U0313	Software ikke kompatibel med batteristyreenhed B
+U0314	Software ikke kompatibel med firehjulstræk-koblingsstyreenhed
+U0315	Software ikke kompatibel med ABS-styreenhed
+U0316	Software ikke kompatibel med køredynamikstyreenhed
+U0317	Software ikke kompatibel med parkeringsbremsestyreenhed
+U0318	Software ikke kompatibel med bremsesystemstyreenhed
+U0319	Software ikke kompatibel med styrekraftstyreenhed
+U0320	Software ikke kompatibel med servostyringsstyreenhed
+U0321	Software ikke kompatibel med niveaureguleringsstyreenhed
+U0322	Software ikke kompatibel med karrosseristyreenhed
+U0323	Software ikke kompatibel med instrumentpanelstyreenhed
+U0324	Software ikke kompatibel med klimastyreenhed
+U0325	Software ikke kompatibel med ekstravarmerstyreenhed
+U0326	Software ikke kompatibel med startspærrestyreenhed
+U0327	Software ikke kompatibel med tyverisikringsstyreenhed
+U0328	Software ikke kompatibel med styrevinkelsensormodul
+U0329	Software ikke kompatibel med ratstammestyreenhed
+U0330	Software ikke kompatibel med dæktryksovervågningsmodul
+U0331	Software ikke kompatibel med karrosseristyreenhed A
+U0400	Ugyldige data modtaget
+U0401	Ugyldige data modtaget fra ECM/PCM
+U0402	Ugyldige data modtaget fra gearkassestyreenhed
+U0403	Ugyldige data modtaget fra transfergearkassestyreenhed
+U0404	Ugyldige data modtaget fra gearskiftstyreenhed
+U0405	Ugyldige data modtaget fra fartpilotmodul
+U0406	Ugyldige data modtaget fra indsprøjtningsventilstyreenhed
+U0407	Ugyldige data modtaget fra gløderørsstyreenhed
+U0408	Ugyldige data modtaget fra gasspjældaktuatorstyreenhed
+U0409	Ugyldige data modtaget fra alternativbrændstofstyreenhed
+U040A	Ugyldige data modtaget fra cd-afspiller-/skiftermodul C
+U0410	Ugyldige data modtaget fra brændstofpumpestyreenhed
+U0411	Ugyldige data modtaget fra drivmotorstyreenhed
+U0412	Ugyldige data modtaget fra batteristyreenhed A
+U0413	Ugyldige data modtaget fra batteristyreenhed B
+U0414	Ugyldige data modtaget fra firehjulstræk-koblingsstyreenhed
+U0415	Ugyldige data modtaget fra ABS-styreenhed
+U0416	Ugyldige data modtaget fra køredynamikstyreenhed
+U0417	Ugyldige data modtaget fra parkeringsbremsestyreenhed
+U0418	Ugyldige data modtaget fra bremsesystemstyreenhed
+U0419	Ugyldige data modtaget fra styrekraftstyreenhed
+U0420	Ugyldige data modtaget fra servostyringsstyreenhed
+U0421	Ugyldige data modtaget fra niveaureguleringsstyreenhed
+U0422	Ugyldige data modtaget fra karrosseristyreenhed
+U0423	Ugyldige data modtaget fra instrumentpanelstyreenhed
+U0424	Ugyldige data modtaget fra klimastyreenhed
+U0425	Ugyldige data modtaget fra ekstravarmerstyreenhed
+U0426	Ugyldige data modtaget fra startspærrestyreenhed
+U0427	Ugyldige data modtaget fra tyverisikringsstyreenhed
+U0428	Ugyldige data modtaget fra styrevinkelsensormodul
+U0429	Ugyldige data modtaget fra ratstammestyreenhed
+U0430	Ugyldige data modtaget fra dæktryksovervågningsmodul
+U0431	Ugyldige data modtaget fra karrosseristyreenhed A
+U0432	Ugyldige data modtaget fra flerakse-accelerations-sensormodul
+U0433	Ugyldige data modtaget fra fartpilotafstandssensor for
+U0434	Ugyldige data modtaget fra krængningsdæmpningsstyreenhed
+U0435	Ugyldige data modtaget fra servostyringsstyreenhed bag
+U0436	Ugyldige data modtaget fra differentialestyreenhed for
+U0437	Ugyldige data modtaget fra differentialestyreenhed bag
+U0438	Ugyldige data modtaget fra anhængerbremsestyreenhed
+U0439	Ugyldige data modtaget fra terrænmodusstyreenhed
+U0441	Ugyldige data modtaget fra emissionskritisk styreinformation
+U0442	Ugyldige data modtaget fra ECM/PCM B
+U0443	Ugyldige data modtaget fra karrosseristyreenhed B
+U0444	Ugyldige data modtaget fra karrosseristyreenhed C
+U0445	Ugyldige data modtaget fra karrosseristyreenhed D
+U0446	Ugyldige data modtaget fra karrosseristyreenhed E
+U0447	Ugyldige data modtaget fra gateway A
+U0448	Ugyldige data modtaget fra gateway B
+U0449	Ugyldige data modtaget fra gateway C
+U044A	Ugyldige data modtaget fra gateway D
+U0451	Ugyldige data modtaget fra gateway E
+U0452	Ugyldige data modtaget fra SRS-styreenhed
+U0453	Ugyldige data modtaget fra side-SRS-styreenhed venstre
+U0454	Ugyldige data modtaget fra side-SRS-styreenhed højre
+U0455	Ugyldige data modtaget fra SRS-passagerklassificerings-systemmodul
+U0456	Ugyldige data modtaget fra kølevæsketemperaturstyreenhed
+U0457	Ugyldige data modtaget fra informationscenter A
+U0458	Ugyldige data modtaget fra informationscenter B
+U0459	Ugyldige data modtaget fra head-up-display (HUD)
+U045A	Ugyldige data modtaget fra parkeringshjælpstyreenhed A
+U0461	Ugyldige data modtaget fra lydadvarselsstyreenhed
+U0462	Ugyldige data modtaget fra kompasmodul
+U0463	Ugyldige data modtaget fra navigationsdisplaymodul
+U0464	Ugyldige data modtaget fra navigationsstyreenhed
+U0465	Ugyldige data modtaget fra PTO-styreenhed
+U0466	Ugyldige data modtaget fra klimastyreenhed bag
+U0467	Ugyldige data modtaget fra brændstofadditivstyreenhed
+U0468	Ugyldige data modtaget fra brændselscellestyreenhed
+U0469	Ugyldige data modtaget fra startmotor-/generatorstyreenhed
+U046A	Ugyldige data modtaget fra soltagstyreenhed
+U0471	Ugyldige data modtaget fra SRS-sensor A
+U0472	Ugyldige data modtaget fra SRS-sensor B
+U0473	Ugyldige data modtaget fra SRS-sensor C
+U0474	Ugyldige data modtaget fra SRS-sensor D
+U0475	Ugyldige data modtaget fra SRS-sensor E
+U0476	Ugyldige data modtaget fra SRS-sensor F
+U0477	Ugyldige data modtaget fra SRS-sensor G
+U0478	Ugyldige data modtaget fra SRS-sensor H
+U0479	Ugyldige data modtaget fra SRS-sensor I
+U047A	Ugyldige data modtaget fra SRS-sensor J
+U047B	Ugyldige data modtaget fra SRS-sensor K
+U047C	Ugyldige data modtaget fra SRS-sensor L
+U047D	Ugyldige data modtaget fra SRS-sensor M
+U047E	Ugyldige data modtaget fra SRS-sensor N
+U0481	Ugyldige data modtaget fra lysautomatikstyreenhed
+U0482	Ugyldige data modtaget fra lygtehøjderegulerings-styreenhed
+U0483	Ugyldige data modtaget fra lysstyreenhed for
+U0484	Ugyldige data modtaget fra lysstyreenhed A bag
+U0485	Ugyldige data modtaget fra radio
+U0486	Ugyldige data modtaget fra antennestyreenhed
+U0487	Ugyldige data modtaget fra lydforstærker
+U0488	Ugyldige data modtaget fra cd-afspiller-/skiftermodul A
+U0489	Ugyldige data modtaget fra cd-afspiller-/skiftermodul B
+U0491	Ugyldige data modtaget fra cd-afspiller-/skiftermodul D
+U0492	Ugyldige data modtaget fra tv
+U0493	Ugyldige data modtaget fra pc
+U0494	Ugyldige data modtaget fra digitallydstyreenhed A
+U0495	Ugyldige data modtaget fra digitallydstyreenhed B
+U0496	Ugyldige data modtaget fra abonnementsmodtagermodul
+U0497	Ugyldige data modtaget fra underholdningsstyreenhed A bag
+U0498	Ugyldige data modtaget fra telefonstyreenhed
+U0499	Ugyldige data modtaget fra telematikstyreenhed
+U049A	Ugyldige data modtaget fra dørstyreenhed A
+U0501	Ugyldige data modtaget fra dørstyreenhed B
+U0502	Ugyldige data modtaget fra dørstyreenhed C
+U0503	Ugyldige data modtaget fra dørstyreenhed D
+U0504	Ugyldige data modtaget fra dørstyreenhed E
+U0505	Ugyldige data modtaget fra dørstyreenhed F
+U0506	Ugyldige data modtaget fra dørstyreenhed G
+U0507	Ugyldige data modtaget fra kalechestyreenhed
+U0508	Ugyldige data modtaget fra soltagstyreenhed
+U0509	Ugyldige data modtaget fra sædestyreenhed A
+U050A	Ugyldige data modtaget fra sædestyreenhed B
+U0511	Ugyldige data modtaget fra sædestyreenhed C
+U0512	Ugyldige data modtaget fra sædestyreenhed D
+U0513	Ugyldige data modtaget fra girhastighedssensormodul
+U0514	Ugyldige data modtaget fra spejlstyreenhed A
+U0515	Ugyldige data modtaget fra fjernbetjente funktioner
+U0516	Ugyldige data modtaget fra dørkontakt A
+U0517	Ugyldige data modtaget fra dørkontakt B
+U0518	Ugyldige data modtaget fra dørkontakt C
+U0519	Ugyldige data modtaget fra dørkontakt D
+U051A	Ugyldige data modtaget fra dørkontakt E
+U0521	Ugyldige data modtaget fra dørkontakt F
+U0522	Ugyldige data modtaget fra dørkontakt G
+U0523	Ugyldige data modtaget fra rudemotor A
+U0524	Ugyldige data modtaget fra rudemotor B
+U0525	Ugyldige data modtaget fra rudemotor C
+U0526	Ugyldige data modtaget fra rudemotor D
+U0527	Ugyldige data modtaget fra rudemotor E
+U0528	Ugyldige data modtaget fra rudemotor F
+U0529	Ugyldige data modtaget fra rudemotor G
+U052A	Ugyldige data modtaget fra ratvarmemodul
+U0531	Ugyldige data modtaget fra bagklapmodul
+U0532	Ugyldige data modtaget fra regnsensormodul
+U0533	Ugyldige data modtaget fra blindvinkelvarslingsstyreenhed venstre
+U0534	Ugyldige data modtaget fra blindvinkelvarslingsstyreenhed højre
+U0535	Ugyldige data modtaget fra hukommelsesfunktionsmodul
+U0536	Ugyldige data modtaget fra sideaccelerationssensormodul
+U0537	Ugyldige data modtaget fra ratlåsmodul
+U0538	Ugyldige data modtaget fra digitallydstyreenhed C
+U0539	Ugyldige data modtaget fra digitallydstyreenhed D
+U053A	Ugyldige data modtaget fra klemsikringsstyreenhed A
+U0541	Ugyldige data modtaget fra klemsikringsstyreenhed B
+U0542	Ugyldige data modtaget fra forlygtestyreenhed A
+U0543	Ugyldige data modtaget fra forlygtestyreenhed B
+U0544	Ugyldige data modtaget fra parkeringshjælpstyreenhed B
+U0545	Ugyldige data modtaget fra trinbrætstyreenhed
+U0546	Ugyldige data modtaget fra underholdningsstyreenhed for
+U0547	Ugyldige data modtaget fra sædestyreenhed E
+U0548	Ugyldige data modtaget fra sædestyreenhed F
+U0549	Ugyldige data modtaget fra fjerntilbehørsmodul
+U054A	Ugyldige data modtaget fra underholdningsstyreenhed B bag
+U0551	Ugyldige data modtaget fra kollisionsklassificeringsmodul
+U0552	Ugyldige data modtaget fra trinbrætstyreenhed B
+U0553	Ugyldige data modtaget fra lysstyreenhed B bag
+U0592	Ugyldige data modtaget fra gearskiftstyreenhed B
+U0593	Ugyldige data modtaget fra drivmotorstyreenhed B
+U0594	Ugyldige data modtaget fra hybriddrivlinjestyreenhed
+U0595	Ugyldige data modtaget fra drivlinjeovervågningsmodul
+U0596	Ugyldige data modtaget fra AC/AC-omformerstyreenhed
+U0597	Ugyldige data modtaget fra AC/DC-omformerstyreenhed A
+U0598	Ugyldige data modtaget fra AC/DC-omformerstyreenhed B
+U0599	Ugyldige data modtaget fra DC/DC-omformerstyreenhed A
+U059A	Ugyldige data modtaget fra DC/DC-omformerstyreenhed B
+U3000	Styreenhed
+U3001	Styreenhed forkert nedlukning
+U3002	Stelnummer (VIN)
+U3003	Batterispænding
+U3004	Tilbehørsstrømrelæ
+U3005	Tilbehørsstrøm efter slukning
+U3006	Styreenhedsindgangsstrøm A
+U3007	Styreenhedsindgangsstrøm B
+U3008	Styreenhedsstel A
+U3009	Styreenhedsstel B
+U300A	Tændingslås
+U300B	Tændingssignal tilbehør/til/start
+U300C	Tændingssignal fra/til/start
+U300D	Tændingssignal til/start
+U300E	Tændingssignal til
+U300F	Tændingssignaltilbehør
+U3010	Tændingssignalstart
+U3FFF	Ingen fejlkoder gemt

@@ -23,6 +23,13 @@ enum class DtcSeverity(val label: String, val advice: String) {
         "Stop as soon as it is safe and switch off. Driving on risks serious damage or a safety problem. " +
             "Arrange for the car to be checked or recovered.",
     ),
+    ;
+
+    /** [label] in [lang] (a code from [DtcDatabase.languages] or any BCP-47 tag); English when not translated. */
+    fun label(lang: String): String = DtcI18n.localOnly(lang, "sev.$name.label") ?: label
+
+    /** [advice] in [lang]; English when not translated. */
+    fun advice(lang: String): String = DtcI18n.localOnly(lang, "sev.$name.advice") ?: advice
 }
 
 /** Which part of the car a code belongs to (based on the SAE J2012 code structure and the title). */
@@ -40,19 +47,23 @@ enum class DtcSystem(val label: String) {
     NETWORK("Network communication between control modules"),
     MANUFACTURER("Manufacturer-specific (powertrain)"),
     UNKNOWN("Unknown"),
+    ;
+
+    /** [label] in [lang] (a code from [DtcDatabase.languages] or any BCP-47 tag); English when not translated. */
+    fun label(lang: String): String = DtcI18n.localOnly(lang, "sys.$name.label") ?: label
 }
 
-/** A full plain-English explanation of one diagnostic trouble code. */
+/** A full plain-language explanation of one diagnostic trouble code, in the language it was requested in. */
 data class DtcExplanation(
     /** Normalised upper-case code, e.g. "P0A80". */
     val code: String,
-    /** Official description, or e.g. "Manufacturer-specific code (Mitsubishi)" when unknown. */
+    /** Official description in the requested language, or e.g. "Manufacturer-specific code (Mitsubishi)" when unknown. */
     val title: String,
     val system: DtcSystem,
     /** e.g. "Drive battery", "Evaporative emissions", "Oxygen sensor bank 1 sensor 1". */
     val subsystem: String?,
     val severity: DtcSeverity,
-    /** 1–3 plain-English sentences: what the car detected. */
+    /** 1–3 plain sentences: what the car detected. */
     val summary: String,
     /** Likely causes, most likely first. */
     val causes: List<String>,

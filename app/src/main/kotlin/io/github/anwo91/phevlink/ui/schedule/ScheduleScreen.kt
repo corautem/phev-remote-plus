@@ -44,14 +44,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.model.ClimateDuration
 import io.github.anwo91.phevlink.core.model.ClimateMode
 import io.github.anwo91.phevlink.core.planner.Departure
 import io.github.anwo91.phevlink.schedule.DepartureScheduler
 import io.github.anwo91.phevlink.ui.MainViewModel
 import io.github.anwo91.phevlink.ui.common.SectionCard
+import io.github.anwo91.phevlink.util.AppLocale
 import io.github.anwo91.phevlink.util.Format
+import io.github.anwo91.phevlink.util.Labels
 import java.time.DayOfWeek
 import java.time.LocalTime
 import java.time.format.TextStyle
@@ -75,28 +79,26 @@ fun ScheduleScreen(vm: MainViewModel, modifier: Modifier) {
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             item {
-                Text("Departures", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(top = 8.dp))
+                Text(stringResource(R.string.sched_title), style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(top = 8.dp))
                 Text(
-                    "35 minutes before each departure the app checks the forecast (MET Norway), picks heat, cool or defrost " +
-                        "and how long, and starts the climate so the car is ready when you leave.",
+                    stringResource(R.string.sched_explain),
                     style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
             if (!DepartureScheduler.exactAlarmsAllowed(ctx)) item {
-                SectionCard(title = "Allow exact alarms") {
-                    Text("Without this, Android may delay the departure check by several minutes.", style = MaterialTheme.typography.bodyMedium)
+                SectionCard(title = stringResource(R.string.sched_exact_title)) {
+                    Text(stringResource(R.string.sched_exact_explain), style = MaterialTheme.typography.bodyMedium)
                     TextButton(onClick = {
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
                             ctx.startActivity(Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, Uri.parse("package:${ctx.packageName}")))
                         }
-                    }) { Text("Open settings") }
+                    }) { Text(stringResource(R.string.sched_open_settings)) }
                 }
             }
             if (settings.homeLat == null) item {
-                SectionCard(title = "Weather location not set") {
+                SectionCard(title = stringResource(R.string.sched_no_location_title)) {
                     Text(
-                        "Set your home location in Settings → Weather so the forecast is for where the car is parked. " +
-                            "Until then the phone's last known location is used, or your default mode if that is unknown.",
+                        stringResource(R.string.sched_no_location_explain),
                         style = MaterialTheme.typography.bodyMedium,
                     )
                 }
@@ -104,7 +106,7 @@ fun ScheduleScreen(vm: MainViewModel, modifier: Modifier) {
             next?.let { n ->
                 item {
                     Text(
-                        "Next: ${Format.clockOrDay(n.atMs)} · weather check ${Format.clockOrDay(n.planAtMs)}",
+                        stringResource(R.string.sched_next, Format.clockOrDay(n.atMs), Format.clockOrDay(n.planAtMs)),
                         style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
                     )
                 }
@@ -126,7 +128,7 @@ fun ScheduleScreen(vm: MainViewModel, modifier: Modifier) {
                 )
             },
             icon = { Icon(Icons.Outlined.Add, null) },
-            text = { Text("Add departure") },
+            text = { Text(stringResource(R.string.sched_add)) },
             modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp),
         )
     }
@@ -146,14 +148,22 @@ fun ScheduleScreen(vm: MainViewModel, modifier: Modifier) {
     }
 }
 
-private fun dayShort(d: DayOfWeek) = d.getDisplayName(TextStyle.SHORT, Locale.getDefault())
+/** Weekday names in the language the screens are shown in. */
+@Composable
+private fun uiLocale(): Locale = AppLocale.uiLocale(LocalContext.current)
 
+private fun dayShort(d: DayOfWeek, locale: Locale) = d.getDisplayName(TextStyle.SHORT, locale)
+
+@Composable
 private fun describeDays(days: Set<DayOfWeek>): String = when {
-    days.size == 7 -> "Every day"
-    days == setOf(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY) -> "Weekends"
-    days == DayOfWeek.entries.filter { it.value <= 5 }.toSet() -> "Weekdays"
-    days.isEmpty() -> "No days"
-    else -> DayOfWeek.entries.filter { it in days }.joinToString { dayShort(it) }
+    days.size == 7 -> stringResource(R.string.days_every)
+    days == setOf(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY) -> stringResource(R.string.days_weekends)
+    days == DayOfWeek.entries.filter { it.value <= 5 }.toSet() -> stringResource(R.string.days_weekdays)
+    days.isEmpty() -> stringResource(R.string.days_none)
+    else -> {
+        val locale = uiLocale()
+        DayOfWeek.entries.filter { it in days }.joinToString { dayShort(it, locale) }
+    }
 }
 
 @Composable
@@ -166,13 +176,14 @@ private fun DepartureRow(d: Departure, onToggle: (Boolean) -> Unit, onEdit: () -
                 }
                 Text(describeDays(d.days), style = MaterialTheme.typography.bodyMedium)
                 Text(
-                    if (d.smart) "Smart — mode from the weather" else "${d.mode.label}, ${d.duration.minutes} min",
+                    if (d.smart) stringResource(R.string.sched_smart_row)
+                    else stringResource(R.string.sched_fixed_row, stringResource(Labels.mode(d.mode)), d.duration.minutes),
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
             Column(horizontalAlignment = Alignment.End) {
                 Switch(checked = d.enabled, onCheckedChange = onToggle)
-                IconButton(onClick = onDelete) { Icon(Icons.Outlined.Delete, "Delete") }
+                IconButton(onClick = onDelete) { Icon(Icons.Outlined.Delete, stringResource(R.string.common_delete)) }
             }
         }
     }
@@ -191,35 +202,36 @@ private fun EditDepartureDialog(initial: Departure, onDismiss: () -> Unit, onSav
         confirmButton = {
             TextButton(onClick = {
                 onSave(initial.copy(time = LocalTime.of(time.hour, time.minute), days = days, smart = smart, mode = mode, duration = dur, enabled = true))
-            }, enabled = days.isNotEmpty()) { Text("Save") }
+            }, enabled = days.isNotEmpty()) { Text(stringResource(R.string.common_save)) }
         },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } },
-        title = { Text("Ready to leave at") },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.common_cancel)) } },
+        title = { Text(stringResource(R.string.sched_dialog_title)) },
         text = {
             Column {
+                val locale = uiLocale()
                 TimeInput(state = time)
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     DayOfWeek.entries.forEach { d ->
                         FilterChip(
                             selected = d in days,
                             onClick = { days = if (d in days) days - d else days + d },
-                            label = { Text(dayShort(d).take(2)) },
+                            label = { Text(dayShort(d, locale).take(2)) },
                         )
                     }
                 }
                 Spacer(Modifier.height(8.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("Smart (use the forecast)", modifier = Modifier.weight(1f))
+                    Text(stringResource(R.string.sched_smart_switch), modifier = Modifier.weight(1f))
                     Switch(checked = smart, onCheckedChange = { smart = it })
                 }
                 Text(
-                    if (smart) "Your choice below is used only if the forecast can't be fetched." else "Always uses the mode below.",
+                    stringResource(if (smart) R.string.sched_smart_fallback else R.string.sched_always_mode),
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 Spacer(Modifier.height(8.dp))
                 SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
                     ClimateMode.entries.forEachIndexed { i, m ->
-                        SegmentedButton(selected = mode == m, onClick = { mode = m }, shape = SegmentedButtonDefaults.itemShape(i, 3)) { Text(m.label) }
+                        SegmentedButton(selected = mode == m, onClick = { mode = m }, shape = SegmentedButtonDefaults.itemShape(i, 3)) { Text(stringResource(Labels.mode(m))) }
                     }
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -227,7 +239,7 @@ private fun EditDepartureDialog(initial: Departure, onDismiss: () -> Unit, onSav
                         FilterChip(selected = dur == d, onClick = { dur = d }, label = { Text("${d.minutes}") })
                     }
                     Spacer(Modifier.width(4.dp))
-                    Text("min", modifier = Modifier.align(Alignment.CenterVertically))
+                    Text(stringResource(R.string.unit_min), modifier = Modifier.align(Alignment.CenterVertically))
                 }
             }
         },

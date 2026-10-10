@@ -1,0 +1,3501 @@
+# PHEV Link DTC titles (sv), CODE<TAB>Title. Original glossary-based translation of codes.tsv (gen_i18n.py), GPL-3.0-or-later. Codes not listed fall back to English.
+B0001	Förarens främre krockkudde, steg 1 – utlösningsstyrning
+B0002	Förarens främre krockkudde, steg 2 – utlösningsstyrning
+B0003	Förarens främre krockkudde, steg 3 – utlösningsstyrning
+B0004	Förarknäkudde – utlösningsstyrning
+B0005	Hopfällbar rattstång – utlösningsstyrning
+B0010	Passagerarens främre krockkudde, steg 1 – utlösningsstyrning
+B0011	Passagerarens främre krockkudde, steg 2 – utlösningsstyrning
+B0012	Passagerarens främre krockkudde, steg 3 – utlösningsstyrning
+B0013	Passagerarknäkudde – utlösningsstyrning
+B0020	Krockkudde vänster sida – utlösningsstyrning
+B0021	Sidokrockgardin vänster – utlösningsstyrning 1
+B0022	Sidokrockgardin vänster – utlösningsstyrning 2
+B0028	Krockkudde höger sida – utlösningsstyrning
+B0029	Sidokrockgardin höger – utlösningsstyrning 1
+B002A	Sidokrockgardin höger – utlösningsstyrning 2
+B0030	Krockkudde rad 2 vänster sida – utlösningsstyrning
+B0031	Främre krockkudde rad 2 vänster, steg 1 – utlösningsstyrning
+B0032	Främre krockkudde rad 2 vänster, steg 2 – utlösningsstyrning
+B0033	Främre krockkudde rad 2 vänster, steg 3 – utlösningsstyrning
+B0038	Krockkudde rad 2 höger sida – utlösningsstyrning
+B0039	Främre krockkudde rad 2 höger, steg 1 – utlösningsstyrning
+B003A	Främre krockkudde rad 2 höger, steg 2 – utlösningsstyrning
+B003B	Främre krockkudde rad 2 höger, steg 3 – utlösningsstyrning
+B0040	Krockkudde rad 3 vänster sida – utlösningsstyrning
+B0041	Främre krockkudde rad 3 vänster, steg 1 – utlösningsstyrning
+B0042	Främre krockkudde rad 3 vänster, steg 2 – utlösningsstyrning
+B0043	Främre krockkudde rad 3 vänster, steg 3 – utlösningsstyrning
+B0048	Krockkudde rad 3 höger sida – utlösningsstyrning
+B0049	Främre krockkudde rad 3 höger, steg 1 – utlösningsstyrning
+B004A	Främre krockkudde rad 3 höger, steg 2 – utlösningsstyrning
+B004B	Främre krockkudde rad 3 höger, steg 3 – utlösningsstyrning
+B0050	Förarbältesgivare
+B0051	Bältesgivare rad 1 mitten
+B0052	Passagerarbältesgivare
+B0053	Bältesgivare rad 2 vänster
+B0054	Bältesgivare rad 2 mitten
+B0055	Bältesgivare rad 2 höger
+B0056	Bältesgivare rad 3 vänster
+B0057	Bältesgivare rad 3 mitten
+B0058	Bältesgivare rad 3 höger
+B0060	Förarbältesspänningsgivare
+B0061	Passagerar-bältesspänningsgivare
+B0070	Förarbältessträckare – utlösningsstyrning
+B0071	Bältessträckare rad 1 mitten – utlösningsstyrning
+B0072	Passagerarbältessträckare – utlösningsstyrning
+B0073	Bältessträckare rad 2 vänster – utlösningsstyrning
+B0074	Bältessträckare rad 2 mitten – utlösningsstyrning
+B0075	Bältessträckare rad 2 höger – utlösningsstyrning
+B0076	Bältessträckare rad 3 vänster – utlösningsstyrning
+B0077	Bältessträckare rad 3 mitten – utlösningsstyrning
+B0078	Bältessträckare rad 3 höger – utlösningsstyrning
+B0079	Förarbältessträckare B – utlösningsstyrning
+B007A	Passagerarbältessträckare B – utlösningsstyrning
+B0080	Förarbälteskraftbegränsare – utlösningsstyrning
+B0081	Bälteskraftbegränsare rad 1 mitten – utlösningsstyrning
+B0082	Passagerar-bälteskraftbegränsare – utlösningsstyrning
+B0083	Bälteskraftbegränsare rad 2 vänster – utlösningsstyrning
+B0084	Bälteskraftbegränsare rad 2 mitten – utlösningsstyrning
+B0085	Bälteskraftbegränsare rad 2 höger – utlösningsstyrning
+B0086	Bälteskraftbegränsare rad 3 vänster – utlösningsstyrning
+B0087	Bälteskraftbegränsare rad 3 mitten – utlösningsstyrning
+B0088	Bälteskraftbegränsare rad 3 höger – utlösningsstyrning
+B0090	Front-SRS-givare vänster
+B0091	SRS-givare 1 vänster sida
+B0092	SRS-givare 2 vänster sida
+B0093	SRS-givare 3 vänster sida
+B0094	SRS-givare mitten fram
+B0095	Front-SRS-givare höger
+B0096	SRS-givare 1 höger sida
+B0097	SRS-givare 2 höger sida
+B0098	SRS-givare 3 höger sida
+B0099	Vältningsgivare
+B00A0	Passagerarklassificerings-system
+B00A1	Sittpositionssystem
+B00B0	Förarsätes-passagerarklassificeringsgivare A
+B00B1	Förarsätes-passagerarklassificeringsgivare B
+B00B2	Förarsätes-passagerarklassificeringsgivare C
+B00B3	Förarsätes-passagerarklassificeringsgivare D
+B00B4	Förarsätes-passagerarklassificeringsgivare E
+B00B5	SRS-givare för sätesskeneläge, förarsäte
+B00B6	SRS-givare för ryggstödsläge, förarsäte
+B00B7	Förarsätessittpositionsgivare A
+B00B8	Förarsätessittpositionsgivare B
+B00B9	Förarsätessittpositionsgivare C
+B00BA	Förarsätessittpositionsgivare D
+B00BB	Förarsätessittpositionsgivare E
+B00C0	Passagerarsätes-passagerarklassificeringsgivare A
+B00C1	Passagerarsätes-passagerarklassificeringsgivare B
+B00C2	Passagerarsätes-passagerarklassificeringsgivare C
+B00C3	Passagerarsätes-passagerarklassificeringsgivare D
+B00C4	Passagerarsätes-passagerarklassificeringsgivare E
+B00C5	SRS-givare för sätesskeneläge, passagerarsäte
+B00C6	SRS-givare för ryggstödsläge, passagerarsäte
+B00C7	Passagerarsätes-sittpositionsgivare A
+B00C8	Passagerarsätes-sittpositionsgivare B
+B00C9	Passagerarsätes-sittpositionsgivare C
+B00CA	Passagerarsätes-sittpositionsgivare D
+B00CB	Passagerarsätes-sittpositionsgivare E
+B00D0	Förarbältesindikator
+B00D1	Passagerarbältesindikator
+B00D2	Krocksäkerhetssystem (SRS) – felindikator 1
+B00D3	Krocksäkerhetssystem (SRS) – felindikator 2
+B00D4	Krocksäkerhetssystem (SRS) – akustisk felindikator
+B00D5	SRS-passagerar-avaktiveringsindikator
+B00DF	Passagerar-SRS-avaktiverings-brytare
+B0100	Förarkrockkudde – krets funktionsfel
+B0101	Förarkrockkudde – krets område/prestanda
+B0102	Förarkrockkudde – krets låg insignal
+B0103	Förarkrockkudde – krets hög insignal
+B0105	Passagerarkrockkudde – krets funktionsfel
+B0106	Passagerarkrockkudde – krets område/prestanda
+B0107	Passagerarkrockkudde – krets låg insignal
+B0108	Passagerarkrockkudde – krets hög insignal
+B0110	Krockkudde på förarsidan – krets funktionsfel
+B0111	Krockkudde på förarsidan – krets område/prestanda
+B0112	Krockkudde på förarsidan – krets låg insignal
+B0113	Krockkudde på förarsidan – krets hög insignal
+B0115	Krockkudde på passagerarsidan – krets funktionsfel
+B0116	Krockkudde på passagerarsidan – krets område/prestanda
+B0117	Krockkudde på passagerarsidan – krets låg insignal
+B0118	Krockkudde på passagerarsidan – krets hög insignal
+B0120	Säkerhetsbälte #1 brytarövervakning – krets funktionsfel
+B0121	Säkerhetsbälte #1 brytarövervakning – krets område/prestanda
+B0122	Säkerhetsbälte #1 brytarövervakning – krets låg insignal
+B0123	Säkerhetsbälte #1 brytarövervakning – krets hög insignal
+B0125	Säkerhetsbälte #2 brytarövervakning – krets funktionsfel
+B0126	Säkerhetsbälte #2 brytarövervakning – krets område/prestanda
+B0127	Säkerhetsbälte #2 brytarövervakning – krets låg insignal
+B0128	Säkerhetsbälte #2 brytarövervakning – krets hög insignal
+B0130	Säkerhetsbälte #1 upprullning – krets funktionsfel
+B0131	Säkerhetsbälte #1 upprullning – krets område/prestanda
+B0132	Säkerhetsbälte #1 upprullning – krets låg insignal
+B0133	Säkerhetsbälte #1 upprullning – krets hög insignal
+B0135	Säkerhetsbälte #2 upprullning – krets funktionsfel
+B0136	Säkerhetsbälte #2 upprullning – krets område/prestanda
+B0137	Säkerhetsbälte #2 upprullning – krets låg insignal
+B0138	Säkerhetsbälte #2 upprullning – krets hög insignal
+B0200	Fläktmotor #1 ström – krets låg (huvud/primär/främre)
+B0300	Kylfläkt #1 – krets funktionsfel
+B0301	Kylfläkt #1 – krets område/prestanda
+B0302	Kylfläkt #1 – krets låg insignal
+B0303	Kylfläkt #1 – krets hög insignal
+B0305	Kylfläkt #2 – krets funktionsfel
+B0306	Kylfläkt #2 – krets område/prestanda
+B0307	Kylfläkt #2 – krets låg insignal
+B0308	Kylfläkt #2 – krets hög insignal
+B0310	AC-koppling – krets funktionsfel
+B0311	AC-koppling – krets område/prestanda
+B0312	AC-koppling – krets låg insignal
+B0313	AC-koppling – krets hög insignal
+B0315	AC-tryck #1 – krets funktionsfel
+B0316	AC-tryck #1 – krets område/prestanda
+B0317	AC-tryck #1 – krets låg insignal
+B0318	AC-tryck #1 – krets hög insignal
+B0320	AC-tryck #2 – krets funktionsfel
+B0321	AC-tryck #2 – krets område/prestanda
+B0322	AC-tryck #2 – krets låg insignal
+B0323	AC-tryck #2 – krets hög insignal
+B0325	AC-trycksreferens – krets funktionsfel (signal)
+B0326	AC-trycksreferens – krets område/prestanda (signal)
+B0327	AC-trycksreferens – krets låg insignal (signal)
+B0328	AC-trycksreferens – krets hög insignal (signal)
+B0330	Uteluftstemperatur – krets funktionsfel
+B0331	Uteluftstemperatur – krets område/prestanda
+B0332	Uteluftstemperatur – krets låg insignal
+B0333	Uteluftstemperatur – krets hög insignal
+B0335	Kupétemperaturgivare #1 – krets funktionsfel
+B0336	Kupétemperaturgivare #1 – krets område/prestanda
+B0337	Kupétemperaturgivare #1 – krets låg insignal
+B0338	Kupétemperaturgivare #1 – krets hög insignal
+B0340	Kupétemperaturgivare #2 – krets funktionsfel
+B0341	Kupétemperaturgivare #2 – krets område/prestanda
+B0342	Kupétemperaturgivare #2 – krets låg insignal
+B0343	Kupétemperaturgivare #2 – krets hög insignal
+B0345	Solinstrålningsgivare 1 – krets funktionsfel
+B0346	Solinstrålningsgivare 1 – krets område/prestanda
+B0347	Solinstrålningsgivare 1 – krets låg insignal
+B0348	Solinstrålningsgivare 1 – krets hög insignal
+B0350	Solinstrålningsgivare 2 – krets funktionsfel
+B0351	Solinstrålningsgivare 2 – krets område/prestanda
+B0352	Solinstrålningsgivare 2 – krets låg insignal
+B0353	Solinstrålningsgivare 2 – krets hög insignal
+B0355	Fläktmotor #1 hastighet – krets funktionsfel
+B0356	Fläktmotor #1 hastighet – krets område/prestanda
+B0357	Fläktmotor #1 hastighet – krets låg insignal
+B0358	Fläktmotor #1 hastighet – krets hög insignal
+B0360	Fläktmotor #1 ström – krets funktionsfel
+B0361	Fläktmotor #1 ström – krets område/prestanda
+B0362	Fläktmotor #1 ström – krets låg insignal
+B0363	Fläktmotor #1 ström – krets hög insignal
+B0365	Fläktmotor #1 jord – krets funktionsfel
+B0366	Fläktmotor #1 jord – krets område/prestanda
+B0367	Fläktmotor #1 jord – krets låg insignal
+B0368	Fläktmotor #1 jord – krets hög insignal
+B0370	AC – temperaturgivare högtryckssida funktionsfel
+B0371	AC – temperaturgivare högtryckssida område/prestanda
+B0372	AC – temperaturgivare högtryckssida låg insignal
+B0373	AC – temperaturgivare högtryckssida hög insignal
+B0375	AC-förångarinlopps-temperaturgivare – funktionsfel
+B0376	AC-förångarinlopps-temperaturgivare – område/prestanda
+B0377	AC-förångarinlopps-temperaturgivare – låg insignal
+B0378	AC-förångarinlopps-temperaturgivare – hög insignal
+B0380	Undertryck i köldmediet (AC)
+B0381	Övertryck i köldmediet (AC)
+B0400	Luftstyrning #1 avfrostning – funktionsfel
+B0401	Luftstyrning #1 avfrostning – område/prestanda
+B0402	Luftstyrning #1 avfrostning – låg insignal
+B0403	Luftstyrning #1 avfrostning – hög insignal
+B0405	Luftstyrning #2 värmare – funktionsfel
+B0406	Luftstyrning #2 värmare – område/prestanda
+B0407	Luftstyrning #2 värmare – låg insignal
+B0408	Luftstyrning #2 värmare – hög insignal
+B0410	Luftstyrning #3 blandning – funktionsfel
+B0411	Luftstyrning #3 blandning – område/prestanda
+B0412	Luftstyrning #3 blandning – låg insignal
+B0413	Luftstyrning #3 blandning – hög insignal
+B0415	Luftstyrning #4 ventilation – funktionsfel
+B0416	Luftstyrning #4 ventilation – område/prestanda
+B0417	Luftstyrning #4 ventilation – låg insignal
+B0418	Luftstyrning #4 ventilation – hög insignal
+B0420	Luftstyrning #5 AC – funktionsfel
+B0421	Luftstyrning #5 AC – område/prestanda
+B0422	Luftstyrning #5 AC – låg insignal
+B0423	Luftstyrning #5 AC – hög insignal
+B0425	Luftstyrning #6 recirkulation – funktionsfel
+B0426	Luftstyrning #6 recirkulation – område/prestanda
+B0427	Luftstyrning #6 recirkulation – låg insignal
+B0428	Luftstyrning #6 recirkulation – hög insignal
+B0430	Bakrutevärme – krets funktionsfel
+B0431	Bakrutevärme – krets område/prestanda
+B0432	Bakrutevärme – krets låg insignal
+B0433	Bakrutevärme – krets hög insignal
+B0435	AC – begäranskrets funktionsfel
+B0436	AC – begäranskrets område/prestanda
+B0437	AC – begäranskrets låg insignal
+B0438	AC – begäranskrets hög insignal
+B0440	Manöverpanel #1 återkoppling – funktionsfel
+B0441	Manöverpanel #1 återkoppling – område/prestanda
+B0442	Manöverpanel #1 återkoppling – låg insignal
+B0443	Manöverpanel #1 återkoppling – hög insignal
+B0445	Manöverpanel #2 återkoppling – funktionsfel
+B0446	Manöverpanel #2 återkoppling – område/prestanda
+B0447	Manöverpanel #2 återkoppling – låg insignal
+B0448	Manöverpanel #2 återkoppling – hög insignal
+B0500	Körriktningsvisare höger – krets funktionsfel
+B0501	Körriktningsvisare höger – krets område/prestanda
+B0502	Körriktningsvisare höger – krets låg insignal
+B0503	Körriktningsvisare höger – krets hög insignal
+B0505	Körriktningsvisare vänster – krets funktionsfel
+B0506	Körriktningsvisare vänster – krets område/prestanda
+B0507	Körriktningsvisare vänster – krets låg insignal
+B0508	Körriktningsvisare vänster – krets hög insignal
+B0510	Strålkastarindikatorer – krets funktionsfel
+B0511	Strålkastarindikatorer – krets område/prestanda
+B0512	Strålkastarindikatorer – krets låg insignal
+B0513	Strålkastarindikatorer – krets hög insignal
+B0515	Hastighetsmätare – krets funktionsfel
+B0516	Hastighetsmätare – krets område/prestanda
+B0517	Hastighetsmätare – krets låg insignal
+B0518	Hastighetsmätare – krets hög insignal
+B0520	Varvräknare – krets funktionsfel
+B0521	Varvräknare – krets område/prestanda
+B0522	Varvräknare – krets låg insignal
+B0523	Varvräknare – krets hög insignal
+B0525	Temperaturmätare – krets funktionsfel
+B0526	Temperaturmätare – krets område/prestanda
+B0527	Temperaturmätare – krets låg insignal
+B0528	Temperaturmätare – krets hög insignal
+B0530	Bränslenivåmätare – krets funktionsfel
+B0531	Bränslenivåmätare – krets område/prestanda
+B0532	Bränslenivåmätare – krets låg insignal
+B0533	Bränslenivåmätare – krets hög insignal
+B0535	Turbo-/kompressorladdtrycksmätare – funktionsfel
+B0536	Turbo-/kompressorladdtrycksmätare – område/prestanda
+B0537	Turbo-/kompressorladdtrycksmätare – låg insignal
+B0538	Turbo-/kompressorladdtrycksmätare – hög insignal
+B0540	Bältesindikator – funktionsfel
+B0541	Bältesindikator – område/prestanda
+B0542	Bältesindikator – låg insignal
+B0543	Bältesindikator – hög insignal
+B0545	Dörr öppen #1 indikator – funktionsfel
+B0546	Dörr öppen #1 indikator – område/prestanda
+B0547	Dörr öppen #1 indikator – låg insignal
+B0548	Dörr öppen #1 indikator – hög insignal
+B0550	Dörr öppen #2 indikator – funktionsfel
+B0551	Dörr öppen #2 indikator – område/prestanda
+B0552	Dörr öppen #2 indikator – låg insignal
+B0553	Dörr öppen #2 indikator – hög insignal
+B0555	Bromsindikator – krets funktionsfel
+B0556	Bromsindikator – krets område/prestanda
+B0557	Bromsindikator – krets låg insignal
+B0558	Bromsindikator – krets hög insignal
+B0560	Krockkuddelampa #1 – krets funktionsfel
+B0561	Krockkuddelampa #1 – krets område/prestanda
+B0562	Krockkuddelampa #1 – krets låg insignal
+B0563	Krockkuddelampa #1 – krets hög insignal
+B0565	Säkerhetsinformation – krets funktionsfel
+B0566	Säkerhetsinformation – krets område/prestanda
+B0567	Säkerhetsinformation – krets låg insignal
+B0568	Säkerhetsinformation – krets hög insignal
+B0600	Alternativkonfiguration – fel
+B0601	KAM-nollställning
+B0602	Oscillatorvakthunds-COP – funktionsfel
+B0603	EEPROM-skrivning – fel
+B0604	EEPROM-kalibrering – fel
+B0605	EEPROM-kontrollsumma – fel
+B0606	RAM – funktionsfel
+B0607	Intern – fel
+B0608	Initiering – fel
+B0800	Enhetsström #1 – krets funktionsfel
+B0801	Enhetsström #1 – krets område/prestanda
+B0802	Enhetsström #1 – krets låg insignal
+B0803	Enhetsström #1 – krets hög insignal
+B0805	Enhetsström #2 – krets funktionsfel
+B0806	Enhetsström #2 – krets område/prestanda
+B0807	Enhetsström #2 – krets låg insignal
+B0808	Enhetsström #2 – krets hög insignal
+B0810	Enhetsström #3 – krets funktionsfel
+B0811	Enhetsström #3 – krets område/prestanda
+B0812	Enhetsström #3 – krets låg insignal
+B0813	Enhetsström #3 – krets hög insignal
+B0815	Enhetsjord #1 – krets funktionsfel
+B0816	Enhetsjord #1 – krets område/prestanda
+B0817	Enhetsjord #1 – krets låg insignal
+B0818	Enhetsjord #1 – krets hög insignal
+B0820	Enhetsjord #2 – krets funktionsfel
+B0821	Enhetsjord #2 – krets område/prestanda
+B0822	Enhetsjord #2 – krets låg insignal
+B0823	Enhetsjord #2 – krets hög insignal
+B0825	Enhetsjord #3 – krets funktionsfel
+B0826	Enhetsjord #3 – krets område/prestanda
+B0827	Enhetsjord #3 – krets låg insignal
+B0828	Enhetsjord #3 – krets hög insignal
+B0830	Tändning 0 – krets funktionsfel
+B0831	Tändning 0 – krets område/prestanda
+B0832	Tändning 0 – krets låg insignal
+B0833	Tändning 0 – krets hög insignal
+B0835	Tändning 1 – krets funktionsfel
+B0836	Tändning 1 – krets område/prestanda
+B0837	Tändning 1 – krets låg insignal
+B0838	Tändning 1 – krets hög insignal
+B0840	Tändning 3 – krets funktionsfel
+B0841	Tändning 3 – krets område/prestanda
+B0842	Tändning 3 – krets låg insignal
+B0843	Tändning 3 – krets hög insignal
+B0845	5 V-referens för enhet – krets funktionsfel
+B0846	5 V-referens för enhet – krets område/prestanda
+B0847	5 V-referens för enhet – krets låg insignal
+B0848	5 V-referens för enhet – krets hög insignal
+B0850	Batteri – krets funktionsfel (ren)
+B0851	Batteri – krets område/prestanda (ren)
+B0852	Batteri – krets låg insignal (ren)
+B0853	Batteri – krets hög insignal (ren)
+B0855	Batteri – krets funktionsfel (smutsig)
+B0856	Batteri – krets område/prestanda (smutsig)
+B0857	Batteri – krets låg insignal (smutsig)
+B0858	Batteri – krets hög insignal (smutsig)
+B0859	Systemspänning – låg
+B0860	Systemspänning – hög
+C0001	Antispinnstyrkanal A ventil 1
+C0002	Antispinnstyrkanal A ventil 2
+C0003	Antispinnstyrkanal B ventil 1
+C0004	Antispinnstyrkanal B ventil 2
+C0010	Inlopp vänster fram – styrning
+C0011	Utlopp vänster fram – styrning
+C0012	Hydraulisk avlastning vänster fram för länge
+C0014	Inlopp höger fram – styrning
+C0015	Utlopp höger fram – styrning
+C0016	Hydraulisk avlastning höger fram för länge
+C0018	Inlopp vänster bak – styrning
+C0019	Utlopp vänster bak – styrning
+C001A	Hydraulisk avlastning vänster bak för länge
+C001C	Inlopp höger bak – styrning
+C001D	Utlopp höger bak – styrning
+C001E	Hydraulisk avlastning höger bak för länge
+C0020	ABS-pumpmotor – styrning
+C0021	Bromsservo – prestanda
+C0022	Bromsservomagnetventil
+C0023	Bromsljus – styrning
+C0030	Pulsring vänster fram
+C0031	Hjulhastighetsgivare vänster fram
+C0032	Hjulhastighetsgivarmatning vänster fram
+C0033	Pulsring höger fram
+C0034	Hjulhastighetsgivare höger fram
+C0035	Hjulhastighetsgivarmatning höger fram
+C0036	Pulsring vänster bak
+C0037	Hjulhastighetsgivare vänster bak
+C0038	Hjulhastighetsgivarmatning vänster bak
+C0039	Pulsring höger bak
+C003A	Hjulhastighetsgivare höger bak
+C003B	Hjulhastighetsgivarmatning höger bak
+C003C	Pulsring bak
+C003D	Hjulhastighetsgivare bak
+C003E	Hjulhastighetsgivarmatning bak
+C0040	Bromspedalbrytare A
+C0041	Bromspedalbrytare B
+C0042	Bromspedallägesgivare – krets A
+C0043	Bromspedallägesgivare – krets B
+C0044	Bromstrycksgivare A
+C0045	Bromstrycksgivare B
+C0046	Bromstrycksgivare A/B
+C0047	Bromsservotrycksgivare
+C0048	Bromsservoslaglängdsgivare
+C0049	Bromsvätska
+C004A	Bromsbeläggsslitagegivare
+C0051	Rattlägesgivare
+C0052	Rattlägesgivarsignal A
+C0053	Rattlägesgivarsignal B
+C0054	Rattlägesgivarsignal C
+C0055	Rattlägesgivarsignal D
+C0061	Sidoaccelerationsgivare
+C0062	Längdaccelerationsgivare
+C0063	Girhastighetsgivare
+C0064	Rollhastighetsgivare
+C0069	Girhastighets-/längdgivare
+C006A	Fleraxel-accelerationsgivare
+C006B	Stabilitetssystemaktiv för länge
+C006C	Stabilitetssystem
+C0071	Hjuldrivstatusingång 2/4
+C0072	Broms – temperatur för hög
+C0073	Levererat drivmoment
+C0074	Begärt drivmoment
+C0075	Signal om lång bromspedalväg till PCM
+C0076	PWM-signal för antispinn – styrning
+C0077	Lågt däcktryck
+C0078	Däckdiameter
+C0079	Hastighetsberoende servostyrning
+C0081	ABS – felindikator
+C0082	Bromssystem – felindikator
+C0083	Däcktrycksövervakning (TPMS) – felindikator
+C0084	Indikator för aktiv antispinn
+C0085	Indikator för avstängd antispinn
+C0086	Fordonsdynamikindikator
+C0089	Antispinnavaktiveringsbrytare
+C008A	Antispinnläge – styrning
+C0200	Hjulhastighetsgivare höger fram – krets funktionsfel
+C0201	Hjulhastighetsgivare höger fram – krets område/prestanda
+C0202	Hjulhastighetsgivare höger fram – krets låg insignal
+C0203	Hjulhastighetsgivare höger fram – krets hög insignal
+C0205	Hjulhastighetsgivare vänster fram – krets funktionsfel
+C0206	Hjulhastighetsgivare vänster fram – krets område/prestanda
+C0207	Hjulhastighetsgivare vänster fram – krets låg insignal
+C0208	Hjulhastighetsgivare vänster fram – krets hög insignal
+C0210	Hjulhastighetsgivare höger bak – krets funktionsfel
+C0211	Hjulhastighetsgivare höger bak – krets område/prestanda
+C0212	Hjulhastighetsgivare höger bak – krets låg insignal
+C0213	Hjulhastighetsgivare höger bak – krets hög insignal
+C0215	Hjulhastighetsgivare vänster bak – krets funktionsfel
+C0216	Hjulhastighetsgivare vänster bak – krets område/prestanda
+C0217	Hjulhastighetsgivare vänster bak – krets låg insignal
+C0218	Hjulhastighetsgivare vänster bak – krets hög insignal
+C0220	Hjulhastighetsgivare bak – krets funktionsfel
+C0221	Hjulhastighetsgivare bak – krets område/prestanda
+C0222	Hjulhastighetsgivare bak – krets låg insignal
+C0223	Hjulhastighetsgivare bak – krets hög insignal
+C0225	Hjulhastighetsgivarfrekvens – fel
+C0226	ABS-magnetventil/mätare #1 höger fram – krets funktionsfel
+C0227	ABS-magnetventil/mätare #1 höger fram – krets område/prestanda
+C0228	ABS-magnetventil/mätare #1 höger fram – krets låg insignal
+C0229	ABS-magnetventil/mätare #1 höger fram – krets hög insignal
+C0231	ABS-magnetventil/mätare #2 höger fram – krets funktionsfel
+C0232	ABS-magnetventil/mätare #2 höger fram – krets område/prestanda
+C0233	ABS-magnetventil/mätare #2 höger fram – krets låg insignal
+C0234	ABS-magnetventil/mätare #2 höger fram – krets hög insignal
+C0236	ABS-magnetventil/mätare #1 vänster fram – krets funktionsfel
+C0237	ABS-magnetventil/mätare #1 vänster fram – krets område/prestanda
+C0238	ABS-magnetventil/mätare #1 vänster fram – krets låg insignal
+C0239	ABS-magnetventil/mätare #1 vänster fram – krets hög insignal
+C0241	ABS-magnetventil/mätare #2 vänster fram – krets funktionsfel
+C0242	ABS-magnetventil/mätare #2 vänster fram – krets område/prestanda
+C0243	ABS-magnetventil/mätare #2 vänster fram – krets låg insignal
+C0244	ABS-magnetventil/mätare #2 vänster fram – krets hög insignal
+C0246	ABS-magnetventil/mätare #1 höger bak – krets funktionsfel
+C0247	ABS-magnetventil/mätare #1 höger bak – krets område/prestanda
+C0248	ABS-magnetventil/mätare #1 höger bak – krets låg insignal
+C0249	ABS-magnetventil/mätare #1 höger bak – krets hög insignal
+C0251	ABS-magnetventil/mätare #2 höger bak – krets funktionsfel
+C0252	ABS-magnetventil/mätare #2 höger bak – krets område/prestanda
+C0253	ABS-magnetventil/mätare #2 höger bak – krets låg insignal
+C0254	ABS-magnetventil/mätare #2 höger bak – krets hög insignal
+C0256	ABS-magnetventil/mätare #1 vänster bak – krets funktionsfel
+C0257	ABS-magnetventil/mätare #1 vänster bak – krets område/prestanda
+C0258	ABS-magnetventil/mätare #1 vänster bak – krets låg insignal
+C0259	ABS-magnetventil/mätare #1 vänster bak – krets hög insignal
+C0261	ABS-magnetventil/mätare #2 höger bak – krets funktionsfel
+C0262	ABS-magnetventil/mätare #2 höger bak – krets område/prestanda
+C0263	ABS-magnetventil/mätare #2 höger bak – krets låg insignal
+C0264	ABS-magnetventil/mätare #2 höger bak – krets hög insignal
+C0266	Pumpmotor – krets funktionsfel
+C0267	Pumpmotor – krets område/prestanda
+C0268	Pumpmotor – krets låg insignal
+C0269	Pumpmotor – krets hög insignal
+C0271	Pumpmotorrelä – krets funktionsfel
+C0272	Pumpmotorrelä – krets område/prestanda
+C0273	Pumpmotorrelä – krets låg insignal
+C0274	Pumpmotorrelä – krets hög insignal
+C0276	Ventilrelä – krets funktionsfel
+C0277	Ventilrelä – krets område/prestanda
+C0278	Ventilrelä – krets låg insignal
+C0279	Ventilrelä – krets hög insignal
+C0300	Antispinnmagnetventil/mätare #1 höger fram – krets funktionsfel
+C0301	Antispinnmagnetventil/mätare #1 höger fram – krets område/prestanda
+C0302	Antispinnmagnetventil/mätare #1 höger fram – krets låg insignal
+C0303	Antispinnmagnetventil/mätare #1 höger fram – krets hög insignal
+C0305	Antispinnmagnetventil/mätare #2 höger fram – krets funktionsfel
+C0306	Antispinnmagnetventil/mätare #2 höger fram – krets område/prestanda
+C0307	Antispinnmagnetventil/mätare #2 höger fram – krets låg insignal
+C0308	Antispinnmagnetventil/mätare #2 höger fram – krets hög insignal
+C0310	Antispinnmagnetventil/mätare #1 vänster fram – krets funktionsfel
+C0311	Antispinnmagnetventil/mätare #1 vänster fram – krets område/prestanda
+C0312	Antispinnmagnetventil/mätare #1 vänster fram – krets låg insignal
+C0313	Antispinnmagnetventil/mätare #1 vänster fram – krets hög insignal
+C0315	Antispinnmagnetventil/mätare #2 vänster fram – krets funktionsfel
+C0316	Antispinnmagnetventil/mätare #2 vänster fram – krets område/prestanda
+C0317	Antispinnmagnetventil/mätare #2 vänster fram – krets låg insignal
+C0318	Antispinnmagnetventil/mätare #2 vänster fram – krets hög insignal
+C0320	Antispinnmagnetventil/mätare #1 höger bak – krets funktionsfel
+C0321	Antispinnmagnetventil/mätare #1 höger bak – krets område/prestanda
+C0322	Antispinnmagnetventil/mätare #1 höger bak – krets låg insignal
+C0323	Antispinnmagnetventil/mätare #1 höger bak – krets hög insignal
+C0325	Antispinnmagnetventil/mätare #2 höger bak – krets funktionsfel
+C0326	Antispinnmagnetventil/mätare #2 höger bak – krets område/prestanda
+C0327	Antispinnmagnetventil/mätare #2 höger bak – krets låg insignal
+C0328	Antispinnmagnetventil/mätare #2 höger bak – krets hög insignal
+C0330	Antispinnmagnetventil/mätare #1 vänster bak – krets funktionsfel
+C0331	Antispinnmagnetventil/mätare #1 vänster bak – krets område/prestanda
+C0332	Antispinnmagnetventil/mätare #1 vänster bak – krets låg insignal
+C0333	Antispinnmagnetventil/mätare #1 vänster bak – krets hög insignal
+C0335	Antispinnmagnetventil/mätare #2 höger bak – krets funktionsfel
+C0336	Antispinnmagnetventil/mätare #2 höger bak – krets område/prestanda
+C0337	Antispinnmagnetventil/mätare #2 höger bak – krets låg insignal
+C0338	Antispinnmagnetventil/mätare #2 höger bak – krets hög insignal
+C0340	ABS-/antispinnbromsbrytare – krets funktionsfel
+C0341	ABS-/antispinnbromsbrytare – krets område/prestanda
+C0342	ABS-/antispinnbromsbrytare – krets låg insignal
+C0343	ABS-/antispinnbromsbrytare – krets hög insignal
+C0345	Låg bromsvätskenivå – krets funktionsfel
+C0346	Låg bromsvätskenivå – krets område/prestanda
+C0347	Låg bromsvätskenivå – krets låg insignal
+C0348	Låg bromsvätskenivå – krets hög insignal
+C0350	Magnetventil/mätare #1 bak – krets funktionsfel
+C0351	Magnetventil/mätare #1 bak – krets område/prestanda
+C0352	Magnetventil/mätare #1 bak – krets låg insignal
+C0353	Magnetventil/mätare #1 bak – krets hög insignal
+C0355	Trottelreduktionsmätare – krets funktionsfel
+C0356	Trottelreduktionsmätare – krets område/prestanda
+C0357	Trottelreduktionsmätare – krets låg insignal
+C0358	Trottelreduktionsmätare – krets hög insignal
+C0360	Systemtryck – krets funktionsfel
+C0361	Systemtryck – krets område/prestanda
+C0362	Systemtryck – krets låg insignal
+C0363	Systemtryck – krets hög insignal
+C0365	Sidoaccelerationsgivare – krets funktionsfel
+C0366	Sidoaccelerationsgivare – krets område/prestanda
+C0367	Sidoaccelerationsgivare – krets låg insignal
+C0368	Sidoaccelerationsgivare – krets hög insignal
+C0370	Girhastighet – krets funktionsfel
+C0371	Girhastighet – krets område/prestanda
+C0372	Girhastighet – krets låg insignal
+C0373	Girhastighet – krets hög insignal
+C0500	Styrmagnetventil – krets funktionsfel
+C0501	Styrmagnetventil – krets område/prestanda
+C0502	Styrmagnetventil – krets låg insignal
+C0503	Styrmagnetventil – krets hög insignal
+C0505	Styrlägesgivare – funktionsfel
+C0506	Styrlägesgivare – område/prestanda
+C0507	Styrlägesgivare – låg insignal
+C0508	Styrlägesgivare – hög insignal
+C0510	Styrhastighetsgivare – funktionsfel
+C0511	Styrhastighetsgivare – område/prestanda
+C0512	Styrhastighetsgivare – låg insignal
+C0513	Styrhastighetsgivare – hög insignal
+C0700	Magnetventil vänster fram – krets funktionsfel
+C0701	Magnetventil vänster fram – krets område/prestanda
+C0702	Magnetventil vänster fram – krets låg insignal
+C0703	Magnetventil vänster fram – krets hög insignal
+C0705	Magnetventil höger fram – krets funktionsfel
+C0706	Magnetventil höger fram – krets område/prestanda
+C0707	Magnetventil höger fram – krets låg insignal
+C0708	Magnetventil höger fram – krets hög insignal
+C0710	Magnetventil vänster bak – krets funktionsfel
+C0711	Magnetventil vänster bak – krets område/prestanda
+C0712	Magnetventil vänster bak – krets låg insignal
+C0713	Magnetventil vänster bak – krets hög insignal
+C0715	Magnetventil höger bak – krets funktionsfel
+C0716	Magnetventil höger bak – krets område/prestanda
+C0717	Magnetventil höger bak – krets låg insignal
+C0718	Magnetventil höger bak – krets hög insignal
+C0720	Accelerationsgivare vänster fram – krets funktionsfel
+C0721	Accelerationsgivare vänster fram – krets område/prestanda
+C0722	Accelerationsgivare vänster fram – krets låg insignal
+C0723	Accelerationsgivare vänster fram – krets hög insignal
+C0725	Accelerationsgivare höger fram – krets funktionsfel
+C0726	Accelerationsgivare höger fram – krets område/prestanda
+C0727	Accelerationsgivare höger fram – krets låg insignal
+C0728	Accelerationsgivare höger fram – krets hög insignal
+C0730	Accelerationsgivare vänster bak – krets funktionsfel
+C0731	Accelerationsgivare vänster bak – krets område/prestanda
+C0732	Accelerationsgivare vänster bak – krets låg insignal
+C0733	Accelerationsgivare vänster bak – krets hög insignal
+C0735	Accelerationsgivare höger bak – krets funktionsfel
+C0736	Accelerationsgivare höger bak – krets område/prestanda
+C0737	Accelerationsgivare höger bak – krets låg insignal
+C0738	Accelerationsgivare höger bak – krets hög insignal
+C0740	Lägesgivare vänster fram – krets funktionsfel
+C0741	Lägesgivare vänster fram – krets område/prestanda
+C0742	Lägesgivare vänster fram – krets låg insignal
+C0743	Lägesgivare vänster fram – krets hög insignal
+C0745	Lägesgivare höger fram – krets funktionsfel
+C0746	Lägesgivare höger fram – krets område/prestanda
+C0747	Lägesgivare höger fram – krets låg insignal
+C0748	Lägesgivare höger fram – krets hög insignal
+C0750	Lägesgivare vänster bak – krets funktionsfel
+C0751	Lägesgivare vänster bak – krets område/prestanda
+C0752	Lägesgivare vänster bak – krets låg insignal
+C0753	Lägesgivare vänster bak – krets hög insignal
+C0755	Lägesgivare höger bak – krets funktionsfel
+C0756	Lägesgivare höger bak – krets område/prestanda
+C0757	Lägesgivare höger bak – krets låg insignal
+C0758	Lägesgivare höger bak – krets hög insignal
+P0001	Bränslemängdsregulator – styrkrets avbrott
+P0002	Bränslemängdsregulator – styrkrets område/prestanda
+P0003	Bränslemängdsregulator – styrkrets låg
+P0004	Bränslemängdsregulator – styrkrets hög
+P0005	Bränsleavstängningsventil A – styrkrets avbrott
+P0006	Bränsleavstängningsventil A – styrkrets låg
+P0007	Bränsleavstängningsventil A – styrkrets hög
+P0008	Motorlägessystem – prestanda, bank 1
+P0009	Motorlägessystem – prestanda, bank 2
+P000A	Kamaxelläge A – långsam respons, bank 1
+P000B	Kamaxelläge B – långsam respons, bank 1
+P000C	Kamaxelläge A – långsam respons, bank 2
+P000D	Kamaxelläge B – långsam respons, bank 2
+P0010	Kamaxellägesställdon A – krets avbrott, bank 1
+P0011	Kamaxelläge A – för tidig inställning eller systemprestanda, bank 1
+P0012	Kamaxelläge A – för sen inställning, bank 1
+P0013	Kamaxelläge B – ställdonskrets avbrott, bank 1
+P0014	Kamaxelläge B – för tidig inställning eller systemprestanda, bank 1
+P0015	Kamaxelläge B – för sen inställning, bank 1
+P0016	Vevaxelläge – korrelation med kamaxelläge, bank 1 givare A
+P0017	Vevaxelläge – korrelation med kamaxelläge, bank 1 givare B
+P0018	Vevaxelläge – korrelation med kamaxelläge, bank 2 givare A
+P0019	Vevaxelläge – korrelation med kamaxelläge, bank 2 givare B
+P0020	Kamaxellägesställdon A – krets avbrott, bank 2
+P0021	Kamaxelläge A – för tidig inställning eller systemprestanda, bank 2
+P0022	Kamaxelläge A – för sen inställning, bank 2
+P0023	Kamaxelläge B – ställdonskrets avbrott, bank 2
+P0024	Kamaxelläge B – för tidig inställning eller systemprestanda, bank 2
+P0025	Kamaxelläge B – för sen inställning, bank 2
+P0026	Insugsventilstyrmagnetventil – krets område/prestanda, bank 1
+P0027	Avgasventilstyrmagnetventil – krets område/prestanda, bank 1
+P0028	Insugsventilstyrmagnetventil – krets område/prestanda, bank 2
+P0029	Avgasventilstyrmagnetventil – krets område/prestanda, bank 2
+P0030	Lambdasondvärmare – styrkrets, bank 1 givare 1
+P0031	Lambdasondvärmare – styrkrets låg, bank 1 givare 1
+P0032	Lambdasondvärmare – styrkrets hög, bank 1 givare 1
+P0033	Turbo-/kompressorbypassventil – styrkrets
+P0034	Turbo-/kompressorbypassventil – styrkrets låg
+P0035	Turbo-/kompressorbypassventil – styrkrets hög
+P0036	Lambdasondvärmare – styrkrets, bank 1 givare 2
+P0037	Lambdasondvärmare – styrkrets låg, bank 1 givare 2
+P0038	Lambdasondvärmare – styrkrets hög, bank 1 givare 2
+P0039	Turbo-/kompressorbypassventil – styrkrets område/prestanda
+P0040	Lambdasondsignaler förväxlade, bank 1 givare 1, bank 2 givare 1
+P0041	Lambdasondsignaler förväxlade, bank 1 givare 2, bank 2 givare 2
+P0042	Lambdasondvärmare – styrkrets, bank 1 givare 3
+P0043	Lambdasondvärmare – styrkrets låg, bank 1 givare 3
+P0044	Lambdasondvärmare – styrkrets hög, bank 1 givare 3
+P0045	Turbo-/kompressorladdtrycksregleringsmagnetventil A – krets avbrott
+P0046	Turbo-/kompressorladdtrycksregleringsmagnetventil A – krets område/prestanda
+P0047	Turbo-/kompressorladdtrycksregleringsmagnetventil A – krets låg
+P0048	Turbo-/kompressorladdtrycksregleringsmagnetventil A – krets hög
+P0049	Turbo-/kompressorturbin – övervarv
+P004A	Turbo-/kompressorladdtrycksregleringsmagnetventil B – krets avbrott
+P004B	Turbo-/kompressorladdtrycksregleringsmagnetventil B – krets område/prestanda
+P004C	Turbo-/kompressorladdtrycksregleringsmagnetventil B – krets låg
+P004D	Turbo-/kompressorladdtrycksregleringsmagnetventil B – krets hög
+P004E	Turbo-/kompressorladdtrycksregleringsmagnetventil A – krets sporadisk/instabil
+P004F	Turbo-/kompressorladdtrycksregleringsmagnetventil B – krets sporadisk/instabil
+P0050	Lambdasondvärmare – styrkrets, bank 2 givare 1
+P0051	Lambdasondvärmare – styrkrets låg, bank 2 givare 1
+P0052	Lambdasondvärmare – styrkrets hög, bank 2 givare 1
+P0053	Lambdasondvärmarresistans, bank 1 givare 1
+P0054	Lambdasondvärmarresistans, bank 1 givare 2
+P0055	Lambdasondvärmarresistans, bank 1 givare 3
+P0056	Lambdasondvärmare – styrkrets, bank 2 givare 2
+P0057	Lambdasondvärmare – styrkrets låg, bank 2 givare 2
+P0058	Lambdasondvärmare – styrkrets hög, bank 2 givare 2
+P0059	Lambdasondvärmarresistans, bank 2 givare 1
+P0060	Lambdasondvärmarresistans, bank 2 givare 2
+P0061	Lambdasondvärmarresistans, bank 2 givare 3
+P0062	Lambdasondvärmare – styrkrets, bank 2 givare 3
+P0063	Lambdasondvärmare – styrkrets låg, bank 2 givare 3
+P0064	Lambdasondvärmare – styrkrets hög, bank 2 givare 3
+P0065	Luftassisteradinsprutare – styrning område/prestanda
+P0066	Luftassisteradinsprutare – styrkrets eller krets låg
+P0067	Luftassisteradinsprutare – styrkrets hög
+P0068	MAP/MAF – korrelation med trottelläge
+P0069	Insugstryck (MAP) – korrelation med barometertryck
+P006A	MAP – korrelation med luftmassa/luftvolym
+P006B	MAP – korrelation med avgastryck
+P006C	MAP – korrelation med inloppstryck till turbo/kompressor
+P006D	Barometertryck – korrelation med inloppstryck till turbo/kompressor
+P0070	Omgivningslufts-temperaturgivare – krets
+P0071	Omgivningslufts-temperaturgivare – område/prestanda
+P0072	Omgivningslufts-temperaturgivare – krets låg
+P0073	Omgivningslufts-temperaturgivare – krets hög
+P0074	Omgivningslufts-temperaturgivare – krets sporadisk
+P0075	Insugsventilstyrmagnetventil – krets, bank 1
+P0076	Insugsventilstyrmagnetventil – krets låg, bank 1
+P0077	Insugsventilstyrmagnetventil – krets hög, bank 1
+P0078	Avgasventilstyrmagnetventil – krets, bank 1
+P0079	Avgasventilstyrmagnetventil – krets låg, bank 1
+P0080	Avgasventilstyrmagnetventil – krets hög, bank 1
+P0081	Insugsventilstyrmagnetventil – krets, bank 2
+P0082	Insugsventilstyrmagnetventil – krets låg, bank 2
+P0083	Insugsventilstyrmagnetventil – krets hög, bank 2
+P0084	Avgasventilstyrmagnetventil – krets, bank 2
+P0085	Avgasventilstyrmagnetventil – krets låg, bank 2
+P0086	Avgasventilstyrmagnetventil – krets hög, bank 2
+P0087	Bränslerörs-/systemtryck – för låg
+P0088	Bränslerörs-/systemtryck – för hög
+P0089	Bränsletrycksregulator 1 – prestanda
+P0090	Bränsletrycksregulator 1 – styrkrets
+P0091	Bränsletrycksregulator 1 – styrkrets låg
+P0092	Bränsletrycksregulator 1 – styrkrets hög
+P0093	Bränslesystemläcka – upptäckt – stor läcka
+P0094	Bränslesystemläcka – upptäckt – liten läcka
+P0095	Insugsluftstemperaturgivare 2 – krets
+P0096	Insugsluftstemperaturgivare 2 – krets område/prestanda
+P0097	Insugsluftstemperaturgivare 2 – krets låg
+P0098	Insugsluftstemperaturgivare 2 – krets hög
+P0099	Insugsluftstemperaturgivare 2 – krets sporadisk/instabil
+P009A	Insugsluftstemperatur-/omgivningsluftstemperatur – korrelation
+P0100	Luftmassa/luftvolym A – krets
+P0101	Luftmassa/luftvolym A – krets område/prestanda
+P0102	Luftmassa/luftvolym A – krets låg
+P0103	Luftmassa/luftvolym A – krets hög
+P0104	Luftmassa/luftvolym A – krets sporadisk
+P0105	Insugstryck (MAP)/barometertryck – krets
+P0106	Insugstryck (MAP)/barometertryck – krets område/prestanda
+P0107	Insugstryck (MAP)/barometertryck – krets låg
+P0108	Insugstryck (MAP)/barometertryck – krets hög
+P0109	Insugstryck (MAP)/barometertryck – krets sporadisk
+P010A	Luftmassa/luftvolym B – krets
+P010B	Luftmassa/luftvolym B – krets område/prestanda
+P010C	Luftmassa/luftvolym B – krets låg
+P010D	Luftmassa/luftvolym B – krets hög
+P010E	Luftmassa/luftvolym B – krets sporadisk/instabil
+P010F	Luftmasse-/luftvolymgivare A/B – korrelation
+P0110	Insugsluftstemperaturgivare 1 – krets
+P0111	Insugsluftstemperaturgivare 1 – krets område/prestanda
+P0112	Insugsluftstemperaturgivare 1 – krets låg
+P0113	Insugsluftstemperaturgivare 1 – krets hög
+P0114	Insugsluftstemperaturgivare 1 – krets sporadisk
+P0115	Kylvätsketemperaturgivare 1 – krets
+P0116	Kylvätsketemperaturgivare 1 – krets område/prestanda
+P0117	Kylvätsketemperaturgivare 1 – krets låg
+P0118	Kylvätsketemperaturgivare 1 – krets hög
+P0119	Kylvätsketemperaturgivare 1 – krets sporadisk
+P011A	Kylvätsketemperaturgivare 1/2 – korrelation
+P0120	Trottel-/pedallägesgivare/-brytare A – krets
+P0121	Trottel-/pedallägesgivare/-brytare A – krets område/prestanda
+P0122	Trottel-/pedallägesgivare/-brytare A – krets låg
+P0123	Trottel-/pedallägesgivare/-brytare A – krets hög
+P0124	Trottel-/pedallägesgivare/-brytare A – krets sporadisk
+P0125	För låg kylvätsketemperatur för sluten bränslereglering
+P0126	För låg kylvätsketemperatur för stabil drift
+P0127	Insugsluft – temperatur för hög
+P0128	Termostat (kylvätsketemperatur under termostatens regleringstemperatur)
+P0129	Barometertryck – för låg
+P012A	Turbo-/kompressorinloppstrycksgivare – krets
+P012B	Turbo-/kompressorinloppstrycksgivare – krets område/prestanda
+P012C	Turbo-/kompressorinloppstrycksgivare – krets låg
+P012D	Turbo-/kompressorinloppstrycksgivare – krets hög
+P012E	Turbo-/kompressorinloppstrycksgivare – krets sporadisk/instabil
+P0130	Lambdasond – krets, bank 1 givare 1
+P0131	Lambdasond – krets låg spänning, bank 1 givare 1
+P0132	Lambdasond – krets hög spänning, bank 1 givare 1
+P0133	Lambdasond – krets långsam respons, bank 1 givare 1
+P0134	Lambdasond – krets ingen aktivitet upptäckt, bank 1 givare 1
+P0135	Lambdasondvärmare – krets, bank 1 givare 1
+P0136	Lambdasond – krets, bank 1 givare 2
+P0137	Lambdasond – krets låg spänning, bank 1 givare 2
+P0138	Lambdasond – krets hög spänning, bank 1 givare 2
+P0139	Lambdasond – krets långsam respons, bank 1 givare 2
+P0140	Lambdasond – krets ingen aktivitet upptäckt, bank 1 givare 2
+P0141	Lambdasondvärmare – krets, bank 1 givare 2
+P0142	Lambdasond – krets, bank 1 givare 3
+P0143	Lambdasond – krets låg spänning, bank 1 givare 3
+P0144	Lambdasond – krets hög spänning, bank 1 givare 3
+P0145	Lambdasond – krets långsam respons, bank 1 givare 3
+P0146	Lambdasond – krets ingen aktivitet upptäckt, bank 1 givare 3
+P0147	Lambdasondvärmare – krets, bank 1 givare 3
+P0148	Bränsletillförsel – fel
+P0149	Bränsletidsinställning – fel
+P0150	Lambdasond – krets, bank 2 givare 1
+P0151	Lambdasond – krets låg spänning, bank 2 givare 1
+P0152	Lambdasond – krets hög spänning, bank 2 givare 1
+P0153	Lambdasond – krets långsam respons, bank 2 givare 1
+P0154	Lambdasond – krets ingen aktivitet upptäckt, bank 2 givare 1
+P0155	Lambdasondvärmare – krets, bank 2 givare 1
+P0156	Lambdasond – krets, bank 2 givare 2
+P0157	Lambdasond – krets låg spänning, bank 2 givare 2
+P0158	Lambdasond – krets hög spänning, bank 2 givare 2
+P0159	Lambdasond – krets långsam respons, bank 2 givare 2
+P0160	Lambdasond – krets ingen aktivitet upptäckt, bank 2 givare 2
+P0161	Lambdasondvärmare – krets, bank 2 givare 2
+P0162	Lambdasond – krets, bank 2 givare 3
+P0163	Lambdasond – krets låg spänning, bank 2 givare 3
+P0164	Lambdasond – krets hög spänning, bank 2 givare 3
+P0165	Lambdasond – krets långsam respons, bank 2 givare 3
+P0166	Lambdasond – krets ingen aktivitet upptäckt, bank 2 givare 3
+P0167	Lambdasondvärmare – krets, bank 2 givare 3
+P0168	Bränsle – temperatur för hög
+P0169	Felaktig bränslesammansättning
+P0170	Bränsletrim, bank 1
+P0171	Blandningen är för mager, bank 1
+P0172	Blandningen är för fet, bank 1
+P0173	Bränsletrim, bank 2
+P0174	Blandningen är för mager, bank 2
+P0175	Blandningen är för fet, bank 2
+P0176	Bränslesammansättningsgivare – krets
+P0177	Bränslesammansättningsgivare – krets område/prestanda
+P0178	Bränslesammansättningsgivare – krets låg
+P0179	Bränslesammansättningsgivare – krets hög
+P0180	Bränsletemperaturgivare A – krets
+P0181	Bränsletemperaturgivare A – krets område/prestanda
+P0182	Bränsletemperaturgivare A – krets låg
+P0183	Bränsletemperaturgivare A – krets hög
+P0184	Bränsletemperaturgivare A – krets sporadisk
+P0185	Bränsletemperaturgivare B – krets
+P0186	Bränsletemperaturgivare B – krets område/prestanda
+P0187	Bränsletemperaturgivare B – krets låg
+P0188	Bränsletemperaturgivare B – krets hög
+P0189	Bränsletemperaturgivare B – krets sporadisk
+P018A	Bränsletrycksgivare B – krets
+P018B	Bränsletrycksgivare B – krets område/prestanda
+P018C	Bränsletrycksgivare B – krets låg
+P018D	Bränsletrycksgivare B – krets hög
+P018E	Bränsletrycksgivare B – krets sporadisk/instabil
+P0190	Bränslerörstrycksgivare A – krets
+P0191	Bränslerörstrycksgivare A – krets område/prestanda
+P0192	Bränslerörstrycksgivare A – krets låg
+P0193	Bränslerörstrycksgivare A – krets hög
+P0194	Bränslerörstrycksgivare A – krets sporadisk/instabil
+P0195	Motoroljetemperaturgivare
+P0196	Motoroljetemperaturgivare – område/prestanda
+P0197	Motoroljetemperaturgivare – låg
+P0198	Motoroljetemperaturgivare – hög
+P0199	Motoroljetemperaturgivare – sporadisk
+P0200	Insprutare – krets avbrott
+P0201	Insprutare – krets avbrott, cylinder 1
+P0202	Insprutare – krets avbrott, cylinder 2
+P0203	Insprutare – krets avbrott, cylinder 3
+P0204	Insprutare – krets avbrott, cylinder 4
+P0205	Insprutare – krets avbrott, cylinder 5
+P0206	Insprutare – krets avbrott, cylinder 6
+P0207	Insprutare – krets avbrott, cylinder 7
+P0208	Insprutare – krets avbrott, cylinder 8
+P0209	Insprutare – krets avbrott, cylinder 9
+P020A	Insprutningstidpunkt, cylinder 1
+P020B	Insprutningstidpunkt, cylinder 2
+P020C	Insprutningstidpunkt, cylinder 3
+P020D	Insprutningstidpunkt, cylinder 4
+P020E	Insprutningstidpunkt, cylinder 5
+P020F	Insprutningstidpunkt, cylinder 6
+P0210	Insprutare – krets avbrott, cylinder 10
+P0211	Insprutare – krets avbrott, cylinder 11
+P0212	Insprutare – krets avbrott, cylinder 12
+P0213	Kallstartsinsprutare 1
+P0214	Kallstartsinsprutare 2
+P0215	Motoravstängningsmagnetventil
+P0216	Insprutare/insprutningstidpunkt – styrkrets
+P0217	Övertemperatur i kylvätskan
+P0218	Växellådsolja – övertemperatur
+P0219	Motor – övervarv
+P021A	Insprutningstidpunkt, cylinder 7
+P021B	Insprutningstidpunkt, cylinder 8
+P021C	Insprutningstidpunkt, cylinder 9
+P021D	Insprutningstidpunkt, cylinder 10
+P021E	Insprutningstidpunkt, cylinder 11
+P021F	Insprutningstidpunkt, cylinder 12
+P0220	Trottel-/pedallägesgivare/-brytare B – krets
+P0221	Trottel-/pedallägesgivare/-brytare B – krets område/prestanda
+P0222	Trottel-/pedallägesgivare/-brytare B – krets låg
+P0223	Trottel-/pedallägesgivare/-brytare B – krets hög
+P0224	Trottel-/pedallägesgivare/-brytare B – krets sporadisk
+P0225	Trottel-/pedallägesgivare/-brytare C – krets
+P0226	Trottel-/pedallägesgivare/-brytare C – krets område/prestanda
+P0227	Trottel-/pedallägesgivare/-brytare C – krets låg
+P0228	Trottel-/pedallägesgivare/-brytare C – krets hög
+P0229	Trottel-/pedallägesgivare/-brytare C – krets sporadisk
+P022A	Laddluftkylarbypassstyrning A – krets avbrott
+P022B	Laddluftkylarbypassstyrning A – krets låg
+P022C	Laddluftkylarbypassstyrning A – krets hög
+P022D	Laddluftkylarbypassstyrning B – krets avbrott
+P022E	Laddluftkylarbypassstyrning B – krets låg
+P022F	Laddluftkylarbypassstyrning B – krets hög
+P0230	Bränslepump – primärkrets
+P0231	Bränslepump sekundär – krets låg
+P0232	Bränslepump sekundär – krets hög
+P0233	Bränslepump sekundär – krets sporadisk
+P0234	Turbo/kompressor för högt laddtryck – tillstånd
+P0235	Turbo-/kompressorladdtrycksgivare A – krets
+P0236	Turbo-/kompressorladdtrycksgivare A – krets område/prestanda
+P0237	Turbo-/kompressorladdtrycksgivare A – krets låg
+P0238	Turbo-/kompressorladdtrycksgivare A – krets hög
+P0239	Turbo-/kompressorladdtrycksgivare B – krets
+P023A	Laddluftkylarkylvätskepump – styrkrets avbrott
+P023B	Laddluftkylarkylvätskepump – styrkrets låg
+P023C	Laddluftkylarkylvätskepump – styrkrets hög
+P023D	Insugstryck (MAP) – korrelation med laddtrycksgivare A
+P023E	Insugstryck (MAP) – korrelation med laddtrycksgivare B
+P0240	Turbo-/kompressorladdtrycksgivare B – krets område/prestanda
+P0241	Turbo-/kompressorladdtrycksgivare B – krets låg
+P0242	Turbo-/kompressorladdtrycksgivare B – krets hög
+P0243	Turbo-/kompressorwastegatemagnetventil A
+P0244	Turbo-/kompressorwastegatemagnetventil A – område/prestanda
+P0245	Turbo-/kompressorwastegatemagnetventil A – låg
+P0246	Turbo-/kompressorwastegatemagnetventil A – hög
+P0247	Turbo-/kompressorwastegatemagnetventil B
+P0248	Turbo-/kompressorwastegatemagnetventil B – område/prestanda
+P0249	Turbo-/kompressorwastegatemagnetventil B – låg
+P024A	Laddluftkylarbypassstyrning A – område/prestanda
+P024B	Laddluftkylarbypassstyrning A – fastnat
+P024C	Laddluftkylarbypasslägesgivare A – krets
+P024D	Laddluftkylarbypasslägesgivare A – krets område/prestanda
+P024E	Laddluftkylarbypasslägesgivare A – krets låg
+P024F	Laddluftkylarbypasslägesgivare A – krets hög
+P0250	Turbo-/kompressorwastegatemagnetventil B – hög
+P0251	Insprutningspump-bränsledoseringsstyrning A (kamaxel/rotor/insprutare)
+P0252	Insprutningspump-bränsledoseringsstyrning A – område/prestanda (kamaxel/rotor/insprutare)
+P0253	Insprutningspump-bränsledoseringsstyrning A – låg (kamaxel/rotor/insprutare)
+P0254	Insprutningspump-bränsledoseringsstyrning A – hög (kamaxel/rotor/insprutare)
+P0255	Insprutningspump-bränsledoseringsstyrning A – sporadisk (kamaxel/rotor/insprutare)
+P0256	Insprutningspump-bränsledoseringsstyrning B (kamaxel/rotor/insprutare)
+P0257	Insprutningspump-bränsledoseringsstyrning B – område/prestanda (kamaxel/rotor/insprutare)
+P0258	Insprutningspump-bränsledoseringsstyrning B – låg (kamaxel/rotor/insprutare)
+P0259	Insprutningspump-bränsledoseringsstyrning B – hög (kamaxel/rotor/insprutare)
+P025A	Bränslepumpmodul – styrkrets avbrott
+P025B	Bränslepumpmodul – styrkrets område/prestanda
+P025C	Bränslepumpmodul – styrkrets låg
+P025D	Bränslepumpmodul – styrkrets hög
+P0260	Insprutningspump-bränsledoseringsstyrning B – sporadisk (kamaxel/rotor/insprutare)
+P0261	Insprutare – krets låg, cylinder 1
+P0262	Insprutare – krets hög, cylinder 1
+P0263	Bidrag/balans, cylinder 1
+P0264	Insprutare – krets låg, cylinder 2
+P0265	Insprutare – krets hög, cylinder 2
+P0266	Bidrag/balans, cylinder 2
+P0267	Insprutare – krets låg, cylinder 3
+P0268	Insprutare – krets hög, cylinder 3
+P0269	Bidrag/balans, cylinder 3
+P0270	Insprutare – krets låg, cylinder 4
+P0271	Insprutare – krets hög, cylinder 4
+P0272	Bidrag/balans, cylinder 4
+P0273	Insprutare – krets låg, cylinder 5
+P0274	Insprutare – krets hög, cylinder 5
+P0275	Bidrag/balans, cylinder 5
+P0276	Insprutare – krets låg, cylinder 6
+P0277	Insprutare – krets hög, cylinder 6
+P0278	Bidrag/balans, cylinder 6
+P0279	Insprutare – krets låg, cylinder 7
+P0280	Insprutare – krets hög, cylinder 7
+P0281	Bidrag/balans, cylinder 7
+P0282	Insprutare – krets låg, cylinder 8
+P0283	Insprutare – krets hög, cylinder 8
+P0284	Bidrag/balans, cylinder 8
+P0285	Insprutare – krets låg, cylinder 9
+P0286	Insprutare – krets hög, cylinder 9
+P0287	Bidrag/balans, cylinder 9
+P0288	Insprutare – krets låg, cylinder 10
+P0289	Insprutare – krets hög, cylinder 10
+P0290	Bidrag/balans, cylinder 10
+P0291	Insprutare – krets låg, cylinder 11
+P0292	Insprutare – krets hög, cylinder 11
+P0293	Bidrag/balans, cylinder 11
+P0294	Insprutare – krets låg, cylinder 12
+P0295	Insprutare – krets hög, cylinder 12
+P0296	Bidrag/balans, cylinder 12
+P0297	Fordon – övervarv
+P0298	Motorolja – övertemperatur
+P0299	Turbo/kompressor för lågt laddtryck
+P0300	Feltändning upptäckt i slumpmässiga/flera cylindrar
+P0301	Feltändning upptäckt i cylinder 1
+P0302	Feltändning upptäckt i cylinder 2
+P0303	Feltändning upptäckt i cylinder 3
+P0304	Feltändning upptäckt i cylinder 4
+P0305	Feltändning upptäckt i cylinder 5
+P0306	Feltändning upptäckt i cylinder 6
+P0307	Feltändning upptäckt i cylinder 7
+P0308	Feltändning upptäckt i cylinder 8
+P0309	Feltändning upptäckt i cylinder 9
+P0310	Feltändning upptäckt i cylinder 10
+P0311	Feltändning upptäckt i cylinder 11
+P0312	Feltändning upptäckt i cylinder 12
+P0313	Feltändning – upptäckt vid låg bränslenivå
+P0314	Enskildcylinderfeltändning (cylinder ej angiven)
+P0315	Vevaxellägessystemvariation – inte inlärd
+P0316	Motorfeltändning – upptäckt vid start (första 1000 varven)
+P0317	Ojämnvägshårdvara – saknas
+P0318	Ojämnvägsgivare A signal – krets
+P0319	Ojämnvägsgivare B signal – krets
+P0320	Tändnings-/fördelarmotorvarvtalsingång – krets
+P0321	Tändnings-/fördelarmotorvarvtalsingång – krets område/prestanda
+P0322	Tändnings-/fördelarmotorvarvtalsingång – krets ingen signal
+P0323	Tändnings-/fördelarmotorvarvtalsingång – krets sporadisk
+P0324	Knackregleringssystem – fel
+P0325	Knackgivare 1 – krets, bank 1 eller enda givare
+P0326	Knackgivare 1 – krets område/prestanda, bank 1 eller enda givare
+P0327	Knackgivare 1 – krets låg, bank 1 eller enda givare
+P0328	Knackgivare 1 – krets hög, bank 1 eller enda givare
+P0329	Knackgivare 1 – krets sporadisk, bank 1 eller enda givare
+P0330	Knackgivare 2 – krets, bank 2
+P0331	Knackgivare 2 – krets område/prestanda, bank 2
+P0332	Knackgivare 2 – krets låg, bank 2
+P0333	Knackgivare 2 – krets hög, bank 2
+P0334	Knackgivare 2 – krets sporadisk, bank 2
+P0335	Vevaxellägesgivare A – krets
+P0336	Vevaxellägesgivare A – krets område/prestanda
+P0337	Vevaxellägesgivare A – krets låg
+P0338	Vevaxellägesgivare A – krets hög
+P0339	Vevaxellägesgivare A – krets sporadisk
+P0340	Kamaxellägesgivare A – krets, bank 1 eller enda givare
+P0341	Kamaxellägesgivare A – krets område/prestanda, bank 1 eller enda givare
+P0342	Kamaxellägesgivare A – krets låg, bank 1 eller enda givare
+P0343	Kamaxellägesgivare A – krets hög, bank 1 eller enda givare
+P0344	Kamaxellägesgivare A – krets sporadisk, bank 1 eller enda givare
+P0345	Kamaxellägesgivare A – krets, bank 2
+P0346	Kamaxellägesgivare A – krets område/prestanda, bank 2
+P0347	Kamaxellägesgivare A – krets låg, bank 2
+P0348	Kamaxellägesgivare A – krets hög, bank 2
+P0349	Kamaxellägesgivare A – krets sporadisk, bank 2
+P0350	Tändspole primär/sekundär – krets
+P0351	Tändspole A primär/sekundär – krets
+P0352	Tändspole B primär/sekundär – krets
+P0353	Tändspole C primär/sekundär – krets
+P0354	Tändspole D primär/sekundär – krets
+P0355	Tändspole E primär/sekundär – krets
+P0356	Tändspole F primär/sekundär – krets
+P0357	Tändspole G primär/sekundär – krets
+P0358	Tändspole H primär/sekundär – krets
+P0359	Tändspole I primär/sekundär – krets
+P0360	Tändspole J primär/sekundär – krets
+P0361	Tändspole K primär/sekundär – krets
+P0362	Tändspole L primär/sekundär – krets
+P0363	Feltändning – upptäckt – bränsletillförsel avstängd
+P0365	Kamaxellägesgivare B – krets, bank 1
+P0366	Kamaxellägesgivare B – krets område/prestanda, bank 1
+P0367	Kamaxellägesgivare B – krets låg, bank 1
+P0368	Kamaxellägesgivare B – krets hög, bank 1
+P0369	Kamaxellägesgivare B – krets sporadisk, bank 1
+P0370	Tändreferens – högupplöst signal A
+P0371	Tändreferens – högupplöst signal A för många pulser
+P0372	Tändreferens – högupplöst signal A för få pulser
+P0373	Tändreferens – högupplöst signal A sporadiska/instabila pulser
+P0374	Tändreferens – högupplöst signal A inga pulser
+P0375	Tändreferens – högupplöst signal B
+P0376	Tändreferens – högupplöst signal B för många pulser
+P0377	Tändreferens – högupplöst signal B för få pulser
+P0378	Tändreferens – högupplöst signal B sporadiska/instabila pulser
+P0379	Tändreferens – högupplöst signal B inga pulser
+P0380	Glödstift/värmare – krets A
+P0381	Glödstifts-/värmarindikator – krets
+P0382	Glödstift/värmare – krets B
+P0383	Glödstiftsstyrenhet – styrkrets låg
+P0384	Glödstiftsstyrenhet – styrkrets hög
+P0385	Vevaxellägesgivare B – krets
+P0386	Vevaxellägesgivare B – krets område/prestanda
+P0387	Vevaxellägesgivare B – krets låg
+P0388	Vevaxellägesgivare B – krets hög
+P0389	Vevaxellägesgivare B – krets sporadisk
+P0390	Kamaxellägesgivare B – krets, bank 2
+P0391	Kamaxellägesgivare B – krets område/prestanda, bank 2
+P0392	Kamaxellägesgivare B – krets låg, bank 2
+P0393	Kamaxellägesgivare B – krets hög, bank 2
+P0394	Kamaxellägesgivare B – krets sporadisk, bank 2
+P0400	EGR-flöde
+P0401	EGR-flöde – otillräcklig
+P0402	EGR-flöde för stor – upptäckt
+P0403	EGR – styrkrets
+P0404	EGR – styrkrets område/prestanda
+P0405	EGR-givare A – krets låg
+P0406	EGR-givare A – krets hög
+P0407	EGR-givare B – krets låg
+P0408	EGR-givare B – krets hög
+P0409	EGR-givare A – krets
+P040A	EGR-temperaturgivare A – krets
+P040B	EGR-temperaturgivare A – krets område/prestanda
+P040C	EGR-temperaturgivare A – krets låg
+P040D	EGR-temperaturgivare A – krets hög
+P040E	EGR-temperaturgivare A – krets sporadisk/instabil
+P040F	EGR-temperaturgivare A/B – korrelation
+P0410	Sekundärluftsystem
+P0411	Sekundärluftsystem – felaktigt flöde upptäckt
+P0412	Sekundärluftomkopplingsventil A – krets
+P0413	Sekundärluftomkopplingsventil A – krets avbrott
+P0414	Sekundärluftomkopplingsventil A – krets kortsluten
+P0415	Sekundärluftomkopplingsventil B – krets
+P0416	Sekundärluftomkopplingsventil B – krets avbrott
+P0417	Sekundärluftomkopplingsventil B – krets kortsluten
+P0418	Sekundärluftstyrning A – krets
+P0419	Sekundärluftstyrning B – krets
+P041A	EGR-temperaturgivare B – krets
+P041B	EGR-temperaturgivare B – krets område/prestanda
+P041C	EGR-temperaturgivare B – krets låg
+P041D	EGR-temperaturgivare B – krets hög
+P041E	EGR-temperaturgivare B – krets sporadisk/instabil
+P0420	Katalysatorns effektivitet under gränsvärdet, bank 1
+P0421	Uppvärmnings-katalysatoreffektivitet – under gränsvärde, bank 1
+P0422	Huvudkatalysatoreffektivitet – under gränsvärde, bank 1
+P0423	Katalysatoreffektivitet – under gränsvärde, bank 1
+P0424	Katalysatortemperatur – under gränsvärde, bank 1
+P0425	Katalysatortemperaturgivare – krets, bank 1 givare 1
+P0426	Katalysatortemperaturgivare – krets område/prestanda, bank 1 givare 1
+P0427	Katalysatortemperaturgivare – krets låg, bank 1 givare 1
+P0428	Katalysatortemperaturgivare – krets hög, bank 1 givare 1
+P0429	Katalysatorvärmare – styrkrets, bank 1
+P042A	Katalysatortemperaturgivare – krets, bank 1 givare 2
+P042B	Katalysatortemperaturgivare – krets område/prestanda, bank 1 givare 2
+P042C	Katalysatortemperaturgivare – krets låg, bank 1 givare 2
+P042D	Katalysatortemperaturgivare – krets hög, bank 1 givare 2
+P0430	Katalysatorsystemeffektivitet – under gränsvärde, bank 2
+P0431	Uppvärmnings-katalysatoreffektivitet – under gränsvärde, bank 2
+P0432	Huvudkatalysatoreffektivitet – under gränsvärde, bank 2
+P0433	Katalysatoreffektivitet – under gränsvärde, bank 2
+P0434	Katalysatortemperatur – under gränsvärde, bank 2
+P0435	Katalysatortemperaturgivare – krets, bank 2 givare 1
+P0436	Katalysatortemperaturgivare – krets område/prestanda, bank 2 givare 1
+P0437	Katalysatortemperaturgivare – krets låg, bank 2 givare 1
+P0438	Katalysatortemperaturgivare – krets hög, bank 2 givare 1
+P0439	Katalysatorvärmare – styrkrets, bank 2
+P043A	Katalysatortemperaturgivare – krets, bank 2 givare 2
+P043B	Katalysatortemperaturgivare – krets område/prestanda, bank 2 givare 2
+P043C	Katalysatortemperaturgivare – krets låg, bank 2 givare 2
+P043D	Katalysatortemperaturgivare – krets hög, bank 2 givare 2
+P043E	EVAP-läcktestreferensstrypning – lågt flöde
+P043F	EVAP-läcktestreferensstrypning – högt flöde
+P0440	Avdunstningssystem (EVAP)
+P0441	Avdunstningssystem (EVAP) – felaktigt spolflöde
+P0442	EVAP-läcka – upptäckt (liten läcka)
+P0443	EVAP-spolventil – krets
+P0444	EVAP-spolventil – krets avbrott
+P0445	EVAP-spolventil – krets kortsluten
+P0446	EVAP-ventilation – styrkrets
+P0447	EVAP-ventilation – styrkrets avbrott
+P0448	EVAP-ventilation – styrkrets kortsluten
+P0449	EVAP-ventilationsventil/-magnetventil – krets
+P0450	EVAP-trycksgivare/-brytare
+P0451	EVAP-trycksgivare/-brytare – område/prestanda
+P0452	EVAP-trycksgivare/-brytare – låg
+P0453	EVAP-trycksgivare/-brytare – hög
+P0454	EVAP-trycksgivare/-brytare – sporadisk
+P0455	EVAP-läcka – upptäckt (stor läcka)
+P0456	EVAP-läcka – upptäckt (mycket liten läcka)
+P0457	EVAP-läcka – upptäckt (tanklock löst/saknas)
+P0458	EVAP-spolventil – krets låg
+P0459	EVAP-spolventil – krets hög
+P0460	Bränslenivågivare A – krets
+P0461	Bränslenivågivare A – krets område/prestanda
+P0462	Bränslenivågivare A – krets låg
+P0463	Bränslenivågivare A – krets hög
+P0464	Bränslenivågivare A – krets sporadisk
+P0465	EVAP-spolflödesgivare – krets
+P0466	EVAP-spolflödesgivare – krets område/prestanda
+P0467	EVAP-spolflödesgivare – krets låg
+P0468	EVAP-spolflödesgivare – krets hög
+P0469	EVAP-spolflödesgivare – krets sporadisk
+P0470	Avgastrycksgivare A – krets
+P0471	Avgastrycksgivare A – krets område/prestanda
+P0472	Avgastrycksgivare A – krets låg
+P0473	Avgastrycksgivare A – krets hög
+P0474	Avgastrycksgivare A – krets sporadisk/instabil
+P0475	Avgastrycksstyrventil
+P0476	Avgastrycksstyrventil – område/prestanda
+P0477	Avgastrycksstyrventil – låg
+P0478	Avgastrycksstyrventil – hög
+P0479	Avgastrycksstyrventil – sporadisk
+P047A	Avgastrycksgivare B – krets
+P047B	Avgastrycksgivare B – krets område/prestanda
+P047C	Avgastrycksgivare B – krets låg
+P047D	Avgastrycksgivare B – krets hög
+P047E	Avgastrycksgivare B – krets sporadisk/instabil
+P0480	Kylfläkt 1 – styrkrets
+P0481	Fläkt 2 – styrkrets
+P0482	Fläkt 3 – styrkrets
+P0483	Fläktrimlighetskontroll
+P0484	Fläkt – krets överström
+P0485	Fläktström/-jord – krets
+P0486	EGR-givare B – krets
+P0487	EGR-trottel – styrkrets A avbrott
+P0488	EGR-trottel – styrkrets A område/prestanda
+P0489	EGR – styrkrets A låg
+P0490	EGR – styrkrets A hög
+P0491	Sekundärluftsystem – otillräckligt flöde, bank 1
+P0492	Sekundärluftsystem – otillräckligt flöde, bank 2
+P0493	Fläkt – övervarv
+P0494	Fläkthastighet – låg
+P0495	Fläkthastighet – hög
+P0496	Avdunstningssystem (EVAP) – för högt spolflöde
+P0497	Avdunstningssystem (EVAP) – för lågt spolflöde
+P0498	EVAP-ventilationsventil – styrkrets låg
+P0499	EVAP-ventilationsventil – styrkrets hög
+P0500	Hastighetsgivare A
+P0501	Hastighetsgivare A – område/prestanda
+P0502	Hastighetsgivare A – krets låg
+P0503	Hastighetsgivare A – sporadisk/instabil/hög
+P0504	Bromsbrytare A/B – korrelation
+P0505	Tomgångsreglering
+P0506	Tomgångsvarvtal lägre än förväntat
+P0507	Tomgångsvarvtal högre än förväntat
+P0508	Tomgångsreglering – krets låg
+P0509	Tomgångsreglering – krets hög
+P050A	Kallstartstomgångsreglering – prestanda
+P050B	Kallstartständläge – prestanda
+P050C	Kallstartskylvätsketemperatur – prestanda
+P050D	Kallstart ojämn tomgång
+P0510	Tomgångslägesbrytare
+P0511	Tomgångsluft – styrkrets
+P0512	Startmotor – begäranskrets
+P0513	Fel nyckel för startspärr
+P0514	Batteritemperaturgivare – krets område/prestanda
+P0515	Batteritemperaturgivare – krets
+P0516	Batteritemperaturgivare – krets låg
+P0517	Batteritemperaturgivare – krets hög
+P0518	Tomgångsluft – styrkrets sporadisk
+P0519	Tomgångsreglering – prestanda
+P0520	Motoroljetrycksgivare/-brytare – krets
+P0521	Motoroljetrycksgivare/-brytare – område/prestanda
+P0522	Motoroljetrycksgivare/-brytare – låg
+P0523	Motoroljetrycksgivare/-brytare – hög
+P0524	Motoroljetryck – för låg
+P0525	Farthållarservo – styrkrets område/prestanda
+P0526	Fläkthastighetsgivare – krets
+P0527	Fläkthastighetsgivare – krets område/prestanda
+P0528	Fläkthastighetsgivare – krets ingen signal
+P0529	Fläkthastighetsgivare – krets sporadisk
+P0530	Köldmedietrycksgivare A (AC) – krets
+P0531	Köldmedietrycksgivare A (AC) – krets område/prestanda
+P0532	Köldmedietrycksgivare A (AC) – krets låg
+P0533	Köldmedietrycksgivare A (AC) – krets hög
+P0534	Förlust av köldmedium i AC-systemet
+P0535	AC-förångartemperaturgivare – krets
+P0536	AC-förångartemperaturgivare – krets område/prestanda
+P0537	AC-förångartemperaturgivare – krets låg
+P0538	AC-förångartemperaturgivare – krets hög
+P0539	AC-förångartemperaturgivare – krets sporadisk
+P053A	Vevhusventilationsvärmare – styrkrets avbrott
+P053B	Vevhusventilationsvärmare – styrkrets låg
+P053C	Vevhusventilationsvärmare – styrkrets hög
+P0540	Insugsluftsvärmare A – krets
+P0541	Insugsluftsvärmare A – krets låg
+P0542	Insugsluftsvärmare A – krets hög
+P0543	Insugsluftsvärmare A – krets avbrott
+P0544	Avgastemperaturgivare – krets, bank 1 givare 1
+P0545	Avgastemperaturgivare – krets låg, bank 1 givare 1
+P0546	Avgastemperaturgivare – krets hög, bank 1 givare 1
+P0547	Avgastemperaturgivare – krets, bank 2 givare 1
+P0548	Avgastemperaturgivare – krets låg, bank 2 givare 1
+P0549	Avgastemperaturgivare – krets hög, bank 2 givare 1
+P0550	Servostyrningstrycksgivare/-brytare – krets
+P0551	Servostyrningstrycksgivare/-brytare – krets område/prestanda
+P0552	Servostyrningstrycksgivare/-brytare – krets låg
+P0553	Servostyrningstrycksgivare/-brytare – krets hög
+P0554	Servostyrningstrycksgivare/-brytare – krets sporadisk
+P0555	Bromsservotrycksgivare – krets
+P0556	Bromsservotrycksgivare – krets område/prestanda
+P0557	Bromsservotrycksgivare – krets låg
+P0558	Bromsservotrycksgivare – krets hög
+P0559	Bromsservotrycksgivare – krets sporadisk
+P0560	Systemspänning
+P0561	Systemspänning – instabil
+P0562	Systemspänning – låg
+P0563	Systemspänning – hög
+P0564	Farthållarmultifunktionsingång A – krets
+P0565	Farthållare, signal ”på”
+P0566	Farthållare, signal ”av”
+P0567	Farthållare, signal ”återuppta”
+P0568	Farthållare, signal ”ställ”
+P0569	Farthållare, signal ”frirullning”
+P056A	Farthållare, signal ”öka avstånd”
+P056B	Farthållare, signal ”minska avstånd”
+P0570	Farthållare, signal ”accelerera”
+P0571	Bromsbrytare A – krets
+P0572	Bromsbrytare A – krets låg
+P0573	Bromsbrytare A – krets hög
+P0574	Farthållarsystem – fordonshastighet för hög
+P0575	Farthållaringång – krets
+P0576	Farthållaringång – krets låg
+P0577	Farthållaringång – krets hög
+P0578	Farthållarmultifunktionsingång A – krets fastnat
+P0579	Farthållarmultifunktionsingång A – krets område/prestanda
+P0580	Farthållarmultifunktionsingång A – krets låg
+P0581	Farthållarmultifunktionsingång A – krets hög
+P0582	Farthållarvakuum – styrkrets avbrott
+P0583	Farthållarvakuum – styrkrets låg
+P0584	Farthållarvakuum – styrkrets hög
+P0585	Farthållarmultifunktionsingång A/B – korrelation
+P0586	Farthållarventilation – styrkrets avbrott
+P0587	Farthållarventilation – styrkrets låg
+P0588	Farthållarventilation – styrkrets hög
+P0589	Farthållarmultifunktionsingång B – krets
+P0590	Farthållarmultifunktionsingång B – krets fastnat
+P0591	Farthållarmultifunktionsingång B – krets område/prestanda
+P0592	Farthållarmultifunktionsingång B – krets låg
+P0593	Farthållarmultifunktionsingång B – krets hög
+P0594	Farthållarservo – styrkrets avbrott
+P0595	Farthållarservo – styrkrets låg
+P0596	Farthållarservo – styrkrets hög
+P0597	Termostatvärmare – styrkrets avbrott
+P0598	Termostatvärmare – styrkrets låg
+P0599	Termostatvärmare – styrkrets hög
+P0600	Seriell kommunikationslänk
+P0601	Styrenhet (intern): minneskontrollsumma – fel
+P0602	Styrenhetsprogrammering – fel
+P0603	Styrenhet (intern): permanent minne (KAM) – fel (KAM)
+P0604	Styrenhet (intern): arbetsminne (RAM) – fel (RAM)
+P0605	Styrenhet (intern): läsminne (ROM) – fel (ROM)
+P0606	ECM/PCM-processor
+P0607	Styrenhet – prestanda
+P0608	Styrenhets-VSS-utgång A
+P0609	Styrenhets-VSS-utgång B
+P060A	Styrenhet (intern): övervakningsprocessor – prestanda
+P060B	Styrenhet (intern): bearbetning A/D – prestanda
+P060C	Styrenhet (intern): huvudprocessor – prestanda
+P060D	Styrenhet (intern): gaspedalsläge – prestanda
+P060E	Styrenhet (intern): trottelläge – prestanda
+P060F	Styrenhet (intern): kylvätsketemperatur – prestanda
+P0610	Styrenhetsfordonsalternativ – fel
+P0611	Bränsleinsprutarstyrenhet – prestanda
+P0612	Bränsleinsprutarstyrenhetsrelä – styrning
+P0613	TCM-processor
+P0614	ECM/TCM är inte kompatibla
+P0615	Startmotorrelä – krets
+P0616	Startmotorrelä – krets låg
+P0617	Startmotorrelä – krets hög
+P0618	Alternativbränslestyrenhets-KAM – fel
+P0619	Alternativbränslestyrenhets-RAM/ROM – fel
+P061A	Styrenhet (intern): moment – prestanda
+P061B	Styrenhet (intern): momentberäkning – prestanda
+P061C	Styrenhet (intern): motorvarvtal – prestanda
+P061D	Styrenhet (intern): motorluftmassa – prestanda
+P061E	Styrenhet (intern): bromssignal – prestanda
+P061F	Styrenhet (intern): trottelställdonsstyrning – prestanda
+P0620	Generator – styrkrets
+P0621	Laddningslampa/L-klämma – krets
+P0622	Generatorfält/F-klämma – krets
+P0623	Laddningslampa – styrkrets
+P0624	Tanklockslampa – styrkrets
+P0625	Generatorfält/F-klämma – krets låg
+P0626	Generatorfält/F-klämma – krets hög
+P0627	Bränslepump A – styrkrets avbrott
+P0628	Bränslepump A – styrkrets låg
+P0629	Bränslepump A – styrkrets hög
+P062A	Bränslepump A – styrkrets område/prestanda
+P062B	Styrenhet (intern): bränsleinsprutare – styrning prestanda
+P062C	Styrenhet (intern): fordonshastighet – prestanda
+P062D	Bränsleinsprutarförar – krets prestanda, bank 1
+P062E	Bränsleinsprutarförar – krets prestanda, bank 2
+P062F	Styrenhet (intern): EEPROM – fel
+P0630	VIN – inte programmerad eller inkompatibel – ECM/PCM
+P0631	VIN – inte programmerad eller inkompatibel – TCM
+P0632	Vägmätare – inte programmerad – ECM/PCM
+P0633	Startspärrsnyckel – inte programmerad – ECM/PCM
+P0634	PCM/ECM/TCM intern – temperatur för hög
+P0635	Servostyrning – styrkrets
+P0636	Servostyrning – styrkrets låg
+P0637	Servostyrning – styrkrets hög
+P0638	Trottelställdon – styrning område/prestanda, bank 1
+P0639	Trottelställdon – styrning område/prestanda, bank 2
+P063A	Generatorspänningsmätning – krets
+P063B	Generatorspänningsmätning – krets område/prestanda
+P063C	Generatorspänningsmätning – krets låg
+P063D	Generatorspänningsmätning – krets hög
+P063E	Autokonfigurations-trottelingång – saknas
+P063F	Autokonfigurations-kylvätsketemperaturingång – saknas
+P0640	Insugsluftsvärmare – styrkrets
+P0641	Givarreferensspänning A – krets avbrott
+P0642	Givarreferensspänning A – krets låg
+P0643	Givarreferensspänning A – krets hög
+P0644	Förardisplay seriell kommunikation – krets
+P0645	AC-kopplingsrelä – styrkrets
+P0646	AC-kopplingsrelä – styrkrets låg
+P0647	AC-kopplingsrelä – styrkrets hög
+P0648	Startspärrslampa – styrkrets
+P0649	Farthållarlampa – styrkrets
+P0650	Motorlampa (MIL) – styrkrets (MIL)
+P0651	Givarreferensspänning B – krets avbrott
+P0652	Givarreferensspänning B – krets låg
+P0653	Givarreferensspänning B – krets hög
+P0654	Motorvarvtalsutgång – krets
+P0655	Motorvarmlamputgång – styrkrets
+P0656	Bränslenivåutgång – krets
+P0657	Ställdonsmatningsspänning A – krets avbrott
+P0658	Ställdonsmatningsspänning A – krets låg
+P0659	Ställdonsmatningsspänning A – krets hög
+P065A	Generatorsystem – prestanda
+P065B	Generator – styrkrets område/prestanda
+P0660	Insugsgrenrörsresonansventil – styrkrets avbrott, bank 1
+P0661	Insugsgrenrörsresonansventil – styrkrets låg, bank 1
+P0662	Insugsgrenrörsresonansventil – styrkrets hög, bank 1
+P0663	Insugsgrenrörsresonansventil – styrkrets avbrott, bank 2
+P0664	Insugsgrenrörsresonansventil – styrkrets låg, bank 2
+P0665	Insugsgrenrörsresonansventil – styrkrets hög, bank 2
+P0666	PCM/ECM/TCM intern temperaturgivare – krets
+P0667	PCM/ECM/TCM intern temperaturgivare – område/prestanda
+P0668	PCM/ECM/TCM intern temperaturgivare – krets låg
+P0669	PCM/ECM/TCM intern temperaturgivare – krets hög
+P066A	Glödstift 1 – styrkrets låg
+P066B	Glödstift 1 – styrkrets hög
+P066C	Glödstift 2 – styrkrets låg
+P066D	Glödstift 2 – styrkrets hög
+P066E	Glödstift 3 – styrkrets låg
+P066F	Glödstift 3 – styrkrets hög
+P0670	Glödstiftsstyrenhet – styrkrets avbrott
+P0671	Glödstift – krets avbrott, cylinder 1
+P0672	Glödstift – krets avbrott, cylinder 2
+P0673	Glödstift – krets avbrott, cylinder 3
+P0674	Glödstift – krets avbrott, cylinder 4
+P0675	Glödstift – krets avbrott, cylinder 5
+P0676	Glödstift – krets avbrott, cylinder 6
+P0677	Glödstift – krets avbrott, cylinder 7
+P0678	Glödstift – krets avbrott, cylinder 8
+P0679	Glödstift – krets avbrott, cylinder 9
+P067A	Glödstift 4 – styrkrets låg
+P067B	Glödstift 4 – styrkrets hög
+P067C	Glödstift 5 – styrkrets låg
+P067D	Glödstift 5 – styrkrets hög
+P067E	Glödstift 6 – styrkrets låg
+P067F	Glödstift 6 – styrkrets hög
+P0680	Glödstift – krets avbrott, cylinder 10
+P0681	Glödstift – krets avbrott, cylinder 11
+P0682	Glödstift – krets avbrott, cylinder 12
+P0683	Kommunikation mellan glödstiftsstyrenhet och PCM – krets
+P0684	Kommunikation mellan glödstiftsstyrenhet och PCM – krets område/prestanda
+P0685	ECM/PCM-strömrelä – styrkrets avbrott
+P0686	ECM/PCM-strömrelä – styrkrets låg
+P0687	ECM/PCM-strömrelä – styrkrets hög
+P0688	ECM/PCM-strömrelämätning – krets avbrott
+P0689	ECM/PCM-strömrelämätning – krets låg
+P068A	ECM/PCM-strömrelä strömlös – prestanda – för tidigt
+P068B	ECM/PCM-strömrelä strömlös – prestanda – för sent
+P068C	Glödstift 7 – styrkrets låg
+P068D	Glödstift 7 – styrkrets hög
+P068E	Glödstift 8 – styrkrets låg
+P068F	Glödstift 8 – styrkrets hög
+P0690	ECM/PCM-strömrelämätning – krets hög
+P0691	Fläkt 1 – styrkrets låg
+P0692	Fläkt 1 – styrkrets hög
+P0693	Fläkt 2 – styrkrets låg
+P0694	Fläkt 2 – styrkrets hög
+P0695	Fläkt 3 – styrkrets låg
+P0696	Fläkt 3 – styrkrets hög
+P0697	Givarreferensspänning C – krets avbrott
+P0698	Givarreferensspänning C – krets låg
+P0699	Givarreferensspänning C – krets hög
+P069A	Glödstift 9 – styrkrets låg
+P069B	Glödstift 9 – styrkrets hög
+P069C	Glödstift 10 – styrkrets låg
+P069D	Glödstift 10 – styrkrets hög
+P0700	Växellådsstyrsystem (begäran om motorlampa)
+P0701	Växellådsstyrsystem – område/prestanda
+P0702	Växellådsstyrsystem elektrisk
+P0703	Bromsbrytare B – krets
+P0704	Kopplingsbrytaringång – krets
+P0705	Växelväljarlägesgivare A – krets (ingång för växelväljare (PRNDL))
+P0706	Växelväljarlägesgivare A – krets område/prestanda
+P0707	Växelväljarlägesgivare A – krets låg
+P0708	Växelväljarlägesgivare A – krets hög
+P0709	Växelväljarlägesgivare A – krets sporadisk
+P070A	Växellådsoljenivågivare – krets
+P070B	Växellådsoljenivågivare – krets område/prestanda
+P070C	Växellådsoljenivågivare – krets låg
+P070D	Växellådsoljenivågivare – krets hög
+P070E	Växellådsoljenivågivare – krets sporadisk/instabil
+P070F	Växellådsoljenivå – för låg
+P0710	Växellådsoljetemperaturgivare A – krets
+P0711	Växellådsoljetemperaturgivare A – krets område/prestanda
+P0712	Växellådsoljetemperaturgivare A – krets låg
+P0713	Växellådsoljetemperaturgivare A – krets hög
+P0714	Växellådsoljetemperaturgivare A – krets sporadisk
+P0715	Ingångs-/turbinvarvtalsgivare A – krets
+P0716	Ingångs-/turbinvarvtalsgivare A – krets område/prestanda
+P0717	Ingångs-/turbinvarvtalsgivare A – krets ingen signal
+P0718	Ingångs-/turbinvarvtalsgivare A – krets sporadisk
+P0719	Bromsbrytare B – krets låg
+P071A	Växellådslägesbrytare A – krets
+P071B	Växellådslägesbrytare A – krets låg
+P071C	Växellådslägesbrytare A – krets hög
+P071D	Växellådslägesbrytare B – krets
+P071E	Växellådslägesbrytare B – krets låg
+P071F	Växellådslägesbrytare B – krets hög
+P0720	Utgångsvarvtalsgivare – krets
+P0721	Utgångsvarvtalsgivare – krets område/prestanda
+P0722	Utgångsvarvtalsgivare – krets ingen signal
+P0723	Utgångsvarvtalsgivare – krets sporadisk
+P0724	Bromsbrytare B – krets hög
+P0725	Motorvarvtalsingång – krets
+P0726	Motorvarvtalsingång – krets område/prestanda
+P0727	Motorvarvtalsingång – krets ingen signal
+P0728	Motorvarvtalsingång – krets sporadisk
+P0729	Växel 6 – fel utväxling
+P0730	Felaktig utväxling
+P0731	Växel 1 – fel utväxling
+P0732	Växel 2 – fel utväxling
+P0733	Växel 3 – fel utväxling
+P0734	Växel 4 – fel utväxling
+P0735	Växel 5 – fel utväxling
+P0736	Back – fel utväxling
+P0737	TCM-motorvarvtalsutgång – krets
+P0738	TCM-motorvarvtalsutgång – krets låg
+P0739	TCM-motorvarvtalsutgång – krets hög
+P0740	Momentomvandlarkoppling – krets avbrott
+P0741	Momentomvandlarkoppling – krets prestanda/fast i från-läge
+P0742	Momentomvandlarkoppling – krets fast i till-läge
+P0743	Momentomvandlarkoppling – krets elektrisk
+P0744	Momentomvandlarkoppling – krets sporadisk
+P0745	Tryckregleringsmagnetventil A
+P0746	Tryckregleringsmagnetventil A – prestanda/fast i från-läge
+P0747	Tryckregleringsmagnetventil A – fast i till-läge
+P0748	Tryckregleringsmagnetventil A elektrisk
+P0749	Tryckregleringsmagnetventil A – sporadisk
+P0750	Växlingsmagnetventil A
+P0751	Växlingsmagnetventil A – prestanda/fast i från-läge
+P0752	Växlingsmagnetventil A – fast i till-läge
+P0753	Växlingsmagnetventil A elektrisk
+P0754	Växlingsmagnetventil A – sporadisk
+P0755	Växlingsmagnetventil B
+P0756	Växlingsmagnetventil B – prestanda/fast i från-läge
+P0757	Växlingsmagnetventil B – fast i till-läge
+P0758	Växlingsmagnetventil B elektrisk
+P0759	Växlingsmagnetventil B – sporadisk
+P075A	Växlingsmagnetventil G
+P075B	Växlingsmagnetventil G – prestanda/fast i från-läge
+P075C	Växlingsmagnetventil G – fast i till-läge
+P075D	Växlingsmagnetventil G elektrisk
+P075E	Växlingsmagnetventil G – sporadisk
+P0760	Växlingsmagnetventil C
+P0761	Växlingsmagnetventil C – prestanda/fast i från-läge
+P0762	Växlingsmagnetventil C – fast i till-läge
+P0763	Växlingsmagnetventil C elektrisk
+P0764	Växlingsmagnetventil C – sporadisk
+P0765	Växlingsmagnetventil D
+P0766	Växlingsmagnetventil D – prestanda/fast i från-läge
+P0767	Växlingsmagnetventil D – fast i till-läge
+P0768	Växlingsmagnetventil D elektrisk
+P0769	Växlingsmagnetventil D – sporadisk
+P076A	Växlingsmagnetventil H
+P076B	Växlingsmagnetventil H – prestanda/fast i från-läge
+P076C	Växlingsmagnetventil H – fast i till-läge
+P076D	Växlingsmagnetventil H elektrisk
+P076E	Växlingsmagnetventil H – sporadisk
+P076F	Växel 7 – fel utväxling
+P0770	Växlingsmagnetventil E
+P0771	Växlingsmagnetventil E – prestanda/fast i från-läge
+P0772	Växlingsmagnetventil E – fast i till-läge
+P0773	Växlingsmagnetventil E elektrisk
+P0774	Växlingsmagnetventil E – sporadisk
+P0775	Tryckregleringsmagnetventil B
+P0776	Tryckregleringsmagnetventil B – prestanda/fast i från-läge
+P0777	Tryckregleringsmagnetventil B – fast i till-läge
+P0778	Tryckregleringsmagnetventil B elektrisk
+P0779	Tryckregleringsmagnetventil B – sporadisk
+P0780	Växling – fel
+P0781	Växling 1-2
+P0782	Växling 2-3
+P0783	Växling 3-4
+P0784	Växling 4-5
+P0785	Växlings-/tidsmagnetventil
+P0786	Växlings-/tidsmagnetventil – område/prestanda
+P0787	Växlings-/tidsmagnetventil – låg
+P0788	Växlings-/tidsmagnetventil – hög
+P0789	Växlings-/tidsmagnetventil – sporadisk
+P0790	Normal-/sportbrytare – krets
+P0791	Mellanaxelvarvtalsgivare A – krets
+P0792	Mellanaxelvarvtalsgivare A – krets område/prestanda
+P0793	Mellanaxelvarvtalsgivare A – krets ingen signal
+P0794	Mellanaxelvarvtalsgivare A – krets sporadisk
+P0795	Tryckregleringsmagnetventil C
+P0796	Tryckregleringsmagnetventil C – prestanda/fast i från-läge
+P0797	Tryckregleringsmagnetventil C – fast i till-läge
+P0798	Tryckregleringsmagnetventil C elektrisk
+P0799	Tryckregleringsmagnetventil C – sporadisk
+P0800	Fördelningslådestyrsystem (begäran om motorlampa)
+P0801	Backspärr – styrkrets
+P0802	Växellådsstyrsystem-MIL – begäranskrets avbrott
+P0803	Uppväxlings-/hoppväxlingsmagnetventil – styrkrets
+P0804	Uppväxlings-/hoppväxlingslampa – styrkrets
+P0805	Kopplingslägesgivare – krets
+P0806	Kopplingslägesgivare – krets område/prestanda
+P0807	Kopplingslägesgivare – krets låg
+P0808	Kopplingslägesgivare – krets hög
+P0809	Kopplingslägesgivare – krets sporadisk
+P080A	Kopplingsläge – inte inlärd
+P080B	Uppväxlings-/hoppväxlingsmagnetventil – styrkrets område/prestanda
+P080C	Uppväxlings-/hoppväxlingsmagnetventil – styrkrets låg
+P080D	Uppväxlings-/hoppväxlingsmagnetventil – styrkrets hög
+P0810	Kopplingsläge – styrning fel
+P0811	För stor slirning i koppling A
+P0812	Backingång – krets
+P0813	Backutgång – krets
+P0814	Växelväljarlägesdisplay – krets
+P0815	Uppväxlingsbrytare – krets
+P0816	Nedväxlingsbrytare – krets
+P0817	Startmotoravaktivering – krets avbrott
+P0818	Drivlinefrånkopplings-brytaringång – krets
+P0819	Upp-/nedväxlingsbrytare mot växelväljarläge – korrelation
+P081A	Startmotoravaktivering – krets låg
+P081B	Startmotoravaktivering – krets hög
+P081C	Parkeringsingång – krets
+P081D	Frilägesingång – krets
+P081E	För stor slirning i koppling B
+P0820	Växelspak X-Y lägesgivare – krets
+P0821	Växelspak X läge – krets
+P0822	Växelspak Y läge – krets
+P0823	Växelspak X läge – krets sporadisk
+P0824	Växelspak Y läge – krets sporadisk
+P0825	Växelspakstryck-/dragbrytare (växlingsförvarning)
+P0826	Upp-/nedväxlingsbrytare – krets
+P0827	Upp-/nedväxlingsbrytare – krets låg
+P0828	Upp-/nedväxlingsbrytare – krets hög
+P0829	Växling 5-6
+P0830	Kopplingspedalbrytare A – krets
+P0831	Kopplingspedalbrytare A – krets låg
+P0832	Kopplingspedalbrytare A – krets hög
+P0833	Kopplingspedalbrytare B – krets
+P0834	Kopplingspedalbrytare B – krets låg
+P0835	Kopplingspedalbrytare B – krets hög
+P0836	Fyrhjulsdriftsbrytare – krets (4WD)
+P0837	Fyrhjulsdriftsbrytare – krets område/prestanda (4WD)
+P0838	Fyrhjulsdriftsbrytare – krets låg (4WD)
+P0839	Fyrhjulsdriftsbrytare – krets hög (4WD)
+P083A	Växellådsoljetrycksgivare/-brytare G – krets
+P083B	Växellådsoljetrycksgivare/-brytare G – krets område/prestanda
+P083C	Växellådsoljetrycksgivare/-brytare G – krets låg
+P083D	Växellådsoljetrycksgivare/-brytare G – krets hög
+P083E	Växellådsoljetrycksgivare/-brytare G – krets sporadisk
+P083F	Kopplingspedalbrytare A/B – korrelation
+P0840	Växellådsoljetrycksgivare/-brytare A – krets
+P0841	Växellådsoljetrycksgivare/-brytare A – krets område/prestanda
+P0842	Växellådsoljetrycksgivare/-brytare A – krets låg
+P0843	Växellådsoljetrycksgivare/-brytare A – krets hög
+P0844	Växellådsoljetrycksgivare/-brytare A – krets sporadisk
+P0845	Växellådsoljetrycksgivare/-brytare B – krets
+P0846	Växellådsoljetrycksgivare/-brytare B – krets område/prestanda
+P0847	Växellådsoljetrycksgivare/-brytare B – krets låg
+P0848	Växellådsoljetrycksgivare/-brytare B – krets hög
+P0849	Växellådsoljetrycksgivare/-brytare B – krets sporadisk
+P084A	Växellådsoljetrycksgivare/-brytare H – krets
+P084B	Växellådsoljetrycksgivare/-brytare H – krets område/prestanda
+P084C	Växellådsoljetrycksgivare/-brytare H – krets låg
+P084D	Växellådsoljetrycksgivare/-brytare H – krets hög
+P084E	Växellådsoljetrycksgivare/-brytare H – krets sporadisk
+P0850	P/Nbrytaringång – krets
+P0851	P/Nbrytaringång – krets låg
+P0852	P/Nbrytaringång – krets hög
+P0853	Drivbrytaringång – krets
+P0854	Drivbrytaringång – krets låg
+P0855	Drivbrytaringång – krets hög
+P0856	Antispinningångssignal
+P0857	Antispinningångssignal – område/prestanda
+P0858	Antispinningångssignal – låg
+P0859	Antispinningångssignal – hög
+P085A	Växlingsmodul B kommunikation – krets
+P085B	Växlingsmodul B kommunikation – krets låg
+P085C	Växlingsmodul B kommunikation – krets hög
+P0860	Växlingsmodul A kommunikation – krets
+P0861	Växlingsmodul A kommunikation – krets låg
+P0862	Växlingsmodul A kommunikation – krets hög
+P0863	TCM-kommunikation – krets
+P0864	TCM-kommunikation – krets område/prestanda
+P0865	TCM-kommunikation – krets låg
+P0866	TCM-kommunikation – krets hög
+P0867	Växellådsoljetryck
+P0868	Växellådsoljetryck – låg
+P0869	Växellådsoljetryck – hög
+P0870	Växellådsoljetrycksgivare/-brytare C – krets
+P0871	Växellådsoljetrycksgivare/-brytare C – krets område/prestanda
+P0872	Växellådsoljetrycksgivare/-brytare C – krets låg
+P0873	Växellådsoljetrycksgivare/-brytare C – krets hög
+P0874	Växellådsoljetrycksgivare/-brytare C – krets sporadisk
+P0875	Växellådsoljetrycksgivare/-brytare D – krets
+P0876	Växellådsoljetrycksgivare/-brytare D – krets område/prestanda
+P0877	Växellådsoljetrycksgivare/-brytare D – krets låg
+P0878	Växellådsoljetrycksgivare/-brytare D – krets hög
+P0879	Växellådsoljetrycksgivare/-brytare D – krets sporadisk
+P0880	TCM-strömingångssignal
+P0881	TCM-strömingångssignal – område/prestanda
+P0882	TCM-strömingångssignal – låg
+P0883	TCM-strömingångssignal – hög
+P0884	TCM-strömingångssignal – sporadisk
+P0885	TCM-strömrelä – styrkrets avbrott
+P0886	TCM-strömrelä – styrkrets låg
+P0887	TCM-strömrelä – styrkrets hög
+P0888	TCM-strömrelämätning – krets
+P0889	TCM-strömrelämätning – krets område/prestanda
+P0890	TCM-strömrelämätning – krets låg
+P0891	TCM-strömrelämätning – krets hög
+P0892	TCM-strömrelämätning – krets sporadisk
+P0893	Fleraväxlar ilagd
+P0894	Växellådskomponentslirning
+P0895	Växlingstid för kort
+P0896	Växlingstid för länge
+P0897	Växellådsolja försämrad
+P0898	Växellådsstyrsystem-MIL – begäranskrets låg
+P0899	Växellådsstyrsystem-MIL – begäranskrets hög
+P0900	Kopplingsställdon – krets avbrott
+P0901	Kopplingsställdon – krets område/prestanda
+P0902	Kopplingsställdon – krets låg
+P0903	Kopplingsställdon – krets hög
+P0904	Växelgatsvalsläge – krets
+P0905	Växelgatsvalsläge – krets område/prestanda
+P0906	Växelgatsvalsläge – krets låg
+P0907	Växelgatsvalsläge – krets hög
+P0908	Växelgatsvalsläge – krets sporadisk
+P0909	Växelgatsval – styrning fel
+P0910	Växelgatsvalsställdon – krets avbrott
+P0911	Växelgatsvalsställdon – krets område/prestanda
+P0912	Växelgatsvalsställdon – krets låg
+P0913	Växelgatsvalsställdon – krets hög
+P0914	Växlingsläge – krets
+P0915	Växlingsläge – krets område/prestanda
+P0916	Växlingsläge – krets låg
+P0917	Växlingsläge – krets hög
+P0918	Växlingsläge – krets sporadisk
+P0919	Växlingsläge – styrning fel
+P0920	Växlingsframåtställdon – krets avbrott
+P0921	Växlingsframåtställdon – krets område/prestanda
+P0922	Växlingsframåtställdon – krets låg
+P0923	Växlingsframåtställdon – krets hög
+P0924	Växlingsbackställdon – krets avbrott
+P0925	Växlingsbackställdon – krets område/prestanda
+P0926	Växlingsbackställdon – krets låg
+P0927	Växlingsbackställdon – krets hög
+P0928	Växlingslåsmagnetventil – styrkrets avbrott
+P0929	Växlingslåsmagnetventil – styrkrets område/prestanda
+P0930	Växlingslåsmagnetventil – styrkrets låg
+P0931	Växlingslåsmagnetventil – styrkrets hög
+P0932	Hydraultrycksgivare – krets
+P0933	Hydraultrycksgivare – område/prestanda
+P0934	Hydraultrycksgivare – krets låg
+P0935	Hydraultrycksgivare – krets hög
+P0936	Hydraultrycksgivare – krets sporadisk
+P0937	Hydrauloljetemperaturgivare – krets
+P0938	Hydrauloljetemperaturgivare – område/prestanda
+P0939	Hydrauloljetemperaturgivare – krets låg
+P0940	Hydrauloljetemperaturgivare – krets hög
+P0941	Hydrauloljetemperaturgivare – krets sporadisk
+P0942	Hydraultrycksenhet
+P0943	Hydraultrycksenhets-cyklingsperiod för kort
+P0944	Hydraultrycksenhet, tryckförlust
+P0945	Hydraulpumprelä – krets avbrott
+P0946	Hydraulpumprelä – krets område/prestanda
+P0947	Hydraulpumprelä – krets låg
+P0948	Hydraulpumprelä – krets hög
+P0949	Automatiserad växellåds adaptiv inlärning – inte slutförd
+P0950	Automatiserad manuell växellåda – styrkrets
+P0951	Automatiserad manuell växellåda – styrkrets område/prestanda
+P0952	Automatiserad manuell växellåda – styrkrets låg
+P0953	Automatiserad manuell växellåda – styrkrets hög
+P0954	Automatiserad manuell växellåda – styrkrets sporadisk
+P0955	Automatiserad växellåds läge – krets
+P0956	Automatiserad växellåds läge – krets område/prestanda
+P0957	Automatiserad växellåds läge – krets låg
+P0958	Automatiserad växellåds läge – krets hög
+P0959	Automatiserad växellåds läge – krets sporadisk
+P0960	Tryckregleringsmagnetventil A – styrkrets avbrott
+P0961	Tryckregleringsmagnetventil A – styrkrets område/prestanda
+P0962	Tryckregleringsmagnetventil A – styrkrets låg
+P0963	Tryckregleringsmagnetventil A – styrkrets hög
+P0964	Tryckregleringsmagnetventil B – styrkrets avbrott
+P0965	Tryckregleringsmagnetventil B – styrkrets område/prestanda
+P0966	Tryckregleringsmagnetventil B – styrkrets låg
+P0967	Tryckregleringsmagnetventil B – styrkrets hög
+P0968	Tryckregleringsmagnetventil C – styrkrets avbrott
+P0969	Tryckregleringsmagnetventil C – styrkrets område/prestanda
+P0970	Tryckregleringsmagnetventil C – styrkrets låg
+P0971	Tryckregleringsmagnetventil C – styrkrets hög
+P0972	Växlingsmagnetventil A – styrkrets område/prestanda
+P0973	Växlingsmagnetventil A – styrkrets låg
+P0974	Växlingsmagnetventil A – styrkrets hög
+P0975	Växlingsmagnetventil B – styrkrets område/prestanda
+P0976	Växlingsmagnetventil B – styrkrets låg
+P0977	Växlingsmagnetventil B – styrkrets hög
+P0978	Växlingsmagnetventil C – styrkrets område/prestanda
+P0979	Växlingsmagnetventil C – styrkrets låg
+P0980	Växlingsmagnetventil C – styrkrets hög
+P0981	Växlingsmagnetventil D – styrkrets område/prestanda
+P0982	Växlingsmagnetventil D – styrkrets låg
+P0983	Växlingsmagnetventil D – styrkrets hög
+P0984	Växlingsmagnetventil E – styrkrets område/prestanda
+P0985	Växlingsmagnetventil E – styrkrets låg
+P0986	Växlingsmagnetventil E – styrkrets hög
+P0987	Växellådsoljetrycksgivare/-brytare E – krets
+P0988	Växellådsoljetrycksgivare/-brytare E – krets område/prestanda
+P0989	Växellådsoljetrycksgivare/-brytare E – krets låg
+P0990	Växellådsoljetrycksgivare/-brytare E – krets hög
+P0991	Växellådsoljetrycksgivare/-brytare E – krets sporadisk
+P0992	Växellådsoljetrycksgivare/-brytare F – krets
+P0993	Växellådsoljetrycksgivare/-brytare F – krets område/prestanda
+P0994	Växellådsoljetrycksgivare/-brytare F – krets låg
+P0995	Växellådsoljetrycksgivare/-brytare F – krets hög
+P0996	Växellådsoljetrycksgivare/-brytare F – krets sporadisk
+P0997	Växlingsmagnetventil F – styrkrets område/prestanda
+P0998	Växlingsmagnetventil F – styrkrets låg
+P0999	Växlingsmagnetventil F – styrkrets hög
+P099A	Växlingsmagnetventil G – styrkrets område/prestanda
+P099B	Växlingsmagnetventil G – styrkrets låg
+P099C	Växlingsmagnetventil G – styrkrets hög
+P099D	Växlingsmagnetventil H – styrkrets område/prestanda
+P099E	Växlingsmagnetventil H – styrkrets låg
+P099F	Växlingsmagnetventil H – styrkrets hög
+P0A00	Motorelektronik-kylvätsketemperaturgivare – krets
+P0A01	Motorelektronik-kylvätsketemperaturgivare – krets område/prestanda
+P0A02	Motorelektronik-kylvätsketemperaturgivare – krets låg
+P0A03	Motorelektronik-kylvätsketemperaturgivare – krets hög
+P0A04	Motorelektronik-kylvätsketemperaturgivare – krets sporadisk
+P0A05	Kylvätskepump för motorelektronik – styrkrets avbrott
+P0A06	Motorelektronikkylvätskepump – styrkrets låg
+P0A07	Motorelektronikkylvätskepump – styrkrets hög
+P0A08	DC/DC-omvandlarstatus – krets
+P0A09	DC/DC-omvandlarstatus – krets låg
+P0A0A	Högspänningssystem-spärrslinga (interlock) – krets
+P0A0B	Högspänningssystem-spärrslinga (interlock) – krets prestanda
+P0A0C	Högspänningssystem-spärrslinga (interlock) – krets låg
+P0A0D	Högspänningssystem-spärrslinga (interlock) – krets hög
+P0A0E	Högspänningssystem-spärrslinga (interlock) – krets sporadisk
+P0A0F	Motor startade inte
+P0A10	DC/DC-omvandlarstatus – krets hög
+P0A11	DC/DC-omvandlaraktivering – krets avbrott
+P0A12	DC/DC-omvandlaraktivering – krets låg
+P0A13	DC/DC-omvandlaraktivering – krets hög
+P0A14	Motorfäste A – styrkrets avbrott
+P0A15	Motorfäste A – styrkrets låg
+P0A16	Motorfäste A – styrkrets hög
+P0A17	Motormomentgivare – krets
+P0A18	Motormomentgivare – krets område/prestanda
+P0A19	Motormomentgivare – krets låg
+P0A1A	Generatorstyrenhet
+P0A1B	Styrenhet för drivmotor A
+P0A1C	Styrenhet för drivmotor B
+P0A1D	Hybriddrivlinestyrenhet
+P0A1E	Startmotor-/generatorstyrenhet
+P0A1F	Batteristyrenhet
+P0A20	Motormomentgivare – krets hög
+P0A21	Motormomentgivare – krets sporadisk
+P0A22	Generatormomentgivare – krets
+P0A23	Generatormomentgivare – krets område/prestanda
+P0A24	Generatormomentgivare – krets låg
+P0A25	Generatormomentgivare – krets hög
+P0A26	Generatormomentgivare – krets sporadisk
+P0A27	Hybridbatteriström av – krets
+P0A28	Hybridbatteriström av – krets låg
+P0A29	Hybridbatteriström av – krets hög
+P0A2A	Temperaturgivare för drivmotor A – krets
+P0A2B	Temperaturgivare för drivmotor A – krets område/prestanda
+P0A2C	Temperaturgivare för drivmotor A – krets låg
+P0A2D	Temperaturgivare för drivmotor A – krets hög
+P0A2E	Temperaturgivare för drivmotor A – krets sporadisk
+P0A2F	Drivmotor A – övertemperatur
+P0A30	Temperaturgivare för drivmotor B – krets
+P0A31	Temperaturgivare för drivmotor B – krets område/prestanda
+P0A32	Temperaturgivare för drivmotor B – krets låg
+P0A33	Temperaturgivare för drivmotor B – krets hög
+P0A34	Temperaturgivare för drivmotor B – krets sporadisk
+P0A35	Drivmotor B – övertemperatur
+P0A36	Generatortemperaturgivare – krets
+P0A37	Generatortemperaturgivare – krets område/prestanda
+P0A38	Generatortemperaturgivare – krets låg
+P0A39	Generatortemperaturgivare – krets hög
+P0A3A	Generatortemperaturgivare – krets sporadisk
+P0A3B	Generator – övertemperatur
+P0A3C	Växelriktare för drivmotor A – övertemperatur
+P0A3D	Växelriktare för drivmotor B – övertemperatur
+P0A3E	Generatorväxelriktare – övertemperatur
+P0A3F	Lägesgivare för drivmotor A – krets
+P0A40	Lägesgivare för drivmotor A – krets område/prestanda
+P0A41	Lägesgivare för drivmotor A – krets låg
+P0A42	Lägesgivare för drivmotor A – krets hög
+P0A43	Lägesgivare för drivmotor A – krets sporadisk
+P0A44	Lägesgivare för drivmotor A – krets övervarv
+P0A45	Lägesgivare för drivmotor B – krets
+P0A46	Lägesgivare för drivmotor B – krets område/prestanda
+P0A47	Lägesgivare för drivmotor B – krets låg
+P0A48	Lägesgivare för drivmotor B – krets hög
+P0A49	Lägesgivare för drivmotor B – krets sporadisk
+P0A4A	Lägesgivare för drivmotor B – krets övervarv
+P0A4B	Generatorlägesgivare – krets
+P0A4C	Generatorlägesgivare – krets område/prestanda
+P0A4D	Generatorlägesgivare – krets låg
+P0A4E	Generatorlägesgivare – krets hög
+P0A4F	Generatorlägesgivare – krets sporadisk
+P0A50	Generatorlägesgivare – krets övervarv
+P0A51	Strömgivare för drivmotor A – krets
+P0A52	Strömgivare för drivmotor A – krets område/prestanda
+P0A53	Strömgivare för drivmotor A – krets låg
+P0A54	Strömgivare för drivmotor A – krets hög
+P0A55	Strömgivare för drivmotor B – krets
+P0A56	Strömgivare för drivmotor B – krets område/prestanda
+P0A57	Strömgivare för drivmotor B – krets låg
+P0A58	Strömgivare för drivmotor B – krets hög
+P0A59	Generatorströmgivare – krets
+P0A5A	Generatorströmgivare – krets område/prestanda
+P0A5B	Generatorströmgivare – krets låg
+P0A5C	Generatorströmgivare – krets hög
+P0A5D	Drivmotor A, ström i fas U
+P0A5E	Drivmotor A, ström i fas U – låg
+P0A5F	Drivmotor A, ström i fas U – hög
+P0A60	Drivmotor A, ström i fas V
+P0A61	Drivmotor A, ström i fas V – låg
+P0A62	Drivmotor A, ström i fas V – hög
+P0A63	Drivmotor A, ström i fas W
+P0A64	Drivmotor A, ström i fas W – låg
+P0A65	Drivmotor A, ström i fas W – hög
+P0A66	Drivmotor B, ström i fas U
+P0A67	Drivmotor B, ström i fas U – låg
+P0A68	Drivmotor B, ström i fas U – hög
+P0A69	Drivmotor B, ström i fas V
+P0A6A	Drivmotor B, ström i fas V – låg
+P0A6B	Drivmotor B, ström i fas V – hög
+P0A6C	Drivmotor B, ström i fas W
+P0A6D	Drivmotor B, ström i fas W – låg
+P0A6E	Drivmotor B, ström i fas W – hög
+P0A6F	Generator, ström i fas U
+P0A70	Generator, ström i fas U – låg
+P0A71	Generator, ström i fas U – hög
+P0A72	Generator, ström i fas V
+P0A73	Generator, ström i fas V – låg
+P0A74	Generator, ström i fas V – hög
+P0A75	Generator, ström i fas W
+P0A76	Generator, ström i fas W – låg
+P0A77	Generator, ström i fas W – hög
+P0A78	Växelriktare för drivmotor A – prestanda
+P0A79	Växelriktare för drivmotor B – prestanda
+P0A7A	Generatorväxelriktare – prestanda
+P0A7B	Batteristyrenhet – begär tändning av motorlampan
+P0A7C	Motorelektronik – övertemperatur
+P0A7D	Låg laddnivå i hybridbatteripaketet
+P0A7E	Hybridbatteripaket – övertemperatur
+P0A7F	Hybridbatteripaketet har försämrats
+P0A80	Byt hybridbatteripaket
+P0A81	Hybridbatteripaketskylfläkt 1 – styrkrets avbrott
+P0A82	Hybridbatteripaketskylfläkt 1 – prestanda/fast i från-läge
+P0A83	Hybridbatteripaketskylfläkt 1 – fast i till-läge
+P0A84	Hybridbatteripaketskylfläkt 1 – styrkrets låg
+P0A85	Hybridbatteripaketskylfläkt 1 – styrkrets hög
+P0A86	14 V-strömmodul: strömgivare – krets
+P0A87	14 V-strömmodul: strömgivare – krets område/prestanda
+P0A88	14 V-strömmodul: strömgivare – krets låg
+P0A89	14 V-strömmodul: strömgivare – krets hög
+P0A8A	14 V-strömmodul: strömgivare – krets sporadisk
+P0A8B	14 V-strömmodul: systemspänning
+P0A8C	14 V-strömmodul: systemspänning – instabil
+P0A8D	14 V-strömmodul: systemspänning – låg
+P0A8E	14 V-strömmodul: systemspänning – hög
+P0A8F	14 V-strömmodul: system – prestanda
+P0A90	Drivmotor A – prestanda
+P0A91	Drivmotor B – prestanda
+P0A92	Hybridgenerator – prestanda
+P0A93	Kylsystem för växelriktare – prestanda
+P0A94	DC/DC-omvandlare – prestanda
+P0A95	Högspänningssäkring
+P0A96	Hybridbatteripaketskylfläkt 2 – styrkrets
+P0A97	Hybridbatteripaketskylfläkt 2 – prestanda/fast i från-läge
+P0A98	Hybridbatteripaketskylfläkt 2 – fast i till-läge
+P0A99	Hybridbatteripaketskylfläkt 2 – styrkrets låg
+P0A9A	Hybridbatteripaketskylfläkt 2 – styrkrets hög
+P0A9B	Hybridbatteritemperaturgivare A – krets
+P0A9C	Hybridbatteritemperaturgivare A – område/prestanda
+P0A9D	Hybridbatteritemperaturgivare A – krets låg
+P0A9E	Hybridbatteritemperaturgivare A – krets hög
+P0A9F	Hybridbatteritemperaturgivare A – krets sporadisk/instabil
+P0AA0	Hybridbatteripositivkontaktor – krets
+P0AA1	Hybridbatteripositivkontaktor – krets fast i stängt läge
+P0AA2	Hybridbatteripositivkontaktor – krets fast i öppet läge
+P0AA3	Hybridbatterinegativkontaktor – krets
+P0AA4	Hybridbatterinegativkontaktor – krets fast i stängt läge
+P0AA5	Hybridbatterinegativkontaktor – krets fast i öppet läge
+P0AA6	Isolationsfel i hybridbatteriets spänningssystem
+P0AA7	Hybridbatteri-spänningsisoleringsgivare – krets
+P0AA8	Hybridbatteri-spänningsisoleringsgivare – krets område/prestanda
+P0AA9	Hybridbatteri-spänningsisoleringsgivare – krets låg
+P0AAA	Hybridbatteri-spänningsisoleringsgivare – krets hög
+P0AAB	Hybridbatteri-spänningsisoleringsgivare – krets sporadisk/instabil
+P0AAC	Hybridbatteripakets-lufttemperaturgivare A – krets
+P0AAD	Hybridbatteripakets-lufttemperaturgivare A – krets område/prestanda
+P0AAE	Hybridbatteripakets-lufttemperaturgivare A – krets låg
+P0AAF	Hybridbatteripakets-lufttemperaturgivare A – krets hög
+P0AB0	Hybridbatteripakets-lufttemperaturgivare A – krets sporadisk/instabil
+P0AB1	Hybridbatteripakets-lufttemperaturgivare B – krets
+P0AB2	Hybridbatteripakets-lufttemperaturgivare B – krets område/prestanda
+P0AB3	Hybridbatteripakets-lufttemperaturgivare B – krets låg
+P0AB4	Hybridbatteripakets-lufttemperaturgivare B – krets hög
+P0AB5	Hybridbatteripakets-lufttemperaturgivare B – krets sporadisk/instabil
+P0AB6	Motorfäste B – styrkrets avbrott
+P0AB7	Motorfäste B – styrkrets låg
+P0AB8	Motorfäste B – styrkrets hög
+P0AB9	Hybridsystem – prestanda
+P0ABA	Hybridbatteripakets-spänningsmätning – krets
+P0ABB	Hybridbatteripakets-spänningsmätning – krets område/prestanda
+P0ABC	Hybridbatteripakets-spänningsmätning – krets låg
+P0ABD	Hybridbatteripakets-spänningsmätning – krets hög
+P0ABE	Hybridbatteripakets-spänningsmätning – krets sporadisk/instabil
+P0ABF	Hybridbatteripaketsströmgivare – krets
+P0AC0	Hybridbatteripaketsströmgivare – krets område/prestanda
+P0AC1	Hybridbatteripaketsströmgivare – krets låg
+P0AC2	Hybridbatteripaketsströmgivare – krets hög
+P0AC3	Hybridbatteripaketsströmgivare – krets sporadisk/instabil
+P0AC4	Hybriddrivlinestyrenhet – begär tändning av motorlampan
+P0AC5	Hybridbatteritemperaturgivare B – krets
+P0AC6	Hybridbatteritemperaturgivare B – område/prestanda
+P0AC7	Hybridbatteritemperaturgivare B – krets låg
+P0AC8	Hybridbatteritemperaturgivare B – krets hög
+P0AC9	Hybridbatteritemperaturgivare B – krets sporadisk/instabil
+P0ACA	Hybridbatteritemperaturgivare C – krets
+P0ACB	Hybridbatteritemperaturgivare C – område/prestanda
+P0ACC	Hybridbatteritemperaturgivare C – krets låg
+P0ACD	Hybridbatteritemperaturgivare C – krets hög
+P0ACE	Hybridbatteritemperaturgivare C – krets sporadisk/instabil
+P0ACF	Hybridbatteripaketskylfläkt 3 – styrkrets
+P0AD0	Hybridbatteripaketskylfläkt 3 – prestanda/fast i från-läge
+P0AD1	Hybridbatteripaketskylfläkt 3 – fast i till-läge
+P0AD2	Hybridbatteripaketskylfläkt 3 – styrkrets låg
+P0AD3	Hybridbatteripaketskylfläkt 3 – styrkrets hög
+P0AD4	Hybridbatteripakets-luftflödessystem – otillräckligt luftflöde
+P0AD5	Hybridbatteripakets-luftflödesventil A – styrkrets avbrott
+P0AD6	Hybridbatteripakets-luftflödesventil A – styrkrets område/prestanda
+P0AD7	Hybridbatteripakets-luftflödesventil A – styrkrets låg
+P0AD8	Hybridbatteripakets-luftflödesventil A – styrkrets hög
+P0AD9	Hybridbatteripositivkontaktor – styrkrets avbrott
+P0ADA	Hybridbatteripositivkontaktor – styrkrets område/prestanda
+P0ADB	Hybridbatteripositivkontaktor – styrkrets låg
+P0ADC	Hybridbatteripositivkontaktor – styrkrets hög
+P0ADD	Hybridbatterinegativkontaktor – styrkrets avbrott
+P0ADE	Hybridbatterinegativkontaktor – styrkrets område/prestanda
+P0ADF	Hybridbatterinegativkontaktor – styrkrets låg
+P0AE0	Hybridbatterinegativkontaktor – styrkrets hög
+P0AE1	Hybridbatteri-förladdningskontaktor – krets
+P0AE2	Hybridbatteri-förladdningskontaktor – krets fast i stängt läge
+P0AE3	Hybridbatteri-förladdningskontaktor – krets fast i öppet läge
+P0AE4	Hybridbatteri-förladdningskontaktor – styrkrets
+P0AE5	Hybridbatteri-förladdningskontaktor – styrkrets område/prestanda
+P0AE6	Hybridbatteri-förladdningskontaktor – styrkrets låg
+P0AE7	Hybridbatteri-förladdningskontaktor – styrkrets hög
+P0AE8	Hybridbatteritemperaturgivare D – krets
+P0AE9	Hybridbatteritemperaturgivare D – område/prestanda
+P0AEA	Hybridbatteritemperaturgivare D – krets låg
+P0AEB	Hybridbatteritemperaturgivare D – krets hög
+P0AEC	Hybridbatteritemperaturgivare D – krets sporadisk/instabil
+P0AED	Drivmotorväxelriktar-temperaturgivare A – krets
+P0AEE	Drivmotorväxelriktar-temperaturgivare A – krets område/prestanda
+P0AEF	Drivmotorväxelriktar-temperaturgivare A – krets låg
+P0AF0	Drivmotorväxelriktar-temperaturgivare A – krets hög
+P0AF1	Drivmotorväxelriktar-temperaturgivare A – krets sporadisk/instabil
+P0AF2	Drivmotorväxelriktar-temperaturgivare B – krets
+P0AF3	Drivmotorväxelriktar-temperaturgivare B – krets område/prestanda
+P0AF4	Drivmotorväxelriktar-temperaturgivare B – krets låg
+P0AF5	Drivmotorväxelriktar-temperaturgivare B – krets hög
+P0AF6	Drivmotorväxelriktar-temperaturgivare B – krets sporadisk/instabil
+P0AF7	14 V-strömmodul: intern – temperatur för hög
+P0AF8	Hybridbatterisystemspänning
+P0AF9	Hybridbatterisystemspänning – instabil
+P0AFA	Hybridbatterisystemspänning – låg
+P0AFB	Hybridbatterisystemspänning – hög
+P0B00	Extraväxellådsoljepumpmotor, ström i fas U
+P0B01	Extraväxellådsoljepumpmotor, ström i fas U – låg
+P0B02	Extraväxellådsoljepumpmotor, ström i fas U – hög
+P0B03	Extraväxellådsoljepumpmotor, ström i fas V
+P0B04	Extraväxellådsoljepumpmotor, ström i fas V – låg
+P0B05	Extraväxellådsoljepumpmotor, ström i fas V – hög
+P0B06	Extraväxellådsoljepumpmotor, ström i fas W
+P0B07	Extraväxellådsoljepumpmotor, ström i fas W – låg
+P0B08	Extraväxellådsoljepumpmotor, ström i fas W – hög
+P0B09	Extraväxellådsoljepump-motormatningsspänning – krets avbrott
+P0B0A	Extraväxellådsoljepump-motormatningsspänning – krets låg
+P0B0B	Extraväxellådsoljepump-motormatningsspänning – krets hög
+P0B0C	Extraväxellådsolje-pumphydraulläckage
+P0B0D	Extraväxellådsolje-pumpmotorstyrenhet
+P2000	NOx-fälleffektivitet – under gränsvärde, bank 1
+P2001	NOx-fälleffektivitet – under gränsvärde, bank 2
+P2002	DPF-effektivitet – under gränsvärde, bank 1
+P2003	DPF-effektivitet – under gränsvärde, bank 2
+P2004	Insugsgrenrörskanal – styrning fast i öppet läge, bank 1
+P2005	Insugsgrenrörskanal – styrning fast i öppet läge, bank 2
+P2006	Insugsgrenrörskanal – styrning fast i stängt läge, bank 1
+P2007	Insugsgrenrörskanal – styrning fast i stängt läge, bank 2
+P2008	Insugsgrenrörskanal – styrkrets avbrott, bank 1
+P2009	Insugsgrenrörskanal – styrkrets låg, bank 1
+P2010	Insugsgrenrörskanal – styrkrets hög, bank 1
+P2011	Insugsgrenrörskanal – styrkrets avbrott, bank 2
+P2012	Insugsgrenrörskanal – styrkrets låg, bank 2
+P2013	Insugsgrenrörskanal – styrkrets hög, bank 2
+P2014	Insugsgrenrörskanallägesgivare/-brytare – krets, bank 1
+P2015	Insugsgrenrörskanallägesgivare/-brytare – krets område/prestanda, bank 1
+P2016	Insugsgrenrörskanallägesgivare/-brytare – krets låg, bank 1
+P2017	Insugsgrenrörskanallägesgivare/-brytare – krets hög, bank 1
+P2018	Insugsgrenrörskanallägesgivare/-brytare – krets sporadisk, bank 1
+P2019	Insugsgrenrörskanallägesgivare/-brytare – krets, bank 2
+P2020	Insugsgrenrörskanallägesgivare/-brytare – krets område/prestanda, bank 2
+P2021	Insugsgrenrörskanallägesgivare/-brytare – krets låg, bank 2
+P2022	Insugsgrenrörskanallägesgivare/-brytare – krets hög, bank 2
+P2023	Insugsgrenrörskanallägesgivare/-brytare – krets sporadisk, bank 2
+P2024	EVAP-bränsleångtemperaturgivare – krets (EVAP)
+P2025	EVAP-bränsleångtemperaturgivare – prestanda (EVAP)
+P2026	EVAP-bränsleångtemperaturgivare – krets låg spänning (EVAP)
+P2027	EVAP-bränsleångtemperaturgivare – krets hög spänning (EVAP)
+P2028	EVAP-bränsleångtemperaturgivare – krets sporadisk (EVAP)
+P2029	Bränsledriven värmare avaktiverad
+P2030	Bränsledriven värmare – prestanda
+P2031	Avgastemperaturgivare – krets, bank 1 givare 2
+P2032	Avgastemperaturgivare – krets låg, bank 1 givare 2
+P2033	Avgastemperaturgivare – krets hög, bank 1 givare 2
+P2034	Avgastemperaturgivare – krets, bank 2 givare 2
+P2035	Avgastemperaturgivare – krets låg, bank 2 givare 2
+P2036	Avgastemperaturgivare – krets hög, bank 2 givare 2
+P2037	Reduktionsmedels-insprutningslufttrycksgivare – krets
+P2038	Reduktionsmedels-insprutningslufttrycksgivare – krets område/prestanda
+P2039	Reduktionsmedels-insprutningslufttrycksgivare – krets låg
+P203A	Reduktionsmedelsnivågivare – krets
+P203B	Reduktionsmedelsnivågivare – krets område/prestanda
+P203C	Reduktionsmedelsnivågivare – krets låg
+P203D	Reduktionsmedelsnivågivare – krets hög
+P203E	Reduktionsmedelsnivågivare – krets sporadisk/instabil
+P203F	Reduktionsmedelsnivå – låg
+P2040	Reduktionsmedels-insprutningslufttrycksgivare – krets hög
+P2041	Reduktionsmedels-insprutningslufttrycksgivare – krets sporadisk
+P2042	Reduktionsmedels-temperaturgivare – krets
+P2043	Reduktionsmedels-temperaturgivare – krets område/prestanda
+P2044	Reduktionsmedels-temperaturgivare – krets låg
+P2045	Reduktionsmedels-temperaturgivare – krets hög
+P2046	Reduktionsmedels-temperaturgivare – krets sporadisk
+P2047	Reduktionsmedelsinsprutare – krets avbrott, bank 1, enhet 1
+P2048	Reduktionsmedelsinsprutare – krets låg, bank 1, enhet 1
+P2049	Reduktionsmedelsinsprutare – krets hög, bank 1, enhet 1
+P204A	Reduktionsmedelstrycksgivare – krets
+P204B	Reduktionsmedelstrycksgivare – krets område/prestanda
+P204C	Reduktionsmedelstrycksgivare – krets låg
+P204D	Reduktionsmedelstrycksgivare – krets hög
+P204E	Reduktionsmedelstrycksgivare – krets sporadisk/instabil
+P2050	Reduktionsmedelsinsprutare – krets avbrott, bank 2, enhet 1
+P2051	Reduktionsmedelsinsprutare – krets låg, bank 2, enhet 1
+P2052	Reduktionsmedelsinsprutare – krets hög, bank 2, enhet 1
+P2053	Reduktionsmedelsinsprutare – krets avbrott, bank 1, enhet 2
+P2054	Reduktionsmedelsinsprutare – krets låg, bank 1, enhet 2
+P2055	Reduktionsmedelsinsprutare – krets hög, bank 1, enhet 2
+P2056	Reduktionsmedelsinsprutare – krets avbrott, bank 2, enhet 2
+P2057	Reduktionsmedelsinsprutare – krets låg, bank 2, enhet 2
+P2058	Reduktionsmedelsinsprutare – krets hög, bank 2, enhet 2
+P2059	Reduktionsmedels-insprutningsluftpump – styrkrets avbrott
+P205A	Reduktionsmedels-tanktemperaturgivare – krets
+P205B	Reduktionsmedels-tanktemperaturgivare – krets område/prestanda
+P205C	Reduktionsmedels-tanktemperaturgivare – krets låg
+P205D	Reduktionsmedels-tanktemperaturgivare – krets hög
+P205E	Reduktionsmedels-tanktemperaturgivare – krets sporadisk/instabil
+P2060	Reduktionsmedels-insprutningsluftpump – styrkrets låg
+P2061	Reduktionsmedels-insprutningsluftpump – styrkrets hög
+P2062	Reduktionsmedels-/regenereringsmatning – styrkrets avbrott
+P2063	Reduktionsmedelsmatning – styrkrets låg
+P2064	Reduktionsmedelsmatning – styrkrets hög
+P2065	Bränslenivågivare B – krets
+P2066	Bränslenivågivare B – prestanda
+P2067	Bränslenivågivare B – krets låg
+P2068	Bränslenivågivare B – krets hög
+P2069	Bränslenivågivare B – krets sporadisk
+P206E	Insugsgrenrörsresonansventil – fast i öppet läge, bank 2 (IMT)
+P206F	Insugsgrenrörsresonansventil – fast i stängt läge, bank 2 (IMT)
+P2070	Insugsgrenrörsresonansventil – fast i öppet läge, bank 1 (IMT)
+P2071	Insugsgrenrörsresonansventil – fast i stängt läge, bank 1 (IMT)
+P2072	Trottelställdonsstyrsystem – blockerad av is
+P2073	Insugstryck (MAP)/luftmassa – korrelation med trottelläge på tomgång
+P2074	Insugstryck (MAP)/luftmassa – korrelation med trottelläge vid högre belastning
+P2075	Insugsgrenrörsresonansventillägesgivare/-brytare – krets, bank 1 (IMT)
+P2076	Insugsgrenrörsresonansventillägesgivare/-brytare – krets område/prestanda, bank 1 (IMT)
+P2077	Insugsgrenrörsresonansventillägesgivare/-brytare – krets låg, bank 1 (IMT)
+P2078	Insugsgrenrörsresonansventillägesgivare/-brytare – krets hög, bank 1 (IMT)
+P2079	Insugsgrenrörsresonansventillägesgivare/-brytare – krets sporadisk, bank 1 (IMT)
+P207A	Insugsgrenrörsresonansventillägesgivare/-brytare – krets, bank 2 (IMT)
+P207B	Insugsgrenrörsresonansventillägesgivare/-brytare – krets område/prestanda, bank 2 (IMT)
+P207C	Insugsgrenrörsresonansventillägesgivare/-brytare – krets låg, bank 2 (IMT)
+P207D	Insugsgrenrörsresonansventillägesgivare/-brytare – krets hög, bank 2 (IMT)
+P207E	Insugsgrenrörsresonansventillägesgivare/-brytare – krets sporadisk, bank 2 (IMT)
+P2080	Avgastemperaturgivare – krets område/prestanda, bank 1 givare 1
+P2081	Avgastemperaturgivare – krets sporadisk, bank 1 givare 1
+P2082	Avgastemperaturgivare – krets område/prestanda, bank 2 givare 1
+P2083	Avgastemperaturgivare – krets sporadisk, bank 2 givare 1
+P2084	Avgastemperaturgivare – krets område/prestanda, bank 1 givare 2
+P2085	Avgastemperaturgivare – krets sporadisk, bank 1 givare 2
+P2086	Avgastemperaturgivare – krets område/prestanda, bank 2 givare 2
+P2087	Avgastemperaturgivare – krets sporadisk, bank 2 givare 2
+P2088	Kamaxellägesställdon A – styrkrets låg, bank 1
+P2089	Kamaxellägesställdon A – styrkrets hög, bank 1
+P2090	Kamaxellägesställdon B – styrkrets låg, bank 1
+P2091	Kamaxellägesställdon B – styrkrets hög, bank 1
+P2092	Kamaxellägesställdon A – styrkrets låg, bank 2
+P2093	Kamaxellägesställdon A – styrkrets hög, bank 2
+P2094	Kamaxellägesställdon B – styrkrets låg, bank 2
+P2095	Kamaxellägesställdon B – styrkrets hög, bank 2
+P2096	Bränsletrim efter katalysator, för mager, bank 1
+P2097	Bränsletrim efter katalysator, för fet, bank 1
+P2098	Bränsletrim efter katalysator, för mager, bank 2
+P2099	Bränsletrim efter katalysator, för fet, bank 2
+P2100	Trottelställdonsstyrmotor – krets avbrott
+P2101	Trottelmotor – krets område/prestanda
+P2102	Trottelställdonsstyrmotor – krets låg
+P2103	Trottelställdonsstyrmotor – krets hög
+P2104	Trottelställdonsstyrsystem – tvingad tomgång
+P2105	Trottelställdonsstyrsystem – tvingat motorstopp
+P2106	Trottelställdonsstyrsystem – tvingad effektbegränsning
+P2107	Trottelställdons-styrenhetsprocessor
+P2108	Trottelställdonsstyrenhet – prestanda
+P2109	Trottel-/pedallägesgivare A minstopp – prestanda
+P2110	Trottelställdonsstyrsystem – tvingad varvtalsbegränsning
+P2111	Trottelställdonsstyrsystem – fast i öppet läge
+P2112	Trottelställdonsstyrsystem – fast i stängt läge
+P2113	Trottel-/pedallägesgivare B minstopp – prestanda
+P2114	Trottel-/pedallägesgivare C minstopp – prestanda
+P2115	Trottel-/pedallägesgivare D minstopp – prestanda
+P2116	Trottel-/pedallägesgivare E minstopp – prestanda
+P2117	Trottel-/pedallägesgivare F minstopp – prestanda
+P2118	Trottelställdonsstyrmotorström – område/prestanda
+P2119	Trottelställdonsstyrtrottelhus – område/prestanda
+P2120	Trottel-/pedallägesgivare/-brytare D – krets
+P2121	Trottel-/pedallägesgivare/-brytare D – krets område/prestanda
+P2122	Trottel-/pedallägesgivare/-brytare D – krets låg
+P2123	Trottel-/pedallägesgivare/-brytare D – krets hög
+P2124	Trottel-/pedallägesgivare/-brytare D – krets sporadisk
+P2125	Trottel-/pedallägesgivare/-brytare E – krets
+P2126	Trottel-/pedallägesgivare/-brytare E – krets område/prestanda
+P2127	Trottel-/pedallägesgivare/-brytare E – krets låg
+P2128	Trottel-/pedallägesgivare/-brytare E – krets hög
+P2129	Trottel-/pedallägesgivare/-brytare E – krets sporadisk
+P2130	Trottel-/pedallägesgivare/-brytare F – krets
+P2131	Trottel-/pedallägesgivare/-brytare F – krets område/prestanda
+P2132	Trottel-/pedallägesgivare/-brytare F – krets låg
+P2133	Trottel-/pedallägesgivare/-brytare F – krets hög
+P2134	Trottel-/pedallägesgivare/-brytare F – krets sporadisk
+P2135	Trottel-/pedallägesgivare/-brytare A/B spänning – korrelation
+P2136	Trottel-/pedallägesgivare/-brytare A/C spänning – korrelation
+P2137	Trottel-/pedallägesgivare/-brytare B/C spänning – korrelation
+P2138	Trottel-/pedallägesgivare/-brytare D/E spänning – korrelation
+P2139	Trottel-/pedallägesgivare/-brytare D/F spänning – korrelation
+P213A	EGR-trottel – styrkrets B avbrott
+P213B	EGR-trottel – styrkrets B område/prestanda
+P213C	EGR-trottel – styrkrets B låg
+P213D	EGR-trottel – styrkrets B hög
+P2140	Trottel-/pedallägesgivare/-brytare E/F spänning – korrelation
+P2141	EGR-trottel – styrkrets A låg
+P2142	EGR-trottel – styrkrets A hög
+P2143	EGR-ventilation – styrkrets avbrott
+P2144	EGR-ventilation – styrkrets låg
+P2145	EGR-ventilation – styrkrets hög
+P2146	Bränsleinsprutargrupp A matningsspänning – krets avbrott
+P2147	Bränsleinsprutargrupp A matningsspänning – krets låg
+P2148	Bränsleinsprutargrupp A matningsspänning – krets hög
+P2149	Bränsleinsprutargrupp B matningsspänning – krets avbrott
+P2150	Bränsleinsprutargrupp B matningsspänning – krets låg
+P2151	Bränsleinsprutargrupp B matningsspänning – krets hög
+P2152	Bränsleinsprutargrupp C matningsspänning – krets avbrott
+P2153	Bränsleinsprutargrupp C matningsspänning – krets låg
+P2154	Bränsleinsprutargrupp C matningsspänning – krets hög
+P2155	Bränsleinsprutargrupp D matningsspänning – krets avbrott
+P2156	Bränsleinsprutargrupp D matningsspänning – krets låg
+P2157	Bränsleinsprutargrupp D matningsspänning – krets hög
+P2158	Hastighetsgivare B
+P2159	Hastighetsgivare B – område/prestanda
+P215A	Fordonshastighet – korrelation med hjulhastighet
+P215B	Fordonshastighet – korrelation med utgående axelvarvtal
+P2160	Hastighetsgivare B – krets låg
+P2161	Hastighetsgivare B – sporadisk/instabil
+P2162	Hastighetsgivare A/B – korrelation
+P2163	Trottel-/pedallägesgivare A maxstopp – prestanda
+P2164	Trottel-/pedallägesgivare B maxstopp – prestanda
+P2165	Trottel-/pedallägesgivare C maxstopp – prestanda
+P2166	Trottel-/pedallägesgivare D maxstopp – prestanda
+P2167	Trottel-/pedallägesgivare E maxstopp – prestanda
+P2168	Trottel-/pedallägesgivare F maxstopp – prestanda
+P2169	Avgastrycksregulator-ventilationsmagnetventil – styrkrets avbrott
+P2170	Avgastrycksregulator-ventilationsmagnetventil – styrkrets låg
+P2171	Avgastrycksregulator-ventilationsmagnetventil – styrkrets hög
+P2172	Trottelställdonsstyrsystem – plötsligt högt luftflöde upptäckt
+P2173	Trottelställdonsstyrsystem – högt luftflöde upptäckt
+P2174	Trottelställdonsstyrsystem – plötsligt lågt luftflöde upptäckt
+P2175	Trottelställdonsstyrsystem – lågt luftflöde upptäckt
+P2176	Trottelställdonsstyrsystem – tomgångsläge inte inlärt
+P2177	Blandningen är för mager utanför tomgång, bank 1
+P2178	Blandningen är för fet utanför tomgång, bank 1
+P2179	Blandningen är för mager utanför tomgång, bank 2
+P2180	Blandningen är för fet utanför tomgång, bank 2
+P2181	Kylsystem – prestanda
+P2182	Kylvätsketemperaturgivare 2 – krets
+P2183	Kylvätsketemperaturgivare 2 – krets område/prestanda
+P2184	Kylvätsketemperaturgivare 2 – krets låg
+P2185	Kylvätsketemperaturgivare 2 – krets hög
+P2186	Kylvätsketemperaturgivare 2 – krets sporadisk/instabil
+P2187	Blandningen är för mager på tomgång, bank 1
+P2188	Blandningen är för fet på tomgång, bank 1
+P2189	Blandningen är för mager på tomgång, bank 2
+P2190	Blandningen är för fet på tomgång, bank 2
+P2191	Blandningen är för mager vid högre belastning, bank 1
+P2192	Blandningen är för fet vid högre belastning, bank 1
+P2193	Blandningen är för mager vid högre belastning, bank 2
+P2194	Blandningen är för fet vid högre belastning, bank 2
+P2195	Lambdasondsignal förskjuten/fast i magert läge, bank 1 givare 1
+P2196	Lambdasondsignal förskjuten/fast i fett läge, bank 1 givare 1
+P2197	Lambdasondsignal förskjuten/fast i magert läge, bank 2 givare 1
+P2198	Lambdasondsignal förskjuten/fast i fett läge, bank 2 givare 1
+P2199	Insugsluftstemperaturgivare 1/2 – korrelation
+P2200	NOx-givare – krets, bank 1
+P2201	NOx-givare – krets område/prestanda, bank 1
+P2202	NOx-givare – krets låg, bank 1
+P2203	NOx-givare – krets hög, bank 1
+P2204	NOx-givare – krets sporadisk, bank 1
+P2205	NOx-givarvärmare – styrkrets avbrott, bank 1
+P2206	NOx-givarvärmare – styrkrets låg, bank 1
+P2207	NOx-givarvärmare – styrkrets hög, bank 1
+P2208	NOx-givarvärmarmätning – krets, bank 1
+P2209	NOx-givarvärmarmätning – krets område/prestanda, bank 1
+P2210	NOx-givarvärmarmätning – krets låg, bank 1
+P2211	NOx-givarvärmarmätning – krets hög, bank 1
+P2212	NOx-givarvärmarmätning – krets sporadisk, bank 1
+P2213	NOx-givare – krets, bank 2
+P2214	NOx-givare – krets område/prestanda, bank 2
+P2215	NOx-givare – krets låg, bank 2
+P2216	NOx-givare – krets hög, bank 2
+P2217	NOx-givare – krets sporadisk, bank 2
+P2218	NOx-givarvärmare – styrkrets avbrott, bank 2
+P2219	NOx-givarvärmare – styrkrets låg, bank 2
+P2220	NOx-givarvärmare – styrkrets hög, bank 2
+P2221	NOx-givarvärmarmätning – krets, bank 2
+P2222	NOx-givarvärmarmätning – krets område/prestanda, bank 2
+P2223	NOx-givarvärmarmätning – krets låg, bank 2
+P2224	NOx-givarvärmarmätning – krets hög, bank 2
+P2225	NOx-givarvärmarmätning – krets sporadisk, bank 2
+P2226	Barometertryck – krets
+P2227	Barometertryck – krets område/prestanda
+P2228	Barometertryck – krets låg
+P2229	Barometertryck – krets hög
+P2230	Barometertryck – krets sporadisk
+P2231	Lambdasondsignal – krets kortsluten mot värmarkretsen, bank 1 givare 1
+P2232	Lambdasondsignal – krets kortsluten mot värmarkretsen, bank 1 givare 2
+P2233	Lambdasondsignal – krets kortsluten mot värmarkretsen, bank 1 givare 3
+P2234	Lambdasondsignal – krets kortsluten mot värmarkretsen, bank 2 givare 1
+P2235	Lambdasondsignal – krets kortsluten mot värmarkretsen, bank 2 givare 2
+P2236	Lambdasondsignal – krets kortsluten mot värmarkretsen, bank 2 givare 3
+P2237	Lambdasondpositivström – styrkrets avbrott, bank 1 givare 1
+P2238	Lambdasondpositivström – styrkrets låg, bank 1 givare 1
+P2239	Lambdasondpositivström – styrkrets hög, bank 1 givare 1
+P2240	Lambdasondpositivström – styrkrets avbrott, bank 2 givare 1
+P2241	Lambdasondpositivström – styrkrets låg, bank 2 givare 1
+P2242	Lambdasondpositivström – styrkrets hög, bank 2 givare 1
+P2243	Lambdasondreferensspänning – krets avbrott, bank 1 givare 1
+P2244	Lambdasondreferensspänning – prestanda, bank 1 givare 1
+P2245	Lambdasondreferensspänning – krets låg, bank 1 givare 1
+P2246	Lambdasondreferensspänning – krets hög, bank 1 givare 1
+P2247	Lambdasondreferensspänning – krets avbrott, bank 2 givare 1
+P2248	Lambdasondreferensspänning – prestanda, bank 2 givare 1
+P2249	Lambdasondreferensspänning – krets låg, bank 2 givare 1
+P2250	Lambdasondreferensspänning – krets hög, bank 2 givare 1
+P2251	Lambdasondnegativström – styrkrets avbrott, bank 1 givare 1
+P2252	Lambdasondnegativström – styrkrets låg, bank 1 givare 1
+P2253	Lambdasondnegativström – styrkrets hög, bank 1 givare 1
+P2254	Lambdasondnegativström – styrkrets avbrott, bank 2 givare 1
+P2255	Lambdasondnegativström – styrkrets låg, bank 2 givare 1
+P2256	Lambdasondnegativström – styrkrets hög, bank 2 givare 1
+P2257	Sekundärluftstyrning A – krets låg
+P2258	Sekundärluftstyrning A – krets hög
+P2259	Sekundärluftstyrning B – krets låg
+P2260	Sekundärluftstyrning B – krets hög
+P2261	Turbo-/kompressorbypassventil – mekaniskt
+P2262	Turbo-/kompressorladdtryck – inte upptäckt – mekaniskt
+P2263	Turbo-/kompressorladdtryckssystem – prestanda
+P2264	Vatten-i-bränslegivare – krets
+P2265	Vatten-i-bränslegivare – krets område/prestanda
+P2266	Vatten-i-bränslegivare – krets låg
+P2267	Vatten-i-bränslegivare – krets hög
+P2268	Vatten-i-bränslegivare – krets sporadisk
+P2269	Vatten i bränslet – tillstånd
+P2270	Lambdasondsignal – fast i magert läge, bank 1 givare 2
+P2271	Lambdasondsignal – fast i fett läge, bank 1 givare 2
+P2272	Lambdasondsignal – fast i magert läge, bank 2 givare 2
+P2273	Lambdasondsignal – fast i fett läge, bank 2 givare 2
+P2274	Lambdasondsignal – fast i magert läge, bank 1 givare 3
+P2275	Lambdasondsignal – fast i fett läge, bank 1 givare 3
+P2276	Lambdasondsignal – fast i magert läge, bank 2 givare 3
+P2277	Lambdasondsignal – fast i fett läge, bank 2 givare 3
+P2278	Lambdasondsignaler förväxlade, bank 1 givare 3, bank 2 givare 3
+P2279	Insugsluftssystemläcka
+P2280	Strypt luftflöde/luftläcka mellan luftfilter och luftmassemätare
+P2281	Luftläcka mellan luftmassemätare och trottelhus
+P2282	Luftläcka mellan trottelhus och insugsventiler
+P2283	Insprutarstyrtrycksgivare – krets
+P2284	Insprutarstyrtrycksgivare – krets område/prestanda
+P2285	Insprutarstyrtrycksgivare – krets låg
+P2286	Insprutarstyrtrycksgivare – krets hög
+P2287	Insprutarstyrtrycksgivare – krets sporadisk
+P2288	Insprutarstyrtryck – för hög
+P2289	Insprutarstyrtryck – för hög – motor av
+P2290	Insprutarstyrtryck – för låg
+P2291	Insprutarstyrtryck – för låg – vid start
+P2292	Insprutarstyrtryck – instabil
+P2293	Bränsletrycksregulator 2 – prestanda
+P2294	Bränsletrycksregulator 2 – styrkrets
+P2295	Bränsletrycksregulator 2 – styrkrets låg
+P2296	Bränsletrycksregulator 2 – styrkrets hög
+P2297	Lambdasond utanför område vid motorbromsning, bank 1 givare 1
+P2298	Lambdasond utanför område vid motorbromsning, bank 2 givare 1
+P2299	Bromspedalläges-/gaspedalsläge är inte kompatibla
+P2300	Tändspole A primär – styrkrets låg
+P2301	Tändspole A primär – styrkrets hög
+P2302	Tändspole A sekundär – krets
+P2303	Tändspole B primär – styrkrets låg
+P2304	Tändspole B primär – styrkrets hög
+P2305	Tändspole B sekundär – krets
+P2306	Tändspole C primär – styrkrets låg
+P2307	Tändspole C primär – styrkrets hög
+P2308	Tändspole C sekundär – krets
+P2309	Tändspole D primär – styrkrets låg
+P2310	Tändspole D primär – styrkrets hög
+P2311	Tändspole D sekundär – krets
+P2312	Tändspole E primär – styrkrets låg
+P2313	Tändspole E primär – styrkrets hög
+P2314	Tändspole E sekundär – krets
+P2315	Tändspole F primär – styrkrets låg
+P2316	Tändspole F primär – styrkrets hög
+P2317	Tändspole F sekundär – krets
+P2318	Tändspole G primär – styrkrets låg
+P2319	Tändspole G primär – styrkrets hög
+P2320	Tändspole G sekundär – krets
+P2321	Tändspole H primär – styrkrets låg
+P2322	Tändspole H primär – styrkrets hög
+P2323	Tändspole H sekundär – krets
+P2324	Tändspole I primär – styrkrets låg
+P2325	Tändspole I primär – styrkrets hög
+P2326	Tändspole I sekundär – krets
+P2327	Tändspole J primär – styrkrets låg
+P2328	Tändspole J primär – styrkrets hög
+P2329	Tändspole J sekundär – krets
+P2330	Tändspole K primär – styrkrets låg
+P2331	Tändspole K primär – styrkrets hög
+P2332	Tändspole K sekundär – krets
+P2333	Tändspole L primär – styrkrets låg
+P2334	Tändspole L primär – styrkrets hög
+P2335	Tändspole L sekundär – krets
+P2336	Över knackgränsen, cylinder 1
+P2337	Över knackgränsen, cylinder 2
+P2338	Över knackgränsen, cylinder 3
+P2339	Över knackgränsen, cylinder 4
+P2340	Över knackgränsen, cylinder 5
+P2341	Över knackgränsen, cylinder 6
+P2342	Över knackgränsen, cylinder 7
+P2343	Över knackgränsen, cylinder 8
+P2344	Över knackgränsen, cylinder 9
+P2345	Över knackgränsen, cylinder 10
+P2346	Över knackgränsen, cylinder 11
+P2347	Över knackgränsen, cylinder 12
+P2400	EVAP-läcktestpump – styrkrets avbrott
+P2401	EVAP-läcktestpump – styrkrets låg
+P2402	EVAP-läcktestpump – styrkrets hög
+P2403	EVAP-läcktestpumpmätning – krets avbrott
+P2404	EVAP-läcktestpumpmätning – krets område/prestanda
+P2405	EVAP-läcktestpumpmätning – krets låg
+P2406	EVAP-läcktestpumpmätning – krets hög
+P2407	EVAP-läcktestpumpmätning – krets sporadisk/instabil
+P2408	Tanklocksgivare/-brytare – krets
+P2409	Tanklocksgivare/-brytare – krets område/prestanda
+P240A	EVAP-läcktestpumpvärmare – styrkrets avbrott
+P240B	EVAP-läcktestpumpvärmare – styrkrets låg
+P240C	EVAP-läcktestpumpvärmare – styrkrets hög
+P2410	Tanklocksgivare/-brytare – krets låg
+P2411	Tanklocksgivare/-brytare – krets hög
+P2412	Tanklocksgivare/-brytare – krets sporadisk/instabil
+P2413	EGR-system – prestanda
+P2414	Lambdasondavgasprov – fel, bank 1 givare 1
+P2415	Lambdasondavgasprov – fel, bank 2 givare 1
+P2416	Lambdasondsignaler förväxlade, bank 1 givare 2, bank 1 givare 3
+P2417	Lambdasondsignaler förväxlade, bank 2 givare 2, bank 2 givare 3
+P2418	EVAP-omkopplingsventil – styrkrets avbrott
+P2419	EVAP-omkopplingsventil – styrkrets låg
+P2420	EVAP-omkopplingsventil – styrkrets hög
+P2421	EVAP-ventilationsventil – fast i öppet läge
+P2422	EVAP-ventilationsventil – fast i stängt läge
+P2423	HC-adsorptionskatalysator-effektivitet – under gränsvärde, bank 1
+P2424	HC-adsorptionskatalysator-effektivitet – under gränsvärde, bank 2
+P2425	EGR-kylventil – styrkrets avbrott
+P2426	EGR-kylventil – styrkrets låg
+P2427	EGR-kylventil – styrkrets hög
+P2428	Avgas – temperatur för hög, bank 1
+P2429	Avgas – temperatur för hög, bank 2
+P242A	Avgastemperaturgivare – krets, bank 1 givare 3
+P242B	Avgastemperaturgivare – krets område/prestanda, bank 1 givare 3
+P242C	Avgastemperaturgivare – krets låg, bank 1 givare 3
+P242D	Avgastemperaturgivare – krets hög, bank 1 givare 3
+P242E	Avgastemperaturgivare – krets sporadisk/instabil, bank 1 givare 3
+P242F	DPF-strypning – askansamling
+P2430	Sekundärluftluftflödes-/trycksgivare – krets, bank 1
+P2431	Sekundärluftluftflödes-/trycksgivare – krets område/prestanda, bank 1
+P2432	Sekundärluftluftflödes-/trycksgivare – krets låg, bank 1
+P2433	Sekundärluftluftflödes-/trycksgivare – krets hög, bank 1
+P2434	Sekundärluftluftflödes-/trycksgivare – krets sporadisk/instabil, bank 1
+P2435	Sekundärluftluftflödes-/trycksgivare – krets, bank 2
+P2436	Sekundärluftluftflödes-/trycksgivare – krets område/prestanda, bank 2
+P2437	Sekundärluftluftflödes-/trycksgivare – krets låg, bank 2
+P2438	Sekundärluftluftflödes-/trycksgivare – krets hög, bank 2
+P2439	Sekundärluftluftflödes-/trycksgivare – krets sporadisk/instabil, bank 2
+P2440	Sekundärluftomkopplingsventil – fast i öppet läge, bank 1
+P2441	Sekundärluftomkopplingsventil – fast i stängt läge, bank 1
+P2442	Sekundärluftomkopplingsventil – fast i öppet läge, bank 2
+P2443	Sekundärluftomkopplingsventil – fast i stängt läge, bank 2
+P2444	Sekundärluftpump – fast i till-läge, bank 1
+P2445	Sekundärluftpump – fast i från-läge, bank 1
+P2446	Sekundärluftpump – fast i till-läge, bank 2
+P2447	Sekundärluftpump – fast i från-läge, bank 2
+P2448	Sekundärluftsystem – högt luftflöde, bank 1
+P2449	Sekundärluftsystem – högt luftflöde, bank 2
+P244A	DPF-differenstryck – för låg, bank 1
+P244C	Partikelfilter – för låg tryck (rad 1) (givare 1)
+P2450	EVAP-omkopplingsventil – prestanda/fast i öppet läge
+P2451	EVAP-omkopplingsventil – fast i stängt läge
+P2452	DPF-differenstrycksgivare – krets
+P2453	DPF-differenstrycksgivare – krets område/prestanda
+P2454	DPF-differenstrycksgivare – krets låg
+P2455	DPF-differenstrycksgivare – krets hög
+P2456	DPF-differenstrycksgivare – krets sporadisk/instabil
+P2457	EGR-kylsystem – prestanda
+P2458	DPF-regenereringsvaraktighet
+P2459	DPF-regenereringsfrekvens
+P245A	EGR-kylarbypass – styrkrets avbrott
+P245B	EGR-kylarbypass – styrkrets område/prestanda
+P245C	EGR-kylarbypass – styrkrets låg
+P245D	EGR-kylarbypass – styrkrets hög
+P2463	Dieselpartikelfilter (DPF), sotansamling
+P2500	Laddningslampa/L-klämma – krets låg
+P2501	Laddningslampa/L-klämma – krets hög
+P2502	Laddsystemspänning
+P2503	Laddsystemspänning – låg
+P2504	Laddsystemspänning – hög
+P2505	ECM/PCM-strömingångssignal
+P2506	ECM/PCM-strömingångssignal – område/prestanda
+P2507	ECM/PCM-strömingångssignal – låg
+P2508	ECM/PCM-strömingångssignal – hög
+P2509	ECM/PCM-strömingångssignal – sporadisk
+P250A	Motoroljenivågivare – krets
+P250B	Motoroljenivågivare – krets område/prestanda
+P250C	Motoroljenivågivare – krets låg
+P250D	Motoroljenivågivare – krets hög
+P250E	Motoroljenivågivare – krets sporadisk/instabil
+P250F	Motoroljenivå – för låg
+P2510	ECM/PCM-strömrelämätning – krets område/prestanda
+P2511	ECM/PCM-strömrelämätning – krets sporadisk
+P2512	Händelsedataregistrerare – begäranskrets avbrott
+P2513	Händelsedataregistrerare – begäranskrets låg
+P2514	Händelsedataregistrerare – begäranskrets hög
+P2515	Köldmedietrycksgivare B (AC) – krets
+P2516	Köldmedietrycksgivare B (AC) – krets område/prestanda
+P2517	Köldmedietrycksgivare B (AC) – krets låg
+P2518	Köldmedietrycksgivare B (AC) – krets hög
+P2519	AC – begäran A krets
+P251A	PTO-aktiveringsbrytare – krets avbrott
+P251B	PTO-aktiveringsbrytare – krets låg
+P251C	PTO-aktiveringsbrytare – krets hög
+P251D	PTO-motoravstängning – krets avbrott
+P251E	PTO-motoravstängning – krets låg
+P251F	PTO-motoravstängning – krets hög
+P2520	AC – begäran A krets låg
+P2521	AC – begäran A krets hög
+P2522	AC – begäran B krets
+P2523	AC – begäran B krets låg
+P2524	AC – begäran B krets hög
+P2525	Vakuumbehållartrycksgivare – krets
+P2526	Vakuumbehållartrycksgivare – krets område/prestanda
+P2527	Vakuumbehållartrycksgivare – krets låg
+P2528	Vakuumbehållartrycksgivare – krets hög
+P2529	Vakuumbehållartrycksgivare – krets sporadisk
+P252A	Motoroljekvalitetsgivare – krets
+P252B	Motoroljekvalitetsgivare – krets område/prestanda
+P252C	Motoroljekvalitetsgivare – krets låg
+P252D	Motoroljekvalitetsgivare – krets hög
+P252E	Motoroljekvalitet – krets sporadisk/instabil
+P252F	Motoroljenivå – för hög
+P2530	Tändningslåskörläge – krets
+P2531	Tändningslåskörläge – krets låg
+P2532	Tändningslåskörläge – krets hög
+P2533	Tändningslåskör-/startläge – krets
+P2534	Tändningslåskör-/startläge – krets låg
+P2535	Tändningslåskör-/startläge – krets hög
+P2536	Tändningslåstillbehörsläge – krets
+P2537	Tändningslåstillbehörsläge – krets låg
+P2538	Tändningslåstillbehörsläge – krets hög
+P2539	Lågtrycksbränslesystemgivare – krets
+P253A	PTO-mätning – krets avbrott
+P253B	PTO-mätning – krets område/prestanda
+P253C	PTO-mätning – krets låg
+P253D	PTO-mätning – krets hög
+P253E	PTO-mätning – krets sporadisk/instabil
+P253F	Motorolja försämrad
+P2540	Lågtrycksbränslesystemgivare – krets område/prestanda
+P2541	Lågtrycksbränslesystemgivare – krets låg
+P2542	Lågtrycksbränslesystemgivare – krets hög
+P2543	Lågtrycksbränslesystemgivare – krets sporadisk
+P2544	Momentstyrning – begäran, insignal A
+P2545	Momentstyrning – begäran, insignal A område/prestanda
+P2546	Momentstyrning – begäran, insignal A låg
+P2547	Momentstyrning – begäran, insignal A hög
+P2548	Momentstyrning – begäran, insignal B
+P2549	Momentstyrning – begäran, insignal B område/prestanda
+P254A	PTO-hastighetsväljargivare/-brytare 1 – krets avbrott
+P254B	PTO-hastighetsväljargivare/-brytare 1 – område/prestanda
+P254C	PTO-hastighetsväljargivare/-brytare 1 – krets låg
+P254D	PTO-hastighetsväljargivare/-brytare 1 – krets hög
+P254E	PTO-hastighetsväljargivare/-brytare 1 – krets sporadisk/instabil
+P254F	Motormotorhuvsbrytare – krets
+P2550	Momentstyrning – begäran, insignal B låg
+P2551	Momentstyrning – begäran, insignal B hög
+P2552	Trottel-/bränslespärr – krets
+P2553	Trottel-/bränslespärr – krets område/prestanda
+P2554	Trottel-/bränslespärr – krets låg
+P2555	Trottel-/bränslespärr – krets hög
+P2556	Kylvätskenivågivare/-brytare – krets
+P2557	Kylvätskenivågivare/-brytare – krets område/prestanda
+P2558	Kylvätskenivågivare/-brytare – krets låg
+P2559	Kylvätskenivågivare/-brytare – krets hög
+P255A	PTO-hastighetsväljargivare/-brytare 2 – krets avbrott
+P255B	PTO-hastighetsväljargivare/-brytare 2 – område/prestanda
+P255C	PTO-hastighetsväljargivare/-brytare 2 – krets låg
+P255D	PTO-hastighetsväljargivare/-brytare 2 – krets hög
+P255E	PTO-hastighetsväljargivare/-brytare 2 – krets sporadisk/instabil
+P2560	Kylvätskenivå – låg
+P2561	AC-styrenhet – begär tändning av motorlampan
+P2562	Turboladdtrycksreglerings-lägesgivare A – krets
+P2563	Turboladdtrycksreglerings-lägesgivare A – krets område/prestanda
+P2564	Turboladdtrycksreglerings-lägesgivare A – krets låg
+P2565	Turboladdtrycksreglerings-lägesgivare A – krets hög
+P2566	Turboladdtrycksreglerings-lägesgivare A – krets sporadisk
+P2567	Ozonkatalysator-temperaturgivare – krets
+P2568	Ozonkatalysator-temperaturgivare – krets område/prestanda
+P2569	Ozonkatalysator-temperaturgivare – krets låg
+P256A	Motortomgångshastighetsväljargivare/-brytare – krets avbrott
+P256B	Motortomgångshastighetsväljargivare/-brytare – område/prestanda
+P256C	Motortomgångshastighetsväljargivare/-brytare – krets låg
+P256D	Motortomgångshastighetsväljargivare/-brytare – krets hög
+P256E	Motortomgångshastighetsväljargivare/-brytare – krets sporadisk/instabil
+P2570	Ozonkatalysator-temperaturgivare – krets hög
+P2571	Ozonkatalysator-temperaturgivare – krets sporadisk/instabil
+P2572	Ozonkatalysator-försämringsgivare – krets
+P2573	Ozonkatalysator-försämringsgivare – krets område/prestanda
+P2574	Ozonkatalysator-försämringsgivare – krets låg
+P2575	Ozonkatalysator-försämringsgivare – krets hög
+P2576	Ozonkatalysator-försämringsgivare – krets sporadisk/instabil
+P2577	Ozonkatalysatoreffektivitet – under gränsvärde
+P2578	Turbovarvtalsgivare – krets
+P2579	Turbovarvtalsgivare – krets område/prestanda
+P257A	Vakuumbehållare – styrkrets avbrott
+P257B	Vakuumbehållare – styrkrets låg
+P257C	Vakuumbehållare – styrkrets hög
+P257D	Motormotorhuvsbrytare – krets område/prestanda
+P257E	Motormotorhuvsbrytare – krets låg
+P257F	Motormotorhuvsbrytare – krets hög
+P2580	Turbovarvtalsgivare – krets låg
+P2581	Turbovarvtalsgivare – krets hög
+P2582	Turbovarvtalsgivare – krets sporadisk
+P2583	Farthållaravståndsgivare fram
+P2584	Bränsletillsatsstyrenhet – begär tändning av motorlampan
+P2585	Bränsletillsats-styrenhetsvarningslampa – begäran
+P2586	Turboladdtrycksreglerings-lägesgivare B – krets
+P2587	Turboladdtrycksreglerings-lägesgivare B – krets område/prestanda
+P2588	Turboladdtrycksreglerings-lägesgivare B – krets låg
+P2589	Turboladdtrycksreglerings-lägesgivare B – krets hög
+P2590	Turboladdtrycksreglerings-lägesgivare B – krets sporadisk/instabil
+P2600	Kylvätskepump – styrkrets avbrott
+P2601	Kylvätskepump – styrkrets område/prestanda
+P2602	Kylvätskepump – styrkrets låg
+P2603	Kylvätskepump – styrkrets hög
+P2604	Insugsluftsvärmare A – krets område/prestanda
+P2605	Insugsluftsvärmare A – krets avbrott
+P2606	Insugsluftsvärmare B – krets område/prestanda
+P2607	Insugsluftsvärmare B – krets låg
+P2608	Insugsluftsvärmare B – krets hög
+P2609	Insugsluftsvärmarsystem – prestanda
+P260A	Kraftuttag (PTO) – styrkrets avbrott
+P260B	Kraftuttag (PTO) – styrkrets låg
+P260C	Kraftuttag (PTO) – styrkrets hög
+P260D	PTO-lampa ilagd – styrkrets
+P260F	EVAP-övervakningsprocessor – prestanda
+P2610	ECM/PCM intern motor av timer – prestanda
+P2611	Fördelningsventil för köldmedium (AC) – styrkrets avbrott
+P2612	Fördelningsventil för köldmedium (AC) – styrkrets låg
+P2613	Fördelningsventil för köldmedium (AC) – styrkrets hög
+P2614	Kamaxellägessignalutgång – krets avbrott
+P2615	Kamaxellägessignalutgång – krets låg
+P2616	Kamaxellägessignalutgång – krets hög
+P2617	Vevaxellägessignalutgång – krets avbrott
+P2618	Vevaxellägessignalutgång – krets låg
+P2619	Vevaxellägessignalutgång – krets hög
+P2620	Trottellägesutgång – krets avbrott
+P2621	Trottellägesutgång – krets låg
+P2622	Trottellägesutgång – krets hög
+P2623	Insprutarstyrtrycksregulator – krets avbrott
+P2624	Insprutarstyrtrycksregulator – krets låg
+P2625	Insprutarstyrtrycksregulator – krets hög
+P2626	Lambdasondpumpströmtrim – krets avbrott, bank 1 givare 1
+P2627	Lambdasondpumpströmtrim – krets låg, bank 1 givare 1
+P2628	Lambdasondpumpströmtrim – krets hög, bank 1 givare 1
+P2629	Lambdasondpumpströmtrim – krets avbrott, bank 2 givare 1
+P2630	Lambdasondpumpströmtrim – krets låg, bank 2 givare 1
+P2631	Lambdasondpumpströmtrim – krets hög, bank 2 givare 1
+P2632	Bränslepump B – styrkrets avbrott
+P2633	Bränslepump B – styrkrets låg
+P2634	Bränslepump B – styrkrets hög
+P2635	Bränslepump A – lågt flöde/prestanda
+P2636	Bränslepump B – lågt flöde/prestanda
+P2637	Momentstyrnings-återkopplingssignal A
+P2638	Momentstyrnings-återkopplingssignal A – område/prestanda
+P2639	Momentstyrnings-återkopplingssignal A – låg
+P2640	Momentstyrnings-återkopplingssignal A – hög
+P2641	Momentstyrnings-återkopplingssignal B
+P2642	Momentstyrnings-återkopplingssignal B – område/prestanda
+P2643	Momentstyrnings-återkopplingssignal B – låg
+P2644	Momentstyrnings-återkopplingssignal B – hög
+P2645	Vipparmsställdon A – styrkrets avbrott, bank 1
+P2646	Vipparmsställdonssystem A – prestanda eller fast i från-läge, bank 1
+P2647	Vipparmsställdonssystem A – fast i till-läge, bank 1
+P2648	Vipparmsställdon A – styrkrets låg, bank 1
+P2649	Vipparmsställdon A – styrkrets hög, bank 1
+P264A	Vipparmsställdonslägesgivare A – krets, bank 1
+P264B	Vipparmsställdonslägesgivare A – krets område/prestanda, bank 1
+P264C	Vipparmsställdonslägesgivare A – krets låg, bank 1
+P264D	Vipparmsställdonslägesgivare A – krets hög, bank 1
+P264E	Vipparmsställdonslägesgivare A – krets sporadisk/instabil, bank 1
+P2650	Vipparmsställdon B – styrkrets avbrott, bank 1
+P2651	Vipparmsställdonssystem B – prestanda/fast i från-läge, bank 1
+P2652	Vipparmsställdonssystem B – fast i till-läge, bank 1
+P2653	Vipparmsställdon B – styrkrets låg, bank 1
+P2654	Vipparmsställdon B – styrkrets hög, bank 1
+P2655	Vipparmsställdon A – styrkrets avbrott, bank 2
+P2656	Vipparmsställdonssystem A – prestanda eller fast i från-läge, bank 2
+P2657	Vipparmsställdonssystem A – fast i till-läge, bank 2
+P2658	Vipparmsställdon A – styrkrets låg, bank 2
+P2659	Vipparmsställdon A – styrkrets hög, bank 2
+P265A	Vipparmsställdonslägesgivare B – krets, bank 1
+P265B	Vipparmsställdonslägesgivare B – krets område/prestanda, bank 1
+P265C	Vipparmsställdonslägesgivare B – krets låg, bank 1
+P265D	Vipparmsställdonslägesgivare B – krets hög, bank 1
+P265E	Vipparmsställdonslägesgivare B – krets sporadisk/instabil, bank 1
+P2660	Vipparmsställdon B – styrkrets avbrott, bank 2
+P2661	Vipparmsställdonssystem B – prestanda/fast i från-läge, bank 2
+P2662	Vipparmsställdonssystem B – fast i till-läge, bank 2
+P2663	Vipparmsställdon B – styrkrets låg, bank 2
+P2664	Vipparmsställdon B – styrkrets hög, bank 2
+P2665	Bränsleavstängningsventil B – styrkrets avbrott
+P2666	Bränsleavstängningsventil B – styrkrets låg
+P2667	Bränsleavstängningsventil B – styrkrets hög
+P2668	Bränslelägeskontrollampa – styrkrets
+P2669	Ställdonsmatningsspänning B – krets avbrott
+P266A	Vipparmsställdonslägesgivare A – krets, bank 2
+P266B	Vipparmsställdonslägesgivare A – krets område/prestanda, bank 2
+P266C	Vipparmsställdonslägesgivare A – krets låg, bank 2
+P266D	Vipparmsställdonslägesgivare A – krets hög, bank 2
+P266E	Vipparmsställdonslägesgivare A – krets sporadisk/instabil, bank 2
+P2670	Ställdonsmatningsspänning B – krets låg
+P2671	Ställdonsmatningsspänning B – krets hög
+P2672	Insprutningspump-tidsinställningsförskjutning
+P2673	Insprutningspump-tidsinställningskalibrering – inte inlärd
+P2674	Insprutningspump-bränslekalibrering – inte inlärd
+P2675	Luftfilterinlopp – styrkrets avbrott
+P2676	Luftfilterinlopp – styrkrets låg
+P2677	Luftfilterinlopp – styrkrets hög
+P2678	Kylvätskeavgasningsventil – styrkrets avbrott
+P2679	Kylvätskeavgasningsventil – styrkrets låg
+P267A	Vipparmsställdonslägesgivare B – krets, bank 2
+P267B	Vipparmsställdonslägesgivare B – krets område/prestanda, bank 2
+P267C	Vipparmsställdonslägesgivare B – krets låg, bank 2
+P267D	Vipparmsställdonslägesgivare B – krets hög, bank 2
+P267E	Vipparmsställdonslägesgivare B – krets sporadisk/instabil, bank 2
+P2680	Kylvätskeavgasningsventil – styrkrets hög
+P2681	Kylvätskebypassventil – styrkrets avbrott
+P2682	Kylvätskebypassventil – styrkrets låg
+P2683	Kylvätskebypassventil – styrkrets hög
+P2684	Ställdonsmatningsspänning C – krets avbrott
+P2685	Ställdonsmatningsspänning C – krets låg
+P2686	Ställdonsmatningsspänning C – krets hög
+P2687	Bränslematningsvärmare – styrkrets avbrott
+P2688	Bränslematningsvärmare – styrkrets låg
+P2689	Bränslematningsvärmare – styrkrets hög
+P2700	Växellådsfriktionselement A tillslagstid – område/prestanda
+P2701	Växellådsfriktionselement B tillslagstid – område/prestanda
+P2702	Växellådsfriktionselement C tillslagstid – område/prestanda
+P2703	Växellådsfriktionselement D tillslagstid – område/prestanda
+P2704	Växellådsfriktionselement E tillslagstid – område/prestanda
+P2705	Växellådsfriktionselement F tillslagstid – område/prestanda
+P2706	Växlingsmagnetventil F
+P2707	Växlingsmagnetventil F – prestanda eller fast i från-läge
+P2708	Växlingsmagnetventil F – fast i till-läge
+P2709	Växlingsmagnetventil F elektrisk
+P2710	Växlingsmagnetventil F – sporadisk
+P2711	Oväntad mekaniskväxelurkoppling
+P2712	Hydraulströmenhetsläckage
+P2713	Tryckregleringsmagnetventil D
+P2714	Tryckregleringsmagnetventil D – prestanda eller fast i från-läge
+P2715	Tryckregleringsmagnetventil D – fast i till-läge
+P2716	Tryckregleringsmagnetventil D elektrisk
+P2717	Tryckregleringsmagnetventil D – sporadisk
+P2718	Tryckregleringsmagnetventil D – styrkrets avbrott
+P2719	Tryckregleringsmagnetventil D – styrkrets område/prestanda
+P2720	Tryckregleringsmagnetventil D – styrkrets låg
+P2721	Tryckregleringsmagnetventil D – styrkrets hög
+P2722	Tryckregleringsmagnetventil E
+P2723	Tryckregleringsmagnetventil E – prestanda eller fast i från-läge
+P2724	Tryckregleringsmagnetventil E – fast i till-läge
+P2725	Tryckregleringsmagnetventil E elektrisk
+P2726	Tryckregleringsmagnetventil E – sporadisk
+P2727	Tryckregleringsmagnetventil E – styrkrets avbrott
+P2728	Tryckregleringsmagnetventil E – styrkrets område/prestanda
+P2729	Tryckregleringsmagnetventil E – styrkrets låg
+P2730	Tryckregleringsmagnetventil E – styrkrets hög
+P2731	Tryckregleringsmagnetventil F
+P2732	Tryckregleringsmagnetventil F – prestanda eller fast i från-läge
+P2733	Tryckregleringsmagnetventil F – fast i till-läge
+P2734	Tryckregleringsmagnetventil F elektrisk
+P2735	Tryckregleringsmagnetventil F – sporadisk
+P2736	Tryckregleringsmagnetventil F – styrkrets avbrott
+P2737	Tryckregleringsmagnetventil F – styrkrets område/prestanda
+P2738	Tryckregleringsmagnetventil F – styrkrets låg
+P2739	Tryckregleringsmagnetventil F – styrkrets hög
+P273A	Växellådsfriktionselement G tillslagstid – område/prestanda
+P273B	Växellådsfriktionselement H tillslagstid – område/prestanda
+P2740	Växellådsoljetemperaturgivare B – krets
+P2741	Växellådsoljetemperaturgivare B – krets område/prestanda
+P2742	Växellådsoljetemperaturgivare B – krets låg
+P2743	Växellådsoljetemperaturgivare B – krets hög
+P2744	Växellådsoljetemperaturgivare B – krets sporadisk
+P2745	Mellanaxelvarvtalsgivare B – krets
+P2746	Mellanaxelvarvtalsgivare B – krets område/prestanda
+P2747	Mellanaxelvarvtalsgivare B – krets ingen signal
+P2748	Mellanaxelvarvtalsgivare B – krets sporadisk
+P2749	Mellanaxelvarvtalsgivare C – krets
+P2750	Mellanaxelvarvtalsgivare C – krets område/prestanda
+P2751	Mellanaxelvarvtalsgivare C – krets ingen signal
+P2752	Mellanaxelvarvtalsgivare C – krets sporadisk
+P2753	Växellådsoljekylare – styrkrets avbrott
+P2754	Växellådsoljekylare – styrkrets låg
+P2755	Växellådsoljekylare – styrkrets hög
+P2756	Momentomvandlarkopplings-tryckregleringsmagnetventil
+P2757	Momentomvandlarkopplings-tryckregleringsmagnetventil – styrkrets prestanda eller fast i från-läge
+P2758	Momentomvandlarkopplings-tryckregleringsmagnetventil – styrkrets fast i till-läge
+P2759	Momentomvandlarkopplings-tryckregleringsmagnetventil – styrkrets elektrisk
+P2760	Momentomvandlarkopplings-tryckregleringsmagnetventil – styrkrets sporadisk
+P2761	Momentomvandlarkopplings-tryckregleringsmagnetventil – styrkrets avbrott
+P2762	Momentomvandlarkopplings-tryckregleringsmagnetventil – styrkrets område/prestanda
+P2763	Momentomvandlarkopplings-tryckregleringsmagnetventil – styrkrets hög
+P2764	Momentomvandlarkopplings-tryckregleringsmagnetventil – styrkrets låg
+P2765	Ingångs-/turbinvarvtalsgivare B – krets
+P2766	Ingångs-/turbinvarvtalsgivare B – krets område/prestanda
+P2767	Ingångs-/turbinvarvtalsgivare B – krets ingen signal
+P2768	Ingångs-/turbinvarvtalsgivare B – krets sporadisk
+P2769	Momentomvandlarkoppling – krets låg
+P2770	Momentomvandlarkoppling – krets hög
+P2771	Fyrhjulsdrift – lågtrycksbrytarkrets (4WD)
+P2772	Fyrhjulsdrift – lågtrycksbrytarkrets område/prestanda (4WD)
+P2773	Fyrhjulsdrift – lågtrycksbrytarkrets låg (4WD)
+P2774	Fyrhjulsdrift – lågtrycksbrytarkrets hög (4WD)
+P2775	Uppväxlingsbrytare – krets område/prestanda
+P2776	Uppväxlingsbrytare – krets låg
+P2777	Uppväxlingsbrytare – krets hög
+P2778	Uppväxlingsbrytare – krets sporadisk/instabil
+P2779	Nedväxlingsbrytare – krets område/prestanda
+P2780	Nedväxlingsbrytare – krets låg
+P2781	Nedväxlingsbrytare – krets hög
+P2782	Nedväxlingsbrytare – krets sporadisk/instabil
+P2783	Momentomvandlare – temperatur för hög
+P2784	Ingångs-/turbinvarvtalsgivare A/B – korrelation
+P2785	Kopplingsställdon – temperatur för hög
+P2786	Växlingsställdon – temperatur för hög
+P2787	Koppling – temperatur för hög
+P2788	Automatiserad växellåda, adaptiv inlärning vid gränsen
+P2789	Koppling, adaptiv inlärning vid gränsen
+P278A	Kickdownbrytare – krets
+P278B	Kickdownbrytare – krets område/prestanda
+P278C	Kickdownbrytare – krets låg
+P278D	Kickdownbrytare – krets hög
+P278E	Kickdownbrytare – krets sporadisk/instabil
+P2790	Växelgatsvalsriktning – krets
+P2791	Växelgatsvalsriktning – krets låg
+P2792	Växelgatsvalsriktning – krets hög
+P2793	Växlingsriktning – krets
+P2794	Växlingsriktning – krets låg
+P2795	Växlingsriktning – krets hög
+P2796	Extraväxellådsoljepump – styrkrets avbrott
+P2797	Extraväxellådsoljepump – prestanda
+P2798	Extraväxellådsoljepump – styrkrets låg
+P2799	Extraväxellådsoljepump – styrkrets hög
+P2800	Växelväljarlägesgivare B – krets (ingång för växelväljare (PRNDL))
+P2801	Växelväljarlägesgivare B – krets område/prestanda
+P2802	Växelväljarlägesgivare B – krets låg
+P2803	Växelväljarlägesgivare B – krets hög
+P2804	Växelväljarlägesgivare B – sporadisk
+P2805	Växelväljarlägesgivare A/B – korrelation
+P2806	Växelväljarlägesgivarjustering
+P2807	Tryckregleringsmagnetventil G
+P2808	Tryckregleringsmagnetventil G – prestanda/fast i från-läge
+P2809	Tryckregleringsmagnetventil G – fast i till-läge
+P2810	Tryckregleringsmagnetventil G elektrisk
+P2811	Tryckregleringsmagnetventil G – sporadisk
+P2812	Tryckregleringsmagnetventil G – styrkrets avbrott
+P2813	Tryckregleringsmagnetventil G – styrkrets område/prestanda
+P2814	Tryckregleringsmagnetventil G – styrkrets låg
+P2815	Tryckregleringsmagnetventil G – styrkrets hög
+P2816	Tryckregleringsmagnetventil H
+P2817	Tryckregleringsmagnetventil H – prestanda/fast i från-läge
+P2818	Tryckregleringsmagnetventil H – fast i till-läge
+P2819	Tryckregleringsmagnetventil H elektrisk
+P281A	Tryckregleringsmagnetventil H – sporadisk
+P281B	Tryckregleringsmagnetventil H – styrkrets avbrott
+P281C	Tryckregleringsmagnetventil H – styrkrets område/prestanda
+P281D	Tryckregleringsmagnetventil H – styrkrets låg
+P281E	Tryckregleringsmagnetventil H – styrkrets hög
+P281F	Tryckregleringsmagnetventil J
+P2820	Tryckregleringsmagnetventil J – prestanda/fast i från-läge
+P2821	Tryckregleringsmagnetventil J – fast i till-läge
+P2822	Tryckregleringsmagnetventil J elektrisk
+P2823	Tryckregleringsmagnetventil J – sporadisk
+P2824	Tryckregleringsmagnetventil J – styrkrets avbrott
+P2825	Tryckregleringsmagnetventil J – styrkrets område/prestanda
+P2826	Tryckregleringsmagnetventil J – styrkrets låg
+P2827	Tryckregleringsmagnetventil J – styrkrets hög
+P2828	Tryckregleringsmagnetventil K
+P2829	Tryckregleringsmagnetventil K – prestanda/fast i från-läge
+P282A	Tryckregleringsmagnetventil K – fast i till-läge
+P282B	Tryckregleringsmagnetventil K elektrisk
+P282C	Tryckregleringsmagnetventil K – sporadisk
+P282D	Tryckregleringsmagnetventil K – styrkrets avbrott
+P282E	Tryckregleringsmagnetventil K – styrkrets område/prestanda
+P282F	Tryckregleringsmagnetventil K – styrkrets låg
+P2830	Tryckregleringsmagnetventil K – styrkrets hög
+P2A00	Lambdasond – krets område/prestanda, bank 1 givare 1
+P2A01	Lambdasond – krets område/prestanda, bank 1 givare 2
+P2A02	Lambdasond – krets område/prestanda, bank 1 givare 3
+P2A03	Lambdasond – krets område/prestanda, bank 2 givare 1
+P2A04	Lambdasond – krets område/prestanda, bank 2 givare 2
+P2A05	Lambdasond – krets område/prestanda, bank 2 givare 3
+P2A06	Lambdasondnegativspänning, bank 1 givare 1
+P2A07	Lambdasondnegativspänning, bank 1 givare 2
+P2A08	Lambdasondnegativspänning, bank 1 givare 3
+P2A09	Lambdasondnegativspänning, bank 2 givare 1
+P2A10	Lambdasondnegativspänning, bank 2 givare 2
+P2A11	Lambdasondnegativspänning, bank 2 givare 3
+P3400	Cylinderavstängningssystem, bank 1
+P3401	Avstängning/insugsventil – styrkrets avbrott, cylinder 1
+P3402	Avstängning/insugsventil – styrning prestanda, cylinder 1
+P3403	Avstängning/insugsventil – styrkrets låg, cylinder 1
+P3404	Avstängning/insugsventil – styrkrets hög, cylinder 1
+P3405	Avgasventil – styrkrets avbrott, cylinder 1
+P3406	Avgasventil – styrning prestanda, cylinder 1
+P3407	Avgasventil – styrkrets låg, cylinder 1
+P3408	Avgasventil – styrkrets hög, cylinder 1
+P3409	Avstängning/insugsventil – styrkrets avbrott, cylinder 2
+P3410	Avstängning/insugsventil – styrning prestanda, cylinder 2
+P3411	Avstängning/insugsventil – styrkrets låg, cylinder 2
+P3412	Avstängning/insugsventil – styrkrets hög, cylinder 2
+P3413	Avgasventil – styrkrets avbrott, cylinder 2
+P3414	Avgasventil – styrning prestanda, cylinder 2
+P3415	Avgasventil – styrkrets låg, cylinder 2
+P3416	Avgasventil – styrkrets hög, cylinder 2
+P3417	Avstängning/insugsventil – styrkrets avbrott, cylinder 3
+P3418	Avstängning/insugsventil – styrning prestanda, cylinder 3
+P3419	Avstängning/insugsventil – styrkrets låg, cylinder 3
+P3420	Avstängning/insugsventil – styrkrets hög, cylinder 3
+P3421	Avgasventil – styrkrets avbrott, cylinder 3
+P3422	Avgasventil – styrning prestanda, cylinder 3
+P3423	Avgasventil – styrkrets låg, cylinder 3
+P3424	Avgasventil – styrkrets hög, cylinder 3
+P3425	Avstängning/insugsventil – styrkrets avbrott, cylinder 4
+P3426	Avstängning/insugsventil – styrning prestanda, cylinder 4
+P3427	Avstängning/insugsventil – styrkrets låg, cylinder 4
+P3428	Avstängning/insugsventil – styrkrets hög, cylinder 4
+P3429	Avgasventil – styrkrets avbrott, cylinder 4
+P3430	Avgasventil – styrning prestanda, cylinder 4
+P3431	Avgasventil – styrkrets låg, cylinder 4
+P3432	Avgasventil – styrkrets hög, cylinder 4
+P3433	Avstängning/insugsventil – styrkrets avbrott, cylinder 5
+P3434	Avstängning/insugsventil – styrning prestanda, cylinder 5
+P3435	Avstängning/insugsventil – styrkrets låg, cylinder 5
+P3436	Avstängning/insugsventil – styrkrets hög, cylinder 5
+P3437	Avgasventil – styrkrets avbrott, cylinder 5
+P3438	Avgasventil – styrning prestanda, cylinder 5
+P3439	Avgasventil – styrkrets låg, cylinder 5
+P3440	Avgasventil – styrkrets hög, cylinder 5
+P3441	Avstängning/insugsventil – styrkrets avbrott, cylinder 6
+P3442	Avstängning/insugsventil – styrning prestanda, cylinder 6
+P3443	Avstängning/insugsventil – styrkrets låg, cylinder 6
+P3444	Avstängning/insugsventil – styrkrets hög, cylinder 6
+P3445	Avgasventil – styrkrets avbrott, cylinder 6
+P3446	Avgasventil – styrning prestanda, cylinder 6
+P3447	Avgasventil – styrkrets låg, cylinder 6
+P3448	Avgasventil – styrkrets hög, cylinder 6
+P3449	Avstängning/insugsventil – styrkrets avbrott, cylinder 7
+P3450	Avstängning/insugsventil – styrning prestanda, cylinder 7
+P3451	Avstängning/insugsventil – styrkrets låg, cylinder 7
+P3452	Avstängning/insugsventil – styrkrets hög, cylinder 7
+P3453	Avgasventil – styrkrets avbrott, cylinder 7
+P3454	Avgasventil – styrning prestanda, cylinder 7
+P3455	Avgasventil – styrkrets låg, cylinder 7
+P3456	Avgasventil – styrkrets hög, cylinder 7
+P3457	Avstängning/insugsventil – styrkrets avbrott, cylinder 8
+P3458	Avstängning/insugsventil – styrning prestanda, cylinder 8
+P3459	Avstängning/insugsventil – styrkrets låg, cylinder 8
+P3460	Avstängning/insugsventil – styrkrets hög, cylinder 8
+P3461	Avgasventil – styrkrets avbrott, cylinder 8
+P3462	Avgasventil – styrning prestanda, cylinder 8
+P3463	Avgasventil – styrkrets låg, cylinder 8
+P3464	Avgasventil – styrkrets hög, cylinder 8
+P3465	Avstängning/insugsventil – styrkrets avbrott, cylinder 9
+P3466	Avstängning/insugsventil – styrning prestanda, cylinder 9
+P3467	Avstängning/insugsventil – styrkrets låg, cylinder 9
+P3468	Avstängning/insugsventil – styrkrets hög, cylinder 9
+P3469	Avgasventil – styrkrets avbrott, cylinder 9
+P3470	Avgasventil – styrning prestanda, cylinder 9
+P3471	Avgasventil – styrkrets låg, cylinder 9
+P3472	Avgasventil – styrkrets hög, cylinder 9
+P3473	Avstängning/insugsventil – styrkrets avbrott, cylinder 10
+P3474	Avstängning/insugsventil – styrning prestanda, cylinder 10
+P3475	Avstängning/insugsventil – styrkrets låg, cylinder 10
+P3476	Avstängning/insugsventil – styrkrets hög, cylinder 10
+P3477	Avgasventil – styrkrets avbrott, cylinder 10
+P3478	Avgasventil – styrning prestanda, cylinder 10
+P3479	Avgasventil – styrkrets låg, cylinder 10
+P3480	Avgasventil – styrkrets hög, cylinder 10
+P3481	Avstängning/insugsventil – styrkrets avbrott, cylinder 11
+P3482	Avstängning/insugsventil – styrning prestanda, cylinder 11
+P3483	Avstängning/insugsventil – styrkrets låg, cylinder 11
+P3484	Avstängning/insugsventil – styrkrets hög, cylinder 11
+P3485	Avgasventil – styrkrets avbrott, cylinder 11
+P3486	Avgasventil – styrning prestanda, cylinder 11
+P3487	Avgasventil – styrkrets låg, cylinder 11
+P3488	Avgasventil – styrkrets hög, cylinder 11
+P3489	Avstängning/insugsventil – styrkrets avbrott, cylinder 12
+P3490	Avstängning/insugsventil – styrning prestanda, cylinder 12
+P3491	Avstängning/insugsventil – styrkrets låg, cylinder 12
+P3492	Avstängning/insugsventil – styrkrets hög, cylinder 12
+P3493	Avgasventil – styrkrets avbrott, cylinder 12
+P3494	Avgasventil – styrning prestanda, cylinder 12
+P3495	Avgasventil – styrkrets låg, cylinder 12
+P3496	Avgasventil – styrkrets hög, cylinder 12
+P3497	Cylinderavstängningssystem, bank 2
+U0001	Höghastighets-CAN-buss
+U0002	Höghastighets-CAN-buss – prestanda
+U0003	Höghastighets-CAN-buss avbrott (+)
+U0004	Höghastighets-CAN-buss – låg (+)
+U0005	Höghastighets-CAN-buss – hög (+)
+U0006	Höghastighets-CAN-buss avbrott (-)
+U0007	Höghastighets-CAN-buss – låg (-)
+U0008	Höghastighets-CAN-buss – hög (-)
+U0009	Höghastighets-CAN-buss (-) kortsluten mot buss (+)
+U0010	Medelhastighets-CAN-buss
+U0011	Medelhastighets-CAN-buss – prestanda
+U0012	Medelhastighets-CAN-buss avbrott (+)
+U0013	Medelhastighets-CAN-buss – låg (+)
+U0014	Medelhastighets-CAN-buss – hög (+)
+U0015	Medelhastighets-CAN-buss avbrott (-)
+U0016	Medelhastighets-CAN-buss – låg (-)
+U0017	Medelhastighets-CAN-buss – hög (-)
+U0018	Medelhastighets-CAN-buss (-) kortsluten mot buss (+)
+U0019	Låghastighets-CAN-buss
+U0020	Låghastighets-CAN-buss – prestanda
+U0021	Låghastighets-CAN-buss avbrott (+)
+U0022	Låghastighets-CAN-buss – låg (+)
+U0023	Låghastighets-CAN-buss – hög (+)
+U0024	Låghastighets-CAN-buss avbrott (-)
+U0025	Låghastighets-CAN-buss – låg (-)
+U0026	Låghastighets-CAN-buss – hög (-)
+U0027	Låghastighets-CAN-buss (-) kortsluten mot buss (+)
+U0028	Kommunikationsbuss A
+U0029	Kommunikationsbuss A – prestanda
+U0030	Kommunikationsbuss A avbrott (+)
+U0031	Kommunikationsbuss A – låg (+)
+U0032	Kommunikationsbuss A – hög (+)
+U0033	Kommunikationsbuss A avbrott (-)
+U0034	Kommunikationsbuss A – låg (-)
+U0035	Kommunikationsbuss A – hög (-)
+U0036	Kommunikationsbuss A (-) kortsluten mot buss A (+)
+U0037	Kommunikationsbuss B
+U0038	Kommunikationsbuss B – prestanda
+U0039	Kommunikationsbuss B avbrott (+)
+U0040	Kommunikationsbuss B – låg (+)
+U0041	Kommunikationsbuss B – hög (+)
+U0042	Kommunikationsbuss B avbrott (-)
+U0043	Kommunikationsbuss B – låg (-)
+U0044	Kommunikationsbuss B – hög (-)
+U0045	Kommunikationsbuss B (-) kortsluten mot buss B (+)
+U0046	Kommunikationsbuss C
+U0047	Kommunikationsbuss C – prestanda
+U0048	Kommunikationsbuss C avbrott (+)
+U0049	Kommunikationsbuss C – låg (+)
+U0050	Kommunikationsbuss C – hög (+)
+U0051	Kommunikationsbuss C avbrott (-)
+U0052	Kommunikationsbuss C – låg (-)
+U0053	Kommunikationsbuss C – hög (-)
+U0054	Kommunikationsbuss C (-) kortsluten mot buss C (+)
+U0055	Kommunikationsbuss D
+U0056	Kommunikationsbuss D – prestanda
+U0057	Kommunikationsbuss D avbrott (+)
+U0058	Kommunikationsbuss D – låg (+)
+U0059	Kommunikationsbuss D – hög (+)
+U0060	Kommunikationsbuss D avbrott (-)
+U0061	Kommunikationsbuss D – låg (-)
+U0062	Kommunikationsbuss D – hög (-)
+U0063	Kommunikationsbuss D (-) kortsluten mot buss D (+)
+U0064	Kommunikationsbuss E
+U0065	Kommunikationsbuss E – prestanda
+U0066	Kommunikationsbuss E avbrott (+)
+U0067	Kommunikationsbuss E – låg (+)
+U0068	Kommunikationsbuss E – hög (+)
+U0069	Kommunikationsbuss E avbrott (-)
+U0070	Kommunikationsbuss E – låg (-)
+U0071	Kommunikationsbuss E – hög (-)
+U0072	Kommunikationsbuss E (-) kortsluten mot buss E (+)
+U0073	Kommunikationsbuss A: styrenhet frånkopplad (bus off)
+U0074	Styrenhetskommunikationsbuss B av
+U0100	Förlorad kommunikation med ECM/PCM A
+U0101	Förlorad kommunikation med TCM
+U0102	Förlorad kommunikation med fördelningslådestyrenhet
+U0103	Förlorad kommunikation med växlingsmodul
+U0104	Förlorad kommunikation med farthållarmodul
+U0105	Förlorad kommunikation med bränsleinsprutarstyrenhet
+U0106	Förlorad kommunikation med glödstiftsstyrenhet
+U0107	Förlorad kommunikation med trottelställdonsstyrenhet
+U0108	Förlorad kommunikation med alternativbränslestyrenhet
+U0109	Förlorad kommunikation med bränslepumpstyrenhet
+U0110	Förlorad kommunikation med drivmotorstyrenhet
+U0111	Förlorad kommunikation med batteristyrenhet A
+U0112	Förlorad kommunikation med batteristyrenhet B
+U0113	Förlorad kommunikation med utsläppskritisk styrinformation
+U0114	Förlorad kommunikation med fyrhjulsdrifts-kopplingsstyrenhet
+U0115	Förlorad kommunikation med ECM/PCM B
+U0116	Förlorad kommunikation med kylvätsketemperaturstyrenhet
+U0117	Förlorad kommunikation med PTO-styrenhet
+U0118	Förlorad kommunikation med bränsletillsatsstyrenhet
+U0119	Förlorad kommunikation med bränslecellsstyrenhet
+U0120	Förlorad kommunikation med startmotor-/generatorstyrenhet
+U0121	Förlorad kommunikation med ABS-styrenhet
+U0122	Förlorad kommunikation med fordonsdynamikstyrenhet
+U0123	Förlorad kommunikation med girhastighetsgivarmodul
+U0124	Förlorad kommunikation med sidoaccelerationsgivarmodul
+U0125	Förlorad kommunikation med fleraxel-accelerations-givarmodul
+U0126	Förlorad kommunikation med styrvinkelgivarmodul
+U0127	Förlorad kommunikation med däcktrycksövervakningsmodul
+U0128	Förlorad kommunikation med parkeringsbromsstyrenhet
+U0129	Förlorad kommunikation med bromssystemstyrenhet
+U0130	Förlorad kommunikation med styrkraftsstyrenhet
+U0131	Förlorad kommunikation med servostyrningsstyrenhet
+U0132	Förlorad kommunikation med nivåregleringsstyrenhet
+U0133	Förlorad kommunikation med krängningsdämpningsstyrenhet (ARCM)
+U0134	Förlorad kommunikation med servostyrningsstyrenhet bak
+U0135	Förlorad kommunikation med differentialstyrenhet fram
+U0136	Förlorad kommunikation med differentialstyrenhet bak
+U0137	Förlorad kommunikation med släpvagnsbromsstyrenhet
+U0138	Förlorad kommunikation med terränglägesstyrenhet
+U0139	Förlorad kommunikation med hjulupphängningsstyrenhet B
+U0140	Förlorad kommunikation med karosstyrenhet (BCM)
+U0141	Förlorad kommunikation med karossstyrenhet A
+U0142	Förlorad kommunikation med karossstyrenhet B
+U0143	Förlorad kommunikation med karossstyrenhet C
+U0144	Förlorad kommunikation med karossstyrenhet D
+U0145	Förlorad kommunikation med karossstyrenhet E
+U0146	Förlorad kommunikation med gateway A
+U0147	Förlorad kommunikation med gateway B
+U0148	Förlorad kommunikation med gateway C
+U0149	Förlorad kommunikation med gateway D
+U0150	Förlorad kommunikation med gateway E
+U0151	Förlorad kommunikation med SRS-styrenhet
+U0152	Förlorad kommunikation med sido-SRS-styrenhet (vänster)
+U0153	Förlorad kommunikation med sido-SRS-styrenhet (höger)
+U0154	Förlorad kommunikation med SRS-passagerardetekterings-styrenhet
+U0155	Förlorad kommunikation med instrumentpanelens styrenhet (IPC)
+U0156	Förlorad kommunikation med informationscenter A
+U0157	Förlorad kommunikation med informationscenter B
+U0158	Förlorad kommunikation med head-up-display (HUD)
+U0159	Förlorad kommunikation med parkeringshjälpsstyrenhet
+U0160	Förlorad kommunikation med ljudvarningsstyrenhet
+U0161	Förlorad kommunikation med kompassmodul
+U0162	Förlorad kommunikation med navigationsdisplaymodul
+U0163	Förlorad kommunikation med navigationsstyrenhet
+U0164	Förlorad kommunikation med klimatstyrenhet
+U0165	Förlorad kommunikation med klimatstyrenhet
+U0166	Förlorad kommunikation med tillsatsvärmarstyrenhet
+U0167	Förlorad kommunikation med startspärrsstyrenhet
+U0168	Förlorad kommunikation med stöldskyddsstyrenhet
+U0169	Förlorad kommunikation med soltaksstyrenhet
+U0170	Förlorad kommunikation med SRS-givare A
+U0171	Förlorad kommunikation med SRS-givare B
+U0172	Förlorad kommunikation med SRS-givare C
+U0173	Förlorad kommunikation med SRS-givare D
+U0174	Förlorad kommunikation med SRS-givare E
+U0175	Förlorad kommunikation med SRS-givare F
+U0176	Förlorad kommunikation med SRS-givare G
+U0177	Förlorad kommunikation med SRS-givare H
+U0178	Förlorad kommunikation med SRS-givare I
+U0179	Förlorad kommunikation med SRS-givare J
+U017A	Förlorad kommunikation med SRS-givare K
+U017B	Förlorad kommunikation med SRS-givare L
+U017C	Förlorad kommunikation med SRS-givare M
+U017D	Förlorad kommunikation med SRS-givare N
+U0180	Förlorad kommunikation med ljusautomatikstyrenhet
+U0181	Förlorad kommunikation med strålkastarinställnings-styrenhet
+U0182	Förlorad kommunikation med belysningsstyrenhet fram
+U0183	Förlorad kommunikation med belysningsstyrenhet bak
+U0184	Förlorad kommunikation med radio
+U0185	Förlorad kommunikation med antennstyrenhet
+U0186	Förlorad kommunikation med ljudförstärkare
+U0187	Förlorad kommunikation med CD-spelar-/växlarmodul A
+U0188	Förlorad kommunikation med CD-spelar-/växlarmodul B
+U0189	Förlorad kommunikation med CD-spelar-/växlarmodul C
+U0190	Förlorad kommunikation med CD-spelar-/växlarmodul D
+U0191	Förlorad kommunikation med TV
+U0192	Förlorad kommunikation med PC
+U0193	Förlorad kommunikation med digitalljudstyrenhet A
+U0194	Förlorad kommunikation med digitalljudstyrenhet B
+U0195	Förlorad kommunikation med abonnemangsmottagarmodul
+U0196	Förlorad kommunikation med baksätesunderhållnings-styrenhet
+U0197	Förlorad kommunikation med telefonstyrenhet
+U0198	Förlorad kommunikation med telematikstyrenhet
+U0199	Förlorad kommunikation med dörrstyrenhet A
+U0200	Förlorad kommunikation med dörrstyrenhet B
+U0201	Förlorad kommunikation med dörrstyrenhet C
+U0202	Förlorad kommunikation med dörrstyrenhet D
+U0203	Förlorad kommunikation med dörrstyrenhet E
+U0204	Förlorad kommunikation med dörrstyrenhet F
+U0205	Förlorad kommunikation med dörrstyrenhet G
+U0206	Förlorad kommunikation med sufflettsstyrenhet
+U0207	Förlorad kommunikation med soltaksstyrenhet
+U0208	Förlorad kommunikation med sätesstyrenhet A
+U0209	Förlorad kommunikation med sätesstyrenhet B
+U0210	Förlorad kommunikation med sätesstyrenhet C
+U0211	Förlorad kommunikation med sätesstyrenhet D
+U0212	Förlorad kommunikation med rattstångsstyrenhet
+U0213	Förlorad kommunikation med spegelstyrenhet
+U0214	Förlorad kommunikation med fjärrstyrda funktioner
+U0215	Förlorad kommunikation med dörrbrytare A
+U0216	Förlorad kommunikation med dörrbrytare B
+U0217	Förlorad kommunikation med dörrbrytare C
+U0218	Förlorad kommunikation med dörrbrytare D
+U0219	Förlorad kommunikation med dörrbrytare E
+U0220	Förlorad kommunikation med dörrbrytare F
+U0221	Förlorad kommunikation med dörrbrytare G
+U0222	Förlorad kommunikation med fönsterhissmotor A
+U0223	Förlorad kommunikation med fönsterhissmotor B
+U0224	Förlorad kommunikation med fönsterhissmotor C
+U0225	Förlorad kommunikation med fönsterhissmotor D
+U0226	Förlorad kommunikation med fönsterhissmotor E
+U0227	Förlorad kommunikation med fönsterhissmotor F
+U0228	Förlorad kommunikation med fönsterhissmotor G
+U0229	Förlorad kommunikation med rattvärmemodul
+U0230	Förlorad kommunikation med bakluckmodul
+U0231	Förlorad kommunikation med regngivarmodul
+U0232	Förlorad kommunikation med styrenhet för dödavinkelvarning, vänster
+U0233	Förlorad kommunikation med styrenhet för dödavinkelvarning, höger
+U0234	Förlorad kommunikation med minnesfunktionsmodul
+U0235	Förlorad kommunikation med farthållaravståndsgivare fram
+U0236	Förlorad kommunikation med rattlåsmodul
+U0237	Förlorad kommunikation med digitalljudstyrenhet C
+U0238	Förlorad kommunikation med digitalljudstyrenhet D
+U0239	Förlorad kommunikation med klämskyddsstyrenhet A
+U0240	Förlorad kommunikation med klämskyddsstyrenhet B
+U0241	Förlorad kommunikation med strålkastarstyrenhet A
+U0242	Förlorad kommunikation med strålkastarstyrenhet B
+U0243	Förlorad kommunikation med parkeringshjälpsstyrenhet B
+U0244	Förlorad kommunikation med fotstegsstyrenhet A
+U0245	Förlorad kommunikation med underhållningsstyrenhet fram
+U0246	Förlorad kommunikation med sätesstyrenhet E
+U0247	Förlorad kommunikation med sätesstyrenhet F
+U0248	Förlorad kommunikation med fjärrtillbehörsmodul
+U0249	Förlorad kommunikation med underhållningsstyrenhet B bak
+U0250	Förlorad kommunikation med krockklassificeringsmodul
+U0251	Förlorad kommunikation med fotstegsstyrenhet B
+U0252	Förlorad kommunikation med belysningsstyrenhet B bak
+U0291	Förlorad kommunikation med växlingsstyrenhet B
+U0292	Förlorad kommunikation med drivmotorstyrenhet B
+U0293	Förlorad kommunikation med hybriddrivlinestyrenhet
+U0294	Förlorad kommunikation med drivlineövervakningsmodul
+U0295	Förlorad kommunikation med AC/AC-omvandlarstyrenhet
+U0296	Förlorad kommunikation med AC/DC-omvandlarstyrenhet A
+U0297	Förlorad kommunikation med AC/DC-omvandlarstyrenhet B
+U0298	Förlorad kommunikation med DC/DC-omvandlarstyrenhet A
+U0299	Förlorad kommunikation med DC/DC-omvandlarstyrenhet B
+U0300	Styrenhet (intern): programvaran inte kompatibel
+U0301	Programvara inte kompatibel med ECM/PCM
+U0302	Programvara inte kompatibel med växellådsstyrenhet
+U0303	Programvara inte kompatibel med fördelningslådestyrenhet
+U0304	Programvara inte kompatibel med växlingsstyrenhet
+U0305	Programvara inte kompatibel med farthållarmodul
+U0306	Programvara inte kompatibel med bränsleinsprutarstyrenhet
+U0307	Programvara inte kompatibel med glödstiftsstyrenhet
+U0308	Programvara inte kompatibel med trottelställdonsstyrenhet
+U0309	Programvara inte kompatibel med alternativbränslestyrenhet
+U0310	Programvara inte kompatibel med bränslepumpstyrenhet
+U0311	Programvara inte kompatibel med drivmotorstyrenhet
+U0312	Programvara inte kompatibel med batteristyrenhet A
+U0313	Programvara inte kompatibel med batteristyrenhet B
+U0314	Programvara inte kompatibel med fyrhjulsdrifts-kopplingsstyrenhet
+U0315	Programvara inte kompatibel med ABS-styrenhet
+U0316	Programvara inte kompatibel med fordonsdynamikstyrenhet
+U0317	Programvara inte kompatibel med parkeringsbromsstyrenhet
+U0318	Programvara inte kompatibel med bromssystemstyrenhet
+U0319	Programvara inte kompatibel med styrkraftsstyrenhet
+U0320	Programvara inte kompatibel med servostyrningsstyrenhet
+U0321	Programvara inte kompatibel med nivåregleringsstyrenhet
+U0322	Programvara inte kompatibel med karossstyrenhet
+U0323	Programvara inte kompatibel med instrumentpanelstyrenhet
+U0324	Programvara inte kompatibel med klimatstyrenhet
+U0325	Programvara inte kompatibel med tillsatsvärmarstyrenhet
+U0326	Programvara inte kompatibel med startspärrsstyrenhet
+U0327	Programvara inte kompatibel med stöldskyddsstyrenhet
+U0328	Programvara inte kompatibel med styrvinkelgivarmodul
+U0329	Programvara inte kompatibel med rattstångsstyrenhet
+U0330	Programvara inte kompatibel med däcktrycksövervakningsmodul
+U0331	Programvara inte kompatibel med karossstyrenhet A
+U0400	Ogiltiga data mottagna
+U0401	Ogiltiga data mottagna från ECM/PCM
+U0402	Ogiltiga data mottagna från växellådsstyrenhet
+U0403	Ogiltiga data mottagna från fördelningslådestyrenhet
+U0404	Ogiltiga data mottagna från växlingsstyrenhet
+U0405	Ogiltiga data mottagna från farthållarmodul
+U0406	Ogiltiga data mottagna från bränsleinsprutarstyrenhet
+U0407	Ogiltiga data mottagna från glödstiftsstyrenhet
+U0408	Ogiltiga data mottagna från trottelställdonsstyrenhet
+U0409	Ogiltiga data mottagna från alternativbränslestyrenhet
+U040A	Ogiltiga data mottagna från CD-spelar-/växlarmodul C
+U0410	Ogiltiga data mottagna från bränslepumpstyrenhet
+U0411	Ogiltiga data mottagna från drivmotorstyrenhet
+U0412	Ogiltiga data mottagna från batteristyrenhet A
+U0413	Ogiltiga data mottagna från batteristyrenhet B
+U0414	Ogiltiga data mottagna från fyrhjulsdrifts-kopplingsstyrenhet
+U0415	Ogiltiga data mottagna från ABS-styrenhet
+U0416	Ogiltiga data mottagna från fordonsdynamikstyrenhet
+U0417	Ogiltiga data mottagna från parkeringsbromsstyrenhet
+U0418	Ogiltiga data mottagna från bromssystemstyrenhet
+U0419	Ogiltiga data mottagna från styrkraftsstyrenhet
+U0420	Ogiltiga data mottagna från servostyrningsstyrenhet
+U0421	Ogiltiga data mottagna från nivåregleringsstyrenhet
+U0422	Ogiltiga data mottagna från karossstyrenhet
+U0423	Ogiltiga data mottagna från instrumentpanelstyrenhet
+U0424	Ogiltiga data mottagna från klimatstyrenhet
+U0425	Ogiltiga data mottagna från tillsatsvärmarstyrenhet
+U0426	Ogiltiga data mottagna från startspärrsstyrenhet
+U0427	Ogiltiga data mottagna från stöldskyddsstyrenhet
+U0428	Ogiltiga data mottagna från styrvinkelgivarmodul
+U0429	Ogiltiga data mottagna från rattstångsstyrenhet
+U0430	Ogiltiga data mottagna från däcktrycksövervakningsmodul
+U0431	Ogiltiga data mottagna från karossstyrenhet A
+U0432	Ogiltiga data mottagna från fleraxel-accelerations-givarmodul
+U0433	Ogiltiga data mottagna från farthållaravståndsgivare fram
+U0434	Ogiltiga data mottagna från krängningsdämpningsstyrenhet
+U0435	Ogiltiga data mottagna från servostyrningsstyrenhet bak
+U0436	Ogiltiga data mottagna från differentialstyrenhet fram
+U0437	Ogiltiga data mottagna från differentialstyrenhet bak
+U0438	Ogiltiga data mottagna från släpvagnsbromsstyrenhet
+U0439	Ogiltiga data mottagna från terränglägesstyrenhet
+U0441	Ogiltiga data mottagna från utsläppskritisk styrinformation
+U0442	Ogiltiga data mottagna från ECM/PCM B
+U0443	Ogiltiga data mottagna från karossstyrenhet B
+U0444	Ogiltiga data mottagna från karossstyrenhet C
+U0445	Ogiltiga data mottagna från karossstyrenhet D
+U0446	Ogiltiga data mottagna från karossstyrenhet E
+U0447	Ogiltiga data mottagna från gateway A
+U0448	Ogiltiga data mottagna från gateway B
+U0449	Ogiltiga data mottagna från gateway C
+U044A	Ogiltiga data mottagna från gateway D
+U0451	Ogiltiga data mottagna från gateway E
+U0452	Ogiltiga data mottagna från SRS-styrenhet
+U0453	Ogiltiga data mottagna från sido-SRS-styrenhet vänster
+U0454	Ogiltiga data mottagna från sido-SRS-styrenhet höger
+U0455	Ogiltiga data mottagna från SRS-passagerarklassificerings-systemmodul
+U0456	Ogiltiga data mottagna från kylvätsketemperaturstyrenhet
+U0457	Ogiltiga data mottagna från informationscenter A
+U0458	Ogiltiga data mottagna från informationscenter B
+U0459	Ogiltiga data mottagna från head-up-display (HUD)
+U045A	Ogiltiga data mottagna från parkeringshjälpsstyrenhet A
+U0461	Ogiltiga data mottagna från ljudvarningsstyrenhet
+U0462	Ogiltiga data mottagna från kompassmodul
+U0463	Ogiltiga data mottagna från navigationsdisplaymodul
+U0464	Ogiltiga data mottagna från navigationsstyrenhet
+U0465	Ogiltiga data mottagna från PTO-styrenhet
+U0466	Ogiltiga data mottagna från klimatstyrenhet bak
+U0467	Ogiltiga data mottagna från bränsletillsatsstyrenhet
+U0468	Ogiltiga data mottagna från bränslecellsstyrenhet
+U0469	Ogiltiga data mottagna från startmotor-/generatorstyrenhet
+U046A	Ogiltiga data mottagna från soltaksstyrenhet
+U0471	Ogiltiga data mottagna från SRS-givare A
+U0472	Ogiltiga data mottagna från SRS-givare B
+U0473	Ogiltiga data mottagna från SRS-givare C
+U0474	Ogiltiga data mottagna från SRS-givare D
+U0475	Ogiltiga data mottagna från SRS-givare E
+U0476	Ogiltiga data mottagna från SRS-givare F
+U0477	Ogiltiga data mottagna från SRS-givare G
+U0478	Ogiltiga data mottagna från SRS-givare H
+U0479	Ogiltiga data mottagna från SRS-givare I
+U047A	Ogiltiga data mottagna från SRS-givare J
+U047B	Ogiltiga data mottagna från SRS-givare K
+U047C	Ogiltiga data mottagna från SRS-givare L
+U047D	Ogiltiga data mottagna från SRS-givare M
+U047E	Ogiltiga data mottagna från SRS-givare N
+U0481	Ogiltiga data mottagna från ljusautomatikstyrenhet
+U0482	Ogiltiga data mottagna från strålkastarinställnings-styrenhet
+U0483	Ogiltiga data mottagna från belysningsstyrenhet fram
+U0484	Ogiltiga data mottagna från belysningsstyrenhet A bak
+U0485	Ogiltiga data mottagna från radio
+U0486	Ogiltiga data mottagna från antennstyrenhet
+U0487	Ogiltiga data mottagna från ljudförstärkare
+U0488	Ogiltiga data mottagna från CD-spelar-/växlarmodul A
+U0489	Ogiltiga data mottagna från CD-spelar-/växlarmodul B
+U0491	Ogiltiga data mottagna från CD-spelar-/växlarmodul D
+U0492	Ogiltiga data mottagna från TV
+U0493	Ogiltiga data mottagna från PC
+U0494	Ogiltiga data mottagna från digitalljudstyrenhet A
+U0495	Ogiltiga data mottagna från digitalljudstyrenhet B
+U0496	Ogiltiga data mottagna från abonnemangsmottagarmodul
+U0497	Ogiltiga data mottagna från underhållningsstyrenhet A bak
+U0498	Ogiltiga data mottagna från telefonstyrenhet
+U0499	Ogiltiga data mottagna från telematikstyrenhet
+U049A	Ogiltiga data mottagna från dörrstyrenhet A
+U0501	Ogiltiga data mottagna från dörrstyrenhet B
+U0502	Ogiltiga data mottagna från dörrstyrenhet C
+U0503	Ogiltiga data mottagna från dörrstyrenhet D
+U0504	Ogiltiga data mottagna från dörrstyrenhet E
+U0505	Ogiltiga data mottagna från dörrstyrenhet F
+U0506	Ogiltiga data mottagna från dörrstyrenhet G
+U0507	Ogiltiga data mottagna från sufflettsstyrenhet
+U0508	Ogiltiga data mottagna från soltaksstyrenhet
+U0509	Ogiltiga data mottagna från sätesstyrenhet A
+U050A	Ogiltiga data mottagna från sätesstyrenhet B
+U0511	Ogiltiga data mottagna från sätesstyrenhet C
+U0512	Ogiltiga data mottagna från sätesstyrenhet D
+U0513	Ogiltiga data mottagna från girhastighetsgivarmodul
+U0514	Ogiltiga data mottagna från spegelstyrenhet A
+U0515	Ogiltiga data mottagna från fjärrstyrda funktioner
+U0516	Ogiltiga data mottagna från dörrbrytare A
+U0517	Ogiltiga data mottagna från dörrbrytare B
+U0518	Ogiltiga data mottagna från dörrbrytare C
+U0519	Ogiltiga data mottagna från dörrbrytare D
+U051A	Ogiltiga data mottagna från dörrbrytare E
+U0521	Ogiltiga data mottagna från dörrbrytare F
+U0522	Ogiltiga data mottagna från dörrbrytare G
+U0523	Ogiltiga data mottagna från fönsterhissmotor A
+U0524	Ogiltiga data mottagna från fönsterhissmotor B
+U0525	Ogiltiga data mottagna från fönsterhissmotor C
+U0526	Ogiltiga data mottagna från fönsterhissmotor D
+U0527	Ogiltiga data mottagna från fönsterhissmotor E
+U0528	Ogiltiga data mottagna från fönsterhissmotor F
+U0529	Ogiltiga data mottagna från fönsterhissmotor G
+U052A	Ogiltiga data mottagna från rattvärmemodul
+U0531	Ogiltiga data mottagna från bakluckmodul
+U0532	Ogiltiga data mottagna från regngivarmodul
+U0533	Ogiltiga data mottagna från dödavinkelvarningsstyrenhet vänster
+U0534	Ogiltiga data mottagna från dödavinkelvarningsstyrenhet höger
+U0535	Ogiltiga data mottagna från minnesfunktionsmodul
+U0536	Ogiltiga data mottagna från sidoaccelerationsgivarmodul
+U0537	Ogiltiga data mottagna från rattlåsmodul
+U0538	Ogiltiga data mottagna från digitalljudstyrenhet C
+U0539	Ogiltiga data mottagna från digitalljudstyrenhet D
+U053A	Ogiltiga data mottagna från klämskyddsstyrenhet A
+U0541	Ogiltiga data mottagna från klämskyddsstyrenhet B
+U0542	Ogiltiga data mottagna från strålkastarstyrenhet A
+U0543	Ogiltiga data mottagna från strålkastarstyrenhet B
+U0544	Ogiltiga data mottagna från parkeringshjälpsstyrenhet B
+U0545	Ogiltiga data mottagna från fotstegsstyrenhet
+U0546	Ogiltiga data mottagna från underhållningsstyrenhet fram
+U0547	Ogiltiga data mottagna från sätesstyrenhet E
+U0548	Ogiltiga data mottagna från sätesstyrenhet F
+U0549	Ogiltiga data mottagna från fjärrtillbehörsmodul
+U054A	Ogiltiga data mottagna från underhållningsstyrenhet B bak
+U0551	Ogiltiga data mottagna från krockklassificeringsmodul
+U0552	Ogiltiga data mottagna från fotstegsstyrenhet B
+U0553	Ogiltiga data mottagna från belysningsstyrenhet B bak
+U0592	Ogiltiga data mottagna från växlingsstyrenhet B
+U0593	Ogiltiga data mottagna från drivmotorstyrenhet B
+U0594	Ogiltiga data mottagna från hybriddrivlinestyrenhet
+U0595	Ogiltiga data mottagna från drivlineövervakningsmodul
+U0596	Ogiltiga data mottagna från AC/AC-omvandlarstyrenhet
+U0597	Ogiltiga data mottagna från AC/DC-omvandlarstyrenhet A
+U0598	Ogiltiga data mottagna från AC/DC-omvandlarstyrenhet B
+U0599	Ogiltiga data mottagna från DC/DC-omvandlarstyrenhet A
+U059A	Ogiltiga data mottagna från DC/DC-omvandlarstyrenhet B
+U3000	Styrenhet
+U3001	Styrenhet felaktig avstängning
+U3002	Chassinummer (VIN)
+U3003	Batterispänning
+U3004	Tillbehörsströmrelä
+U3005	Kvarhållen tillbehörsström
+U3006	Styrenhetsingångsström A
+U3007	Styrenhetsingångsström B
+U3008	Styrenhetsjord A
+U3009	Styrenhetsjord B
+U300A	Tändningslås
+U300B	Tändningssignal tillbehör/på/start
+U300C	Tändningssignal av/på/start
+U300D	Tändningssignal på/start
+U300E	Tändningssignal på
+U300F	Tändningssignaltillbehör
+U3010	Tändningssignalstart
+U3FFF	Inga felkoder lagrade

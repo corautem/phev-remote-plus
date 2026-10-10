@@ -1,6 +1,7 @@
 package io.github.anwo91.phevlink.data
 
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.doublePreferencesKey
@@ -8,6 +9,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.alerts.AlertPrefs
 import io.github.anwo91.phevlink.core.json.Codecs
 import io.github.anwo91.phevlink.core.model.ClimateDuration
@@ -24,11 +26,11 @@ import kotlinx.coroutines.runBlocking
 
 private val Context.dataStore by preferencesDataStore(name = "settings")
 
-/** How the phone reaches the car. */
-enum class Route(val label: String) {
-    AUTO("Automatic"),
-    DIRECT("Car Wi-Fi only"),
-    BRIDGE("Bridge only"),
+/** How the phone reaches the car. [label] is English for the log; screens use [labelRes]. */
+enum class Route(val label: String, @StringRes val labelRes: Int) {
+    AUTO("Automatic", R.string.route_auto),
+    DIRECT("Car Wi-Fi only", R.string.route_direct),
+    BRIDGE("Bridge only", R.string.route_bridge),
 }
 
 data class AppSettings(
@@ -63,12 +65,21 @@ data class AppSettings(
     val canConnect: Boolean get() = hasCarWifi || hasBridge || hostOverride.isNotBlank()
 }
 
-/** Why a WPA2 password would be rejected by Android, or null if it is fine. */
-fun passwordProblem(pw: String): String? = when {
-    pw.length < 8 -> "At least 8 characters"
-    pw.length > 63 -> "At most 63 characters"
-    pw.any { it.code !in 0x20..0x7e } -> "Only plain letters, digits and symbols (no æøå or emoji)"
+/** Why a WPA2 password would be rejected by Android (a string resource), or null if it is fine. */
+@StringRes
+fun passwordProblemRes(pw: String): Int? = when {
+    pw.length < 8 -> R.string.pw_too_short
+    pw.length > 63 -> R.string.pw_too_long
+    pw.any { it.code !in 0x20..0x7e } -> R.string.pw_bad_chars
     else -> null
+}
+
+/** Why a WPA2 password would be rejected by Android (English, for logs), or null if it is fine. */
+fun passwordProblem(pw: String): String? = when (passwordProblemRes(pw)) {
+    R.string.pw_too_short -> "At least 8 characters"
+    R.string.pw_too_long -> "At most 63 characters"
+    null -> null
+    else -> "Only plain letters, digits and symbols (no æøå or emoji)"
 }
 
 class SettingsStore(private val context: Context, scope: CoroutineScope) {

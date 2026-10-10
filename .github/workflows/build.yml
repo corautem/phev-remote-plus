@@ -26,10 +26,10 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Test protocol core
+      - name: Test protocol core and bridge
         run: |
           set -o pipefail
-          ./gradlew :core:test --stacktrace 2>&1 | tee -a build.log
+          ./gradlew :core:test :bridge:test --stacktrace 2>&1 | tee -a build.log
 
       - name: Build bridge
         run: |

@@ -46,6 +46,11 @@ jobs:
           mkdir -p out
           cp app/build/outputs/apk/release/app-release.apk "out/PHEV-Link-1.0.${{ github.run_number }}.apk"
           cp bridge/build/dist/phev-bridge.jar out/
+          # One-file bundle for the Raspberry Pi: jar + installer + systemd unit.
+          mkdir -p bundle/phev-bridge
+          cp bridge/build/dist/phev-bridge.jar bridge/deploy/install.sh bridge/deploy/phev-bridge.service bundle/phev-bridge/
+          chmod +x bundle/phev-bridge/install.sh
+          tar -czf out/phev-bridge-pi.tar.gz -C bundle phev-bridge
           ls -la out
 
       - uses: actions/upload-artifact@v4

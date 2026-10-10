@@ -7,9 +7,26 @@ import io.github.anwo91.phevlink.core.protocol.toHex
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 
-/** One register write, optionally followed by a pause before the next step. */
-class RegisterWrite(val register: Int, val data: ByteArray, val pauseAfterMs: Long = 0) {
+/**
+ * One register write, optionally followed by a wait for the car to confirm it
+ * and/or a pause before the next step.
+ *
+ * After the car acks the write, if [awaitState] is set and not already true
+ * for the current state, the session waits up to [awaitMs] for a notification
+ * that makes it true. If none comes it logs a warning and carries on with the
+ * next write anyway; the command then ends in a (non-retryable) failure with
+ * [unconfirmedMessage], or still succeeds if that is null.
+ */
+class RegisterWrite(
+    val register: Int,
+    val data: ByteArray,
+    val pauseAfterMs: Long = 0,
+    val awaitState: ((CarState) -> Boolean)? = null,
+    val awaitMs: Long = 0,
+    val unconfirmedMessage: String? = null,
+) {
     override fun toString() = "write 0x%02x=%s".format(register, data.toHex()) +
+        (if (awaitState != null) " then await confirmation (${awaitMs}ms)" else "") +
         if (pauseAfterMs > 0) " then wait ${pauseAfterMs}ms" else ""
 }
 
@@ -129,6 +146,63 @@ sealed interface CarCommand {
                     Reg.WRITE_CLOCK_SYNC,
                     bytes(time.year - 2000, time.monthValue, time.dayOfMonth, time.hour, time.minute, time.second, dow, 0),
                 )
+            )
+        }
+    }
+
+    /**
+     * Change one vehicle setting (see [VehicleSettingsCatalog]), like the
+     * official app: write 0x0f [id, value], wait for the car to report the
+     * new value in 0x16, then save with 0x0e [0]. The save is sent even if the
+     * car never confirms (the official app does that on timeout too), but the
+     * command then fails so the user knows to check. Same on all model years.
+     */
+    data class ChangeSetting(val id: Int, val value: Int) : CarCommand {
+        init {
+            require(id in VehicleSettingsCatalog.MIN_ID..VehicleSettingsCatalog.MAX_ID) { "Setting id must be 1..60" }
+            require(value in 0..7) { "Setting value must be 0..7" }
+        }
+
+        override val label = "Set ${VehicleSettingsCatalog.def(id)?.name ?: "setting #$id"} → " +
+            VehicleSettingsCatalog.optionLabel(id, value)
+
+        override fun toWrites(modelYear: ModelYear, state: CarState): List<RegisterWrite> = listOf(
+            RegisterWrite(
+                Reg.WRITE_SETTING, bytes(id, value),
+                awaitState = { it.settings[id]?.value == value },
+                awaitMs = CONFIRM_MS,
+                unconfirmedMessage = UNCONFIRMED,
+            ),
+            RegisterWrite(Reg.WRITE_SAVE_SETTINGS, bytes(0)),
+        )
+
+        companion object {
+            const val CONFIRM_MS = 8_000L
+            const val UNCONFIRMED = "The car did not confirm the new setting — check it in the car"
+        }
+    }
+
+    /**
+     * Reset every vehicle setting to its factory default: 0x0f [0xfe, 0x00],
+     * wait (briefly) for the car to send fresh 0x16 values, then save with
+     * 0x0e [0]. Not hearing back is not treated as a failure.
+     */
+    data object ResetSettings : CarCommand {
+        override val label = "Reset vehicle settings to factory defaults"
+        const val CONFIRM_MS = 6_000L
+
+        override fun toWrites(modelYear: ModelYear, state: CarState): List<RegisterWrite> {
+            // "Any 0x16 notification from now on": RegisterDecoder creates a new
+            // RawRegister object for every notification of a register (even when the
+            // bytes are unchanged), so an identity change means the car sent 0x16.
+            val before = state.registers[Reg.READ_SETTINGS]
+            return listOf(
+                RegisterWrite(
+                    Reg.WRITE_SETTING, bytes(VehicleSettingsCatalog.RESET_ID, 0x00),
+                    awaitState = { s -> s.registers[Reg.READ_SETTINGS].let { it != null && it !== before } },
+                    awaitMs = CONFIRM_MS,
+                ),
+                RegisterWrite(Reg.WRITE_SAVE_SETTINGS, bytes(0)),
             )
         }
     }

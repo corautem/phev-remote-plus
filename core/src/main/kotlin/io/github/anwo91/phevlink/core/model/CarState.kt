@@ -92,6 +92,14 @@ data class CarState(
     /** Car's own clock as [year, month, day, hour, minute, second], if reported. */
     val carClock: List<Int>? = null,
     val carClockReadAtMs: Long? = null,
+    /**
+     * The car's customisable functions (register 0x16), accumulated by id
+     * (1..60) across notifications. See [VehicleSettingsCatalog] for names
+     * and [VehicleSettingsCatalog.visibleGroups] for what to show.
+     */
+    val settings: Map<Int, CarSetting> = emptyMap(),
+    /** Status byte of the last 0x16 notification (normally 2; 1 or 3 = car refuses changes). */
+    val settingsStatus: Int? = null,
     val registers: Map<Int, RawRegister> = emptyMap(),
     /** Wall-clock time of the last register received from the car. */
     val updatedAtMs: Long? = null,

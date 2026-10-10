@@ -1,5 +1,7 @@
 package io.github.anwo91.phevlink.core.emulator
 
+import io.github.anwo91.phevlink.core.model.CarSetting
+import io.github.anwo91.phevlink.core.model.VehicleSettingsCatalog
 import io.github.anwo91.phevlink.core.protocol.ModelYear
 import io.github.anwo91.phevlink.core.protocol.Packet
 import io.github.anwo91.phevlink.core.protocol.PacketType
@@ -49,6 +51,10 @@ class FakeCar(
     @Volatile var registrationMode = false
     /** Simulated minutes per real second for charging and climate countdowns. */
     @Volatile var minutesPerSecond = 1.0
+    /** The car acks vehicle-setting writes (0x0f) but never applies or reports them. */
+    @Volatile var ignoreSettingChanges = false
+    /** Status byte sent in 0x16 notifications (2 = normal; the official app refuses changes on 1 or 3). */
+    @Volatile var settingsStatus = VehicleSettingsCatalog.STATUS_NORMAL
 
     // ----------------------------------------------------------------- model
     private val lock = Any()
@@ -57,6 +63,11 @@ class FakeCar(
     private var climateEndsAtSimMin = 0.0
     private var simMinutes = 0.0
     val acceptedWrites = CopyOnWriteArrayList<Pair<Int, String>>()
+    /** Vehicle settings (register 0x16), by id. */
+    private val settings = LinkedHashMap<Int, CarSetting>(DEFAULT_SETTINGS)
+    /** Number of "save settings" (0x0e) writes received. */
+    @Volatile var savedSettingsCount = 0
+        private set
     /** MY14 climate writes whose echoed timer bytes did not match the car's registers. */
     @Volatile var scheduleEchoMismatches = 0
 
@@ -86,6 +97,8 @@ class FakeCar(
     }
 
     fun register(reg: Int): ByteArray? = synchronized(lock) { regs[reg]?.copyOf() }
+    /** Current (mask, value) of vehicle setting [id], or null if this car does not report it. */
+    fun setting(id: Int): Pair<Int, Int>? = synchronized(lock) { settings[id]?.let { it.mask to it.value } }
     val batteryPercent: Int get() = synchronized(lock) { regs[Reg.READ_BATTERY]!![0].toInt() and 0xff }
     val registrations: Int get() = synchronized(lock) { regs[Reg.READ_VIN]!![19].toInt() and 0xff }
 
@@ -195,6 +208,12 @@ class FakeCar(
 
     private fun applyWrite(reg: Int, data: ByteArray): Boolean {
         acceptedWrites += reg to data.toHex()
+        if (reg == Reg.WRITE_SETTING || reg == Reg.WRITE_SAVE_SETTINGS) {
+            // Notify outside the model lock (Conn.notify takes the connection's monitor).
+            val payloads = synchronized(lock) { applySettingWriteLocked(reg, data) }
+            for (p in payloads) sessions.forEach { it.notify(Reg.READ_SETTINGS, p, explicit = true) }
+            return false
+        }
         var resend = false
         update {
             fun d(i: Int) = data.getOrNull(i)?.toInt()?.and(0xff) ?: 0
@@ -231,6 +250,39 @@ class FakeCar(
         return resend
     }
 
+    /** Vehicle settings: 0x0f [id, value] / [0xfe, 0] and 0x0e [0]. Returns the 0x16 payloads to send. */
+    private fun applySettingWriteLocked(reg: Int, data: ByteArray): List<ByteArray> {
+        fun d(i: Int) = data.getOrNull(i)?.toInt()?.and(0xff) ?: 0
+        if (reg == Reg.WRITE_SAVE_SETTINGS) {
+            savedSettingsCount++
+            return emptyList()
+        }
+        if (ignoreSettingChanges) {
+            log("car: ignoring setting write ${data.toHex()}")
+            return emptyList()
+        }
+        if (d(0) == VehicleSettingsCatalog.RESET_ID) {
+            settings.clear()
+            settings.putAll(DEFAULT_SETTINGS)
+            return settingsPayloadsLocked()
+        }
+        val id = d(0)
+        val value = d(1)
+        val cur = settings[id]
+        if (cur == null || !cur.hasOption(value)) {
+            // Like an invalid value on the real car: acked, but nothing changes or gets reported.
+            log("car: rejected setting $id = $value")
+            return emptyList()
+        }
+        val updated = cur.copy(value = value)
+        settings[id] = updated
+        return VehicleSettingsCatalog.encodeNotifications(listOf(id to updated), settingsStatus)
+    }
+
+    /** All settings as the car streams them: several 0x16 notifications, 3 settings each. */
+    private fun settingsPayloadsLocked(): List<ByteArray> =
+        VehicleSettingsCatalog.encodeNotifications(settings.map { it.key to it.value }, settingsStatus)
+
     private fun climateOnLocked(modeByte: Int) {
         val mode = modeByte and 0x0f
         if (mode == 0) {
@@ -265,9 +317,13 @@ class FakeCar(
         private var pings = 0
         private var started = false
         private var writesAccepted = 0
-        private var dumpQueue = ArrayDeque<Int>()
+        /** A queued notification: [payload] null = the register's value at send time. */
+        private inner class DumpItem(val reg: Int, val payload: ByteArray?) {
+            fun bytes(): ByteArray = payload?.copyOf() ?: synchronized(lock) { regs[reg]!!.copyOf() }
+        }
+        private var dumpQueue = ArrayDeque<DumpItem>()
         private var dumping = false
-        private var lastDumpSent: Pair<Int, Long>? = null
+        private var lastDumpSent: Pair<DumpItem, Long>? = null
         @Volatile private var closed = false
 
         fun close() {
@@ -304,7 +360,12 @@ class FakeCar(
                 PacketType.START_RESP_MY14, PacketType.START_RESP_MY18, PacketType.START_RESP_MY24 -> {
                     if (!started) {
                         started = true
-                        synchronized(lock) { dumpQueue = ArrayDeque(regs.keys) }
+                        synchronized(lock) {
+                            dumpQueue = ArrayDeque(
+                                regs.keys.map { DumpItem(it, null) } +
+                                    settingsPayloadsLocked().map { DumpItem(Reg.READ_SETTINGS, it) }
+                            )
+                        }
                         dumping = true
                         sendNextDump()
                     }
@@ -333,7 +394,10 @@ class FakeCar(
                     }
                     send(Packet(PacketType.RESP, 1, p.register, bytes(0)))
                     val resend = applyWrite(p.register, p.data)
-                    if (resend) synchronized(lock) { regs.toList() }.forEach { (r, v) -> notify(r, v) }
+                    if (resend) {
+                        synchronized(lock) { regs.toList() }.forEach { (r, v) -> notify(r, v) }
+                        synchronized(lock) { settingsPayloadsLocked() }.forEach { notify(Reg.READ_SETTINGS, it, explicit = true) }
+                    }
                 }
             }
         }
@@ -352,31 +416,35 @@ class FakeCar(
 
         @Synchronized
         private fun sendNextDump() {
-            val r = dumpQueue.removeFirstOrNull()
-            if (r == null) {
+            val item = dumpQueue.removeFirstOrNull()
+            if (item == null) {
                 dumping = false; lastDumpSent = null; return
             }
-            val v = synchronized(lock) { regs[r]!!.copyOf() }
-            lastDumpSent = r to System.currentTimeMillis()
-            send(Packet(PacketType.RESP, 0, r, v))
+            lastDumpSent = item to System.currentTimeMillis()
+            send(Packet(PacketType.RESP, 0, item.reg, item.bytes()))
         }
 
         /** Like the real car, repeat a notification that was never acknowledged. */
         @Synchronized
         fun resendStaleDump() {
-            val (r, at) = lastDumpSent ?: return
+            val (item, at) = lastDumpSent ?: return
             if (!dumping || System.currentTimeMillis() - at < 1_500) return
-            lastDumpSent = r to System.currentTimeMillis()
-            val v = synchronized(lock) { regs[r]!!.copyOf() }
-            send(Packet(PacketType.RESP, 0, r, v))
+            lastDumpSent = item to System.currentTimeMillis()
+            send(Packet(PacketType.RESP, 0, item.reg, item.bytes()))
         }
 
+        /**
+         * Send a notification. [explicit] payloads (0x16, which the car spreads over
+         * several notifications) are sent as given; otherwise the register's latest
+         * value is what counts.
+         */
         @Synchronized
-        fun notify(reg: Int, value: ByteArray) {
+        fun notify(reg: Int, value: ByteArray, explicit: Boolean = false) {
             if (!started || silent) return
             if (dumping) {
                 // Still streaming the initial dump: make sure the new value goes out with it.
-                if (reg !in dumpQueue) dumpQueue.addLast(reg)
+                if (explicit) dumpQueue.addLast(DumpItem(reg, value.copyOf()))
+                else if (dumpQueue.none { it.reg == reg && it.payload == null }) dumpQueue.addLast(DumpItem(reg, null))
                 return
             }
             send(Packet(PacketType.RESP, 0, reg, value))
@@ -411,6 +479,63 @@ class FakeCar(
 
     companion object {
         private fun bytes(vararg v: Int) = ByteArray(v.size) { v[it].toByte() }
+
+        /** Mask with all [n] options available. */
+        private fun all(n: Int) = (1 shl n) - 1
+
+        /**
+         * Factory settings of a plausible 2015 European Outlander PHEV: most
+         * functions with every option available, the wipers without a rain sensor
+         * (id 4: options 0..2 only), a headlight auto-cutout offering two "On"
+         * variants (id 12), and some ids the car reports as not equipped (mask 0).
+         */
+        val DEFAULT_SETTINGS: Map<Int, CarSetting> = linkedMapOf(
+            1 to CarSetting(all(2), 0),
+            2 to CarSetting(all(2), 1),
+            3 to CarSetting(all(7), 0),
+            4 to CarSetting(0b0111, 2),
+            5 to CarSetting(all(3), 2),
+            6 to CarSetting(all(4), 2),
+            7 to CarSetting(all(5), 1),
+            8 to CarSetting(0, 0),
+            9 to CarSetting(all(5), 2),
+            10 to CarSetting(all(2), 0),
+            11 to CarSetting(all(7), 2),
+            12 to CarSetting(0b1111, 2),
+            13 to CarSetting(all(4), 2),
+            14 to CarSetting(all(2), 0),
+            15 to CarSetting(all(2), 0),
+            16 to CarSetting(all(5), 0),
+            17 to CarSetting(all(2), 0),
+            19 to CarSetting(all(2), 0),
+            20 to CarSetting(all(5), 0),
+            21 to CarSetting(all(4), 3),
+            22 to CarSetting(all(4), 0),
+            23 to CarSetting(0, 0),
+            24 to CarSetting(all(4), 1),
+            25 to CarSetting(0, 0),
+            26 to CarSetting(all(6), 0),
+            27 to CarSetting(0, 0),
+            28 to CarSetting(all(2), 0),
+            29 to CarSetting(all(2), 0),
+            32 to CarSetting(all(3), 0),
+            33 to CarSetting(0, 0),
+            34 to CarSetting(all(2), 0),
+            35 to CarSetting(all(2), 0),
+            36 to CarSetting(all(3), 1),
+            41 to CarSetting(0, 0),
+            42 to CarSetting(all(5), 2),
+            43 to CarSetting(all(3), 0),
+            50 to CarSetting(all(2), 1),
+            51 to CarSetting(all(2), 1),
+            53 to CarSetting(all(2), 0),
+            54 to CarSetting(all(3), 0),
+            55 to CarSetting(all(3), 0),
+            56 to CarSetting(all(2), 0),
+            57 to CarSetting(all(2), 0),
+            58 to CarSetting(all(2), 1),
+            60 to CarSetting(all(2), 0),
+        )
 
         fun clockBytes(t: LocalDateTime): ByteArray {
             val dow = if (t.dayOfWeek == DayOfWeek.SUNDAY) 0 else t.dayOfWeek.value

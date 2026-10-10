@@ -3,11 +3,13 @@ package io.github.anwo91.phevlink.core
 import io.github.anwo91.phevlink.core.diag.DiagLog
 import io.github.anwo91.phevlink.core.emulator.FakeCar
 import io.github.anwo91.phevlink.core.model.CarCommand
+import io.github.anwo91.phevlink.core.model.CarSetting
 import io.github.anwo91.phevlink.core.model.CarState
 import io.github.anwo91.phevlink.core.model.ClimateDuration
 import io.github.anwo91.phevlink.core.model.ClimateMode
 import io.github.anwo91.phevlink.core.model.CommandResult
 import io.github.anwo91.phevlink.core.model.PreAcState
+import io.github.anwo91.phevlink.core.model.VehicleSettingsCatalog
 import io.github.anwo91.phevlink.core.protocol.ModelYear
 import io.github.anwo91.phevlink.core.session.ConnectionConfig
 import io.github.anwo91.phevlink.core.session.LinkStatus
@@ -206,6 +208,109 @@ class SessionIntegrationTest {
         val data = fake.acceptedWrites.first { it.first == 0x05 }.second
         assertEquals(16, data.length) // 8 bytes
         assertTrue(data.endsWith("00"))
+    }
+
+    // ------------------------------------------------------- vehicle settings
+
+    private suspend fun PhevConnection.awaitSettingsDump(): CarState =
+        awaitState { it.settings.size == FakeCar.DEFAULT_SETTINGS.size }
+
+    /** The car acks a write before recording it, so poll for effects that are only visible car-side. */
+    private suspend fun waitUntil(what: String, timeoutMs: Long = 3_000, cond: () -> Boolean) {
+        val end = System.currentTimeMillis() + timeoutMs
+        while (!cond()) {
+            if (System.currentTimeMillis() > end) throw AssertionError("Timed out waiting for $what")
+            delay(20)
+        }
+    }
+
+    /** Index in the car's accepted writes of the first write to [reg] with [hex], at or after [from]. */
+    private fun FakeCar.writeIndex(reg: Int, hex: String, from: Int = 0): Int =
+        acceptedWrites.withIndex().indexOfFirst { (i, w) -> i >= from && w.first == reg && w.second == hex }
+
+    @Test
+    fun vehicleSettingsDumpAndChange() = dumpOnFailure {
+        val (fake, pc) = setup()
+        pc.start()
+        val s = pc.awaitSettingsDump()
+        assertEquals(FakeCar.DEFAULT_SETTINGS, s.settings)
+        assertEquals(2, s.settingsStatus)
+        val groups = VehicleSettingsCatalog.visibleGroups(s.settings)
+        assertTrue(groups.isNotEmpty())
+        assertEquals("1 minute", groups.flatMap { it.items }.first { it.id == 7 }.currentLabel)
+
+        val r = pc.execute(CarCommand.ChangeSetting(7, 3))
+        assertTrue("$r", r is CommandResult.Success)
+        assertEquals(31 to 3, fake.setting(7))
+        // The car confirmed before we saved, so our state already has the new value.
+        assertEquals(CarSetting(31, 3), pc.car.value.settings[7])
+        waitUntil("save") { fake.savedSettingsCount == 1 }
+        val set = fake.writeIndex(0x0f, "0703")
+        val save = fake.writeIndex(0x0e, "00")
+        assertTrue("0x0f then 0x0e: ${fake.acceptedWrites}", set >= 0 && save > set)
+        assertTrue(log.snapshot().any { it.text.contains("setting Charging Lid Light Auto cut-out: 5 minutes") })
+        assertTrue(log.snapshot().any { it.text.startsWith("Car reported the result of update setting") })
+
+        // Asking for the value it already has: no wait needed, still saved.
+        assertTrue(pc.execute(CarCommand.ChangeSetting(7, 3)) is CommandResult.Success)
+        waitUntil("second save") { fake.savedSettingsCount == 2 }
+    }
+
+    @Test
+    fun unconfirmedSettingFailsButIsStillSaved() = dumpOnFailure {
+        val (fake, pc) = setup { ignoreSettingChanges = true }
+        pc.start()
+        pc.awaitSettingsDump()
+        val r = pc.execute(CarCommand.ChangeSetting(9, 4))
+        assertTrue("$r", r is CommandResult.Failure)
+        r as CommandResult.Failure
+        assertEquals(CarCommand.ChangeSetting.UNCONFIRMED, r.reason)
+        assertEquals(false, r.retryable)
+        waitUntil("save") { fake.savedSettingsCount == 1 }
+        val set = fake.writeIndex(0x0f, "0904")
+        val save = fake.writeIndex(0x0e, "00")
+        assertTrue("0x0f then 0x0e: ${fake.acceptedWrites}", set >= 0 && save > set)
+        assertEquals(31 to 2, fake.setting(9))
+        assertEquals(CarSetting(31, 2), pc.car.value.settings[9])
+        assertTrue(log.snapshot().any { it.text.startsWith("The car never reported the result of update setting") })
+        // The session carries on normally afterwards.
+        assertTrue(pc.execute(CarCommand.Headlights(true)) is CommandResult.Success)
+    }
+
+    @Test
+    fun resetVehicleSettings() = dumpOnFailure {
+        val (fake, pc) = setup()
+        pc.start()
+        pc.awaitSettingsDump()
+        assertTrue(pc.execute(CarCommand.ChangeSetting(9, 4)) is CommandResult.Success)
+        assertTrue(pc.execute(CarCommand.ChangeSetting(50, 0)) is CommandResult.Success)
+        assertEquals(31 to 4, fake.setting(9))
+        val before = fake.acceptedWrites.size
+
+        val r = pc.execute(CarCommand.ResetSettings)
+        assertTrue("$r", r is CommandResult.Success)
+        assertEquals(31 to 2, fake.setting(9))
+        assertEquals(3 to 1, fake.setting(50))
+        waitUntil("save after reset") { fake.savedSettingsCount == 3 }
+        val set = fake.writeIndex(0x0f, "fe00", before)
+        val save = fake.writeIndex(0x0e, "00", before)
+        assertTrue("0x0f then 0x0e: ${fake.acceptedWrites}", set >= 0 && save > set)
+        val s = pc.awaitState { it.settings == FakeCar.DEFAULT_SETTINGS }
+        assertEquals(CarSetting(31, 2), s.settings[9])
+    }
+
+    @Test
+    fun vehicleSettingsMy18() = dumpOnFailure {
+        val (fake, pc) = setup(ModelYear.MY18)
+        pc.start()
+        val s = pc.awaitSettingsDump()
+        assertEquals(ModelYear.MY18, s.modelYear)
+        val r = pc.execute(CarCommand.ChangeSetting(50, 0))
+        assertTrue("$r", r is CommandResult.Success)
+        assertEquals(3 to 0, fake.setting(50))
+        assertEquals(0, pc.car.value.settings[50]?.value)
+        waitUntil("save") { fake.savedSettingsCount == 1 }
+        assertTrue(fake.writeIndex(0x0e, "00") > fake.writeIndex(0x0f, "3200"))
     }
 
     @Test

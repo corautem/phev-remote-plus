@@ -17,7 +17,7 @@ object Reg {
     const val READ_PRE_AC_STATE = 0x10        // 0=off 2=running 3=cancelled (door/low battery)
     const val READ_CAR_CLOCK = 0x12           // [yy mm dd hh mi ss dow]
     const val READ_VIN = 0x15                 // [?][VIN x17][?][registrations]
-    const val READ_SETTINGS = 0x16
+    const val READ_SETTINGS = 0x16            // [status][A1][B1][A2][B2][A3][B3][00], see VehicleSettingsCatalog
     const val READ_CHARGE_TIMER_STATE = 0x17
     const val READ_IGNITION_AC = 0x1a         // [ignition][ac operating]...
     const val READ_AC_MODE = 0x1c             // low nibble mode, high nibble duration
@@ -38,6 +38,8 @@ object Reg {
     const val WRITE_REQUEST_UPDATE = 0x06     // 0x03 = send all registers
     const val WRITE_HEADLIGHTS = 0x0a         // 0x01 on, 0x02 off
     const val WRITE_PARKING_LIGHTS = 0x0b     // 0x01 on, 0x02 off
+    const val WRITE_SAVE_SETTINGS = 0x0e      // [0x00] after changing vehicle settings
+    const val WRITE_SETTING = 0x0f            // [id, value] change one setting, [0xfe, 0x00] factory reset
     const val WRITE_REGISTER_CLIENT = 0x10    // 0x01 while car is in registration mode
     const val WRITE_ACK_AC_TERMINATION = 0x13 // 0x01
     const val WRITE_UNREGISTER_CLIENT = 0x15  // 0x01
@@ -81,8 +83,8 @@ object Reg {
         WRITE_UNREGISTER_CLIENT to "unregister phone",
         WRITE_CHARGE_TIMER_CANCEL to "charge timer override",
         WRITE_AC_MY18 to "climate (MY18)",
-        0x0e to "save settings",
-        0x0f to "update setting",
+        WRITE_SAVE_SETTINGS to "save settings",
+        WRITE_SETTING to "update setting",
     )
 
     fun readName(reg: Int): String = readNames[reg] ?: "reg 0x%02x".format(reg)

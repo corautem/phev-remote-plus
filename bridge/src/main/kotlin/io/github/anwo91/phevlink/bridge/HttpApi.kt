@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit
  *   GET  /api/status       current state as JSON
  *   GET  /api/events       server-sent events, one "status" event per change
  *   POST /api/command      {"action":"climate","mode":"HEAT","minutes":20} -> {"ok":true,...}
+ *                          vehicle settings: {"action":"setting","id":7,"value":2}, {"action":"reset_settings"}
  *   POST /api/connect      connect now
  *   POST /api/disconnect   disconnect now
  *   GET  /api/log?n=300    diagnostic log (text)

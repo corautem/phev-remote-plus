@@ -125,6 +125,20 @@ object RegisterDecoder {
                 if (text.isNotEmpty()) s = s.copy(ssid = text)
             }
 
+            Reg.READ_SETTINGS -> if (u.size >= 3) {
+                // [S][A1][B1][A2][B2][A3][B3][00]: up to 3 settings per notification and
+                // several notifications per dump, so merge into what we already know.
+                var settings = s.settings
+                for (i in 0 until 3) {
+                    val ai = 1 + 2 * i
+                    val bi = ai + 1
+                    if (bi >= u.size) break
+                    val (id, setting) = VehicleSettingsCatalog.decodePair(u[ai], u[bi]) ?: continue
+                    settings = settings + (id to setting)
+                }
+                s = s.copy(settings = settings, settingsStatus = u[0])
+            }
+
             Reg.READ_CAR_CLOCK -> if (u.size >= 6) {
                 s = s.copy(
                     carClock = listOf(2000 + u[0], u[1], u[2], u[3], u[4], u[5]),

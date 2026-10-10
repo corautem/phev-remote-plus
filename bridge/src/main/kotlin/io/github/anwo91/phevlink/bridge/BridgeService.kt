@@ -143,6 +143,8 @@ class BridgeService(
     ): Map<String, Any?> = linkedMapOf(
         "link" to Codecs.linkStatusToMap(link),
         "car" to Codecs.carStateToMap(car),
+        // Vehicle settings with names/labels resolved, for the web page (it has no catalogue).
+        "vehicleSettings" to Codecs.visibleSettingsToList(car.settings),
         "bridge" to linkedMapOf(
             "mode" to config.mode.name.lowercase(),
             "intervalMinutes" to config.intervalMinutes,

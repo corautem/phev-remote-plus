@@ -7,6 +7,7 @@ import io.github.anwo91.phevlink.core.model.CarState
 import io.github.anwo91.phevlink.core.model.CommandResult
 import io.github.anwo91.phevlink.core.model.RegisterDecoder
 import io.github.anwo91.phevlink.core.model.RegisterWrite
+import io.github.anwo91.phevlink.core.model.VehicleSettingsCatalog
 import io.github.anwo91.phevlink.core.protocol.ModelYear
 import io.github.anwo91.phevlink.core.protocol.Packet
 import io.github.anwo91.phevlink.core.protocol.PacketType
@@ -129,6 +130,13 @@ class PhevSession(
         var awaitingAck = false
         var deadline = 0L
         var resumeAt: Long? = null
+        /**
+         * Set while the current (already acked) step waits for the car to confirm it
+         * through a notification ([RegisterWrite.awaitState]); deadline in mono ms.
+         */
+        var awaitUntil: Long? = null
+        /** First "car did not confirm" message; turns the final result into a failure. */
+        var unconfirmed: String? = null
         val current: RegisterWrite get() = writes[step]
     }
 
@@ -288,6 +296,7 @@ class PhevSession(
             if (p.register == Reg.READ_REGISTRATION_EVENT) log.link("Car reports a registration event (0x2a=${p.dataHex()})")
             logStateDiff(before, state)
             listener.onState(state)
+            checkAwaitedState()
         } else {
             val j = job
             if (j != null && j.awaitingAck && j.current.register == p.register) onStepAcked(j)
@@ -360,8 +369,20 @@ class PhevSession(
         if (phase != SessionPhase.READY) return
         val j = job
         if (j != null) {
+            val until = j.awaitUntil
             val resume = j.resumeAt
-            if (resume != null) {
+            if (until != null) {
+                if (now >= until) {
+                    // The car acked the write but never reported its effect. Carry on with
+                    // the remaining writes (e.g. "save settings", like the official app),
+                    // but remember to report the command as unconfirmed.
+                    j.awaitUntil = null
+                    val w = j.current
+                    log.warn("The car never reported the result of ${describeWrite(w)} (waited ${w.awaitMs / 1000.0}s) — continuing")
+                    if (j.unconfirmed == null) j.unconfirmed = w.unconfirmedMessage
+                    stepSettled(j)
+                }
+            } else if (resume != null) {
                 if (now >= resume) {
                     j.resumeAt = null
                     advance(j)
@@ -403,6 +424,30 @@ class PhevSession(
     private fun onStepAcked(j: Job) {
         j.awaitingAck = false
         val w = j.current
+        val confirmed = w.awaitState
+        if (confirmed != null && !confirmed(state)) {
+            // Acked, but the car has not reported the effect yet: wait for a notification
+            // that does (checkAwaitedState) or for the deadline (pumpJobs).
+            j.awaitUntil = clock.monoMs() + w.awaitMs
+            if (!j.silent) log.add(LogKind.CMD, "Waiting up to ${w.awaitMs / 1000.0}s for the car to report the result of ${describeWrite(w)}")
+            return
+        }
+        stepSettled(j)
+    }
+
+    /** Called after every notification: does it confirm the step the current job waits on? */
+    private fun checkAwaitedState() {
+        val j = job ?: return
+        if (j.awaitUntil == null) return
+        if (j.current.awaitState?.invoke(state) != true) return
+        j.awaitUntil = null
+        if (!j.silent) log.add(LogKind.CMD, "Car reported the result of ${describeWrite(j.current)}")
+        stepSettled(j)
+    }
+
+    /** The current step is acked (and confirmed, or gave up waiting): pause if asked, then move on. */
+    private fun stepSettled(j: Job) {
+        val w = j.current
         if (w.pauseAfterMs > 0) {
             j.resumeAt = clock.monoMs() + w.pauseAfterMs
         } else {
@@ -413,7 +458,12 @@ class PhevSession(
     private fun advance(j: Job) {
         j.step++
         if (j.step >= j.writes.size) {
-            finishJob(j, CommandResult.Success(j.command, clock.monoMs() - j.queuedAt))
+            val unconfirmed = j.unconfirmed
+            finishJob(
+                j,
+                if (unconfirmed != null) CommandResult.Failure(j.command, unconfirmed, retryable = false)
+                else CommandResult.Success(j.command, clock.monoMs() - j.queuedAt),
+            )
         } else {
             sendStep(j, retry = false)
         }
@@ -488,6 +538,17 @@ class PhevSession(
             if (a.vin != b.vin) add("VIN ${b.vin}")
             if (a.registrations != b.registrations) add("${b.registrations} registered phone(s)")
             if (a.ecuVersion != b.ecuVersion) add("ECU ${b.ecuVersion}")
+            if (a.settingsStatus != b.settingsStatus) {
+                add("settings status ${b.settingsStatus}" +
+                    if (VehicleSettingsCatalog.statusAllowsChanges(b.settingsStatus)) "" else " (car refuses changes)")
+            }
+            if (a.settings != b.settings) {
+                for ((id, s) in b.settings.toSortedMap()) {
+                    if (a.settings[id]?.value == s.value) continue
+                    val def = VehicleSettingsCatalog.def(id)
+                    add(if (def != null) "setting ${def.name}: ${VehicleSettingsCatalog.optionLabel(id, s.value, s)}" else "setting #$id = ${s.value}")
+                }
+            }
         }
         if (changes.isNotEmpty()) log.add(LogKind.STATE, changes.joinToString(", "))
     }

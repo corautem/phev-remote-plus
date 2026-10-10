@@ -1,6 +1,7 @@
 package io.github.anwo91.phevlink.core.json
 
 import io.github.anwo91.phevlink.core.model.CarCommand
+import io.github.anwo91.phevlink.core.model.CarSetting
 import io.github.anwo91.phevlink.core.model.CarState
 import io.github.anwo91.phevlink.core.model.Climate
 import io.github.anwo91.phevlink.core.model.ClimateDuration
@@ -10,6 +11,7 @@ import io.github.anwo91.phevlink.core.model.Ignition
 import io.github.anwo91.phevlink.core.model.PlugState
 import io.github.anwo91.phevlink.core.model.PreAcState
 import io.github.anwo91.phevlink.core.model.RawRegister
+import io.github.anwo91.phevlink.core.model.VehicleSettingsCatalog
 import io.github.anwo91.phevlink.core.planner.Departure
 import io.github.anwo91.phevlink.core.protocol.ModelYear
 import io.github.anwo91.phevlink.core.protocol.hexToBytes
@@ -53,6 +55,10 @@ object Codecs {
         ),
         "carClock" to s.carClock,
         "carClockReadAtMs" to s.carClockReadAtMs,
+        "settingsStatus" to s.settingsStatus,
+        "settings" to s.settings.toSortedMap().entries.associateTo(linkedMapOf()) { (id, v) ->
+            id.toString() to linkedMapOf("mask" to v.mask, "value" to v.value)
+        },
         "registers" to s.registers.values.sortedBy { it.register }.map {
             linkedMapOf("reg" to it.register, "hex" to it.hex, "at" to it.updatedAtMs, "changes" to it.changes)
         },
@@ -80,6 +86,11 @@ object Codecs {
             val reg = rm.int("reg") ?: return@mapNotNull null
             reg to RawRegister(reg, rm.str("hex") ?: "", rm.long("at") ?: 0, rm.int("changes") ?: 1)
         }?.toMap() ?: emptyMap()
+        val settings = m.obj("settings")?.entries?.mapNotNull { (k, v) ->
+            val id = k.toIntOrNull() ?: return@mapNotNull null
+            @Suppress("UNCHECKED_CAST") val sm = v as? Map<String, Any?> ?: return@mapNotNull null
+            id to CarSetting(sm.int("mask") ?: return@mapNotNull null, sm.int("value") ?: return@mapNotNull null)
+        }?.toMap() ?: emptyMap()
         return CarState(
             modelYear = enumOr(m.str("modelYear"), ModelYear.UNKNOWN),
             vin = m.str("vin"),
@@ -100,10 +111,33 @@ object Codecs {
             climate = climate,
             carClock = m.list("carClock")?.mapNotNull { (it as? Number)?.toInt() },
             carClockReadAtMs = m.long("carClockReadAtMs"),
+            settings = settings,
+            settingsStatus = m.int("settingsStatus"),
             registers = regs,
             updatedAtMs = m.long("updatedAtMs"),
         )
     }
+
+    /**
+     * The vehicle settings a UI should show, with labels resolved, for clients
+     * that cannot use [VehicleSettingsCatalog] (the bridge's web page):
+     * `[{"title":…, "items":[{"id", "name", "value", "valueLabel", "options":[{"value","label"}]}]}]`.
+     */
+    fun visibleSettingsToList(settings: Map<Int, CarSetting>): List<Map<String, Any?>> =
+        VehicleSettingsCatalog.visibleGroups(settings).map { g ->
+            linkedMapOf(
+                "title" to g.title,
+                "items" to g.items.map { item ->
+                    linkedMapOf(
+                        "id" to item.id,
+                        "name" to item.name,
+                        "value" to item.value,
+                        "valueLabel" to item.currentLabel,
+                        "options" to item.options.map { (v, label) -> linkedMapOf("value" to v, "label" to label) },
+                    )
+                },
+            )
+        }
 
     fun linkStatusToMap(s: LinkStatus): Map<String, Any?> = when (s) {
         is LinkStatus.Idle -> mapOf("phase" to "idle", "error" to s.lastError)
@@ -162,6 +196,8 @@ object Codecs {
         CarCommand.AckClimateCancelled -> mapOf("action" to "ack_climate")
         CarCommand.ChargeNow -> mapOf("action" to "charge_now")
         is CarCommand.SyncClock -> mapOf("action" to "sync_clock", "time" to c.time.toString())
+        is CarCommand.ChangeSetting -> mapOf("action" to "setting", "id" to c.id, "value" to c.value)
+        CarCommand.ResetSettings -> mapOf("action" to "reset_settings")
         is CarCommand.Raw -> mapOf("action" to "raw", "register" to c.register, "data" to c.data.toHex())
     }
 
@@ -196,6 +232,8 @@ object Codecs {
             "sync_clock" -> CarCommand.SyncClock(
                 m["time"]?.toString()?.let { java.time.LocalDateTime.parse(it) } ?: java.time.LocalDateTime.now()
             )
+            "setting" -> CarCommand.ChangeSetting(int("id"), int("value"))
+            "reset_settings" -> CarCommand.ResetSettings
             "raw" -> CarCommand.Raw(int("register"), (m["data"]?.toString() ?: "").hexToBytes())
             else -> throw IllegalArgumentException("Unknown action '$a'")
         }

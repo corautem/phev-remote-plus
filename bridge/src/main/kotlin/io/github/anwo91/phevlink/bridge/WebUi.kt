@@ -28,6 +28,8 @@ dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0}dt{color:va
 #toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;display:none;max-width:90vw}
 pre{white-space:pre-wrap;font-size:12px;max-height:280px;overflow:auto;margin:0}
 input{font:inherit;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+select{font:inherit;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%;max-width:100%}
+summary{cursor:pointer}.vs-group h3{font-size:14px;margin:16px 0 6px;color:var(--muted)}.vs-item{margin:8px 0}.vs-item label{display:block;font-size:13px;margin-bottom:4px}
 </style>
 </head>
 <body><main>
@@ -68,6 +70,12 @@ input{font:inherit;padding:10px;border-radius:10px;border:1px solid var(--line);
   </div>
 </section>
 
+<details class="card" id="vs" style="display:none">
+  <summary><strong>Vehicle settings</strong> <span class="muted" id="vsnote"></span></summary>
+  <div id="vsbody"></div><p></p>
+  <button onclick="resetSettings()">Reset all to factory defaults</button>
+</details>
+
 <section class="card"><dl id="facts"></dl></section>
 <section class="card"><div class="row"><button onclick="post('connect')">Connect now</button><button onclick="post('disconnect')">Disconnect</button><button onclick="showLog()">Log</button></div><pre id="log"></pre></section>
 </div>
@@ -103,7 +111,26 @@ function render(){
   const facts=[['Locked',c.locked==null?'–':c.locked?'Yes':'No'],['Open',open.length?open.join(', '):'nothing'],['Ignition',(c.ignition||'').toLowerCase()],['VIN',c.vin||'–'],['Phones registered',c.registrations??'–'],['Bridge mode',(state.bridge||{}).mode||'']];
   if(l.error) facts.push(['Last error',l.error]);
   ${'$'}('facts').innerHTML=facts.map(f=>'<dt>'+f[0]+'</dt><dd>'+String(f[1]).replace(/</g,'&lt;')+'</dd>').join('');
+  renderSettings();
 }
+let vsKey='';
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function renderSettings(){
+  // Vehicle settings come pre-labelled in state.vehicleSettings; only rebuild when they change
+  // so an open drop-down is not replaced under the user's finger.
+  const groups=state.vehicleSettings||[], c=state.car||{};
+  const locked=c.settingsStatus===1||c.settingsStatus===3;
+  const key=JSON.stringify(groups)+'|'+locked;
+  if(key===vsKey) return; vsKey=key;
+  document.getElementById('vs').style.display=groups.length?'block':'none';
+  document.getElementById('vsnote').textContent=locked?'· the car does not allow changes right now':'';
+  document.getElementById('vsbody').innerHTML=groups.map(g=>'<div class="vs-group"><h3>'+esc(g.title)+'</h3>'+g.items.map(it=>
+    '<div class="vs-item"><label for="vs'+it.id+'">'+esc(it.name)+'</label><select id="vs'+it.id+'" data-id="'+it.id+'"'+(locked?' disabled':'')+'>'+
+    it.options.map(o=>'<option value="'+o.value+'"'+(o.value===it.value?' selected':'')+'>'+esc(o.label)+'</option>').join('')+'</select></div>').join('')+'</div>').join('');
+  document.querySelectorAll('#vsbody select').forEach(s=>s.onchange=()=>setSetting(s));
+}
+async function setSetting(s){ s.disabled=true; await cmd({action:'setting',id:+s.dataset.id,value:+s.value}); vsKey=''; renderSettings(); }
+async function resetSettings(){ if(!confirm('Reset all vehicle settings to factory defaults?')) return; await cmd({action:'reset_settings'}); vsKey=''; renderSettings(); }
 function start(){
   if(!token){ ${'$'}('login').style.display='block'; return; }
   ${'$'}('login').style.display='none'; ${'$'}('app').style.display='block'; sel();

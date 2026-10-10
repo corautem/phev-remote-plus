@@ -76,4 +76,30 @@ class BridgeApiTest {
         assertEquals("RUNNING", car.obj("climate")?.get("state"))
         assertTrue(call("GET", "/api/log?n=20").second.contains("API command"))
     }
+
+    @Test
+    fun vehicleSettingsViaApi() {
+        // Wait for the settings dump: the status carries pre-labelled groups for the web page.
+        val deadline = System.currentTimeMillis() + 10_000
+        var groups: List<*> = emptyList<Any>()
+        while (System.currentTimeMillis() < deadline) {
+            groups = Json.parseObject(call("GET", "/api/status").second)["vehicleSettings"] as? List<*> ?: emptyList<Any>()
+            if (groups.size == 8) break
+            Thread.sleep(200)
+        }
+        assertEquals(8, groups.size)
+        @Suppress("UNCHECKED_CAST")
+        val lights = groups.map { it as Map<String, Any?> }.first { it["title"] == "Lights" }
+        @Suppress("UNCHECKED_CAST")
+        val lid = (lights["items"] as List<Map<String, Any?>>).first { it["id"] == 7L }
+        assertEquals("1 minute", lid["valueLabel"])
+
+        val (code, text) = call("POST", "/api/command", """{"action":"setting","id":7,"value":3}""")
+        assertEquals(text, 200, code)
+        assertEquals(31 to 3, car.setting(7))
+        val settings = Json.parseObject(call("GET", "/api/status").second).obj("car")!!.obj("settings")!!
+        assertEquals(3L, settings.obj("7")?.get("value"))
+
+        assertEquals(400, call("POST", "/api/command", """{"action":"setting","id":99,"value":0}""").first)
+    }
 }

@@ -97,6 +97,7 @@ fun HomeScreen(
     val car by vm.car.collectAsState()
     val link by vm.link.collectAsState()
     val pending by vm.pending.collectAsState()
+    val pendingCmd by vm.pendingCommand.collectAsState()
     val settings by vm.settings.collectAsState()
     var showLink by remember { mutableStateOf(false) }
     val ctx = LocalContext.current
@@ -126,8 +127,14 @@ fun HomeScreen(
         item {
             val msgOff = stringResource(R.string.cmd_climate_off)
             val msgCleared = stringResource(R.string.msg_climate_warning_cleared)
+            val busyText = when (val p = pendingCmd) {
+                is CarCommand.ClimateOn -> stringResource(R.string.climate_starting, stringResource(Labels.mode(p.mode)))
+                CarCommand.ClimateOff -> stringResource(R.string.climate_stopping)
+                CarCommand.AckClimateCancelled -> stringResource(R.string.climate_clearing)
+                else -> null
+            }
             ClimateCard(
-                car = car, pending = pending,
+                car = car, pending = pending, busyText = busyText,
                 defaultMode = settings.quickMode, defaultDuration = settings.quickDuration,
                 onStart = { m, d ->
                     vm.run(CarCommand.ClimateOn(m, d), ctx.getString(R.string.msg_climate_started, ctx.getString(Labels.mode(m)), d.minutes))
@@ -261,6 +268,7 @@ private fun BatteryNote(icon: ImageVector, text: String, tint: androidx.compose.
 private fun ClimateCard(
     car: CarState,
     pending: String?,
+    busyText: String?,
     defaultMode: ClimateMode,
     defaultDuration: ClimateDuration,
     onStart: (ClimateMode, ClimateDuration) -> Unit,
@@ -273,8 +281,9 @@ private fun ClimateCard(
     var dur by rememberSaveable { mutableStateOf(defaultDuration) }
     val c = car.climate
     SectionCard(title = stringResource(R.string.climate_title), trailing = {
-        when (c.state) {
-            PreAcState.RUNNING -> Pill(
+        when {
+            busyText != null -> CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp)
+            c.state == PreAcState.RUNNING -> Pill(
                 stringResource(
                     R.string.climate_running_pill,
                     c.mode?.let { stringResource(Labels.mode(it)) } ?: stringResource(R.string.common_on),
@@ -282,10 +291,24 @@ private fun ClimateCard(
                 ),
                 status.charge,
             )
-            PreAcState.CANCELLED -> Pill(stringResource(R.string.climate_stopped_by_car), status.warn)
+            c.state == PreAcState.CANCELLED -> Pill(stringResource(R.string.climate_stopped_by_car), status.warn)
             else -> Unit
         }
     }) {
+        // While a climate command is in flight, say so clearly — the car can take up to 30 s to confirm.
+        if (busyText != null) {
+            Row(
+                Modifier.fillMaxWidth().padding(bottom = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp, color = status.charge)
+                Spacer(Modifier.width(12.dp))
+                Column {
+                    Text(busyText, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
+                    Text(stringResource(R.string.climate_working_hint), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+            }
+        }
         when (c.state) {
             PreAcState.RUNNING -> {
                 val end = c.startedAtMs?.let { it + (c.duration?.minutes ?: 0) * 60_000L }

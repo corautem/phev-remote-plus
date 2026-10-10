@@ -62,4 +62,8 @@
     <string name="home_attention_alarm">Säkerhetslarmet utlöstes.</string>
     <string name="home_attention_ev_error">Bilen rapporterar ett kommunikationsfel i EV-systemet.</string>
     <string name="home_attention_charge_failed">Den schemalagda laddningen startade inte.</string>
+    <string name="climate_starting">Startar %1$s …</string>
+    <string name="climate_stopping">Stoppar klimatanläggningen …</string>
+    <string name="climate_clearing">Rensar varningen …</string>
+    <string name="climate_working_hint">Bilen kan ta upp till 30 sekunder på sig att svara.</string>
 </resources>

@@ -68,4 +68,8 @@
     <string name="home_attention_alarm">The security alarm was triggered.</string>
     <string name="home_attention_ev_error">The car reports an EV-system communication error.</string>
     <string name="home_attention_charge_failed">The scheduled charge didn’t start.</string>
+    <string name="climate_starting">Starting %1$s…</string>
+    <string name="climate_stopping">Stopping the climate…</string>
+    <string name="climate_clearing">Clearing the warning…</string>
+    <string name="climate_working_hint">The car can take up to 30 seconds to respond.</string>
 </resources>

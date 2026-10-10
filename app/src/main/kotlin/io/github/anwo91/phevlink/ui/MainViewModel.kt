@@ -35,6 +35,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     /** Label of the command in flight, for button spinners. */
     val pending: StateFlow<String?> = _pending.asStateFlow()
 
+    private val _pendingCommand = MutableStateFlow<CarCommand?>(null)
+    /** The command in flight, so the UI can show precise progress (e.g. "Starting the heat…"). */
+    val pendingCommand: StateFlow<CarCommand?> = _pendingCommand.asStateFlow()
+
     private val _messages = MutableSharedFlow<String>(extraBufferCapacity = 4)
     val messages: SharedFlow<String> = _messages
 
@@ -100,6 +104,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             val label = Labels.command(getApplication(), cmd)
             _pending.value = label
+            _pendingCommand.value = cmd
             try {
                 when (val r = repo.execute(cmd)) {
                     is CommandResult.Success -> _messages.emit(successMessage ?: str(R.string.msg_cmd_done, label))
@@ -109,6 +114,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 }
             } finally {
                 _pending.value = null
+                _pendingCommand.value = null
             }
         }
     }

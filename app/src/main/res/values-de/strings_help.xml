@@ -62,4 +62,8 @@
     <string name="home_attention_alarm">Die Alarmanlage wurde ausgelöst.</string>
     <string name="home_attention_ev_error">Das Auto meldet einen Kommunikationsfehler im EV-System.</string>
     <string name="home_attention_charge_failed">Der geplante Ladevorgang startete nicht.</string>
+    <string name="climate_starting">Starte %1$s …</string>
+    <string name="climate_stopping">Klimatisierung wird gestoppt …</string>
+    <string name="climate_clearing">Warnung wird zurückgesetzt …</string>
+    <string name="climate_working_hint">Das Auto kann bis zu 30 Sekunden zum Antworten brauchen.</string>
 </resources>

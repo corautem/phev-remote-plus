@@ -1,0 +1,59 @@
+package io.github.anwo91.phevlink
+
+import android.app.Application
+import android.content.Context
+import io.github.anwo91.phevlink.core.diag.DiagLog
+import io.github.anwo91.phevlink.data.SettingsStore
+import io.github.anwo91.phevlink.data.StateCache
+import io.github.anwo91.phevlink.link.CarRepository
+import io.github.anwo91.phevlink.notify.Notifier
+import io.github.anwo91.phevlink.schedule.DepartureScheduler
+import io.github.anwo91.phevlink.tile.PreheatTileService
+import io.github.anwo91.phevlink.widget.WidgetUpdater
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+
+class PhevApp : Application() {
+    lateinit var graph: Graph
+        private set
+
+    override fun onCreate() {
+        super.onCreate()
+        graph = Graph(this)
+        instance = this
+    }
+
+    companion object {
+        lateinit var instance: PhevApp
+            private set
+    }
+}
+
+/** App-wide singletons. */
+class Graph(app: Application) {
+    val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    val settings = SettingsStore(app, scope)
+    val log = DiagLog(capacity = 6000)
+    val cache = StateCache(app)
+    val notifier = Notifier(app)
+    val repo = CarRepository(app, settings, log, cache, notifier)
+
+    init {
+        repo.onStateSaved = {
+            WidgetUpdater.request(app)
+            PreheatTileService.requestUpdate(app)
+        }
+        // Keep the departure alarms in step with the schedule.
+        scope.launch {
+            settings.flow.map { it.departures }.distinctUntilChanged().collect {
+                DepartureScheduler.reschedule(app)
+            }
+        }
+    }
+}
+
+val Context.graph: Graph get() = (applicationContext as PhevApp).graph

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut android:shortcutId="preheat" android:enabled="true"
+        android:icon="@drawable/ic_sc_heat"
+        android:shortcutShortLabel="@string/sc_preheat_short"
+        android:shortcutLongLabel="@string/sc_preheat_long">
+        <intent android:action="io.github.anwo91.phevlink.action.QUICK_CLIMATE"
+            android:targetPackage="io.github.anwo91.phevlink"
+            android:targetClass="io.github.anwo91.phevlink.link.ActionActivity" />
+    </shortcut>
+    <shortcut android:shortcutId="stop" android:enabled="true"
+        android:icon="@drawable/ic_sc_stop"
+        android:shortcutShortLabel="@string/sc_stop_short">
+        <intent android:action="io.github.anwo91.phevlink.action.STOP_CLIMATE"
+            android:targetPackage="io.github.anwo91.phevlink"
+            android:targetClass="io.github.anwo91.phevlink.link.ActionActivity" />
+    </shortcut>
+    <shortcut android:shortcutId="flash" android:enabled="true"
+        android:icon="@drawable/ic_sc_flash"
+        android:shortcutShortLabel="@string/sc_flash_short"
+        android:shortcutLongLabel="@string/sc_flash_long">
+        <intent android:action="io.github.anwo91.phevlink.action.LOCATE"
+            android:targetPackage="io.github.anwo91.phevlink"
+            android:targetClass="io.github.anwo91.phevlink.link.ActionActivity" />
+    </shortcut>
+    <shortcut android:shortcutId="refresh" android:enabled="true"
+        android:icon="@drawable/ic_sc_refresh"
+        android:shortcutShortLabel="@string/sc_refresh_short">
+        <intent android:action="io.github.anwo91.phevlink.action.REFRESH"
+            android:targetPackage="io.github.anwo91.phevlink"
+            android:targetClass="io.github.anwo91.phevlink.link.ActionActivity" />
+    </shortcut>
+</shortcuts>

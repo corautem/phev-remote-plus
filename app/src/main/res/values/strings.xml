@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PHEV Link</string>
+    <string name="widget_description">Battery, charging and one-tap preheat</string>
+    <string name="sc_preheat_short">Preheat</string>
+    <string name="sc_preheat_long">Start climate (smart)</string>
+    <string name="sc_stop_short">Stop climate</string>
+    <string name="sc_flash_short">Flash lights</string>
+    <string name="sc_flash_long">Find my car: flash headlights</string>
+    <string name="sc_refresh_short">Refresh</string>
+</resources>

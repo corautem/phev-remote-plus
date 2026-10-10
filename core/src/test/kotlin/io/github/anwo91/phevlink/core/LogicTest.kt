@@ -31,6 +31,32 @@ import java.time.ZonedDateTime
 class LogicTest {
 
     @Test
+    fun jsonRoundTrips() {
+        val text = io.github.anwo91.phevlink.core.json.Json.write(
+            mapOf("a" to 1, "b" to listOf(true, null, 2.5, "x\"y\n"), "c" to mapOf("d" to -3))
+        )
+        assertEquals("""{"a":1,"b":[true,null,2.5,"x\"y\n"],"c":{"d":-3}}""", text)
+        val back = io.github.anwo91.phevlink.core.json.Json.parseObject(text)
+        assertEquals(1L, back["a"])
+        assertEquals(listOf(true, null, 2.5, "x\"y\n"), back["b"])
+
+        var st = CarState(batteryPercent = 55, charging = true, chargeMinutesRemaining = 80, vin = "JMA123",
+            doors = Doors(boot = true), climate = Climate(PreAcState.RUNNING, true, ClimateMode.WINDSCREEN, ClimateDuration.MIN_30, 1000))
+        st = RegisterDecoder.apply(st, 0x22, "000100020304".hexToBytes(), 5)
+        val codec = io.github.anwo91.phevlink.core.json.Codecs
+        val again = codec.carStateFromMap(io.github.anwo91.phevlink.core.json.Json.parseObject(
+            io.github.anwo91.phevlink.core.json.Json.write(codec.carStateToMap(st))))
+        assertEquals(st, again)
+
+        val deps = listOf(Departure("a", LocalTime.of(7, 15), setOf(DayOfWeek.MONDAY, DayOfWeek.FRIDAY), smart = false, mode = ClimateMode.COOL))
+        assertEquals(deps, codec.departuresFromJson(codec.departuresToJson(deps)))
+
+        for (c in listOf(CarCommand.ClimateOn(ClimateMode.HEAT, ClimateDuration.MIN_20), CarCommand.Headlights(true), CarCommand.Locate(3), CarCommand.RequestUpdate)) {
+            assertEquals(c, codec.commandFromMap(io.github.anwo91.phevlink.core.json.Json.parseObject(io.github.anwo91.phevlink.core.json.Json.write(codec.commandToMap(c)))))
+        }
+    }
+
+    @Test
     fun decodesKnownRegisters() {
         var s = CarState()
         s = RegisterDecoder.apply(s, 0x1d, "48000100".hexToBytes(), 1)

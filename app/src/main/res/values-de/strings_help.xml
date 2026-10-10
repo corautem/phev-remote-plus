@@ -37,4 +37,29 @@
     <string name="obd_pick_likely">Wahrscheinlich ein OBD-Adapter</string>
     <string name="obd_pick_proprietary">Diagnosegerät von %1$s – funktioniert nur mit der eigenen App, nicht hier</string>
     <string name="obd_err_pairing">Das Koppeln mit „%1$s“ wurde nicht abgeschlossen. Verbinde dich erneut und gib die PIN des Adapters ein, wenn Android fragt — meist 1234 oder 0000 (manchmal 6789 oder 1111).</string>
+
+    <!-- Status, charge detail, alarm (added) -->
+    <string name="msg_climate_quick_charging">das Auto betreibt die Klimatisierung nicht während des Schnellladens. Versuch es nach dem Schnellladen erneut.</string>
+    <string name="msg_charge_not_plugged">steck zuerst das Ladekabel ein.</string>
+    <string name="cmd_resume_charge_timer">Nach Zeitplan laden</string>
+    <string name="alert_title_theft">Alarmanlage</string>
+    <string name="alert_theft">Die Alarmanlage des Autos wurde ausgelöst.</string>
+    <string name="alert_title_charge_failed">Laden startete nicht</string>
+    <string name="alert_charge_failed">Das Auto konnte den geplanten Ladevorgang nicht starten. Prüf Kabel und Timer.</string>
+    <string name="home_charge_normal">Lädt</string>
+    <string name="home_charge_trickle">Langsames Laden</string>
+    <string name="home_charge_quick">Schnellladen</string>
+    <string name="home_charge_waiting">Wartet auf Timer</string>
+    <string name="home_charge_waiting_note">Angesteckt – lädt zur geplanten Zeit.</string>
+    <string name="home_charge_failed">Laden startete nicht</string>
+    <string name="home_charge_failed_note">Das Auto konnte den geplanten Ladevorgang nicht starten. Tippe auf „Jetzt laden“ oder prüf Kabel und Timer.</string>
+    <string name="home_batt_warming">Wärmt die Antriebsbatterie</string>
+    <string name="home_batt_too_cold">Zum Schutz der kalten Batterie anstecken</string>
+    <string name="quick_resume_timer">Nach Zeitplan laden</string>
+    <string name="security_alarm">Alarm</string>
+    <string name="security_alarm_armed">Scharf</string>
+    <string name="security_alarm_triggered">Ausgelöst</string>
+    <string name="home_attention_alarm">Die Alarmanlage wurde ausgelöst.</string>
+    <string name="home_attention_ev_error">Das Auto meldet einen Kommunikationsfehler im EV-System.</string>
+    <string name="home_attention_charge_failed">Der geplante Ladevorgang startete nicht.</string>
 </resources>

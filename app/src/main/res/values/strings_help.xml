@@ -43,4 +43,29 @@
     <string name="obd_pick_likely">Probably an OBD adapter</string>
     <string name="obd_pick_proprietary">%1$s scan tool — only works with its own app, not here</string>
     <string name="obd_err_pairing">Pairing with “%1$s” didn’t finish. Connect again and enter the adapter’s PIN when Android asks — usually 1234 or 0000 (sometimes 6789 or 1111).</string>
+
+    <!-- Status, charge detail, alarm (added) -->
+    <string name="msg_climate_quick_charging">the car won’t run the climate while quick charging. Try again after the quick charge.</string>
+    <string name="msg_charge_not_plugged">plug the charging cable in first.</string>
+    <string name="cmd_resume_charge_timer">Charge on schedule</string>
+    <string name="alert_title_theft">Security alarm</string>
+    <string name="alert_theft">The car’s security alarm went off.</string>
+    <string name="alert_title_charge_failed">Charge didn’t start</string>
+    <string name="alert_charge_failed">The car couldn’t start the scheduled charge. Check the cable and the timer.</string>
+    <string name="home_charge_normal">Charging</string>
+    <string name="home_charge_trickle">Trickle charge (slow)</string>
+    <string name="home_charge_quick">Quick charge</string>
+    <string name="home_charge_waiting">Waiting for timer</string>
+    <string name="home_charge_waiting_note">Plugged in — will charge at the scheduled time.</string>
+    <string name="home_charge_failed">Charge didn’t start</string>
+    <string name="home_charge_failed_note">The car couldn’t start the scheduled charge. Tap “Charge now”, or check the cable and timer.</string>
+    <string name="home_batt_warming">Warming the drive battery</string>
+    <string name="home_batt_too_cold">Plug in to protect the cold battery</string>
+    <string name="quick_resume_timer">Charge on schedule</string>
+    <string name="security_alarm">Alarm</string>
+    <string name="security_alarm_armed">Armed</string>
+    <string name="security_alarm_triggered">Triggered</string>
+    <string name="home_attention_alarm">The security alarm was triggered.</string>
+    <string name="home_attention_ev_error">The car reports an EV-system communication error.</string>
+    <string name="home_attention_charge_failed">The scheduled charge didn’t start.</string>
 </resources>

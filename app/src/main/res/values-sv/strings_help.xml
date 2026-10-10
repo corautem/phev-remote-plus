@@ -37,4 +37,29 @@
     <string name="obd_pick_likely">Troligen en OBD-adapter</string>
     <string name="obd_pick_proprietary">Diagnosverktyg från %1$s – fungerar bara med sin egen app, inte här</string>
     <string name="obd_err_pairing">Parkopplingen med ”%1$s” slutfördes inte. Anslut igen och ange adapterns PIN-kod när Android frågar — oftast 1234 eller 0000 (ibland 6789 eller 1111).</string>
+
+    <!-- Status, charge detail, alarm (added) -->
+    <string name="msg_climate_quick_charging">bilen kör inte klimatanläggningen under snabbladdning. Försök igen efter snabbladdningen.</string>
+    <string name="msg_charge_not_plugged">anslut laddkabeln först.</string>
+    <string name="cmd_resume_charge_timer">Ladda enligt timer</string>
+    <string name="alert_title_theft">Säkerhetslarm</string>
+    <string name="alert_theft">Bilens säkerhetslarm utlöstes.</string>
+    <string name="alert_title_charge_failed">Laddningen startade inte</string>
+    <string name="alert_charge_failed">Bilen kunde inte starta den schemalagda laddningen. Kontrollera kabeln och timern.</string>
+    <string name="home_charge_normal">Laddar</string>
+    <string name="home_charge_trickle">Långsam laddning</string>
+    <string name="home_charge_quick">Snabbladdning</string>
+    <string name="home_charge_waiting">Väntar på timer</string>
+    <string name="home_charge_waiting_note">Ansluten – laddar vid schemalagd tid.</string>
+    <string name="home_charge_failed">Laddningen startade inte</string>
+    <string name="home_charge_failed_note">Bilen kunde inte starta den schemalagda laddningen. Tryck på ”Ladda nu”, eller kontrollera kabel och timer.</string>
+    <string name="home_batt_warming">Värmer upp drivbatteriet</string>
+    <string name="home_batt_too_cold">Anslut för att skydda det kalla batteriet</string>
+    <string name="quick_resume_timer">Ladda enligt timer</string>
+    <string name="security_alarm">Larm</string>
+    <string name="security_alarm_armed">Aktiverat</string>
+    <string name="security_alarm_triggered">Utlöst</string>
+    <string name="home_attention_alarm">Säkerhetslarmet utlöstes.</string>
+    <string name="home_attention_ev_error">Bilen rapporterar ett kommunikationsfel i EV-systemet.</string>
+    <string name="home_attention_charge_failed">Den schemalagda laddningen startade inte.</string>
 </resources>

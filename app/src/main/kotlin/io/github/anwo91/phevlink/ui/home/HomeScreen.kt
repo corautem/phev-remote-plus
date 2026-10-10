@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AcUnit
+import androidx.compose.material.icons.outlined.WarningAmber
 import androidx.compose.material.icons.outlined.Air
 import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.EmojiObjects
@@ -27,6 +28,8 @@ import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Whatshot
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
@@ -60,11 +63,13 @@ import androidx.compose.ui.unit.dp
 import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.model.CarCommand
 import io.github.anwo91.phevlink.core.model.CarState
+import io.github.anwo91.phevlink.core.model.ChargeKind
 import io.github.anwo91.phevlink.core.model.ClimateDuration
 import io.github.anwo91.phevlink.core.model.ClimateMode
 import io.github.anwo91.phevlink.core.model.Ignition
 import io.github.anwo91.phevlink.core.model.PlugState
 import io.github.anwo91.phevlink.core.model.PreAcState
+import io.github.anwo91.phevlink.core.model.TheftAlarm
 import io.github.anwo91.phevlink.link.LinkUi
 import io.github.anwo91.phevlink.ui.MainViewModel
 import io.github.anwo91.phevlink.ui.common.BatteryRing
@@ -116,6 +121,7 @@ fun HomeScreen(
                 LinkChip(link) { showLink = true }
             }
         }
+        item { AttentionCard(car) }
         item { BatteryCard(car, settings.fullRangeKm, now) }
         item {
             val msgOff = stringResource(R.string.cmd_climate_off)
@@ -150,12 +156,40 @@ fun HomeScreen(
     if (showLink) LinkSheet(link, car, onDismiss = { showLink = false }, onRetry = { vm.reconnect(); showLink = false }, onDiagnostics = { showLink = false; onOpenDiagnostics() })
 }
 
+/** A single banner for things that need attention now — renders nothing when all is well. */
+@Composable
+private fun AttentionCard(car: CarState) {
+    val messages = listOfNotNull(
+        stringResource(R.string.home_attention_alarm).takeIf { car.theftAlarm == TheftAlarm.TRIGGERED },
+        stringResource(R.string.home_attention_charge_failed).takeIf { car.chargeTimerError },
+        stringResource(R.string.home_attention_ev_error).takeIf { car.evEcuError },
+    )
+    if (messages.isEmpty()) return
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.errorContainer,
+            contentColor = MaterialTheme.colorScheme.onErrorContainer,
+        ),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            messages.forEach { m ->
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(Icons.Outlined.WarningAmber, null, Modifier.size(20.dp))
+                    Spacer(Modifier.width(10.dp))
+                    Text(m, style = MaterialTheme.typography.bodyMedium)
+                }
+            }
+        }
+    }
+}
+
 @Composable
 private fun BatteryCard(car: CarState, fullRangeKm: Int, now: Long) {
     val status = LocalStatus.current
     SectionCard {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            BatteryRing(car.batteryPercent, car.charging == true) {
+            BatteryRing(car.batteryPercent, car.isCharging) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(car.batteryPercent?.let { "$it" } ?: "–", style = MaterialTheme.typography.displayMedium)
                     Text("%", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -168,8 +202,13 @@ private fun BatteryCard(car: CarState, fullRangeKm: Int, now: Long) {
                 Text(stringResource(R.string.home_electric_range), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(Modifier.height(12.dp))
                 when {
-                    car.charging == true -> {
-                        Pill(stringResource(R.string.home_charging), status.charge)
+                    car.isCharging -> {
+                        val label = when (car.chargeKind) {
+                            ChargeKind.TRICKLE -> R.string.home_charge_trickle
+                            ChargeKind.QUICK -> R.string.home_charge_quick
+                            else -> R.string.home_charging
+                        }
+                        Pill(stringResource(label), status.charge)
                         car.chargeDoneAtMs(now)?.let {
                             Spacer(Modifier.height(6.dp))
                             Text(
@@ -178,16 +217,42 @@ private fun BatteryCard(car: CarState, fullRangeKm: Int, now: Long) {
                             )
                         }
                     }
+                    car.chargeTimerError -> {
+                        Pill(stringResource(R.string.home_charge_failed), status.warn)
+                        ChargeNote(stringResource(R.string.home_charge_failed_note))
+                    }
+                    car.chargeWaiting -> {
+                        Pill(stringResource(R.string.home_charge_waiting), status.good)
+                        ChargeNote(stringResource(R.string.home_charge_waiting_note))
+                    }
                     car.plug == PlugState.PLUGGED -> {
                         Pill(stringResource(R.string.home_plugged_in), status.good)
-                        Spacer(Modifier.height(6.dp))
-                        Text(stringResource(R.string.home_not_charging), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        ChargeNote(stringResource(R.string.home_not_charging))
                     }
                     car.plug == PlugState.UNPLUGGED -> Pill(stringResource(R.string.home_unplugged), status.idle)
                     else -> Unit
                 }
+                // Winter: the drive battery's own thermal state.
+                if (car.batteryWarming) BatteryNote(Icons.Outlined.Whatshot, stringResource(R.string.home_batt_warming), status.charge)
+                if (car.batteryTooCold) BatteryNote(Icons.Outlined.AcUnit, stringResource(R.string.home_batt_too_cold), status.warn)
             }
         }
+    }
+}
+
+@Composable
+private fun ChargeNote(text: String) {
+    Spacer(Modifier.height(6.dp))
+    Text(text, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+}
+
+@Composable
+private fun BatteryNote(icon: ImageVector, text: String, tint: androidx.compose.ui.graphics.Color) {
+    Spacer(Modifier.height(6.dp))
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Icon(icon, null, tint = tint, modifier = Modifier.size(16.dp))
+        Spacer(Modifier.width(6.dp))
+        Text(text, style = MaterialTheme.typography.bodySmall, color = tint)
     }
 }
 
@@ -323,11 +388,17 @@ private fun QuickActions(car: CarState, pending: String?, vm: MainViewModel) {
             ) { vm.run(CarCommand.ParkingLights(car.parkingLights != true)) }
             ActionButton(stringResource(R.string.common_refresh), Icons.Outlined.Refresh, pending, Modifier.weight(1f)) { vm.refresh() }
         }
-        if (car.plug == PlugState.PLUGGED && car.charging != true) {
+        // Plugged in but not charging: offer "Charge now". Already charging on demand: offer to hand it back to the timer.
+        if (car.plug == PlugState.PLUGGED && !car.isCharging) {
             Spacer(Modifier.height(8.dp))
             val msgCharge = stringResource(R.string.msg_charge_requested)
             ActionButton(stringResource(R.string.quick_charge_now), Icons.Outlined.EvStation, pending, Modifier.fillMaxWidth()) {
                 vm.run(CarCommand.ChargeNow, msgCharge)
+            }
+        } else if (car.isCharging) {
+            Spacer(Modifier.height(8.dp))
+            ActionButton(stringResource(R.string.quick_resume_timer), Icons.Outlined.Schedule, pending, Modifier.fillMaxWidth()) {
+                vm.run(CarCommand.ResumeChargeTimer)
             }
         }
     }
@@ -384,6 +455,12 @@ private fun SecurityCard(car: CarState) {
                 Ignition.UNKNOWN -> "–"
             },
         )
+        // The security alarm, only when the car actually reports it armed or going off.
+        when (car.theftAlarm) {
+            TheftAlarm.ARMED -> LabeledValue(stringResource(R.string.security_alarm), stringResource(R.string.security_alarm_armed))
+            TheftAlarm.TRIGGERED -> LabeledValue(stringResource(R.string.security_alarm), stringResource(R.string.security_alarm_triggered), valueColor = status.warn)
+            else -> Unit
+        }
         car.carClock?.let { c ->
             if (c.size >= 5) LabeledValue(stringResource(R.string.security_car_clock), "%02d:%02d".format(c[3], c[4]))
         }

@@ -3,6 +3,7 @@ package io.github.anwo91.phevlink.core.json
 import io.github.anwo91.phevlink.core.model.CarCommand
 import io.github.anwo91.phevlink.core.model.CarSetting
 import io.github.anwo91.phevlink.core.model.CarState
+import io.github.anwo91.phevlink.core.model.ChargeKind
 import io.github.anwo91.phevlink.core.model.Climate
 import io.github.anwo91.phevlink.core.model.ClimateDuration
 import io.github.anwo91.phevlink.core.model.ClimateMode
@@ -10,6 +11,7 @@ import io.github.anwo91.phevlink.core.model.Doors
 import io.github.anwo91.phevlink.core.model.Ignition
 import io.github.anwo91.phevlink.core.model.PlugState
 import io.github.anwo91.phevlink.core.model.PreAcState
+import io.github.anwo91.phevlink.core.model.TheftAlarm
 import io.github.anwo91.phevlink.core.model.RawRegister
 import io.github.anwo91.phevlink.core.model.VehicleSettingsCatalog
 import io.github.anwo91.phevlink.core.planner.Departure
@@ -32,6 +34,15 @@ object Codecs {
         "batteryPercent" to s.batteryPercent,
         "charging" to s.charging,
         "chargeMinutesRemaining" to s.chargeMinutesRemaining,
+        "chargeKind" to s.chargeKind.name,
+        "chargeWaiting" to s.chargeWaiting,
+        "chargeTimerError" to s.chargeTimerError,
+        "batteryWarming" to s.batteryWarming,
+        "batteryTooCold" to s.batteryTooCold,
+        "theftAlarm" to s.theftAlarm.name,
+        "evEcuError" to s.evEcuError,
+        "navInUse" to s.navInUse,
+        "registrationStandby" to s.registrationStandby,
         "plug" to s.plug.name,
         "locked" to s.locked,
         "doors" to s.doors?.let {
@@ -101,6 +112,15 @@ object Codecs {
             batteryPercent = m.int("batteryPercent"),
             charging = m.bool("charging"),
             chargeMinutesRemaining = m.int("chargeMinutesRemaining"),
+            chargeKind = enumOr(m.str("chargeKind"), ChargeKind.UNKNOWN),
+            chargeWaiting = m.bool("chargeWaiting") ?: false,
+            chargeTimerError = m.bool("chargeTimerError") ?: false,
+            batteryWarming = m.bool("batteryWarming") ?: false,
+            batteryTooCold = m.bool("batteryTooCold") ?: false,
+            theftAlarm = enumOr(m.str("theftAlarm"), TheftAlarm.UNKNOWN),
+            evEcuError = m.bool("evEcuError") ?: false,
+            navInUse = m.bool("navInUse") ?: false,
+            registrationStandby = m.bool("registrationStandby") ?: false,
             plug = enumOr(m.str("plug"), PlugState.UNKNOWN),
             locked = m.bool("locked"),
             doors = doors,
@@ -197,6 +217,7 @@ object Codecs {
         CarCommand.UnregisterPhone -> mapOf("action" to "unregister")
         CarCommand.AckClimateCancelled -> mapOf("action" to "ack_climate")
         CarCommand.ChargeNow -> mapOf("action" to "charge_now")
+        CarCommand.ResumeChargeTimer -> mapOf("action" to "resume_charge_timer")
         is CarCommand.SyncClock -> mapOf("action" to "sync_clock", "time" to c.time.toString())
         is CarCommand.ChangeSetting -> mapOf("action" to "setting", "id" to c.id, "value" to c.value)
         CarCommand.ResetSettings -> mapOf("action" to "reset_settings")
@@ -232,6 +253,7 @@ object Codecs {
             "unregister" -> CarCommand.UnregisterPhone
             "ack_climate" -> CarCommand.AckClimateCancelled
             "charge_now" -> CarCommand.ChargeNow
+            "resume_charge_timer" -> CarCommand.ResumeChargeTimer
             "sync_clock" -> CarCommand.SyncClock(
                 m["time"]?.toString()?.let { java.time.LocalDateTime.parse(it) } ?: java.time.LocalDateTime.now()
             )

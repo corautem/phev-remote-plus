@@ -70,9 +70,12 @@ sealed interface CarCommand {
          * Mitsubishi: remote climate "cannot operate when the power switch is not OFF". The car still acks the
          * writes, so without this check the app reported success while nothing happened.
          */
-        override fun refusal(state: CarState, fresh: Set<Int>): String? =
-            if (Reg.READ_IGNITION_AC in fresh && (state.ignition == Ignition.ACC || state.ignition == Ignition.ON)) POWER_ON
-            else null
+        override fun refusal(state: CarState, fresh: Set<Int>): String? = when {
+            Reg.READ_IGNITION_AC in fresh && (state.ignition == Ignition.ACC || state.ignition == Ignition.ON) -> POWER_ON
+            // Mitsubishi: climate "cannot operate … [while] quick charging is active".
+            state.chargeKind == ChargeKind.QUICK -> QUICK_CHARGING
+            else -> null
+        }
 
         /** Started now: wait for the car to report it running. A delayed start can't be confirmed yet. */
         override val confirmMs: Long get() = if (delayMinutes > 0) 0 else CONFIRM_MS
@@ -103,6 +106,7 @@ sealed interface CarCommand {
         companion object {
             const val CONFIRM_MS = 30_000L
             const val POWER_ON = "The car only runs the climate remotely with the power switch OFF"
+            const val QUICK_CHARGING = "The car will not run the climate while quick charging"
             const val NOT_STARTED = "The car accepted the command but did not start the climate"
         }
     }
@@ -159,13 +163,27 @@ sealed interface CarCommand {
         override fun toWrites(modelYear: ModelYear, state: CarState) = listOf(RegisterWrite(Reg.WRITE_ACK_AC_TERMINATION, bytes(1)))
     }
 
-    /** Override the charge timer and charge now. Experimental (seen on MY18). */
+    /**
+     * Charge now: suspend the charge timer so the car starts charging immediately. Same as the official app's
+     * "Temporary cancel the Charging Timer" (register 0x17 = [0x01]). The timer resumes on its own next time the
+     * power switch goes ON, or with [ResumeChargeTimer]. Needs the cable plugged in.
+     */
     data object ChargeNow : CarCommand {
         override val label = "Charge now"
-        override fun toWrites(modelYear: ModelYear, state: CarState) = listOf(
-            RegisterWrite(Reg.WRITE_CHARGE_TIMER_CANCEL, bytes(0x01)),
-            RegisterWrite(Reg.WRITE_CHARGE_TIMER_CANCEL, bytes(0x11)),
-        )
+        override fun refusal(state: CarState, fresh: Set<Int>): String? =
+            if (Reg.READ_CHARGE_PLUG in fresh && state.plug == PlugState.UNPLUGGED) NOT_PLUGGED else null
+        override fun requiredRegisters(modelYear: ModelYear) = setOf(Reg.READ_CHARGE_PLUG)
+        override fun toWrites(modelYear: ModelYear, state: CarState) =
+            listOf(RegisterWrite(Reg.WRITE_CHARGE_TIMER_CANCEL, bytes(0x01)))
+
+        const val NOT_PLUGGED = "Plug the charging cable in first"
+    }
+
+    /** Resume the charge timer after [ChargeNow] (register 0x17 = [0x02]), so charging follows the schedule again. */
+    data object ResumeChargeTimer : CarCommand {
+        override val label = "Resume charge timer"
+        override fun toWrites(modelYear: ModelYear, state: CarState) =
+            listOf(RegisterWrite(Reg.WRITE_CHARGE_TIMER_CANCEL, bytes(0x02)))
     }
 
     /**

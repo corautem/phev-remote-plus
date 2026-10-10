@@ -37,4 +37,29 @@
     <string name="obd_pick_likely">Sannsynligvis en OBD-adapter</string>
     <string name="obd_pick_proprietary">Diagnoseverktøy fra %1$s – virker bare med sin egen app, ikke her</string>
     <string name="obd_err_pairing">Sammenkoblingen med «%1$s» ble ikke fullført. Koble til igjen og skriv inn adapterens PIN-kode når Android spør — som regel 1234 eller 0000 (av og til 6789 eller 1111).</string>
+
+    <!-- Status, charge detail, alarm (added) -->
+    <string name="msg_climate_quick_charging">bilen kjører ikke klimaanlegget under hurtiglading. Prøv igjen etter hurtigladingen.</string>
+    <string name="msg_charge_not_plugged">koble til ladekabelen først.</string>
+    <string name="cmd_resume_charge_timer">Lad etter timer</string>
+    <string name="alert_title_theft">Sikkerhetsalarm</string>
+    <string name="alert_theft">Bilens sikkerhetsalarm gikk av.</string>
+    <string name="alert_title_charge_failed">Ladingen startet ikke</string>
+    <string name="alert_charge_failed">Bilen fikk ikke startet den planlagte ladingen. Sjekk kabelen og timeren.</string>
+    <string name="home_charge_normal">Lader</string>
+    <string name="home_charge_trickle">Sakte lading</string>
+    <string name="home_charge_quick">Hurtiglading</string>
+    <string name="home_charge_waiting">Venter på timer</string>
+    <string name="home_charge_waiting_note">Tilkoblet – lader til planlagt tid.</string>
+    <string name="home_charge_failed">Ladingen startet ikke</string>
+    <string name="home_charge_failed_note">Bilen fikk ikke startet den planlagte ladingen. Trykk «Lad nå», eller sjekk kabel og timer.</string>
+    <string name="home_batt_warming">Varmer opp drivbatteriet</string>
+    <string name="home_batt_too_cold">Koble til for å beskytte det kalde batteriet</string>
+    <string name="quick_resume_timer">Lad etter timer</string>
+    <string name="security_alarm">Alarm</string>
+    <string name="security_alarm_armed">Aktivert</string>
+    <string name="security_alarm_triggered">Utløst</string>
+    <string name="home_attention_alarm">Sikkerhetsalarmen ble utløst.</string>
+    <string name="home_attention_ev_error">Bilen melder en kommunikasjonsfeil i EV-systemet.</string>
+    <string name="home_attention_charge_failed">Den planlagte ladingen startet ikke.</string>
 </resources>

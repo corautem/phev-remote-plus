@@ -4,6 +4,7 @@ import io.github.anwo91.phevlink.core.model.CarState
 import io.github.anwo91.phevlink.core.model.Ignition
 import io.github.anwo91.phevlink.core.model.PlugState
 import io.github.anwo91.phevlink.core.model.PreAcState
+import io.github.anwo91.phevlink.core.model.TheftAlarm
 
 enum class AlertType(val title: String) {
     CHARGE_COMPLETE("Charging complete"),
@@ -15,6 +16,8 @@ enum class AlertType(val title: String) {
     LEFT_UNLOCKED("Car left unlocked"),
     DOOR_OPEN("Door left open"),
     LIGHTS_ON("Lights left on"),
+    THEFT_ALARM("Security alarm"),
+    CHARGE_TIMER_FAILED("Charge did not start"),
 }
 
 data class Alert(val type: AlertType, val message: String, val timeMs: Long) {
@@ -34,6 +37,8 @@ data class AlertPrefs(
     val doorOpenMinutes: Int = 10,
     val lightsOn: Boolean = true,
     val lightsOnMinutes: Int = 3,
+    val theftAlarm: Boolean = true,
+    val chargeTimerFailed: Boolean = true,
 ) {
     fun enabled(t: AlertType) = when (t) {
         AlertType.CHARGE_COMPLETE -> chargeComplete
@@ -45,6 +50,8 @@ data class AlertPrefs(
         AlertType.LEFT_UNLOCKED -> leftUnlocked
         AlertType.DOOR_OPEN -> doorOpen
         AlertType.LIGHTS_ON -> lightsOn
+        AlertType.THEFT_ALARM -> theftAlarm
+        AlertType.CHARGE_TIMER_FAILED -> chargeTimerFailed
     }
 }
 
@@ -116,6 +123,14 @@ class AlertEngine(var prefs: AlertPrefs = AlertPrefs()) {
                 cb == PreAcState.CANCELLED ->
                     out += Alert(AlertType.CLIMATE_CANCELLED, "Preconditioning was stopped by the car (door opened or battery too low).", now)
             }
+        }
+        // Security alarm: the state turned to triggered, or the car sent a fresh alarm event (register 0x14).
+        val newEvent = b.registers[0x14]?.hex?.let { it != a.registers[0x14]?.hex } == true
+        if ((b.theftAlarm == TheftAlarm.TRIGGERED && a.theftAlarm != TheftAlarm.TRIGGERED) || newEvent) {
+            out += Alert(AlertType.THEFT_ALARM, "The car's security alarm went off.", now)
+        }
+        if (!a.chargeTimerError && b.chargeTimerError) {
+            out += Alert(AlertType.CHARGE_TIMER_FAILED, "The car could not start the scheduled charge. Check the cable and the timer.", now)
         }
     }
 

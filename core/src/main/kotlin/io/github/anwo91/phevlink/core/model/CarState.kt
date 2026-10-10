@@ -34,6 +34,12 @@ enum class Ignition { OFF, ACC, ON, UNKNOWN }
 
 enum class PlugState { UNPLUGGED, PLUGGED, UNKNOWN }
 
+/** How the car is charging (register 0x1e[0] plus the quick-charge flags 0x0c/0x0d). */
+enum class ChargeKind { NONE, NORMAL, TRICKLE, QUICK, UNKNOWN }
+
+/** Security-alarm state from register 0x23[1] (0 disarmed; 1/6/7 armed; 4/5 triggered). */
+enum class TheftAlarm { DISARMED, ARMED, TRIGGERED, UNKNOWN }
+
 data class Doors(
     val driver: Boolean = false,
     val frontPassenger: Boolean = false,
@@ -80,6 +86,12 @@ data class CarState(
     val batteryPercent: Int? = null,
     val charging: Boolean? = null,
     val chargeMinutesRemaining: Int? = null,
+    /** How it is charging (normal / trickle / quick); NONE when not charging. */
+    val chargeKind: ChargeKind = ChargeKind.UNKNOWN,
+    /** Plugged in and waiting for the charge timer window (register 0x1e[1]==1). */
+    val chargeWaiting: Boolean = false,
+    /** The car reported it could not start a scheduled charge (0x1e[1]==3). */
+    val chargeTimerError: Boolean = false,
     val plug: PlugState = PlugState.UNKNOWN,
     val locked: Boolean? = null,
     val doors: Doors? = null,
@@ -102,11 +114,26 @@ data class CarState(
     val settingsStatus: Int? = null,
     /** MY18+: the car keeps its Wi-Fi on while switched on ("Always Communicate"). Null = not reported. */
     val wifiAlwaysOn: Boolean? = null,
+    /** The drive battery's heater is running to warm a cold pack (register 0x02[1]==1). */
+    val batteryWarming: Boolean = false,
+    /** The car asks for the cable to be plugged in to protect a cold drive battery (0x1d[1]==3). */
+    val batteryTooCold: Boolean = false,
+    /** Security-alarm state (register 0x23[1]). */
+    val theftAlarm: TheftAlarm = TheftAlarm.UNKNOWN,
+    /** The car reports an EV-ECU communication error (register 0x2c==1). */
+    val evEcuError: Boolean = false,
+    /** The car's own screen/navigation is in use, so it won't take some remote commands (0x26==1). */
+    val navInUse: Boolean = false,
+    /** The car is in registration standby (register 0x15[18]==1): a phone can register now. */
+    val registrationStandby: Boolean = false,
     val registers: Map<Int, RawRegister> = emptyMap(),
     /** Wall-clock time of the last register received from the car. */
     val updatedAtMs: Long? = null,
 ) {
     val hasData: Boolean get() = batteryPercent != null || locked != null || charging != null
+
+    /** True while energy is going into the drive battery, including a CHAdeMO quick charge. */
+    val isCharging: Boolean get() = charging == true || chargeKind == ChargeKind.QUICK
 
     /** Estimated time (epoch ms) when charging completes. */
     fun chargeDoneAtMs(nowMs: Long): Long? {

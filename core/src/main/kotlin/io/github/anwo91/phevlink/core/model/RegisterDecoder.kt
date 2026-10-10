@@ -27,14 +27,15 @@ object RegisterDecoder {
                 // The car occasionally reports 0..5 % as a placeholder; a PHEV never
                 // runs that low (hybrid mode holds a reserve), so keep the last good value.
                 if (level in 6..100) s = s.copy(batteryPercent = level)
-                s = s.copy(parkingLights = u[2] == 1)
+                // [1]==3: the car asks for the cable to protect a cold drive battery.
+                s = s.copy(parkingLights = u[2] == 1, batteryTooCold = u[1] == 3)
             }
 
             Reg.READ_CHARGE_STATUS -> if (u.size >= 3) {
                 val charging = u[0] == 1
                 var remaining: Int? = if (u[2] != 0xff) (u[2] shl 8) or u[1] else null
-                // Values above ~16 h are glitches (seen in the wild); keep the previous one.
-                if (remaining != null && remaining >= 1000) remaining = state.chargeMinutesRemaining
+                // The official app shows no estimate at or above 6000 (0x1770); 0xfffe is "unknown" (quick charge).
+                if (remaining != null && remaining >= 6000) remaining = null
                 s = s.copy(
                     charging = charging,
                     chargeMinutesRemaining = if (charging) remaining else null,
@@ -42,11 +43,21 @@ object RegisterDecoder {
                 if (charging) s = s.copy(plug = PlugState.PLUGGED)
             }
 
+            Reg.READ_CHARGE_GUN -> if (u.size >= 2) {
+                // [1]==1: the drive-battery heater is on (official app: "Warming up").
+                s = s.copy(batteryWarming = u[1] == 1)
+            }
+
             Reg.READ_CHARGE_PLUG -> if (u.size >= 2) {
                 // Observed: 0000 unplugged, 0001 plugged (timer waiting), 0002 plugged
                 // (in charge window), 0202 charging, 0102/0003 transitions while unplugging.
                 val plugged = u[0] > 0 || u[1] == 1 || u[1] == 2
-                s = s.copy(plug = if (plugged) PlugState.PLUGGED else PlugState.UNPLUGGED)
+                s = s.copy(
+                    plug = if (plugged) PlugState.PLUGGED else PlugState.UNPLUGGED,
+                    // [1]: 1 = waiting for the timer window, 3 = the car could not start a scheduled charge.
+                    chargeWaiting = u[1] == 1,
+                    chargeTimerError = u[1] == 3,
+                )
             }
 
             Reg.READ_DOORS -> if (u.size >= 10) {
@@ -71,9 +82,21 @@ object RegisterDecoder {
             Reg.READ_LIGHTS -> if (u.size >= 5) {
                 s = s.copy(
                     hazardLights = (u[3] and 0b11) == 1,
-                    interiorLights = (u[4] and 0b11) == 1,
+                    // [4] bit 0: interior light on (values 1 and 3 both mean on).
+                    interiorLights = (u[4] and 1) == 1,
+                    // [1]: security alarm — 0 disarmed, 1/6/7 armed, 4/5 triggered.
+                    theftAlarm = when (u[1]) {
+                        0 -> TheftAlarm.DISARMED
+                        1, 6, 7 -> TheftAlarm.ARMED
+                        4, 5 -> TheftAlarm.TRIGGERED
+                        else -> TheftAlarm.UNKNOWN
+                    },
                 )
             }
+
+            Reg.READ_NAV_IN_USE -> if (u.isNotEmpty()) s = s.copy(navInUse = u[0] == 1)
+
+            Reg.READ_EV_ECU_ERROR -> if (u.isNotEmpty()) s = s.copy(evEcuError = u[0] == 1)
 
             // Same number means something else (or nothing) on 2014–2017 cars.
             Reg.READ_WIFI_ALWAYS_ON_MY18 -> if (u.isNotEmpty() && (state.modelYear == ModelYear.MY18 || state.modelYear == ModelYear.MY24)) {
@@ -118,6 +141,8 @@ object RegisterDecoder {
             Reg.READ_VIN -> if (u.size >= 18) {
                 val vin = String(CharArray(17) { u[1 + it].toChar() })
                 if (vin.all { it.isLetterOrDigit() }) s = s.copy(vin = vin)
+                // [18]==1: the car is in registration standby; [19]: number of registered phones.
+                if (u.size >= 19) s = s.copy(registrationStandby = u[18] == 1)
                 if (u.size >= 20) s = s.copy(registrations = u[19])
             }
 
@@ -152,7 +177,20 @@ object RegisterDecoder {
                 )
             }
         }
-        return s
+        return s.copy(chargeKind = chargeKindOf(s))
+    }
+
+    /** How the car is charging, from the latest related registers (they arrive in separate notifications). */
+    private fun chargeKindOf(s: CarState): ChargeKind {
+        fun firstByte(reg: Int): Int? = s.registers[reg]?.hex?.take(2)?.toIntOrNull(16)
+        // CHAdeMO quick charge: the normal "charging" flag (0x1f[0]) can read 0, so check the quick flags first.
+        if (firstByte(Reg.READ_QUICK_CHARGE_D) == 3 || firstByte(Reg.READ_QUICK_CHARGE_C) == 5) return ChargeKind.QUICK
+        if (s.charging != true) return ChargeKind.NONE
+        return when (firstByte(Reg.READ_CHARGE_PLUG)) {
+            2 -> ChargeKind.NORMAL
+            1 -> ChargeKind.TRICKLE
+            else -> ChargeKind.UNKNOWN
+        }
     }
 
     private fun printable(u: IntArray): String {

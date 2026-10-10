@@ -10,10 +10,13 @@ package io.github.anwo91.phevlink.core.protocol
  */
 object Reg {
     // --- car -> client
-    const val READ_CHARGE_GUN = 0x02          // MY14: KO_WF_CHG_GUN_STATUS_EVR, MY18: "battery warning"
+    const val READ_CHARGE_GUN = 0x02          // MY14: KO_WF_CHG_GUN_STATUS_EVR ([1]==1 drive-battery heater on), MY18: "battery warning"
     const val READ_REMOTE_SECURITY = 0x03
     const val READ_CHARGE_TIMER = 0x04
     const val READ_CLIMATE_TIMER = 0x05
+    const val READ_QUICK_CHARGE_C = 0x0c      // quick-charge phase; ==5 quick charging (with 0x0d)
+    const val READ_QUICK_CHARGE_D = 0x0d      // ==3 quick charging (CHAdeMO)
+    const val READ_THEFT_EVENT = 0x14         // [yy mm dd hh mi ss][type]: security-alarm event
     /** MY18+ only (the official app's register table for 2014–2017 cars has no entry): "Always Communicate" 1/0. */
     const val READ_WIFI_ALWAYS_ON_MY18 = 0x0b
     const val READ_PRE_AC_STATE = 0x10        // 0=off 2=running 3=cancelled (door/low battery)
@@ -29,7 +32,10 @@ object Reg {
     const val READ_LIGHTS = 0x23              // [..][..][..][hazard][interior]
     const val READ_DOORS = 0x24               // [lock][..][..][driver][passenger][rearR][rearL][boot][bonnet][headlights]
     const val READ_SSID = 0x28
+    const val READ_STEERING_SIDE = 0x29       // [keyless group][1 = left-hand drive, 2 = right-hand drive]
     const val READ_REGISTRATION_EVENT = 0x2a
+    const val READ_NAV_IN_USE = 0x26          // ==1 while the car's own screen is being used
+    const val READ_EV_ECU_ERROR = 0x2c        // ==1 EV-ECU communication error
     const val READ_START_AA = 0xaa
     const val READ_ECU_VERSION = 0xc0
 
@@ -57,6 +63,9 @@ object Reg {
         READ_CHARGE_TIMER to "charge timer",
         READ_CLIMATE_TIMER to "climate timer",
         0x06 to "unknown 0x06",
+        READ_QUICK_CHARGE_C to "quick-charge phase",
+        READ_QUICK_CHARGE_D to "quick-charge state",
+        READ_THEFT_EVENT to "security-alarm event",
         READ_WIFI_ALWAYS_ON_MY18 to "Wi-Fi always on (MY18)",
         READ_PRE_AC_STATE to "climate state",
         READ_CAR_CLOCK to "car clock",
@@ -71,7 +80,10 @@ object Reg {
         READ_LIGHTS to "hazard / interior lights",
         READ_DOORS to "doors / lock / headlights",
         READ_SSID to "Wi-Fi SSID",
+        READ_NAV_IN_USE to "car screen in use",
+        READ_STEERING_SIDE to "keyless group / steering side",
         READ_REGISTRATION_EVENT to "registration event",
+        READ_EV_ECU_ERROR to "EV-ECU error",
         READ_START_AA to "start AA",
         READ_ECU_VERSION to "ECU version",
     )

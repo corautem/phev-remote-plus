@@ -47,6 +47,7 @@ object Labels {
             CarCommand.UnregisterPhone -> res.getString(R.string.cmd_unregister)
             CarCommand.AckClimateCancelled -> res.getString(R.string.cmd_ack_climate)
             CarCommand.ChargeNow -> res.getString(R.string.cmd_charge_now)
+            CarCommand.ResumeChargeTimer -> res.getString(R.string.cmd_resume_charge_timer)
             is CarCommand.SyncClock -> res.getString(R.string.cmd_sync_clock)
             is CarCommand.ChangeSetting -> {
                 val lang = AppLocale.effectiveLanguage(context)
@@ -69,7 +70,9 @@ object Labels {
         return when (reason) {
             CarCommand.ChangeSetting.UNCONFIRMED -> res.getString(R.string.msg_setting_unconfirmed)
             CarCommand.ClimateOn.POWER_ON -> res.getString(R.string.msg_climate_needs_off)
+            CarCommand.ClimateOn.QUICK_CHARGING -> res.getString(R.string.msg_climate_quick_charging)
             CarCommand.ClimateOn.NOT_STARTED -> res.getString(R.string.msg_climate_not_started)
+            CarCommand.ChargeNow.NOT_PLUGGED -> res.getString(R.string.msg_charge_not_plugged)
             else -> reason
         }
     }

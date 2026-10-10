@@ -7,8 +7,11 @@ import io.github.anwo91.phevlink.core.model.CarSetting
 import io.github.anwo91.phevlink.core.model.CarState
 import io.github.anwo91.phevlink.core.model.ClimateDuration
 import io.github.anwo91.phevlink.core.model.ClimateMode
+import io.github.anwo91.phevlink.core.model.ChargeKind
 import io.github.anwo91.phevlink.core.model.CommandResult
 import io.github.anwo91.phevlink.core.model.Ignition
+import io.github.anwo91.phevlink.core.model.PlugState
+import io.github.anwo91.phevlink.core.model.TheftAlarm
 import io.github.anwo91.phevlink.core.model.PreAcState
 import io.github.anwo91.phevlink.core.model.VehicleSettingsCatalog
 import io.github.anwo91.phevlink.core.protocol.ModelYear
@@ -27,6 +30,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -382,5 +386,90 @@ class SessionIntegrationTest {
         assertTrue("$r14", r14 is CommandResult.Failure && r14.reason == CarCommand.WifiAlwaysOn.NOT_ON_MY14)
         assertTrue(fake14.acceptedWrites.none { it.first == 0x18 })
         assertEquals(null, pc14.car.value.wifiAlwaysOn)
+    }
+
+    @Test
+    fun chargeKindAndWaiting() = dumpOnFailure {
+        val (fake, pc) = setup()
+        pc.start()
+        pc.awaitState { it.vin != null }
+        // Plugged in, waiting for the timer window.
+        fake.setChargeWaiting()
+        pc.awaitState { it.chargeWaiting && it.plug == PlugState.PLUGGED }.let {
+            assertEquals(ChargeKind.NONE, it.chargeKind)
+            assertFalse(it.isCharging)
+        }
+        // Normal charging.
+        fake.plugIn(charge = true)
+        pc.awaitState { it.chargeKind == ChargeKind.NORMAL }.let {
+            assertTrue(it.isCharging)
+            assertFalse(it.chargeWaiting)
+        }
+        // Quick (CHAdeMO) charge: no normal flag, but we still call it charging.
+        fake.setQuickCharge(true)
+        pc.awaitState { it.chargeKind == ChargeKind.QUICK }.let {
+            assertTrue(it.isCharging)
+        }
+    }
+
+    @Test
+    fun chargeNowNeedsThePlugThenResumes() = dumpOnFailure {
+        val (fake, pc) = setup()
+        pc.start()
+        pc.awaitState { it.vin != null }
+        fake.unplug()
+        pc.awaitState { it.plug == PlugState.UNPLUGGED }
+        val refused = pc.execute(CarCommand.ChargeNow)
+        assertTrue("$refused", refused is CommandResult.Failure && refused.reason == CarCommand.ChargeNow.NOT_PLUGGED)
+        assertTrue("nothing sent", fake.acceptedWrites.none { it.first == 0x17 })
+
+        fake.setChargeWaiting()
+        pc.awaitState { it.chargeWaiting }
+        assertTrue(pc.execute(CarCommand.ChargeNow) is CommandResult.Success)
+        // Only [01] — never the MY18 [11] that the old code sent.
+        assertEquals(listOf("01"), fake.acceptedWrites.filter { it.first == 0x17 }.map { it.second })
+        pc.awaitState { it.isCharging }
+
+        assertTrue(pc.execute(CarCommand.ResumeChargeTimer) is CommandResult.Success)
+        assertEquals("02", fake.acceptedWrites.last { it.first == 0x17 }.second)
+        pc.awaitState { it.chargeWaiting && !it.isCharging }
+    }
+
+    @Test
+    fun batteryThermalFlags() = dumpOnFailure {
+        val (fake, pc) = setup()
+        pc.start()
+        pc.awaitState { it.vin != null }
+        fake.setBatteryWarming(true)
+        fake.setBatteryTooCold(true)
+        pc.awaitState { it.batteryWarming && it.batteryTooCold }
+        fake.setBatteryWarming(false)
+        fake.setBatteryTooCold(false)
+        pc.awaitState { !it.batteryWarming && !it.batteryTooCold }
+    }
+
+    @Test
+    fun theftAlarmStateAndEvent() = dumpOnFailure {
+        val (fake, pc) = setup()
+        pc.start()
+        pc.awaitState { it.theftAlarm == TheftAlarm.DISARMED }
+        fake.setTheftAlarm(1)
+        pc.awaitState { it.theftAlarm == TheftAlarm.ARMED }
+        fake.theftEvent(3) // door opened illegally
+        pc.awaitState { it.registers[0x14]?.hex == "1a0a0b011e0003" }
+        fake.setTheftAlarm(4)
+        pc.awaitState { it.theftAlarm == TheftAlarm.TRIGGERED }
+    }
+
+    @Test
+    fun climateRefusedWhileQuickCharging() = dumpOnFailure {
+        val (fake, pc) = setup()
+        pc.start()
+        pc.awaitState { it.vin != null }
+        fake.setQuickCharge(true)
+        pc.awaitState { it.chargeKind == ChargeKind.QUICK }
+        val r = pc.execute(CarCommand.ClimateOn(ClimateMode.HEAT, ClimateDuration.MIN_10))
+        assertTrue("$r", r is CommandResult.Failure && r.reason == CarCommand.ClimateOn.QUICK_CHARGING)
+        assertTrue("nothing sent", fake.acceptedWrites.none { it.first == 0x02 || it.first == 0x04 })
     }
 }

@@ -132,6 +132,8 @@ class Notifier(private val context: Context) {
         AlertType.LEFT_UNLOCKED -> R.string.alert_title_left_unlocked
         AlertType.DOOR_OPEN -> R.string.alert_title_door_open
         AlertType.LIGHTS_ON -> R.string.alert_title_lights_on
+        AlertType.THEFT_ALARM -> R.string.alert_title_theft
+        AlertType.CHARGE_TIMER_FAILED -> R.string.alert_title_charge_failed
     }
 
     /** Same content as the core's English message (see AlertEngine), from the same car state. Null if it cannot be rebuilt. */
@@ -168,6 +170,8 @@ class Notifier(private val context: Context) {
                 s.parkingLights == true -> res.getString(R.string.alert_lights_on_parking)
                 else -> null
             }
+            AlertType.THEFT_ALARM -> res.getString(R.string.alert_theft)
+            AlertType.CHARGE_TIMER_FAILED -> res.getString(R.string.alert_charge_failed)
         }
     }
 

@@ -37,4 +37,29 @@
     <string name="obd_pick_likely">Sandsynligvis en OBD-adapter</string>
     <string name="obd_pick_proprietary">Diagnoseværktøj fra %1$s – virker kun med sin egen app, ikke her</string>
     <string name="obd_err_pairing">Parringen med “%1$s” blev ikke fuldført. Forbind igen, og indtast adapterens PIN-kode, når Android spørger — som regel 1234 eller 0000 (nogle gange 6789 eller 1111).</string>
+
+    <!-- Status, charge detail, alarm (added) -->
+    <string name="msg_climate_quick_charging">bilen kører ikke klimaanlægget under lynopladning. Prøv igen efter lynopladningen.</string>
+    <string name="msg_charge_not_plugged">tilslut ladekablet først.</string>
+    <string name="cmd_resume_charge_timer">Oplad efter timer</string>
+    <string name="alert_title_theft">Sikkerhedsalarm</string>
+    <string name="alert_theft">Bilens sikkerhedsalarm gik i gang.</string>
+    <string name="alert_title_charge_failed">Opladningen startede ikke</string>
+    <string name="alert_charge_failed">Bilen kunne ikke starte den planlagte opladning. Tjek kablet og timeren.</string>
+    <string name="home_charge_normal">Oplader</string>
+    <string name="home_charge_trickle">Langsom opladning</string>
+    <string name="home_charge_quick">Lynopladning</string>
+    <string name="home_charge_waiting">Venter på timer</string>
+    <string name="home_charge_waiting_note">Tilsluttet – oplader på det planlagte tidspunkt.</string>
+    <string name="home_charge_failed">Opladningen startede ikke</string>
+    <string name="home_charge_failed_note">Bilen kunne ikke starte den planlagte opladning. Tryk på “Oplad nu”, eller tjek kabel og timer.</string>
+    <string name="home_batt_warming">Varmer drivbatteriet op</string>
+    <string name="home_batt_too_cold">Tilslut for at beskytte det kolde batteri</string>
+    <string name="quick_resume_timer">Oplad efter timer</string>
+    <string name="security_alarm">Alarm</string>
+    <string name="security_alarm_armed">Aktiveret</string>
+    <string name="security_alarm_triggered">Udløst</string>
+    <string name="home_attention_alarm">Sikkerhedsalarmen blev udløst.</string>
+    <string name="home_attention_ev_error">Bilen melder en kommunikationsfejl i EV-systemet.</string>
+    <string name="home_attention_charge_failed">Den planlagte opladning startede ikke.</string>
 </resources>

@@ -162,6 +162,32 @@ class FakeCar(
 
     fun setIgnition(code: Int) = update { regs[Reg.READ_IGNITION_AC]!![0] = code.toByte() }
 
+    /** Drive-battery heater on/off (register 0x02[1]). */
+    fun setBatteryWarming(on: Boolean) = update { regs[Reg.READ_CHARGE_GUN]!![1] = if (on) 1 else 0 }
+
+    /** "Plug in to protect the cold battery" flag (register 0x1d[1]==3). */
+    fun setBatteryTooCold(on: Boolean) = update { regs[Reg.READ_BATTERY]!![1] = if (on) 3 else 0 }
+
+    /** Security-alarm state byte (register 0x23[1]): 0 disarmed, 1 armed, 4 triggered. */
+    fun setTheftAlarm(code: Int) = update { regs[Reg.READ_LIGHTS]!![1] = code.toByte() }
+
+    /** Report a security-alarm event (register 0x14): [yy mm dd hh mi ss][type]. */
+    fun theftEvent(type: Int) = update {
+        regs[Reg.READ_THEFT_EVENT] = bytes(26, 10, 11, 1, 30, 0, type)
+    }
+
+    /** Simulate a CHAdeMO quick charge (register 0x0d==3), optionally off. */
+    fun setQuickCharge(on: Boolean) = update {
+        regs[Reg.READ_QUICK_CHARGE_D] = bytes(if (on) 3 else 0)
+        if (on) regs[Reg.READ_CHARGE_STATUS] = bytes(0, 0xfe, 0xff) // quick charge: no normal "charging" flag/estimate
+    }
+
+    /** Plugged in, waiting for the charge-timer window (register 0x1e = 00 01). */
+    fun setChargeWaiting() = update {
+        regs[Reg.READ_CHARGE_PLUG] = bytes(0, 1)
+        regs[Reg.READ_CHARGE_STATUS] = bytes(0, 0xff, 0xff)
+    }
+
     private fun startChargingLocked() {
         val level = regs[Reg.READ_BATTERY]!![0].toInt() and 0xff
         val minutes = ((100 - level) * 3.2).toInt().coerceAtLeast(1)
@@ -248,7 +274,14 @@ class FakeCar(
                 Reg.WRITE_UNREGISTER_CLIENT -> regs[Reg.READ_VIN]!![19] = (registrations - 1).coerceAtLeast(0).toByte()
                 Reg.WRITE_ACK_AC_TERMINATION -> regs[Reg.READ_PRE_AC_STATE]!![0] = 0
                 Reg.WRITE_CLOCK_SYNC -> if (data.size >= 7) regs[Reg.READ_CAR_CLOCK] = data.copyOf(7)
-                Reg.WRITE_CHARGE_TIMER_CANCEL -> if ((regs[Reg.READ_CHARGE_PLUG]!![1].toInt()) != 0) startChargingLocked()
+                Reg.WRITE_CHARGE_TIMER_CANCEL -> when (d(0)) {
+                    // [01] = charge now (suspend timer); [02] = resume timer (back to waiting).
+                    0x01 -> if (regs[Reg.READ_CHARGE_PLUG]!![0].toInt() != 0 || regs[Reg.READ_CHARGE_PLUG]!![1].toInt() != 0) startChargingLocked()
+                    0x02 -> {
+                        regs[Reg.READ_CHARGE_STATUS] = bytes(0, 0xff, 0xff)
+                        regs[Reg.READ_CHARGE_PLUG] = bytes(0, 1)
+                    }
+                }
             }
         }
         return resend

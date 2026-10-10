@@ -109,6 +109,35 @@ fun VehicleSettingsScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> U
                     }
                 }
             }
+            val shownIds = groups.flatMap { g -> g.items.map { it.id } }.toSet()
+            val unnamed = car.settings.filter { (id, st) -> st.mask != 0 && id !in shownIds }.toSortedMap()
+            if (unnamed.isNotEmpty()) {
+                item {
+                    SectionCard(title = stringResource(R.string.vs_unnamed_title)) {
+                        Text(stringResource(R.string.vs_unnamed_hint), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        unnamed.forEach { (id, st) ->
+                            val options = (0..6).filter { ((st.mask shr it) and 1) == 1 }
+                            Row(
+                                Modifier.fillMaxWidth().clickable(enabled = canChange && options.isNotEmpty()) {
+                                    editing = VisibleSetting(
+                                        io.github.anwo91.phevlink.core.model.SettingDef(id, ctx.getString(R.string.vs_unnamed_item, id), emptyList(), ""),
+                                        st.value, ctx.getString(R.string.vs_option_n, st.value + 1),
+                                        options.map { it to ctx.getString(R.string.vs_option_n, it + 1) },
+                                    )
+                                }.padding(vertical = 10.dp),
+                            ) {
+                                Column(Modifier.weight(1f)) {
+                                    Text(stringResource(R.string.vs_unnamed_item, id), style = MaterialTheme.typography.bodyMedium)
+                                    Text(
+                                        stringResource(R.string.vs_unnamed_value, st.value + 1, options.joinToString(", ") { (it + 1).toString() }),
+                                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary,
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             if (groups.isNotEmpty()) {
                 item {
                     Column {

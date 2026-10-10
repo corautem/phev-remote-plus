@@ -179,6 +179,11 @@
     <string name="vs_apply">Apply</string>
     <string name="vs_reset">Reset to factory settings</string>
     <string name="vs_reset_confirm">Set all vehicle settings back to Mitsubishi\'s defaults?</string>
+    <string name="vs_unnamed_title">Unnamed settings reported by the car</string>
+    <string name="vs_unnamed_hint">Your car reports these settings, but Mitsubishi\'s app never shows them and their effect is unknown. Note the current option before changing anything, and change it back if something behaves differently.</string>
+    <string name="vs_unnamed_item">Setting #%1$d</string>
+    <string name="vs_unnamed_value">Option %1$d (available: %2$s)</string>
+    <string name="vs_option_n">Option %1$d</string>
     <string name="vs_beeps_hint">Lock/unlock beeps and horn answerback are in the "Keyless entry" group. Tips → Beeps lists every sound and how to change it.</string>
 
     <!-- Tips -->

@@ -140,7 +140,7 @@ class LinkService : LifecycleService() {
         try {
             when (val r = repo.execute(cmd)) {
                 is CommandResult.Success -> graph.notifier.result(Labels.command(this, cmd), successText(cmd), ok = true)
-                is CommandResult.Failure -> graph.notifier.result(str(R.string.notif_cmd_failed, Labels.command(this, cmd)), r.reason, ok = false)
+                is CommandResult.Failure -> graph.notifier.result(str(R.string.notif_cmd_failed, Labels.command(this, cmd)), Labels.failureReason(this, r.reason).replaceFirstChar { it.uppercase() }, ok = false)
             }
         } finally {
             repo.release(TAG, 15_000)
@@ -221,7 +221,7 @@ class LinkService : LifecycleService() {
                 )
                 is CommandResult.Failure -> graph.notifier.result(
                     str(R.string.notif_departure_failed, str(Labels.modeInline(mode))),
-                    str(R.string.notif_departure_retry, r.reason), ok = false,
+                    str(R.string.notif_departure_retry, Labels.failureReason(this, r.reason).replaceFirstChar { it.uppercase() }), ok = false,
                 )
             }
         } finally {

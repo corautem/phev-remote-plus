@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="msg_climate_needs_off">das Auto startet die Klimatisierung per Handy nur, wenn der Startknopf auf AUS (OFF) steht. Schalte das Auto aus (nicht ACC oder ON) und versuch es noch einmal.</string>
+    <string name="msg_climate_not_started">das Auto hat den Befehl angenommen, aber die Klimatisierung ist nicht angelaufen. Mitsubishi nennt diese Ursachen: Der Startknopf steht nicht auf AUS, Schnellladen läuft, eine Tür ist offen, die Antriebsbatterie ist zu leer oder es ist zu kalt (bei den letzten beiden hilft es, das Ladekabel anzuschließen). Im Protokoll steht, was das Auto gemeldet hat.</string>
+    <string name="climate_power_on_hint">Das Auto meldet den Startknopf auf ACC/ON. Die Klimatisierung lässt sich per Handy nur starten, wenn der Startknopf auf AUS steht.</string>
+
+    <string name="cmd_wifi_always_on">Wi-Fi des Autos anlassen</string>
+    <string name="cmd_wifi_always_off">Wi-Fi des Autos nur im ausgeschalteten Zustand</string>
+
+    <string name="settings_stay_title">Verbunden bleiben</string>
+    <string name="settings_wifi_always_on">Wi-Fi des Autos auch bei eingeschaltetem Auto anlassen</string>
+    <string name="settings_wifi_always_on_explain">Aus (Standard des Autos): Das Wi-Fi des Autos funktioniert nur, wenn der Startknopf auf AUS steht. An: Es bleibt auch bei eingeschaltetem Auto an. Mitsubishi rät, es auszuschalten, wenn du Smartphone Link Display Audio nutzt.</string>
+    <string name="settings_wifi_always_unknown">Verbinde dich mit dem Auto, um diese Einstellung zu sehen und zu ändern.</string>
+    <string name="settings_wifi_power_on_my14">Autos von 2014–2017 schalten ihr Wi-Fi kurz nach dem Einschalten (ON) ab, deshalb verliert die App das Auto, solange es eingeschaltet ist. Es kommt wieder, sobald das Auto ausgeschaltet wird. Diese Autos haben dafür keine Einstellung (erst ab 2018 gibt es „Always Communicate“).</string>
+    <string name="settings_wifi_power_on_unknown">Das Auto schaltet sein Wi-Fi ab, solange es eingeschaltet ist (ab Baujahr 2018 lässt es sich anlassen — verbinde dich einmal, dann zeigt diese Karte die Option).</string>
+    <string name="phone_wifi_tips_title">Wenn die Verbindung immer wieder abreißt</string>
+    <string name="phone_wifi_tips">• Lass das Auto ausgeschaltet (ACC geht auch).\n• Schalte in den WLAN-Einstellungen des Handys Optionen aus, die ein WLAN ohne Internet verlassen: „Adaptives WLAN“, „Automatisch zu mobilen Daten wechseln“, „Schlechte Verbindungen vermeiden“ o. Ä.\n• Fragt Android, ob du mit einem Netzwerk ohne Internet verbunden bleiben willst: verbunden bleiben.\n• Reißt sie immer noch ab, probier es mit ausgeschalteten mobilen Daten.\n• Bleib im Umkreis von etwa 10–20 m um das Auto; Wände verkürzen die Reichweite.</string>
+
+    <string name="registration_full_title">Speicher voll (3 Pieptöne) oder neu anfangen</string>
+    <string name="registration_full">So löschst du alle im Auto registrierten Handys:\n1. Schließ die Fahrertür und schalte die Warnblinkanlage EIN.\n2. Starte den Registriermodus wie in Schritt 2–3 oben.\n3. Drück innerhalb von 5 Minuten abwechselnd VERRIEGELN und ENTRIEGELN — insgesamt 20-mal, mit VERRIEGELN beginnen. Ein Piepton = alle Handys gelöscht.\nDas setzt auch Wi-Fi-Name und Passwort des Autos auf die Werte auf der Karte zurück und löscht die Lade- und Klima-Timer des Autos. Registriere danach dieses Handy neu (falls du das Wi-Fi-Passwort geändert hattest, gib unter Wi-Fi des Autos das von der Karte ein).\nUm nur dieses Handy zu entfernen: Tippe bei bestehender Verbindung auf Abmelden.</string>
+    <string name="registration_wifi_stopped_title">Das Wi-Fi des Autos ist verschwunden</string>
+    <string name="registration_wifi_stopped">Das Auto schaltet sein Wi-Fi ab, um die 12-V-Batterie zu schonen, zum Beispiel nach langer Standzeit. So schaltest du es wieder ein:\n1. Schalte das Auto mindestens 10 Sekunden EIN (ON).\n2. Stell es auf ACC und starte den Registriermodus (Schritt 1–3 oben).\n3. Verbinde dich einmal mit der App und schalte den Startknopf dann AUS.\nHört es wieder auf, lass das Auto mindestens 10 Minuten in READY, damit die 12-V-Batterie geladen wird.</string>
+
+    <string name="link_hint_power_on">Das Auto hat zuletzt den Startknopf auf ON gemeldet. Sein Wi-Fi geht aus, solange das Auto eingeschaltet ist — schalte das Auto aus, dann verbindet sich die App wieder.</string>
+
+    <string name="obd_err_not_elm">„%1$s“ hat sich verbunden, aber nicht auf ELM327-Befehle geantwortet. Wahrscheinlich ist es kein ELM327-Adapter (zum Beispiel ein Diagnosegerät, das nur mit seiner eigenen App funktioniert), daher kann diese App es nicht nutzen. Nimm einen ELM327-kompatiblen Adapter wie OBDLink LX, MX+ oder CX, Vgate iCar Pro oder Veepeak. Ist es ein ELM327-Adapter, zieh ihn ein paar Sekunden ab und versuch es noch einmal.</string>
+    <string name="obd_err_not_elm_brand">„%1$s“ sieht nach einem Diagnosegerät von %2$s aus. Solche Geräte funktionieren nur mit der App des Herstellers und sprechen kein ELM327, daher kann diese App es nicht nutzen. Nimm einen ELM327-kompatiblen Adapter wie OBDLink LX, MX+ oder CX, Vgate iCar Pro oder Veepeak.</string>
+</resources>

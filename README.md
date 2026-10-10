@@ -77,10 +77,16 @@ The app walks you through it:
 
 ### Registering the phone (official procedure)
 
-1. Sit in the car with the key, power switch **OFF**.
+1. Sit in the car with the key and close the driver's door, power switch **OFF**.
 2. Press the power switch once to **ACC** (don't press the brake).
-3. Within 10 seconds press **LOCK** then **UNLOCK** on the key, alternately, 5 times each (10 presses, starting with LOCK).
-4. The hazard lights blink — the car is in registration mode for a few minutes. In the app: Settings → **Register**.
+3. Within 10 seconds press **LOCK** and **UNLOCK** on the key alternately — 10 presses in total, starting with LOCK.
+4. The car beeps: 1 beep = no phones registered, 2 = one, 3 = two (memory full). It waits up to 10 minutes.
+   In the app: Settings → **Register**.
+5. Switch the power **OFF** to finish. The car may restart its Wi-Fi; the app reconnects by itself.
+
+The car remembers at most 2 phones. **Memory full / start over:** close the driver's door, hazard lights **ON**, enter
+registration mode (steps 2–3), then within 5 minutes press LOCK and UNLOCK alternately 20 times (starting with LOCK).
+One beep = every phone deleted. This also resets the car's Wi-Fi name and password to the card and clears its timers.
 
 Note: Android uses a per-network random MAC address, and the car registers that MAC. If you ever "forget" the car's
 network in Android's Wi-Fi settings, you may need to register again.
@@ -154,6 +160,13 @@ sending anything that isn't a read request.
 - **"Can't join car Wi-Fi"** — wrong password, or you declined Android's prompt. Fix the password and tap the status
   chip → *Try again now*.
 - **Stops at "Saying hello"** — phone not registered (see above).
+- **Drops when the car is switched on** — the car turns its Wi-Fi off a little while after the power switch goes ON
+  (2014–2017 cars always; 2018+ unless *Keep the car's Wi-Fi on* is set in Settings → Staying connected). ACC is fine.
+- **Heat/cool does nothing** — remote climate only runs with the power switch OFF and not while quick charging; the car
+  also refuses with a door open, a low or very cold drive battery. The app now refuses up front when the car reports
+  ACC/ON, and reports a failure (with the car's state in the log) if the car acks but never starts.
+- **OBD tool connects but never answers** — scan tools with their own app (Autel "Maxi…", Launch, ThinkCar…) don't
+  speak ELM327 and can't be used; use an ELM327-compatible adapter (see above).
 - **Anything else** — Diagnostics → Share. The log shows each step with timestamps and raw packets.
 
 ## How it's built

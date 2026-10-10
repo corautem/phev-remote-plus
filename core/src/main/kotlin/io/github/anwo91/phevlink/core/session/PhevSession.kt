@@ -5,6 +5,7 @@ import io.github.anwo91.phevlink.core.diag.LogKind
 import io.github.anwo91.phevlink.core.model.CarCommand
 import io.github.anwo91.phevlink.core.model.CarState
 import io.github.anwo91.phevlink.core.model.CommandResult
+import io.github.anwo91.phevlink.core.model.Ignition
 import io.github.anwo91.phevlink.core.model.RegisterDecoder
 import io.github.anwo91.phevlink.core.model.RegisterWrite
 import io.github.anwo91.phevlink.core.model.VehicleSettingsCatalog
@@ -54,9 +55,11 @@ data class SessionConfig(
     val syncClockOnConnect: Boolean = true,
     val clockSyncDelayMs: Long = 3_000,
     /** After this many encoding complaints, ask the car for a fresh key (official app behaviour). */
-    val rekeyAfterBadXor: Int = 8,
+    val rekeyAfterBadXor: Int = 5,
     /** Commands that echo registers wait up to this long after session start for them to arrive. */
     val registerWaitMs: Long = 5_000,
+    /** Upper bound for waiting on the car to confirm a write's effect ([RegisterWrite.awaitMs]); tests shorten it. */
+    val maxAwaitMs: Long = Long.MAX_VALUE,
 )
 
 enum class SessionPhase { HANDSHAKE, READY, CLOSED }
@@ -110,8 +113,6 @@ class PhevSession(
     private val seenThisSession = HashSet<Int>()
     private var clockSynced = false
     private var lastRekeyRequestAt = Long.MIN_VALUE / 2
-    /** Recent 0xf6 packets (write or ack) with send time, so rejected ones can be resent after a 0xbb. */
-    private val recentSends = ArrayDeque<Pair<Long, Packet>>()
     private var lastBadXorExpected = -1
     private var lastBadXorAt = Long.MIN_VALUE / 2
     private val badXorTimes = ArrayDeque<Long>()
@@ -227,6 +228,10 @@ class PhevSession(
         phase = SessionPhase.CLOSED
         closeReason = reason
         log.link("Session closed: $reason")
+        if (state.ignition == Ignition.ON && state.wifiAlwaysOn != true) {
+            // Field log (2014 car): Wi-Fi gone ~40 s after the power switch went ON, back only once it was OFF.
+            log.warn("The car last reported its power switch ON — it turns its Wi-Fi off while switched on, so this drop is expected")
+        }
         val pending = listOfNotNull(job) + queue
         job = null
         queue.clear()
@@ -315,7 +320,13 @@ class PhevSession(
         lastBadXorAt = now
         badXorTimes.addLast(now)
         while (badXorTimes.isNotEmpty() && now - badXorTimes.first() > config.badXorWindowMs) badXorTimes.removeFirst()
+        val inStep = expected != null && key.isEstablished && key.peekSendKey() == expected
         if (expected != null) {
+            if (inStep) {
+                // Our next key already matches: the rejected packet went out with an older key (often a late
+                // duplicate ack). Logged separately so field logs show which kind of complaint this was.
+                log.add(LogKind.WARN, "Car rejected a packet sent with an older key; our next key 0x%02x already matches".format(expected))
+            }
             val found = key.resyncSend(expected)
             log.warn(
                 "Car rejected our encoding, expected key 0x%02x — ".format(expected) +
@@ -339,18 +350,19 @@ class PhevSession(
             log.warn("Repeated encoding errors — asking the car for a new session key")
             send(Packet(type, ack = 0, register = 0x01, data = byteArrayOf(0)))
         }
-        // Everything we sent recently with the wrong key was dropped by the car:
-        // resend the latest unacknowledged acks (the car may be waiting for them),
-        // then the pending command write, using the corrected key.
-        val recentAcks = recentSends.filter { now - it.first < 1_500 && it.second.ack == 1 }
-            .map { it.second }.distinctBy { it.register }.takeLast(4)
-        recentSends.clear()
-        for (ack in recentAcks) send(ack)
+        // Field logs (2014 car, Oct 2026) showed that resending recent acks here makes things worse: the car
+        // also sends 0xbb for acks it no longer waits for (e.g. a second ack after it re-sent a notification),
+        // so every resent ack produced another complaint and the session spiralled into dozens of complaints
+        // per second until a re-key. The car re-sends any notification it still needs acknowledged, so we only
+        // resend a pending command write (with the corrected key) and let notifications come again. The
+        // complaint doesn't say which packet it was about, so a pending write is resent either way: all our
+        // writes set a state (on/off, a value), so a second copy is harmless, and attempts are capped.
         val j = job
         if (j != null && j.awaitingAck) {
             if (j.attempts >= config.maxWriteAttempts + 2) {
                 finishJob(j, CommandResult.Failure(j.command, "Car kept rejecting the command encoding"))
             } else {
+                log.add(LogKind.WARN, "Resending ${describeWrite(j.current)} after the encoding complaint")
                 sendStep(j, retry = true)
             }
         }
@@ -378,7 +390,7 @@ class PhevSession(
                     // but remember to report the command as unconfirmed.
                     j.awaitUntil = null
                     val w = j.current
-                    log.warn("The car never reported the result of ${describeWrite(w)} (waited ${w.awaitMs / 1000.0}s) — continuing")
+                    log.warn("The car never reported the result of ${describeWrite(w)} (waited ${awaitMs(w) / 1000.0}s) — continuing. ${diagnosticState()}")
                     if (j.unconfirmed == null) j.unconfirmed = w.unconfirmedMessage
                     stepSettled(j)
                 }
@@ -403,6 +415,11 @@ class PhevSession(
         val missing = next.command.requiredRegisters(my).filter { it !in seenThisSession }
         if (missing.isNotEmpty() && now - readyAt < config.registerWaitMs) return
         queue.removeFirst()
+        next.command.refusal(state, seenThisSession)?.let { reason ->
+            log.add(LogKind.WARN, "Not sending \"${next.command.label}\": $reason. ${diagnosticState()}")
+            finishJob(next, CommandResult.Failure(next.command, reason, retryable = false))
+            return
+        }
         next.writes = next.command.toWrites(my, state)
         if (next.writes.isEmpty()) {
             finishJob(next, CommandResult.Success(next.command, 0))
@@ -428,12 +445,14 @@ class PhevSession(
         if (confirmed != null && !confirmed(state)) {
             // Acked, but the car has not reported the effect yet: wait for a notification
             // that does (checkAwaitedState) or for the deadline (pumpJobs).
-            j.awaitUntil = clock.monoMs() + w.awaitMs
-            if (!j.silent) log.add(LogKind.CMD, "Waiting up to ${w.awaitMs / 1000.0}s for the car to report the result of ${describeWrite(w)}")
+            j.awaitUntil = clock.monoMs() + awaitMs(w)
+            if (!j.silent) log.add(LogKind.CMD, "Waiting up to ${awaitMs(w) / 1000.0}s for the car to report the result of ${describeWrite(w)}")
             return
         }
         stepSettled(j)
     }
+
+    private fun awaitMs(w: RegisterWrite) = minOf(w.awaitMs, config.maxAwaitMs)
 
     /** Called after every notification: does it confirm the step the current job waits on? */
     private fun checkAwaitedState() {
@@ -469,6 +488,17 @@ class PhevSession(
         }
     }
 
+    /** What the car last reported that decides whether commands work, for the log when one doesn't. */
+    private fun diagnosticState(): String {
+        val s = state
+        fun raw(r: Int) = s.registers[r]?.let { "0x%02x=%s".format(r, it.hex) + if (r in seenThisSession) "" else " (cached)" }
+        return "Car state: ignition ${s.ignition}" + (if (Reg.READ_IGNITION_AC !in seenThisSession) " (not reported this session)" else "") +
+            ", climate ${s.climate.state}" + (s.climate.operating?.let { if (it) " (operating)" else "" } ?: "") +
+            ", battery ${s.batteryPercent?.let { "$it %" } ?: "?"}, plug ${s.plug}, charging ${s.charging ?: "?"}" +
+            (s.doors?.takeIf { it.anyOpen }?.let { ", open: " + it.openList().joinToString() } ?: "") +
+            "; " + listOfNotNull(raw(Reg.READ_PRE_AC_STATE), raw(Reg.READ_IGNITION_AC)).joinToString(" ")
+    }
+
     private fun finishJob(j: Job, result: CommandResult) {
         if (job === j) job = null
         when (result) {
@@ -487,10 +517,6 @@ class PhevSession(
             else -> key.sendKey(advance = p.type == PacketType.SEND)
         }
         val bytes = p.encode(xor)
-        if (p.type == PacketType.SEND) {
-            recentSends.addLast(clock.monoMs() to p)
-            while (recentSends.size > 16) recentSends.removeFirst()
-        }
         if (p.type != PacketType.PING_REQ || log.recordPings) {
             log.add(LogKind.TX, describe(p, incoming = false), bytes.toHex(), xor)
         }

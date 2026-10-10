@@ -461,16 +461,18 @@
       "category": "Fjernapp og Wi-Fi",
       "symptoms": [
         "Telefonen ser bilens nett, men appen får ikke koblet til",
+        "Forbindelsen faller ut en liten stund etter at bilen er slått på",
         "Forbindelsen faller ut etter noen sekunder eller etter en telefonoppdatering",
         "Bilen sluttet å svare etter at 12 V-batteriet var flatt eller frakoblet"
       ],
-      "why": "Fjernstyringen går over bilens eget Wi-Fi-tilgangspunkt, så telefonen må være innen rekkevidde og registrert i bilen. Bare to telefoner kan registreres. Telefoner forlater gjerne et Wi-Fi-nett uten internett, og da brytes forbindelsen. Noen biler fikk en fastvareoppdatering som endret formatet på Wi-Fi-passordet. Er alle telefoner avregistrert, går bilens Wi-Fi-modul i dvale. Frakobling av 12 V-batteriet nullstiller timerne.",
+      "why": "Bilens Wi-Fi virker bare når startknappen er AV eller i ACC: en bil fra 2014–2017 slår det av kort tid etter at den er slått PÅ, og nyere biler gjør det samme hvis ikke «Always Communicate» er slått på. Fjernstyringen går over bilens eget Wi-Fi-tilgangspunkt, så telefonen må være innen rekkevidde og registrert i bilen. Bare to telefoner kan registreres. Telefoner forlater gjerne et Wi-Fi-nett uten internett, og da brytes forbindelsen. Noen biler fikk en fastvareoppdatering som endret formatet på Wi-Fi-passordet. Er alle telefoner avregistrert, går bilens Wi-Fi-modul i dvale. Frakobling av 12 V-batteriet nullstiller timerne.",
       "whatToDo": [
+        "Slå av bilen: Wi-Fi-en virker bare når startknappen er AV (eller ACC), og klimaanlegget kan bare startes fra telefonen når startknappen er AV.",
         "Stå nær bilen, og sjekk at 12 V-batteriet er i orden.",
         "På Android: fjern eventuelle manuelt lagrede oppføringer for bilens nett og la appen ta seg av tilkoblingen. Slå av funksjoner som bytter til mobildata når Wi-Fi ikke har internett.",
         "På iPhone: slå av Wi-Fi-assistanse, og slå av Koble til automatisk og Privat Wi-Fi-adresse for bilens nett etter oppsettet.",
-        "Registrer telefonen på nytt: tenningen i ACC, og trykk så LÅS og LÅS OPP på nøkkelen vekselvis som beskrevet i instruksjonsboken, til bilen piper.",
-        "Er to telefoner allerede registrert, nullstiller du registreringene (eiere beskriver en sekvens med nødblinken, ACC og trykk på LÅS/LÅS OPP; ett pip og deretter stille betyr at det lyktes).",
+        "Registrer telefonen på nytt: under Innstillinger → Registrering av telefon står de nøyaktige trinnene (førerdøren lukket, startknappen til ACC, så 10 trykk vekselvis på LÅS og LÅS OPP, start med LÅS).",
+        "Er to telefoner allerede registrert (bilen piper 3 ganger i registreringsmodus), slett alle registreringene: nødblinken PÅ, gå inn i registreringsmodus, og trykk så LÅS og LÅS OPP vekselvis 20 ganger innen 5 minutter — ett pip betyr at det lyktes. Dette setter også Wi-Fi-passordet tilbake til det på kortet. Trinnene står under Innstillinger → Registrering av telefon.",
         "Har bilen fått oppdateringen av fjernenheten, bruker du det nyere passordet (spør forhandleren)."
       ],
       "diy": "yes",

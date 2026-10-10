@@ -53,6 +53,8 @@ class FakeCar(
     @Volatile var minutesPerSecond = 1.0
     /** The car acks vehicle-setting writes (0x0f) but never applies or reports them. */
     @Volatile var ignoreSettingChanges = false
+    /** The car acks climate writes but never starts (low battery, quick charging…). */
+    @Volatile var ignoreClimate = false
     /** Status byte sent in 0x16 notifications (2 = normal; the official app refuses changes on 1 or 3). */
     @Volatile var settingsStatus = VehicleSettingsCatalog.STATUS_NORMAL
 
@@ -93,6 +95,7 @@ class FakeCar(
             // Climate timer registers the official app echoes back in the MY14 climate write.
             regs[0x19] = bytes(0x01, 0x7d, 0x38, 0xb0, 0x01, 0x83, 0xbd, 0x00, 0x01)
             regs[0x22] = bytes(0x00, 0x01, 0x00, 0x02, 0x03, 0x04)
+            if (!my14) regs[Reg.READ_WIFI_ALWAYS_ON_MY18] = bytes(0)
         }
     }
 
@@ -236,6 +239,7 @@ class FakeCar(
                 Reg.WRITE_AC_MY18 -> if (modelYear != ModelYear.MY14) {
                     if (d(0) == 2) climateOnLocked(d(1) or (d(2) shl 4)) else climateOffLocked()
                 }
+                Reg.WRITE_WIFI_ALWAYS_ON -> if (modelYear != ModelYear.MY14) regs[Reg.READ_WIFI_ALWAYS_ON_MY18] = bytes(if (d(0) == 1) 1 else 0)
                 Reg.WRITE_REQUEST_UPDATE -> resend = true
                 Reg.WRITE_REGISTER_CLIENT -> if (registrationMode) {
                     regs[Reg.READ_VIN]!![19] = (registrations + 1).coerceAtMost(4).toByte()
@@ -287,6 +291,11 @@ class FakeCar(
         val mode = modeByte and 0x0f
         if (mode == 0) {
             climateOffLocked(); return
+        }
+        // Like the real car: acked, but remote climate only runs with the power switch OFF.
+        if (regs[Reg.READ_IGNITION_AC]!![0].toInt() != 0 || ignoreClimate) {
+            log("car: climate not started (power switch not OFF, or ignoreClimate)")
+            return
         }
         val minutes = when ((modeByte and 0xf0) shr 4) { 1 -> 20; 2 -> 30; else -> 10 }
         regs[Reg.READ_PRE_AC_STATE]!![0] = 2

@@ -461,16 +461,18 @@
       "category": "Remote app & Wi-Fi",
       "symptoms": [
         "The phone sees the car's network but the app cannot connect",
+        "The connection drops a little while after the car is switched on",
         "Connection drops after a few seconds or after a phone update",
         "The car stopped answering after the 12 V battery was flat or disconnected"
       ],
-      "why": "The remote control works over the car's own Wi-Fi access point, so the phone must be within range and registered with the car. Only two phones can be registered. Phones like to leave a Wi-Fi network that has no internet, which breaks the link. Some cars got a firmware update that changed the Wi-Fi passcode format. If all phones are unregistered, the car's Wi-Fi module goes to sleep. Disconnecting the 12 V battery resets the timers.",
+      "why": "The car's Wi-Fi only works while the power switch is OFF or in ACC: a 2014–2017 car turns it off shortly after it is switched ON, and newer cars do the same unless \"Always Communicate\" is set. The remote control works over the car's own Wi-Fi access point, so the phone must be within range and registered with the car. Only two phones can be registered. Phones like to leave a Wi-Fi network that has no internet, which breaks the link. Some cars got a firmware update that changed the Wi-Fi passcode format. If all phones are unregistered, the car's Wi-Fi module goes to sleep. Disconnecting the 12 V battery resets the timers.",
       "whatToDo": [
+        "Switch the car OFF: the Wi-Fi only works while the power switch is OFF (or ACC), and remote climate only starts with the power switch OFF.",
         "Stand close to the car and check that the 12 V battery is healthy.",
         "On Android, remove any manually saved entry for the car's network and let the app handle the connection. Turn off features that switch to mobile data when Wi-Fi has no internet.",
         "On iPhone, turn off Wi-Fi Assist, and turn off Auto-Join and Private Address for the car's network after setup.",
-        "Register the phone again: power switch in ACC, then press LOCK and UNLOCK on the key alternately as described in your manual until the car beeps.",
-        "If two phones are already registered, reset the registrations (owners describe a sequence with the hazard lights, ACC and LOCK/UNLOCK presses; one beep and no more means success).",
+        "Register the phone again: Settings → Phone registration has the exact steps (driver's door closed, power switch to ACC, then 10 presses alternating LOCK and UNLOCK, starting with LOCK).",
+        "If two phones are already registered (the car beeps 3 times in registration mode), delete all registrations: hazard lights ON, enter registration mode, then 20 presses alternating LOCK and UNLOCK within 5 minutes — one beep means success. This also resets the Wi-Fi password to the one on the card. The steps are under Settings → Phone registration.",
         "If your car had the remote unit update, use the newer passcode (ask the dealer)."
       ],
       "diy": "yes",

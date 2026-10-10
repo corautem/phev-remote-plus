@@ -155,7 +155,8 @@ class PhevConnection(
     suspend fun execute(command: CarCommand, timeoutMs: Long = 45_000): CommandResult {
         if (closed) return CommandResult.Failure(command, "Link closed", retryable = true)
         start()
-        val deadline = clock.monoMs() + timeoutMs
+        // Waiting for the car to confirm the effect (climate running, setting changed) is not "unreachable".
+        val deadline = clock.monoMs() + timeoutMs + command.confirmMs
         var last: CommandResult.Failure? = null
         while (true) {
             val remaining = deadline - clock.monoMs()

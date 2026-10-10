@@ -99,8 +99,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 when (val r = repo.execute(cmd)) {
                     is CommandResult.Success -> _messages.emit(successMessage ?: str(R.string.msg_cmd_done, label))
                     is CommandResult.Failure -> {
-                        val reason = if (r.reason == CarCommand.ChangeSetting.UNCONFIRMED) str(R.string.msg_setting_unconfirmed) else r.reason
-                        _messages.emit(str(R.string.msg_cmd_failed, label, reason))
+                        _messages.emit(str(R.string.msg_cmd_failed, label, Labels.failureReason(getApplication(), r.reason)))
                     }
                 }
             } finally {

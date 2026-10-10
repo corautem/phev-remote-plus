@@ -147,7 +147,7 @@ fun HomeScreen(
         }
     }
 
-    if (showLink) LinkSheet(link, onDismiss = { showLink = false }, onRetry = { vm.reconnect(); showLink = false }, onDiagnostics = { showLink = false; onOpenDiagnostics() })
+    if (showLink) LinkSheet(link, car, onDismiss = { showLink = false }, onRetry = { vm.reconnect(); showLink = false }, onDiagnostics = { showLink = false; onOpenDiagnostics() })
 }
 
 @Composable
@@ -240,6 +240,14 @@ private fun ClimateCard(
                 BusyButton(stringResource(R.string.climate_clear_warning), pending, Modifier.fillMaxWidth(), tonal = true, onClick = onReset)
             }
             else -> {
+                // Mitsubishi: remote climate "cannot operate when the power switch is not OFF".
+                if (car.ignition == Ignition.ACC || car.ignition == Ignition.ON) {
+                    Text(
+                        stringResource(R.string.climate_power_on_hint),
+                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.padding(bottom = 8.dp),
+                    )
+                }
                 val modes = ClimateMode.entries
                 SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
                     modes.forEachIndexed { i, m ->
@@ -413,7 +421,7 @@ private fun DepartureCard(vm: MainViewModel, onOpenSchedule: () -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun LinkSheet(link: LinkUi, onDismiss: () -> Unit, onRetry: () -> Unit, onDiagnostics: () -> Unit) {
+private fun LinkSheet(link: LinkUi, car: CarState, onDismiss: () -> Unit, onRetry: () -> Unit, onDiagnostics: () -> Unit) {
     ModalBottomSheet(onDismissRequest = onDismiss) {
         Column(Modifier.padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
             Text(link.text, style = MaterialTheme.typography.titleLarge, color = phaseColor(link.phase))
@@ -423,6 +431,11 @@ private fun LinkSheet(link: LinkUi, onDismiss: () -> Unit, onRetry: () -> Unit, 
                 Text(it, style = MaterialTheme.typography.bodyMedium)
             }
             link.sinceMs?.let { Text(stringResource(R.string.link_since, Format.clock(it)), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+            // The car turns its Wi-Fi off while switched on (2014–2017 always, newer cars unless "always on" is set).
+            if (!link.connected && car.ignition == Ignition.ON && car.wifiAlwaysOn != true) {
+                Spacer(Modifier.height(8.dp))
+                Text(stringResource(R.string.link_hint_power_on), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.error)
+            }
             Spacer(Modifier.height(16.dp))
             HorizontalDivider()
             Spacer(Modifier.height(12.dp))

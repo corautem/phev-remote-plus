@@ -461,16 +461,18 @@
       "category": "Remote-App und Wi-Fi",
       "symptoms": [
         "Das Handy sieht das Netz des Autos, aber die App verbindet sich nicht",
+        "Die Verbindung reißt kurz nach dem Einschalten des Autos ab",
         "Die Verbindung bricht nach ein paar Sekunden oder nach einem Handy-Update ab",
         "Das Auto antwortet nicht mehr, seit die 12-V-Batterie leer oder abgeklemmt war"
       ],
-      "why": "Die Fernbedienung läuft über den eigenen Wi-Fi-Zugangspunkt des Autos, daher muss das Handy in Reichweite und im Auto registriert sein. Es lassen sich nur zwei Handys registrieren. Handys verlassen gern ein Wi-Fi-Netz ohne Internet, wodurch die Verbindung abbricht. Einige Autos haben ein Firmware-Update bekommen, das das Format des Wi-Fi-Passworts geändert hat. Sind alle Handys abgemeldet, schläft das Wi-Fi-Modul des Autos ein. Abklemmen der 12-V-Batterie setzt die Timer zurück.",
+      "why": "Das Wi-Fi des Autos funktioniert nur, wenn der Startknopf auf AUS oder ACC steht: Ein Auto von 2014–2017 schaltet es kurz nach dem Einschalten (ON) ab, neuere Autos ebenso, sofern „Always Communicate“ nicht eingeschaltet ist. Die Fernbedienung läuft über den eigenen Wi-Fi-Zugangspunkt des Autos, daher muss das Handy in Reichweite und im Auto registriert sein. Es lassen sich nur zwei Handys registrieren. Handys verlassen gern ein Wi-Fi-Netz ohne Internet, wodurch die Verbindung abbricht. Einige Autos haben ein Firmware-Update bekommen, das das Format des Wi-Fi-Passworts geändert hat. Sind alle Handys abgemeldet, schläft das Wi-Fi-Modul des Autos ein. Abklemmen der 12-V-Batterie setzt die Timer zurück.",
       "whatToDo": [
+        "Schalte das Auto aus: Das Wi-Fi funktioniert nur, wenn der Startknopf auf AUS (oder ACC) steht, und die Klimatisierung startet per Handy nur bei Startknopf auf AUS.",
         "Stell dich nahe ans Auto und prüfe, ob die 12-V-Batterie in Ordnung ist.",
         "Unter Android: Entferne manuell gespeicherte Einträge für das Netz des Autos und lass die App die Verbindung verwalten. Schalte Funktionen aus, die auf mobile Daten wechseln, wenn das Wi-Fi kein Internet hat.",
         "Auf dem iPhone: Schalte die WLAN-Unterstützung aus und deaktiviere nach der Einrichtung „Automatisch verbinden“ und „Private WLAN-Adresse“ für das Netz des Autos.",
-        "Registriere das Handy neu: Zündung auf ACC, dann am Schlüssel abwechselnd VERRIEGELN und ENTRIEGELN drücken, wie in der Betriebsanleitung beschrieben, bis das Auto piept.",
-        "Sind bereits zwei Handys registriert, setze die Registrierungen zurück (Besitzer beschreiben eine Abfolge mit Warnblinker, ACC und Drücken von VERRIEGELN/ENTRIEGELN; ein Piepton und danach Stille bedeutet Erfolg).",
+        "Registriere das Handy neu: Unter Optionen → Handy-Registrierung stehen die genauen Schritte (Fahrertür zu, Startknopf auf ACC, dann 10-mal abwechselnd VERRIEGELN und ENTRIEGELN, mit VERRIEGELN beginnen).",
+        "Sind schon zwei Handys registriert (das Auto piept im Registriermodus 3-mal), lösche alle Registrierungen: Warnblinkanlage EIN, Registriermodus starten, dann innerhalb von 5 Minuten 20-mal abwechselnd VERRIEGELN und ENTRIEGELN — ein Piepton bedeutet Erfolg. Das setzt auch das Wi-Fi-Passwort auf das von der Karte zurück. Die Schritte stehen unter Optionen → Handy-Registrierung.",
         "Hat dein Auto das Update der Remote-Einheit bekommen, verwende das neuere Passwort (frag den Händler)."
       ],
       "diy": "yes",

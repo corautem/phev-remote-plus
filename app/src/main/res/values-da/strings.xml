@@ -173,7 +173,7 @@
     <!-- Connection status -->
     <string name="link_route">Rute: %1$s</string>
     <string name="link_since">Siden %1$s</string>
-    <string name="link_tips">Tip: Bilens Wi-Fi rækker omkring 10–20 m. Efter flere dage parkeret går det i dvale – et tryk på en knap på nøglen eller en oplåsning vækker det som regel. Står der, at telefonen ikke er registreret, så registrer den under Indstillinger.</string>
+    <string name="link_tips">Tip: Bilens Wi-Fi virker kun, mens bilen er slukket (eller står i ACC), og rækker omkring 10–20 m. Efter flere dage parkeret går det i dvale – et tryk på en knap på nøglen eller en oplåsning vækker det som regel. Står der, at telefonen ikke er registreret, så registrer den under Indstillinger. Under Indstillinger → Bevar forbindelsen finder du telefonindstillinger, der forhindrer afbrydelser.</string>
     <string name="link_try_again">Prøv igen nu</string>
     <string name="link_not_connected">Ikke forbundet</string>
     <string name="link_not_set_up">Ikke sat op</string>
@@ -307,8 +307,8 @@
     <string name="pw_too_long">Højst 63 tegn</string>
     <string name="pw_bad_chars">Kun almindelige bogstaver, cifre og tegn (ingen æøå eller emoji)</string>
     <string name="settings_registration_title">Registrering af telefon</string>
-    <string name="settings_registration_intro">Bilen taler kun med telefoner, den har registreret (den husker nogle få). Sådan registrerer du denne telefon:</string>
-    <string name="registration_steps">1. Sæt dig i bilen med nøglen, tændingen på OFF.\n2. Tryk én gang på startknappen til ACC (træd ikke på bremsen).\n3. Inden for 10 sekunder: tryk LÅS og derefter LÅS OP på nøglen, skiftevis, 5 gange hver (10 tryk, start med LÅS).\n4. Havariblinket blinker: bilen er i registreringstilstand i nogle minutter. Tryk på Registrer (telefonen skal være på bilens Wi-Fi).</string>
+    <string name="settings_registration_intro">Bilen taler kun med telefoner, den har registreret, og den husker højst 2. Sådan registrerer du denne telefon (den skal være på bilens Wi-Fi):</string>
+    <string name="registration_steps">1. Sæt dig i bilen med nøglen, og luk førerdøren. Startknappen på OFF.\n2. Tryk én gang på startknappen til ACC uden at røre bremsen (OFF → ACC).\n3. Inden for 10 sekunder: tryk LÅS og LÅS OP på nøglen skiftevis — 10 tryk i alt, start med LÅS.\n4. Bilen bipper: 1 bip = ingen telefoner registreret, 2 = én telefon, 3 = to telefoner (hukommelsen er fuld — se nedenfor). Bilen venter nu i op til 10 minutter.\n5. Tryk på Registrer.\n6. Sæt startknappen på OFF for at afslutte. Bilen kan genstarte sit Wi-Fi; appen forbinder igen af sig selv.</string>
     <string name="settings_registered_phones">Registrerede telefoner (ifølge bilen)</string>
     <string name="settings_register">Registrer</string>
     <string name="settings_unregister">Afregistrer</string>

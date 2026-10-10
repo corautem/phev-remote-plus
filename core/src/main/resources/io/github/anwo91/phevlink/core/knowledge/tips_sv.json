@@ -461,16 +461,18 @@
       "category": "Fjärrapp och Wi-Fi",
       "symptoms": [
         "Telefonen ser bilens nätverk men appen kan inte ansluta",
+        "Anslutningen bryts en liten stund efter att bilen slagits på",
         "Anslutningen bryts efter några sekunder eller efter en uppdatering av telefonen",
         "Bilen slutade svara efter att 12 V-batteriet var urladdat eller bortkopplat"
       ],
-      "why": "Fjärrstyrningen fungerar via bilens egen Wi-Fi-åtkomstpunkt, så telefonen måste vara inom räckvidd och registrerad i bilen. Bara två telefoner kan registreras. Telefoner lämnar gärna ett Wi-Fi-nätverk utan internet, vilket bryter förbindelsen. Vissa bilar fick en firmwareuppdatering som ändrade formatet på Wi-Fi-lösenordet. Om alla telefoner är avregistrerade går bilens Wi-Fi-modul i viloläge. Att koppla bort 12 V-batteriet nollställer timrarna.",
+      "why": "Bilens Wi-Fi fungerar bara när startknappen är i läge AV eller ACC: en bil från 2014–2017 stänger av det strax efter att den slagits PÅ, och nyare bilar gör likadant om inte ”Always Communicate” är påslaget. Fjärrstyrningen fungerar via bilens egen Wi-Fi-åtkomstpunkt, så telefonen måste vara inom räckvidd och registrerad i bilen. Bara två telefoner kan registreras. Telefoner lämnar gärna ett Wi-Fi-nätverk utan internet, vilket bryter förbindelsen. Vissa bilar fick en firmwareuppdatering som ändrade formatet på Wi-Fi-lösenordet. Om alla telefoner är avregistrerade går bilens Wi-Fi-modul i viloläge. Att koppla bort 12 V-batteriet nollställer timrarna.",
       "whatToDo": [
+        "Slå av bilen: Wi-Fi fungerar bara när startknappen är i läge AV (eller ACC), och klimatanläggningen kan bara startas från telefonen när startknappen är i läge AV.",
         "Stå nära bilen och kontrollera att 12 V-batteriet är i gott skick.",
         "På Android: ta bort manuellt sparade poster för bilens nätverk och låt appen sköta anslutningen. Stäng av funktioner som byter till mobildata när Wi-Fi saknar internet.",
         "På iPhone: stäng av Wi-Fi-assistans, och stäng av Anslut automatiskt och Privat Wi-Fi-adress för bilens nätverk efter installationen.",
-        "Registrera telefonen igen: tändningen i ACC, tryck sedan växelvis på LÅS och LÅS UPP på nyckeln enligt instruktionsboken tills bilen piper.",
-        "Om två telefoner redan är registrerade, återställ registreringarna (ägare beskriver en sekvens med varningsblinkers, ACC och tryck på LÅS/LÅS UPP; ett pip och sedan tyst betyder att det lyckades).",
+        "Registrera telefonen igen: under Inställningar → Registrering av telefon finns de exakta stegen (förardörren stängd, startknappen till ACC, sedan 10 tryck växelvis på LÅS och LÅS UPP, börja med LÅS).",
+        "Om två telefoner redan är registrerade (bilen piper 3 gånger i registreringsläge), radera alla registreringar: varningsblinkers PÅ, gå in i registreringsläge och tryck sedan LÅS och LÅS UPP växelvis 20 gånger inom 5 minuter — ett pip betyder att det lyckades. Det återställer också Wi-Fi-lösenordet till det på kortet. Stegen finns under Inställningar → Registrering av telefon.",
         "Om din bil har fått uppdateringen av fjärrenheten, använd det nyare lösenordet (fråga återförsäljaren)."
       ],
       "diy": "yes",

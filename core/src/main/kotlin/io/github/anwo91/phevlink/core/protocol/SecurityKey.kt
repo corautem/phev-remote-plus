@@ -76,6 +76,13 @@ class SecurityKey {
         return key
     }
 
+    /** The key the next 0xf6 packet would use, without consuming anything (diagnostics). */
+    fun peekSendKey(): Int {
+        overrideXor?.let { return it }
+        val map = keyMap ?: return 0
+        return map[sendIndex]
+    }
+
     /** Expected key of the next incoming packet (diagnostics only; decoding self-detects). */
     fun recvKey(advance: Boolean): Int {
         val map = keyMap ?: return 0

@@ -100,6 +100,8 @@ data class CarState(
     val settings: Map<Int, CarSetting> = emptyMap(),
     /** Status byte of the last 0x16 notification (normally 2; 1 or 3 = car refuses changes). */
     val settingsStatus: Int? = null,
+    /** MY18+: the car keeps its Wi-Fi on while switched on ("Always Communicate"). Null = not reported. */
+    val wifiAlwaysOn: Boolean? = null,
     val registers: Map<Int, RawRegister> = emptyMap(),
     /** Wall-clock time of the last register received from the car. */
     val updatedAtMs: Long? = null,

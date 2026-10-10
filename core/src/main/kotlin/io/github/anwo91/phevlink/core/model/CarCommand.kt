@@ -43,6 +43,15 @@ sealed interface CarCommand {
     /** Registers whose current value this command echoes back (waited for briefly). */
     fun requiredRegisters(modelYear: ModelYear): Set<Int> = emptySet()
 
+    /**
+     * Why the car would refuse this command in [state], or null to send it. [fresh] holds the registers the car
+     * reported in this session (anything else in [state] may be an older cached value and is not trusted).
+     */
+    fun refusal(state: CarState, fresh: Set<Int>): String? = null
+
+    /** Longest wait for the car to confirm the effect (see [RegisterWrite.awaitMs]); added to command timeouts. */
+    val confirmMs: Long get() = 0
+
     data class ClimateOn(
         val mode: ClimateMode,
         val duration: ClimateDuration,
@@ -52,22 +61,49 @@ sealed interface CarCommand {
         override val label = "${mode.label} for ${duration.minutes} min" +
             if (delayMinutes > 0) " in $delayMinutes min" else ""
 
+        // The ignition register tells whether the car will accept it at all (see [refusal]).
         override fun requiredRegisters(modelYear: ModelYear): Set<Int> =
-            if (modelYear == ModelYear.MY14 || modelYear == ModelYear.UNKNOWN) setOf(0x22, 0x19) else emptySet()
+            if (modelYear == ModelYear.MY14 || modelYear == ModelYear.UNKNOWN) setOf(0x22, 0x19, Reg.READ_IGNITION_AC)
+            else setOf(Reg.READ_IGNITION_AC)
 
-        override fun toWrites(modelYear: ModelYear, state: CarState): List<RegisterWrite> = when (modelYear) {
-            ModelYear.MY14, ModelYear.UNKNOWN -> listOf(
-                RegisterWrite(Reg.WRITE_AC_SCHEDULE_MY14, my14Schedule(mode.code or (duration.code shl 4), state)),
-                RegisterWrite(Reg.WRITE_AC_SWITCH_MY14, byteArrayOf(0x02)),
+        /**
+         * Mitsubishi: remote climate "cannot operate when the power switch is not OFF". The car still acks the
+         * writes, so without this check the app reported success while nothing happened.
+         */
+        override fun refusal(state: CarState, fresh: Set<Int>): String? =
+            if (Reg.READ_IGNITION_AC in fresh && (state.ignition == Ignition.ACC || state.ignition == Ignition.ON)) POWER_ON
+            else null
+
+        /** Started now: wait for the car to report it running. A delayed start can't be confirmed yet. */
+        override val confirmMs: Long get() = if (delayMinutes > 0) 0 else CONFIRM_MS
+
+        override fun toWrites(modelYear: ModelYear, state: CarState): List<RegisterWrite> {
+            fun start(register: Int, data: ByteArray) = if (delayMinutes > 0) RegisterWrite(register, data) else RegisterWrite(
+                register, data,
+                awaitState = { it.climate.isRunning },
+                awaitMs = CONFIRM_MS,
+                unconfirmedMessage = NOT_STARTED,
             )
-            ModelYear.MY18, ModelYear.MY24 -> {
-                val delay = when {
-                    delayMinutes >= 10 -> 2
-                    delayMinutes >= 5 -> 1
-                    else -> 0
+            return when (modelYear) {
+                ModelYear.MY14, ModelYear.UNKNOWN -> listOf(
+                    RegisterWrite(Reg.WRITE_AC_SCHEDULE_MY14, my14Schedule(mode.code or (duration.code shl 4), state)),
+                    start(Reg.WRITE_AC_SWITCH_MY14, byteArrayOf(0x02)),
+                )
+                ModelYear.MY18, ModelYear.MY24 -> {
+                    val delay = when {
+                        delayMinutes >= 10 -> 2
+                        delayMinutes >= 5 -> 1
+                        else -> 0
+                    }
+                    listOf(start(Reg.WRITE_AC_MY18, bytes(0x02, mode.code, duration.code, delay)))
                 }
-                listOf(RegisterWrite(Reg.WRITE_AC_MY18, bytes(0x02, mode.code, duration.code, delay)))
             }
+        }
+
+        companion object {
+            const val CONFIRM_MS = 30_000L
+            const val POWER_ON = "The car only runs the climate remotely with the power switch OFF"
+            const val NOT_STARTED = "The car accepted the command but did not start the climate"
         }
     }
 
@@ -165,6 +201,7 @@ sealed interface CarCommand {
 
         override val label = "Set ${VehicleSettingsCatalog.def(id)?.name ?: "setting #$id"} → " +
             VehicleSettingsCatalog.optionLabel(id, value)
+        override val confirmMs: Long get() = CONFIRM_MS
 
         override fun toWrites(modelYear: ModelYear, state: CarState): List<RegisterWrite> = listOf(
             RegisterWrite(
@@ -190,6 +227,7 @@ sealed interface CarCommand {
     data object ResetSettings : CarCommand {
         override val label = "Reset vehicle settings to factory defaults"
         const val CONFIRM_MS = 6_000L
+        override val confirmMs: Long get() = CONFIRM_MS
 
         override fun toWrites(modelYear: ModelYear, state: CarState): List<RegisterWrite> {
             // "Any 0x16 notification from now on": RegisterDecoder creates a new
@@ -204,6 +242,33 @@ sealed interface CarCommand {
                 ),
                 RegisterWrite(Reg.WRITE_SAVE_SETTINGS, bytes(0)),
             )
+        }
+    }
+
+    /**
+     * The official app's "Always Communicate" Wi-Fi setting. Off (the car's default): the car's Wi-Fi only works
+     * while the power switch is OFF. On: it stays on when the car is switched on too (the official app says to turn
+     * it off when using the Smartphone Link Display Audio). Register 0x18 = [1] on / [0] off.
+     */
+    data class WifiAlwaysOn(val on: Boolean) : CarCommand {
+        override val label = "Car Wi-Fi always on: ${if (on) "on" else "off"}"
+
+        /** The official app only offers it on 2018+ cars (START 0x5e); 2014–2017 cars don't report or take it. */
+        override fun refusal(state: CarState, fresh: Set<Int>): String? =
+            if (state.modelYear == ModelYear.MY14) NOT_ON_MY14 else null
+
+        override fun toWrites(modelYear: ModelYear, state: CarState) = listOf(
+            RegisterWrite(
+                Reg.WRITE_WIFI_ALWAYS_ON, bytes(if (on) 1 else 0),
+                awaitState = { it.wifiAlwaysOn == on }, awaitMs = CONFIRM_MS,
+            ),
+        )
+
+        override val confirmMs: Long get() = CONFIRM_MS
+
+        companion object {
+            const val CONFIRM_MS = 5_000L
+            const val NOT_ON_MY14 = "2014–2017 cars have no \"Wi-Fi always on\" setting"
         }
     }
 

@@ -1,5 +1,6 @@
 package io.github.anwo91.phevlink.core.model
 
+import io.github.anwo91.phevlink.core.protocol.ModelYear
 import io.github.anwo91.phevlink.core.protocol.Reg
 import io.github.anwo91.phevlink.core.protocol.toHex
 
@@ -72,6 +73,11 @@ object RegisterDecoder {
                     hazardLights = (u[3] and 0b11) == 1,
                     interiorLights = (u[4] and 0b11) == 1,
                 )
+            }
+
+            // Same number means something else (or nothing) on 2014–2017 cars.
+            Reg.READ_WIFI_ALWAYS_ON_MY18 -> if (u.isNotEmpty() && (state.modelYear == ModelYear.MY18 || state.modelYear == ModelYear.MY24)) {
+                s = s.copy(wifiAlwaysOn = u[0] == 1)
             }
 
             Reg.READ_PRE_AC_STATE -> if (u.isNotEmpty()) {

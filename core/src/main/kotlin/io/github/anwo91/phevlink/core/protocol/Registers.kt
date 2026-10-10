@@ -14,6 +14,8 @@ object Reg {
     const val READ_REMOTE_SECURITY = 0x03
     const val READ_CHARGE_TIMER = 0x04
     const val READ_CLIMATE_TIMER = 0x05
+    /** MY18+ only (the official app's register table for 2014–2017 cars has no entry): "Always Communicate" 1/0. */
+    const val READ_WIFI_ALWAYS_ON_MY18 = 0x0b
     const val READ_PRE_AC_STATE = 0x10        // 0=off 2=running 3=cancelled (door/low battery)
     const val READ_CAR_CLOCK = 0x12           // [yy mm dd hh mi ss dow]
     const val READ_VIN = 0x15                 // [?][VIN x17][?][registrations]
@@ -45,6 +47,8 @@ object Reg {
     const val WRITE_UNREGISTER_CLIENT = 0x15  // 0x01
     const val WRITE_CHARGE_TIMER_CANCEL = 0x17
     const val WRITE_AC_MY18 = 0x1b            // [state][mode][duration][delay]
+    /** Official app: Settings → Wireless LAN Communication Settings → "Always Communicate" (1 = on, 0 = off). */
+    const val WRITE_WIFI_ALWAYS_ON = 0x18
 
     private val readNames = mapOf(
         0x01 to "connect info",
@@ -53,6 +57,7 @@ object Reg {
         READ_CHARGE_TIMER to "charge timer",
         READ_CLIMATE_TIMER to "climate timer",
         0x06 to "unknown 0x06",
+        READ_WIFI_ALWAYS_ON_MY18 to "Wi-Fi always on (MY18)",
         READ_PRE_AC_STATE to "climate state",
         READ_CAR_CLOCK to "car clock",
         READ_VIN to "VIN / registrations",
@@ -83,6 +88,7 @@ object Reg {
         WRITE_UNREGISTER_CLIENT to "unregister phone",
         WRITE_CHARGE_TIMER_CANCEL to "charge timer override",
         WRITE_AC_MY18 to "climate (MY18)",
+        WRITE_WIFI_ALWAYS_ON to "Wi-Fi always on",
         WRITE_SAVE_SETTINGS to "save settings",
         WRITE_SETTING to "update setting",
     )

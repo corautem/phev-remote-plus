@@ -181,7 +181,7 @@
     <!-- Connection status -->
     <string name="link_route">Route: %1$s</string>
     <string name="link_since">Since %1$s</string>
-    <string name="link_tips">Tips: the car\'s Wi-Fi reaches about 10–20 m. After several days parked it goes to sleep — pressing a button on the key, or unlocking, usually wakes it. If it says the phone isn\'t registered, register it under Settings.</string>
+    <string name="link_tips">Tips: the car\'s Wi-Fi only works while the car is switched OFF (or in ACC), and reaches about 10–20 m. After several days parked it goes to sleep — pressing a button on the key, or unlocking, usually wakes it. If it says the phone isn\'t registered, register it under Settings. Settings → Staying connected has phone settings that stop drop-outs.</string>
     <string name="link_try_again">Try again now</string>
     <string name="link_not_connected">Not connected</string>
     <string name="link_not_set_up">Not set up</string>
@@ -316,8 +316,8 @@
     <string name="pw_too_long">At most 63 characters</string>
     <string name="pw_bad_chars">Only plain letters, digits and symbols (no æøå or emoji)</string>
     <string name="settings_registration_title">Phone registration</string>
-    <string name="settings_registration_intro">The car only talks to phones it has registered (it remembers up to a few). To register this phone:</string>
-    <string name="registration_steps">1. Sit in the car with the key, power switch OFF.\n2. Press the power switch once to ACC (don\'t press the brake).\n3. Within 10 seconds, press LOCK then UNLOCK on the key, alternately, 5 times each (10 presses, starting with LOCK).\n4. The hazard lights blink: the car is in registration mode for a few minutes. Tap Register (the phone must be on the car\'s Wi-Fi).</string>
+    <string name="settings_registration_intro">The car only talks to phones it has registered, and it remembers at most 2. To register this phone (it must be on the car\'s Wi-Fi):</string>
+    <string name="registration_steps">1. Sit in the car with the key and close the driver\'s door. Power switch OFF.\n2. Press the power switch once to ACC, without touching the brake (OFF → ACC).\n3. Within 10 seconds, press LOCK and UNLOCK on the key alternately — 10 presses in total, starting with LOCK.\n4. The car beeps: 1 beep = no phones registered, 2 = one phone, 3 = two phones (memory full — see below). It now waits up to 10 minutes.\n5. Tap Register.\n6. Switch the power OFF to finish. The car may restart its Wi-Fi; the app reconnects by itself.</string>
     <string name="settings_registered_phones">Registered phones (car says)</string>
     <string name="settings_register">Register</string>
     <string name="settings_unregister">Unregister</string>

@@ -173,7 +173,7 @@
     <!-- Connection status -->
     <string name="link_route">Verbindung: %1$s</string>
     <string name="link_since">Seit %1$s</string>
-    <string name="link_tips">Tipps: Das Wi-Fi des Autos reicht etwa 10–20 m. Nach mehreren Tagen Standzeit schläft es ein – ein Druck auf eine Taste am Schlüssel oder das Entriegeln weckt es meist auf. Wenn es heißt, das Handy sei nicht registriert, registriere es unter Optionen.</string>
+    <string name="link_tips">Tipps: Das Wi-Fi des Autos funktioniert nur, solange das Auto ausgeschaltet ist (oder auf ACC steht), und reicht etwa 10–20 m. Nach mehreren Tagen Standzeit schläft es ein – ein Druck auf eine Taste am Schlüssel oder das Entriegeln weckt es meist auf. Wenn es heißt, das Handy sei nicht registriert, registriere es unter Optionen. Unter Optionen → Verbunden bleiben findest du Handy-Einstellungen gegen Verbindungsabbrüche.</string>
     <string name="link_try_again">Jetzt erneut versuchen</string>
     <string name="link_not_connected">Nicht verbunden</string>
     <string name="link_not_set_up">Nicht eingerichtet</string>
@@ -307,8 +307,8 @@
     <string name="pw_too_long">Höchstens 63 Zeichen</string>
     <string name="pw_bad_chars">Nur einfache Buchstaben, Ziffern und Zeichen (keine Umlaute, æøå oder Emojis)</string>
     <string name="settings_registration_title">Handy registrieren</string>
-    <string name="settings_registration_intro">Das Auto spricht nur mit registrierten Handys (es merkt sich einige wenige). So registrierst du dieses Handy:</string>
-    <string name="registration_steps">1. Setz dich mit dem Schlüssel ins Auto, Zündung AUS (OFF).\n2. Drück den Startknopf einmal auf ACC (nicht auf die Bremse treten).\n3. Drück innerhalb von 10 Sekunden auf dem Schlüssel abwechselnd VERRIEGELN und ENTRIEGELN, je 5-mal (10 Drücke, mit VERRIEGELN beginnen).\n4. Die Warnblinker blinken: Das Auto ist einige Minuten im Registriermodus. Tippe auf Registrieren (das Handy muss mit dem Wi-Fi des Autos verbunden sein).</string>
+    <string name="settings_registration_intro">Das Auto spricht nur mit registrierten Handys und merkt sich höchstens 2. So registrierst du dieses Handy (es muss mit dem Wi-Fi des Autos verbunden sein):</string>
+    <string name="registration_steps">1. Setz dich mit dem Schlüssel ins Auto und schließ die Fahrertür. Startknopf AUS (OFF).\n2. Drück den Startknopf einmal auf ACC, ohne die Bremse zu berühren (OFF → ACC).\n3. Drück innerhalb von 10 Sekunden auf dem Schlüssel abwechselnd VERRIEGELN und ENTRIEGELN — insgesamt 10-mal, mit VERRIEGELN beginnen.\n4. Das Auto piept: 1 Piep = kein Handy registriert, 2 = ein Handy, 3 = zwei Handys (Speicher voll — siehe unten). Es wartet jetzt bis zu 10 Minuten.\n5. Tippe auf Registrieren.\n6. Schalte den Startknopf AUS, um abzuschließen. Das Auto startet sein Wi-Fi eventuell neu; die App verbindet sich von selbst wieder.</string>
     <string name="settings_registered_phones">Registrierte Handys (laut Auto)</string>
     <string name="settings_register">Registrieren</string>
     <string name="settings_unregister">Abmelden</string>

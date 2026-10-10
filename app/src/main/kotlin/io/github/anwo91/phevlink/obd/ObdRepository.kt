@@ -11,6 +11,7 @@ import io.github.anwo91.phevlink.core.diag.DiagLog
 import io.github.anwo91.phevlink.core.obd.BatteryHealth
 import io.github.anwo91.phevlink.core.obd.ClearDtcsResult
 import io.github.anwo91.phevlink.core.obd.DtcScanResult
+import io.github.anwo91.phevlink.core.obd.Elm327
 import io.github.anwo91.phevlink.core.obd.ObdClient
 import io.github.anwo91.phevlink.core.obd.ObdCsvLogger
 import io.github.anwo91.phevlink.core.obd.ObdLink
@@ -305,9 +306,24 @@ class ObdRepository(
                 log.link("OBD: connected to ${spec.name} in ${SystemClock.elapsedRealtime() - t0} ms — live data every $LIVE_INTERVAL_MS ms")
                 return active
             }
-            lastMessage = client.state.value.message ?: app.getString(R.string.obd_err_unreachable, spec.name)
+            val clientMessage = client.state.value.message
+            lastMessage = clientMessage ?: app.getString(R.string.obd_err_unreachable, spec.name)
             log.warn("OBD: adapter initialisation failed (attempt $attempt of $attempts): $lastMessage")
             closeActive(active)
+            if (clientMessage == Elm327.MSG_NO_ADAPTER) {
+                // The Bluetooth/Wi-Fi link itself came up, so the device is powered and in range — it just doesn't
+                // answer ELM327 commands. Field log: an Autel "Maxi-…" scan-tool VCI over BLE, silent to ATZ/ATWS.
+                val brand = proprietaryBrand(spec.name)
+                log.warn(
+                    "OBD: ${spec.name} accepted the ${kindForLog(spec.kind)} connection (${link.description}) but never answered " +
+                        "ELM327 commands — " + (brand?.let { "the name suggests a $it scan tool, which only works with its own app" }
+                            ?: "not an ELM327 adapter, or one that is stuck"),
+                )
+                lastMessage = if (brand != null) app.getString(R.string.obd_err_not_elm_brand, spec.name, brand)
+                else app.getString(R.string.obd_err_not_elm, spec.name)
+                // A known proprietary tool won't start speaking ELM327 on the next try.
+                if (brand != null) break
+            }
         }
         fail(lastMessage ?: app.getString(R.string.obd_err_unreachable, spec.name))
         return null
@@ -369,6 +385,24 @@ class ObdRepository(
             e is SecurityException -> app.getString(R.string.obd_err_permission)
             e is IOException && looksUnreachable(e.message) -> app.getString(R.string.obd_err_unreachable, name)
             else -> app.getString(R.string.obd_err_other, name, e.message ?: e.javaClass.simpleName)
+        }
+    }
+
+    /**
+     * Brand of a scan tool that uses its own protocol (works only with its maker's app), guessed from the Bluetooth
+     * name, or null. Autel VCIs advertise as "Maxi…"; the others use their brand or product name.
+     */
+    private fun proprietaryBrand(name: String): String? {
+        val n = name.lowercase(Locale.ROOT)
+        return when {
+            n.startsWith("maxi") || n.contains("autel") -> "Autel"
+            n.contains("x431") || n.contains("x-431") || n.contains("dbscar") || n.contains("golo") || n.contains("launch") -> "Launch"
+            n.contains("thinkcar") || n.contains("thinkdiag") -> "ThinkCar"
+            n.contains("topdon") -> "Topdon"
+            n.contains("foxwell") -> "Foxwell"
+            n.contains("bluedriver") -> "BlueDriver"
+            n.contains("obdeleven") -> "OBDeleven"
+            else -> null
         }
     }
 

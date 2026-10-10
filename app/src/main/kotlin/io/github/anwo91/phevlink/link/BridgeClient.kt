@@ -82,7 +82,8 @@ class BridgeClient(
 
     suspend fun execute(cmd: CarCommand): CommandResult = withContext(Dispatchers.IO) {
         try {
-            val c = open("command", "POST", 60_000)
+            // The bridge waits for the car to confirm some commands (climate running) on top of reaching it.
+            val c = open("command", "POST", (60_000 + cmd.confirmMs).toInt())
             c.doOutput = true
             c.setRequestProperty("Content-Type", "application/json")
             c.outputStream.use { it.write(Json.write(Codecs.commandToMap(cmd)).toByteArray()) }

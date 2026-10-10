@@ -461,16 +461,18 @@
       "category": "Fjernapp og Wi-Fi",
       "symptoms": [
         "Telefonen kan se bilens netværk, men appen kan ikke forbinde",
+        "Forbindelsen afbrydes lidt efter, at bilen er tændt",
         "Forbindelsen falder ud efter et par sekunder eller efter en opdatering af telefonen",
         "Bilen holdt op med at svare, efter at 12 V-batteriet var afladet eller frakoblet"
       ],
-      "why": "Fjernbetjeningen kører via bilens eget Wi-Fi-adgangspunkt, så telefonen skal være inden for rækkevidde og registreret i bilen. Kun to telefoner kan registreres. Telefoner forlader gerne et Wi-Fi-netværk uden internet, og så afbrydes forbindelsen. Nogle biler fik en firmwareopdatering, der ændrede formatet på Wi-Fi-adgangskoden. Hvis alle telefoner er afregistreret, går bilens Wi-Fi-modul i dvale. Afbrydelse af 12 V-batteriet nulstiller timerne.",
+      "why": "Bilens Wi-Fi virker kun, når startknappen står på OFF eller ACC: en bil fra 2014–2017 slukker det kort efter, at den er tændt (ON), og nyere biler gør det samme, medmindre “Always Communicate” er slået til. Fjernbetjeningen kører via bilens eget Wi-Fi-adgangspunkt, så telefonen skal være inden for rækkevidde og registreret i bilen. Kun to telefoner kan registreres. Telefoner forlader gerne et Wi-Fi-netværk uden internet, og så afbrydes forbindelsen. Nogle biler fik en firmwareopdatering, der ændrede formatet på Wi-Fi-adgangskoden. Hvis alle telefoner er afregistreret, går bilens Wi-Fi-modul i dvale. Afbrydelse af 12 V-batteriet nulstiller timerne.",
       "whatToDo": [
+        "Sluk bilen: Wi-Fi virker kun, når startknappen står på OFF (eller ACC), og klimaanlægget kan kun startes fra telefonen, når startknappen står på OFF.",
         "Stil dig tæt på bilen, og kontrollér, at 12 V-batteriet er i orden.",
         "På Android: fjern manuelt gemte poster for bilens netværk, og lad appen styre forbindelsen. Slå funktioner fra, der skifter til mobildata, når Wi-Fi ikke har internet.",
         "På iPhone: slå Wi-Fi-assistent fra, og slå Tilslut automatisk og Privat Wi-Fi-adresse fra for bilens netværk efter opsætningen.",
-        "Registrer telefonen igen: tændingen i ACC, og tryk så skiftevis på LÅS og LÅS OP på nøglen som beskrevet i instruktionsbogen, til bilen bipper.",
-        "Hvis to telefoner allerede er registreret, så nulstil registreringerne (ejere beskriver en sekvens med havariblink, ACC og tryk på LÅS/LÅS OP; ét bip og så stilhed betyder, at det lykkedes).",
+        "Registrer telefonen igen: under Indstillinger → Registrering af telefon står de nøjagtige trin (førerdøren lukket, startknappen på ACC, derefter 10 tryk skiftevis på LÅS og LÅS OP, start med LÅS).",
+        "Er to telefoner allerede registreret (bilen bipper 3 gange i registreringstilstand), så slet alle registreringer: havariblink TIL, gå i registreringstilstand, og tryk derefter LÅS og LÅS OP skiftevis 20 gange inden for 5 minutter — ét bip betyder, at det lykkedes. Det nulstiller også Wi-Fi-adgangskoden til den på kortet. Trinnene står under Indstillinger → Registrering af telefon.",
         "Hvis din bil har fået opdateringen af fjernenheden, så brug den nyere adgangskode (spørg forhandleren)."
       ],
       "diy": "yes",

@@ -57,8 +57,20 @@ object Labels {
                 )
             }
             CarCommand.ResetSettings -> res.getString(R.string.cmd_reset_settings)
+            is CarCommand.WifiAlwaysOn -> res.getString(if (cmd.on) R.string.cmd_wifi_always_on else R.string.cmd_wifi_always_off)
             // Raw writes are hex.
             else -> cmd.label
+        }
+    }
+
+    /** Why a command failed, in the app language where the core reports a known reason (English otherwise). */
+    fun failureReason(context: Context, reason: String): String {
+        val res = AppLocale.localized(context)
+        return when (reason) {
+            CarCommand.ChangeSetting.UNCONFIRMED -> res.getString(R.string.msg_setting_unconfirmed)
+            CarCommand.ClimateOn.POWER_ON -> res.getString(R.string.msg_climate_needs_off)
+            CarCommand.ClimateOn.NOT_STARTED -> res.getString(R.string.msg_climate_not_started)
+            else -> reason
         }
     }
 

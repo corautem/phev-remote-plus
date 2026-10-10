@@ -23,6 +23,8 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ExpandLess
+import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
@@ -100,6 +102,9 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier) {
         // ------------------------------------------------------------ car wifi
         CarWifiCard(vm, s)
 
+        // ---------------------------------------------------- staying connected
+        StayConnectedCard(vm)
+
         // -------------------------------------------------------- registration
         SectionCard(title = stringResource(R.string.settings_registration_title)) {
             Text(
@@ -120,6 +125,9 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier) {
                     Text(stringResource(R.string.settings_unregister))
                 }
             }
+            Spacer(Modifier.height(4.dp))
+            ExpandableHelp(stringResource(R.string.registration_full_title), stringResource(R.string.registration_full))
+            ExpandableHelp(stringResource(R.string.registration_wifi_stopped_title), stringResource(R.string.registration_wifi_stopped))
         }
 
         // -------------------------------------------------------------- route
@@ -350,6 +358,55 @@ private fun Context.findActivity(): Activity? {
         c = c.baseContext
     }
     return null
+}
+
+/** A heading that opens a longer help text below it. */
+@Composable
+private fun ExpandableHelp(title: String, text: String) {
+    var open by rememberSaveable(title) { mutableStateOf(false) }
+    Row(
+        Modifier.fillMaxWidth().clickable { open = !open }.padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(title, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary, modifier = Modifier.weight(1f))
+        Icon(if (open) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+    }
+    if (open) Text(text, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(bottom = 6.dp))
+}
+
+/**
+ * Why the link drops while the car is switched on, and (2018+ cars) the official "Always Communicate" switch
+ * (register 0x18 write, 0x0b read). 2014–2017 cars have no such setting: the official app doesn't offer it.
+ */
+@Composable
+private fun StayConnectedCard(vm: MainViewModel) {
+    val car by vm.car.collectAsState()
+    val link by vm.link.collectAsState()
+    val pending by vm.pending.collectAsState()
+    SectionCard(title = stringResource(R.string.settings_stay_title)) {
+        when (car.modelYear) {
+            ModelYear.MY18, ModelYear.MY24 -> {
+                val on = car.wifiAlwaysOn
+                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.settings_wifi_always_on), modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
+                    Switch(
+                        checked = on == true,
+                        onCheckedChange = { vm.run(CarCommand.WifiAlwaysOn(it)) },
+                        enabled = link.connected && pending == null && on != null,
+                    )
+                }
+                Text(
+                    stringResource(if (on == null) R.string.settings_wifi_always_unknown else R.string.settings_wifi_always_on_explain),
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            ModelYear.MY14 -> Text(stringResource(R.string.settings_wifi_power_on_my14), style = MaterialTheme.typography.bodySmall)
+            ModelYear.UNKNOWN -> Text(stringResource(R.string.settings_wifi_power_on_unknown), style = MaterialTheme.typography.bodySmall)
+        }
+        Spacer(Modifier.height(8.dp))
+        Text(stringResource(R.string.phone_wifi_tips_title), style = MaterialTheme.typography.labelLarge)
+        Text(stringResource(R.string.phone_wifi_tips), style = MaterialTheme.typography.bodySmall)
+    }
 }
 
 @Composable

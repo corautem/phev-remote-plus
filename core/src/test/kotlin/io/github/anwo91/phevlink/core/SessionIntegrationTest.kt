@@ -8,6 +8,7 @@ import io.github.anwo91.phevlink.core.model.CarState
 import io.github.anwo91.phevlink.core.model.ClimateDuration
 import io.github.anwo91.phevlink.core.model.ClimateMode
 import io.github.anwo91.phevlink.core.model.CommandResult
+import io.github.anwo91.phevlink.core.model.Ignition
 import io.github.anwo91.phevlink.core.model.PreAcState
 import io.github.anwo91.phevlink.core.model.VehicleSettingsCatalog
 import io.github.anwo91.phevlink.core.protocol.ModelYear
@@ -323,5 +324,63 @@ class SessionIntegrationTest {
         pc.awaitState { it.registrations == 2 }
         assertTrue(pc.execute(CarCommand.UnregisterPhone) is CommandResult.Success)
         pc.awaitState { it.registrations == 1 }
+    }
+
+    @Test
+    fun climateRefusedWhilePowerIsOn() = dumpOnFailure {
+        val (fake, pc) = setup()
+        fake.setIgnition(3) // ACC
+        pc.start()
+        pc.awaitState { it.ignition == Ignition.ACC }
+        val r = pc.execute(CarCommand.ClimateOn(ClimateMode.HEAT, ClimateDuration.MIN_10))
+        assertTrue("$r", r is CommandResult.Failure && r.reason == CarCommand.ClimateOn.POWER_ON && !r.retryable)
+        assertTrue("nothing sent", fake.acceptedWrites.none { it.first == 0x02 || it.first == 0x04 })
+        assertTrue(log.snapshot().any { it.text.startsWith("Not sending") && it.text.contains("ignition ACC") })
+        // Power off: works again.
+        fake.setIgnition(0)
+        pc.awaitState { it.ignition == Ignition.OFF }
+        val ok = pc.execute(CarCommand.ClimateOn(ClimateMode.HEAT, ClimateDuration.MIN_10))
+        assertTrue("$ok", ok is CommandResult.Success)
+        assertTrue(pc.car.value.climate.isRunning)
+    }
+
+    @Test
+    fun climateThatNeverStartsIsReported() = dumpOnFailure {
+        val (fake, pc) = setup(session = SessionConfig(maxAwaitMs = 1_500)) { ignoreClimate = true }
+        val r = pc.execute(CarCommand.ClimateOn(ClimateMode.HEAT, ClimateDuration.MIN_20))
+        assertTrue("$r", r is CommandResult.Failure && r.reason == CarCommand.ClimateOn.NOT_STARTED)
+        // Both writes went out (the car acked them) and the log says what the car reported.
+        assertTrue(fake.acceptedWrites.any { it.first == 0x04 && it.second == "02" })
+        assertTrue(log.snapshot().any { it.text.contains("never reported the result") && it.text.contains("Car state: ignition OFF") })
+    }
+
+    @Test
+    fun delayedClimateStartIsNotAwaited() = dumpOnFailure {
+        val (_, pc) = setup(ModelYear.MY18, session = SessionConfig(maxAwaitMs = 60_000)) { ignoreClimate = true }
+        val started = System.currentTimeMillis()
+        val r = pc.execute(CarCommand.ClimateOn(ClimateMode.HEAT, ClimateDuration.MIN_10, delayMinutes = 10))
+        assertTrue("$r", r is CommandResult.Success)
+        assertTrue(System.currentTimeMillis() - started < 15_000)
+    }
+
+    @Test
+    fun wifiAlwaysOnMy18AndRefusedOnMy14() = dumpOnFailure {
+        val (fake, pc) = setup(ModelYear.MY18)
+        pc.start()
+        pc.awaitState { it.wifiAlwaysOn == false }
+        val r = pc.execute(CarCommand.WifiAlwaysOn(true))
+        assertTrue("$r", r is CommandResult.Success)
+        assertEquals(true, pc.awaitState { it.wifiAlwaysOn == true }.wifiAlwaysOn)
+        assertEquals("01", fake.acceptedWrites.last { it.first == 0x18 }.second)
+        pc.stop("next car")
+        fake.stop()
+
+        val (fake14, pc14) = setup(ModelYear.MY14)
+        pc14.start()
+        pc14.awaitState { it.modelYear == ModelYear.MY14 && it.vin != null }
+        val r14 = pc14.execute(CarCommand.WifiAlwaysOn(true))
+        assertTrue("$r14", r14 is CommandResult.Failure && r14.reason == CarCommand.WifiAlwaysOn.NOT_ON_MY14)
+        assertTrue(fake14.acceptedWrites.none { it.first == 0x18 })
+        assertEquals(null, pc14.car.value.wifiAlwaysOn)
     }
 }

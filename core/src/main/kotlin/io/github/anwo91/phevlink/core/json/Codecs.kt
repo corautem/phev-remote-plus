@@ -56,6 +56,7 @@ object Codecs {
         "carClock" to s.carClock,
         "carClockReadAtMs" to s.carClockReadAtMs,
         "settingsStatus" to s.settingsStatus,
+        "wifiAlwaysOn" to s.wifiAlwaysOn,
         "settings" to s.settings.toSortedMap().entries.associateTo(linkedMapOf()) { (id, v) ->
             id.toString() to linkedMapOf("mask" to v.mask, "value" to v.value)
         },
@@ -113,6 +114,7 @@ object Codecs {
             carClockReadAtMs = m.long("carClockReadAtMs"),
             settings = settings,
             settingsStatus = m.int("settingsStatus"),
+            wifiAlwaysOn = m.bool("wifiAlwaysOn"),
             registers = regs,
             updatedAtMs = m.long("updatedAtMs"),
         )
@@ -198,6 +200,7 @@ object Codecs {
         is CarCommand.SyncClock -> mapOf("action" to "sync_clock", "time" to c.time.toString())
         is CarCommand.ChangeSetting -> mapOf("action" to "setting", "id" to c.id, "value" to c.value)
         CarCommand.ResetSettings -> mapOf("action" to "reset_settings")
+        is CarCommand.WifiAlwaysOn -> mapOf("action" to "wifi_always_on", "on" to c.on)
         is CarCommand.Raw -> mapOf("action" to "raw", "register" to c.register, "data" to c.data.toHex())
     }
 
@@ -234,6 +237,7 @@ object Codecs {
             )
             "setting" -> CarCommand.ChangeSetting(int("id"), int("value"))
             "reset_settings" -> CarCommand.ResetSettings
+            "wifi_always_on" -> CarCommand.WifiAlwaysOn(bool("on"))
             "raw" -> CarCommand.Raw(int("register"), (m["data"]?.toString() ?: "").hexToBytes())
             else -> throw IllegalArgumentException("Unknown action '$a'")
         }

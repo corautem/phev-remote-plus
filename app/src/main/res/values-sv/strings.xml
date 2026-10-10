@@ -173,7 +173,7 @@
     <!-- Connection status -->
     <string name="link_route">Anslutningsväg: %1$s</string>
     <string name="link_since">Sedan %1$s</string>
-    <string name="link_tips">Tips: Bilens Wi-Fi räcker ungefär 10–20 m. Efter flera dagar parkerad somnar det – ett tryck på en knapp på nyckeln, eller en upplåsning, väcker det oftast. Om det står att telefonen inte är registrerad, registrera den under Inställningar.</string>
+    <string name="link_tips">Tips: Bilens Wi-Fi fungerar bara medan bilen är avslagen (eller i ACC) och räcker ungefär 10–20 m. Efter flera dagar parkerad somnar det – ett tryck på en knapp på nyckeln, eller en upplåsning, väcker det oftast. Om det står att telefonen inte är registrerad, registrera den under Inställningar. Under Inställningar → Hålla anslutningen finns telefoninställningar som stoppar avbrott.</string>
     <string name="link_try_again">Försök igen nu</string>
     <string name="link_not_connected">Inte ansluten</string>
     <string name="link_not_set_up">Inte konfigurerad</string>
@@ -307,8 +307,8 @@
     <string name="pw_too_long">Högst 63 tecken</string>
     <string name="pw_bad_chars">Bara vanliga bokstäver, siffror och tecken (inga åäö eller emoji)</string>
     <string name="settings_registration_title">Registrering av telefon</string>
-    <string name="settings_registration_intro">Bilen pratar bara med telefoner den har registrerat (den minns några få). Så här registrerar du den här telefonen:</string>
-    <string name="registration_steps">1. Sätt dig i bilen med nyckeln, startknappen i läge AV (OFF).\n2. Tryck en gång på startknappen till ACC (tryck inte på bromsen).\n3. Inom 10 sekunder: tryck LÅS och sedan LÅS UPP på nyckeln, växelvis, 5 gånger var (10 tryck, börja med LÅS).\n4. Varningsblinkersen blinkar: bilen är i registreringsläge i några minuter. Tryck på Registrera (telefonen måste vara ansluten till bilens Wi-Fi).</string>
+    <string name="settings_registration_intro">Bilen pratar bara med telefoner den har registrerat, och den minns högst 2. Så här registrerar du den här telefonen (den måste vara ansluten till bilens Wi-Fi):</string>
+    <string name="registration_steps">1. Sätt dig i bilen med nyckeln och stäng förardörren. Startknappen i läge AV (OFF).\n2. Tryck en gång på startknappen till ACC, utan att röra bromsen (OFF → ACC).\n3. Inom 10 sekunder: tryck LÅS och LÅS UPP på nyckeln växelvis — 10 tryck totalt, börja med LÅS.\n4. Bilen piper: 1 pip = inga telefoner registrerade, 2 = en telefon, 3 = två telefoner (minnet är fullt — se nedan). Bilen väntar nu i upp till 10 minuter.\n5. Tryck på Registrera.\n6. Slå AV startknappen för att slutföra. Bilen kan starta om sitt Wi-Fi; appen ansluter igen av sig själv.</string>
     <string name="settings_registered_phones">Registrerade telefoner (enligt bilen)</string>
     <string name="settings_register">Registrera</string>
     <string name="settings_unregister">Avregistrera</string>

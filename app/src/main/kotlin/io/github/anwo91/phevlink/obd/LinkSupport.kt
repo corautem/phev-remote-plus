@@ -49,12 +49,15 @@ class ObdConnectException(val reason: Reason, message: String, cause: Throwable?
 
         /** Took longer than the overall connect budget. */
         TIMEOUT,
+
+        /** Classic: pairing was cancelled, refused (wrong PIN) or never finished. */
+        PAIRING_FAILED,
     }
 
     /** Retrying immediately can help (flaky radio) — not for missing hardware, permission, or Bluetooth off. */
     val retryable: Boolean
         get() = reason != Reason.NO_BLUETOOTH && reason != Reason.BLUETOOTH_OFF &&
-            reason != Reason.PERMISSION && reason != Reason.BAD_ADDRESS
+            reason != Reason.PERMISSION && reason != Reason.BAD_ADDRESS && reason != Reason.PAIRING_FAILED
 }
 
 /**

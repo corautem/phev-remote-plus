@@ -221,6 +221,11 @@ class CarRepository(
 
     val isHeld: Boolean get() = _holders.value.isNotEmpty()
 
+    fun isHeldBy(tag: String): Boolean = tag in _holders.value
+
+    /** A route (car Wi-Fi or bridge) is running, connected or trying to connect. */
+    val isActive: Boolean get() = activeRoute != null
+
     /** Try again right now (user tapped the status chip). */
     fun reconnect() {
         if (network.state.value is CarNetwork.State.Failed) network.retry()
@@ -303,8 +308,13 @@ class CarRepository(
         direct = conn
         routeJobs += scope.launch { conn.car.collect { _car.value = it } }
         routeJobs += scope.launch {
-            combine(conn.status, network.state) { a, b -> a to b }.collect { (st, net) ->
+            combine(conn.status, network.state) { a, b -> a to b }.collectLatest { (st, net) ->
                 setLink { describeDirect(st, net, override != null) }
+                // "Reconnecting in 8 s" and "not found" (after 20 s of searching) count: redraw every second.
+                while (st is LinkStatus.Retrying || (net is CarNetwork.State.Searching && st !is LinkStatus.Connected)) {
+                    delay(1_000)
+                    setLink { describeDirect(st, net, override != null) }
+                }
             }
         }
         conn.start()

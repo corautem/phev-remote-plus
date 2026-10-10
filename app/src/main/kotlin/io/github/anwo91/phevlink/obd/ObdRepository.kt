@@ -8,6 +8,7 @@ import android.os.SystemClock
 import androidx.core.content.FileProvider
 import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.diag.DiagLog
+import io.github.anwo91.phevlink.core.obd.AdapterGuess
 import io.github.anwo91.phevlink.core.obd.BatteryHealth
 import io.github.anwo91.phevlink.core.obd.ClearDtcsResult
 import io.github.anwo91.phevlink.core.obd.DtcScanResult
@@ -313,7 +314,7 @@ class ObdRepository(
             if (clientMessage == Elm327.MSG_NO_ADAPTER) {
                 // The Bluetooth/Wi-Fi link itself came up, so the device is powered and in range — it just doesn't
                 // answer ELM327 commands. Field log: an Autel "Maxi-…" scan-tool VCI over BLE, silent to ATZ/ATWS.
-                val brand = proprietaryBrand(spec.name)
+                val brand = AdapterGuess.proprietaryBrand(spec.name)
                 log.warn(
                     "OBD: ${spec.name} accepted the ${kindForLog(spec.kind)} connection (${link.description}) but never answered " +
                         "ELM327 commands — " + (brand?.let { "the name suggests a $it scan tool, which only works with its own app" }
@@ -381,28 +382,11 @@ class ObdRepository(
                 ObdConnectException.Reason.NO_UART_SERVICE -> app.getString(R.string.obd_err_no_uart, name)
                 ObdConnectException.Reason.WIFI_UNREACHABLE -> app.getString(R.string.obd_err_wifi_unreachable, spec.address)
                 ObdConnectException.Reason.TIMEOUT -> app.getString(R.string.obd_err_timeout, name)
+                ObdConnectException.Reason.PAIRING_FAILED -> app.getString(R.string.obd_err_pairing, name)
             }
             e is SecurityException -> app.getString(R.string.obd_err_permission)
             e is IOException && looksUnreachable(e.message) -> app.getString(R.string.obd_err_unreachable, name)
             else -> app.getString(R.string.obd_err_other, name, e.message ?: e.javaClass.simpleName)
-        }
-    }
-
-    /**
-     * Brand of a scan tool that uses its own protocol (works only with its maker's app), guessed from the Bluetooth
-     * name, or null. Autel VCIs advertise as "Maxi…"; the others use their brand or product name.
-     */
-    private fun proprietaryBrand(name: String): String? {
-        val n = name.lowercase(Locale.ROOT)
-        return when {
-            n.startsWith("maxi") || n.contains("autel") -> "Autel"
-            n.contains("x431") || n.contains("x-431") || n.contains("dbscar") || n.contains("golo") || n.contains("launch") -> "Launch"
-            n.contains("thinkcar") || n.contains("thinkdiag") -> "ThinkCar"
-            n.contains("topdon") -> "Topdon"
-            n.contains("foxwell") -> "Foxwell"
-            n.contains("bluedriver") -> "BlueDriver"
-            n.contains("obdeleven") -> "OBDeleven"
-            else -> null
         }
     }
 

@@ -154,14 +154,13 @@
 
     <!-- Device picker -->
     <string name="obd_pick_title">Vælg OBD-adapter</string>
-    <string name="obd_pick_hint">Almindelige Bluetooth-adaptere (Classic) skal først parres i telefonens Bluetooth-indstillinger. Bluetooth LE-adaptere findes med en søgning.</string>
+    <string name="obd_pick_hint">Adaptere vises først. Parrede adaptere står nedenfor; Søg finder Bluetooth LE-adaptere og almindelige adaptere, der ikke er parret endnu.</string>
     <string name="obd_pick_need_permission">Appen skal have tilladelse til at finde og forbinde til Bluetooth-enheder i nærheden.</string>
     <string name="obd_pick_allow">Tillad</string>
     <string name="obd_pick_turn_on_bt">Slå Bluetooth til</string>
     <string name="obd_pick_recent">Seneste</string>
     <string name="obd_pick_paired">Parrede Bluetooth-enheder</string>
-    <string name="obd_pick_none_paired">Ingen parrede enheder. Par adapteren i telefonens Bluetooth-indstillinger, eller søg efter Bluetooth LE nedenfor.</string>
-    <string name="obd_pick_ble">Bluetooth LE-adaptere</string>
+    <string name="obd_pick_none_paired">Ingen parrede adaptere. Tryk på Søg nedenfor, eller par adapteren i telefonens Bluetooth-indstillinger.</string>
     <string name="obd_pick_scan">Søg</string>
     <string name="obd_pick_scanning">Søger…</string>
     <string name="obd_pick_stop">Stop</string>

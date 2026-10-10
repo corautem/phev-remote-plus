@@ -25,4 +25,16 @@
 
     <string name="obd_err_not_elm">„%1$s“ hat sich verbunden, aber nicht auf ELM327-Befehle geantwortet. Wahrscheinlich ist es kein ELM327-Adapter (zum Beispiel ein Diagnosegerät, das nur mit seiner eigenen App funktioniert), daher kann diese App es nicht nutzen. Nimm einen ELM327-kompatiblen Adapter wie OBDLink LX, MX+ oder CX, Vgate iCar Pro oder Veepeak. Ist es ein ELM327-Adapter, zieh ihn ein paar Sekunden ab und versuch es noch einmal.</string>
     <string name="obd_err_not_elm_brand">„%1$s“ sieht nach einem Diagnosegerät von %2$s aus. Solche Geräte funktionieren nur mit der App des Herstellers und sprechen kein ELM327, daher kann diese App es nicht nutzen. Nimm einen ELM327-kompatiblen Adapter wie OBDLink LX, MX+ oder CX, Vgate iCar Pro oder Veepeak.</string>
+
+    <!-- OBD device list -->
+    <string name="obd_pick_nearby">In der Nähe (Suche)</string>
+    <string name="obd_pick_pin_hint">Ältere klassische Adapter fragen beim ersten Verbinden nach einer PIN: meist 1234 oder 0000.</string>
+    <string name="obd_pick_hide_others">Geräte ausblenden, die keine OBD-Adapter sind</string>
+    <plurals name="obd_pick_show_others">
+        <item quantity="one">%d weiteres Gerät anzeigen (Handy, Kopfhörer …)</item>
+        <item quantity="other">%d weitere Geräte anzeigen (Handys, Kopfhörer …)</item>
+    </plurals>
+    <string name="obd_pick_likely">Wahrscheinlich ein OBD-Adapter</string>
+    <string name="obd_pick_proprietary">Diagnosegerät von %1$s – funktioniert nur mit der eigenen App, nicht hier</string>
+    <string name="obd_err_pairing">Das Koppeln mit „%1$s“ wurde nicht abgeschlossen. Verbinde dich erneut und gib die PIN des Adapters ein, wenn Android fragt — meist 1234 oder 0000 (manchmal 6789 oder 1111).</string>
 </resources>

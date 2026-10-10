@@ -154,14 +154,13 @@
 
     <!-- Device picker -->
     <string name="obd_pick_title">OBD-Adapter wählen</string>
-    <string name="obd_pick_hint">Klassische Bluetooth-Adapter müssen zuerst in den Bluetooth-Einstellungen des Handys gekoppelt werden. Bluetooth-LE-Adapter werden per Suche gefunden.</string>
+    <string name="obd_pick_hint">Adapter stehen oben. Gekoppelte Adapter folgen; Suchen findet Bluetooth-LE-Adapter und klassische Adapter, die noch nicht gekoppelt sind.</string>
     <string name="obd_pick_need_permission">Die App braucht die Berechtigung, Bluetooth-Geräte in der Nähe zu finden und sich mit ihnen zu verbinden.</string>
     <string name="obd_pick_allow">Erlauben</string>
     <string name="obd_pick_turn_on_bt">Bluetooth einschalten</string>
     <string name="obd_pick_recent">Zuletzt verwendet</string>
     <string name="obd_pick_paired">Gekoppelte Bluetooth-Geräte</string>
-    <string name="obd_pick_none_paired">Keine gekoppelten Geräte. Kopple den Adapter in den Bluetooth-Einstellungen des Handys oder suche unten nach Bluetooth LE.</string>
-    <string name="obd_pick_ble">Bluetooth-LE-Adapter</string>
+    <string name="obd_pick_none_paired">Keine gekoppelten Adapter. Tippe unten auf Suchen oder kopple den Adapter in den Bluetooth-Einstellungen des Handys.</string>
     <string name="obd_pick_scan">Suchen</string>
     <string name="obd_pick_scanning">Suche…</string>
     <string name="obd_pick_stop">Stopp</string>

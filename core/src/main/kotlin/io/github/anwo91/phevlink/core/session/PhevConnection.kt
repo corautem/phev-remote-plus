@@ -224,7 +224,13 @@ class PhevConnection(
         val d = config.backoffMs[(failures - 1).coerceIn(0, config.backoffMs.lastIndex)]
         log.link("Retrying in ${d / 1000.0}s — $reason")
         _status.value = LinkStatus.Retrying(clock.wallMs() + d, failures, reason)
+        val t0 = clock.monoMs()
         withTimeoutOrNull(d) { wake.receive() }
+        val took = clock.monoMs() - t0
+        if (took > d + 5_000) {
+            // Field log: a 1 s wait that ended 2 minutes later — the app was frozen in the background.
+            log.warn("The ${d / 1000.0}s wait took ${took / 1000} s — Android paused the app (background or battery restrictions)")
+        }
     }
 
     private sealed interface Msg {

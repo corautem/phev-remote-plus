@@ -31,4 +31,16 @@
     <!-- OBD: a device that connects but doesn't speak ELM327 -->
     <string name="obd_err_not_elm">“%1$s” connected, but didn’t answer ELM327 commands. It is probably not an ELM327 adapter (for example a scan tool that only works with its own app), so this app can’t use it. Use an ELM327-compatible adapter such as OBDLink LX, MX+ or CX, Vgate iCar Pro or Veepeak. If it is an ELM327 adapter, unplug it for a few seconds and try again.</string>
     <string name="obd_err_not_elm_brand">“%1$s” looks like a %2$s scan tool. Those only work with their maker’s own app and don’t speak ELM327, so this app can’t use it. Use an ELM327-compatible adapter such as OBDLink LX, MX+ or CX, Vgate iCar Pro or Veepeak.</string>
+
+    <!-- OBD device list -->
+    <string name="obd_pick_nearby">Nearby (scan)</string>
+    <string name="obd_pick_pin_hint">Older classic adapters ask for a PIN when you connect the first time: usually 1234 or 0000.</string>
+    <string name="obd_pick_hide_others">Hide devices that aren’t OBD adapters</string>
+    <plurals name="obd_pick_show_others">
+        <item quantity="one">Show %d other device (phone, headphones…)</item>
+        <item quantity="other">Show %d other devices (phones, headphones…)</item>
+    </plurals>
+    <string name="obd_pick_likely">Probably an OBD adapter</string>
+    <string name="obd_pick_proprietary">%1$s scan tool — only works with its own app, not here</string>
+    <string name="obd_err_pairing">Pairing with “%1$s” didn’t finish. Connect again and enter the adapter’s PIN when Android asks — usually 1234 or 0000 (sometimes 6789 or 1111).</string>
 </resources>

@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.PowerManager
+import android.os.SystemClock
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
@@ -29,6 +30,7 @@ import io.github.anwo91.phevlink.util.AppLocale
 import io.github.anwo91.phevlink.util.Format
 import io.github.anwo91.phevlink.util.Labels
 import io.github.anwo91.phevlink.weather.MetNo
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
@@ -59,6 +61,13 @@ class LinkService : LifecycleService() {
     private var lastStartId = 0
     private var foreground = false
     private var wakeLock: PowerManager.WakeLock? = null
+    private var lingerJob: Job? = null
+    /**
+     * False while the service only keeps the app's link alive after it went to the background: Android then shows
+     * the notification only if that lasts more than a few seconds, so a quick app switch shows nothing.
+     */
+    private var immediateNotification = true
+    private var foregroundAt = 0L
 
     /** A string in the app language, resolved now. */
     private fun str(@StringRes id: Int, vararg args: Any): String {
@@ -78,7 +87,11 @@ class LinkService : LifecycleService() {
                 )
                 l.text to parts.joinToString(" · ").ifEmpty { l.detail ?: "" }
             }.distinctUntilChanged().collect { (title, text) ->
-                if (foreground) graph.notifier.updateLink(buildNotification(title, text))
+                // While only lingering, Android holds the notification back for a few seconds; posting an update
+                // would show it at once, so wait until it is visible anyway.
+                if (foreground && (immediateNotification || SystemClock.elapsedRealtime() - foregroundAt > 10_000)) {
+                    graph.notifier.updateLink(buildNotification(title, text))
+                }
             }
         }
     }
@@ -91,7 +104,8 @@ class LinkService : LifecycleService() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
         lastStartId = startId
-        goForeground(str(R.string.svc_contacting), "")
+        immediateNotification = intent?.action != ACTION_LINGER || (running > 0 && lingerJob?.isActive != true)
+        goForeground(repo.link.value.text.takeIf { intent?.action == ACTION_LINGER } ?: str(R.string.svc_contacting), "")
         stopJob?.cancel()
         WakeHolder.releaseFromReceiver()
         when (intent?.action) {
@@ -110,7 +124,12 @@ class LinkService : LifecycleService() {
             ACTION_PLAN -> work { planDeparture(intent) }
             ACTION_START_DEPARTURE -> work { startDeparture(intent) }
             ACTION_WATCH -> work { watchTick(intent.getIntExtra(EXTRA_FAILURES, 0)) }
+            ACTION_LINGER -> {
+                lingerJob?.cancel()
+                lingerJob = work { linger(intent.getLongExtra(EXTRA_LINGER_MS, LINGER_MS)) }
+            }
             ACTION_STOP -> {
+                lingerJob?.cancel()
                 WatchScheduler.cancel(this)
                 maybeStop(0)
             }
@@ -119,12 +138,14 @@ class LinkService : LifecycleService() {
         return START_NOT_STICKY
     }
 
-    private fun work(block: suspend () -> Unit) {
+    private fun work(block: suspend () -> Unit): Job {
         running++
         acquireWake()
-        lifecycleScope.launch {
+        return lifecycleScope.launch {
             try {
                 block()
+            } catch (e: CancellationException) {
+                // Stopped from the notification (linger) — not a failure.
             } catch (e: Exception) {
                 graph.log.error("Background task failed: ${e.javaClass.simpleName}: ${e.message}")
             } finally {
@@ -132,6 +153,29 @@ class LinkService : LifecycleService() {
                 if (running == 0) releaseWake()
                 maybeStop(2_000)
             }
+        }
+    }
+
+    /**
+     * The app went to the background while connected. Without a foreground service Android soon freezes the app and
+     * cuts its network (field log: "Software caused connection abort", then a 1 s retry that ran 2 minutes later),
+     * so a quick switch to another app cost the connection. Keep the link for [ms], or until the app is back.
+     */
+    private suspend fun linger(ms: Long) {
+        repo.hold(TAG_LINGER)
+        val t0 = SystemClock.elapsedRealtime()
+        graph.log.link("Keeping the car link for up to ${ms / 1000} s while the app is in the background")
+        try {
+            while (SystemClock.elapsedRealtime() - t0 < ms) {
+                delay(1_000)
+                if (repo.isHeldBy(CarRepository.UI)) {
+                    graph.log.link("App is back after ${(SystemClock.elapsedRealtime() - t0) / 1000} s — the link stayed up")
+                    return
+                }
+            }
+            graph.log.link("App stayed in the background for ${ms / 1000} s — letting the car link go")
+        } finally {
+            repo.release(TAG_LINGER, lingerMs = 5_000)
         }
     }
 
@@ -280,6 +324,7 @@ class LinkService : LifecycleService() {
     }
 
     private fun goForeground(title: String, text: String) {
+        foregroundAt = SystemClock.elapsedRealtime()
         ServiceCompat.startForeground(
             this, Notifier.ID_LINK, buildNotification(title, text),
             ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE,
@@ -302,7 +347,7 @@ class LinkService : LifecycleService() {
     }
 
     private fun buildNotification(title: String, text: String) = graph.notifier.linkNotification(
-        title, text,
+        title, text, immediate = immediateNotification, actions =
         listOf(
             NotificationCompat.Action(
                 R.drawable.ic_stat_car, str(R.string.common_stop),
@@ -325,6 +370,11 @@ class LinkService : LifecycleService() {
         const val ACTION_START_DEPARTURE = "io.github.anwo91.phevlink.START_DEPARTURE"
         const val ACTION_WATCH = "io.github.anwo91.phevlink.WATCH"
         const val ACTION_STOP = "io.github.anwo91.phevlink.STOP"
+        const val ACTION_LINGER = "io.github.anwo91.phevlink.LINGER"
+        const val EXTRA_LINGER_MS = "linger_ms"
+        /** How long the link survives the app going to the background. */
+        const val LINGER_MS = 120_000L
+        private const val TAG_LINGER = "svc-linger"
         const val EXTRA_COMMAND = "command"
         const val EXTRA_DEPARTURE = "departure"
         const val EXTRA_AT = "at"
@@ -336,6 +386,15 @@ class LinkService : LifecycleService() {
 
         fun commandIntent(context: Context, cmd: CarCommand) =
             intent(context, ACTION_COMMAND).putExtra(EXTRA_COMMAND, Json.write(Codecs.commandToMap(cmd)))
+
+        /**
+         * Keep the car link alive after the app goes to the background. Call from Activity.onStop: Android still
+         * allows starting a foreground service while the app leaves a visible state.
+         */
+        fun linger(context: Context, ms: Long = LINGER_MS) {
+            runCatching { context.startForegroundService(intent(context, ACTION_LINGER).putExtra(EXTRA_LINGER_MS, ms)) }
+                .onFailure { context.graph.log.warn("Could not keep the car link in the background (${it.javaClass.simpleName}: ${it.message}) — it may drop if Android pauses the app") }
+        }
 
         /** Only call from a context allowed to start foreground services (UI, alarm, widget/tile click). */
         fun start(context: Context, intent: Intent) {

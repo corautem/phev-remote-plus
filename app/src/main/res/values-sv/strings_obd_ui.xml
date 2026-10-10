@@ -154,14 +154,13 @@
 
     <!-- Device picker -->
     <string name="obd_pick_title">Välj OBD-adapter</string>
-    <string name="obd_pick_hint">Vanliga Bluetooth-adaptrar (Classic) måste först parkopplas i telefonens Bluetooth-inställningar. Bluetooth LE-adaptrar hittas med en sökning.</string>
+    <string name="obd_pick_hint">Adaptrar visas först. Parkopplade adaptrar finns nedan; Sök hittar Bluetooth LE-adaptrar och vanliga adaptrar som inte är parkopplade än.</string>
     <string name="obd_pick_need_permission">Appen behöver behörighet att hitta och ansluta till Bluetooth-enheter i närheten.</string>
     <string name="obd_pick_allow">Tillåt</string>
     <string name="obd_pick_turn_on_bt">Slå på Bluetooth</string>
     <string name="obd_pick_recent">Senaste</string>
     <string name="obd_pick_paired">Parkopplade Bluetooth-enheter</string>
-    <string name="obd_pick_none_paired">Inga parkopplade enheter. Parkoppla adaptern i telefonens Bluetooth-inställningar, eller sök efter Bluetooth LE nedan.</string>
-    <string name="obd_pick_ble">Bluetooth LE-adaptrar</string>
+    <string name="obd_pick_none_paired">Inga parkopplade adaptrar. Tryck på Sök nedan, eller parkoppla adaptern i telefonens Bluetooth-inställningar.</string>
     <string name="obd_pick_scan">Sök</string>
     <string name="obd_pick_scanning">Söker…</string>
     <string name="obd_pick_stop">Stoppa</string>

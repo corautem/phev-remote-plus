@@ -9,12 +9,15 @@ import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanFilter
 import android.bluetooth.le.ScanResult
 import android.bluetooth.le.ScanSettings
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.content.ContextCompat
 import io.github.anwo91.phevlink.core.diag.DiagLog
+import io.github.anwo91.phevlink.core.obd.AdapterGuess
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -35,17 +38,12 @@ import java.util.Locale
 @SuppressLint("MissingPermission") // every call site checks the permission first (see hasConnectPermission/hasScanPermission)
 object ObdDevices {
 
-    /** Name fragments of common OBD adapters (compared case-insensitively). */
-    private val OBD_NAME_HINTS = listOf(
-        "OBD", "ELM", "VGATE", "ICAR", "V-LINK", "VLINK", "KONNWEI", "KW90", "KW9", "VEEPEAK", "VIECAR",
-        "CARISTA", "LELINK", "SCAN TOOL", "SCANTOOL", "CAN OBD", "IOS-VLINK", "ANDROID-VLINK", "THINKCAR", "FIXD",
-    )
-
     /** True when [name] looks like an OBD adapter ("OBDII", "OBDLink MX+", "Android-Vlink", "IOS-Vlink", "V-LINK"…). */
-    fun looksLikeObd(name: String?): Boolean {
-        val n = name?.uppercase(Locale.ROOT) ?: return false
-        return OBD_NAME_HINTS.any { n.contains(it) }
-    }
+    fun looksLikeObd(name: String?): Boolean = AdapterGuess.guess(name).rank == AdapterGuess.Rank.ADAPTER
+
+    /** Adapters first, then possible ones, unknown devices and proprietary scan tools; by name within each. */
+    fun sorted(list: Collection<ObdCandidate>): List<ObdCandidate> =
+        list.sortedWith(compareBy<ObdCandidate>({ it.guess.rank.ordinal }, { it.spec.name.lowercase(Locale.ROOT) }))
 
     /** The phone's Bluetooth adapter, or null when there is no Bluetooth hardware. */
     fun adapter(context: Context): BluetoothAdapter? =
@@ -99,7 +97,7 @@ object ObdDevices {
      * are listed as [ObdDeviceSpec.Kind.CLASSIC], LE-only devices as [ObdDeviceSpec.Kind.BLE].
      * Empty without Bluetooth, with Bluetooth off, or without permission. Fast; may be called on the main thread.
      */
-    fun bondedDevices(context: Context): List<ObdDeviceSpec> {
+    fun bondedDevices(context: Context): List<ObdCandidate> {
         if (!hasConnectPermission(context)) return emptyList()
         val adapter = adapter(context) ?: return emptyList()
         val bonded: Set<BluetoothDevice> = try {
@@ -109,16 +107,81 @@ object ObdDevices {
         } catch (e: RuntimeException) {
             emptySet()
         }
-        return bonded.mapNotNull { d ->
-            try {
-                val address = d.address ?: return@mapNotNull null
-                val name = d.name?.takeIf { it.isNotBlank() } ?: address
-                val kind = if (d.type == BluetoothDevice.DEVICE_TYPE_LE) ObdDeviceSpec.Kind.BLE else ObdDeviceSpec.Kind.CLASSIC
-                ObdDeviceSpec(kind, address, name)
-            } catch (e: SecurityException) {
+        return sorted(bonded.mapNotNull { d -> candidate(d, d.name) })
+    }
+
+    /** [d] as a list entry, with a guess from its name and Bluetooth class, or null if it can't be read. */
+    private fun candidate(d: BluetoothDevice, name: String?, services: List<String> = emptyList(), companies: List<Int> = emptyList()): ObdCandidate? =
+        try {
+            val address = d.address
+            if (address == null) {
                 null
+            } else {
+                val shown = name?.takeIf { it.isNotBlank() } ?: address
+                val kind = if (d.type == BluetoothDevice.DEVICE_TYPE_LE) ObdDeviceSpec.Kind.BLE else ObdDeviceSpec.Kind.CLASSIC
+                // BLE-only devices have no meaningful class (it reads as "misc").
+                val major = if (kind == ObdDeviceSpec.Kind.CLASSIC) runCatching { d.bluetoothClass?.majorDeviceClass }.getOrNull() else null
+                ObdCandidate(ObdDeviceSpec(kind, address, shown), AdapterGuess.guess(name, major, services, companies))
             }
-        }.sortedWith(compareBy<ObdDeviceSpec>({ !it.looksLikeObd }, { it.name.lowercase(Locale.ROOT) }))
+        } catch (e: SecurityException) {
+            null
+        }
+
+    /**
+     * Classic Bluetooth discovery (about 12 s) for adapters that are not paired yet — most older ELM327 dongles are
+     * Classic-only and never show up in a BLE scan. Connecting to one makes Android ask for its PIN (often 1234).
+     * Emits each device once. Needs [hasScanPermission].
+     */
+    fun discoverClassic(context: Context, log: DiagLog? = null): Flow<ObdCandidate> = callbackFlow {
+        val adapter = adapter(context)
+        if (adapter == null || !hasScanPermission(context) || !hasConnectPermission(context)) {
+            log?.warn("OBD: Bluetooth discovery not possible (Bluetooth off or permission missing)")
+            close()
+            return@callbackFlow
+        }
+        val seen = HashSet<String>()
+        val receiver = object : BroadcastReceiver() {
+            override fun onReceive(c: Context, intent: Intent) {
+                when (intent.action) {
+                    BluetoothDevice.ACTION_FOUND -> {
+                        @Suppress("DEPRECATION")
+                        val d: BluetoothDevice = (
+                            if (Build.VERSION.SDK_INT >= 33) intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE, BluetoothDevice::class.java)
+                            else intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
+                            ) ?: return
+                        val name = intent.getStringExtra(BluetoothDevice.EXTRA_NAME) ?: runCatching { d.name }.getOrNull()
+                        // Unnamed devices are almost never adapters and can't be told apart in a list.
+                        if (name.isNullOrBlank()) return
+                        val cand = candidate(d, name) ?: return
+                        if (synchronized(seen) { seen.add(cand.spec.address) }) trySend(cand)
+                    }
+                    BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> close()
+                }
+            }
+        }
+        val filter = IntentFilter().apply {
+            addAction(BluetoothDevice.ACTION_FOUND)
+            addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)
+        }
+        ContextCompat.registerReceiver(context, receiver, filter, ContextCompat.RECEIVER_EXPORTED)
+        val started = try {
+            adapter.cancelDiscovery()
+            adapter.startDiscovery()
+        } catch (e: SecurityException) {
+            false
+        }
+        if (!started) {
+            log?.warn("OBD: Bluetooth discovery could not start")
+            runCatching { context.unregisterReceiver(receiver) }
+            close()
+            return@callbackFlow
+        }
+        log?.link("OBD: Bluetooth discovery started")
+        awaitClose {
+            runCatching { adapter.cancelDiscovery() }
+            runCatching { context.unregisterReceiver(receiver) }
+            log?.link("OBD: Bluetooth discovery stopped (${synchronized(seen) { seen.size }} named devices)")
+        }
     }
 
     /**
@@ -127,7 +190,7 @@ object ObdDevices {
      * Completes immediately (empty) without Bluetooth LE, with Bluetooth off, or without [hasScanPermission].
      * Stop collecting before connecting: scanning while connecting causes BLE errors on many phones.
      */
-    fun scanBle(context: Context, durationMs: Long = 10_000, log: DiagLog? = null): Flow<ObdDeviceSpec> = callbackFlow {
+    fun scanBle(context: Context, durationMs: Long = 10_000, log: DiagLog? = null): Flow<ObdCandidate> = callbackFlow {
         val adapter = adapter(context)
         val scanner = if (adapter != null && hasScanPermission(context)) {
             runCatching { adapter.bluetoothLeScanner }.getOrNull()
@@ -161,7 +224,11 @@ object ObdDevices {
                     ?: runCatching { d.name }.getOrNull()?.takeIf { it.isNotBlank() }
                     ?: return
                 val fresh = synchronized(seen) { seen.add(address) }
-                if (fresh) trySend(ObdDeviceSpec(ObdDeviceSpec.Kind.BLE, address, name))
+                if (!fresh) return
+                val record = result.scanRecord
+                val services = record?.serviceUuids?.map { it.uuid.toString() }.orEmpty()
+                val companies = record?.manufacturerSpecificData?.let { m -> (0 until m.size()).map { m.keyAt(it) } }.orEmpty()
+                trySend(ObdCandidate(ObdDeviceSpec(ObdDeviceSpec.Kind.BLE, address, name), AdapterGuess.guess(name, null, services, companies)))
             }
         }
         val settings = ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build()
@@ -186,4 +253,9 @@ object ObdDevices {
             log?.link("OBD: BLE scan stopped (${synchronized(seen) { seen.size }} named devices)")
         }
     }
+}
+
+/** A device in the adapter list, with a guess whether it is an OBD adapter. */
+data class ObdCandidate(val spec: ObdDeviceSpec, val guess: AdapterGuess.Guess) {
+    val hidden: Boolean get() = guess.rank == AdapterGuess.Rank.NOT_ADAPTER
 }

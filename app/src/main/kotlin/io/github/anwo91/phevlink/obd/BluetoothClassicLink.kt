@@ -50,6 +50,47 @@ class BluetoothClassicLink private constructor(
     }
 
     companion object {
+        private const val BOND_TIMEOUT_MS = 45_000L
+
+        /**
+         * An adapter found by a scan isn't paired yet. Pairing first (Android shows its PIN dialog; old ELM327s
+         * use 1234 or 0000) instead of letting the RFCOMM connect trigger it: the connect attempt would time out
+         * while the user is still typing the PIN.
+         */
+        private suspend fun ensureBonded(device: BluetoothDevice, name: String, log: DiagLog) {
+            val state = try { device.bondState } catch (e: SecurityException) { return }
+            if (state == BluetoothDevice.BOND_BONDED) return
+            log.link("OBD: $name is not paired — asking Android to pair (old adapters use PIN 1234 or 0000)")
+            val started = try {
+                state == BluetoothDevice.BOND_BONDING || device.createBond()
+            } catch (e: SecurityException) {
+                throw ObdConnectException(ObdConnectException.Reason.PERMISSION, "Bluetooth permission refused: ${e.message}", e)
+            }
+            if (!started) {
+                log.warn("OBD: Android refused to start pairing with $name — trying to connect anyway")
+                return
+            }
+            val t0 = SystemClock.elapsedRealtime()
+            var sawBonding = false
+            while (SystemClock.elapsedRealtime() - t0 < BOND_TIMEOUT_MS) {
+                delay(300)
+                when (try { device.bondState } catch (e: SecurityException) { BluetoothDevice.BOND_NONE }) {
+                    BluetoothDevice.BOND_BONDED -> {
+                        log.link("OBD: paired with $name after ${(SystemClock.elapsedRealtime() - t0) / 1000} s")
+                        return
+                    }
+                    BluetoothDevice.BOND_BONDING -> sawBonding = true
+                    else -> if (sawBonding || SystemClock.elapsedRealtime() - t0 > 5_000) {
+                        throw ObdConnectException(
+                            ObdConnectException.Reason.PAIRING_FAILED,
+                            "Pairing with $name was cancelled or refused" + if (sawBonding) " (wrong PIN?)" else "",
+                        )
+                    }
+                }
+            }
+            throw ObdConnectException(ObdConnectException.Reason.PAIRING_FAILED, "Pairing with $name did not finish within ${BOND_TIMEOUT_MS / 1000} s")
+        }
+
         /** Serial Port Profile service UUID. */
         val SPP_UUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
 
@@ -98,6 +139,8 @@ class BluetoothClassicLink private constructor(
             } catch (e: SecurityException) {
                 log.warn("OBD: could not cancel Bluetooth discovery (${e.message})")
             }
+
+            ensureBonded(device, name, log)
 
             val description = "Bluetooth Classic $name ($address)"
             var last: Exception? = null

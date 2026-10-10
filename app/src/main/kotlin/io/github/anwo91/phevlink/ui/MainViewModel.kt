@@ -64,6 +64,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     fun onVisible() {
         visible = true
+        log.link("App in the foreground")
         // After a language change the activity is recreated: re-render texts built outside the UI.
         repo.relocalize()
         repo.hold(CarRepository.UI)
@@ -72,6 +73,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     fun onHidden() {
         visible = false
+        log.link("App in the background")
+        // Android freezes a background app and cuts its network within seconds unless a foreground service runs,
+        // so a quick switch to another app used to drop the car. The service keeps the link for a while.
+        if (repo.isActive && repo.isHeldBy(CarRepository.UI)) LinkService.linger(getApplication())
         repo.release(CarRepository.UI, lingerMs = 30_000)
     }
 

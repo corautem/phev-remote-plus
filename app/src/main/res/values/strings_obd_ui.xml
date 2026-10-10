@@ -154,14 +154,13 @@
 
     <!-- Device picker -->
     <string name="obd_pick_title">Choose OBD adapter</string>
-    <string name="obd_pick_hint">Classic Bluetooth adapters must first be paired in the phone\'s Bluetooth settings. Bluetooth LE adapters are found with a scan.</string>
+    <string name="obd_pick_hint">Adapters are listed first. Paired adapters are below; Scan finds Bluetooth LE adapters and classic ones that aren\'t paired yet.</string>
     <string name="obd_pick_need_permission">The app needs permission to find and connect to nearby Bluetooth devices.</string>
     <string name="obd_pick_allow">Allow</string>
     <string name="obd_pick_turn_on_bt">Turn on Bluetooth</string>
     <string name="obd_pick_recent">Recent</string>
     <string name="obd_pick_paired">Paired Bluetooth devices</string>
-    <string name="obd_pick_none_paired">No paired devices. Pair the adapter in the phone\'s Bluetooth settings, or scan for Bluetooth LE below.</string>
-    <string name="obd_pick_ble">Bluetooth LE adapters</string>
+    <string name="obd_pick_none_paired">No paired adapters. Tap Scan below, or pair the adapter in the phone\'s Bluetooth settings.</string>
     <string name="obd_pick_scan">Scan</string>
     <string name="obd_pick_scanning">Scanning…</string>
     <string name="obd_pick_stop">Stop</string>

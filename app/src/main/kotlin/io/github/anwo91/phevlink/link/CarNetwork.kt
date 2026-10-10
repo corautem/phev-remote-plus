@@ -58,6 +58,8 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
     private var watchCb: ConnectivityManager.NetworkCallback? = null
     private var requestCb: ConnectivityManager.NetworkCallback? = null
     private var requested: Network? = null
+    private var releasePending = false
+    private var releasedNetwork: Network? = null
     private val candidates = LinkedHashMap<Network, LinkProperties>()
     private var validated = HashSet<Network>()
     /** Called whenever a usable car network appears (to skip connection backoff). */
@@ -67,7 +69,14 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
 
     @Synchronized
     fun start(t: Target) {
-        if (target == t && _state.value !is State.Failed) return
+        if (target == t && _state.value !is State.Failed) {
+            if (releasePending) {
+                releasePending = false
+                main.removeCallbacksAndMessages(RELEASE_TOKEN)
+                log.link("Reusing the car Wi-Fi the app still holds")
+            }
+            return
+        }
         stopInternal()
         target = t
         _state.value = State.Searching(System.currentTimeMillis(), requested = false)
@@ -78,14 +87,35 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
         scheduleRequest()
     }
 
+    /**
+     * Lets go of the car's Wi-Fi after [graceMs]. Field log: when the app released its request and reconnected
+     * soon after, the phone was still on the car's network ("phone already on car Wi-Fi") but nothing held it any
+     * more, and Android dropped it 40–70 s later in the middle of a session. Holding the request a little longer
+     * lets a quick restart reuse it.
+     */
     @Synchronized
-    fun stop() {
+    fun stop(graceMs: Long = RELEASE_GRACE_MS) {
+        if (target == null || releasePending) return
+        if (graceMs <= 0 || requestCb == null) {
+            releaseNow()
+            return
+        }
+        releasePending = true
+        main.postAtTime({ synchronized(this) { if (releasePending) releaseNow() } }, RELEASE_TOKEN, android.os.SystemClock.uptimeMillis() + graceMs)
+    }
+
+    private fun releaseNow() {
         if (target == null) return
         stopInternal()
         log.link("Released car Wi-Fi")
     }
 
     private fun stopInternal() {
+        releasePending = false
+        main.removeCallbacksAndMessages(RELEASE_TOKEN)
+        // Remember what our own request had joined: if the phone is still on it later, it's our leftover, not a
+        // network the user joined — and Android will drop it soon unless we ask for it again.
+        requested?.let { releasedNetwork = it }
         main.removeCallbacksAndMessages(REQUEST_TOKEN)
         watchCb?.let { runCatching { cm.unregisterNetworkCallback(it) } }
         requestCb?.let { runCatching { cm.unregisterNetworkCallback(it) } }
@@ -201,6 +231,12 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
                 log.link("Car Wi-Fi ready ($how)" + (lp?.let { " addr=${it.linkAddresses.joinToString()}" } ?: ""))
                 _state.value = State.Ready(pick, how)
                 onAvailable?.invoke()
+                if (pick != req && pick == releasedNetwork && requestCb == null) {
+                    // Our own earlier connection, no longer requested: ask for it again so Android keeps it.
+                    log.link("That network was joined by the app before and nothing holds it now — asking Android to keep it")
+                    main.removeCallbacksAndMessages(REQUEST_TOKEN)
+                    main.post { requestIfNeeded(force = true) }
+                }
             }
         } else if (current is State.Ready) {
             // The network we were using no longer qualifies (lost, or turned out to be a router).
@@ -219,9 +255,9 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
     // ------------------------------------------------------------------- request
 
     @Synchronized
-    private fun requestIfNeeded() {
+    private fun requestIfNeeded(force: Boolean = false) {
         val t = target ?: return
-        if (_state.value is State.Ready || requestCb != null) return
+        if ((_state.value is State.Ready && !force) || requestCb != null) return
         val spec = try {
             WifiNetworkSpecifier.Builder()
                 .setSsid(t.ssid)
@@ -266,13 +302,19 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
                 synchronized(this@CarNetwork) {
                     if (requestCb !== this) return
                     requestCb = null
+                    if (_state.value is State.Ready) {
+                        // A re-request for the network we are already using was refused (e.g. app in the background).
+                        log.warn("Android would not confirm the car Wi-Fi the phone is on — using it as long as it lasts")
+                        return
+                    }
                     log.warn("Android could not join the car Wi-Fi (declined, wrong password, or not in range)")
                     _state.value = State.Failed(AppLocale.localized(context).getString(R.string.net_could_not_join, t.ssid))
                 }
             }
         }
         requestCb = cb
-        _state.value = State.Searching(System.currentTimeMillis(), requested = true)
+        // When re-requesting a network the phone is still on, keep using it meanwhile.
+        if (!force) _state.value = State.Searching(System.currentTimeMillis(), requested = true)
         log.link("Asking Android to join \"${t.ssid}\"")
         runCatching { cm.requestNetwork(req, cb, main) }.onFailure {
             requestCb = null
@@ -284,6 +326,9 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
     companion object {
         const val CAR_IP = "192.168.8.46"
         private val REQUEST_TOKEN = Any()
+        private val RELEASE_TOKEN = Any()
+        /** How long the car's Wi-Fi is kept after the link stops (see [stop]). */
+        const val RELEASE_GRACE_MS = 120_000L
     }
 
     /** After a failure (e.g. user declined), allow a fresh attempt. */

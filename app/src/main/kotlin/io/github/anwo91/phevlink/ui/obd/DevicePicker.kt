@@ -49,17 +49,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import io.github.anwo91.phevlink.R
+import io.github.anwo91.phevlink.core.obd.AdapterGuess
+import io.github.anwo91.phevlink.obd.ObdCandidate
 import io.github.anwo91.phevlink.obd.ObdDeviceSpec
 import io.github.anwo91.phevlink.obd.ObdDevices
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 /**
- * Chooses the OBD adapter: recent adapters, paired Bluetooth devices, a Bluetooth LE scan, or a Wi-Fi adapter.
+ * Chooses the OBD adapter: recent adapters, paired Bluetooth devices, a scan (Bluetooth LE and Classic), or a Wi-Fi
+ * adapter. Likely adapters come first; phones, headphones and the like are hidden behind "show all".
  * Asks for the Bluetooth permissions and to switch Bluetooth on when needed.
  */
 @Composable
@@ -75,7 +80,8 @@ fun DevicePicker(vm: ObdViewModel, onDismiss: () -> Unit, onPicked: (ObdDeviceSp
     val btOn = remember(permissionTick) { ObdDevices.isBluetoothOn(ctx) }
     val hasBt = remember { ObdDevices.hasBluetooth(ctx) }
     val bonded = remember(permissionTick) { if (canConnect && btOn) ObdDevices.bondedDevices(ctx) else emptyList() }
-    val found = remember { mutableStateListOf<ObdDeviceSpec>() }
+    val found = remember { mutableStateListOf<ObdCandidate>() }
+    var showAll by remember { mutableStateOf(false) }
     var scanning by remember { mutableStateOf(false) }
     var scanJob by remember { mutableStateOf<Job?>(null) }
     var wifiAddress by remember { mutableStateOf(ObdDeviceSpec.defaultWifi().address) }
@@ -150,18 +156,24 @@ fun DevicePicker(vm: ObdViewModel, onDismiss: () -> Unit, onPicked: (ObdDeviceSp
                 if (recent.isNotEmpty()) {
                     SectionLabel(stringResource(R.string.obd_pick_recent))
                     recent.forEach { d ->
-                        DeviceRow(d, onClick = { pick(d) }, onForget = { vm.forget(d) })
+                        DeviceRow(d, AdapterGuess.guess(d.name), onClick = { pick(d) }, onForget = { vm.forget(d) })
                     }
                 }
-                if (bonded.isNotEmpty()) {
+                // Phones, headphones, watches… are hidden unless asked for (AdapterGuess); counted across both lists.
+                val pairedList = bonded.filter { b -> recent.none { it.sameDevice(b.spec) } }
+                val hiddenCount = (pairedList + found).count { it.hidden }
+                if (pairedList.isNotEmpty()) {
                     SectionLabel(stringResource(R.string.obd_pick_paired))
-                    bonded.filter { b -> recent.none { it.sameDevice(b) } }.forEach { d -> DeviceRow(d, onClick = { pick(d) }) }
+                    pairedList.filter { showAll || !it.hidden }.forEach { c -> DeviceRow(c.spec, c.guess, onClick = { pick(c.spec) }) }
+                    if (pairedList.all { it.hidden } && !showAll) {
+                        Text(stringResource(R.string.obd_pick_none_paired), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
                 } else if (canConnect && btOn) {
                     Text(stringResource(R.string.obd_pick_none_paired), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
 
-                if (hasPerm && btOn && ObdDevices.hasBluetoothLe(ctx)) {
-                    SectionLabel(stringResource(R.string.obd_pick_ble))
+                if (hasPerm && btOn) {
+                    SectionLabel(stringResource(R.string.obd_pick_nearby))
                     if (scanning) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp)
@@ -175,10 +187,23 @@ fun DevicePicker(vm: ObdViewModel, onDismiss: () -> Unit, onPicked: (ObdDeviceSp
                             found.clear()
                             scanning = true
                             scanJob = scope.launch {
+                                fun addFound(c: ObdCandidate) {
+                                    val known = found.any { it.spec.address.equals(c.spec.address, true) } ||
+                                        bonded.any { it.spec.address.equals(c.spec.address, true) }
+                                    if (!known) found += c
+                                }
                                 try {
-                                    ObdDevices.scanBle(ctx, 12_000, vm.log).collect { d ->
-                                        if (found.none { it.sameDevice(d) } && bonded.none { it.address.equals(d.address, true) }) found += d
+                                    // Both at once: newer adapters are BLE, most older ELM327 dongles are Classic-only
+                                    // and only show up in a discovery (unless already paired).
+                                    val jobs = buildList {
+                                        if (ObdDevices.hasBluetoothLe(ctx)) add(launch { ObdDevices.scanBle(ctx, 12_000, vm.log).collect { addFound(it) } })
+                                        add(launch { ObdDevices.discoverClassic(ctx, vm.log).collect { addFound(it) } })
                                     }
+                                    jobs.forEach { it.join() }
+                                    val c = found.groupingBy { it.guess.rank }.eachCount()
+                                    vm.log.link("OBD: scan found ${found.size} new devices: " + c.entries.joinToString { "${it.value} ${it.key.name.lowercase()}" })
+                                } catch (e: CancellationException) {
+                                    throw e
                                 } catch (e: Exception) {
                                     vm.toast(e.message ?: e.toString())
                                 } finally {
@@ -191,7 +216,16 @@ fun DevicePicker(vm: ObdViewModel, onDismiss: () -> Unit, onPicked: (ObdDeviceSp
                             Text(stringResource(R.string.obd_pick_scan))
                         }
                     }
-                    found.sortedByDescending { it.looksLikeObd }.forEach { d -> DeviceRow(d, onClick = { pick(d) }) }
+                    ObdDevices.sorted(found).filter { showAll || !it.hidden }.forEach { c -> DeviceRow(c.spec, c.guess, onClick = { pick(c.spec) }) }
+                    Text(stringResource(R.string.obd_pick_pin_hint), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 4.dp))
+                }
+                if (hiddenCount > 0 || showAll) {
+                    TextButton(onClick = { showAll = !showAll }) {
+                        Text(
+                            if (showAll) stringResource(R.string.obd_pick_hide_others)
+                            else pluralStringResource(R.plurals.obd_pick_show_others, hiddenCount, hiddenCount),
+                        )
+                    }
                 }
 
                 SectionLabel(stringResource(R.string.obd_pick_wifi))
@@ -205,7 +239,7 @@ fun DevicePicker(vm: ObdViewModel, onDismiss: () -> Unit, onPicked: (ObdDeviceSp
                         Text(stringResource(R.string.obd_connect))
                     }
                 } else {
-                    DeviceRow(ObdDeviceSpec.defaultWifi(ctx.getString(R.string.obd_wifi_adapter_name)), onClick = { showWifi = true })
+                    DeviceRow(ObdDeviceSpec.defaultWifi(ctx.getString(R.string.obd_wifi_adapter_name)), AdapterGuess.Guess(AdapterGuess.Rank.ADAPTER), onClick = { showWifi = true })
                 }
             }
         },
@@ -222,7 +256,7 @@ private fun SectionLabel(text: String) {
 }
 
 @Composable
-private fun DeviceRow(d: ObdDeviceSpec, onClick: () -> Unit, onForget: (() -> Unit)? = null) {
+private fun DeviceRow(d: ObdDeviceSpec, guess: AdapterGuess.Guess, onClick: () -> Unit, onForget: (() -> Unit)? = null) {
     val icon: ImageVector = when (d.kind) {
         ObdDeviceSpec.Kind.WIFI -> Icons.Outlined.Wifi
         else -> Icons.Outlined.Bluetooth
@@ -238,10 +272,19 @@ private fun DeviceRow(d: ObdDeviceSpec, onClick: () -> Unit, onForget: (() -> Un
         Modifier.fillMaxWidth().clickable(onClick = onClick).padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        Icon(icon, null, tint = if (d.looksLikeObd) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
+        val adapterLike = guess.rank == AdapterGuess.Rank.ADAPTER || guess.rank == AdapterGuess.Rank.LIKELY
+        Icon(icon, null, tint = if (adapterLike) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
         Column(Modifier.weight(1f)) {
             Text(d.name, style = MaterialTheme.typography.bodyLarge)
             Text("$kind · ${d.address}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            when (guess.rank) {
+                AdapterGuess.Rank.LIKELY -> Text(stringResource(R.string.obd_pick_likely), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
+                AdapterGuess.Rank.PROPRIETARY -> Text(
+                    stringResource(R.string.obd_pick_proprietary, guess.brand ?: ""),
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error,
+                )
+                else -> Unit
+            }
         }
         if (onForget != null) {
             IconButton(onClick = onForget) { Icon(Icons.Outlined.Close, stringResource(R.string.obd_pick_forget)) }

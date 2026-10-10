@@ -154,14 +154,13 @@
 
     <!-- Device picker -->
     <string name="obd_pick_title">Velg OBD-adapter</string>
-    <string name="obd_pick_hint">Vanlige Bluetooth-adaptere (Classic) må først kobles sammen i telefonens Bluetooth-innstillinger. Bluetooth LE-adaptere finner du med et søk.</string>
+    <string name="obd_pick_hint">Adaptere vises først. Sammenkoblede adaptere står under; Søk finner Bluetooth LE-adaptere og vanlige adaptere som ikke er sammenkoblet ennå.</string>
     <string name="obd_pick_need_permission">Appen trenger tillatelse til å finne og koble til Bluetooth-enheter i nærheten.</string>
     <string name="obd_pick_allow">Tillat</string>
     <string name="obd_pick_turn_on_bt">Slå på Bluetooth</string>
     <string name="obd_pick_recent">Nylig brukt</string>
     <string name="obd_pick_paired">Sammenkoblede Bluetooth-enheter</string>
-    <string name="obd_pick_none_paired">Ingen sammenkoblede enheter. Koble sammen adapteren i telefonens Bluetooth-innstillinger, eller søk etter Bluetooth LE nedenfor.</string>
-    <string name="obd_pick_ble">Bluetooth LE-adaptere</string>
+    <string name="obd_pick_none_paired">Ingen sammenkoblede adaptere. Trykk Søk nedenfor, eller koble sammen adapteren i telefonens Bluetooth-innstillinger.</string>
     <string name="obd_pick_scan">Søk</string>
     <string name="obd_pick_scanning">Søker…</string>
     <string name="obd_pick_stop">Stopp</string>

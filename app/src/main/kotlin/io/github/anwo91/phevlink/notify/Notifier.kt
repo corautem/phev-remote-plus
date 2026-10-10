@@ -97,7 +97,10 @@ class Notifier(private val context: Context) {
         nm.notify(ID_RESULT, n)
     }
 
-    fun linkNotification(title: String, text: String, actions: List<NotificationCompat.Action> = emptyList()): Notification {
+    /** [immediate] false: Android may wait ~10 s before showing it (a short background linger then shows nothing). */
+    fun linkNotification(
+        title: String, text: String, immediate: Boolean = true, actions: List<NotificationCompat.Action> = emptyList(),
+    ): Notification {
         ensureChannels()
         return NotificationCompat.Builder(context, CH_LINK)
             .setSmallIcon(R.drawable.ic_stat_car)
@@ -107,7 +110,9 @@ class Notifier(private val context: Context) {
             .setOnlyAlertOnce(true)
             .setSilent(true)
             .setContentIntent(openAppIntent())
-            .setForegroundServiceBehavior(NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE)
+            .setForegroundServiceBehavior(
+                if (immediate) NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE else NotificationCompat.FOREGROUND_SERVICE_DEFERRED,
+            )
             .apply { actions.forEach { addAction(it) } }
             .build()
     }

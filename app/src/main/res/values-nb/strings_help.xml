@@ -25,4 +25,16 @@
 
     <string name="obd_err_not_elm">«%1$s» koblet til, men svarte ikke på ELM327-kommandoer. Det er sannsynligvis ikke en ELM327-adapter (for eksempel et diagnoseverktøy som bare virker med sin egen app), så denne appen kan ikke bruke den. Bruk en ELM327-kompatibel adapter, f.eks. OBDLink LX, MX+ eller CX, Vgate iCar Pro eller Veepeak. Er det en ELM327-adapter, trekk den ut noen sekunder og prøv igjen.</string>
     <string name="obd_err_not_elm_brand">«%1$s» ser ut som et diagnoseverktøy fra %2$s. Slike virker bare med produsentens egen app og snakker ikke ELM327, så denne appen kan ikke bruke det. Bruk en ELM327-kompatibel adapter, f.eks. OBDLink LX, MX+ eller CX, Vgate iCar Pro eller Veepeak.</string>
+
+    <!-- OBD device list -->
+    <string name="obd_pick_nearby">I nærheten (søk)</string>
+    <string name="obd_pick_pin_hint">Eldre vanlige adaptere spør etter en PIN-kode første gang du kobler til: som regel 1234 eller 0000.</string>
+    <string name="obd_pick_hide_others">Skjul enheter som ikke er OBD-adaptere</string>
+    <plurals name="obd_pick_show_others">
+        <item quantity="one">Vis %d annen enhet (telefon, hodetelefoner …)</item>
+        <item quantity="other">Vis %d andre enheter (telefoner, hodetelefoner …)</item>
+    </plurals>
+    <string name="obd_pick_likely">Sannsynligvis en OBD-adapter</string>
+    <string name="obd_pick_proprietary">Diagnoseverktøy fra %1$s – virker bare med sin egen app, ikke her</string>
+    <string name="obd_err_pairing">Sammenkoblingen med «%1$s» ble ikke fullført. Koble til igjen og skriv inn adapterens PIN-kode når Android spør — som regel 1234 eller 0000 (av og til 6789 eller 1111).</string>
 </resources>

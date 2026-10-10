@@ -97,6 +97,7 @@ data class ObdState(
     val supportedPids: Map<Int, Set<Int>> = emptyMap(),
     val values: Map<String, ObdValue> = emptyMap(),
     val batteryHealth: BatteryHealth? = null,
+    val cells: CellData? = null,
     val dtcs: List<DtcRecord> = emptyList(),
     val lastDtcScanMs: Long? = null,
     val vin: String? = null,

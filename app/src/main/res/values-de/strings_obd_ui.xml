@@ -215,4 +215,12 @@
     <string name="beep_adjust_no">Nicht änderbar</string>
     <string name="obd_terminal_confirm_title">Diesen Befehl senden?</string>
     <string name="obd_terminal_confirm_text">„%1$s“ ist keine reine Leseanfrage. Befehle wie 04 (Fehlercodes löschen), 10 (Sitzung), 11 (Neustart), 14 (Speicher löschen), 27 (Sicherheit) oder 2E/2F/31/3B (Schreiben/Steuern) können die Steuergeräte des Autos verändern oder zurücksetzen. Fahre nur fort, wenn du genau weißt, was er tut.</string>
+    <string name="obd_cells_title">Batteriezellen</string>
+    <string name="obd_busy_cells">Zellen werden gelesen …</string>
+    <string name="obd_cells_none">Tippe auf „Jetzt lesen“, um alle Zellspannungen zu holen (Auto muss in READY oder Zündung AN sein).</string>
+    <string name="obd_cells_count">Gelesene Zellen</string>
+    <string name="obd_cell_temps">Modultemperaturen</string>
+    <string name="obd_cells_unverified">Reihenfolge der Zellen ließ sich nicht gegen die Paketübersicht bestätigen — Näherung. Teile die Diagnose, dann lege ich das Layout fest.</string>
+    <string name="obd_cells_unverified_toast">Zellen gelesen, aber Layout nicht bestätigt — bitte teile das Diagnoseprotokoll.</string>
+    <string name="obd_cells_note">Zellspannungen vom Batterie-Steuergerät. Hervorgehoben = höchste und niedrigste Zelle.</string>
 </resources>

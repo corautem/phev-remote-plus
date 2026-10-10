@@ -83,6 +83,15 @@ class ObdViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    fun readCells() = op(R.string.obd_busy_cells) {
+        val c = obd.readCells()
+        val app = getApplication<Application>()
+        when {
+            c == null -> _messages.emit(state.value.batteryMessage ?: app.getString(R.string.obd_battery_unavailable))
+            !c.verified -> _messages.emit(app.getString(R.string.obd_cells_unverified_toast))
+        }
+    }
+
     fun sendTerminal(cmd: String) {
         val c = cmd.trim()
         if (c.isEmpty()) return

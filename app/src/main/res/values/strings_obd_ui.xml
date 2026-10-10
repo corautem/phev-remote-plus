@@ -215,4 +215,12 @@
     <string name="beep_adjust_no">Cannot be changed</string>
     <string name="obd_terminal_confirm_title">Send this command?</string>
     <string name="obd_terminal_confirm_text">“%1$s” is not a plain read request. Commands such as 04 (clear codes), 10 (session), 11 (reset), 14 (clear memory), 27 (security) or 2E/2F/31/3B (write/control) can change or reset the car\'s control units. Only continue if you know exactly what it does.</string>
+    <string name="obd_cells_title">Battery cells</string>
+    <string name="obd_busy_cells">Reading cells…</string>
+    <string name="obd_cells_none">Tap “Read now” to fetch every cell voltage (car must be in READY or ignition ON).</string>
+    <string name="obd_cells_count">Cells read</string>
+    <string name="obd_cell_temps">Module temperatures</string>
+    <string name="obd_cells_unverified">Couldn’t confirm the cell order against the pack summary — showing best effort. Please share Diagnostics so I can pin the layout down.</string>
+    <string name="obd_cells_unverified_toast">Read the cells, but couldn’t confirm the layout — please share the diagnostics log.</string>
+    <string name="obd_cells_note">Per-cell voltages from the battery ECU. Highlighted = highest and lowest cell.</string>
 </resources>

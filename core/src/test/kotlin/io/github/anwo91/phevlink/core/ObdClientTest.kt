@@ -52,6 +52,23 @@ class ObdClientTest {
     }
 
     @Test
+    fun readsPerCellVoltagesVerifiedAgainstSummary() = run {
+        val c = client(FakeElm())
+        assertTrue(c.connect())
+        val cells = c.readCells()
+        assertNotNull(cells); cells!!
+        assertTrue("should verify against the 21 01 summary", cells.verified)
+        assertEquals("contiguous", cells.layout)
+        assertEquals(80, cells.count)
+        assertEquals(3979, cells.maxMv); assertEquals(36, cells.maxCell)
+        assertEquals(3976, cells.minMv); assertEquals(3, cells.minCell)
+        assertEquals(3, cells.spreadMv)
+        assertEquals(12, cells.moduleTempsC.size)
+        assertEquals(25.0, cells.moduleTempsC.first(), 1e-9)
+        assertEquals(cells, c.state.value.cells)
+    }
+
+    @Test
     fun connectDiscoversCarEcusAndBattery() = run {
         val c = client(FakeElm())
         assertTrue(c.connect())

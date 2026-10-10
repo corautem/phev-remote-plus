@@ -215,4 +215,12 @@
     <string name="beep_adjust_no">Kan ikke endres</string>
     <string name="obd_terminal_confirm_title">Sende denne kommandoen?</string>
     <string name="obd_terminal_confirm_text">«%1$s» er ikke en vanlig leseforespørsel. Kommandoer som 04 (slett feilkoder), 10 (økt), 11 (omstart), 14 (slett minne), 27 (sikkerhet) eller 2E/2F/31/3B (skriv/styr) kan endre eller tilbakestille bilens styreenheter. Fortsett bare hvis du vet nøyaktig hva den gjør.</string>
+    <string name="obd_cells_title">Battericeller</string>
+    <string name="obd_busy_cells">Leser celler …</string>
+    <string name="obd_cells_none">Trykk «Les nå» for å hente alle cellespenninger (bilen må være i READY eller tenning PÅ).</string>
+    <string name="obd_cells_count">Celler lest</string>
+    <string name="obd_cell_temps">Modultemperaturer</string>
+    <string name="obd_cells_unverified">Kunne ikke bekrefte cellerekkefølgen mot pakkesammendraget – viser beste forsøk. Del Diagnostikk, så låser jeg oppsettet.</string>
+    <string name="obd_cells_unverified_toast">Leste cellene, men kunne ikke bekrefte oppsettet – del diagnostikkloggen.</string>
+    <string name="obd_cells_note">Cellespenninger fra batteri-ECU-en. Uthevet = høyeste og laveste celle.</string>
 </resources>

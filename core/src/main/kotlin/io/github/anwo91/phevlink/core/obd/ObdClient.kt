@@ -260,6 +260,51 @@ class ObdClient(
     }
 
     /**
+     * Reads the per-cell voltages (BMU `21 02`) and module temperatures (`21 03`) now, cross-checking against the
+     * latest `21 01` summary. Returns the decoded cells, or null (the raw frames are logged either way so an
+     * unverified layout can be pinned down from a capture).
+     */
+    suspend fun readCells(): CellData? {
+        if (!canTalk()) return null
+        return try {
+            linkMutex.withLock {
+                val summary = _state.value.batteryHealth ?: run { requestSignalsLocked(signalRequests.first { it.key == BMU_KEY }); _state.value.batteryHealth }
+                val cellsPayload = requestBmuRaw(bytesOf(0x21, 0x02)) ?: run {
+                    _state.update { it.copy(batteryMessage = MSG_BMU_SILENT) }
+                    return@withLock null
+                }
+                val tempsPayload = requestBmuRaw(bytesOf(0x21, 0x03))
+                log.link(
+                    "OBD: BMU 21 02 = ${cellsPayload.size} bytes" + (tempsPayload?.let { ", 21 03 = ${it.size} bytes" } ?: "") +
+                        " — raw 21 02: ${ObdHex.format(cellsPayload)}" + (tempsPayload?.let { " | 21 03: ${ObdHex.format(it)}" } ?: ""),
+                )
+                val cells = CellData.decode(cellsPayload, tempsPayload, summary, clock())
+                if (cells != null) {
+                    log.link("OBD: decoded ${cells.count} cells (${cells.layout}), ${cells.minMv}–${cells.maxMv} mV, spread ${cells.spreadMv} mV" +
+                        if (cells.verified) ", matches the summary" else " — could not verify against the summary")
+                    _state.update { it.copy(cells = cells) }
+                }
+                cells
+            }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: ObdException.LinkLost) {
+            onLinkLost(e)
+            null
+        }
+    }
+
+    /** Sends a raw BMU manufacturer request and returns the payload after the `61 xx` echo, or null. */
+    private suspend fun requestBmuRaw(request: ByteArray): ByteArray? {
+        var payload: ByteArray? = null
+        val a = attempt {
+            val replies = elm.request(PhevSignals.BMU, request)
+            payload = replies.firstNotNullOfOrNull { SignalDecoder.payloadOf(request, it) } ?: throw ObdException.NoData(ObdHex.format(request, ""))
+        }
+        return if (a.outcome == Outcome.OK) payload else null
+    }
+
+    /**
      * VIN known from elsewhere (e.g. the car's Wi-Fi link), used for the model-year dependent battery reference
      * capacity until the car reports its VIN over OBD (mode 09).
      */

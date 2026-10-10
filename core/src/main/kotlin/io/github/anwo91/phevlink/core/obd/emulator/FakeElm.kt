@@ -544,6 +544,8 @@ class FakeElm(
             }
             return listOf(BMU_2101)
         }
+        if (sid == 0x21 && req.size == 2 && req.u(1) == 0x02) return listOf(BMU_2102)
+        if (sid == 0x21 && req.size == 2 && req.u(1) == 0x03) return listOf(BMU_2103)
         return when (sid) {
             0x18 -> listOf(b(0x58, 0x01, 0x0A, 0x7F, 0x60))
             0x21 -> neg(0x21, 0x31)
@@ -579,5 +581,22 @@ class FakeElm(
                 "64 00 00 00 00 00 00 " +
                 "00 00 0F 8A 00 02 00",
         )
+
+        /**
+         * `21 02` reply: 80 cell voltages as big-endian millivolts, consistent with [BMU_2101]'s summary
+         * (highest 3979 mV at cell 36, lowest 3976 mV at cell 3, the rest 3978 mV).
+         */
+        val BMU_2102: ByteArray = run {
+            val out = ArrayList<Int>()
+            out += 0x61; out += 0x02
+            for (i in 1..80) {
+                val mv = when (i) { 3 -> 3976; 36 -> 3979; else -> 3978 }
+                out += (mv shr 8) and 0xff; out += mv and 0xff
+            }
+            ByteArray(out.size) { out[it].toByte() }
+        }
+
+        /** `21 03` reply: 12 module temperatures, all 25 °C (raw = °C + 50). */
+        val BMU_2103: ByteArray = (listOf(0x61, 0x03) + List(12) { 75 }).let { l -> ByteArray(l.size) { l[it].toByte() } }
     }
 }

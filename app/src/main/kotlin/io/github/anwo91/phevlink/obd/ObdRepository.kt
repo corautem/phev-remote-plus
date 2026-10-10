@@ -10,6 +10,7 @@ import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.diag.DiagLog
 import io.github.anwo91.phevlink.core.obd.AdapterGuess
 import io.github.anwo91.phevlink.core.obd.BatteryHealth
+import io.github.anwo91.phevlink.core.obd.CellData
 import io.github.anwo91.phevlink.core.obd.ClearDtcsResult
 import io.github.anwo91.phevlink.core.obd.DtcScanResult
 import io.github.anwo91.phevlink.core.obd.Elm327
@@ -444,6 +445,9 @@ class ObdRepository(
 
     /** Reads the drive battery now (see [ObdClient.readBattery]); null without a client or when unavailable. */
     suspend fun readBattery(): BatteryHealth? = current?.readBattery()
+
+    /** Reads the per-cell voltages and module temperatures (see [ObdClient.readCells]). */
+    suspend fun readCells(): CellData? = current?.readCells()
 
     /**
      * Log every ELM command and answer to the diagnostic log ([ObdClient.elm] `logTraffic`). Off by default so live

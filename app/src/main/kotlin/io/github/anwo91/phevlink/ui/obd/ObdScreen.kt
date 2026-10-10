@@ -1,11 +1,14 @@
-@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 
 package io.github.anwo91.phevlink.ui.obd
 
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -47,6 +51,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.obd.BatteryHealth
+import io.github.anwo91.phevlink.core.obd.CellData
 import io.github.anwo91.phevlink.core.obd.Confidence
 import io.github.anwo91.phevlink.core.obd.ObdClient
 import io.github.anwo91.phevlink.core.obd.ObdPhase
@@ -181,6 +186,7 @@ private fun OverviewTab(vm: ObdViewModel, s: ObdState, onOpenCodes: () -> Unit, 
             }
         }
         BatteryCard(vm, s.batteryHealth, s.batteryMessage, lang, busy != null)
+        CellsCard(vm, s.cells, s.batteryHealth != null, lang, busy != null)
         TwelveVoltCard(s, lang)
         EngineCard(s)
         SectionCard(title = stringResource(R.string.obd_codes_title)) {
@@ -247,6 +253,71 @@ private fun BatteryCard(vm: ObdViewModel, b: BatteryHealth?, message: String?, l
         Text(
             stringResource(R.string.obd_battery_note), style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 6.dp),
+        )
+    }
+}
+
+@Composable
+private fun CellsCard(vm: ObdViewModel, cells: CellData?, canRead: Boolean, lang: String, busy: Boolean) {
+    val st = LocalStatus.current
+    SectionCard(
+        title = stringResource(R.string.obd_cells_title),
+        trailing = { TextButton(onClick = { vm.readCells() }, enabled = !busy && canRead) { Text(stringResource(R.string.obd_read_now)) } },
+    ) {
+        if (cells == null) {
+            Text(stringResource(R.string.obd_cells_none), style = MaterialTheme.typography.bodyMedium)
+            return@SectionCard
+        }
+        fun mv(v: Int) = LiveTestText.number(v / 1000.0, 3, lang)
+        // Summary line: count, range, spread.
+        LabeledValue(stringResource(R.string.obd_cells_count), cells.count.toString())
+        LabeledValue(stringResource(R.string.obd_cell_high), "${mv(cells.maxMv)} V (#${cells.maxCell})")
+        LabeledValue(stringResource(R.string.obd_cell_low), "${mv(cells.minMv)} V (#${cells.minCell})")
+        LabeledValue(
+            stringResource(R.string.obd_cell_spread), "${cells.spreadMv} mV",
+            valueColor = when {
+                cells.spreadMv <= 20 -> st.good
+                cells.spreadMv <= 100 -> st.warn
+                else -> st.bad
+            },
+        )
+        if (cells.moduleTempsC.isNotEmpty()) {
+            val lo = cells.moduleTempsC.min(); val hi = cells.moduleTempsC.max()
+            LabeledValue(stringResource(R.string.obd_cell_temps), "${LiveTestText.number(lo, 0, lang)}–${LiveTestText.number(hi, 0, lang)} °C")
+        }
+        if (!cells.verified) {
+            Text(
+                stringResource(R.string.obd_cells_unverified), style = MaterialTheme.typography.bodySmall,
+                color = st.warn, modifier = Modifier.padding(top = 6.dp),
+            )
+        }
+        // The grid: one swatch per cell, coloured by deviation from the average.
+        Spacer(Modifier.height(10.dp))
+        val avg = cells.avgMv
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            cells.cellsMv.forEachIndexed { i, m ->
+                val d = kotlin.math.abs(m - avg)
+                val color = when {
+                    m == cells.maxMv || m == cells.minMv -> st.warn
+                    d <= 5 -> st.good
+                    d <= 20 -> st.warn
+                    else -> st.bad
+                }
+                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(44.dp)) {
+                    Box(
+                        Modifier.size(width = 44.dp, height = 20.dp)
+                            .background(color.copy(alpha = 0.18f), RoundedCornerShape(4.dp)),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text("${i + 1}", style = MaterialTheme.typography.labelSmall, color = color)
+                    }
+                    Text(mv(m), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+            }
+        }
+        Text(
+            stringResource(R.string.obd_cells_note), style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 8.dp),
         )
     }
 }

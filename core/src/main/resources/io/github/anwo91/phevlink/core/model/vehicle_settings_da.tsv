@@ -1,0 +1,186 @@
+# Vehicle settings texts - da. Base: the official Mitsubishi Remote Control app's translations (setFunc* strings),
+# reviewed against the English. Format: key<TAB>text. name.<id>, opt.<id>.<option>, group.<English group title>.
+opt.1.0	Tænding aktiveret eller tilbehør
+opt.1.1	Tænding Aktiveret
+name.1	Funktion i nøgleposition
+opt.2.0	Fra
+opt.2.1	Til
+name.2	Signal for baneskift (tre blink ved 1 tryk)
+opt.3.0	Lås: Én gang Lås op: To gange
+opt.3.1	Lås: Én gang Lås op: Fra
+opt.3.2	Lås: Fra Lås op: To gange
+opt.3.3	Lås: To gange Lås op: En gang
+opt.3.4	Lås: Fra Lås op: Én gang
+opt.3.5	Lås: To gange Lås op: Fra
+opt.3.6	Fra
+name.3	Aktiver tilbagemelding med blinklys
+opt.4.0	Fast (4 sekunder)
+opt.4.1	Justerbar
+opt.4.2	Justerbar og hastighedsafhængig
+opt.4.3	Justerbar og regnfølsom
+name.4	Intervalfunktion for viskere
+opt.5.0	Fra
+opt.5.1	Til
+opt.5.2	Til med forsinket for afslutningsvisk
+name.5	Viskere starter ved brug af sprinklere
+opt.6.0	0 sekunder
+opt.6.1	4 sekunder
+opt.6.2	8 sekunder
+opt.6.3	16 sekunder
+name.6	Intervalfunktion for bagerste viskere
+opt.7.0	Fra
+opt.7.1	1 minut
+opt.7.2	3 minutter
+opt.7.3	5 minutter
+opt.7.4	10 minutter
+name.7	Opladedæksel, automatisk slukning af lys
+opt.8.0	Fra
+opt.8.1	Åben efter køretøjets hastighed
+opt.8.2	Åbn/Luk ved tænding Tænd/Sluk og førerdør Åbn/Luk
+name.8	Automatisk foldbare sidespejle
+opt.9.0	Tidligt
+opt.9.1	Lidt tidligt
+opt.9.2	Normal
+opt.9.3	Lidt sent
+opt.9.4	Sent
+name.9	Følsomhed for automatisk lys
+opt.10.0	Fra
+opt.10.1	Til
+name.10	Automatisk lys forbundet til visker
+opt.11.0	0 sekunder (ingen timerfunktion)
+opt.11.1	7,5 sekunder
+opt.11.2	15 sekunder
+opt.11.3	30 sekunder
+opt.11.4	1 minut
+opt.11.5	2 minutter
+opt.11.6	3 minutter
+name.11	Varighed af kabinelys efter dør lukkes
+opt.12.0	Fra
+opt.12.1	Baglygte/forlygte: Altid slukning
+opt.12.2	Til
+opt.12.3	Til
+opt.12.4	Baglys: Slukning en gang / Forlygter: Altid slukning
+opt.12.5	Til
+name.12	Forlygter - autoslukningsfunktion
+opt.13.0	Fra
+opt.13.1	3 minutter
+opt.13.2	30 minutter
+opt.13.3	60 minutter
+name.13	Kabinelys - autoslukningstid
+opt.14.0	Kort
+opt.14.1	Lang
+name.14	Aktiveringstid for signaler for vognbaneskift
+opt.15.0	Fra
+opt.15.1	Til
+name.15	Komfortvisker
+opt.16.0	Fra
+opt.16.1	Når bilen står i park
+opt.16.2	Ved skift til parkering med vinduer ulåst
+opt.16.3	Når tænding ændres til Lås
+opt.16.4	Når tænding ændres til Lås med vinduer ulåst
+name.16	Automatisk oplåsning
+opt.17.0	Alle døre
+opt.17.1	Kun førerdør
+name.17	Lås op
+opt.19.0	2 gange
+opt.19.1	1 gang
+name.19	Antal tryk på lås-knap for sikkerhedslås
+opt.20.0	Fra
+opt.20.1	Ét tryk på knappen
+opt.20.2	Ét tryk på knappen ved dagslys
+opt.20.3	To tryk på knappen aktiverer lyd
+opt.20.4	To tryk på knappen aktiverer lyd ved dagslys
+name.20	Horn lyder ved nøglefri låsning
+opt.21.0	Alle systemer fra
+opt.21.1	Lyd ved Keyless Operation
+opt.21.2	Lyd ved nøglefri anvendelse
+opt.21.3	Alle systemer til
+name.21	Lyd ved nøglefri anvendelse
+opt.22.0	30 sekunder
+opt.22.1	1 minut
+opt.22.2	2 minutter
+opt.22.3	3 minutter
+name.22	Automatisk genlåsning efter oplåsning med fjernbetjening
+opt.24.0	0 sekunder
+opt.24.1	30 sekunder
+opt.24.2	3 minutter
+opt.24.3	10 minutter
+name.24	Timerfunktion efter tænding slukkes
+opt.26.0	Fra
+opt.26.1	Elrude, sidespejl: Åben og luk
+opt.26.2	Elrude: Åben og luk
+opt.26.3	Elrude: Luk / Sidespejl: Åben og luk
+opt.26.4	Sidespejl: Åben og luk
+opt.26.5	Elrude: Luk
+name.26	Multifunktion ved nøglefri adgang
+opt.28.0	Kort
+opt.28.1	Lang
+name.28	Varighed af lyd fra signalhorn
+opt.29.0	Når bagvisker er aktiveret
+opt.29.1	Når front- og bagvisker er aktiveret
+name.29	Bagvisker aktiveret i bakgear
+opt.32.0	Fra
+opt.32.1	3 sekunder
+opt.32.2	5 sekunder
+name.32	Tid for deaktivering af oplåsning efter låsning
+opt.33.0	Fra
+opt.33.1	Til
+name.33	Horn lyder ved start af motoren m. fjernstarter
+opt.34.0	Til
+opt.34.1	Fra
+name.34	Åben betjening efter slukning af tænding
+opt.35.0	Alle døre
+opt.35.1	Kun førerdør
+name.35	Elrudeindstilling forhindret af låskontakt
+opt.36.0	Fra
+opt.36.1	30 minutter
+opt.36.2	60 minutter
+name.36	Automatisk afbrydning af ACC-strøm
+opt.42.0	Fra
+opt.42.1	15 sekunder
+opt.42.2	30 sekunder
+opt.42.3	1 minut
+opt.42.4	3 minutter
+name.42	Forlygter TIL, når køretøj forlades
+opt.43.0	Fra
+opt.43.1	Parkeringslys
+opt.43.2	Forlygter
+name.43	Ydre lys TIL ved fjernoplåsning
+opt.50.0	Manuel
+opt.50.1	Automatisk
+name.50	Recirkulationskontrol
+opt.51.0	Manuel
+opt.51.1	Automatisk
+name.51	Styring af klimaanlæg
+opt.53.0	ECO
+opt.53.1	Komfort
+name.53	ECO mode
+opt.54.0	Normal
+opt.54.1	Mere luftstrøm til fod
+opt.54.2	Mere luftstrøm til defroster
+name.54	Luftstrøm, forhold fod/defroster
+opt.55.0	Normal
+opt.55.1	Mere luftstrøm til ansigt
+opt.55.2	Mere luftstrøm til fod
+name.55	Luftstrøm, forhold ansigt/fod
+opt.56.0	Fra
+opt.56.1	TIL
+name.56	Automatisk defrost af bagrude ved start
+opt.57.0	Fra
+opt.57.1	Til
+name.57	Start klimaanlæg eller varme ved døroplåsning
+opt.58.0	Fra
+opt.58.1	Til
+name.58	I fod-tilstand, lidt luftstrøm gennem defroster
+opt.60.0	Fra
+opt.60.1	Til
+name.60	Hurtig stop af høj opvarmining, når du stopper.
+opt.8.3	Åben/Luk ved Keyless Operation System Åben/Luk
+group.Keyless entry & operation	Nøglefri adgang
+group.Wipers	Viskere
+group.Lights	Udvendigt lys / indvendigt lys
+group.Power windows	Elruder
+group.Turn signals	Blinklys
+group.Door locks	Centrallås
+group.Air conditioning	Aircondition
+group.Other	Andet

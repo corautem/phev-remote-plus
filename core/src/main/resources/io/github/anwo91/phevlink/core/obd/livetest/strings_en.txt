@@ -1,0 +1,368 @@
+# PHEV Link live tests - English (source). Format: key<TAB>text. {name} = filled in by the app. \n = new line.
+# Original text for this project (GPL-3.0-or-later). Thresholds and sources: docs/live-tests.md.
+
+# ---- buttons and common
+btn.continue	Continue
+btn.skip	Skip
+btn.done	Done
+btn.yes	Yes
+btn.no	No
+btn.start_road	Start road part
+test.cancelled	Test cancelled.
+test.error	The test stopped because of an unexpected error: {error}
+wait.car	Waiting for the car to answer. Switch the power ON if it is off.
+abort.car_silent	The car stopped answering, so the test could not finish. Check that the power is ON and the adapter is connected, then run the test again.
+abort.no_voltage	The adapter did not report a voltage. Reconnect the adapter and try again.
+abort.no_bmu	The drive battery computer did not answer. Switch the power ON (not READY) and try again. Some cheap adapters cannot read the battery data at all.
+abort.no_engine_data	The engine computer did not send the data this test needs. Check that the power is ON and try again.
+next.check_connection	Check the adapter connection and that the car's power is ON, then run the test again.
+val.on	On
+val.off	Off
+val.n_of_m	{n} of {m} complete
+eng.start	Now make the engine run. Outdoors only. Car in READY, selector in P, parking brake on. Press and hold the CHARGE button for about 10 seconds until the engine starts, then tap Continue.
+eng.waiting	Waiting for the engine to start…
+eng.no_start	The engine did not start. Hold the CHARGE button for about 10 seconds with the car in READY and the selector in P, then run the test again. If the drive battery is nearly full, the engine may refuse to start for charging.
+
+# ---- test list
+test.dtc-full-scan.title	Fault scan of all control units
+test.dtc-full-scan.desc	Reads stored and pending fault codes from the engine, drive battery, charger, motors and other units, and spots typical patterns such as a weak 12 V battery.
+test.twelve-volt-health.title	12 V battery
+test.twelve-volt-health.desc	Measures the small 12 V battery at rest and with the power on. A weak 12 V battery is the most common cause of odd warnings on this car.
+test.dcdc-output.title	12 V charging in READY (DC/DC converter)
+test.dcdc-output.desc	Checks that the car charges its 12 V battery from the drive battery while it is in READY, with and without electrical load.
+test.hv-capacity.title	Drive battery capacity (health)
+test.hv-capacity.desc	Reads the battery computer's capacity estimate and compares it with Mitsubishi's figure for a new battery. Keeps a history so you can follow the trend.
+test.hv-cell-balance.title	Drive battery cell balance
+test.hv-cell-balance.desc	Compares the highest and lowest of the 80 cell voltages at rest. A large difference points to a weak cell or module.
+test.inspection-readiness.title	Ready for EU-kontroll / inspection?
+test.inspection-readiness.desc	Checks the engine warning lamp, emission fault codes and whether the car's emission self-tests have finished.
+test.charging-session.title	Charging check
+test.charging-session.desc	Reads the battery before and after at least 20 minutes of charging to confirm that charge really goes in.
+test.engine-warmup.title	Engine warm-up and thermostat
+test.engine-warmup.desc	Runs the engine and watches the coolant temperature to find a thermostat that opens too early, overheating or an engine that stops by itself.
+test.fuel-trims.title	Fuel mixture (fuel trims)
+test.fuel-trims.desc	Watches how much the engine corrects the fuel mixture, which reveals air leaks, weak fuel delivery or a faulty air flow sensor.
+test.wheel-speed-match.title	Tyre and wheel speed match
+test.wheel-speed-match.desc	While driving steadily, compares front and rear wheel speeds. Different tyre sizes or wear front/rear can trigger EV system warnings.
+
+# ---- 12 V battery
+t12.pre	Before you start: the car should have been switched off for at least 2 hours (ideally overnight), not charging, doors closed and nothing plugged into the 12 V sockets. Leave the car switched off and tap Continue.
+t12.measure_rest	Measuring the 12 V battery at rest…
+t12.switch_on	Now press the power button twice WITHOUT pressing the brake pedal, so the power is ON but the car is not in READY. Then tap Continue.
+t12.settle	Letting the voltage settle…
+t12.measure_on	Measuring with the power on…
+t12.rest_surface	The battery shows {v} V at rest, which means it still has surface charge or something is charging it. Test again after 2 hours with the car switched off.
+t12.rest_good	At rest the 12 V battery shows {v} V: well charged.
+t12.rest_half	At rest the 12 V battery shows {v} V: only about half charged.
+t12.rest_low	At rest the 12 V battery shows {v} V: low.
+t12.rest_very_low	At rest the 12 V battery shows {v} V: very low. Charge it now; the car may soon refuse to start.
+t12.borderline	The value is close to a limit. Adapters can be off by 0.1–0.2 V, so treat it as borderline.
+t12.on_ready	With the power on the voltage rose to {v} V, so the car seems to be in READY and is charging the battery. The loaded part of this test is skipped; run it again without pressing the brake pedal.
+t12.on_good	With the power on the battery holds {v} V: good.
+t12.on_sag	With the power on the voltage sags to {v} V. The battery struggles even with a small load.
+t12.on_weak	With the power on the voltage drops to {v} V. The battery cannot hold its voltage; it is probably worn out or deeply discharged.
+t12.ecu_diff	A control unit reports {ecu} V while the OBD socket shows {v} V. Check the battery terminals and earth straps.
+t12.head.pass	The 12 V battery is in good shape.
+t12.head.info	The 12 V battery looks fine.
+t12.head.warn	The 12 V battery is weak.
+t12.head.fail	The 12 V battery is low or worn out.
+t12.head.inconclusive	The 12 V battery could not be judged this time.
+next.12v_ready_charge	Put the car in READY for 15–30 minutes so the drive battery tops up the 12 V battery, let it rest for 2 hours and test again.
+next.12v_charger	If it is still low the next morning, charge it with a charger suitable for AGM batteries and test again.
+next.12v_drain	Unplug OBD adapters, dash cams and chargers when the car stands for days; they can drain the battery.
+next.12v_replace	If it keeps dropping, replace it with the correct vented AGM type for interior mounting (original size S46B24L, about 45 Ah).
+next.run_dcdc	Next, run the "12 V charging in READY" test to check that the car charges the battery.
+
+# ---- DC/DC
+dc.pre	Put the car in READY (brake pedal + power button), selector in P, climate control off. Then tap Continue.
+dc.settle	Letting the charging voltage settle…
+dc.measure	Measuring the 12 V supply in READY…
+dc.too_high	The 12 V supply is {v} V: too high. This can damage the battery and electronics.
+dc.high	The 12 V supply is {v} V: on the high side.
+dc.good	The 12 V supply is {v} V in READY: the car is charging its 12 V battery.
+dc.low	The 12 V supply is only {v} V in READY. The converter may be in a low-power mode; drive for 15 minutes and test again.
+dc.not_charging	The 12 V supply is only {v} V in READY: the 12 V battery is not being charged.
+dc.load	Now switch on the dipped headlights, the blower on full and the rear window heater. Tap Continue when they are on, or Skip.
+dc.settle_load	Waiting for the voltage under load…
+dc.measure_load	Measuring under load…
+dc.load_good	Under load the supply holds {v} V: good.
+dc.load_low	Under load the supply drops to {v} V: a bit low.
+dc.load_fail	Under load the supply drops to {v} V: the converter cannot carry the load.
+dc.load_off	You can switch the lights, blower and rear window heater off again. Tap Continue.
+dc.below_baseline	The supply ({v} V) is more than 0.5 V below what this car showed before ({base} V).
+dc.head.pass	The car charges its 12 V battery normally.
+dc.head.info	The 12 V supply looks fine.
+dc.head.warn	The 12 V supply is not quite right.
+dc.head.fail	The 12 V battery is not charged properly in READY.
+dc.head.inconclusive	The 12 V supply could not be judged this time.
+next.drive_retest	Drive for 15 minutes and run the test again.
+next.run_scan	Run the fault scan of all control units.
+next.workshop_dcdc	If it fails again, have the DC/DC converter and its fuse checked by a workshop.
+
+# ---- capacity
+cap.pre	Switch the power ON (READY is fine too). Tap Continue.
+cap.measure	Reading the drive battery…
+cap.good	Capacity {cap} Ah, about {soh} % of the {ref} Ah of a new battery: good for its age.
+cap.aged	Capacity {cap} Ah, about {soh} % of the {ref} Ah of a new battery. This is normal ageing for many 2014–2017 cars; expect clearly less electric range than when new.
+cap.low	Capacity {cap} Ah, about {soh} % of new. That is below Mitsubishi's old 70 % warranty threshold ({limit} Ah). The electric range is much reduced.
+cap.year_unknown	The model year is unknown, so 38 Ah (the figure for cars before model year 2017) is used. Against 40 Ah it would be {soh40} %.
+cap.year	Model year {year}: compared with Mitsubishi's figure of {ref} Ah for a new battery.
+cap.estimate_stale	The stored charge works out at {calc} % but the battery computer shows {soc} %. Its estimate may be out of date; a full charge after a long rest, or a dealer capacity measurement, can correct it.
+cap.quick_change	The capacity changed quickly ({before} Ah → {now} Ah). Repeat after a full charge before drawing conclusions.
+cap.trend	First measurement in this app: {before} Ah, {days} days ago.
+cap.context	For comparison: owners in New Zealand reported 2014 cars at about 63–73 % after six years, and German owners often see about 32–34 Ah. The value is the battery computer's own estimate, not a lab measurement.
+cap.head.pass	The drive battery is in good health.
+cap.head.info	Drive battery capacity read.
+cap.head.warn	The drive battery has aged noticeably.
+cap.head.fail	The drive battery capacity is low.
+cap.head.inconclusive	The capacity could not be judged this time.
+next.cap_track	Run this test about once a month to follow the trend.
+next.cap_full_charges	Do a few full AC charges without stopping early; the estimate updates during full charges.
+next.cap_dealer	A Mitsubishi workshop can measure the capacity properly (battery capacity measurement) and check the cells.
+next.cap_warranty	Check the drive battery warranty from your first registration date; most 2014–2017 cars are now past 8 years.
+
+# ---- cell balance
+cell.pre	Best result: the car has been parked for at least 30 minutes, not charging. Switch the power ON (not READY) and turn climate control off. Tap Continue.
+cell.settle	Letting the battery settle…
+cell.measure	Reading the cell voltages…
+cell.decode_unreliable	The cell values on this car do not add up to the pack voltage, so they cannot be trusted. The raw data is shown on the battery screen.
+cell.good	The difference between the highest and lowest cell is {mv} mV: well balanced.
+cell.slight	The cells differ by {mv} mV: a slight imbalance. Let the car finish a few full AC charges, then test again.
+cell.clear	The cells differ by {mv} mV: a clear imbalance. One cell or module may be weaker.
+cell.large	The cells differ by {mv} mV: a large imbalance. A cell or module is likely failing.
+cell.low_cell	The lowest cell is only {v} V although the battery is not empty: that cell is unusually low.
+cell.lowest	Lowest cell: number {cell} (probably module {module}) at {v} V.
+cell.soc_range	The battery is at {soc} %. Below 30 % or above 95 % the cells naturally differ more, so the result is less reliable.
+cell.repeat_lowest	Cell {cell} has been the lowest in {times} of the recent tests.
+cell.head.pass	The drive battery cells are well balanced.
+cell.head.info	Cell voltages read.
+cell.head.warn	The drive battery cells are somewhat out of balance.
+cell.head.fail	A drive battery cell or module looks weak.
+cell.head.inconclusive	The cell balance could not be judged this time.
+next.cell_full_charges	Let the car finish a few full AC charges without stopping them early.
+next.cell_repeat	Repeat the test on a few different days to see if the same cell stays lowest.
+next.cell_workshop	If the imbalance stays, ask a Mitsubishi workshop for a battery check (cell smoothing or module test). Never open the drive battery yourself.
+
+# ---- charging
+chg.pre	This test needs about 25 minutes and the charging cable. The battery should be at 85 % or less. Switch the power ON (not READY) and tap Continue.
+chg.reading	Reading the drive battery…
+chg.too_full	The battery is already at {soc} %. Run the test when it is at 85 % or less.
+chg.plug_in	Now switch the car OFF and plug in the charging cable. Let it charge for at least 20 minutes. Then unplug, switch the power ON (not READY) and tap Done.
+chg.too_short	It only charged for {min} minutes. Charge for at least 20 minutes for a reliable result.
+chg.good	{ah} Ah (+{soc} percentage points) went into the battery: charging works.
+chg.good_soc	The charge level rose by {soc} percentage points: charging works.
+chg.slow	Only {ah} Ah (+{soc} points) went in, less than half of the roughly {expected} Ah expected from a 10 A cable. Charging may have stopped or run at reduced power.
+chg.none	No charge went in during {min} minutes. Charging did not start or stopped.
+chg.counter_up	The charger's session counter went up.
+chg.counter_same	The charger's session counter did not change (its meaning is not fully known).
+chg.head.pass	Charging works.
+chg.head.info	Charging check done.
+chg.head.warn	Charging is slower than expected.
+chg.head.fail	The car did not charge.
+chg.head.inconclusive	Charging could not be judged this time.
+next.chg_checklist	Check the usual causes: power switch off, charging timer set, cable fully latched, the socket and its fuse, and the 12 V battery.
+next.chg_other_socket	Try another socket or charger. On Norwegian IT grids, earth faults can stop portable chargers.
+next.chg_workshop	If it fails everywhere, have the charger and charging port checked.
+
+# ---- engine warm-up
+warm.pre	Outdoors only (exhaust). Selector in P, parking brake on, climate control off. Best with a cold engine. Tap Continue.
+warm.low_fuel	The fuel level is only {pct} %. Add fuel soon; the engine needs fuel to run this test.
+warm.measure	Engine running. Watching the coolant temperature (up to 15 minutes)…
+warm.overheat	The coolant reached {t} °C: the engine is overheating. Switch off now.
+warm.hot	The coolant reached {t} °C: running hot. Check the coolant level when the engine is cold.
+warm.good	The engine reached 75 °C after {min} minutes and settled at {t} °C: warms up normally.
+warm.slow	The engine needed {min} minutes to reach 75 °C: slow. The thermostat may be opening too early.
+warm.slow_max	The coolant only reached {t} °C in {min} minutes: slow warm-up. The thermostat may be opening too early.
+warm.cold	After 15 minutes the coolant is only {t} °C: the engine does not warm up. The thermostat is probably stuck open.
+warm.too_short	The engine did not run long enough to judge the warm-up (maximum {t} °C).
+warm.drops	The temperature dropped by more than 5 °C while the engine kept running.
+warm.engine_stopped	The engine stopped by itself during the test.
+warm.uneven_rpm	The engine speed varied by {spread} rpm while idling: uneven running.
+warm.head.pass	The engine warms up normally.
+warm.head.info	Engine warm-up checked.
+warm.head.warn	The engine warm-up is not quite right.
+warm.head.fail	The engine has a warm-up or temperature problem.
+warm.head.inconclusive	The warm-up could not be judged this time.
+next.switch_off_engine	Switch the car off with the power button to stop the engine.
+next.coolant_level	Check the coolant level when the engine is cold.
+next.thermostat	A workshop can test and replace the thermostat; also look up codes P0128 and P0125.
+
+# ---- fuel trims
+trim.pre	The engine must run and be warm. Outdoors only, selector in P, parking brake on. Tap Continue.
+trim.warming	Waiting for the engine to reach 75 °C…
+trim.not_warm	The engine did not get warm enough within 10 minutes. Run the warm-up test first.
+trim.measure_a	Measuring the fuel correction while stationary…
+trim.road	Optional road part: drive at a steady 70–90 km/h with the engine running (use Save or Charge mode). Tap "Start road part" when you are at speed, or Skip. Keep your eyes on the road; the app measures by itself.
+trim.measure_b	Measuring on the road…
+trim.road_no_data	No usable road data (engine not running or speed too low).
+trim.open_loop	The short-term correction did not move, so the engine may not have been in its normal control mode yet. The result is less reliable.
+trim.lean	adding fuel (lean)
+trim.rich	removing fuel (rich)
+trim.good_a	Stationary: total correction {total} %: normal.
+trim.high_a	Stationary: total correction {total} %, {dir}: more than normal.
+trim.bad_a	Stationary: total correction {total} %, {dir}: large. A P0171/P0172 code is likely soon.
+trim.good_b	On the road: total correction {total} %: normal.
+trim.high_b	On the road: total correction {total} %, {dir}: more than normal.
+trim.bad_b	On the road: total correction {total} %, {dir}: large.
+trim.hint_air_leak	Lean when stationary but normal on the road: most likely an air leak after the air flow sensor (hoses, intake gasket).
+trim.hint_lean_both	Lean both stationary and on the road: most likely weak fuel delivery or an air flow sensor that reads too low.
+trim.hint_rich	Rich mixture: possibly a leaking injector, high fuel pressure, an air flow sensor reading too high or the fuel vapour purge system.
+trim.head.pass	The fuel mixture is normal.
+trim.head.info	Fuel mixture checked.
+trim.head.warn	The engine corrects the fuel mixture more than normal.
+trim.head.fail	The fuel mixture is far off.
+trim.head.inconclusive	The fuel mixture could not be judged this time.
+next.trim_hoses	Check the intake hoses and clamps between the air filter and the engine for cracks and leaks.
+
+# ---- inspection readiness
+insp.pre	Switch the power ON (the engine does not need to run). Tap Continue.
+insp.reading	Reading the emission self-tests…
+insp.mil_or_codes	The engine warning lamp is on or emission fault codes are stored ({codes}). This would likely fail the inspection; fix it first.
+insp.pending	A fault is being watched but not confirmed yet ({codes}).
+insp.incomplete	{count} of the car's emission self-tests have not finished yet.
+insp.monitor_done	{name}: finished
+insp.monitor_open	{name}: not finished yet
+insp.recently_cleared	Fault codes were cleared recently, so the self-tests may not be finished yet.
+insp.ready	No warning lamp, no emission codes and all self-tests finished.
+insp.head.pass	Ready for the emissions part of the inspection.
+insp.head.info	Emission status read.
+insp.head.warn	Not quite ready for the inspection yet.
+insp.head.fail	This would likely fail the emissions check.
+insp.head.inconclusive	The emission status could not be read.
+next.insp_drive	Drive with the engine running (Save or Charge mode) on a few 20–30 minute trips, then test again. On a PHEV that rarely runs its engine this can take several days.
+next.insp_fix_codes	Look up the codes, fix the cause and test again before the inspection.
+next.insp_no_clear	Do not clear fault codes in the weeks before the inspection: that resets the self-tests.
+mon.misfire	Misfire
+mon.fuel_system	Fuel system
+mon.components	Components
+mon.catalyst	Catalytic converter
+mon.heated_catalyst	Heated catalytic converter
+mon.evap	Fuel vapour system (EVAP)
+mon.secondary_air	Secondary air
+mon.ac_refrigerant	A/C refrigerant
+mon.o2_sensor	Oxygen sensors
+mon.o2_heater	Oxygen sensor heaters
+mon.egr	EGR / variable valve timing
+mon.nmhc_catalyst	NMHC catalyst
+mon.nox_scr	NOx aftertreatment
+mon.boost_pressure	Boost pressure
+mon.exhaust_sensor	Exhaust gas sensor
+mon.pm_filter	Particulate filter
+
+# ---- full scan
+scan.pre	Switch the power ON (not READY). The scan takes about a minute. Tap Continue.
+scan.voltage	Checking the 12 V battery…
+scan.scanning	Reading fault codes from all control units…
+scan.low_voltage	The 12 V battery is only {v} V. A low 12 V battery can cause false communication codes.
+scan.none	No fault codes found ({ecus} control units answered).
+scan.found	{count} fault code(s) found ({ecus} control units answered). Tap a code for the explanation.
+scan.pattern_low_voltage	These codes match the typical low 12 V battery pattern. Test the 12 V battery first, then clear the codes and scan again after a drive.
+scan.p10dc	P10DC is known on early cars (the engine stops shortly after a cold start). Ask a dealer about the software and spark plug campaign.
+scan.hybrid	High-voltage system fault ({codes}). Have it checked by a Mitsubishi workshop; never open high-voltage parts.
+scan.emission_mil	Emission faults with the warning lamp on ({codes}).
+scan.emission	Emission-related codes ({codes}). Fuel trim, warm-up and inspection tests can help narrow them down.
+scan.chassis	Chassis codes ({codes}): brakes, wheel speed sensors or steering. Check tyre sizes and pressures too.
+scan.only_u	Only communication codes: usually the 12 V battery, a connector or an earth problem.
+scan.pending_only	Only pending codes: the car has seen something once but has not confirmed it.
+scan.other_codes	Codes are stored. Open each one for the explanation and what to check.
+scan.some_silent	{count} control unit(s) did not answer the extended scan; that is normal for units that do not exist on this car.
+scan.head.pass	No fault codes.
+scan.head.info	Fault scan done.
+scan.head.warn	Fault codes found: worth checking.
+scan.head.fail	Serious fault codes found.
+scan.head.inconclusive	The fault scan could not be completed.
+next.read_codes	Open the Codes tab for a plain-language explanation of each code and what to check.
+next.run_12v	Run the 12 V battery test.
+next.hv_workshop	Book a Mitsubishi workshop for the high-voltage fault; follow any warning on the dashboard.
+next.save_before_clear	Save or screenshot the codes before clearing anything; clearing also resets the emission self-tests.
+
+# ---- wheel speeds
+wheel.pre	Road test: on a straight, level road drive at a steady 50–80 km/h (cruise control if possible), no braking or hard acceleration. Tyre pressures as on the door label. Tap Continue and keep driving; the app measures by itself.
+wheel.wait_speed	Waiting for a steady 50–80 km/h…
+wheel.no_speed	The speed did not reach a steady 50–80 km/h within 3 minutes.
+wheel.measure	Measuring wheel speeds… keep a steady speed.
+wheel.axle.good	Front and rear tyres roll at the same speed (difference {pct} %).
+wheel.axle.small	Front and rear tyres differ a little ({pct} %): wear or pressure.
+wheel.axle.large	Front and rear tyres differ clearly ({pct} %). Different tyres front and rear can trigger EV system warnings.
+wheel.ratio.good	The rear/front motor speed ratio matches your earlier baseline (change {pct} %).
+wheel.ratio.small	The rear/front motor speed ratio changed a little since the baseline ({pct} %): wear or pressure.
+wheel.ratio.large	The rear/front motor speed ratio changed clearly since the baseline ({pct} %). Check the tyres.
+wheel.single	The {wheel} differs {pct} % from the average. Check that tyre's pressure.
+wheel.fl	front left wheel
+wheel.fr	front right wheel
+wheel.rl	rear left wheel
+wheel.rr	rear right wheel
+wheel.no_data	Neither wheel speeds nor motor speeds could be read on this car, or the speed was not steady enough.
+wheel.same_tyres	Are all four tyres the same make and size and evenly worn? If yes, this run is saved as your baseline for later comparisons.
+wheel.baseline_saved	Saved as your baseline. Run the test again later (e.g. after a tyre change) to compare.
+wheel.no_baseline	Not saved as a baseline. Run it again when all four tyres match.
+wheel.first_run	This car only reports motor speeds, so a single run cannot be judged; later runs are compared with the baseline.
+wheel.head.pass	The tyres match front and rear.
+wheel.head.info	Wheel speeds measured.
+wheel.head.warn	The tyres differ a little front and rear.
+wheel.head.fail	The tyres differ clearly front and rear.
+wheel.head.inconclusive	The wheel speeds could not be judged this time.
+next.tyre_pressures	Set all tyre pressures as on the door label and test again.
+next.tyre_same	Fit four tyres of the same make, size and similar wear; mixed tyres can cause EV system warnings.
+
+# ---- measurement labels
+m.v12	12 V battery
+m.v_rest	At rest
+m.v_rest_min	At rest, lowest
+m.v_on	Power on
+m.v_on_min	Power on, lowest
+m.v_ready	In READY
+m.v_ready_min	In READY, lowest
+m.v_ready_max	In READY, highest
+m.v_load	Under load
+m.v_baseline	Earlier good value
+m.capacity	Capacity
+m.reference	New battery
+m.soh	Health
+m.remaining	Stored charge
+m.soc	Charge level
+m.energy	Stored energy (approx.)
+m.pack_v	Pack voltage
+m.spread	Cell difference
+m.cell_max	Highest cell
+m.cell_min	Lowest cell
+m.cell_max_no	Highest cell number
+m.cell_min_no	Lowest cell number
+m.avg_cell	Average cell
+m.minutes	Charging time
+m.soc_before	Charge level before
+m.soc_after	Charge level after
+m.rem_before	Stored charge before
+m.rem_after	Stored charge after
+m.coolant	Coolant
+m.rpm	Engine speed
+m.coolant_start	Coolant at start
+m.coolant_max	Coolant, highest
+m.coolant_end	Coolant at end
+m.ambient	Outside air
+m.time_to_75	Time to 75 °C
+m.run_time	Engine running
+m.stft	Short-term correction
+m.ltft	Long-term correction
+m.stft_a	Short-term, stationary
+m.ltft_a	Long-term, stationary
+m.total_a	Total, stationary
+m.stft_b	Short-term, road
+m.ltft_b	Long-term, road
+m.total_b	Total, road
+m.mil	Engine warning lamp
+m.monitors	Emission self-tests
+m.dist_mil	Distance with lamp on
+m.dist_cleared	Distance since codes cleared
+m.warmups	Warm-ups since codes cleared
+m.time_cleared	Time since codes cleared
+m.codes	Fault codes
+m.ecus	Control units answering
+m.speed	Speed
+m.front_rear_pct	Front vs rear
+m.wheel_fl	Front left
+m.wheel_fr	Front right
+m.wheel_rl	Rear left
+m.wheel_rr	Rear right
+m.motor_ratio	Rear/front motor ratio
+m.ratio_change	Change since baseline

@@ -260,6 +260,76 @@ class ObdClient(
     }
 
     /**
+     * VIN known from elsewhere (e.g. the car's Wi-Fi link), used for the model-year dependent battery reference
+     * capacity until the car reports its VIN over OBD (mode 09).
+     */
+    @Volatile var vinHint: String? = null
+
+    private fun referenceAh(): Double = PhevSignals.referenceCapacityAh(_state.value.vin ?: vinHint)
+
+    /** Reads the adapter's 12 V measurement (ATRV) now and publishes it. Works with the car off. */
+    suspend fun readAdapterVoltage(): Double? {
+        if (linkDead) return null
+        return try {
+            val v = linkMutex.withLock { quiet { elm.voltage() } } ?: return null
+            val now = clock()
+            lastVoltageMs = now
+            _state.update { it.copy(adapterVoltage = v, values = it.values + (ID_ADAPTER_VOLTAGE to voltageValue(v, now))) }
+            v
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: ObdException.LinkLost) {
+            onLinkLost(e)
+            null
+        }
+    }
+
+    /**
+     * Reads the emission readiness monitors from the engine ECU: PID 01 (since codes were cleared) and, if
+     * [thisDriveCycle], PID 41. Returns null when the car doesn't answer.
+     */
+    suspend fun readReadiness(thisDriveCycle: Boolean = false): Readiness? {
+        if (!canTalk()) return null
+        val pid = if (thisDriveCycle) 0x41 else 0x01
+        return try {
+            linkMutex.withLock {
+                val replies = quiet { elm.request(EcuTarget.obd(Ecus.ENGINE.rxId), bytesOf(0x01, pid)) } ?: return@withLock null
+                val r = replies.firstOrNull { it.data.size >= 6 && (it.data[0].toInt() and 0xFF) == 0x41 && (it.data[1].toInt() and 0xFF) == pid }
+                    ?: return@withLock null
+                Readiness.decode(r.data.copyOfRange(2, r.data.size), thisDriveCycle)
+            }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: ObdException.LinkLost) {
+            onLinkLost(e)
+            null
+        }
+    }
+
+    /**
+     * Reads the given mode 01 PIDs from the engine ECU now (regardless of the poll schedule) and publishes them.
+     * Returns the values that could be read, by id.
+     */
+    suspend fun readPids(pids: List<Int>, rxId: Int = Ecus.ENGINE.rxId): Map<String, ObdValue> {
+        if (!canTalk()) return emptyMap()
+        val out = LinkedHashMap<String, ObdValue>()
+        return try {
+            for (pid in pids) {
+                currentCoroutineContext().ensureActive()
+                val a = linkMutex.withLock { pollItemLocked(PidItem(rxId, pid, 0L)) }
+                lastPolled[ObdHex.canId(rxId - 8) + ":01" + ObdHex.byte(pid)] = clock()
+                if (a.outcome == Outcome.OK) _state.value.values[Mode01.valueId(pid, rxId)]?.let { out[it.id] = it }
+            }
+            out
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: ObdException.LinkLost) {
+            onLinkLost(e)
+            out
+        }
+    }
+
+    /**
      * Reads fault codes: OBD-II modes 03 (stored), 07 (pending) and 0A (permanent) as broadcasts, and with
      * [includeExtended] also the experimental per-ECU read (KWP2000 `18 02 FF 00`, falling back to UDS `19 02 FF`)
      * from every known ECU. Read-only. Updates [ObdState.dtcs].
@@ -541,10 +611,10 @@ class ObdClient(
         var battery: BatteryHealth? = null
         if (req.key == OBC_KEY) {
             lastObcPayload = payload.copyOf()
-            _state.value.batteryHealth?.rawBmu?.let { bmu -> battery = BatteryHealth.decode(bmu, payload, _state.value.batteryHealth?.updatedAtMs ?: now) }
+            _state.value.batteryHealth?.rawBmu?.let { bmu -> battery = BatteryHealth.decode(bmu, payload, _state.value.batteryHealth?.updatedAtMs ?: now, referenceAh()) }
         }
         if (req.key == BMU_KEY) {
-            battery = BatteryHealth.decode(payload, lastObcPayload, now)
+            battery = BatteryHealth.decode(payload, lastObcPayload, now, referenceAh())
             battery?.let { b -> updates += derivedBatteryValues(b, now) }
             if (battery == null) invalid += listOf(BatteryHealth.ID_SOH, BatteryHealth.ID_SPREAD, BatteryHealth.ID_ENERGY)
         }
@@ -564,7 +634,7 @@ class ObdClient(
         val out = LinkedHashMap<String, ObdValue>()
         b.sohPercent?.let {
             out[BatteryHealth.ID_SOH] = ObdValue(BatteryHealth.ID_SOH, "State of health (approx.)", group, it, null, "%", Confidence.COMMUNITY, now, rx,
-                "Capacity / ${PhevSignals.NOMINAL_CAPACITY_AH} Ah (nominal capacity of the 12 kWh pack) × 100. Approximate.")
+                "Capacity / ${b.referenceAh} Ah × 100. Reference = Mitsubishi's capacity basis: 38 Ah before model year 2017, 40 Ah from 2017 (from the VIN). Approximate.")
         }
         b.spreadMv?.let {
             out[BatteryHealth.ID_SPREAD] = ObdValue(BatteryHealth.ID_SPREAD, "Cell voltage spread", group, it, null, "mV", Confidence.EXPERIMENTAL, now, rx,

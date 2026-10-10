@@ -1,0 +1,186 @@
+# Vehicle settings texts - de. Base: the official Mitsubishi Remote Control app's translations (setFunc* strings),
+# reviewed against the English. Format: key<TAB>text. name.<id>, opt.<id>.<option>, group.<English group title>.
+opt.1.0	Zündschalter Ein oder Zubehör
+opt.1.1	Zündschalter Ein
+name.1	Funktionen bei Schlüsseldrehung
+opt.2.0	Aus
+opt.2.1	Ein
+name.2	Blinker (Blinkt dreimal beim Antippen)
+opt.3.0	Sperren: 1mal Öffnen: 2mal
+opt.3.1	Sperren: 1mal Öffnen: Aus
+opt.3.2	Sperren: Aus Öffnen: 2mal
+opt.3.3	Sperren: 2mal Öffnen: 1mal
+opt.3.4	Sperren: Aus Öffnen: 1mal
+opt.3.5	Sperren: 2mal Öffnen: Aus
+opt.3.6	Sperren: Aus Öffnen: Aus
+name.3	Blinker Rückmeldung
+opt.4.0	4 Sekunden
+opt.4.1	Variabel
+opt.4.2	Variabel & Geschwindigkeitabhängig
+opt.4.3	Variabel & Regenabhängig
+name.4	Scheibenwischer Intervall
+opt.5.0	Aus
+opt.5.1	Ein
+opt.5.2	Anschalten mit verzögertem Reinigungsbeginn
+name.5	Sprühfunktion vor Scheiben- wischerbetrieb aktivieren
+opt.6.0	0 Sekunden
+opt.6.1	4 Sekunden
+opt.6.2	8 Sekunden
+opt.6.3	16 Sekunden
+name.6	Heckscheibenwischer Intervall
+opt.7.0	Aus
+opt.7.1	1 Minute
+opt.7.2	3 Minuten
+opt.7.3	5 Minuten
+opt.7.4	10 Minuten
+name.7	Automatische Abschaltung der Ladeleuchte
+opt.8.0	Kein Autom.-Öffnen/Schließen
+opt.8.1	Fahrzeuggeschwindigkeit für autom. Türentriegelung
+opt.8.2	Öff./Schli. ü. Zündung-Ein/Aus und Fahrertür of./geschl.
+name.8	Autom.-Klappspiegel
+opt.9.0	Früh
+opt.9.1	Etwas Früher
+opt.9.2	Standard
+opt.9.3	Etwas Später
+opt.9.4	Spät
+name.9	Empfindlichkeit für Lichtautomatik
+opt.10.0	Aus
+opt.10.1	Ein
+name.10	Licht bei Scheibenwischerbetrieb einschalten
+opt.11.0	0 Sekunden
+opt.11.1	7.5 Sekunden
+opt.11.2	15 Sekunden
+opt.11.3	30 Sekunden
+opt.11.4	1 Minute
+opt.11.5	2 Minuten
+opt.11.6	3 Minuten
+name.11	Zeit bis zum Absch. der Innenbel. nach Schließen der Tür
+opt.12.0	Aus
+opt.12.1	Rücklicht/Frontscheinwerfer: Immer Ausschalten
+opt.12.2	Ein
+opt.12.3	Ein
+opt.12.4	Rücklicht : Einmal Aus. / Frontscheinwerfer : Immer Aus.
+opt.12.5	Ein
+name.12	Automatische Scheinwerfer- Abschaltung
+opt.13.0	Keine autom. Abschaltung
+opt.13.1	3 Minuten
+opt.13.2	30 Minuten
+opt.13.3	60 Minuten
+name.13	Zeitverz. bis zum Abschalten der Innenraumbel.
+opt.14.0	Kurz
+opt.14.1	Lang
+name.14	Aktivierungszeit für Blinkersignale
+opt.15.0	Aus
+opt.15.1	Ein
+name.15	Komfort-Sprühfunktion
+opt.16.0	Aus
+opt.16.1	In Parkstellung
+opt.16.2	In Parkstellung bei entriegelten Fenstern
+opt.16.3	Bei ausgeschalteter Zündung
+opt.16.4	Bei ausgeschalteter Zündung mit entriegelten Fenstern
+name.16	Automatische Entriegelung
+opt.17.0	Alle Türen
+opt.17.1	Nur die Fahrertür
+name.17	Entriegelung
+opt.19.0	Zwei Tastendrücke
+opt.19.1	Ein Tastendruck
+name.19	Angabe,wie oft die Sperrtaste bis zum Auslösen des Deadlock gedrückt werden kann
+opt.20.0	Aus
+opt.20.1	Ein Tastendruck
+opt.20.2	Ein Tastendruck bei Tageslicht
+opt.20.3	Zwei Tastendrücke Ton
+opt.20.4	Zwei Tastendrücke bei Tageslicht
+name.20	Hupen-Kennung ertönt bei Keyless Entry Sperre
+opt.21.0	Aus
+opt.21.1	Ton bei Keyless Operation
+opt.21.2	Ton bei Keyless Entry
+opt.21.3	Ton bei Keyless Entry und Keyless Operation
+name.21	Keyless Operation Signaltöne
+opt.22.0	30 Sekunden
+opt.22.1	1 Minute
+opt.22.2	2 Minuten
+opt.22.3	3 Minuten
+name.22	Autom. Wieder-Verrieg. nach Entrieg. über Fernbedienung
+opt.24.0	0 Sekunden
+opt.24.1	30 Sekunden
+opt.24.2	3 Minuten
+opt.24.3	10 Minuten
+name.24	Timerfunktion nach Zündung aus
+opt.26.0	Aus
+opt.26.1	Fenster, Außenspiegel: Öffnen & Schließen
+opt.26.2	Fenster : Öffnen & Schließen
+opt.26.3	Fenster : Schließen / Außenspiegel: : Öffnen & Schließen
+opt.26.4	Außenspiegel : Öffnen & Schließen
+opt.26.5	Fenster : Schließen
+name.26	Multi-Modus Keyless Entry System
+opt.28.0	Kurz
+opt.28.1	lang
+name.28	Dauer des Hupsignaltons
+opt.29.0	Wenn Heckscheibenwischer aktiviert ist (ON)
+opt.29.1	Wenn Heck- oder Frontscheibenwischer aktiviert ist (ON)
+name.29	Heckscheibenwischer im Rückwärtsgang aktivieren
+opt.32.0	Aus
+opt.32.1	3 Sekunden
+opt.32.2	5 Sekunden
+name.32	Zeitraum für Fernbedienungssperre nach Verriegelung
+opt.33.0	Aus
+opt.33.1	Ein
+name.33	Hupsignaltöne bei Motorstart durch Fernbed.starter
+opt.34.0	Ein
+opt.34.1	Aus
+name.34	Offener Betrieb nach Ausschalten der Zündung (OFF)
+opt.35.0	Alle Türen
+opt.35.1	Nur die Fahrertür
+name.35	Die Fensterheberpos. wird d. den Sperrschalter verhindert
+opt.36.0	Keine autom. Abschaltung
+opt.36.1	30 Minuten
+opt.36.2	60 Minuten
+name.36	Autoabschalten von ACC-Strom
+opt.42.0	Aus
+opt.42.1	15 Sekunden
+opt.42.2	30 Sekunden
+opt.42.3	1 Minuten
+opt.42.4	3 Minuten
+name.42	Scheinwerfer beim Verlassen des Fahrzeugs einschalten (ON)
+opt.43.0	Aus
+opt.43.1	Standlicht
+opt.43.2	Hauptscheinwerfer
+name.43	Außenbeleuchtung bei Fernbedienungssperre einschalten (ON)
+opt.50.0	Manuell
+opt.50.1	Automatisch
+name.50	Abgasrückführungssteuerung
+opt.51.0	Manuell
+opt.51.1	Automatisch
+name.51	A/C-Schalter-Steuerung
+opt.53.0	Eco
+opt.53.1	Komfort
+name.53	Eco-Modus
+opt.54.0	Normal
+opt.54.1	Mehr Luftstrom im Fußraum
+opt.54.2	Mehr Luftstrom in der Heizung
+name.54	Verhältnis Luftstrom Fußraum/Heizung
+opt.55.0	Normal
+opt.55.1	Mehr Luftstrom in Front
+opt.55.2	Mehr Luftstrom im Fußraum
+name.55	Verhältnis Luftstrom Front/Fußraum
+opt.56.0	Aus
+opt.56.1	Ein (0℃/32F)
+name.56	Automatische Heckscheibenbeheizung beim Start
+opt.57.0	Aus
+opt.57.1	Ein
+name.57	Start A/C oder Beheizung bei Entriegelung der Tür
+opt.58.0	Aus
+opt.58.1	Ein
+name.58	Im Fußraum-Modus leichter Luftstrom durch Heizung
+opt.60.0	Aus
+opt.60.1	Ein
+name.60	Leerlauf für höhere Heizleistung bei angehaltenem Fahrzeug
+opt.8.3	Open/Close by Keyless Operation System Lock/Unlock
+group.Keyless entry & operation	Keyless Entry System / Keyless Operation System
+group.Wipers	Scheibenwischer
+group.Lights	Aussen-/Innenbeleuchtung
+group.Power windows	Elektrische Fensterheber
+group.Turn signals	Blinker
+group.Door locks	Zentralverriegelung
+group.Air conditioning	Klimaanlage
+group.Other	Andere

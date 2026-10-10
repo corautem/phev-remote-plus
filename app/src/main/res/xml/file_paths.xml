@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Files the app may share: OBD recordings (CSV). -->
+<paths>
+    <external-files-path name="obd_logs" path="obd-logs/" />
+    <files-path name="obd_logs_internal" path="obd-logs/" />
+</paths>

@@ -1,0 +1,186 @@
+# Vehicle settings texts - sv. Base: the official Mitsubishi Remote Control app's translations (setFunc* strings),
+# reviewed against the English. Format: key<TAB>text. name.<id>, opt.<id>.<option>, group.<English group title>.
+opt.1.0	Tändning på eller ACC
+opt.1.1	Tändning på
+name.1	Funktion i nyckelposition
+opt.2.0	Av
+opt.2.1	På
+name.2	Körriktningsvisare (tre-blink)
+opt.3.0	Lås: En gång Lås upp: Två gånger
+opt.3.1	Lås: En gång Lås upp: Av
+opt.3.2	Lås: Av Lås upp: Två gånger
+opt.3.3	Lås: Två gånger Lås upp: En gång
+opt.3.4	Lås: Av Lås upp: En gång
+opt.3.5	Lås: Två gånger Lås upp: Av
+opt.3.6	Av
+name.3	Kvittering med blinkers
+opt.4.0	Fast (4 sekunder)
+opt.4.1	Justerbar
+opt.4.2	Justerbar & hastighetskänslig
+opt.4.3	Justerbar & regnkänslig
+name.4	Vindrutetorkare intervalldrift
+opt.5.0	Av
+opt.5.1	På
+opt.5.2	På med fördröjd sista torkning
+name.5	Torkare kopplade till spolning
+opt.6.0	0 sekunder
+opt.6.1	4 sekunder
+opt.6.2	8 sekunder
+opt.6.3	16 sekunder
+name.6	Torkarintervall bakruta
+opt.7.0	Av
+opt.7.1	1 minut
+opt.7.2	3 minuter
+opt.7.3	5 minuter
+opt.7.4	10 minuter
+name.7	Laddluckebeslysning auto avstängningstid
+opt.8.0	Av
+opt.8.1	Öppnas vid fordonshastighet
+opt.8.2	Oppna/stäng vi tändning På/Av och förardörr Öppna/stänga
+name.8	Automatisk fällning speglar
+opt.9.0	Tidigt
+opt.9.1	Ganska tidigt
+opt.9.2	Normal
+opt.9.3	Ganska sent
+opt.9.4	Sent
+name.9	Känslighet för automatljus
+opt.10.0	På
+opt.10.1	Av
+name.10	Automatljus kopplat till torkare
+opt.11.0	0 sekunder (ingen timerfunktion)
+opt.11.1	7,5 sekunder
+opt.11.2	15 sekunder
+opt.11.3	30 sekunder
+opt.11.4	1 minut
+opt.11.5	2 minuter
+opt.11.6	3 minuter
+name.11	Tid takbelysning på efter dörrstängning
+opt.12.0	Av
+opt.12.1	Baklyktor/stråklastare: Avstängning alltid
+opt.12.2	På
+opt.12.3	På
+opt.12.4	Baklyktor: Stäng av en gång Strålkastare: Stäng alltid av
+opt.12.5	På
+name.12	Automatljus-avstängningsfunktion
+opt.13.0	Av
+opt.13.1	3 minuter
+opt.13.2	30 minuter
+opt.13.3	60 minuter
+name.13	Interiörbelysning auto avstängningstid
+opt.14.0	Kort
+opt.14.1	Lång
+name.14	Aktiveringstid för körriktningsvisare
+opt.15.0	Av
+opt.15.1	På
+name.15	Komfortspolning
+opt.16.0	Av
+opt.16.1	I läge Park
+opt.16.2	I läge Parkering med olåsta fönster
+opt.16.3	Vid tändning i låsläge
+opt.16.4	Vid tändning i låsläge med olåsta fönster
+name.16	Automatisk upplåsning
+opt.17.0	Alla dörrar
+opt.17.1	Bara förardörr
+name.17	Upplåsning
+opt.19.0	2 ggr
+opt.19.1	1 ggr
+name.19	Antal knapptryck för säkerhetslåsning
+opt.20.0	Av
+opt.20.1	Ett knapptryck
+opt.20.2	Ett knapptryck dagtid
+opt.20.3	Två knapptryck ljudsignal
+opt.20.4	Två knapptryck dagtid
+name.20	Kvittens med signalhorn vid nyckelfri låsning
+opt.21.0	Alla system av
+opt.21.1	Ljud vid nyckelfri användning
+opt.21.2	Ljud vid nyckelfri öppning
+opt.21.3	Alla system på
+name.21	Kvittensljud för nyckelfritt system
+opt.22.0	30 sekunder
+opt.22.1	1 minut
+opt.22.2	2 minuter
+opt.22.3	3 minuter
+name.22	Automatisk återlåsning efter upplåsning med fjärrkontroll
+opt.24.0	0 sekunder
+opt.24.1	30 sekunder
+opt.24.2	3 minuter
+opt.24.3	10 minuter
+name.24	Timerfunktion efter avstängd tändning
+opt.26.0	Av
+opt.26.1	Elfönster, Ytterspegel: Öppna & Stäng
+opt.26.2	Elfönster: Öppna & Stäng
+opt.26.3	Elfönster: Stäng / Ytterspegel: Öppna Stäng
+opt.26.4	Ytterspegel: Öppna & Stäng
+opt.26.5	Elfönster: Stäng
+name.26	Flerfunktion för nyckelfritt system
+opt.28.0	Kort
+opt.28.1	Lång
+name.28	Längd på ljudsignalskvittens
+opt.29.0	När bakre torkare är PÅ
+opt.29.1	När främre torkare är PÅ
+name.29	Bakre torkare aktiverad vid backning
+opt.32.0	Av
+opt.32.1	3 sekunder
+opt.32.2	5 sekunder
+name.32	Tid för inaktivering av fjärrupplåsning efter låsning
+opt.33.0	Av
+opt.33.1	På
+name.33	Signalhornskvittens vid fjärrstart
+opt.34.0	På
+opt.34.1	Av
+name.34	Öppningsfunktion efter avstängd tändning
+opt.35.0	Alla dörrar
+opt.35.1	Endast förardörr
+name.35	Elfönsterposition förbjuden av låsknapp
+opt.36.0	Av
+opt.36.1	30 minuter
+opt.36.2	60 minuter
+name.36	Auto av ACC
+opt.42.0	På
+opt.42.1	15 sekunder
+opt.42.2	30 sekunder
+opt.42.3	1 minut
+opt.42.4	3 minuter
+name.42	Strålkastar PÅ vid urstigning
+opt.43.0	Av
+opt.43.1	Parkeringsljus
+opt.43.2	Strålkastare
+name.43	Yttre belysning PÅ vid fjärrupplåsning
+opt.50.0	Manuell
+opt.50.1	Automatisk
+name.50	Återcirkulation
+opt.51.0	Manuell
+opt.51.1	Automatisk
+name.51	A/C manövrering
+opt.53.0	Eco
+opt.53.1	Komfort
+name.53	Eco läge
+opt.54.0	Normal
+opt.54.1	Mer flöde till fötter
+opt.54.2	Mer flöde till avisning
+name.54	Fot/Avisningsluftflöde
+opt.55.0	Normal
+opt.55.1	Mer flöde till ansikte
+opt.55.2	Mer flöde till fötter
+name.55	Ansikte/Fot luftflöde
+opt.56.0	Av
+opt.56.1	På
+name.56	Automatisk bakre avisning vid start
+opt.57.0	Av
+opt.57.1	På
+name.57	Starta A/C eller värme vid upplåsning
+opt.58.0	Av
+opt.58.1	På
+name.58	Vid fotläge svagt luftflöde till avisning
+opt.60.0	Av
+opt.60.1	På
+name.60	Hög tomgång för högre värmeeffekt vid stillastående
+opt.8.3	Open/Close by Keyless Operation System Lock/Unlock
+group.Keyless entry & operation	Nyckelfritt låssystem
+group.Wipers	Torkare
+group.Lights	Yttre beslysning/Interiör belysning
+group.Power windows	Elfönster
+group.Turn signals	Körriktningsvisare
+group.Door locks	Centrallås
+group.Air conditioning	Klimatanläggning
+group.Other	Övrigt

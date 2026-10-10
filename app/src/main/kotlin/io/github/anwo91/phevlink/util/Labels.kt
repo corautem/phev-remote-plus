@@ -6,6 +6,7 @@ import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.model.CarCommand
 import io.github.anwo91.phevlink.core.model.ClimateMode
 import io.github.anwo91.phevlink.core.model.Doors
+import io.github.anwo91.phevlink.core.model.VehicleSettingsText
 import io.github.anwo91.phevlink.core.protocol.ModelYear
 
 /**
@@ -47,7 +48,16 @@ object Labels {
             CarCommand.AckClimateCancelled -> res.getString(R.string.cmd_ack_climate)
             CarCommand.ChargeNow -> res.getString(R.string.cmd_charge_now)
             is CarCommand.SyncClock -> res.getString(R.string.cmd_sync_clock)
-            // Vehicle-setting names come from the official app's English catalogue; raw writes are hex.
+            is CarCommand.ChangeSetting -> {
+                val lang = AppLocale.effectiveLanguage(context)
+                res.getString(
+                    R.string.cmd_change_setting,
+                    VehicleSettingsText.name(cmd.id, lang),
+                    VehicleSettingsText.option(cmd.id, cmd.value, lang),
+                )
+            }
+            CarCommand.ResetSettings -> res.getString(R.string.cmd_reset_settings)
+            // Raw writes are hex.
             else -> cmd.label
         }
     }

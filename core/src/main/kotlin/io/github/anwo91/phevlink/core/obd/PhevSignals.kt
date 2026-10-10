@@ -29,6 +29,32 @@ object PhevSignals {
     /** Nominal capacity of the 12 kWh pack of 2013–2018 cars (80 cells, ~300 V). Used for the approximate SoH. */
     const val NOMINAL_CAPACITY_AH = 40.0
 
+    /** Mitsubishi's capacity basis for cars before model year 2017 (warranty threshold 70 % = 26.6 Ah). */
+    const val CAPACITY_PRE_MY2017_AH = 38.0
+
+    /**
+     * Model year from a VIN (10th character, ISO 3779 year code), or null. Only the codes relevant to this car
+     * (2010–2030) are mapped.
+     */
+    fun modelYearFromVin(vin: String?): Int? {
+        val v = vin?.trim()?.uppercase() ?: return null
+        if (v.length != 17) return null
+        val codes = "ABCDEFGHJKLMNPRSTVWXY"
+        val i = codes.indexOf(v[9])
+        return if (i < 0) null else 2010 + i
+    }
+
+    /**
+     * Reference ("as new") capacity for the state-of-health figure. Mitsubishi's drive-battery warranty basis was
+     * 38 Ah for cars before model year 2017 and 40 Ah for model years 2017–2018 (Richi Jennings' Outlander PHEV FAQ,
+     * section AG). Unknown model year: 38 Ah, since this app targets 2014–2017 cars and the older basis is the
+     * fairer one for most of them.
+     */
+    fun referenceCapacityAh(vin: String?): Double {
+        val year = modelYearFromVin(vin) ?: return CAPACITY_PRE_MY2017_AH
+        return if (year >= 2017) NOMINAL_CAPACITY_AH else CAPACITY_PRE_MY2017_AH
+    }
+
     val BMU: EcuTarget = Ecus.BMU.target
     val OBC: EcuTarget = Ecus.OBC.target
     val FRONT_MOTOR: EcuTarget = Ecus.FRONT_MOTOR.target

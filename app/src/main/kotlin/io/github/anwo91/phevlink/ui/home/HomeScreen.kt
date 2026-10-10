@@ -1,6 +1,7 @@
 package io.github.anwo91.phevlink.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -79,7 +80,15 @@ import io.github.anwo91.phevlink.util.Labels
 import kotlinx.coroutines.delay
 
 @Composable
-fun HomeScreen(vm: MainViewModel, modifier: Modifier, onOpenSchedule: () -> Unit, onOpenDiagnostics: () -> Unit) {
+fun HomeScreen(
+    vm: MainViewModel,
+    modifier: Modifier,
+    onOpenSchedule: () -> Unit,
+    onOpenDiagnostics: () -> Unit,
+    onOpenVehicleSettings: () -> Unit = {},
+    onOpenTips: () -> Unit = {},
+    onOpenObd: () -> Unit = {},
+) {
     val car by vm.car.collectAsState()
     val link by vm.link.collectAsState()
     val pending by vm.pending.collectAsState()
@@ -125,6 +134,7 @@ fun HomeScreen(vm: MainViewModel, modifier: Modifier, onOpenSchedule: () -> Unit
         item { QuickActions(car, pending, vm) }
         item { SecurityCard(car) }
         item { DepartureCard(vm, onOpenSchedule) }
+        item { MoreCard(onOpenVehicleSettings, onOpenTips, onOpenObd) }
         item {
             Text(
                 listOfNotNull(
@@ -426,5 +436,23 @@ private fun LinkSheet(link: LinkUi, onDismiss: () -> Unit, onRetry: () -> Unit, 
                 OutlinedButton(onClick = onDiagnostics, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.tab_diagnostics)) }
             }
         }
+    }
+}
+
+/** Entry points to the car's own settings, the tips and the OBD diagnostics. */
+@Composable
+private fun MoreCard(onOpenVehicleSettings: () -> Unit, onOpenTips: () -> Unit, onOpenObd: () -> Unit) {
+    SectionCard(title = stringResource(R.string.home_more)) {
+        MoreRow(stringResource(R.string.vs_title), stringResource(R.string.home_more_vs), onOpenVehicleSettings)
+        MoreRow(stringResource(R.string.tips_title), stringResource(R.string.home_more_tips), onOpenTips)
+        MoreRow(stringResource(R.string.tab_obd), stringResource(R.string.home_more_obd), onOpenObd)
+    }
+}
+
+@Composable
+private fun MoreRow(title: String, subtitle: String, onClick: () -> Unit) {
+    Column(Modifier.fillMaxWidth().clickable(onClick = onClick).padding(vertical = 8.dp)) {
+        Text(title, style = MaterialTheme.typography.bodyLarge)
+        Text(subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }

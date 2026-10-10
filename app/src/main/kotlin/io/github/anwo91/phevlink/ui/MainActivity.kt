@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.BugReport
+import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.DirectionsCar
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Settings
@@ -24,6 +25,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -34,6 +36,10 @@ import androidx.compose.ui.res.stringResource
 import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.ui.diag.DiagnosticsScreen
 import io.github.anwo91.phevlink.ui.home.HomeScreen
+import io.github.anwo91.phevlink.ui.obd.ObdScreen
+import io.github.anwo91.phevlink.ui.obd.ObdViewModel
+import io.github.anwo91.phevlink.ui.tips.TipsScreen
+import io.github.anwo91.phevlink.ui.vehicle.VehicleSettingsScreen
 import io.github.anwo91.phevlink.ui.schedule.ScheduleScreen
 import io.github.anwo91.phevlink.ui.settings.SettingsScreen
 import io.github.anwo91.phevlink.ui.setup.SetupScreen
@@ -42,6 +48,7 @@ import io.github.anwo91.phevlink.util.AppLocale
 
 class MainActivity : ComponentActivity() {
     private val vm: MainViewModel by viewModels()
+    private val obdVm: ObdViewModel by viewModels()
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(AppLocale.wrap(newBase))
@@ -50,7 +57,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        setContent { PhevTheme { AppRoot(vm) } }
+        setContent { PhevTheme { AppRoot(vm, obdVm) } }
     }
 
     override fun onStart() {
@@ -67,18 +74,27 @@ class MainActivity : ComponentActivity() {
 private enum class Tab(@StringRes val label: Int, val icon: ImageVector) {
     CAR(R.string.tab_car, Icons.Outlined.DirectionsCar),
     SCHEDULE(R.string.tab_schedule, Icons.Outlined.Schedule),
-    DIAG(R.string.tab_diagnostics, Icons.Outlined.BugReport),
+    OBD(R.string.tab_obd, Icons.Outlined.Build),
+    DIAG(R.string.tab_log, Icons.Outlined.BugReport),
     SETTINGS(R.string.tab_settings, Icons.Outlined.Settings),
 }
 
+/** Full-screen pages opened from a tab. */
+private object Page {
+    const val VEHICLE = "vehicle"
+    const val TIPS = "tips"
+}
+
 @Composable
-fun AppRoot(vm: MainViewModel) {
+fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
     val settings by vm.settings.collectAsState()
     if (!settings.setupDone) {
         SetupScreen(vm)
         return
     }
     var tab by rememberSaveable { mutableIntStateOf(0) }
+    // An open page ("vehicle", "tips" or "tips:<id>") is drawn over the current tab.
+    var page by rememberSaveable { mutableStateOf<String?>(null) }
     val snack = remember { SnackbarHostState() }
     LaunchedEffect(Unit) {
         vm.messages.collect { snack.showSnackbar(it) }
@@ -90,7 +106,7 @@ fun AppRoot(vm: MainViewModel) {
                 Tab.entries.forEachIndexed { i, t ->
                     NavigationBarItem(
                         selected = tab == i,
-                        onClick = { tab = i },
+                        onClick = { tab = i; page = null },
                         icon = { Icon(t.icon, contentDescription = null) },
                         label = { Text(stringResource(t.label)) },
                     )
@@ -99,11 +115,29 @@ fun AppRoot(vm: MainViewModel) {
         },
     ) { pad ->
         val m = Modifier.padding(pad)
-        when (Tab.entries[tab]) {
-            Tab.CAR -> HomeScreen(vm, m, onOpenSchedule = { tab = Tab.SCHEDULE.ordinal }, onOpenDiagnostics = { tab = Tab.DIAG.ordinal })
-            Tab.SCHEDULE -> ScheduleScreen(vm, m)
-            Tab.DIAG -> DiagnosticsScreen(vm, m)
-            Tab.SETTINGS -> SettingsScreen(vm, m)
+        val p = page
+        when {
+            p == Page.VEHICLE -> VehicleSettingsScreen(vm, m, onBack = { page = null })
+            p != null && p.startsWith(Page.TIPS) -> TipsScreen(
+                m, initialTip = p.substringAfter(':', "").ifEmpty { null },
+                onBack = { page = null },
+                onOpenTests = { page = null; tab = Tab.OBD.ordinal },
+                onOpenVehicleSettings = { page = Page.VEHICLE },
+            )
+            else -> when (Tab.entries[tab]) {
+                Tab.CAR -> HomeScreen(
+                    vm, m,
+                    onOpenSchedule = { tab = Tab.SCHEDULE.ordinal },
+                    onOpenDiagnostics = { tab = Tab.DIAG.ordinal },
+                    onOpenVehicleSettings = { page = Page.VEHICLE },
+                    onOpenTips = { page = Page.TIPS },
+                    onOpenObd = { tab = Tab.OBD.ordinal },
+                )
+                Tab.SCHEDULE -> ScheduleScreen(vm, m)
+                Tab.OBD -> ObdScreen(obdVm, m, onOpenTip = { page = Page.TIPS + ":" + it })
+                Tab.DIAG -> DiagnosticsScreen(vm, m)
+                Tab.SETTINGS -> SettingsScreen(vm, m)
+            }
         }
     }
 }

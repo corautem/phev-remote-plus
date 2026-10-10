@@ -8,6 +8,9 @@ import io.github.anwo91.phevlink.data.StateCache
 import io.github.anwo91.phevlink.link.CarRepository
 import io.github.anwo91.phevlink.notify.Notifier
 import io.github.anwo91.phevlink.obd.ObdRepository
+import io.github.anwo91.phevlink.obd.PrefsTestStore
+import io.github.anwo91.phevlink.core.obd.livetest.LiveTestRunner
+import io.github.anwo91.phevlink.core.obd.livetest.TestStore
 import io.github.anwo91.phevlink.schedule.DepartureScheduler
 import io.github.anwo91.phevlink.tile.PreheatTileService
 import io.github.anwo91.phevlink.widget.WidgetUpdater
@@ -45,6 +48,9 @@ class Graph(app: Application) {
     val repo = CarRepository(app, settings, log, cache, notifier)
     /** OBD-II adapter connection (ELM327 over Bluetooth Classic/LE or Wi-Fi). */
     val obd: ObdRepository by lazy { ObdRepository(app, scope, log) }
+    /** Guided live tests; app-wide so a test keeps running when the screen is left. */
+    val liveTests: LiveTestRunner by lazy { LiveTestRunner(scope, log) }
+    val testStore: TestStore by lazy { PrefsTestStore(app) }
 
     init {
         repo.onStateSaved = {

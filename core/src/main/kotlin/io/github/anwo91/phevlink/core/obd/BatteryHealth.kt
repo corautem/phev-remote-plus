@@ -11,7 +11,9 @@ import kotlin.math.roundToLong
  * @param packVoltage pack voltage (V), documented
  * @param capacityAh the BMU's full-charge capacity estimate ("battery health"), documented
  * @param remainingAh charge currently stored (Ah), documented
- * @param sohPercent approximate state of health = [capacityAh] / 40 Ah (nominal capacity of the 12 kWh pack) × 100
+ * @param sohPercent approximate state of health = [capacityAh] / [referenceAh] × 100
+ * @param referenceAh capacity of a new pack used for [sohPercent]: Mitsubishi's warranty basis was 38 Ah before
+ *   model year 2017 and 40 Ah for 2017–2018 (see [PhevSignals.referenceCapacityAh])
  * @param maxCellV highest cell voltage (inferred), [maxCellNo] its cell number
  * @param minCellV lowest cell voltage (inferred), [minCellNo] its cell number
  * @param spreadMv max − min cell voltage in mV (derived from inferred values)
@@ -27,6 +29,7 @@ data class BatteryHealth(
     val capacityAh: Double?,
     val remainingAh: Double?,
     val sohPercent: Double?,
+    val referenceAh: Double = PhevSignals.NOMINAL_CAPACITY_AH,
     val maxCellV: Double?,
     val maxCellNo: Int?,
     val minCellV: Double?,
@@ -67,7 +70,12 @@ data class BatteryHealth(
          * Decodes [bmuPayload] (bytes after `61 01`) and optionally [obcPayload].
          * Returns null when not even the state of charge can be decoded.
          */
-        fun decode(bmuPayload: ByteArray, obcPayload: ByteArray?, nowMs: Long): BatteryHealth? {
+        fun decode(
+            bmuPayload: ByteArray,
+            obcPayload: ByteArray?,
+            nowMs: Long,
+            referenceAh: Double = PhevSignals.NOMINAL_CAPACITY_AH,
+        ): BatteryHealth? {
             fun bmu(id: String): Double? = PhevSignals.byId(id)?.let { SignalDecoder.decode(it, bmuPayload) }
             fun obc(id: String): Double? = obcPayload?.let { p -> PhevSignals.byId(id)?.let { SignalDecoder.decode(it, p) } }
             val soc = bmu("bmu.soc") ?: return null
@@ -83,7 +91,8 @@ data class BatteryHealth(
                 packVoltage = pack,
                 capacityAh = cap,
                 remainingAh = rem,
-                sohPercent = cap?.let { it * 100.0 / PhevSignals.NOMINAL_CAPACITY_AH },
+                sohPercent = cap?.let { it * 100.0 / referenceAh },
+                referenceAh = referenceAh,
                 maxCellV = maxV,
                 maxCellNo = bmu("bmu.cell_max_no")?.toInt(),
                 minCellV = minV,

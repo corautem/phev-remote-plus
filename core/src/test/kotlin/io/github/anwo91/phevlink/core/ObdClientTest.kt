@@ -71,7 +71,9 @@ class ObdClientTest {
         val b = s.batteryHealth!!
         assertEquals(60.0, b.soc!!, 1e-9)
         assertEquals(318.2, b.packVoltage!!, 1e-9)
-        assertEquals(85.0, b.sohPercent!!, 1e-9)
+        // VIN year code F = model year 2015 → Mitsubishi's pre-2017 basis of 38 Ah.
+        assertEquals(38.0, b.referenceAh, 0.0)
+        assertEquals(34.0 * 100 / 38.0, b.sohPercent!!, 1e-9)
         assertEquals(3.0, b.spreadMv!!, 0.0)
         assertEquals(42, b.charges100V)
         assertEquals(500, b.charges200V)
@@ -97,7 +99,7 @@ class ObdClientTest {
         assertEquals(60.0, v["bmu.soc"]!!.value!!, 1e-9)
         assertEquals(Confidence.COMMUNITY, v["bmu.soc"]!!.confidence)
         assertEquals(Confidence.EXPERIMENTAL, v["bmu.cell_max_v"]!!.confidence)
-        assertEquals(85.0, v["bmu.soh_pct"]!!.value!!, 1e-9)
+        assertEquals(34.0 * 100 / 38.0, v["bmu.soh_pct"]!!.value!!, 1e-9)
         assertEquals(1000.0, v["motor.front_rpm"]!!.value!!, 1e-9)
         assertEquals(0.0, v["motor.rear_rpm"]!!.value!!, 1e-9)
         assertEquals(42.0, v["obc.charges_100v"]!!.value!!, 1e-9)

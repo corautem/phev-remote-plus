@@ -62,6 +62,8 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
     private var releasedNetwork: Network? = null
     private val candidates = LinkedHashMap<Network, LinkProperties>()
     private var validated = HashSet<Network>()
+    /** Last reported Wi-Fi signal strength (dBm) per network, for the log — tells range apart from protocol trouble. */
+    private val signal = HashMap<Network, Int>()
     /** Called whenever a usable car network appears (to skip connection backoff). */
     var onAvailable: (() -> Unit)? = null
 
@@ -124,6 +126,7 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
         requested = null
         candidates.clear()
         validated.clear()
+        signal.clear()
         target = null
         _state.value = State.Idle
     }
@@ -168,6 +171,7 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
             override fun onCapabilitiesChanged(network: Network, caps: NetworkCapabilities) {
                 synchronized(this@CarNetwork) {
                     if (caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)) validated += network else validated -= network
+                    readSignal(caps)?.let { signal[network] = it }
                     evaluate()
                 }
             }
@@ -185,10 +189,11 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
                     validated -= network
                     val s = _state.value
                     if (s is State.Ready && s.network == network && network != requested) {
-                        log.link("Car Wi-Fi lost")
+                        log.link("Car Wi-Fi lost" + sig(network))
                         _state.value = State.Searching(System.currentTimeMillis(), requested = requestCb != null)
                         scheduleRequest()
                     }
+                    signal -= network
                     evaluate()
                 }
             }
@@ -216,6 +221,25 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
         return gw || dns || dhcp
     }
 
+    /** Wi-Fi signal strength in dBm from the capabilities, or null when the platform doesn't report it. */
+    private fun readSignal(caps: NetworkCapabilities): Int? = runCatching {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            caps.signalStrength.takeIf { it != Int.MIN_VALUE }
+        } else null
+    }.getOrNull()
+
+    /** " signal=-67 dBm (good)" for the log, or "" when unknown. Rough bands: >-60 strong, -70 ok, <-80 weak. */
+    private fun sig(network: Network?): String {
+        val s = signal[network] ?: return ""
+        val band = when {
+            s >= -60 -> "strong"
+            s >= -70 -> "good"
+            s >= -78 -> "ok"
+            else -> "weak"
+        }
+        return " signal=$s dBm ($band)"
+    }
+
     private fun evaluate() {
         if (target == null) return
         val current = _state.value
@@ -228,7 +252,7 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
             if (current !is State.Ready || current.network != pick) {
                 val how = if (pick == req) "connected by the app" else "phone already on car Wi-Fi"
                 val lp = candidates[pick]
-                log.link("Car Wi-Fi ready ($how)" + (lp?.let { " addr=${it.linkAddresses.joinToString()}" } ?: ""))
+                log.link("Car Wi-Fi ready ($how)" + sig(pick) + (lp?.let { " addr=${it.linkAddresses.joinToString()}" } ?: ""))
                 _state.value = State.Ready(pick, how)
                 onAvailable?.invoke()
                 if (pick != req && pick == releasedNetwork && requestCb == null) {

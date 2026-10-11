@@ -80,6 +80,12 @@ data class ConnectionConfig(
     val backoffMs: List<Long> = listOf(1_000, 2_000, 4_000, 8_000, 15_000, 30_000),
     /** A session that lasted at least this long resets the backoff. */
     val stableAfterMs: Long = 30_000,
+    /**
+     * When the car accepts the socket but never starts a session, its Wi-Fi module has usually just rebooted
+     * (the 2014–2017 car restarts its Wi-Fi after every session) and isn't ready yet. Retrying in 1–2 s just
+     * hammers a rebooting access point, so wait at least this long — uninterrupted — before trying again.
+     */
+    val carSettleMs: Long = 20_000,
     val tickMs: Long = 100,
 )
 
@@ -209,23 +215,32 @@ class PhevConnection(
                     continue
                 }
                 val started = clock.monoMs()
-                val reason = runSession(socket)
+                val outcome = runSession(socket)
                 if (!running) break
                 if (clock.monoMs() - started >= config.stableAfterMs) failures = 0
                 failures++
-                backoff(failures, reason)
+                // The car accepted the socket but never started a session: its Wi-Fi likely just rebooted.
+                // Wait a fixed settle time, uninterrupted, instead of hammering it on the short early backoffs.
+                val settle = if (!outcome.started) config.carSettleMs else 0L
+                backoff(failures, outcome.reason, floorMs = settle, interruptible = settle == 0L)
             }
         } finally {
             if (_status.value !is LinkStatus.Idle) _status.value = LinkStatus.Idle()
         }
     }
 
-    private suspend fun backoff(failures: Int, reason: String) {
-        val d = config.backoffMs[(failures - 1).coerceIn(0, config.backoffMs.lastIndex)]
+    private suspend fun backoff(failures: Int, reason: String, floorMs: Long = 0L, interruptible: Boolean = true) {
+        val base = config.backoffMs[(failures - 1).coerceIn(0, config.backoffMs.lastIndex)]
+        val d = maxOf(base, floorMs)
+        if (floorMs > 0 && d > base) {
+            log.link("Car accepted the link but didn't start a session — its Wi-Fi may be restarting; waiting ${d / 1000}s to let it settle before trying again")
+        }
         log.link("Retrying in ${d / 1000.0}s — $reason")
         _status.value = LinkStatus.Retrying(clock.wallMs() + d, failures, reason)
         val t0 = clock.monoMs()
-        withTimeoutOrNull(d) { wake.receive() }
+        // The "car settle" wait is deliberately not cut short by the network reappearing (reconnectNow): the
+        // AP coming back up is exactly when the car is still not ready, so jumping on it restarts the thrash.
+        if (interruptible) withTimeoutOrNull(d) { wake.receive() } else delay(d)
         val took = clock.monoMs() - t0
         if (took > d + 5_000) {
             // Field log: a 1 s wait that ended 2 minutes later — the app was frozen in the background.
@@ -239,16 +254,20 @@ class PhevConnection(
         data object Tick : Msg
     }
 
-    private suspend fun runSession(socket: Socket): String = coroutineScopeCompat { sessionScope ->
+    /** Outcome of one socket's lifetime. [started] is true once the car actually began a session (START). */
+    private data class SessionResult(val reason: String, val started: Boolean)
+
+    private suspend fun runSession(socket: Socket): SessionResult = coroutineScopeCompat { sessionScope ->
         val inbox = Channel<Msg>(Channel.UNLIMITED)
         val out = Channel<ByteArray>(Channel.UNLIMITED)
         var closedReason: String? = null
+        var everReady = false
 
         val listener = object : SessionListener {
             override fun onPhase(phase: SessionPhase) {
                 _status.value = when (phase) {
                     SessionPhase.HANDSHAKE -> LinkStatus.Handshaking
-                    SessionPhase.READY -> LinkStatus.Connected(clock.wallMs(), modelYearOf())
+                    SessionPhase.READY -> { everReady = true; LinkStatus.Connected(clock.wallMs(), modelYearOf()) }
                     SessionPhase.CLOSED -> _status.value
                 }
             }
@@ -342,7 +361,7 @@ class PhevConnection(
                 writer.cancel()
             }
         }
-        closedReason ?: "Session ended"
+        SessionResult(closedReason ?: "Session ended", everReady)
     }
 
     @Volatile private var modelYearOf: () -> ModelYear = { ModelYear.UNKNOWN }

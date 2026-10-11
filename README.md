@@ -57,6 +57,12 @@ The main goal: **a connection that just works.**
 - **Bridge (optional)** — a small always-on computer near the car (e.g. Raspberry Pi) keeps the link and lets the phone
   reach the car **from anywhere** through a VPN such as Tailscale. Includes a web control page and push alerts via ntfy.
 
+## Kits
+
+Want to package this for another Outlander PHEV owner, or sell one? [docs/kit.md](docs/kit.md) spells out three tiers —
+a plug‑and‑play adapter kit, a pre‑flashed home bridge, and a full in‑car telematics box — with parts, costs, assembly,
+the engravable setup card ([docs/kit-setup-card.md](docs/kit-setup-card.md)), and an honest checklist for selling.
+
 ## Install
 
 1. On your phone, open the latest release of this repository (GitHub → Releases) and download `PHEV-Link-*.apk`.

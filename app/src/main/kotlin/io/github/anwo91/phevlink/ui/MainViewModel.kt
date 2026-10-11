@@ -48,11 +48,27 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     private var visible = false
     private var watchStarted = false
+    private var liveJob: kotlinx.coroutines.Job? = null
 
     init {
         log.addListener(logListener)
         viewModelScope.launch {
             car.collect { maybeStartWatch() }
+        }
+    }
+
+    /**
+     * While the screen is open and connected, ask the car for fresh data every [LIVE_REFRESH_MS]. The car already
+     * pushes changes on its own, but this keeps slow-moving values (charge estimate, battery %) current in near
+     * real time. Quiet: no snackbar, and it stands aside while another command is running.
+     */
+    private fun startLiveRefresh() {
+        if (liveJob?.isActive == true) return
+        liveJob = viewModelScope.launch {
+            while (visible) {
+                kotlinx.coroutines.delay(LIVE_REFRESH_MS)
+                if (visible && _pending.value == null && link.value.connected) repo.refreshQuiet()
+            }
         }
     }
 
@@ -73,10 +89,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         repo.relocalize()
         repo.hold(CarRepository.UI)
         maybeStartWatch()
+        startLiveRefresh()
     }
 
     fun onHidden() {
         visible = false
+        liveJob?.cancel()
         log.link("App in the background")
         // Android freezes a background app and cuts its network within seconds unless a foreground service runs,
         // so a quick switch to another app used to drop the car. The service keeps the link for a while.
@@ -160,5 +178,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 repo.release("test", 20_000)
             }
         }
+    }
+
+    companion object {
+        /** How often to ask the car for fresh data while the screen is open and connected. */
+        private const val LIVE_REFRESH_MS = 20_000L
     }
 }

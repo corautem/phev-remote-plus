@@ -68,6 +68,7 @@ object PhevSignals {
     private const val FORUM = "Source: myoutlanderphev.com forum, \"Extracting useful data from your OBDII port\" (anko)."
     private const val INFERRED =
         "Inferred from the forum's example reply (consistent with the pack voltage: 318.2 V / 80 cells = 3.98 V); not documented."
+    private const val OVMS = "Source: the GreyPeter OVMS Outlander fork (community); byte layout not yet confirmed on a 2014–2017 car."
     private const val OBDB = "From OBDb Outlander (non-PHEV) definitions; may not apply to the PHEV."
     private const val OBDB_ENGINE = "OBDb marks it verified for model year 2011 only."
     private const val OBDB_DEBUG = "OBDb marks it unverified."
@@ -123,12 +124,26 @@ object PhevSignals {
             min = 0.0, max = 60.0, confidence = COMMUNITY, note = "Bytes 29–30 / 10. $FORUM", poll = 5.0),
     )
 
-    /** OBC 765→766, request 21 01. */
+    /** OBC 765→766, request 21 01 (charge counters) and 21 02/21 03 (live charger + DC/DC values). */
     val charger: List<SignalDef> = listOf(
         forum("obc.charges_100v", "Number of charges at 100 V", GROUP_CHARGER, OBC, r21(0x01), 0, 16, unit = "count",
             min = 0.0, max = 65535.0, confidence = COMMUNITY, note = "Bytes 0–1. $FORUM", poll = 300.0),
         forum("obc.charges_200v", "Number of charges at 200 V", GROUP_CHARGER, OBC, r21(0x01), 16, 16, unit = "count",
             min = 0.0, max = 65535.0, confidence = COMMUNITY, note = "Bytes 2–3. $FORUM", poll = 300.0),
+        // 21 02: live charger values while charging (byte n = n-th byte after 61 02).
+        forum("obc.ac_volts", "Charger AC input voltage", GROUP_CHARGER, OBC, r21(0x02), 16, 16, div = 10.0, unit = "V",
+            min = 0.0, max = 300.0, confidence = EXPERIMENTAL, note = "Bytes 2–3 / 10. $OVMS", poll = 3.0),
+        forum("obc.ac_amps", "Charger AC input current", GROUP_CHARGER, OBC, r21(0x02), 32, 8, div = 10.0, unit = "A",
+            min = 0.0, max = 40.0, confidence = EXPERIMENTAL, note = "Byte 4 / 10. $OVMS", poll = 3.0),
+        forum("obc.dc_volts", "Charger DC output voltage", GROUP_CHARGER, OBC, r21(0x02), 40, 16, div = 10.0, unit = "V",
+            min = 0.0, max = 420.0, confidence = EXPERIMENTAL, note = "Bytes 5–6 / 10. $OVMS", poll = 3.0),
+        forum("obc.dc_amps", "Charger DC output current", GROUP_CHARGER, OBC, r21(0x02), 56, 8, div = 10.0, unit = "A",
+            min = 0.0, max = 30.0, confidence = EXPERIMENTAL, note = "Byte 7 / 10. $OVMS", poll = 3.0),
+        forum("obc.pilot_duty", "Control-pilot duty (charge rate)", GROUP_CHARGER, OBC, r21(0x02), 104, 8, unit = "%",
+            min = 0.0, max = 100.0, confidence = EXPERIMENTAL, note = "Byte 13. $OVMS", poll = 5.0),
+        // 21 03: DC/DC converter (12 V supply).
+        forum("obc.dcdc_amps", "DC/DC 12 V output current", GROUP_CHARGER, OBC, r21(0x03), 56, 8, div = 10.0, unit = "A",
+            min = 0.0, max = 150.0, confidence = EXPERIMENTAL, note = "Byte 7 / 10. $OVMS", poll = 5.0),
     )
 
     /** Front motor 753→754 and rear motor 755→756, request 21 02. */

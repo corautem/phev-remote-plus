@@ -69,6 +69,7 @@ import io.github.anwo91.phevlink.core.model.ClimateMode
 import io.github.anwo91.phevlink.core.model.Ignition
 import io.github.anwo91.phevlink.core.model.PlugState
 import io.github.anwo91.phevlink.core.model.PreAcState
+import io.github.anwo91.phevlink.core.model.ScheduleDecoder
 import io.github.anwo91.phevlink.core.model.TheftAlarm
 import io.github.anwo91.phevlink.link.LinkUi
 import io.github.anwo91.phevlink.ui.MainViewModel
@@ -146,6 +147,7 @@ fun HomeScreen(
         }
         item { QuickActions(car, pending, vm) }
         item { SecurityCard(car) }
+        item { ScheduleCard(car) }
         item { DepartureCard(vm, onOpenSchedule) }
         item { MoreCard(onOpenVehicleSettings, onOpenTips, onOpenObd) }
         item {
@@ -548,6 +550,50 @@ private fun LinkSheet(link: LinkUi, car: CarState, onDismiss: () -> Unit, onRetr
                 Button(onClick = onRetry, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.link_try_again)) }
                 OutlinedButton(onClick = onDiagnostics, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.tab_diagnostics)) }
             }
+        }
+    }
+}
+
+/** The car's own charge and climate timers, read-only. Shows nothing until the car reports a programmed timer. */
+@Composable
+private fun ScheduleCard(car: CarState) {
+    if (!ScheduleDecoder.hasAny(car)) return
+    val status = LocalStatus.current
+    fun dayName(d: Int): String =
+        java.time.DayOfWeek.of(if (d == 0) 7 else d).getDisplayName(java.time.format.TextStyle.SHORT, java.util.Locale.getDefault())
+    fun hhmm(t: java.time.LocalTime) = "%02d:%02d".format(t.hour, t.minute)
+
+    SectionCard(title = stringResource(R.string.sched_title)) {
+        val charge = ScheduleDecoder.charge(car).filter { it.programmed }
+        val climate = ScheduleDecoder.climate(car).filter { it.programmed }
+        if (charge.isNotEmpty() || ScheduleDecoder.chargeTimerOn(car)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(stringResource(R.string.sched_charge), style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
+                Pill(
+                    stringResource(if (ScheduleDecoder.chargeTimerOn(car)) R.string.sched_on else R.string.sched_off),
+                    if (ScheduleDecoder.chargeTimerOn(car)) status.good else status.idle,
+                )
+            }
+            if (charge.isEmpty()) {
+                Text(stringResource(R.string.sched_none), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            } else charge.forEach { d ->
+                val window = listOfNotNull(d.start?.let(::hhmm), d.end?.let(::hhmm)).joinToString("–")
+                val extra = if (d.fullCharge) " · " + stringResource(R.string.sched_full) else ""
+                LabeledValue(dayName(d.day), window + extra)
+            }
+        }
+        if (climate.isNotEmpty() || ScheduleDecoder.climateTimerOn(car)) {
+            Spacer(Modifier.height(8.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(stringResource(R.string.sched_climate), style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
+                Pill(
+                    stringResource(if (ScheduleDecoder.climateTimerOn(car)) R.string.sched_on else R.string.sched_off),
+                    if (ScheduleDecoder.climateTimerOn(car)) status.good else status.idle,
+                )
+            }
+            if (climate.isEmpty()) {
+                Text(stringResource(R.string.sched_none), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            } else climate.forEach { d -> d.start?.let { LabeledValue(dayName(d.day), hhmm(it)) } }
         }
     }
 }

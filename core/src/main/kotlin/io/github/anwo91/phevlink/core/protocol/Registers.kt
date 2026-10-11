@@ -16,7 +16,11 @@ object Reg {
     const val READ_CLIMATE_TIMER = 0x05
     const val READ_QUICK_CHARGE_C = 0x0c      // quick-charge phase; ==5 quick charging (with 0x0d)
     const val READ_QUICK_CHARGE_D = 0x0d      // ==3 quick charging (CHAdeMO)
+    const val READ_FULL_CHARGE_DAYS = 0x0e    // weekday bitmask: "charge to full" days (bit d = day d, Sunday 0)
     const val READ_THEFT_EVENT = 0x14         // [yy mm dd hh mi ss][type]: security-alarm event
+    const val READ_CHARGE_TIMER_PROG = 0x18   // 16 bytes: per-day charge window (start/end hour+min), see ScheduleDecoder
+    const val READ_CLIMATE_TIMER_PROG = 0x19  // 9 bytes: [state][per-day start hour][per-day start min]
+    const val READ_CHARGE_TIMER_STATE_B = 0x1b // low nibble: 1 = suspended (charge now), >=2 = timer on
     /** MY18+ only (the official app's register table for 2014–2017 cars has no entry): "Always Communicate" 1/0. */
     const val READ_WIFI_ALWAYS_ON_MY18 = 0x0b
     const val READ_PRE_AC_STATE = 0x10        // 0=off 2=running 3=cancelled (door/low battery)
@@ -65,7 +69,11 @@ object Reg {
         0x06 to "unknown 0x06",
         READ_QUICK_CHARGE_C to "quick-charge phase",
         READ_QUICK_CHARGE_D to "quick-charge state",
+        READ_FULL_CHARGE_DAYS to "full-charge days",
         READ_THEFT_EVENT to "security-alarm event",
+        READ_CHARGE_TIMER_PROG to "charge timer schedule",
+        READ_CLIMATE_TIMER_PROG to "climate timer schedule",
+        READ_CHARGE_TIMER_STATE_B to "charge timer on/off",
         READ_WIFI_ALWAYS_ON_MY18 to "Wi-Fi always on (MY18)",
         READ_PRE_AC_STATE to "climate state",
         READ_CAR_CLOCK to "car clock",

@@ -110,6 +110,20 @@ class ObdDecodeTest {
     }
 
     @Test
+    fun chargerLiveSignalsDecode() {
+        fun sig(id: String, payloadAfterEcho: String) = SignalDecoder.decode(PhevSignals.byId(id)!!, hex(payloadAfterEcho))
+        // 21 02 payload (after 61 02) from the emulator: AC 230.0 V / 14.0 A, DC 360.0 V / 9.0 A, CP duty 53 %.
+        val p2 = "00 00 08 FC 8C 0E 10 5A 00 00 00 00 00 35"
+        assertEquals(230.0, sig("obc.ac_volts", p2)!!, 1e-9)
+        assertEquals(14.0, sig("obc.ac_amps", p2)!!, 1e-9)
+        assertEquals(360.0, sig("obc.dc_volts", p2)!!, 1e-9)
+        assertEquals(9.0, sig("obc.dc_amps", p2)!!, 1e-9)
+        assertEquals(53.0, sig("obc.pilot_duty", p2)!!, 1e-9)
+        // 21 03 payload: DC/DC 12 V output current 8.2 A at byte 7.
+        assertEquals(8.2, sig("obc.dcdc_amps", "00 00 00 00 00 00 00 52")!!, 1e-9)
+    }
+
+    @Test
     fun obdbBitLayoutMatchesObdbTestVectors() {
         // OBDb Mitsubishi-Outlander tests/test_cases/2011 (7E0 service 21), expected values from those files.
         fun sig(id: String, payloadAfterEcho: String) = SignalDecoder.decode(PhevSignals.byId(id)!!, hex(payloadAfterEcho))

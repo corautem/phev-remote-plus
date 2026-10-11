@@ -66,4 +66,11 @@
     <string name="climate_stopping">Klimatisierung wird gestoppt …</string>
     <string name="climate_clearing">Warnung wird zurückgesetzt …</string>
     <string name="climate_working_hint">Das Auto kann bis zu 30 Sekunden zum Antworten brauchen.</string>
+    <string name="sched_title">Fahrzeug-Timer</string>
+    <string name="sched_charge">Ladetimer</string>
+    <string name="sched_climate">Klima-Timer</string>
+    <string name="sched_on">An</string>
+    <string name="sched_off">Aus</string>
+    <string name="sched_full">Vollladung</string>
+    <string name="sched_none">Keine Tage programmiert</string>
 </resources>

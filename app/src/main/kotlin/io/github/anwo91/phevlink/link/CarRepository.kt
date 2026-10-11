@@ -239,6 +239,12 @@ class CarRepository(
         }
     }
 
+    /** Ask the car for fresh data without any UI feedback (used by the live-refresh loop while the screen is open). */
+    suspend fun refreshQuiet() {
+        if (activeRoute == null) return
+        runCatching { execute(CarCommand.RequestUpdate, timeoutMs = 15_000, lingerMs = 15_000) }
+    }
+
     // ------------------------------------------------------------- activation
 
     private suspend fun activate() = activation.withLock {

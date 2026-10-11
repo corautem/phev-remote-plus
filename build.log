@@ -1,30 +1,30 @@
 Starting a Gradle Daemon (subsequent builds will be faster)
 > Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :core:processResources
-> Task :core:processTestResources NO-SOURCE
-> Task :bridge:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :bridge:processResources NO-SOURCE
-> Task :bridge:processTestResources NO-SOURCE
-> Task :core:compileKotlin
+> Task :core:compileKotlin FROM-CACHE
 > Task :core:compileJava NO-SOURCE
+> Task :core:processResources
 > Task :core:classes
 > Task :core:jar
-> Task :bridge:compileKotlin
+> Task :core:compileTestKotlin FROM-CACHE
+> Task :core:compileTestJava NO-SOURCE
+> Task :core:processTestResources NO-SOURCE
+> Task :core:testClasses UP-TO-DATE
+> Task :core:test FROM-CACHE
+> Task :bridge:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :bridge:compileKotlin FROM-CACHE
 > Task :bridge:compileJava NO-SOURCE
+> Task :bridge:processResources NO-SOURCE
 > Task :bridge:classes UP-TO-DATE
 > Task :bridge:jar
-> Task :bridge:compileTestKotlin
+> Task :bridge:compileTestKotlin FROM-CACHE
 > Task :bridge:compileTestJava NO-SOURCE
+> Task :bridge:processTestResources NO-SOURCE
 > Task :bridge:testClasses UP-TO-DATE
-> Task :core:compileTestKotlin
-> Task :bridge:test
-> Task :core:compileTestJava NO-SOURCE
-> Task :core:testClasses UP-TO-DATE
-> Task :core:test
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1791677284624.json
+> Task :bridge:test FROM-CACHE
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1791678700126.json
 
-BUILD SUCCESSFUL in 1m 38s
-9 actionable tasks: 9 executed
+BUILD SUCCESSFUL in 23s
+9 actionable tasks: 3 executed, 6 from cache
 > Task :bridge:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :core:compileKotlin UP-TO-DATE
@@ -37,9 +37,9 @@ BUILD SUCCESSFUL in 1m 38s
 > Task :core:classes UP-TO-DATE
 > Task :core:jar UP-TO-DATE
 > Task :bridge:fatJar
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_2-1791677378722.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_2-1791678718038.json
 
-BUILD SUCCESSFUL in 1s
+BUILD SUCCESSFUL in 2s
 5 actionable tasks: 1 executed, 4 up-to-date
 > Task :app:buildKotlinToolingMetadata
 > Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
@@ -63,7 +63,7 @@ ERROR: [string-sv/sched_title] /home/runner/work/phev-remote-plus/phev-remote-pl
 ERROR: [string-da/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-da/strings_help.xml [string-da/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-da/strings.xml: Resource and asset merger: Duplicate resources
 ERROR: [string-de/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-de/strings_help.xml [string-de/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-de/strings.xml: Resource and asset merger: Duplicate resources
 ERROR: [string-nb/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-nb/strings_help.xml [string-nb/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-nb/strings.xml: Resource and asset merger: Duplicate resources
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_3-1791677380073.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_3-1791678720154.json
 
 FAILURE: Build failed with an exception.
 
@@ -263,5 +263,5 @@ Caused by: [string/sched_title] /home/runner/work/phev-remote-plus/phev-remote-p
 	... 130 more
 
 
-BUILD FAILED in 2s
+BUILD FAILED in 3s
 10 actionable tasks: 6 executed, 1 from cache, 3 up-to-date

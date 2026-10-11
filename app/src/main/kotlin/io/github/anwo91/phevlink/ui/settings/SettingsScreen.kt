@@ -99,6 +99,15 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier) {
         // ------------------------------------------------------------ language
         LanguageCard()
 
+        // --------------------------------------------------------- appearance
+        SectionCard(title = stringResource(R.string.settings_appearance)) {
+            Toggle(stringResource(R.string.settings_dynamic_color), s.dynamicColor) { on -> set { it.copy(dynamicColor = on) } }
+            Text(
+                stringResource(R.string.settings_dynamic_color_explain),
+                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+
         // ------------------------------------------------------------ car wifi
         CarWifiCard(vm, s)
 

@@ -57,7 +57,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        setContent { PhevTheme { AppRoot(vm, obdVm) } }
+        setContent {
+            val settings by vm.settings.collectAsState()
+            PhevTheme(dynamicColor = settings.dynamicColor) { AppRoot(vm, obdVm) }
+        }
     }
 
     override fun onStart() {

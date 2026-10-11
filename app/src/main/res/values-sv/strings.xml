@@ -339,6 +339,9 @@
     <string name="settings_alert_lights_on">Ljus lämnat på</string>
     <string name="settings_watch">Bevaka under laddning eller förvärmning</string>
     <string name="settings_watch_explain">Kollar bilen var %1$d:e minut i bakgrunden (telefonen måste vara inom Wi-Fi-räckvidd, eller använd bryggan).</string>
+    <string name="settings_appearance">Utseende</string>
+    <string name="settings_dynamic_color">Matcha bakgrunden (Material You)</string>
+    <string name="settings_dynamic_color_explain">Av använder PHEV Links gröna tema. På färgar appen efter telefonens färger (Android 12+).</string>
     <string name="settings_advanced">Avancerat</string>
     <string name="settings_sync_clock">Ställ bilens klocka vid anslutning</string>
     <string name="settings_full_range" formatted="false">Elektrisk räckvidd vid 100 % (km)</string>

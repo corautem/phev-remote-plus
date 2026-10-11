@@ -339,6 +339,9 @@
     <string name="settings_alert_lights_on">Lys efterladt tændt</string>
     <string name="settings_watch">Hold øje under opladning eller forvarmning</string>
     <string name="settings_watch_explain">Tjekker bilen hvert %1$d. minut i baggrunden (telefonen skal være inden for Wi-Fi-rækkevidde, ellers brug broen).</string>
+    <string name="settings_appearance">Udseende</string>
+    <string name="settings_dynamic_color">Følg baggrunden (Material You)</string>
+    <string name="settings_dynamic_color_explain">Fra bruger PHEV Links grønne tema. Til farver appen efter telefonens farver (Android 12+).</string>
     <string name="settings_advanced">Avanceret</string>
     <string name="settings_sync_clock">Indstil bilens ur ved forbindelse</string>
     <string name="settings_full_range" formatted="false">Elektrisk rækkevidde ved 100 % (km)</string>

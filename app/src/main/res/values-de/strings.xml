@@ -339,6 +339,9 @@
     <string name="settings_alert_lights_on">Licht angelassen</string>
     <string name="settings_watch">Beim Laden oder Vorheizen weiter beobachten</string>
     <string name="settings_watch_explain">Prüft das Auto alle %1$d Min. im Hintergrund (Handy muss in Wi-Fi-Reichweite sein, oder die Bridge nutzen).</string>
+    <string name="settings_appearance">Darstellung</string>
+    <string name="settings_dynamic_color">An Hintergrundbild anpassen (Material You)</string>
+    <string name="settings_dynamic_color_explain">Aus nutzt das grüne PHEV-Link-Thema. An färbt die App nach den Farben des Telefons (Android 12+).</string>
     <string name="settings_advanced">Erweitert</string>
     <string name="settings_sync_clock">Uhr im Auto beim Verbinden stellen</string>
     <string name="settings_full_range" formatted="false">Elektrische Reichweite bei 100 % (km)</string>

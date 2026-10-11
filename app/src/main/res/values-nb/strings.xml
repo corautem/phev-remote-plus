@@ -339,6 +339,9 @@
     <string name="settings_alert_lights_on">Lys står på</string>
     <string name="settings_watch">Følg med under lading eller forvarming</string>
     <string name="settings_watch_explain">Sjekker bilen hvert %1$d. minutt i bakgrunnen (telefonen må være innen Wi-Fi-rekkevidde, eller bruk broen).</string>
+    <string name="settings_appearance">Utseende</string>
+    <string name="settings_dynamic_color">Følg bakgrunnsbildet (Material You)</string>
+    <string name="settings_dynamic_color_explain">Av bruker PHEV Link sitt grønne tema. På fargelegger appen etter telefonens farger (Android 12+).</string>
     <string name="settings_advanced">Avansert</string>
     <string name="settings_sync_clock">Still bilens klokke ved tilkobling</string>
     <string name="settings_full_range" formatted="false">Elektrisk rekkevidde ved 100 % (km)</string>

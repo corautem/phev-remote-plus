@@ -1,7 +1,9 @@
 package io.github.anwo91.phevlink.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -13,6 +15,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AcUnit
 import androidx.compose.material.icons.outlined.WarningAmber
@@ -111,20 +116,8 @@ fun HomeScreen(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        item {
-            Row(Modifier.fillMaxWidth().padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                Column(Modifier.weight(1f)) {
-                    Text("Outlander PHEV", style = MaterialTheme.typography.titleLarge)
-                    Text(
-                        car.updatedAtMs?.let { stringResource(R.string.home_updated, Format.ago(it, now)) } ?: stringResource(R.string.home_no_data),
-                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-                LinkChip(link) { showLink = true }
-            }
-        }
         item { AttentionCard(car) }
-        item { BatteryCard(car, settings.fullRangeKm, now) }
+        item { HeroHeader(car, link, settings.fullRangeKm, now) { showLink = true } }
         item {
             val msgOff = stringResource(R.string.cmd_climate_off)
             val msgCleared = stringResource(R.string.msg_climate_warning_cleared)
@@ -193,57 +186,79 @@ private fun AttentionCard(car: CarState) {
     }
 }
 
+/**
+ * The top-of-screen hero: title, connection, and the battery at a glance on a branded gradient. It is
+ * the one block that looks intentional even before any car data arrives, so the app never looks empty.
+ */
 @Composable
-private fun BatteryCard(car: CarState, fullRangeKm: Int, now: Long) {
+private fun HeroHeader(car: CarState, link: LinkUi, fullRangeKm: Int, now: Long, onLinkClick: () -> Unit) {
     val status = LocalStatus.current
-    SectionCard {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            BatteryRing(car.batteryPercent, car.isCharging) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(car.batteryPercent?.let { "$it" } ?: "–", style = MaterialTheme.typography.displayMedium)
-                    Text("%", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    val brush = Brush.verticalGradient(
+        listOf(MaterialTheme.colorScheme.primaryContainer, MaterialTheme.colorScheme.surfaceContainer),
+    )
+    Box(
+        Modifier.fillMaxWidth().clip(RoundedCornerShape(28.dp)).background(brush).padding(20.dp),
+    ) {
+        Column {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text("Outlander PHEV", style = MaterialTheme.typography.titleLarge)
+                    Text(
+                        car.updatedAtMs?.let { stringResource(R.string.home_updated, Format.ago(it, now)) } ?: stringResource(R.string.home_no_data),
+                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
                 }
+                LinkChip(link, onLinkClick)
             }
-            Spacer(Modifier.width(20.dp))
-            Column(Modifier.weight(1f)) {
-                val range = car.batteryPercent?.let { (it * fullRangeKm) / 100 }
-                Text(range?.let { "≈ $it km" } ?: "–", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold)
-                Text(stringResource(R.string.home_electric_range), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                Spacer(Modifier.height(12.dp))
-                when {
-                    car.isCharging -> {
-                        val label = when (car.chargeKind) {
-                            ChargeKind.TRICKLE -> R.string.home_charge_trickle
-                            ChargeKind.QUICK -> R.string.home_charge_quick
-                            else -> R.string.home_charging
-                        }
-                        Pill(stringResource(label), status.charge)
-                        car.chargeDoneAtMs(now)?.let {
-                            Spacer(Modifier.height(6.dp))
-                            Text(
-                                stringResource(R.string.home_full_at, Format.clockOrDay(it, now), Format.minutes(car.chargeMinutesRemaining ?: 0)),
-                                style = MaterialTheme.typography.bodyMedium,
-                            )
-                        }
+            Spacer(Modifier.height(20.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                BatteryRing(car.batteryPercent, car.isCharging, size = 150.dp) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(car.batteryPercent?.let { "$it" } ?: "–", style = MaterialTheme.typography.displayMedium)
+                        Text("%", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    car.chargeTimerError -> {
-                        Pill(stringResource(R.string.home_charge_failed), status.warn)
-                        ChargeNote(stringResource(R.string.home_charge_failed_note))
-                    }
-                    car.chargeWaiting -> {
-                        Pill(stringResource(R.string.home_charge_waiting), status.good)
-                        ChargeNote(stringResource(R.string.home_charge_waiting_note))
-                    }
-                    car.plug == PlugState.PLUGGED -> {
-                        Pill(stringResource(R.string.home_plugged_in), status.good)
-                        ChargeNote(stringResource(R.string.home_not_charging))
-                    }
-                    car.plug == PlugState.UNPLUGGED -> Pill(stringResource(R.string.home_unplugged), status.idle)
-                    else -> Unit
                 }
-                // Winter: the drive battery's own thermal state.
-                if (car.batteryWarming) BatteryNote(Icons.Outlined.Whatshot, stringResource(R.string.home_batt_warming), status.charge)
-                if (car.batteryTooCold) BatteryNote(Icons.Outlined.AcUnit, stringResource(R.string.home_batt_too_cold), status.warn)
+                Spacer(Modifier.width(22.dp))
+                Column(Modifier.weight(1f)) {
+                    val range = car.batteryPercent?.let { (it * fullRangeKm) / 100 }
+                    Text(range?.let { "≈ $it km" } ?: "–", style = MaterialTheme.typography.headlineSmall)
+                    Text(stringResource(R.string.home_electric_range), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Spacer(Modifier.height(12.dp))
+                    when {
+                        car.isCharging -> {
+                            val label = when (car.chargeKind) {
+                                ChargeKind.TRICKLE -> R.string.home_charge_trickle
+                                ChargeKind.QUICK -> R.string.home_charge_quick
+                                else -> R.string.home_charging
+                            }
+                            Pill(stringResource(label), status.charge)
+                            car.chargeDoneAtMs(now)?.let {
+                                Spacer(Modifier.height(6.dp))
+                                Text(
+                                    stringResource(R.string.home_full_at, Format.clockOrDay(it, now), Format.minutes(car.chargeMinutesRemaining ?: 0)),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                            }
+                        }
+                        car.chargeTimerError -> {
+                            Pill(stringResource(R.string.home_charge_failed), status.warn)
+                            ChargeNote(stringResource(R.string.home_charge_failed_note))
+                        }
+                        car.chargeWaiting -> {
+                            Pill(stringResource(R.string.home_charge_waiting), status.good)
+                            ChargeNote(stringResource(R.string.home_charge_waiting_note))
+                        }
+                        car.plug == PlugState.PLUGGED -> {
+                            Pill(stringResource(R.string.home_plugged_in), status.good)
+                            ChargeNote(stringResource(R.string.home_not_charging))
+                        }
+                        car.plug == PlugState.UNPLUGGED -> Pill(stringResource(R.string.home_unplugged), status.idle)
+                        else -> Unit
+                    }
+                    // Winter: the drive battery's own thermal state.
+                    if (car.batteryWarming) BatteryNote(Icons.Outlined.Whatshot, stringResource(R.string.home_batt_warming), status.charge)
+                    if (car.batteryTooCold) BatteryNote(Icons.Outlined.AcUnit, stringResource(R.string.home_batt_too_cold), status.warn)
+                }
             }
         }
     }

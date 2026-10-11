@@ -348,6 +348,9 @@
     <string name="settings_alert_lights_on">Lights left on</string>
     <string name="settings_watch">Keep watching while charging or preheating</string>
     <string name="settings_watch_explain">Checks the car every %1$d min in the background (phone must be within Wi-Fi range, or use the bridge).</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_dynamic_color">Match my wallpaper (Material You)</string>
+    <string name="settings_dynamic_color_explain">Off uses the PHEV Link teal theme. On tints the app with your phone\'s colours (Android 12+).</string>
     <string name="settings_advanced">Advanced</string>
     <string name="settings_sync_clock">Set the car\'s clock on connect</string>
     <string name="settings_full_range" formatted="false">Electric range at 100% (km)</string>

@@ -59,6 +59,8 @@ data class AppSettings(
     val fullRangeKm: Int = 45,
     val syncClock: Boolean = true,
     val recordPings: Boolean = false,
+    /** Use the phone's wallpaper colours (Material You) instead of the PHEV Link brand. */
+    val dynamicColor: Boolean = false,
 ) {
     val hasCarWifi: Boolean get() = ssid.isNotBlank() && passwordProblem(password) == null
     val hasBridge: Boolean get() = bridgeUrl.isNotBlank()
@@ -113,6 +115,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
         val fullRange = intPreferencesKey("full_range_km")
         val syncClock = booleanPreferencesKey("sync_clock")
         val recordPings = booleanPreferencesKey("record_pings")
+        val dynamicColor = booleanPreferencesKey("dynamic_color")
     }
 
     val flow: StateFlow<AppSettings> = context.dataStore.data
@@ -155,6 +158,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
             fullRangeKm = p[K.fullRange] ?: 45,
             syncClock = p[K.syncClock] ?: true,
             recordPings = p[K.recordPings] ?: false,
+            dynamicColor = p[K.dynamicColor] ?: false,
         )
     }
 
@@ -192,6 +196,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
             p[K.fullRange] = s.fullRangeKm
             p[K.syncClock] = s.syncClock
             p[K.recordPings] = s.recordPings
+            p[K.dynamicColor] = s.dynamicColor
         }
     }
 }

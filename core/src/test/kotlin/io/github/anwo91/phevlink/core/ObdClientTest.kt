@@ -272,6 +272,25 @@ class ObdClientTest {
     }
 
     @Test
+    fun extendedScanOpensDiagnosticSessionWhenAnEcuNeedsIt() = run {
+        val fake = FakeElm()
+        val c = client(fake)
+        c.connect()
+        val r = c.scanDtcs(includeExtended = true)
+        // The OBC refuses UDS 19 02 in the default session (NRC 0x80); the scan opens an extended
+        // session (10 03) and then reads the code. This is what the real car's EV ECUs need.
+        val obc = r.dtcs.single { it.code == "P0A80" }
+        assertEquals(0x766, obc.ecuRxId)
+        assertEquals("On-board charger (OBC)", obc.ecuName)
+        assertEquals("ECU On-board charger (OBC) (UDS)", obc.source)
+        assertTrue(obc.extended)
+        assertTrue(r.respondingEcus.toString(), "On-board charger (OBC)" in r.respondingEcus)
+        assertTrue(fake.commands.toString(), "1003" in fake.commands) // opened a diagnostic session
+        // still read-only: no clear, routine, write-data or IO-control services
+        assertTrue(fake.commands.none { it == "04" || it.startsWith("14") || it.startsWith("31") || it.startsWith("2E") || it.startsWith("3B") })
+    }
+
+    @Test
     fun repeatedFailuresDisableRequestsForTheSession() = run {
         val fake = FakeElm()
         val c = client(fake)

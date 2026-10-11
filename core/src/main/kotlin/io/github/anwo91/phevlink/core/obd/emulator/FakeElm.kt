@@ -138,6 +138,8 @@ class FakeElm(
     private var caf = true
     private var header = 0x7DF
     private var cra: Int? = null
+    /** OBC in an extended diagnostic session? Like the real car, it only reports DTCs (UDS 19 02) once one is open. */
+    private var obcSession = false
     private var fcHeader: Int? = null
     private var fcData: String? = null
     private var fcMode = 0
@@ -256,7 +258,7 @@ class FakeElm(
     private fun resetDefaults() {
         echo = true; linefeeds = true; spaces = true; headers = false; caf = true
         header = 0x7DF; cra = null; fcHeader = null; fcData = null; fcMode = 0
-        protocol = '0'; detected = null; searchNext = true
+        protocol = '0'; detected = null; searchNext = true; obcSession = false
     }
 
     private val ok = Resp(listOf("OK"))
@@ -562,6 +564,13 @@ class FakeElm(
         req.u(0) == 0x21 && req.size == 2 && req.u(1) == 0x03 ->
             listOf(b(0x61, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x52))
         req.u(0) == 0x21 -> neg(0x21, 0x31)
+        // Like the real car: KWP ReadDTCByStatus isn't supported here…
+        req.u(0) == 0x18 -> neg(0x18, 0x12)
+        // …DiagnosticSessionControl to the extended session opens the door…
+        req.u(0) == 0x10 && req.size >= 2 && req.u(1) == 0x03 -> { obcSession = true; listOf(b(0x50, 0x03, 0x00, 0x32, 0x01, 0xF4)) }
+        // …and UDS ReadDTCInformation only answers once a session is open (otherwise NRC 0x80).
+        req.u(0) == 0x19 && req.size >= 2 && req.u(1) == 0x02 ->
+            if (obcSession) listOf(b(0x59, 0x02, 0xFF, 0x0A, 0x80, 0x24, 0x08)) else neg(0x19, 0x80)
         else -> neg(req.u(0), 0x11)
     }
 

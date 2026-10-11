@@ -818,32 +818,70 @@ class ObdClient(
             }
             if (resp.replies.isEmpty() && resp.status.any { s -> ElmResponse.SILENT_BUS.any { s.startsWith(it) } }) carSilent = true
         }
+        // Modules we asked but that would not hand over their codes, and why (for an honest summary).
+        val refused = LinkedHashMap<String, String>()
         if (includeExtended) {
             for (ecu in Ecus.all) {
                 if (health.isEcuSilent(ObdHex.canId(ecu.txId) + ":21")) continue
                 val target = ecu.target
+                // 1) KWP2000 ReadDTCByStatus — the format older Mitsubishi ECUs use.
                 val kwp = quiet { elm.exchange(target, bytesOf(0x18, 0x02, 0xFF, 0x00)) } ?: continue
                 if (kwp.positive.isNotEmpty()) {
                     responders += ecu.name
                     kwp.positive.forEach { dtcs += DtcCodec.parseKwp18(it, ecu.name) }
                     continue
                 }
-                if (kwp.negative.isEmpty()) continue // nobody there
-                responders += ecu.name
-                val uds = quiet { elm.exchange(target, bytesOf(0x19, 0x02, 0xFF)) } ?: continue
-                uds.positive.forEach { dtcs += DtcCodec.parseUds19(it, ecu.name) }
+                if (kwp.negative.isEmpty()) continue // nobody home on this id
+                // 2) UDS ReadDTCInformation — the EV ECUs (BMU/OBC/motors) use this.
+                var uds = quiet { elm.exchange(target, bytesOf(0x19, 0x02, 0xFF)) }
+                // 3) If it refused only because we're in the wrong diagnostic session, open an extended
+                //    session (10 03) and ask once more. Still read-only — this is part of reading codes.
+                if (uds != null && uds.positive.isEmpty() && needsSession(uds)) {
+                    log.link("OBD: ${ecu.name} won't report codes in the default session (${refusalReason(uds)}) — opening an extended session (10 03)")
+                    val session = quiet { elm.exchange(target, bytesOf(0x10, 0x03)) }
+                    when {
+                        session != null && session.positive.isNotEmpty() ->
+                            uds = quiet { elm.exchange(target, bytesOf(0x19, 0x02, 0xFF)) }
+                        session != null ->
+                            log.link("OBD: ${ecu.name} would not open a diagnostic session (${refusalReason(session) ?: "no answer"})")
+                    }
+                }
+                if (uds != null && uds.positive.isNotEmpty()) {
+                    responders += ecu.name
+                    uds.positive.forEach { dtcs += DtcCodec.parseUds19(it, ecu.name) }
+                } else {
+                    val why = refusalReason(uds) ?: refusalReason(kwp) ?: "no usable answer"
+                    refused[ecu.name] = why
+                    log.link("OBD: ${ecu.name} fault-code read refused ($why)")
+                }
             }
         }
         val unique = dtcs.distinctBy { Triple(it.code, it.kind, it.ecuRxId) }
-        if (responders.isEmpty()) errors += if (carSilent) Elm327.MSG_IGNITION else "No ECU answered the fault code requests."
+        if (responders.isEmpty() && refused.isEmpty()) {
+            errors += if (carSilent) Elm327.MSG_IGNITION else "No ECU answered the fault code requests."
+        }
+        refused.forEach { (name, why) -> errors += "$name: couldn't read fault codes ($why)" }
         val message = when {
-            responders.isEmpty() -> errors.last()
-            unique.isEmpty() -> "No fault codes (${responders.size} control unit${if (responders.size == 1) "" else "s"} checked)."
-            else -> "${unique.size} fault code${if (unique.size == 1) "" else "s"} found."
+            unique.isNotEmpty() -> "${unique.size} fault code${if (unique.size == 1) "" else "s"} found."
+            responders.isNotEmpty() -> buildString {
+                append("No fault codes (${responders.size} control unit${if (responders.size == 1) "" else "s"} read)")
+                if (refused.isNotEmpty()) append("; ${refused.size} module${if (refused.size == 1) "" else "s"} wouldn't report")
+                append(".")
+            }
+            refused.isNotEmpty() -> "Couldn't read fault codes — ${refused.size} module${if (refused.size == 1) "" else "s"} refused (${refused.values.toSet().joinToString()})."
+            else -> errors.lastOrNull() ?: "No ECU answered the fault code requests."
         }
         log.link("OBD: DTC scan: $message ${unique.joinToString { "${it.code}/${it.kind}/${it.ecuName}" }}")
         return DtcScanResult(unique, responders.toList(), errors, includeExtended, clock(), message)
     }
+
+    /** The ECU refused only because the service isn't allowed in the current diagnostic session. */
+    private fun needsSession(resp: ElmResponse): Boolean =
+        resp.negative.any { it.nrc == 0x7E || it.nrc == 0x7F || it.nrc == 0x80 }
+
+    /** Human-readable reason for the first negative reply, or null when there was no negative reply. */
+    private fun refusalReason(resp: ElmResponse?): String? =
+        resp?.negative?.firstOrNull()?.let { Nrc.name(it.nrc ?: 0) }
 
     // ------------------------------------------------------------------ helpers
 

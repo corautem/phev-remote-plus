@@ -138,10 +138,11 @@ class LiveTestsTest {
 
     @Test
     fun fullScanFlagsHybridCodeFromBmu() {
-        // No generic codes; the emulated BMU still reports P0A7F through the extended (KWP) read.
+        // No generic codes; the emulated BMU reports P0A7F (KWP), and the OBC reports P0A80 through the
+        // UDS read that only works after an extended diagnostic session is opened.
         val fake = FakeElm().apply { storedDtcs.clear(); pendingDtcs.clear() }
         val r = runTest(fake, LiveTests.byId("dtc-full-scan")!!)
-        assertEquals(listOf("P0A7F"), r.relatedCodes)
+        assertEquals(listOf("P0A7F", "P0A80"), r.relatedCodes)
         assertEquals(Verdict.FAIL, r.verdict)
         assertTrue(r.findings.any { it.msg.key == "scan.hybrid" })
         assertFalse(r.findings.any { it.msg.key == "scan.emission_mil" })

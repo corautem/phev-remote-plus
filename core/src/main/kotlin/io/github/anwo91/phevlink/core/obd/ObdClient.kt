@@ -850,7 +850,11 @@ class ObdClient(
                     responders += ecu.name
                     uds.positive.forEach { dtcs += DtcCodec.parseUds19(it, ecu.name) }
                 } else {
-                    val why = refusalReason(uds) ?: refusalReason(kwp) ?: "no usable answer"
+                    val why = when {
+                        uds?.incomplete?.isNotEmpty() == true || kwp.incomplete.isNotEmpty() ->
+                            "adapter couldn't complete the reply (no flow control — needs an OBDLink-class adapter)"
+                        else -> refusalReason(uds) ?: refusalReason(kwp) ?: "no usable answer"
+                    }
                     refused[ecu.name] = why
                     log.link("OBD: ${ecu.name} fault-code read refused ($why)")
                 }

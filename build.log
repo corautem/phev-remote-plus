@@ -1,40 +1,51 @@
 Starting a Gradle Daemon (subsequent builds will be faster)
 > Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :core:compileKotlin FROM-CACHE
-> Task :core:compileJava NO-SOURCE
-> Task :core:processResources NO-SOURCE
-> Task :core:classes UP-TO-DATE
-> Task :core:jar
-> Task :core:compileTestKotlin FROM-CACHE
-> Task :core:compileTestJava NO-SOURCE
+> Task :core:processResources
 > Task :core:processTestResources NO-SOURCE
+> Task :bridge:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :bridge:processResources NO-SOURCE
+> Task :bridge:processTestResources NO-SOURCE
+> Task :core:compileKotlin
+> Task :core:compileJava NO-SOURCE
+> Task :core:classes
+> Task :core:jar
+> Task :bridge:compileKotlin
+> Task :bridge:compileJava NO-SOURCE
+> Task :bridge:classes UP-TO-DATE
+> Task :bridge:jar
+> Task :bridge:compileTestKotlin
+> Task :bridge:compileTestJava NO-SOURCE
+> Task :bridge:testClasses UP-TO-DATE
+> Task :core:compileTestKotlin
+> Task :bridge:test
+> Task :core:compileTestJava NO-SOURCE
 > Task :core:testClasses UP-TO-DATE
-> Task :core:test FROM-CACHE
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1791626071885.json
+> Task :core:test
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1791677284624.json
 
-BUILD SUCCESSFUL in 12s
-4 actionable tasks: 1 executed, 3 from cache
+BUILD SUCCESSFUL in 1m 38s
+9 actionable tasks: 9 executed
 > Task :bridge:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :core:compileKotlin UP-TO-DATE
 > Task :core:compileJava NO-SOURCE
-> Task :bridge:compileKotlin FROM-CACHE
+> Task :bridge:compileKotlin UP-TO-DATE
 > Task :bridge:compileJava NO-SOURCE
 > Task :bridge:processResources NO-SOURCE
 > Task :bridge:classes UP-TO-DATE
-> Task :core:processResources NO-SOURCE
+> Task :core:processResources UP-TO-DATE
 > Task :core:classes UP-TO-DATE
 > Task :core:jar UP-TO-DATE
 > Task :bridge:fatJar
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_2-1791626082020.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_2-1791677378722.json
 
-BUILD SUCCESSFUL in 2s
-4 actionable tasks: 1 executed, 1 from cache, 2 up-to-date
+BUILD SUCCESSFUL in 1s
+5 actionable tasks: 1 executed, 4 up-to-date
 > Task :app:buildKotlinToolingMetadata
 > Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :core:compileKotlin UP-TO-DATE
 > Task :core:compileJava NO-SOURCE
-> Task :core:processResources NO-SOURCE
+> Task :core:processResources UP-TO-DATE
 > Task :core:classes UP-TO-DATE
 > Task :core:jar UP-TO-DATE
 > Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
@@ -44,54 +55,25 @@ BUILD SUCCESSFUL in 2s
 > Task :app:generateReleaseResValues FROM-CACHE
 > Task :app:checkReleaseAarMetadata
 > Task :app:mapReleaseSourceSetPaths
-> Task :app:generateReleaseResources FROM-CACHE
-> Task :app:mergeReleaseResources FROM-CACHE
-> Task :app:packageReleaseResources FROM-CACHE
-> Task :app:parseReleaseLocalResources FROM-CACHE
-> Task :app:createReleaseCompatibleScreenManifests
-> Task :app:extractDeepLinksRelease FROM-CACHE
-> Task :app:processReleaseMainManifest
-> Task :app:processReleaseManifest
-> Task :app:javaPreCompileRelease FROM-CACHE
-> Task :app:extractProguardFiles
-> Task :app:mergeReleaseJniLibFolders
-> Task :app:mergeReleaseNativeLibs
-> Task :app:processReleaseManifestForPackage
-> Task :app:checkReleaseDuplicateClasses
-> Task :app:desugarReleaseFileDependencies FROM-CACHE
-> Task :app:mergeReleaseStartupProfile
+> Task :app:generateReleaseResources
 
-> Task :app:stripReleaseDebugSymbols
-Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libdatastore_shared_counter.so.
-
-> Task :app:mergeExtDexRelease FROM-CACHE
-> Task :app:extractReleaseNativeSymbolTables FROM-CACHE
-> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
-> Task :app:mergeReleaseArtProfile
-> Task :app:mergeReleaseShaders
-> Task :app:compileReleaseShaders NO-SOURCE
-> Task :app:generateReleaseAssets UP-TO-DATE
-> Task :app:mergeReleaseAssets
-> Task :app:compressReleaseAssets FROM-CACHE
-> Task :app:processReleaseResources
-> Task :app:extractReleaseVersionControlInfo
-> Task :app:collectReleaseDependencies
-> Task :app:sdkReleaseDependencyData
-> Task :app:optimizeReleaseResources
-> Task :app:validateSigningRelease
-> Task :app:writeReleaseAppMetadata
-> Task :app:writeReleaseSigningConfigVersions
-
-> Task :app:compileReleaseKotlin FAILED
-e: file:///home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/kotlin/io/github/anwo91/phevlink/ui/diag/DiagnosticsScreen.kt:76:9 This material API is experimental and is likely to change or to be removed in the future.
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_3-1791626084326.json
+> Task :app:mergeReleaseResources FAILED
+ERROR: [string/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values/strings_help.xml [string/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values/strings.xml: Resource and asset merger: Duplicate resources
+ERROR: [string-sv/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-sv/strings_help.xml [string-sv/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-sv/strings.xml: Resource and asset merger: Duplicate resources
+ERROR: [string-da/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-da/strings_help.xml [string-da/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-da/strings.xml: Resource and asset merger: Duplicate resources
+ERROR: [string-de/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-de/strings_help.xml [string-de/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-de/strings.xml: Resource and asset merger: Duplicate resources
+ERROR: [string-nb/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-nb/strings_help.xml [string-nb/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-nb/strings.xml: Resource and asset merger: Duplicate resources
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_3-1791677380073.json
 
 FAILURE: Build failed with an exception.
 
 * What went wrong:
-Execution failed for task ':app:compileReleaseKotlin'.
-> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
-   > Compilation error. See log for more details
+Execution failed for task ':app:mergeReleaseResources'.
+> [string/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values/strings_help.xml	[string/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values/strings.xml: Error: Duplicate resources
+  [string-sv/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-sv/strings_help.xml	[string-sv/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-sv/strings.xml: Error: Duplicate resources
+  [string-da/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-da/strings_help.xml	[string-da/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-da/strings.xml: Error: Duplicate resources
+  [string-de/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-de/strings_help.xml	[string-de/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-de/strings.xml: Error: Duplicate resources
+  [string-nb/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-nb/strings_help.xml	[string-nb/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-nb/strings.xml: Error: Duplicate resources
 
 * Try:
 > Run with --info or --debug option to get more log output.
@@ -99,7 +81,7 @@ Execution failed for task ':app:compileReleaseKotlin'.
 > Get more help at https://help.gradle.org.
 
 * Exception is:
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:compileReleaseKotlin'.
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:mergeReleaseResources'.
 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:130)
 	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:293)
 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:128)
@@ -129,49 +111,27 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:com
 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:303)
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
-	at org.gradle.execution.plan.DefaultPlanExecutor.process(DefaultPlanExecutor.java:111)
-	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.executeWithServices(DefaultTaskExecutionGraph.java:138)
-	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.execute(DefaultTaskExecutionGraph.java:123)
-	at org.gradle.execution.SelectedTaskExecutionAction.execute(SelectedTaskExecutionAction.java:35)
-	at org.gradle.execution.DryRunBuildExecutionAction.execute(DryRunBuildExecutionAction.java:51)
-	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:54)
-	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:43)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
-	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor.execute(BuildOperationFiringBuildWorkerExecutor.java:40)
-	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$executeTasks$10(DefaultBuildLifecycleController.java:313)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
-	at org.gradle.internal.model.StateTransitionController.lambda$tryTransition$8(StateTransitionController.java:177)
-	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:46)
-	at org.gradle.internal.model.StateTransitionController.tryTransition(StateTransitionController.java:177)
-	at org.gradle.internal.build.DefaultBuildLifecycleController.executeTasks(DefaultBuildLifecycleController.java:304)
-	at org.gradle.internal.build.DefaultBuildWorkGraphController$DefaultBuildWorkGraph.runWork(DefaultBuildWorkGraphController.java:220)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:263)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
-	at org.gradle.composite.internal.DefaultBuildController.doRun(DefaultBuildController.java:181)
-	at org.gradle.composite.internal.DefaultBuildController.access$000(DefaultBuildController.java:50)
-	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.lambda$run$0(DefaultBuildController.java:198)
-	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
-	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.run(DefaultBuildController.java:198)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
-Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionException: A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
-	at org.gradle.workers.internal.DefaultWorkerExecutor$WorkItemExecution.waitForCompletion(DefaultWorkerExecutor.java:287)
-	at org.gradle.internal.work.DefaultAsyncWorkTracker.lambda$waitForItemsAndGatherFailures$2(DefaultAsyncWorkTracker.java:130)
-	at org.gradle.internal.Factories$1.create(Factories.java:31)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:335)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:318)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLock(DefaultWorkerLeaseService.java:323)
-	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:126)
-	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:92)
-	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForAll(DefaultAsyncWorkTracker.java:78)
-	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForCompletion(DefaultAsyncWorkTracker.java:66)
-	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:252)
+Caused by: com.android.build.gradle.tasks.ResourceException: [string/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values/strings_help.xml	[string/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values/strings.xml: Error: Duplicate resources
+[string-sv/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-sv/strings_help.xml	[string-sv/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-sv/strings.xml: Error: Duplicate resources
+[string-da/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-da/strings_help.xml	[string-da/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-da/strings.xml: Error: Duplicate resources
+[string-de/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-de/strings_help.xml	[string-de/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-de/strings.xml: Error: Duplicate resources
+[string-nb/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-nb/strings_help.xml	[string-nb/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-nb/strings.xml: Error: Duplicate resources
+	at com.android.build.gradle.tasks.MergeResources.doFullTaskAction(MergeResources.kt:328)
+	at com.android.build.gradle.tasks.MergeResources.doTaskAction(MergeResources.kt:357)
+	at com.android.build.gradle.internal.tasks.NewIncrementalTask$taskAction$$inlined$recordTaskAction$1.invoke(BaseTask.kt:82)
+	at com.android.build.gradle.internal.tasks.Blocks.recordSpan(Blocks.java:51)
+	at com.android.build.gradle.internal.tasks.NewIncrementalTask.taskAction(NewIncrementalTask.kt:46)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
+	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.doExecute(IncrementalTaskAction.java:45)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
+	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.execute(IncrementalTaskAction.java:26)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
+	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:244)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
@@ -239,7 +199,7 @@ Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionExcept
 	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:64)
 	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:43)
 	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.executeWithNonEmptySources(AbstractSkipEmptyWorkStep.java:125)
-	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:61)
+	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:56)
 	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:36)
 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
 	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:36)
@@ -287,69 +247,21 @@ Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionExcept
 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:303)
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
-	at org.gradle.execution.plan.DefaultPlanExecutor.process(DefaultPlanExecutor.java:111)
-	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.executeWithServices(DefaultTaskExecutionGraph.java:138)
-	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.execute(DefaultTaskExecutionGraph.java:123)
-	at org.gradle.execution.SelectedTaskExecutionAction.execute(SelectedTaskExecutionAction.java:35)
-	at org.gradle.execution.DryRunBuildExecutionAction.execute(DryRunBuildExecutionAction.java:51)
-	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:54)
-	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:43)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
-	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor.execute(BuildOperationFiringBuildWorkerExecutor.java:40)
-	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$executeTasks$10(DefaultBuildLifecycleController.java:313)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
-	at org.gradle.internal.model.StateTransitionController.lambda$tryTransition$8(StateTransitionController.java:177)
-	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:46)
-	at org.gradle.internal.model.StateTransitionController.tryTransition(StateTransitionController.java:177)
-	at org.gradle.internal.build.DefaultBuildLifecycleController.executeTasks(DefaultBuildLifecycleController.java:304)
-	at org.gradle.internal.build.DefaultBuildWorkGraphController$DefaultBuildWorkGraph.runWork(DefaultBuildWorkGraphController.java:220)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:263)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
-	at org.gradle.composite.internal.DefaultBuildController.doRun(DefaultBuildController.java:181)
-	at org.gradle.composite.internal.DefaultBuildController.access$000(DefaultBuildController.java:50)
-	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.lambda$run$0(DefaultBuildController.java:198)
-	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
-	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.run(DefaultBuildController.java:198)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
-Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Compilation error. See log for more details
-	at org.jetbrains.kotlin.gradle.tasks.TasksUtilsKt.throwExceptionIfCompilationFailed(tasksUtils.kt:21)
-	at org.jetbrains.kotlin.compilerRunner.GradleKotlinCompilerWork.run(GradleKotlinCompilerWork.kt:119)
-	at org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction.execute(GradleCompilerRunnerWithWorkers.kt:76)
-	at org.gradle.workers.internal.DefaultWorkerServer.execute(DefaultWorkerServer.java:63)
-	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:66)
-	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:62)
-	at org.gradle.internal.classloader.ClassLoaderUtils.executeInClassloader(ClassLoaderUtils.java:100)
-	at org.gradle.workers.internal.NoIsolationWorkerFactory$1.lambda$execute$0(NoIsolationWorkerFactory.java:62)
-	at org.gradle.workers.internal.AbstractWorker$1.call(AbstractWorker.java:44)
-	at org.gradle.workers.internal.AbstractWorker$1.call(AbstractWorker.java:41)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
-	at org.gradle.workers.internal.AbstractWorker.executeWrappedInBuildOperation(AbstractWorker.java:41)
-	at org.gradle.workers.internal.NoIsolationWorkerFactory$1.execute(NoIsolationWorkerFactory.java:59)
-	at org.gradle.workers.internal.DefaultWorkerExecutor.lambda$submitWork$0(DefaultWorkerExecutor.java:174)
-	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.runExecution(DefaultConditionalExecutionQueue.java:194)
-	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.access$700(DefaultConditionalExecutionQueue.java:127)
-	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner$1.run(DefaultConditionalExecutionQueue.java:169)
-	at org.gradle.internal.Factories$1.create(Factories.java:31)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:263)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:132)
-	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.runBatch(DefaultConditionalExecutionQueue.java:164)
-	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.run(DefaultConditionalExecutionQueue.java:133)
-	... 2 more
+Caused by: [string/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values/strings_help.xml	[string/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values/strings.xml: Error: Duplicate resources
+[string-sv/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-sv/strings_help.xml	[string-sv/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-sv/strings.xml: Error: Duplicate resources
+[string-da/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-da/strings_help.xml	[string-da/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-da/strings.xml: Error: Duplicate resources
+[string-de/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-de/strings_help.xml	[string-de/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-de/strings.xml: Error: Duplicate resources
+[string-nb/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-nb/strings_help.xml	[string-nb/sched_title] /home/runner/work/phev-remote-plus/phev-remote-plus/app/src/main/res/values-nb/strings.xml: Error: Duplicate resources
+	at com.android.ide.common.resources.DataSet.checkItems(DataSet.java:512)
+	at com.android.ide.common.resources.DataSet.loadFromFiles(DataSet.java:273)
+	at com.android.ide.common.resources.DataSet.loadFromFiles(DataSet.java:243)
+	at com.android.build.gradle.tasks.MergeResources$doFullTaskAction$1$1$1.invoke(MergeResources.kt:278)
+	at com.android.build.gradle.internal.tasks.Blocks.recordSpan(Blocks.java:51)
+	at com.android.build.gradle.tasks.MergeResources.doFullTaskAction(MergeResources.kt:272)
+	... 130 more
 
 
-BUILD FAILED in 16s
-39 actionable tasks: 26 executed, 11 from cache, 2 up-to-date
+BUILD FAILED in 2s
+10 actionable tasks: 6 executed, 1 from cache, 3 up-to-date

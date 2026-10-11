@@ -64,6 +64,8 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
     private var validated = HashSet<Network>()
     /** Last reported Wi-Fi signal strength (dBm) per network, for the log — tells range apart from protocol trouble. */
     private val signal = HashMap<Network, Int>()
+    /** Set when Android refuses the BSSID-pinned join; makes us fall back to an SSID-only join for this session. */
+    private var bssidDeclined = false
     /** Called whenever a usable car network appears (to skip connection backoff). */
     var onAvailable: (() -> Unit)? = null
 
@@ -127,6 +129,7 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
         candidates.clear()
         validated.clear()
         signal.clear()
+        bssidDeclined = false
         target = null
         _state.value = State.Idle
     }
@@ -282,14 +285,15 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
     private fun requestIfNeeded(force: Boolean = false) {
         val t = target ?: return
         if ((_state.value is State.Ready && !force) || requestCb != null) return
+        // Pin the car's exact access point (BSSID) from pairing for a silent, direct join — unless Android has
+        // already refused that this session (a stale fingerprint after the car reset its Wi-Fi), in which case
+        // we fall back to joining any access point with the car's name.
+        val pinned = !bssidDeclined && !t.bssid.isNullOrBlank()
         val spec = try {
             WifiNetworkSpecifier.Builder()
                 .setSsid(t.ssid)
                 .setWpa2Passphrase(t.password)
-                .apply {
-                    val b = t.bssid?.takeIf { it.isNotBlank() }
-                    if (b != null) runCatching { setBssid(MacAddress.fromString(b)) }
-                }
+                .apply { if (pinned) runCatching { setBssid(MacAddress.fromString(t.bssid!!)) } }
                 .build()
         } catch (e: Exception) {
             log.error("Invalid car Wi-Fi details: ${e.message}")
@@ -331,6 +335,15 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
                         log.warn("Android would not confirm the car Wi-Fi the phone is on — using it as long as it lasts")
                         return
                     }
+                    // Field pattern: Android refuses the BSSID-pinned request when the paired fingerprint is stale
+                    // (the car reset its Wi-Fi), yet a plain SSID join still works. Retry once without the BSSID.
+                    if (pinned && !bssidDeclined) {
+                        bssidDeclined = true
+                        log.warn("Android declined the car Wi-Fi pinned to the paired fingerprint (${t.bssid}) — it may be stale after a car Wi-Fi reset; retrying for any access point named \"${t.ssid}\" (re-pair in Settings to restore the silent connect)")
+                        _state.value = State.Searching(System.currentTimeMillis(), requested = false)
+                        main.post { requestIfNeeded() }
+                        return
+                    }
                     log.warn("Android could not join the car Wi-Fi (declined, wrong password, or not in range)")
                     _state.value = State.Failed(AppLocale.localized(context).getString(R.string.net_could_not_join, t.ssid))
                 }
@@ -339,7 +352,7 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
         requestCb = cb
         // When re-requesting a network the phone is still on, keep using it meanwhile.
         if (!force) _state.value = State.Searching(System.currentTimeMillis(), requested = true)
-        log.link("Asking Android to join \"${t.ssid}\"")
+        log.link("Asking Android to join \"${t.ssid}\"" + if (pinned) " (pinned to ${t.bssid})" else " (any access point with that name)")
         runCatching { cm.requestNetwork(req, cb, main) }.onFailure {
             requestCb = null
             log.error("Network request refused: ${it.message}")

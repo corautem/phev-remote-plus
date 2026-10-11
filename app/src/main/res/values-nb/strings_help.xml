@@ -66,7 +66,7 @@
     <string name="climate_stopping">Stopper klimaanlegget …</string>
     <string name="climate_clearing">Nullstiller varselet …</string>
     <string name="climate_working_hint">Bilen kan bruke opptil 30 sekunder på å svare.</string>
-    <string name="sched_title">Bilens timere</string>
+    <string name="sched_card_title">Bilens timere</string>
     <string name="sched_charge">Ladetimer</string>
     <string name="sched_climate">Klimatimer</string>
     <string name="sched_on">På</string>

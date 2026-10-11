@@ -578,7 +578,7 @@ private fun ScheduleCard(car: CarState) {
         java.time.DayOfWeek.of(if (d == 0) 7 else d).getDisplayName(java.time.format.TextStyle.SHORT, java.util.Locale.getDefault())
     fun hhmm(t: java.time.LocalTime) = "%02d:%02d".format(t.hour, t.minute)
 
-    SectionCard(title = stringResource(R.string.sched_title)) {
+    SectionCard(title = stringResource(R.string.sched_card_title)) {
         val charge = ScheduleDecoder.charge(car).filter { it.programmed }
         val climate = ScheduleDecoder.climate(car).filter { it.programmed }
         if (charge.isNotEmpty() || ScheduleDecoder.chargeTimerOn(car)) {

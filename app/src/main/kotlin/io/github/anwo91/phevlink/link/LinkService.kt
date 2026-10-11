@@ -182,12 +182,14 @@ class LinkService : LifecycleService() {
     private suspend fun runCommand(cmd: CarCommand) {
         repo.hold(TAG)
         try {
-            when (val r = repo.execute(cmd)) {
+            // A one-shot action (widget, tile, shortcut): once the car has confirmed it, let go of the car Wi-Fi
+            // quickly so the phone's radio returns to the normal Wi-Fi instead of sitting on the car's network.
+            when (val r = repo.execute(cmd, lingerMs = ONE_SHOT_LINGER_MS)) {
                 is CommandResult.Success -> graph.notifier.result(Labels.command(this, cmd), successText(cmd), ok = true)
                 is CommandResult.Failure -> graph.notifier.result(str(R.string.notif_cmd_failed, Labels.command(this, cmd)), Labels.failureReason(this, r.reason).replaceFirstChar { it.uppercase() }, ok = false)
             }
         } finally {
-            repo.release(TAG, 15_000)
+            repo.release(TAG, ONE_SHOT_LINGER_MS)
         }
         armWatchIfBusy()
     }
@@ -371,6 +373,9 @@ class LinkService : LifecycleService() {
         const val ACTION_WATCH = "io.github.anwo91.phevlink.WATCH"
         const val ACTION_STOP = "io.github.anwo91.phevlink.STOP"
         const val ACTION_LINGER = "io.github.anwo91.phevlink.LINGER"
+        /** After a one-shot action (widget/tile/shortcut) confirms, release the car Wi-Fi this soon so the
+         *  phone's radio returns to the normal Wi-Fi instead of sitting on the car's no-internet network. */
+        private const val ONE_SHOT_LINGER_MS = 5_000L
         const val EXTRA_LINGER_MS = "linger_ms"
         /** How long the link survives the app going to the background. */
         const val LINGER_MS = 120_000L

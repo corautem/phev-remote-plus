@@ -319,9 +319,16 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
                     if (requestCb !== this) return
                     if (requested == network) {
                         requested = null
-                        log.link("Car Wi-Fi connection dropped — Android will reconnect when it is back in range")
-                        _state.value = State.Searching(System.currentTimeMillis(), requested = true)
+                        // A WifiNetworkSpecifier request does not reliably re-join after the network drops (the car
+                        // restarts its Wi-Fi after each session). Android leaves the request idle instead of looking
+                        // again, so tear it down and schedule a fresh one — otherwise the app connects once and then
+                        // never reconnects even at full signal (seen once the user forgets the saved car network).
+                        log.link("Car Wi-Fi connection dropped — asking Android to join again")
+                        runCatching { cm.unregisterNetworkCallback(this) }
+                        requestCb = null
+                        _state.value = State.Searching(System.currentTimeMillis(), requested = false)
                         evaluate()
+                        scheduleRequest()
                     }
                 }
             }

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="setup_choose_way">Hvordan skal appen nå bilen?</string>
+    <string name="setup_save_wifi_first">Trykk Lagre over først.</string>
+    <string name="bs_search_info">Søkte gjennom %1$d adresser rundt denne telefonen (%2$s) på %3$d s.</string>
+    <string name="bs_car_wifi_name">Navn på bilens Wi-Fi (REMOTE…)</string>
+    <string name="setup_use_bridge">Jeg har en PHEV Link-bro</string>
+    <string name="setup_use_bridge_hint">Anbefalt. Broen står ved bilen hjemme, så appen når bilen fra hvor som helst – du trenger ikke stå ved den.</string>
+    <string name="setup_direct">Bare bilens Wi-Fi (uten bro)</string>
     <string name="bs_title">Sett opp bro</string>
     <string name="bs_step_of">Steg %1$d av %2$d</string>
     <string name="bs_find_title">Finn broen din</string>

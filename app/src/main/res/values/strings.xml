@@ -365,7 +365,7 @@
     <string name="settings_run_setup">Run setup again</string>
 
     <!-- Setup -->
-    <string name="setup_intro">Control your Outlander PHEV over its own Wi-Fi: battery and charging, climate (heat, cool, defrost), lights, doors — plus departure timers that read the weather, a home-screen widget, a quick-settings tile, and alerts. Optionally through a small bridge at home, so it works from anywhere.</string>
+    <string name="setup_intro">Control your Outlander PHEV over its own Wi-Fi: battery and charging, climate (heat, cool, defrost), lights, doors — plus departure timers that read the weather, a home-screen widget, a quick-settings tile, and alerts. Best with a small bridge at home that stays in touch with the car, so it works from anywhere.</string>
     <string name="setup_intro_2">Setup takes a few minutes. Have the car nearby with its key, and the Wi-Fi card that came with the keys.</string>
     <string name="setup_start">Start</string>
     <string name="setup_step1_title">1 · The car\'s Wi-Fi</string>

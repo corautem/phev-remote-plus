@@ -2,6 +2,7 @@ package io.github.anwo91.phevlink.link
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.Network
 import android.net.NetworkCapabilities
 import android.os.Build
 import io.github.anwo91.phevlink.core.diag.DiagLog
@@ -76,8 +77,8 @@ object BridgeSetupApi {
     data class Reply(val code: Int, val body: Map<String, Any?>)
 
     /** Who answers at [url]; null when it isn't a PHEV Link bridge (or nobody answers). */
-    suspend fun hello(url: String, connectMs: Int = 2_500, readMs: Int = 4_000): FoundBridge? = withContext(Dispatchers.IO) {
-        val r = request(url, "hello", "GET", null, null, connectMs, readMs) ?: return@withContext null
+    suspend fun hello(url: String, connectMs: Int = 2_500, readMs: Int = 4_000, network: Network? = null): FoundBridge? = withContext(Dispatchers.IO) {
+        val r = request(url, "hello", "GET", null, null, connectMs, readMs, network = network) ?: return@withContext null
         when {
             r.code == 200 && r.body["app"] == "phev-bridge" -> {
                 val p = r.body.obj("pairing")
@@ -124,9 +125,11 @@ object BridgeSetupApi {
 
     private fun request(
         url: String, path: String, method: String, token: String?, body: Map<String, Any?>?,
-        connectMs: Int, readMs: Int, headers: Map<String, String> = emptyMap(),
+        connectMs: Int, readMs: Int, headers: Map<String, String> = emptyMap(), network: Network? = null,
     ): Reply? = try {
-        val c = URI(url.trimEnd('/') + "/api/" + path).toURL().openConnection() as HttpURLConnection
+        val u = URI(url.trimEnd('/') + "/api/" + path).toURL()
+        // Over a given network (discovery: the home Wi-Fi even when a VPN is the default), else normal routing.
+        val c = (network?.openConnection(u) ?: u.openConnection()) as HttpURLConnection
         c.requestMethod = method
         c.connectTimeout = connectMs
         c.readTimeout = readMs
@@ -151,14 +154,14 @@ object BridgeSetupApi {
  * of the phone's own /24 on port [BridgeSetupApi.PORT] (a few seconds; nothing to install on the bridge for it).
  */
 class BridgeDiscovery(private val context: Context, private val log: DiagLog) {
-    data class Result(val bridges: List<FoundBridge>, val onLan: Boolean)
+    /** [from]: this phone's LAN address the sweep was based on; [addresses] tried; [tookMs] how long it took. */
+    data class Result(val bridges: List<FoundBridge>, val onLan: Boolean, val from: String?, val addresses: Int, val tookMs: Long)
 
     suspend fun find(extraUrls: List<String>): Result = withContext(Dispatchers.IO) {
         val t0 = System.currentTimeMillis()
         val cm = context.getSystemService(ConnectivityManager::class.java)
-        val net = cm?.activeNetwork
-        val caps = net?.let { cm?.getNetworkCapabilities(it) }
-        val onLan = caps != null && (caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || caps.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
+        val net = cm?.let { lanNetwork(it) }
+        val onLan = net != null
         val candidates = LinkedHashSet<String>()
         extraUrls.filter { it.isNotBlank() }.forEach { candidates += it.trim().trimEnd('/') }
         val mdns = async {
@@ -181,7 +184,7 @@ class BridgeDiscovery(private val context: Context, private val log: DiagLog) {
         }
         val gate = Semaphore(48)
         val found = coroutineScope {
-            val sweep = candidates.map { url -> async { gate.withPermit { BridgeSetupApi.hello(url, connectMs = 700, readMs = 2_000) } } }
+            val sweep = candidates.map { url -> async { gate.withPermit { BridgeSetupApi.hello(url, connectMs = 700, readMs = 2_000, network = net) } } }
             // phev-bridge.local only helps when the sweep can't reach it (another subnet); never wait long for it.
             val viaName = withTimeoutOrNull(3_000) { mdns.await() }
                 ?.let { "http://$it:${BridgeSetupApi.PORT}" }
@@ -193,8 +196,41 @@ class BridgeDiscovery(private val context: Context, private val log: DiagLog) {
             "Bridge search: ${candidates.size} address(es) from ${own ?: "no LAN address"} in ${System.currentTimeMillis() - t0} ms — " +
                 if (found.isEmpty()) "none found" else found.joinToString { "${it.name} at ${it.url} v${it.version}" + if (it.needsUpdate) " (needs update)" else "" },
         )
-        Result(found, onLan)
+        Result(found, onLan, own, candidates.size, System.currentTimeMillis() - t0)
     }
+
+    /**
+     * The home network to search: the default network when it is Wi-Fi/Ethernet, else (a VPN such as Tailscale is the
+     * default) the validated Wi-Fi/Ethernet network underneath. Never a VPN, and never the car's own Wi-Fi (no
+     * internet, so not validated) unless nothing else exists.
+     */
+    private fun lanNetwork(cm: ConnectivityManager): Network? {
+        fun lan(n: Network): Boolean {
+            val c = cm.getNetworkCapabilities(n) ?: return false
+            return !c.hasTransport(NetworkCapabilities.TRANSPORT_VPN) &&
+                (c.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || c.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
+        }
+        fun validated(n: Network) = cm.getNetworkCapabilities(n)?.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) == true
+        val active = cm.activeNetwork
+        val activeCaps = active?.let { cm.getNetworkCapabilities(it) }
+        val chosen = active?.takeIf { lan(it) } ?: allNetworks(cm).filter { lan(it) }.sortedByDescending { validated(it) }.firstOrNull()
+        val defaultKind = when {
+            activeCaps?.hasTransport(NetworkCapabilities.TRANSPORT_VPN) == true -> "a VPN"
+            active != null && lan(active) -> "the home LAN"
+            else -> "not Wi-Fi/Ethernet"
+        }
+        val target = when {
+            chosen == null -> "nothing"
+            chosen == active -> "it"
+            validated(chosen) -> "the Wi-Fi/Ethernet network underneath"
+            else -> "the Wi-Fi/Ethernet network underneath (not validated)"
+        }
+        log.link("Bridge search: default network is $defaultKind — searching $target")
+        return chosen
+    }
+
+    @Suppress("DEPRECATION") // getAllNetworks: still the simple way to list networks; nothing to register for.
+    private fun allNetworks(cm: ConnectivityManager): List<Network> = cm.allNetworks.toList()
 }
 
 /**
@@ -220,6 +256,10 @@ class BridgeSetupController(
         val searched: Boolean = false,
         val onLan: Boolean = true,
         val found: List<FoundBridge> = emptyList(),
+        /** What the last search tried, shown when it found nothing (first-run setup has no Log tab). */
+        val searchFrom: String? = null,
+        val searchCount: Int = 0,
+        val searchSeconds: Int = 0,
         val bridge: FoundBridge? = null,
         val pair: PairState = PairState.IDLE,
         val pairReason: String? = null,
@@ -271,7 +311,12 @@ class BridgeSetupController(
     private suspend fun searchNow() {
         _state.update { it.copy(step = Step.FIND, searching = true) }
         val r = discovery.find(listOf(settings.current.bridgeUrl))
-        _state.update { it.copy(searching = false, searched = true, found = r.bridges, onLan = r.onLan) }
+        _state.update {
+            it.copy(
+                searching = false, searched = true, found = r.bridges, onLan = r.onLan,
+                searchFrom = r.from, searchCount = r.addresses, searchSeconds = ((r.tookMs + 999) / 1000).toInt(),
+            )
+        }
         val usable = r.bridges.filterNot { it.needsUpdate }
         if (usable.size == 1 && r.bridges.size == 1) chooseNow(usable.first())
     }
@@ -412,6 +457,13 @@ class BridgeSetupController(
             return
         }
         joinNow((car["signal"] as? Number)?.toInt())
+    }
+
+    /** The car's Wi-Fi name and password typed in the wizard (a fresh install has none yet); saved, then on we go. */
+    fun useCarWifi(ssid: String, password: String) = launch {
+        settings.update { it.copy(ssid = ssid.trim(), password = password) }
+        log.link("Bridge setup: car Wi-Fi name saved (${ssid.trim()})")
+        checkWifiNow()
     }
 
     /** Save the car's network on the bridge even though it isn't in range now (it joins when the car is home). */

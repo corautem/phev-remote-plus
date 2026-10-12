@@ -50,7 +50,7 @@ import io.github.anwo91.phevlink.link.BridgeSetupController.WifiState
 import io.github.anwo91.phevlink.link.FoundBridge
 import io.github.anwo91.phevlink.ui.MainViewModel
 import io.github.anwo91.phevlink.ui.common.SectionCard
-import io.github.anwo91.phevlink.ui.settings.CarWifiCard
+import io.github.anwo91.phevlink.data.passwordProblemRes
 import io.github.anwo91.phevlink.ui.settings.ExpandableHelp
 
 /**
@@ -135,6 +135,10 @@ private fun FindStep(c: BridgeSetupController, st: BridgeSetupController.State) 
                 Note(stringResource(R.string.bs_none_found), error = true)
                 Spacer(Modifier.height(4.dp))
                 Note(stringResource(R.string.bs_none_tips))
+                st.searchFrom?.let { from ->
+                    Spacer(Modifier.height(4.dp))
+                    Note(stringResource(R.string.bs_search_info, st.searchCount, from, st.searchSeconds))
+                }
             }
         }
         if (st.bridge?.needsUpdate == true || st.found.any { it.needsUpdate }) {
@@ -260,8 +264,29 @@ private fun WifiStep(vm: MainViewModel, c: BridgeSetupController, st: BridgeSetu
         }
     }
     if (st.wifi == WifiState.NEED_CREDENTIALS) {
-        CarWifiCard(vm, s, showTest = false)
-        Button(onClick = { c.checkWifi() }, enabled = s.hasCarWifi, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.bs_continue)) }
+        // Just the two things the bridge needs, saved with one button (the full Wi-Fi card wants a separate Save).
+        SectionCard {
+            var ssid by rememberSaveable { mutableStateOf(s.ssid) }
+            var pw by rememberSaveable { mutableStateOf(s.password) }
+            val pwProblem = passwordProblemRes(pw)
+            OutlinedTextField(
+                ssid, { ssid = it }, label = { Text(stringResource(R.string.bs_car_wifi_name)) }, singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(Modifier.height(6.dp))
+            OutlinedTextField(
+                pw, { pw = it }, label = { Text(stringResource(R.string.settings_password)) }, singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+                isError = pw.isNotEmpty() && pwProblem != null,
+                supportingText = if (pw.isNotEmpty() && pwProblem != null) ({ Text(stringResource(pwProblem)) }) else null,
+            )
+            Spacer(Modifier.height(8.dp))
+            Button(
+                onClick = { c.useCarWifi(ssid, pw) },
+                enabled = ssid.isNotBlank() && pwProblem == null,
+                modifier = Modifier.fillMaxWidth(),
+            ) { Text(stringResource(R.string.bs_continue)) }
+        }
     }
 }
 

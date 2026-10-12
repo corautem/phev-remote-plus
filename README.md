@@ -113,7 +113,8 @@ curl -sL https://github.com/Anwo91/phev-remote-plus/releases/latest/download/phe
 sudo phev-bridge/install.sh phev-bridge/phev-bridge.jar      # also updates an existing bridge, keeping its token
 ```
 
-**Everything else happens in the app: Settings → Set up bridge.** It
+**Everything else happens in the app** — first-run setup asks for the car's Wi-Fi card, then offers *I have a PHEV Link
+bridge* (also under Settings → Set up bridge). It
 
 1. finds the bridge on your home network (no addresses to type),
 2. pairs with it: unplug the bridge for 5 seconds and plug it back in — for 10 minutes after power-on the bridge hands

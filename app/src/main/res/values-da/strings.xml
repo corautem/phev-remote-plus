@@ -356,7 +356,7 @@
     <string name="settings_run_setup">Kør opsætningen igen</string>
 
     <!-- Setup -->
-    <string name="setup_intro">Styr din Outlander PHEV via bilens eget Wi-Fi: batteri og opladning, klima (varme, køling, afisning), lys og døre – plus afgangstimere, der tager højde for vejret, en widget på startskærmen, et felt i kvikindstillingerne og advarsler. Eventuelt via en lille bro (Raspberry Pi) derhjemme, så det virker overalt.</string>
+    <string name="setup_intro">Styr din Outlander PHEV via bilens eget Wi-Fi: batteri og opladning, klima (varme, køling, afisning), lys og døre – plus afgangstimere, der tager højde for vejret, en widget på startskærmen, et felt i kvikindstillingerne og advarsler. Bedst med en lille bro (Raspberry Pi) derhjemme, der holder kontakten med bilen, så det virker overalt.</string>
     <string name="setup_intro_2">Opsætningen tager et par minutter. Hav bilen i nærheden med nøglen og Wi-Fi-kortet, der fulgte med nøglerne.</string>
     <string name="setup_start">Kom i gang</string>
     <string name="setup_step1_title">1 · Bilens Wi-Fi</string>

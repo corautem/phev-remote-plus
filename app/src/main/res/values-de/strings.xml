@@ -356,7 +356,7 @@
     <string name="settings_run_setup">Einrichtung erneut starten</string>
 
     <!-- Setup -->
-    <string name="setup_intro">Steuere deinen Outlander PHEV über sein eigenes Wi-Fi: Batterie und Laden, Klima (Heizen, Kühlen, Enteisen), Licht und Türen – dazu Abfahrtstimer, die das Wetter berücksichtigen, ein Widget für den Startbildschirm, eine Schnelleinstellungs-Kachel und Benachrichtigungen. Optional über eine kleine Bridge (Raspberry Pi) zu Hause, damit es von überall funktioniert.</string>
+    <string name="setup_intro">Steuere deinen Outlander PHEV über sein eigenes Wi-Fi: Batterie und Laden, Klima (Heizen, Kühlen, Enteisen), Licht und Türen – dazu Abfahrtstimer, die das Wetter berücksichtigen, ein Widget für den Startbildschirm, eine Schnelleinstellungs-Kachel und Benachrichtigungen. Am besten mit einer kleinen Bridge (Raspberry Pi) zu Hause, die mit dem Auto in Kontakt bleibt – dann funktioniert es von überall.</string>
     <string name="setup_intro_2">Die Einrichtung dauert ein paar Minuten. Halte das Auto mit Schlüssel in der Nähe bereit, dazu die Wi-Fi-Karte, die bei den Schlüsseln lag.</string>
     <string name="setup_start">Loslegen</string>
     <string name="setup_step1_title">1 · Das Wi-Fi des Autos</string>

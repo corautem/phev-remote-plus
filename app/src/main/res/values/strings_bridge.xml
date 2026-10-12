@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="setup_choose_way">How will the app reach your car?</string>
+    <string name="setup_save_wifi_first">Tap Save above first.</string>
+    <string name="bs_search_info">Searched %1$d addresses around this phone (%2$s) in %3$d s.</string>
+    <string name="bs_car_wifi_name">Car Wi-Fi name (REMOTE…)</string>
+    <string name="setup_use_bridge">I have a PHEV Link bridge</string>
+    <string name="setup_use_bridge_hint">Recommended. The bridge stays near the car at home, so the app reaches the car from anywhere — no need to be next to it.</string>
+    <string name="setup_direct">Car Wi-Fi only (no bridge)</string>
     <string name="bs_title">Set up bridge</string>
     <string name="bs_step_of">Step %1$d of %2$d</string>
     <string name="bs_find_title">Find your bridge</string>

@@ -76,7 +76,8 @@ what's built today.
 4. Test against the emulator (`emulator=true` in `/etc/phev-bridge.properties`) before it ever sees a car. Leaving it
    on is fine: the app's setup switches the bridge to the real car.
 
-The **buyer** then does the rest from the app, with no computer: Settings → **Set up bridge** finds the bridge, pairs by
+The **buyer** then does the rest from the app, with no computer: first-run setup asks for the car's Wi-Fi card, then
+offers **I have a PHEV Link bridge** (also in Settings → Set up bridge), which finds the bridge, pairs by
 re-plugging it, joins the bridge to their car's Wi-Fi and walks them through the car's registration beeps. Their home
 link must be Ethernet or the USB Wi-Fi adapter — the built-in Wi-Fi goes to the car (the app says so if it can't).
 

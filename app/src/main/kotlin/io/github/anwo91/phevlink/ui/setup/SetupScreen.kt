@@ -100,12 +100,25 @@ fun SetupScreen(vm: MainViewModel) {
                         stringResource(R.string.setup_pairing_note),
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        TextButton(onClick = { page = 0 }) { Text(stringResource(R.string.common_back)) }
-                        Spacer(Modifier.weight(1f))
-                        Button(onClick = { page = 2 }, enabled = s.hasCarWifi) { Text(stringResource(R.string.common_next)) }
+                    // Both ways need the car's Wi-Fi; then choose how the app reaches the car — the bridge (preferred) first.
+                    Text(stringResource(R.string.setup_choose_way), style = MaterialTheme.typography.titleMedium)
+                    if (!s.hasCarWifi) {
+                        Text(
+                            stringResource(R.string.setup_save_wifi_first),
+                            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error,
+                        )
                     }
-                    TextButton(onClick = { page = 3 }) { Text(stringResource(R.string.setup_bridge_only)) }
+                    Button(onClick = { showBridge = true }, enabled = s.hasCarWifi, modifier = Modifier.fillMaxWidth()) {
+                        Text(stringResource(R.string.setup_use_bridge))
+                    }
+                    Text(
+                        stringResource(R.string.setup_use_bridge_hint),
+                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    OutlinedButton(onClick = { page = 2 }, enabled = s.hasCarWifi, modifier = Modifier.fillMaxWidth()) {
+                        Text(stringResource(R.string.setup_direct))
+                    }
+                    TextButton(onClick = { page = 0 }) { Text(stringResource(R.string.common_back)) }
                 }
                 2 -> {
                     Text(stringResource(R.string.setup_step2_title), style = MaterialTheme.typography.titleLarge)

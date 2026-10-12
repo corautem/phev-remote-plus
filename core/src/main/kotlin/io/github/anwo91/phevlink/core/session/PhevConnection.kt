@@ -194,6 +194,7 @@ class PhevConnection(
 
     private suspend fun runLoop() {
         var failures = 0
+        var noSessionStreak = 0
         try {
             while (scope.isActive && running) {
                 _status.value = LinkStatus.Connecting(failures + 1)
@@ -219,9 +220,11 @@ class PhevConnection(
                 if (!running) break
                 if (clock.monoMs() - started >= config.stableAfterMs) failures = 0
                 failures++
-                // The car accepted the socket but never started a session: its Wi-Fi likely just rebooted.
-                // Wait a fixed settle time, uninterrupted, instead of hammering it on the short early backoffs.
-                val settle = if (!outcome.started) config.carSettleMs else 0L
+                // The car accepted the socket but never started a session: its Wi-Fi/remote module isn't ready.
+                // Escalate the settle on repeated "no session" closes (1×, 2×, 3× carSettleMs, capped) so we don't
+                // thrash it every 20 s when the car is asleep; a real session that starts resets the streak.
+                if (outcome.started) noSessionStreak = 0 else noSessionStreak++
+                val settle = if (!outcome.started) config.carSettleMs * noSessionStreak.coerceAtMost(3) else 0L
                 backoff(failures, outcome.reason, floorMs = settle, interruptible = settle == 0L)
             }
         } finally {

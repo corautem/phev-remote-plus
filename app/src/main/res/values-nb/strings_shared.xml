@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Departures and settings shared through the bridge. -->
+<resources>
+    <string name="sched_shared">Deles med de andre telefonene dine via broen. Når bilen er hjemme, starter broen klimaanlegget selv – også når alle telefonene er av.</string>
+    <string name="sched_shared_update">Oppdater broen (Innstillinger → Oppdateringer) så avgangene deles med de andre telefonene dine og broen kan starte dem selv.</string>
+    <string name="sched_bridge_last_started">Sist: %1$s – startet av broen.</string>
+    <string name="sched_bridge_last_failed">Sist: %1$s – broen fikk ikke startet (%2$s).</string>
+    <string name="sched_bridge_last_skipped">Sist: %1$s – mildt vær, så broen lot klimaanlegget være av.</string>
+    <string name="sched_bridge_last_away">Sist: %1$s – bilen var ikke hjemme, så en telefon tok seg av det.</string>
+    <string name="notif_departure_ready_bridge">Startet av broen – bilen er klar til %1$s.</string>
+    <string name="notif_departure_maybe_bridge">Telefonen nådde ikke bilen. Er bilen hjemme, starter broen den.</string>
+</resources>

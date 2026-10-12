@@ -52,7 +52,8 @@ class SetupApiTest {
         }
     }
     private val updater = Updater("/u", dir, log, updRunner, { "1.0.99" }, { true }, "1.0.37")
-    private val api = HttpApi(config, service, log, pairing, wifi, settings, updater) { restarted = true }
+    private val shared = SharedStore(File(dir, "shared.json"), log)
+    private val api = HttpApi(config, service, log, pairing, wifi, settings, updater, shared) { restarted = true }
     private val port = api.start(0)
 
     @After
@@ -160,5 +161,22 @@ class SetupApiTest {
         val lines = settings.readLines()
         assertTrue(lines.contains("emulator=false"))
         assertTrue("other lines kept", lines.contains("token=t0k") && lines.contains("# test"))
+    }
+
+    @Test
+    fun sharedDataNeedsTheTokenAndKeepsWhatPhonesSend() {
+        assertEquals(401, call("GET", "/api/shared", token = null).first)
+        assertEquals(401, call("POST", "/api/shared", """{"carName":"x"}""", token = null).first)
+        assertEquals(0L, (Json.parseObject(call("GET", "/api/shared").second)["rev"] as Number).toLong())
+
+        val (code, text) = call("POST", "/api/shared", """{"carName":"Blue","fullRangeKm":42,"departures":[]}""", headers = mapOf("X-PHEV-Device" to "Pixel 8"))
+        assertEquals(text, 200, code)
+        val m = Json.parseObject(call("GET", "/api/shared").second)
+        assertEquals(1L, (m["rev"] as Number).toLong())
+        assertEquals("Blue", m["carName"])
+        assertEquals(42L, (m["fullRangeKm"] as Number).toLong())
+        assertEquals("Pixel 8", m["updatedBy"])
+        val hello = Json.parseObject(call("GET", "/api/hello", token = null).second)
+        assertTrue((hello["features"] as List<*>).containsAll(listOf("shared", "departures")))
     }
 }

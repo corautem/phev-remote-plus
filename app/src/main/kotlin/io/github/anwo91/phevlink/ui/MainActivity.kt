@@ -95,6 +95,8 @@ class MainActivity : ComponentActivity() {
         super.onResume()
         // Back from Android's "install unknown apps" setting: carry on with the app update.
         vm.appUpdater.onResume(this)
+        // Departures or settings changed on another phone.
+        vm.sharedSync.syncIfStale()
     }
 
     companion object {

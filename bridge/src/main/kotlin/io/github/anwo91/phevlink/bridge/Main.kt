@@ -78,7 +78,11 @@ fun main(args: Array<String>) {
         }.apply { isDaemon = false }.start()
     }
     val updater = Updater(File(File(config.wifiHelper).absoluteFile.parentFile, "bridgectl.sh").path, stateDir, log)
-    val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, restart)
+    // Departures, car name, range and climate defaults all phones share; the bridge runs the departures while the car is home.
+    val shared = SharedStore(File(stateDir, "shared.json"), log)
+    DepartureRunner(shared, log, carHome = { config.emulator || runCatching { carWifi.status().connected }.getOrDefault(false) }, execute = { service.execute(it) })
+        .start(scope)
+    val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, shared, restart)
     val port = api.start()
     log.link("Bridge ${BridgeService.BUILD} (API ${BridgeService.VERSION}) on http://${config.listenHost}:$port/  (car ${config.carHost}:$carPort)")
     // How the last update from the app ended (it restarted us), so it shows in this log too.

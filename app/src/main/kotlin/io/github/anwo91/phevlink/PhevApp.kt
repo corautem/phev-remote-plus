@@ -70,7 +70,11 @@ class Graph(app: Application) {
         io.github.anwo91.phevlink.link.BridgeAdminController(app, settings, log, scope) { repo }
     }
 
+    /** Departures, car name, range and climate defaults shared with the other phones through the bridge. */
+    val sharedSync: io.github.anwo91.phevlink.link.SharedSync by lazy { io.github.anwo91.phevlink.link.SharedSync(app, settings, log, scope) }
+
     init {
+        sharedSync.start()
         // Demo mode drives the OBD side too: the simulated adapter connects with the simulated car and leaves with it.
         // A live test running across the switch is stopped — it would mix real and simulated readings, and its
         // result would land in the wrong store.

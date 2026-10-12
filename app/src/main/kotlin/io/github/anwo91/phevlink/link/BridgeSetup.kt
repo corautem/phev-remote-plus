@@ -161,6 +161,16 @@ object BridgeSetupApi {
     suspend fun openPairing(url: String, token: String, minutes: Int): Reply? =
         withContext(Dispatchers.IO) { request(url, "pair/open", "POST", token, mapOf("minutes" to minutes), 4_000, 8_000) }
 
+    /** What all phones share (departures, car name, …) with "rev" and "lastDeparture" (bridge with "shared"). */
+    suspend fun shared(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "shared", "GET", token, null, 4_000, 8_000) }
+
+    /** Saves [changes] (only those keys) on the bridge; the reply's "shared" is the result. */
+    suspend fun putShared(url: String, token: String, changes: Map<String, Any?>): Reply? =
+        withContext(Dispatchers.IO) {
+            request(url, "shared", "POST", token, changes, 4_000, 8_000, mapOf("X-PHEV-Device" to "${Build.MANUFACTURER} ${Build.MODEL}".take(60)))
+        }
+
     suspend fun connect(url: String, token: String): Reply? =
         withContext(Dispatchers.IO) { request(url, "connect", "POST", token, emptyMap(), 4_000, 10_000) }
 

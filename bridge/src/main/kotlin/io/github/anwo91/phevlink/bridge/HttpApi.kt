@@ -40,6 +40,9 @@ import java.util.concurrent.TimeUnit
  *   POST /api/update       start an update (download the newest release, check it, install, restart)
  *   POST /api/restart      restart the bridge program (systemd starts it again)
  *   POST /api/reboot       restart the computer
+ *   GET  /api/shared       what all phones share: departures, car name, range, climate defaults, weather place, time zone
+ *                          (+ "rev", bumped on every change, and "lastDeparture": how the last bridge-run departure went)
+ *   POST /api/shared       {"departures":[…],"carName":"…"} -> saved (only the keys sent; last writer wins per key)
  *
  * Every /api call needs the token ("Authorization: Bearer <token>" or ?token=<token>), except:
  *   GET  /api/hello        who am I (for the app's discovery) + whether pairing is open
@@ -55,6 +58,7 @@ class HttpApi(
     private val carWifi: CarWifi? = null,
     private val settingsFile: File? = null,
     private val updater: Updater? = null,
+    private val shared: SharedStore? = null,
     private val restart: () -> Unit = {},
 ) {
     private lateinit var server: HttpServer
@@ -140,6 +144,12 @@ class HttpApi(
                 val why = u.reboot(ex.remoteAddress.address.hostAddress)
                 json(ex, if (why == null) 200 else 500, mapOf("ok" to (why == null), "error" to why))
             }
+            path == "shared" && ex.requestMethod == "GET" -> withShared(ex) { json(ex, 200, it.snapshot() + ("rev" to it.rev)) }
+            path == "shared" && ex.requestMethod == "POST" -> withShared(ex) { s ->
+                val who = ex.requestHeaders.getFirst("X-PHEV-Device")?.take(60) ?: ex.remoteAddress.address.hostAddress
+                val next = s.update(body(ex), who)
+                json(ex, 200, mapOf("ok" to true, "shared" to next))
+            }
             path == "status" && ex.requestMethod == "GET" -> json(ex, 200, service.snapshot())
             path == "events" && ex.requestMethod == "GET" -> events(ex)
             path == "command" && ex.requestMethod == "POST" -> command(ex)
@@ -203,6 +213,11 @@ class HttpApi(
     private inline fun withUpdater(ex: HttpExchange, block: (Updater) -> Unit) {
         val u = updater ?: return json(ex, 503, mapOf("ok" to false, "error" to "Updates are not available here"))
         block(u)
+    }
+
+    private inline fun withShared(ex: HttpExchange, block: (SharedStore) -> Unit) {
+        val s = shared ?: return json(ex, 503, mapOf("ok" to false, "error" to "Shared data is not available here"))
+        block(s)
     }
 
     private inline fun withWifi(ex: HttpExchange, block: (CarWifi) -> Unit) {

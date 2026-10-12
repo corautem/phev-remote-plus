@@ -112,6 +112,7 @@ fun ScheduleScreen(vm: MainViewModel, modifier: Modifier) {
                     )
                 }
             }
+            if (settings.hasBridge) item { SharedNote(vm) }
             items(settings.departures, key = { it.id }) { d ->
                 DepartureRow(
                     d,
@@ -247,4 +248,30 @@ private fun EditDepartureDialog(initial: Departure, onDismiss: () -> Unit, onSav
             }
         },
     )
+}
+
+/** Departures are shared through the bridge (and run by it while the car is home), plus how its last one went. */
+@Composable
+private fun SharedNote(vm: MainViewModel) {
+    val sync by vm.sharedSync.state.collectAsState()
+    val ctx = LocalContext.current
+    val muted = MaterialTheme.colorScheme.onSurfaceVariant
+    when (sync.supported) {
+        true -> Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Text(stringResource(R.string.sched_shared), style = MaterialTheme.typography.bodySmall, color = muted)
+            sync.lastDeparture?.let { d ->
+                val at = Format.clockOrDay(d.atMs)
+                val text = when (d.outcome) {
+                    "started" -> stringResource(R.string.sched_bridge_last_started, at)
+                    "failed" -> stringResource(R.string.sched_bridge_last_failed, at, Labels.failureReason(ctx, d.detail))
+                    "skipped" -> stringResource(R.string.sched_bridge_last_skipped, at)
+                    "away" -> stringResource(R.string.sched_bridge_last_away, at)
+                    else -> null
+                }
+                text?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = if (d.outcome == "failed") MaterialTheme.colorScheme.error else muted) }
+            }
+        }
+        false -> Text(stringResource(R.string.sched_shared_update), style = MaterialTheme.typography.bodySmall, color = muted)
+        null -> Unit
+    }
 }

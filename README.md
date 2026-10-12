@@ -26,6 +26,7 @@ The main goal: **a connection that just works.**
   temperature (MET Norway forecast). Handles "stopped by the car" (door opened / battery low) with a one-tap reset.
 - **Departure timers** — "ready to leave at 07:30 on weekdays": 35 min before, the app checks the forecast and starts
   defrost/heat/cool just long enough, so the car is ready when you walk out. Mild morning? It skips and tells you.
+  With a bridge, departures are shared by all your phones and the bridge starts them itself while the car is home.
 - **One-tap everywhere** — home-screen widget (battery, charging, climate, preheat & refresh buttons), quick-settings tile
   ("Preheat"), and long-press app shortcuts (preheat, stop, flash lights, refresh).
 - **Find my car** — flash the headlights.
@@ -154,6 +155,13 @@ more; after that, updates happen in the app).
 
 Every step is logged in the app's Log tab and in the bridge log (`journalctl -u phev-bridge -f`).
 
+**Shared by all phones:** the bridge keeps the departures, the car's name, full range, the quick-climate defaults and
+the weather place, so every phone paired with it sees the same (changed on one phone → the others take it over; a
+change made on two phones at once: the bridge's wins). While the car is home (the bridge is on its Wi-Fi) the bridge
+runs the departures itself — weather check 35 min before, climate on in time — even with every phone switched off; the
+phones get the usual "started" notification. When the car is away, a phone near it does the job, as before.
+Language, alerts and the connection itself stay per phone.
+
 <details><summary>Doing it by hand instead</summary>
 
 ```bash
@@ -205,6 +213,8 @@ control the car's climate and lights (not locks: the protocol has no remote unlo
 | GET | `/api/update` | Installed and newest version, whether an update runs, its log (`?check=1` asks GitHub now) |
 | POST | `/api/update` | Update now: download the newest release, check its SHA-256, reinstall, restart |
 | POST | `/api/restart`, `/api/reboot` | Restart the bridge program · restart the computer |
+| GET | `/api/shared` | What all phones share (departures, car name, range, climate defaults, weather place, time zone) + `rev` and `lastDeparture` |
+| POST | `/api/shared` | `{"departures":[…],"carName":"…"}` — saves only the keys sent |
 
 Auth (all but hello/pair): `Authorization: Bearer <token>` or `?token=<token>`.
 

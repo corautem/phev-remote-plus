@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Departures and settings shared through the bridge. -->
+<resources>
+    <string name="sched_shared">Delas med dina andra telefoner via bryggan. När bilen är hemma startar bryggan klimatet själv – även när alla telefoner är avstängda.</string>
+    <string name="sched_shared_update">Uppdatera bryggan (Inställningar → Uppdateringar) så att avgångarna delas med dina andra telefoner och bryggan kan starta dem själv.</string>
+    <string name="sched_bridge_last_started">Senast: %1$s – startad av bryggan.</string>
+    <string name="sched_bridge_last_failed">Senast: %1$s – bryggan kunde inte starta den (%2$s).</string>
+    <string name="sched_bridge_last_skipped">Senast: %1$s – milt väder, så bryggan lät klimatet vara av.</string>
+    <string name="sched_bridge_last_away">Senast: %1$s – bilen var inte hemma, så en telefon skötte det.</string>
+    <string name="notif_departure_ready_bridge">Startad av bryggan – bilen är klar till %1$s.</string>
+    <string name="notif_departure_maybe_bridge">Telefonen nådde inte bilen. Om bilen är hemma startar bryggan den.</string>
+</resources>

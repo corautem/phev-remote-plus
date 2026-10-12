@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Departures and settings shared through the bridge. -->
+<resources>
+    <string name="sched_shared">Shared with your other phones through the bridge. While the car is home, the bridge starts the climate itself — even with every phone off.</string>
+    <string name="sched_shared_update">Update the bridge (Settings → Updates) so departures are shared with your other phones and the bridge can start them itself.</string>
+    <string name="sched_bridge_last_started">Last: %1$s — started by the bridge.</string>
+    <string name="sched_bridge_last_failed">Last: %1$s — the bridge couldn\'t start it (%2$s).</string>
+    <string name="sched_bridge_last_skipped">Last: %1$s — mild weather, so the bridge left the climate off.</string>
+    <string name="sched_bridge_last_away">Last: %1$s — the car wasn\'t home, so a phone took care of it.</string>
+    <string name="notif_departure_ready_bridge">Started by the bridge — your car will be ready for %1$s.</string>
+    <string name="notif_departure_maybe_bridge">This phone couldn\'t reach the car. If the car is home, the bridge starts it.</string>
+</resources>

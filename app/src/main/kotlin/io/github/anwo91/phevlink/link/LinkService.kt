@@ -223,6 +223,8 @@ class LinkService : LifecycleService() {
     // ------------------------------------------------------------ departures
 
     private suspend fun planDeparture(intent: Intent) {
+        // Another phone may have changed or removed this departure: take over the bridge's list first (if reachable).
+        if (graph.settings.current.hasBridge) withTimeoutOrNull(12_000) { graph.sharedSync.sync("before a departure") }
         val s = graph.settings.current
         val id = intent.getStringExtra(EXTRA_DEPARTURE) ?: return
         val atMs = intent.getLongExtra(EXTRA_AT, 0L)
@@ -257,6 +259,41 @@ class LinkService : LifecycleService() {
         val mode = intent.getStringExtra(EXTRA_MODE)?.let { runCatching { ClimateMode.valueOf(it) }.getOrNull() } ?: ClimateMode.HEAT
         val minutes = intent.getIntExtra(EXTRA_MINUTES, 20)
         val cmd = CarCommand.ClimateOn(mode, ClimateDuration.fromMinutes(minutes))
+        val depId = intent.getStringExtra(EXTRA_DEPARTURE)
+        val sync = graph.sharedSync
+        // The bridge runs shared departures itself while it is with the car; then this phone only reports how it went.
+        val bridge = if (depId != null && sync.state.value.bridgeRunsDepartures) sync.bridgeTakesDeparture() else false
+        if (bridge == true && depId != null) {
+            graph.log.link("Departure ${Format.clock(atMs)}: the bridge is with the car and starts it — waiting for its report")
+            val d = sync.awaitBridgeDeparture(depId, atMs)
+            graph.log.link("Departure ${Format.clock(atMs)}: bridge reports " + (d?.let { "${it.outcome} (${it.detail})" } ?: "nothing within 4 min"))
+            if (d != null) when (d.outcome) {
+                "started" -> {
+                    graph.notifier.result(
+                        str(R.string.notif_departure_started, str(Labels.mode(mode))),
+                        str(R.string.notif_departure_ready_bridge, Format.clock(atMs)), ok = true,
+                    )
+                    DepartureScheduler.reschedule(this, after = atMs)
+                    armWatchIfBusy()
+                    return
+                }
+                "failed" -> {
+                    graph.notifier.result(
+                        str(R.string.notif_departure_failed, str(Labels.modeInline(mode))),
+                        str(R.string.notif_departure_retry, Labels.failureReason(this, d.detail).replaceFirstChar { it.uppercase() }), ok = false,
+                    )
+                    DepartureScheduler.reschedule(this, after = atMs)
+                    return
+                }
+                "skipped" -> {
+                    DepartureScheduler.reschedule(this, after = atMs)
+                    return
+                }
+                // "away" (it left the car's Wi-Fi meanwhile) or no report: this phone tries.
+            }
+        } else if (bridge == null) {
+            graph.log.link("Departure ${Format.clock(atMs)}: the bridge didn't answer — this phone starts it")
+        }
         repo.hold("svc-departure")
         try {
             // A scheduled start deserves extra patience: the car's Wi-Fi may need to wake up.
@@ -267,7 +304,10 @@ class LinkService : LifecycleService() {
                 )
                 is CommandResult.Failure -> graph.notifier.result(
                     str(R.string.notif_departure_failed, str(Labels.modeInline(mode))),
-                    str(R.string.notif_departure_retry, Labels.failureReason(this, r.reason).replaceFirstChar { it.uppercase() }), ok = false,
+                    // Couldn't reach the bridge either: if the car is home, the bridge starts it anyway.
+                    if (bridge == null) str(R.string.notif_departure_maybe_bridge)
+                    else str(R.string.notif_departure_retry, Labels.failureReason(this, r.reason).replaceFirstChar { it.uppercase() }),
+                    ok = false,
                 )
             }
         } finally {

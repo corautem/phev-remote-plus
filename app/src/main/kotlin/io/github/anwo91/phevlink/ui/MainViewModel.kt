@@ -32,6 +32,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val log = g.log
     val bridgeSetup = g.bridgeSetup
     val bridgeAdmin = g.bridgeAdmin
+    val sharedSync = g.sharedSync
     val appUpdater = g.appUpdater
 
     private val _openPage = MutableStateFlow<String?>(null)

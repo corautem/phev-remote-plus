@@ -22,12 +22,6 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ExpandLess
-import androidx.compose.material.icons.outlined.ExpandMore
-import androidx.compose.material.icons.outlined.Language
-import androidx.compose.material.icons.outlined.Visibility
-import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -74,6 +68,7 @@ import io.github.anwo91.phevlink.ui.MainViewModel
 import io.github.anwo91.phevlink.ui.common.LabeledValue
 import io.github.anwo91.phevlink.ui.common.SectionCard
 import io.github.anwo91.phevlink.ui.common.rememberCarPairing
+import io.github.anwo91.phevlink.ui.icons.PhevIcons
 import io.github.anwo91.phevlink.util.AppLocale
 import io.github.anwo91.phevlink.util.Labels
 import io.github.anwo91.phevlink.weather.MetNo
@@ -409,7 +404,7 @@ private fun LanguageCard() {
             Modifier.fillMaxWidth().clickable { picking = true }.padding(vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(Icons.Outlined.Language, null, tint = MaterialTheme.colorScheme.primary)
+            Icon(PhevIcons.Language, null, tint = MaterialTheme.colorScheme.primary)
             Spacer(Modifier.width(12.dp))
             Text(stringResource(R.string.settings_language), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
             Text(nameOf(current), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
@@ -471,7 +466,7 @@ internal fun ExpandableHelp(title: String, text: String) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(title, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary, modifier = Modifier.weight(1f))
-        Icon(if (open) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+        Icon(if (open) PhevIcons.ChevronUp else PhevIcons.ChevronDown, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
     }
     if (open) Text(text, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(bottom = 6.dp))
 }
@@ -539,7 +534,7 @@ fun CarWifiCard(vm: MainViewModel, s: AppSettings, showTest: Boolean = true, sho
             trailingIcon = {
                 IconButton(onClick = { showPw = !showPw }) {
                     Icon(
-                        if (showPw) Icons.Outlined.VisibilityOff else Icons.Outlined.Visibility,
+                        if (showPw) PhevIcons.EyeOff else PhevIcons.Eye,
                         stringResource(if (showPw) R.string.settings_hide else R.string.settings_show),
                     )
                 }

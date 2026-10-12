@@ -19,10 +19,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.DeleteSweep
-import androidx.compose.material.icons.outlined.History
-import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FilterChip
@@ -59,6 +55,7 @@ import io.github.anwo91.phevlink.core.protocol.hexToBytes
 import io.github.anwo91.phevlink.ui.MainViewModel
 import io.github.anwo91.phevlink.ui.common.LabeledValue
 import io.github.anwo91.phevlink.ui.common.SectionCard
+import io.github.anwo91.phevlink.ui.icons.PhevIcons
 import io.github.anwo91.phevlink.ui.theme.LocalStatus
 import io.github.anwo91.phevlink.ui.theme.Mono
 import io.github.anwo91.phevlink.util.Format
@@ -107,16 +104,16 @@ private fun LogTab(vm: MainViewModel) {
             horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically,
         ) {
             Filter.entries.forEach { f -> FilterChip(selected = filter == f, onClick = { filter = f }, label = { Text(stringResource(f.label)) }) }
-            IconButton(onClick = { previous = !previous }) { Icon(Icons.Outlined.History, stringResource(R.string.diag_previous_session)) }
+            IconButton(onClick = { previous = !previous }) { Icon(PhevIcons.History, stringResource(R.string.diag_previous_session)) }
             IconButton(onClick = {
                 val text = if (previous) vm.previousSessionLog() else vm.log.dump()
                 val send = Intent(Intent.ACTION_SEND).setType("text/plain")
                     .putExtra(Intent.EXTRA_SUBJECT, ctx.getString(R.string.diag_share_subject, LocalDateTime.now().toString()))
                     .putExtra(Intent.EXTRA_TEXT, text)
                 ctx.startActivity(Intent.createChooser(send, ctx.getString(R.string.diag_share_log)))
-            }) { Icon(Icons.Outlined.Share, stringResource(R.string.diag_share)) }
+            }) { Icon(PhevIcons.Share, stringResource(R.string.diag_share)) }
             val msgCleared = stringResource(R.string.msg_log_cleared)
-            IconButton(onClick = { vm.log.clear(); vm.toast(msgCleared) }) { Icon(Icons.Outlined.DeleteSweep, stringResource(R.string.diag_clear)) }
+            IconButton(onClick = { vm.log.clear(); vm.toast(msgCleared) }) { Icon(PhevIcons.Delete, stringResource(R.string.diag_clear)) }
         }
         if (previous) {
             val noSession = stringResource(R.string.diag_no_saved_session)

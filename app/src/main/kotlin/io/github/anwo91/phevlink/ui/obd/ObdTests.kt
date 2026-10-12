@@ -15,12 +15,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.ErrorOutline
-import androidx.compose.material.icons.outlined.HelpOutline
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.WarningAmber
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
@@ -56,6 +50,7 @@ import io.github.anwo91.phevlink.core.obd.livetest.Verdict
 import io.github.anwo91.phevlink.ui.common.LabeledValue
 import io.github.anwo91.phevlink.ui.common.Pill
 import io.github.anwo91.phevlink.ui.common.SectionCard
+import io.github.anwo91.phevlink.ui.icons.PhevIcons
 import io.github.anwo91.phevlink.ui.theme.LocalStatus
 import io.github.anwo91.phevlink.util.Format
 
@@ -81,11 +76,11 @@ fun verdictLabel(v: Verdict): Int = when (v) {
 }
 
 private fun verdictIcon(v: Verdict): ImageVector = when (v) {
-    Verdict.PASS -> Icons.Outlined.CheckCircle
-    Verdict.WARN -> Icons.Outlined.WarningAmber
-    Verdict.FAIL -> Icons.Outlined.ErrorOutline
-    Verdict.INFO -> Icons.Outlined.Info
-    Verdict.INCONCLUSIVE, Verdict.CANCELLED -> Icons.Outlined.HelpOutline
+    Verdict.PASS -> PhevIcons.CheckCircle
+    Verdict.WARN -> PhevIcons.Warning
+    Verdict.FAIL -> PhevIcons.ErrorCircle
+    Verdict.INFO -> PhevIcons.Info
+    Verdict.INCONCLUSIVE, Verdict.CANCELLED -> PhevIcons.Help
 }
 
 @Composable

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Bridge page: status, log, actions, update (ui/bridge/BridgeScreen.kt). -->
 <resources>
+    <string name="bp_invite">Weiteres Handy hinzufügen</string>
+    <string name="bp_invite_open">Die Bridge lässt bis %1$s ein weiteres Handy herein. Auf dem anderen Handy: PHEV Link installieren, die WLAN-Karte des Autos eingeben und „Ich habe eine PHEV-Link-Bridge“ wählen.</string>
+    <string name="bp_done_invite">Die Tür ist für ein weiteres Handy offen.</string>
     <string name="bp_title">Bridge</string>
     <string name="bp_open">Bridge: Status, Protokoll und Updates</string>
     <string name="bp_none">Es ist noch keine Bridge eingerichtet.</string>

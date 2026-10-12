@@ -28,7 +28,7 @@ class BridgeAdminController(
     private val repo: () -> CarRepository,
 ) {
     enum class UpdatePhase { IDLE, STARTING, RUNNING, RESTARTING, DONE, FAILED }
-    enum class Action { CONNECT, RESTART, REBOOT, CHECK, PAUSE, RESUME }
+    enum class Action { CONNECT, RESTART, REBOOT, CHECK, PAUSE, RESUME, INVITE }
     enum class Outcome { OK, FAILED }
 
     data class UpdateInfo(
@@ -65,10 +65,14 @@ class BridgeAdminController(
         val busy: Action? = null,
         val lastAction: Pair<Action, Outcome>? = null,
         val lastActionDetail: String? = null,
+        /** "Add another phone": until when the bridge lets one more phone pair. */
+        val inviteUntilMs: Long? = null,
     ) {
         val canUpdate: Boolean get() = "update" in features && update?.canUpdate != false
         val canRestart: Boolean get() = "restart" in features
         val canPause: Boolean get() = "carwifi-pause" in features
+        val canInvite: Boolean get() = "pair-invite" in features
+        val inviteOpen: Boolean get() = (inviteUntilMs ?: 0L) > System.currentTimeMillis()
     }
 
     private val _state = MutableStateFlow(State())
@@ -184,6 +188,17 @@ class BridgeAdminController(
             repo().preferCarWifi(until, "the bridge stepped aside so this phone can use the car's Wi-Fi")
         }
         refreshWifi()
+        why
+    }
+
+    /** "Add another phone": the bridge lets one more phone pair for the next 10 minutes. */
+    fun invitePhone(minutes: Int = 10) = action(Action.INVITE) {
+        val r = BridgeSetupApi.openPairing(url, token, minutes)
+        val why = r.problem()
+        if (why == null) {
+            val seconds = (r?.body?.get("secondsLeft") as? Number)?.toLong() ?: (minutes * 60L)
+            _state.update { it.copy(inviteUntilMs = System.currentTimeMillis() + seconds * 1000) }
+        }
         why
     }
 

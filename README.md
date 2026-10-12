@@ -134,6 +134,11 @@ the bridge whenever the bridge is on the car's Wi-Fi. To register a phone while 
 Settings → Phone registration has **Let the bridge step aside (10 min)**: the bridge leaves the car's Wi-Fi and rejoins
 by itself afterwards (or after a reboot).
 
+**Another phone:** on a phone that already uses the bridge, Settings → Bridge → **Add another phone** opens pairing
+for one more phone for 10 minutes (no unplugging). On the new phone: install PHEV Link, enter the car's Wi-Fi card,
+choose *I have a PHEV Link bridge* — it pairs, sees the bridge already talks to the car and finishes without another
+registration. Both phones then use the car through the bridge.
+
 The car remembers at most two devices — the bridge takes one. If it answers the registration sequence with three beeps,
 setup walks you through clearing its memory (one beep confirms it; the car's Wi-Fi then restarts with the name and
 password from the card), waits until the bridge is back on the car's Wi-Fi, and only then asks for registration mode
@@ -191,6 +196,7 @@ control the car's climate and lights (not locks: the protocol has no remote unlo
 | POST | `/api/pair` | No token, header `X-PHEV-Pair: 1`: the token, once per boot, within 10 min of power-on |
 | GET | `/api/carwifi` | The bridge's own link to the car's Wi-Fi (interface, connected, IP, MAC, signal) |
 | POST | `/api/carwifi/scan`, `/api/carwifi/join`, `/api/carwifi/forget` | `{"country":"NO"}` · `{"ssid":…,"password":…}` |
+| POST | `/api/pair/open` | `{"minutes":10}` — "Add another phone": pairing open for one more phone (token needed) |
 | POST | `/api/carwifi/pause`, `/api/carwifi/resume` | `{"minutes":10}` — leave the car's Wi-Fi so a phone can use it (comes back by itself) |
 | POST | `/api/config` | `{"emulator":false}` — saved, then the bridge restarts |
 | GET | `/api/system` | The computer: model, OS, uptime, temperature, memory, disk, addresses, bridge build |

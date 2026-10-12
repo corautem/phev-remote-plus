@@ -234,7 +234,15 @@ private fun WifiStep(vm: MainViewModel, c: BridgeSetupController, st: BridgeSetu
                     if (sig < WEAK_SIGNAL) Note(stringResource(R.string.bs_wifi_weak), error = true)
                 }
                 Spacer(Modifier.height(12.dp))
-                Button(onClick = { c.toRegister() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.common_next)) }
+                if (st.alreadyWorking) {
+                    // Registered before (e.g. from another phone): the car knows the bridge, so this phone is done.
+                    Text(stringResource(R.string.bs_wifi_already, st.battery?.toString() ?: "?"), style = MaterialTheme.typography.bodyMedium)
+                    Spacer(Modifier.height(8.dp))
+                    Button(onClick = { c.finish(); onFinished() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.bs_finish)) }
+                    TextButton(onClick = { c.toRegister() }) { Text(stringResource(R.string.bs_reg_anyway)) }
+                } else {
+                    Button(onClick = { c.toRegister() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.common_next)) }
+                }
             }
             WifiState.CAR_NOT_SEEN -> {
                 Note(stringResource(R.string.bs_wifi_not_seen, carSsid), error = true)

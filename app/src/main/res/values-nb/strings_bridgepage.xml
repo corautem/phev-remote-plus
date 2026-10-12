@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Bridge page: status, log, actions, update (ui/bridge/BridgeScreen.kt). -->
 <resources>
+    <string name="bp_invite">Legg til en telefon til</string>
+    <string name="bp_invite_open">Broen slipper inn én telefon til fram til %1$s. På den andre telefonen: installer PHEV Link, skriv inn bilens Wi-Fi-kort, og velg «Jeg har en PHEV Link-bro».</string>
+    <string name="bp_done_invite">Døren står åpen for én telefon til.</string>
     <string name="bp_title">Bro</string>
     <string name="bp_open">Bro: status, logg og oppdateringer</string>
     <string name="bp_none">Ingen bro er satt opp ennå.</string>

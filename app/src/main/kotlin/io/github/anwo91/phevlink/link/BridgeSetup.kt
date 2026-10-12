@@ -157,6 +157,10 @@ object BridgeSetupApi {
     suspend fun resumeCarWifi(url: String, token: String): Reply? =
         withContext(Dispatchers.IO) { request(url, "carwifi/resume", "POST", token, emptyMap(), 4_000, 50_000) }
 
+    /** "Add another phone": the bridge opens pairing for one more phone for [minutes] (bridge with "pair-invite"). */
+    suspend fun openPairing(url: String, token: String, minutes: Int): Reply? =
+        withContext(Dispatchers.IO) { request(url, "pair/open", "POST", token, mapOf("minutes" to minutes), 4_000, 8_000) }
+
     suspend fun connect(url: String, token: String): Reply? =
         withContext(Dispatchers.IO) { request(url, "connect", "POST", token, emptyMap(), 4_000, 10_000) }
 
@@ -348,6 +352,8 @@ class BridgeSetupController(
         val regWaitingWifi: Boolean = false,
         /** The car's memory was cleared in this setup, so the phone has to be registered again afterwards. */
         val memoryCleared: Boolean = false,
+        /** The bridge already talks to the car (registered before, e.g. from another phone): nothing left to do. */
+        val alreadyWorking: Boolean = false,
     )
 
     private val _state = MutableStateFlow(State())
@@ -548,6 +554,7 @@ class BridgeSetupController(
         }
         if (info.connected && info.ssid == s.ssid) {
             _state.update { it.copy(wifi = WifiState.CONNECTED, carSignal = info.signal) }
+            checkAlreadyWorking()
             return
         }
         _state.update { it.copy(wifi = WifiState.SEARCHING) }
@@ -568,6 +575,20 @@ class BridgeSetupController(
             return
         }
         joinNow((car["signal"] as? Number)?.toInt())
+    }
+
+    /**
+     * Is the bridge already in touch with the car (registered before — e.g. when setting up another phone)? Then the
+     * car doesn't need to register it again and setup can finish right here.
+     */
+    private suspend fun checkAlreadyWorking() {
+        val snap = BridgeClient(url, token, log, context).fetchStatus(6_000) ?: return
+        val fresh = snap.car.updatedAtMs?.let { System.currentTimeMillis() - it < 15 * 60_000 } == true
+        val working = snap.car.vin != null && (snap.link.isConnected || fresh)
+        if (working) {
+            log.link("Bridge setup: the bridge already talks to the car (VIN ${snap.car.vin}, battery ${snap.car.batteryPercent}%) — no registration needed")
+            _state.update { it.copy(alreadyWorking = true, battery = snap.car.batteryPercent, vin = snap.car.vin) }
+        }
     }
 
     /** The car's Wi-Fi name and password typed in the wizard (a fresh install has none yet); saved, then on we go. */
@@ -608,7 +629,7 @@ class BridgeSetupController(
         log.link("Bridge setup: join → saved=${r.body["saved"]} connected=${r.body["connected"]} mac=${info?.mac} ip=${info?.ip}: $message")
         _state.update {
             when {
-                r.body["connected"] == true -> it.copy(wifi = WifiState.CONNECTED, carSignal = info?.signal ?: signal)
+                r.body["connected"] == true -> it.copy(wifi = WifiState.CONNECTED, carSignal = info?.signal ?: signal, alreadyWorking = false)
                 r.body["saved"] == true -> it.copy(wifi = WifiState.SAVED_NOT_CONNECTED, wifiDetail = message)
                 else -> it.copy(wifi = WifiState.FAILED, wifiDetail = message)
             }

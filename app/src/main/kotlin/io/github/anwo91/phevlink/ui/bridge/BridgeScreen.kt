@@ -223,6 +223,17 @@ private fun ActionsCard(c: BridgeAdminController, st: BridgeAdminController.Stat
                 }
             }
         }
+        if (st.canInvite) {
+            // Another phone pairs with the bridge without anyone unplugging it: open the door for 10 minutes.
+            val until = st.inviteUntilMs
+            if (st.inviteOpen && until != null) {
+                Note(stringResource(R.string.bp_invite_open, Format.clock(until)), LocalStatus.current.good)
+            } else {
+                FilledTonalButton(onClick = { c.invitePhone() }, enabled = !busy, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.bp_invite))
+                }
+            }
+        }
         if (st.canUpdate) {
             OutlinedButton(onClick = { confirmReboot = true }, enabled = !busy, modifier = Modifier.fillMaxWidth()) {
                 Text(stringResource(R.string.bp_reboot))
@@ -242,6 +253,7 @@ private fun ActionsCard(c: BridgeAdminController, st: BridgeAdminController.Stat
                             Action.CHECK -> R.string.bp_done_check
                             Action.PAUSE -> R.string.bp_done_pause
                             Action.RESUME -> R.string.bp_done_resume
+                            Action.INVITE -> R.string.bp_done_invite
                         },
                     ),
                 )

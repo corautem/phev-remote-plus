@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="bs_wifi_already">This bridge already talks to your car (battery %1$s %%). The car doesn\'t need to register it again — you\'re done.</string>
+    <string name="bs_reg_anyway">Register the bridge again</string>
     <string name="bs_reg_cleared_button">Done — the car beeped once</string>
     <string name="bs_reg_cleared">Memory cleared. The car now restarts its Wi-Fi, with the name and password from the card. Switch the car\'s power OFF and wait until the bridge is back on the car\'s Wi-Fi.</string>
     <string name="bs_reg_waiting_bridge">Waiting for the bridge to see the car…</string>

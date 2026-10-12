@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="bs_wifi_already">Die Bridge spricht schon mit deinem Auto (Batterie %1$s %%). Das Auto muss sie nicht neu registrieren – du bist fertig.</string>
+    <string name="bs_reg_anyway">Bridge erneut registrieren</string>
     <string name="bs_reg_cleared_button">Fertig – das Auto hat einmal gepiept</string>
     <string name="bs_reg_cleared">Speicher gelöscht. Das Auto startet jetzt sein WLAN neu, mit Name und Passwort von der Karte. Schalte das Auto AUS und warte, bis die Bridge wieder im WLAN des Autos ist.</string>
     <string name="bs_reg_waiting_bridge">Warte, bis die Bridge das Auto sieht …</string>

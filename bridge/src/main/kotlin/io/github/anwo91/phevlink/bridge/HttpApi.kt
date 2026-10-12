@@ -33,6 +33,7 @@ import java.util.concurrent.TimeUnit
  *   POST /api/carwifi/forget
  *   POST /api/carwifi/pause {"minutes":10} -> leave the car's Wi-Fi so a phone can use it (comes back by itself)
  *   POST /api/carwifi/resume -> back on the car's Wi-Fi now
+ *   POST /api/pair/open    {"minutes":10} -> "Add another phone": pairing open for one more phone (needs the token)
  *   POST /api/config       {"emulator":false} -> saved; the bridge restarts to apply it
  *   GET  /api/system       the computer: model, OS, uptime, temperature, memory, disk, addresses, bridge build
  *   GET  /api/update       installed/newest version, whether an update runs, its log (?check=1 asks GitHub now)
@@ -115,6 +116,12 @@ class HttpApi(
             }
             path == "carwifi/forget" && ex.requestMethod == "POST" -> withWifi(ex) { json(ex, 200, mapOf("ok" to it.forget())) }
             path == "config" && ex.requestMethod == "POST" -> configChange(ex)
+            path == "pair/open" && ex.requestMethod == "POST" -> {
+                val p = pairing ?: return json(ex, 503, mapOf("ok" to false, "error" to "Pairing is not available here"))
+                val minutes = (body(ex)["minutes"] as? Number)?.toInt() ?: 10
+                val seconds = p.invite(minutes, ex.remoteAddress.address.hostAddress)
+                json(ex, 200, mapOf("ok" to true, "secondsLeft" to seconds))
+            }
             path == "system" && ex.requestMethod == "GET" -> json(ex, 200, linkedMapOf(
                 "build" to BridgeService.BUILD, "version" to BridgeService.VERSION,
                 "startedAtMs" to service.startedAtMs, "nowMs" to System.currentTimeMillis(),

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="bs_wifi_already">Broen taler allerede med bilen (batteri %1$s %%). Bilen behøver ikke registrere den igen – du er færdig.</string>
+    <string name="bs_reg_anyway">Registrér broen igen</string>
     <string name="bs_reg_cleared_button">Færdig – bilen bippede én gang</string>
     <string name="bs_reg_cleared">Hukommelsen er ryddet. Bilen genstarter nu sit wifi med navnet og adgangskoden fra kortet. Slå strømmen i bilen FRA, og vent, til broen er tilbage på bilens wifi.</string>
     <string name="bs_reg_waiting_bridge">Venter på, at broen kan se bilen …</string>

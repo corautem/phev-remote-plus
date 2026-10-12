@@ -15,7 +15,22 @@ class PairingTest {
     private var uptime: Double? = 60.0
     private var boot: String? = "boot-1"
 
-    private fun pairing(minutes: Int = 10) = Pairing(minutes, dir, log, { uptime }, { boot })
+    private var clock = 1_000_000L
+    private fun pairing(minutes: Int = 10) = Pairing(minutes, dir, log, { uptime }, { boot }, { clock })
+
+    @Test
+    fun anotherPhoneCanBeInvitedOnce() {
+        uptime = 3600.0 // long after power-on: closed
+        val p = pairing()
+        assertEquals("expired", p.window().reason)
+        assertEquals(600, p.invite(10, "192.168.1.16"))
+        assertTrue(p.window().open)
+        assertTrue(p.claim("phone B"))
+        assertFalse("one phone per invitation", p.claim("phone C"))
+        p.invite(5, "192.168.1.16")
+        clock += 6 * 60_000L
+        assertFalse("invitation expires", p.window().open)
+    }
 
     @After
     fun tearDown() {

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Bridge page: status, log, actions, update (ui/bridge/BridgeScreen.kt). -->
 <resources>
+    <string name="bp_invite">Lägg till en telefon till</string>
+    <string name="bp_invite_open">Bryggan släpper in en telefon till fram till %1$s. På den andra telefonen: installera PHEV Link, ange bilens wifi-kort och välj ”Jag har en PHEV Link-brygga”.</string>
+    <string name="bp_done_invite">Dörren står öppen för en telefon till.</string>
     <string name="bp_title">Brygga</string>
     <string name="bp_open">Brygga: status, logg och uppdateringar</string>
     <string name="bp_none">Ingen brygga är konfigurerad än.</string>

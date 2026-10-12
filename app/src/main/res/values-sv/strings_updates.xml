@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings → Updates, calm bridge restarts, charge timer help. -->
+<resources>
+    <string name="upd_title">Uppdateringar</string>
+    <string name="upd_app">PHEV Link %1$s</string>
+    <string name="upd_bridge">Brygga %1$s</string>
+    <string name="upd_checking">Söker efter uppdateringar …</string>
+    <string name="upd_available">%1$s finns.</string>
+    <string name="upd_up_to_date">Uppdaterad.</string>
+    <string name="upd_no_internet">Kunde inte söka efter uppdateringar (inget internet?).</string>
+    <string name="upd_app_button">Uppdatera appen</string>
+    <string name="upd_install">Installera</string>
+    <string name="upd_downloading">Laddar ner uppdateringen …</string>
+    <string name="upd_permission">Android frågar en gång: tillåt ”Installera okända appar” för PHEV Link och kom sedan tillbaka hit.</string>
+    <string name="upd_failed">Uppdateringen fungerade inte: %1$s</string>
+    <string name="upd_bridge_away">Når inte bryggan just nu (telefonen måste vara ansluten till wifi-nätverket hemma).</string>
+    <string name="bp_restarting">Bryggan startar om – tillbaka om ett ögonblick …</string>
+    <string name="charge_how_no_timer">Ingen laddtimer är inställd i bilen, så den laddar så fort den är ansluten. Med timer väntar bilen på tiden – då startar ”Ladda nu” direkt, och ”Tillbaka till laddtimern” får den att vänta igen.</string>
+    <string name="charge_how_timer">Bilen har en laddtimer: ansluten väntar den på timerns tid. ”Ladda nu” startar laddningen direkt; ”Tillbaka till laddtimern” får den att vänta på timern igen.</string>
+</resources>

@@ -14,6 +14,8 @@ import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.DirectionsCar
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -89,6 +91,12 @@ class MainActivity : ComponentActivity() {
         vm.onVisible()
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Back from Android's "install unknown apps" setting: carry on with the app update.
+        vm.appUpdater.onResume(this)
+    }
+
     companion object {
         /** Intent extra: a page to open on launch (from a notification). */
         const val EXTRA_OPEN = "io.github.anwo91.phevlink.OPEN"
@@ -159,6 +167,9 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
             vm.pageOpened()
         }
     }
+    val appUpd by vm.appUpdater.state.collectAsState()
+    val bridgeAdm by vm.bridgeAdmin.state.collectAsState()
+    val updates = appUpd.available || (bridgeAdm.update?.available == true && bridgeAdm.canUpdate)
     val snack = remember { SnackbarHostState() }
     LaunchedEffect(Unit) {
         vm.messages.collect { snack.showSnackbar(it) }
@@ -172,7 +183,11 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
                     NavigationBarItem(
                         selected = tab == i,
                         onClick = { tab = i; page = null },
-                        icon = { Icon(t.icon, contentDescription = null) },
+                        icon = {
+                            // A dot on Settings when the app or the bridge has an update.
+                            if (t == Tab.SETTINGS && updates) BadgedBox(badge = { Badge() }) { Icon(t.icon, contentDescription = null) }
+                            else Icon(t.icon, contentDescription = null)
+                        },
                         label = { Text(stringResource(t.label)) },
                     )
                 }

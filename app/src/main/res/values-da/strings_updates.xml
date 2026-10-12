@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings → Updates, calm bridge restarts, charge timer help. -->
+<resources>
+    <string name="upd_title">Opdateringer</string>
+    <string name="upd_app">PHEV Link %1$s</string>
+    <string name="upd_bridge">Bro %1$s</string>
+    <string name="upd_checking">Søger efter opdateringer …</string>
+    <string name="upd_available">%1$s er klar.</string>
+    <string name="upd_up_to_date">Opdateret.</string>
+    <string name="upd_no_internet">Kunne ikke søge efter opdateringer (intet internet?).</string>
+    <string name="upd_app_button">Opdatér appen</string>
+    <string name="upd_install">Installér</string>
+    <string name="upd_downloading">Henter opdateringen …</string>
+    <string name="upd_permission">Android spørger én gang: tillad “Installer ukendte apps” for PHEV Link, og kom så tilbage hertil.</string>
+    <string name="upd_failed">Opdateringen lykkedes ikke: %1$s</string>
+    <string name="upd_bridge_away">Kan ikke nå broen lige nu (telefonen skal være på wifi\'et derhjemme).</string>
+    <string name="bp_restarting">Broen genstarter – tilbage om et øjeblik …</string>
+    <string name="charge_how_no_timer">Der er ikke sat nogen ladetimer i bilen, så den lader, så snart den er tilsluttet. Med timer venter bilen på tidspunktet – så starter “Oplad nu” med det samme, og “Tilbage til ladetimeren” får den til at vente igen.</string>
+    <string name="charge_how_timer">Bilen har en ladetimer: tilsluttet venter den på timerens tidspunkt. “Oplad nu” starter opladningen med det samme; “Tilbage til ladetimeren” får den til at vente på timeren igen.</string>
+</resources>

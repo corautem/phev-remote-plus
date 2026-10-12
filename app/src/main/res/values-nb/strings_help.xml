@@ -41,7 +41,7 @@
     <!-- Status, charge detail, alarm (added) -->
     <string name="msg_climate_quick_charging">bilen kjører ikke klimaanlegget under hurtiglading. Prøv igjen etter hurtigladingen.</string>
     <string name="msg_charge_not_plugged">koble til ladekabelen først.</string>
-    <string name="cmd_resume_charge_timer">Lad etter timer</string>
+    <string name="cmd_resume_charge_timer">Tilbake til ladetimeren</string>
     <string name="alert_title_theft">Sikkerhetsalarm</string>
     <string name="alert_theft">Bilens sikkerhetsalarm gikk av.</string>
     <string name="alert_title_charge_failed">Ladingen startet ikke</string>
@@ -55,7 +55,7 @@
     <string name="home_charge_failed_note">Bilen fikk ikke startet den planlagte ladingen. Trykk «Lad nå», eller sjekk kabel og timer.</string>
     <string name="home_batt_warming">Varmer opp drivbatteriet</string>
     <string name="home_batt_too_cold">Koble til for å beskytte det kalde batteriet</string>
-    <string name="quick_resume_timer">Lad etter timer</string>
+    <string name="quick_resume_timer">Tilbake til ladetimeren</string>
     <string name="security_alarm">Alarm</string>
     <string name="security_alarm_armed">Aktivert</string>
     <string name="security_alarm_triggered">Utløst</string>

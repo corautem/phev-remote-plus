@@ -97,7 +97,8 @@ fun BridgeScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit, onOp
                 return@Column
             }
             StatusCard(st, now)
-            if (st.reachable == true) {
+            // While the bridge restarts or updates (asked for here), keep everything on screen — no "offline" scare.
+            if (st.reachable == true || st.restarting || st.phase != UpdatePhase.IDLE) {
                 ActionsCard(c, st)
                 UpdateCard(c, st)
                 LogCard(st)
@@ -128,6 +129,10 @@ private fun Note(text: String, color: Color = Color.Unspecified) {
 private fun StatusCard(st: BridgeAdminController.State, now: Long) {
     val status = LocalStatus.current
     SectionCard(title = stringResource(R.string.bp_status)) {
+        if (st.restarting) {
+            Busy(stringResource(R.string.bp_restarting))
+            return@SectionCard
+        }
         when (st.reachable) {
             null -> Busy(stringResource(R.string.bp_checking))
             false -> Note(stringResource(R.string.bp_unreachable, st.url), MaterialTheme.colorScheme.error)

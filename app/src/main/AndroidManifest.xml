@@ -20,6 +20,8 @@
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.REQUEST_COMPANION_RUN_IN_BACKGROUND" />
     <uses-permission android:name="android.permission.REQUEST_COMPANION_USE_DATA_IN_BACKGROUND" />
+    <!-- Updating the app from inside the app (Android asks the user once) -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <!-- Optional: weather location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- OBD adapters (ELM327 over Bluetooth Classic / LE) -->

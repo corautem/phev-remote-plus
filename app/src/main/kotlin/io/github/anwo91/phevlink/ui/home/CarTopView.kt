@@ -556,11 +556,15 @@ fun CarPartDialog(
                         if (car.chargeTimerError) DialogNote(stringResource(R.string.home_charge_failed_note), status.warn)
                         if (car.batteryWarming) DialogNote(stringResource(R.string.home_batt_warming))
                         if (car.batteryTooCold) DialogNote(stringResource(R.string.home_batt_too_cold), status.warn)
-                        if (car.plug == PlugState.PLUGGED && !car.isCharging) {
+                        // How the timer buttons work, in plain words — they only matter when the car has a charge timer.
+                        val timerSet = io.github.anwo91.phevlink.core.model.ScheduleDecoder.charge(car).any { it.programmed }
+                        Spacer(Modifier.height(4.dp))
+                        DialogNote(stringResource(if (timerSet || car.chargeWaiting) R.string.charge_how_timer else R.string.charge_how_no_timer))
+                        if (car.plug == PlugState.PLUGGED && !car.isCharging && (car.chargeWaiting || timerSet)) {
                             Spacer(Modifier.height(6.dp))
                             val msgCharge = stringResource(R.string.msg_charge_requested)
                             DialogAction(pending, stringResource(R.string.quick_charge_now)) { vm.run(CarCommand.ChargeNow, msgCharge) }
-                        } else if (car.isCharging) {
+                        } else if (car.isCharging && timerSet) {
                             Spacer(Modifier.height(6.dp))
                             DialogAction(pending, stringResource(R.string.quick_resume_timer)) { vm.run(CarCommand.ResumeChargeTimer) }
                         }

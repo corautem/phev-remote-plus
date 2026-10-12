@@ -129,6 +129,9 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () 
     ) {
         Text(stringResource(R.string.settings_title), style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(top = 8.dp))
 
+        // ------------------------------------------------------------- updates (app + bridge), easy to find
+        UpdatesCard(vm, s.hasBridge, onOpenBridge)
+
         // ---------------------------------------------------------------- demo
         SectionCard(title = stringResource(R.string.settings_demo_title)) {
             Text(

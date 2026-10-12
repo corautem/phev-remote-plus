@@ -65,6 +65,7 @@ class Graph(app: Application) {
     val testStore: TestStore by lazy { PrefsTestStore(app) }
     /** The "set up bridge" wizard; app-wide so it survives rotation and waits while the user re-plugs the bridge. */
     val bridgeSetup: BridgeSetupController by lazy { BridgeSetupController(app, settings, log, scope) }
+    val appUpdater: io.github.anwo91.phevlink.update.AppUpdater by lazy { io.github.anwo91.phevlink.update.AppUpdater(app, log, scope) }
     val bridgeAdmin: io.github.anwo91.phevlink.link.BridgeAdminController by lazy {
         io.github.anwo91.phevlink.link.BridgeAdminController(app, settings, log, scope) { repo }
     }

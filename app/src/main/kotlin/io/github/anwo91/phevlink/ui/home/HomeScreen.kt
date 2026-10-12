@@ -457,14 +457,17 @@ private fun QuickActions(car: CarState, pending: String?, vm: MainViewModel) {
             ) { vm.run(CarCommand.ParkingLights(car.parkingLights != true)) }
             ActionButton(stringResource(R.string.common_refresh), Icons.Outlined.Refresh, pending, Modifier.weight(1f)) { vm.refresh() }
         }
-        // Plugged in but not charging: offer "Charge now". Already charging on demand: offer to hand it back to the timer.
-        if (car.plug == PlugState.PLUGGED && !car.isCharging) {
+        // The timer buttons only mean something when the car has a charge timer: without one it charges as soon as
+        // it's plugged in, and "Back to timer" would say "done" while nothing changes.
+        val timerSet = ScheduleDecoder.charge(car).any { it.programmed }
+        // Plugged in but waiting for the timer: offer "Charge now". Charging on demand with a timer set: hand it back.
+        if (car.plug == PlugState.PLUGGED && !car.isCharging && (car.chargeWaiting || timerSet)) {
             Spacer(Modifier.height(8.dp))
             val msgCharge = stringResource(R.string.msg_charge_requested)
             ActionButton(stringResource(R.string.quick_charge_now), Icons.Outlined.EvStation, pending, Modifier.fillMaxWidth()) {
                 vm.run(CarCommand.ChargeNow, msgCharge)
             }
-        } else if (car.isCharging) {
+        } else if (car.isCharging && timerSet) {
             Spacer(Modifier.height(8.dp))
             ActionButton(stringResource(R.string.quick_resume_timer), Icons.Outlined.Schedule, pending, Modifier.fillMaxWidth()) {
                 vm.run(CarCommand.ResumeChargeTimer)

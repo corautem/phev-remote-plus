@@ -41,7 +41,7 @@
     <!-- Status, charge detail, alarm (added) -->
     <string name="msg_climate_quick_charging">bilen kör inte klimatanläggningen under snabbladdning. Försök igen efter snabbladdningen.</string>
     <string name="msg_charge_not_plugged">anslut laddkabeln först.</string>
-    <string name="cmd_resume_charge_timer">Ladda enligt timer</string>
+    <string name="cmd_resume_charge_timer">Tillbaka till laddtimern</string>
     <string name="alert_title_theft">Säkerhetslarm</string>
     <string name="alert_theft">Bilens säkerhetslarm utlöstes.</string>
     <string name="alert_title_charge_failed">Laddningen startade inte</string>
@@ -55,7 +55,7 @@
     <string name="home_charge_failed_note">Bilen kunde inte starta den schemalagda laddningen. Tryck på ”Ladda nu”, eller kontrollera kabel och timer.</string>
     <string name="home_batt_warming">Värmer upp drivbatteriet</string>
     <string name="home_batt_too_cold">Anslut för att skydda det kalla batteriet</string>
-    <string name="quick_resume_timer">Ladda enligt timer</string>
+    <string name="quick_resume_timer">Tillbaka till laddtimern</string>
     <string name="security_alarm">Larm</string>
     <string name="security_alarm_armed">Aktiverat</string>
     <string name="security_alarm_triggered">Utlöst</string>

@@ -67,6 +67,9 @@ class BridgeAdminController(
         val lastActionDetail: String? = null,
         /** "Add another phone": until when the bridge lets one more phone pair. */
         val inviteUntilMs: Long? = null,
+        /** The bridge is away because it was asked to restart / update: show calm progress, not "offline". */
+        val restarting: Boolean = false,
+        val updateCheckedAtMs: Long? = null,
     ) {
         val canUpdate: Boolean get() = "update" in features && update?.canUpdate != false
         val canRestart: Boolean get() = "restart" in features
@@ -81,6 +84,15 @@ class BridgeAdminController(
     private var poller: Job? = null
     private var updateJob: Job? = null
     private var openCount = 0
+    /** Until when "doesn't answer" is expected (restart, reboot, update) rather than a problem. */
+    @Volatile private var expectAwayUntilMs = 0L
+
+    private fun expectAway(ms: Long) {
+        expectAwayUntilMs = System.currentTimeMillis() + ms
+    }
+
+    private val awayExpected: Boolean
+        get() = System.currentTimeMillis() < expectAwayUntilMs || updateJob?.isActive == true
 
     private val url get() = settings.current.bridgeUrl.trimEnd('/')
     private val token get() = settings.current.bridgeToken
@@ -116,14 +128,21 @@ class BridgeAdminController(
         }
         val hello = BridgeSetupApi.hello(u)
         if (hello == null) {
+            if (awayExpected) {
+                // Asked to restart or update: it's supposed to be away for a bit — keep the page as it was.
+                _state.update { it.copy(url = u, restarting = true) }
+                return
+            }
             if (_state.value.reachable != false) log.warn("Bridge page: $u doesn't answer")
-            _state.update { it.copy(url = u, reachable = false) }
+            _state.update { it.copy(url = u, reachable = false, restarting = false) }
             return
         }
+        if (_state.value.restarting) log.link("Bridge page: the bridge is back")
+        expectAwayUntilMs = 0L
         _state.update {
             it.copy(
-                url = u, reachable = true, name = hello.name, apiVersion = hello.version, features = hello.features,
-                emulator = hello.emulator, build = hello.build,
+                url = u, reachable = true, restarting = false, name = hello.name, apiVersion = hello.version,
+                features = hello.features, emulator = hello.emulator, build = hello.build,
             )
         }
         BridgeClient(u, token, log, context).fetchStatus(5_000)?.let { snap ->
@@ -147,8 +166,31 @@ class BridgeAdminController(
             running = b["running"] == true, result = b.str("result"), detail = b.str("detail"),
             log = (b["log"] as? List<*>)?.map { it.toString() }.orEmpty(), canUpdate = b["canUpdate"] != false,
         )
-        _state.update { it.copy(update = info) }
+        _state.update { it.copy(update = info, updateCheckedAtMs = System.currentTimeMillis()) }
         return info
+    }
+
+    /** For Settings → Updates (no page polling there): who the bridge is and whether it has an update. */
+    suspend fun refreshForSettings(check: Boolean = false) {
+        val u = url
+        if (u.isBlank() || token.isBlank()) return
+        val hello = BridgeSetupApi.hello(u)
+        if (hello == null) {
+            _state.update { it.copy(url = u, reachable = if (awayExpected) it.reachable else false, restarting = awayExpected) }
+            return
+        }
+        _state.update {
+            it.copy(url = u, reachable = true, restarting = false, name = hello.name, apiVersion = hello.version,
+                features = hello.features, emulator = hello.emulator, build = hello.build)
+        }
+        if ("update" in hello.features && updateJob?.isActive != true) fetchUpdate(check)
+    }
+
+    /** At app start: ask the bridge about updates at most every few hours (for the dot on Settings). */
+    fun checkUpdatesIfDue() {
+        val last = _state.value.updateCheckedAtMs ?: 0L
+        if (System.currentTimeMillis() - last < 6 * 3600_000L) return
+        scope.launch { runCatching { refreshForSettings(check = false) } }
     }
 
     // ------------------------------------------------------------------ actions
@@ -170,9 +212,15 @@ class BridgeAdminController(
 
     fun connectCar() = action(Action.CONNECT) { BridgeSetupApi.connect(url, token).problem() }
 
-    fun restart() = action(Action.RESTART) { BridgeSetupApi.restart(url, token).problem() }
+    fun restart() = action(Action.RESTART) {
+        expectAway(60_000)
+        BridgeSetupApi.restart(url, token).problem()
+    }
 
-    fun reboot() = action(Action.REBOOT) { BridgeSetupApi.reboot(url, token).problem() }
+    fun reboot() = action(Action.REBOOT) {
+        expectAway(4 * 60_000L)
+        BridgeSetupApi.reboot(url, token).problem()
+    }
 
     fun checkForUpdate() = action(Action.CHECK) { if (fetchUpdate(check = true) == null) "no answer" else null }
 
@@ -243,7 +291,7 @@ class BridgeAdminController(
                 if (hello == null) {
                     if (!wentAway) log.link("Bridge page: the bridge is restarting on the new version…")
                     wentAway = true
-                    _state.update { it.copy(phase = UpdatePhase.RESTARTING) }
+                    _state.update { it.copy(phase = UpdatePhase.RESTARTING, restarting = true) }
                     continue
                 }
                 val build = hello.build

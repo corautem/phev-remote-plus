@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings → Updates, calm bridge restarts, charge timer help. -->
+<resources>
+    <string name="upd_title">Updates</string>
+    <string name="upd_app">PHEV Link %1$s</string>
+    <string name="upd_bridge">Bridge %1$s</string>
+    <string name="upd_checking">Suche nach Updates …</string>
+    <string name="upd_available">%1$s ist verfügbar.</string>
+    <string name="upd_up_to_date">Auf dem neuesten Stand.</string>
+    <string name="upd_no_internet">Konnte nicht nach Updates suchen (kein Internet?).</string>
+    <string name="upd_app_button">App aktualisieren</string>
+    <string name="upd_install">Installieren</string>
+    <string name="upd_downloading">Lade das Update herunter …</string>
+    <string name="upd_permission">Android fragt einmal: Erlaube „Unbekannte Apps installieren“ für PHEV Link und komm dann hierher zurück.</string>
+    <string name="upd_failed">Das Update hat nicht geklappt: %1$s</string>
+    <string name="upd_bridge_away">Die Bridge ist gerade nicht erreichbar (dein Handy muss im WLAN zu Hause sein).</string>
+    <string name="bp_restarting">Die Bridge startet neu – gleich wieder da …</string>
+    <string name="charge_how_no_timer">Im Auto ist kein Lade-Timer eingestellt, deshalb lädt es, sobald es eingesteckt ist. Mit Timer wartet das Auto auf die Uhrzeit – dann startet „Jetzt laden“ sofort, und „Zurück zum Lade-Timer“ lässt es wieder warten.</string>
+    <string name="charge_how_timer">Das Auto hat einen Lade-Timer: Eingesteckt wartet es auf die Uhrzeit des Timers. „Jetzt laden“ startet sofort; „Zurück zum Lade-Timer“ lässt es wieder auf den Timer warten.</string>
+</resources>

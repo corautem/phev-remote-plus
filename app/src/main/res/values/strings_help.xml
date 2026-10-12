@@ -47,7 +47,7 @@
     <!-- Status, charge detail, alarm (added) -->
     <string name="msg_climate_quick_charging">the car won’t run the climate while quick charging. Try again after the quick charge.</string>
     <string name="msg_charge_not_plugged">plug the charging cable in first.</string>
-    <string name="cmd_resume_charge_timer">Charge on schedule</string>
+    <string name="cmd_resume_charge_timer">Back to the charge timer</string>
     <string name="alert_title_theft">Security alarm</string>
     <string name="alert_theft">The car’s security alarm went off.</string>
     <string name="alert_title_charge_failed">Charge didn’t start</string>
@@ -61,7 +61,7 @@
     <string name="home_charge_failed_note">The car couldn’t start the scheduled charge. Tap “Charge now”, or check the cable and timer.</string>
     <string name="home_batt_warming">Warming the drive battery</string>
     <string name="home_batt_too_cold">Plug in to protect the cold battery</string>
-    <string name="quick_resume_timer">Charge on schedule</string>
+    <string name="quick_resume_timer">Back to the charge timer</string>
     <string name="security_alarm">Alarm</string>
     <string name="security_alarm_armed">Armed</string>
     <string name="security_alarm_triggered">Triggered</string>

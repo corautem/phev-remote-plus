@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings → Updates, calm bridge restarts, charge timer help. -->
+<resources>
+    <string name="upd_title">Updates</string>
+    <string name="upd_app">PHEV Link %1$s</string>
+    <string name="upd_bridge">Bridge %1$s</string>
+    <string name="upd_checking">Checking for updates…</string>
+    <string name="upd_available">%1$s is available.</string>
+    <string name="upd_up_to_date">Up to date.</string>
+    <string name="upd_no_internet">Couldn\'t check for updates (no internet?).</string>
+    <string name="upd_app_button">Update the app</string>
+    <string name="upd_install">Install</string>
+    <string name="upd_downloading">Downloading the update…</string>
+    <string name="upd_permission">Android asks once: allow “Install unknown apps” for PHEV Link, then come back here.</string>
+    <string name="upd_failed">The update didn\'t work: %1$s</string>
+    <string name="upd_bridge_away">Can\'t reach the bridge right now (this phone has to be on your home Wi-Fi).</string>
+    <string name="bp_restarting">The bridge is restarting — back in a moment…</string>
+    <string name="charge_how_no_timer">No charge timer is set in the car, so it charges as soon as it\'s plugged in. With a timer, the car waits for its time — then “Charge now” starts at once, and “Back to the charge timer” makes it wait again.</string>
+    <string name="charge_how_timer">The car has a charge timer: plugged in, it waits for the timer\'s time. “Charge now” starts charging at once; “Back to the charge timer” makes it wait for the timer again.</string>
+</resources>

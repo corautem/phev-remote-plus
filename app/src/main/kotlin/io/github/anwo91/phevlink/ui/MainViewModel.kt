@@ -32,6 +32,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val log = g.log
     val bridgeSetup = g.bridgeSetup
     val bridgeAdmin = g.bridgeAdmin
+    val appUpdater = g.appUpdater
 
     private val _openPage = MutableStateFlow<String?>(null)
     /** A full-screen page to open (asked for by a notification tap), consumed by the UI with [pageOpened]. */
@@ -64,6 +65,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     init {
         log.addListener(logListener)
+        // New versions of the app and the bridge, at most every few hours (shown under Settings → Updates).
+        appUpdater.checkIfDue()
+        if (settings.value.hasBridge) bridgeAdmin.checkUpdatesIfDue()
         viewModelScope.launch {
             car.collect { maybeStartWatch() }
         }

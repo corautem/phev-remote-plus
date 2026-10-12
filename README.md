@@ -73,6 +73,8 @@ the engravable setup card ([docs/kit-setup-card.md](docs/kit-setup-card.md)), an
 2. Open it and allow installing from your browser/files app when Android asks.
 3. Updates: install a newer APK over the old one — all builds share the same signing key, settings are kept.
 
+**Updates:** Settings → Updates shows the app's and the bridge's version and updates both from inside the app (the app downloads the newest release from GitHub, checks it is signed with the same key, and opens Android's installer — the first time, Android asks to allow installs from PHEV Link).
+
 Every push to `main` builds a new release automatically (GitHub Actions).
 
 ## First setup

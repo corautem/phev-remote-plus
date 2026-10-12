@@ -81,6 +81,12 @@ data class BridgeWifi(
 object BridgeSetupApi {
     const val PORT = 8099
 
+    /** This phone's name in the bridge's activity log (set by the app: the name from Settings, else the model). */
+    @Volatile var deviceName: () -> String = { Build.MODEL ?: "Phone" }
+
+    /** [deviceName] for the X-PHEV-Device header (URL-encoded: names may have æøå). */
+    fun deviceHeader(): String = java.net.URLEncoder.encode(deviceName().take(40), "UTF-8")
+
     data class Reply(val code: Int, val body: Map<String, Any?>)
 
     /** Who answers at [url]; null when it isn't a PHEV Link bridge (or nobody answers). */
@@ -110,8 +116,7 @@ object BridgeSetupApi {
 
     /** Re-plug pairing: the token, or null with the bridge's reason ("used", "expired", …) in the second value. */
     suspend fun pair(url: String): Pair<String?, String?> = withContext(Dispatchers.IO) {
-        val r = request(url, "pair", "POST", null, emptyMap(), 4_000, 8_000,
-            mapOf("X-PHEV-Pair" to "1", "X-PHEV-Device" to "${Build.MANUFACTURER} ${Build.MODEL}".take(60)))
+        val r = request(url, "pair", "POST", null, emptyMap(), 4_000, 8_000, mapOf("X-PHEV-Pair" to "1"))
             ?: return@withContext null to "unreachable"
         if (r.code == 200) (r.body.str("token")?.takeIf { it.isNotBlank() } to null)
         else null to (r.body.str("reason") ?: r.body.str("error") ?: "HTTP ${r.code}")
@@ -168,8 +173,18 @@ object BridgeSetupApi {
     /** Saves [changes] (only those keys) on the bridge; the reply's "shared" is the result. */
     suspend fun putShared(url: String, token: String, changes: Map<String, Any?>): Reply? =
         withContext(Dispatchers.IO) {
-            request(url, "shared", "POST", token, changes, 4_000, 8_000, mapOf("X-PHEV-Device" to "${Build.MANUFACTURER} ${Build.MODEL}".take(60)))
+            request(url, "shared", "POST", token, changes, 4_000, 8_000)
         }
+
+    /** The bridge's activity log, newest first (bridge with "activity"). */
+    suspend fun activity(url: String, token: String, limit: Int = 300, beforeMs: Long? = null): Reply? =
+        withContext(Dispatchers.IO) {
+            request(url, "activity?limit=$limit" + (beforeMs?.let { "&before=$it" } ?: ""), "GET", token, null, 4_000, 10_000)
+        }
+
+    /** Hands the bridge what this phone did straight over the car's Wi-Fi. */
+    suspend fun postActivity(url: String, token: String, entries: List<Map<String, Any?>>): Reply? =
+        withContext(Dispatchers.IO) { request(url, "activity", "POST", token, mapOf("entries" to entries), 4_000, 10_000) }
 
     suspend fun connect(url: String, token: String): Reply? =
         withContext(Dispatchers.IO) { request(url, "connect", "POST", token, emptyMap(), 4_000, 10_000) }
@@ -201,6 +216,7 @@ object BridgeSetupApi {
         c.connectTimeout = connectMs
         c.readTimeout = readMs
         token?.let { c.setRequestProperty("Authorization", "Bearer $it") }
+        c.setRequestProperty("X-PHEV-Device", deviceHeader())
         headers.forEach { (k, v) -> c.setRequestProperty(k, v) }
         if (body != null) {
             c.doOutput = true

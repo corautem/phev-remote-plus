@@ -1,5 +1,6 @@
 package io.github.anwo91.phevlink.bridge
 
+import io.github.anwo91.phevlink.core.activity.Activity
 import io.github.anwo91.phevlink.core.diag.DiagLog
 import io.github.anwo91.phevlink.core.json.Json
 import io.github.anwo91.phevlink.core.model.CarCommand
@@ -32,6 +33,8 @@ class DepartureRunner(
     private val execute: suspend (CarCommand) -> CommandResult,
     private val temperature: (Double, Double, ZonedDateTime) -> Double? = ::metNoTemperature,
     private val now: () -> ZonedDateTime = { ZonedDateTime.now(store.zone()) },
+    /** Each departure's outcome, for the activity log. */
+    private val onActivity: (Activity) -> Unit = {},
 ) {
     private val plans = HashMap<String, ClimatePlan?>()
     private val done = HashSet<String>()
@@ -72,18 +75,18 @@ class DepartureRunner(
             done += key
             if (!carHome()) {
                 log.link("Departures: $label — the car isn't home (the bridge isn't on its Wi-Fi); a phone near the car starts it")
-                store.recordDeparture(result(dep.id, at, "away", "car not home"))
+                store.recordDeparture(result(dep.id, at, "away", "car not home", plan))
                 continue
             }
             log.link("Departures: $label — starting ${plan.mode.label} for ${plan.duration.minutes} min")
             when (val r = execute(CarCommand.ClimateOn(plan.mode, plan.duration))) {
                 is CommandResult.Success -> {
                     log.link("Departures: $label — climate started (${r.tookMs} ms)")
-                    store.recordDeparture(result(dep.id, at, "started", "${plan.mode.label} ${plan.duration.minutes} min"))
+                    store.recordDeparture(result(dep.id, at, "started", "${plan.mode.label} ${plan.duration.minutes} min", plan))
                 }
                 is CommandResult.Failure -> {
                     log.warn("Departures: $label — the car didn't start the climate: ${r.reason}")
-                    store.recordDeparture(result(dep.id, at, "failed", r.reason))
+                    store.recordDeparture(result(dep.id, at, "failed", r.reason, plan))
                 }
             }
         }
@@ -93,13 +96,23 @@ class DepartureRunner(
         plans.keys.removeAll { it.substringAfter('@').toLongOrNull()?.let { s -> s < cutoff } ?: true }
     }
 
-    private fun result(id: String, at: ZonedDateTime, outcome: String, detail: String) = linkedMapOf(
-        "id" to id, "atMs" to at.toInstant().toEpochMilli(), "outcome" to outcome, "detail" to detail,
-        "doneAtMs" to System.currentTimeMillis(),
-    )
+    private fun result(id: String, at: ZonedDateTime, outcome: String, detail: String, plan: ClimatePlan? = null): Map<String, Any?> {
+        onActivity(
+            Activity(
+                System.currentTimeMillis(), Activity.BRIDGE, "departure.$outcome",
+                linkedMapOf("at" to at.format(HHMM), "mode" to plan?.mode?.name, "minutes" to plan?.duration?.minutes, "reason" to detail),
+                ok = outcome != "failed", detail = detail.takeIf { outcome == "failed" },
+            ),
+        )
+        return linkedMapOf(
+            "id" to id, "atMs" to at.toInstant().toEpochMilli(), "outcome" to outcome, "detail" to detail,
+            "doneAtMs" to System.currentTimeMillis(),
+        )
+    }
 
     companion object {
         private val CLOCK = DateTimeFormatter.ofPattern("EEE HH:mm")
+        private val HHMM = DateTimeFormatter.ofPattern("HH:mm")
         @Volatile private var cache: Triple<String, Long, List<Pair<Long, Double>>>? = null
 
         /** Outside temperature (°C) forecast nearest [at] from MET Norway (cached 30 min per place, as MET asks). */

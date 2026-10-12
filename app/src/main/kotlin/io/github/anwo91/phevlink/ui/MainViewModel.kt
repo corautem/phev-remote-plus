@@ -33,6 +33,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val bridgeSetup = g.bridgeSetup
     val bridgeAdmin = g.bridgeAdmin
     val sharedSync = g.sharedSync
+    val activityRecorder = g.activityRecorder
     val appUpdater = g.appUpdater
 
     private val _setupRequested = MutableStateFlow(false)

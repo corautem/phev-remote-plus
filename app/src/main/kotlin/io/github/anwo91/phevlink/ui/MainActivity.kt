@@ -122,6 +122,7 @@ private object Page {
     const val BRIDGE = "bridge"
     const val BRIDGE_STATUS = "bridge-status"
     const val CHARGE_TIMER = "charge-timer"
+    const val ACTIVITY = "activity"
 }
 
 /** The always-visible EMULATION bar, shown while demo mode is on so simulated data is never mistaken for the real car. */
@@ -212,8 +213,9 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
         when {
             p == Page.VEHICLE -> VehicleSettingsScreen(vm, m, onBack = { page = null })
             p == Page.BRIDGE -> BridgeSetupScreen(vm, m, onBack = { page = null }, onFinished = { page = null })
-            p == Page.BRIDGE_STATUS -> BridgeScreen(vm, m, onBack = { page = null }, onOpenSetup = { page = Page.BRIDGE })
+            p == Page.BRIDGE_STATUS -> BridgeScreen(vm, m, onBack = { page = null }, onOpenSetup = { page = Page.BRIDGE }, onOpenActivity = { page = Page.ACTIVITY })
             p == Page.CHARGE_TIMER -> ChargeTimerScreen(vm, m, onBack = { page = null })
+            p == Page.ACTIVITY -> io.github.anwo91.phevlink.ui.activity.ActivityScreen(vm, m, onBack = { page = null })
             p != null && p.startsWith(Page.TIPS) -> TipsScreen(
                 m, initialTip = p.substringAfter(':', "").ifEmpty { null },
                 onBack = { page = null },
@@ -230,6 +232,7 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
                     onOpenObd = { tab = Tab.OBD.ordinal },
                     onOpenBridgeSetup = { page = Page.BRIDGE },
                     onOpenChargeTimer = { page = Page.CHARGE_TIMER },
+                    onOpenActivity = { page = Page.ACTIVITY },
                 )
                 Tab.SCHEDULE -> ScheduleScreen(vm, m, onOpenChargeTimer = { page = Page.CHARGE_TIMER })
                 Tab.OBD -> ObdScreen(obdVm, m, onOpenTip = { page = Page.TIPS + ":" + it })

@@ -25,6 +25,11 @@ The main goal: **a connection that just works.**
   finger (and tilt in the large view). What can be tapped shows as icons, as labels, or lights up when touched.
 - **Climate** — heat, cool or defrost for 10/20/30 minutes; **Smart** mode picks mode and duration from the outside
   temperature (MET Norway forecast). Handles "stopped by the car" (door opened / battery low) with a one-tap reset.
+- **Activity** — who did what with the car (each phone by the name you give it, also when used right next to the
+  car) and what the car did: plugged in/out, charging started/stopped and why, every 10 %, a summary per charge
+  (from → to %, time, ≈ kWh), climate, locks, doors, lights, power switch, alarm; plus the bridge's departures and its
+  own events. Kept on the bridge for every phone (and on its web page); filters for charging, climate, doors & lights,
+  people and the bridge.
 - **Charge timer** — set the car's own charge timer (2014–2017 cars): up to three time windows, each on the days you
   pick, plus "full charge" days; the car keeps it and waits for the window when plugged in. "Charge now" skips it once.
 - **Departure timers** — "ready to leave at 07:30 on weekdays": 35 min before, the app checks the forecast and starts
@@ -218,6 +223,8 @@ control the car's climate and lights (not locks: the protocol has no remote unlo
 | POST | `/api/restart`, `/api/reboot` | Restart the bridge program · restart the computer |
 | GET | `/api/shared` | What all phones share (departures, car name, range, climate defaults, weather place, time zone) + `rev` and `lastDeparture` |
 | POST | `/api/shared` | `{"departures":[…],"carName":"…"}` — saves only the keys sent |
+| GET | `/api/activity` | `?limit=200&before=<ms>` — who did what and what the car did, newest first, with an English `text` |
+| POST | `/api/activity` | `{"entries":[…]}` — a phone reports what it did straight over the car's Wi-Fi (`cmd.…` only) |
 
 Auth (all but hello/pair): `Authorization: Bearer <token>` or `?token=<token>`.
 

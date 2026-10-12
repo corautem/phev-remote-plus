@@ -66,7 +66,7 @@ import kotlinx.coroutines.delay
  * once for bridges from before in-app updates.
  */
 @Composable
-fun BridgeScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit, onOpenSetup: () -> Unit) {
+fun BridgeScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit, onOpenSetup: () -> Unit, onOpenActivity: () -> Unit = {}) {
     val c = vm.bridgeAdmin
     val st by c.state.collectAsState()
     val s by vm.settings.collectAsState()
@@ -99,6 +99,7 @@ fun BridgeScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit, onOp
             // While the bridge restarts or updates (asked for here), keep everything on screen — no "offline" scare.
             if (st.reachable == true || st.restarting || st.phase != UpdatePhase.IDLE) {
                 ActionsCard(c, st)
+                RecentActivityCard(vm, onOpenActivity)
                 UpdateCard(c, st)
                 LogCard(st)
             }
@@ -367,5 +368,24 @@ private fun LogBox(lines: List<String>, maxHeight: Int) {
             fontFamily = FontFamily.Monospace, fontSize = 10.sp, lineHeight = 13.sp,
             modifier = Modifier.verticalScroll(v).horizontalScroll(rememberScrollState()),
         )
+    }
+}
+
+/** The last few lines of the activity log (who did what, charging…), with a way to the whole log. */
+@Composable
+private fun RecentActivityCard(vm: MainViewModel, onOpenActivity: () -> Unit) {
+    var recent by remember { mutableStateOf<List<io.github.anwo91.phevlink.core.activity.Activity>?>(null) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            val s = vm.settings.value
+            val (st, list) = io.github.anwo91.phevlink.ui.activity.fetchBridgeActivity(s.bridgeUrl, s.bridgeToken, 6)
+            if (st == io.github.anwo91.phevlink.ui.activity.BridgeState.OK) recent = list
+            delay(30_000)
+        }
+    }
+    val list = recent ?: return
+    SectionCard(title = stringResource(R.string.act_title)) {
+        list.forEach { io.github.anwo91.phevlink.ui.activity.ActivityRow(it) }
+        TextButton(onClick = onOpenActivity) { Text(stringResource(R.string.bp_activity_all)) }
     }
 }

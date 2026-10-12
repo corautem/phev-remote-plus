@@ -82,7 +82,12 @@ data class AppSettings(
     /** Car picture: from above, from the side or a 3D model you can turn (this phone only). */
     val carStyle: CarStyle = CarStyle.TOP,
     val tapHints: TapHints = TapHints.ICONS,
+    /** This phone's name in the activity log ("Kari"); blank = the phone's model. */
+    val phoneName: String = "",
 ) {
+    /** The name this phone goes by in the activity log. */
+    val deviceName: String get() = phoneName.trim().ifEmpty { android.os.Build.MODEL ?: "Phone" }
+
     val hasCarWifi: Boolean get() = ssid.isNotBlank() && passwordProblem(password) == null
     val hasBridge: Boolean get() = bridgeUrl.isNotBlank()
     /**
@@ -151,6 +156,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
         val bridgeSetupPending = booleanPreferencesKey("bridge_setup_pending")
         val carStyle = stringPreferencesKey("car_style")
         val tapHints = stringPreferencesKey("tap_hints")
+        val phoneName = stringPreferencesKey("phone_name")
     }
 
     val flow: StateFlow<AppSettings> = context.dataStore.data
@@ -199,6 +205,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
             bridgeSetupPending = p[K.bridgeSetupPending] ?: false,
             carStyle = p[K.carStyle]?.let { runCatching { CarStyle.valueOf(it) }.getOrNull() } ?: d.carStyle,
             tapHints = p[K.tapHints]?.let { runCatching { TapHints.valueOf(it) }.getOrNull() } ?: d.tapHints,
+            phoneName = p[K.phoneName] ?: "",
         )
     }
 
@@ -242,6 +249,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
             p[K.bridgeSetupPending] = s.bridgeSetupPending
             p[K.carStyle] = s.carStyle.name
             p[K.tapHints] = s.tapHints.name
+            p[K.phoneName] = s.phoneName.trim().take(30)
         }
     }
 }

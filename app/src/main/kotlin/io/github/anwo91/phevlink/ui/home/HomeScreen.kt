@@ -95,6 +95,7 @@ fun HomeScreen(
     onOpenObd: () -> Unit = {},
     onOpenBridgeSetup: () -> Unit = {},
     onOpenChargeTimer: () -> Unit = {},
+    onOpenActivity: () -> Unit = {},
 ) {
     val car by vm.car.collectAsState()
     val link by vm.link.collectAsState()
@@ -153,7 +154,7 @@ fun HomeScreen(
         item { SecurityCard(car) }
         item { ScheduleCard(car, onOpenChargeTimer) }
         item { DepartureCard(vm, onOpenSchedule) }
-        item { MoreCard(onOpenVehicleSettings, onOpenTips, onOpenObd, onOpenChargeTimer) }
+        item { MoreCard(onOpenVehicleSettings, onOpenTips, onOpenObd, onOpenChargeTimer, onOpenActivity) }
         item {
             Text(
                 listOfNotNull(
@@ -683,8 +684,9 @@ private fun ScheduleCard(car: CarState, onOpenChargeTimer: () -> Unit) {
 
 /** Entry points to the car's own settings, the tips and the OBD diagnostics. */
 @Composable
-private fun MoreCard(onOpenVehicleSettings: () -> Unit, onOpenTips: () -> Unit, onOpenObd: () -> Unit, onOpenChargeTimer: () -> Unit) {
+private fun MoreCard(onOpenVehicleSettings: () -> Unit, onOpenTips: () -> Unit, onOpenObd: () -> Unit, onOpenChargeTimer: () -> Unit, onOpenActivity: () -> Unit) {
     SectionCard(title = stringResource(R.string.home_more)) {
+        MoreRow(stringResource(R.string.act_title), stringResource(R.string.act_more), onOpenActivity)
         MoreRow(stringResource(R.string.ct_title), stringResource(R.string.ct_more), onOpenChargeTimer)
         MoreRow(stringResource(R.string.vs_title), stringResource(R.string.home_more_vs), onOpenVehicleSettings)
         MoreRow(stringResource(R.string.tips_title), stringResource(R.string.home_more_tips), onOpenTips)

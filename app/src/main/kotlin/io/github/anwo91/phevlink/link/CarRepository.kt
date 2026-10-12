@@ -493,7 +493,17 @@ class CarRepository(
     // --------------------------------------------------------------- commands
 
     /** Run a command, connecting first if needed. */
+    /** Told about every command this phone ran straight over the car's Wi-Fi (the bridge logs its own). */
+    @Volatile var onDirectCommand: ((CarCommand, CommandResult) -> Unit)? = null
+
     suspend fun execute(cmd: CarCommand, timeoutMs: Long = 50_000, lingerMs: Long = 45_000): CommandResult {
+        var direct = false
+        val r = executeRouted(cmd, timeoutMs, lingerMs) { direct = it }
+        if (direct) runCatching { onDirectCommand?.invoke(cmd, r) }
+        return r
+    }
+
+    private suspend fun executeRouted(cmd: CarCommand, timeoutMs: Long, lingerMs: Long, usedDirect: (Boolean) -> Unit): CommandResult {
         val tag = "cmd-${counter.incrementAndGet()}"
         hold(tag)
         val deadline = System.currentTimeMillis() + timeoutMs
@@ -510,6 +520,7 @@ class CarRepository(
                     continue
                 }
                 val remaining = (deadline - System.currentTimeMillis()).coerceAtLeast(1_000)
+                usedDirect(b == null)
                 val r = if (b != null) b.execute(cmd) else d!!.execute(cmd, remaining)
                 last = r
                 when {

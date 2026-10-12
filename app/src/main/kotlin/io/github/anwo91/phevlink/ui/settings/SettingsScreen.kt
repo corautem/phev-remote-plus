@@ -159,6 +159,14 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () 
                 label = { Text(stringResource(R.string.settings_car_name)) }, singleLine = true, modifier = Modifier.fillMaxWidth(),
             )
             Spacer(Modifier.height(8.dp))
+            // This phone's name in the activity log (per phone, not shared).
+            var phoneName by rememberSaveable(s.phoneName) { mutableStateOf(s.phoneName) }
+            OutlinedTextField(
+                phoneName, { v -> phoneName = v.take(30); set { it.copy(phoneName = v.take(30)) } },
+                label = { Text(stringResource(R.string.set_phone_name)) }, singleLine = true, modifier = Modifier.fillMaxWidth(),
+                supportingText = { Text(stringResource(R.string.set_phone_name_hint, android.os.Build.MODEL ?: "")) },
+            )
+            Spacer(Modifier.height(8.dp))
             Toggle(stringResource(R.string.settings_dynamic_color), s.dynamicColor) { on -> set { it.copy(dynamicColor = on) } }
             Text(
                 stringResource(R.string.settings_dynamic_color_explain),

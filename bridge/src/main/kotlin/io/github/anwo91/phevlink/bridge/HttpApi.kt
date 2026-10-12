@@ -1,5 +1,8 @@
 package io.github.anwo91.phevlink.bridge
 
+import io.github.anwo91.phevlink.core.model.CarCommand
+import io.github.anwo91.phevlink.core.activity.ActivityText
+import io.github.anwo91.phevlink.core.activity.Activity
 import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpServer
 import io.github.anwo91.phevlink.core.diag.DiagLog
@@ -43,6 +46,10 @@ import java.util.concurrent.TimeUnit
  *   GET  /api/shared       what all phones share: departures, car name, range, climate defaults, weather place, time zone
  *                          (+ "rev", bumped on every change, and "lastDeparture": how the last bridge-run departure went)
  *   POST /api/shared       {"departures":[…],"carName":"…"} -> saved (only the keys sent; last writer wins per key)
+ *   GET  /api/activity     ?limit=200&before=<ms>: who did what and what the car did, newest first (+ English "text")
+ *   POST /api/activity     {"entries":[…]}: a phone reports what it did straight over the car's Wi-Fi ("cmd.…" only)
+ *
+ * Phones name themselves in the "X-PHEV-Device" header (URL-encoded); that name goes into the activity log.
  *
  * Every /api call needs the token ("Authorization: Bearer <token>" or ?token=<token>), except:
  *   GET  /api/hello        who am I (for the app's discovery) + whether pairing is open
@@ -59,6 +66,7 @@ class HttpApi(
     private val settingsFile: File? = null,
     private val updater: Updater? = null,
     private val shared: SharedStore? = null,
+    private val activity: ActivityLog? = null,
     private val restart: () -> Unit = {},
 ) {
     private lateinit var server: HttpServer
@@ -93,11 +101,13 @@ class HttpApi(
                 runBlocking { service.disconnectNow() }
                 val why = wifi.pause(minutes) { runBlocking { service.connectNow() } }
                 if (why != null) runBlocking { service.connectNow() }
+                record(ex, "bridge.carwifi_paused", mapOf("minutes" to minutes), why)
                 json(ex, if (why == null) 200 else 500, mapOf("ok" to (why == null), "error" to why, "pausedUntilMs" to wifi.pausedUntilMs))
             }
             path == "carwifi/resume" && ex.requestMethod == "POST" -> withWifi(ex) { wifi ->
-                val why = wifi.resume("asked by ${ex.remoteAddress.address.hostAddress}")
+                val why = wifi.resume("asked by ${who(ex)}")
                 runBlocking { service.connectNow() }
+                record(ex, "bridge.carwifi_resumed", emptyMap(), why)
                 json(ex, if (why == null) 200 else 500, mapOf("ok" to (why == null), "error" to why))
             }
             path == "carwifi/scan" && ex.requestMethod == "POST" -> withWifi(ex) { wifi ->
@@ -123,7 +133,8 @@ class HttpApi(
             path == "pair/open" && ex.requestMethod == "POST" -> {
                 val p = pairing ?: return json(ex, 503, mapOf("ok" to false, "error" to "Pairing is not available here"))
                 val minutes = (body(ex)["minutes"] as? Number)?.toInt() ?: 10
-                val seconds = p.invite(minutes, ex.remoteAddress.address.hostAddress)
+                val seconds = p.invite(minutes, who(ex))
+                record(ex, "bridge.invite", mapOf("minutes" to minutes), null)
                 json(ex, 200, mapOf("ok" to true, "secondsLeft" to seconds))
             }
             path == "system" && ex.requestMethod == "GET" -> json(ex, 200, linkedMapOf(
@@ -132,23 +143,45 @@ class HttpApi(
             ) + SystemInfo.read())
             path == "update" && ex.requestMethod == "GET" -> withUpdater(ex) { json(ex, 200, it.status(force = query(ex)["check"] == "1")) }
             path == "update" && ex.requestMethod == "POST" -> withUpdater(ex) { u ->
-                val why = u.start(ex.remoteAddress.address.hostAddress)
+                val why = u.start(who(ex))
+                record(ex, "bridge.update", emptyMap(), why)
                 json(ex, if (why == null) 200 else 500, mapOf("ok" to (why == null), "error" to why))
             }
             path == "restart" && ex.requestMethod == "POST" -> {
-                log.link("API: restart requested by ${ex.remoteAddress.address.hostAddress}")
+                log.link("API: restart requested by ${who(ex)}")
+                record(ex, "bridge.restart", emptyMap(), null)
                 json(ex, 200, mapOf("ok" to true))
                 restart()
             }
             path == "reboot" && ex.requestMethod == "POST" -> withUpdater(ex) { u ->
-                val why = u.reboot(ex.remoteAddress.address.hostAddress)
+                val why = u.reboot(who(ex))
+                record(ex, "bridge.reboot", emptyMap(), why)
                 json(ex, if (why == null) 200 else 500, mapOf("ok" to (why == null), "error" to why))
             }
             path == "shared" && ex.requestMethod == "GET" -> withShared(ex) { json(ex, 200, it.snapshot() + ("rev" to it.rev)) }
             path == "shared" && ex.requestMethod == "POST" -> withShared(ex) { s ->
-                val who = ex.requestHeaders.getFirst("X-PHEV-Device")?.take(60) ?: ex.remoteAddress.address.hostAddress
-                val next = s.update(body(ex), who)
+                val by = who(ex)
+                val before = s.rev
+                val changes = body(ex)
+                val next = s.update(changes, by)
+                if (s.rev != before) record(ex, "shared.changed", mapOf("keys" to changes.keys.filter { it in SharedStore.KEYS }.joinToString()), null)
                 json(ex, 200, mapOf("ok" to true, "shared" to next))
+            }
+            path == "activity" && ex.requestMethod == "GET" -> {
+                val a = activity ?: return json(ex, 503, mapOf("ok" to false, "error" to "No activity log here"))
+                val q = query(ex)
+                val list = a.recent(q["limit"]?.toIntOrNull() ?: 200, q["before"]?.toLongOrNull())
+                json(ex, 200, mapOf("ok" to true, "size" to a.size, "entries" to list.map { it.toMap() + ("text" to ActivityText.english(it)) }))
+            }
+            path == "activity" && ex.requestMethod == "POST" -> {
+                val a = activity ?: return json(ex, 503, mapOf("ok" to false, "error" to "No activity log here"))
+                val by = who(ex)
+                @Suppress("UNCHECKED_CAST")
+                val list = (body(ex)["entries"] as? List<*>).orEmpty().mapNotNull { (it as? Map<String, Any?>)?.let(Activity::fromMap) }
+                // Phones only report their own actions; what the car did comes from the bridge itself.
+                val added = list.filter { it.code.startsWith("cmd.") }.take(500)
+                    .count { a.add(it.copy(who = it.who.ifBlank { by }, via = it.via ?: "direct")) }
+                json(ex, 200, mapOf("ok" to true, "added" to added))
             }
             path == "status" && ex.requestMethod == "GET" -> json(ex, 200, service.snapshot())
             path == "events" && ex.requestMethod == "GET" -> events(ex)
@@ -183,17 +216,18 @@ class HttpApi(
     }
 
     private fun pair(ex: HttpExchange) {
-        val who = ex.remoteAddress.address.hostAddress +
-            (ex.requestHeaders.getFirst("X-PHEV-Device")?.take(60)?.let { " ($it)" } ?: "")
+        val who = ex.remoteAddress.address.hostAddress + (deviceName(ex)?.let { " ($it)" } ?: "")
         if (ex.requestHeaders.getFirst("X-PHEV-Pair") != "1") {
             log.warn("Pairing request from $who without the pairing header — refused")
             return send(ex, 400, "application/json", Json.write(mapOf("ok" to false, "error" to "Missing pairing header")), cors = false)
         }
         val p = pairing
         if (p == null || !p.claim(who)) {
+            if (p != null) log.link("Pairing refused for $who")
             val reason = p?.window()?.reason ?: "disabled"
             return send(ex, 403, "application/json", Json.write(mapOf("ok" to false, "error" to "Pairing is closed", "reason" to reason)), cors = false)
         }
+        activity?.add(Activity(System.currentTimeMillis(), deviceName(ex) ?: who, "bridge.paired"))
         send(ex, 200, "application/json", Json.write(mapOf("ok" to true, "token" to config.token, "name" to hostName())), cors = false)
     }
 
@@ -213,6 +247,17 @@ class HttpApi(
     private inline fun withUpdater(ex: HttpExchange, block: (Updater) -> Unit) {
         val u = updater ?: return json(ex, 503, mapOf("ok" to false, "error" to "Updates are not available here"))
         block(u)
+    }
+
+    /** The phone's own name (X-PHEV-Device, URL-encoded), if it sent one. */
+    private fun deviceName(ex: HttpExchange): String? = ex.requestHeaders.getFirst("X-PHEV-Device")
+        ?.let { runCatching { URLDecoder.decode(it, "UTF-8") }.getOrDefault(it) }?.trim()?.take(40)?.ifEmpty { null }
+
+    /** Who is asking: the phone's name, else its address. */
+    private fun who(ex: HttpExchange): String = deviceName(ex) ?: ex.remoteAddress.address.hostAddress
+
+    private fun record(ex: HttpExchange, code: String, params: Map<String, Any?>, failure: String?) {
+        activity?.add(Activity(System.currentTimeMillis(), who(ex), code, params, ok = failure == null, detail = failure))
     }
 
     private inline fun withShared(ex: HttpExchange, block: (SharedStore) -> Unit) {
@@ -241,8 +286,13 @@ class HttpApi(
         } catch (e: Exception) {
             return json(ex, 400, mapOf("ok" to false, "error" to (e.message ?: "Bad command")))
         }
-        log.add(io.github.anwo91.phevlink.core.diag.LogKind.CMD, "API command from ${ex.remoteAddress.address.hostAddress}: ${cmd.label}")
+        log.add(io.github.anwo91.phevlink.core.diag.LogKind.CMD, "API command from ${who(ex)}: ${cmd.label}")
         val r = runBlocking { service.execute(cmd) }
+        val action = params["action"]?.toString()?.lowercase()
+        if (action != null && action !in ActivityText.QUIET_COMMANDS) {
+            val details = if (cmd is CarCommand.SetChargeTimer) mapOf("summary" to cmd.program.summary()) else Codecs.commandToMap(cmd) - "action"
+            activity?.add(Activity(System.currentTimeMillis(), who(ex), "cmd.$action", details, ok = r is CommandResult.Success, detail = (r as? CommandResult.Failure)?.reason, via = "bridge"))
+        }
         when (r) {
             is CommandResult.Success -> json(ex, 200, mapOf("ok" to true, "message" to "${cmd.label}: done", "tookMs" to r.tookMs))
             is CommandResult.Failure -> json(ex, 502, mapOf("ok" to false, "error" to r.reason))

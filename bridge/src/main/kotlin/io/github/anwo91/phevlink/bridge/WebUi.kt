@@ -76,6 +76,10 @@ summary{cursor:pointer}.vs-group h3{font-size:14px;margin:16px 0 6px;color:var(-
   <button onclick="resetSettings()">Reset all to factory defaults</button>
 </details>
 
+<details class="card" id="act" ontoggle="if(this.open) loadActivity()">
+  <summary><strong>Activity</strong> <span class="muted">who did what, charging and more</span></summary>
+  <div id="actbody" class="muted">…</div>
+</details>
 <section class="card"><dl id="facts"></dl></section>
 <section class="card"><div class="row"><button onclick="post('connect')">Connect now</button><button onclick="post('disconnect')">Disconnect</button><button onclick="showLog()">Log</button></div><pre id="log"></pre></section>
 </div>
@@ -87,7 +91,20 @@ let state = {car:{}, link:{}}, mode = 'HEAT', dur = 20, es;
 const ${'$'} = id => document.getElementById(id);
 function saveToken(){ token = ${'$'}('tok').value.trim(); localStorage.setItem('phevToken', token); start(); }
 function toast(t){ const el=${'$'}('toast'); el.textContent=t; el.style.display='block'; clearTimeout(el._t); el._t=setTimeout(()=>el.style.display='none',3500); }
-function hdr(){ return {'Authorization':'Bearer '+token,'Content-Type':'application/json'}; }
+function hdr(){ return {'Authorization':'Bearer '+token,'Content-Type':'application/json','X-PHEV-Device':encodeURIComponent('Web page')}; }
+async function loadActivity(){
+  try{
+    const r=await fetch('api/activity?limit=150',{headers:hdr()}); const j=await r.json();
+    let day='', h='';
+    for(const e of (j.entries||[])){
+      const d=new Date(e.atMs), ds=d.toLocaleDateString(), ts=d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+      if(ds!==day){ day=ds; h+='<div style="margin-top:8px"><strong>'+esc(ds)+'</strong></div>'; }
+      h+='<div'+(e.ok===false?' style="color:#b3261e"':'')+'>'+esc(ts)+' · '+esc(e.text)+(e.via==='direct'?' <span class="muted">(next to the car)</span>':'')+'</div>';
+    }
+    ${'$'}('actbody').innerHTML=h||'Nothing yet.';
+  }catch(e){ ${'$'}('actbody').textContent='Could not load the activity.'; }
+}
+setInterval(()=>{ if(${'$'}('act').open) loadActivity(); }, 60000);
 async function cmd(c){ toast('Sending…'); try{ const r=await fetch('api/command',{method:'POST',headers:hdr(),body:JSON.stringify(c)}); const j=await r.json(); toast(j.ok?j.message:'Failed: '+j.error);}catch(e){toast('Bridge unreachable');} }
 async function post(p){ await fetch('api/'+p,{method:'POST',headers:hdr()}); toast(p==='connect'?'Connecting…':'Disconnected'); }
 async function showLog(){ const r=await fetch('api/log?n=200',{headers:hdr()}); ${'$'}('log').textContent=await r.text(); }

@@ -35,7 +35,10 @@ class BridgeService(
     private val log: DiagLog,
     private val scope: CoroutineScope,
     carPort: Int = config.carPort,
+    /** Where what the car does (charging, climate, doors…) is written down. */
+    private val activity: ActivityLog? = null,
 ) {
+    private val tracker = io.github.anwo91.phevlink.core.activity.CarEventTracker()
     val startedAtMs = System.currentTimeMillis()
     private val alerts = AlertEngine()
     private val notifier = Ntfy(config.ntfyUrl, config.ntfyToken, log)
@@ -62,6 +65,7 @@ class BridgeService(
                 val snapshot = snapshot(link, car)
                 listeners.forEach { runCatching { it(snapshot) } }
                 for (a in synchronized(alerts) { alerts.onState(car, System.currentTimeMillis()) }) raise(a)
+                activity?.let { log -> synchronized(tracker) { tracker.onState(car) }.forEach { log.add(it) } }
             }
         }
         scope.launch {
@@ -194,6 +198,6 @@ class BridgeService(
         val BUILD: String = BridgeService::class.java.`package`?.implementationVersion ?: "dev"
 
         /** What this bridge can do beyond the car link (the app checks before offering the setup wizard or updates). */
-        val FEATURES = listOf("pair", "carwifi", "config", "system", "update", "restart", "carwifi-pause", "pair-invite", "shared", "departures", "charge-timer")
+        val FEATURES = listOf("pair", "carwifi", "config", "system", "update", "restart", "carwifi-pause", "pair-invite", "shared", "departures", "charge-timer", "activity")
     }
 }

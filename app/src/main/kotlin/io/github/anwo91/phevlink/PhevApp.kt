@@ -73,8 +73,18 @@ class Graph(app: Application) {
     /** Departures, car name, range and climate defaults shared with the other phones through the bridge. */
     val sharedSync: io.github.anwo91.phevlink.link.SharedSync by lazy { io.github.anwo91.phevlink.link.SharedSync(app, settings, log, scope) }
 
+    /** What this phone did straight over the car's Wi-Fi, for the shared activity log. */
+    val activityRecorder: io.github.anwo91.phevlink.link.ActivityRecorder by lazy { io.github.anwo91.phevlink.link.ActivityRecorder(app, settings, log, scope) }
+
     init {
+        // The bridge's activity log names each phone (Settings → name of this phone, else the model).
+        io.github.anwo91.phevlink.link.BridgeSetupApi.deviceName = { settings.current.deviceName }
+        repo.onDirectCommand = { cmd, r -> activityRecorder.direct(cmd, r) }
         sharedSync.start()
+        // Whenever the bridge answers, hand it what this phone did next to the car.
+        scope.launch {
+            sharedSync.state.map { it.lastSyncMs }.distinctUntilChanged().collect { if (it != null) activityRecorder.upload("bridge reachable") }
+        }
         // Demo mode drives the OBD side too: the simulated adapter connects with the simulated car and leaves with it.
         // A live test running across the switch is stopped — it would mix real and simulated readings, and its
         // result would land in the wrong store.

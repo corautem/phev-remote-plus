@@ -167,6 +167,8 @@ class BridgeClient(
         c.connectTimeout = timeoutMs.coerceAtMost(8_000)
         c.readTimeout = timeoutMs
         c.setRequestProperty("Authorization", "Bearer $token")
+        // Who is asking, for the bridge's activity log.
+        c.setRequestProperty("X-PHEV-Device", BridgeSetupApi.deviceHeader())
         return c
     }
 

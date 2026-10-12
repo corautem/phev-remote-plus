@@ -64,9 +64,11 @@ fun main(args: Array<String>) {
         log.warn("EMULATOR MODE — talking to a simulated car on port $carPort")
     }
 
-    val service = BridgeService(config, log, scope, carPort)
-    service.start()
     val stateDir = File(config.stateFile).absoluteFile.parentFile
+    // Who did what, and what the car did (charging in detail): kept on the bridge for every phone to read.
+    val activity = ActivityLog(File(stateDir, "activity.jsonl"), log)
+    val service = BridgeService(config, log, scope, carPort, activity)
+    service.start()
     val pairing = Pairing(config.pairingMinutes, stateDir, log)
     val carWifi = CarWifi(config.wifiHelper, config.carIface, log)
     // Settings changes from the app (leaving emulator mode) and "restart" apply on a fresh start; systemd brings us back.
@@ -80,9 +82,14 @@ fun main(args: Array<String>) {
     val updater = Updater(File(File(config.wifiHelper).absoluteFile.parentFile, "bridgectl.sh").path, stateDir, log)
     // Departures, car name, range and climate defaults all phones share; the bridge runs the departures while the car is home.
     val shared = SharedStore(File(stateDir, "shared.json"), log)
-    DepartureRunner(shared, log, carHome = { config.emulator || runCatching { carWifi.status().connected }.getOrDefault(false) }, execute = { service.execute(it) })
-        .start(scope)
-    val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, shared, restart)
+    DepartureRunner(
+        shared, log,
+        carHome = { config.emulator || runCatching { carWifi.status().connected }.getOrDefault(false) },
+        execute = { service.execute(it) },
+        onActivity = { activity.add(it) },
+    ).start(scope)
+    val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, shared, activity, restart)
+    activity.add(io.github.anwo91.phevlink.core.activity.Activity(System.currentTimeMillis(), "bridge", "bridge.started", mapOf("build" to BridgeService.BUILD)))
     val port = api.start()
     log.link("Bridge ${BridgeService.BUILD} (API ${BridgeService.VERSION}) on http://${config.listenHost}:$port/  (car ${config.carHost}:$carPort)")
     // How the last update from the app ended (it restarted us), so it shows in this log too.

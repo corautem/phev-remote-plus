@@ -156,27 +156,40 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier) {
             Spacer(Modifier.height(8.dp))
             var url by rememberSaveable(s.bridgeUrl) { mutableStateOf(s.bridgeUrl) }
             var token by rememberSaveable(s.bridgeToken) { mutableStateOf(s.bridgeToken) }
+            var testingBridge by remember { mutableStateOf(false) }
+            val msgSaved = stringResource(R.string.msg_saved)
             OutlinedTextField(url, { url = it }, label = { Text(stringResource(R.string.settings_bridge_address)) }, placeholder = { Text("http://100.x.y.z:8099") },
                 singleLine = true, modifier = Modifier.fillMaxWidth(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri))
             OutlinedTextField(token, { token = it }, label = { Text(stringResource(R.string.settings_bridge_token)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 8.dp)) {
-                FilledTonalButton(onClick = { set { it.copy(bridgeUrl = url, bridgeToken = token) } }, modifier = Modifier.weight(1f)) {
+                FilledTonalButton(onClick = {
+                    set { it.copy(bridgeUrl = url, bridgeToken = token) }
+                    vm.toast(msgSaved)
+                }, modifier = Modifier.weight(1f)) {
                     Text(stringResource(R.string.common_save))
                 }
-                OutlinedButton(onClick = {
-                    scope.launch {
-                        val snap = BridgeClient(url.trim().trimEnd('/'), token.trim(), vm.log, ctx).fetchStatus()
-                        vm.toast(
-                            if (snap != null) {
-                                ctx.getString(
-                                    R.string.msg_bridge_ok,
-                                    snap.car.updatedAtMs?.let { io.github.anwo91.phevlink.util.Format.ago(it, context = ctx) }
-                                        ?: ctx.getString(R.string.msg_bridge_no_car_data),
-                                )
-                            } else ctx.getString(R.string.msg_bridge_unreachable)
-                        )
-                    }
-                }, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.common_test)) }
+                OutlinedButton(
+                    onClick = {
+                        testingBridge = true
+                        scope.launch {
+                            try {
+                                val snap = BridgeClient(url.trim().trimEnd('/'), token.trim(), vm.log, ctx).fetchStatus()
+                                val msg = if (snap != null) {
+                                    ctx.getString(
+                                        R.string.msg_bridge_ok,
+                                        snap.car.updatedAtMs?.let { io.github.anwo91.phevlink.util.Format.ago(it, context = ctx) }
+                                            ?: ctx.getString(R.string.msg_bridge_no_car_data),
+                                    )
+                                } else ctx.getString(R.string.msg_bridge_unreachable)
+                                vm.log.link("Bridge test: $msg")
+                                vm.toast(msg)
+                            } finally {
+                                testingBridge = false
+                            }
+                        }
+                    },
+                    enabled = !testingBridge, modifier = Modifier.weight(1f),
+                ) { Text(stringResource(if (testingBridge) R.string.settings_testing else R.string.common_test)) }
             }
         }
 

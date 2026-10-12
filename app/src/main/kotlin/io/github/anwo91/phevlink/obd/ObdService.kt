@@ -219,6 +219,10 @@ class ObdService : LifecycleService() {
          * @return true when the start request was accepted
          */
         fun start(context: Context, kind: ObdDeviceSpec.Kind, log: DiagLog): Boolean {
+            if (kind == ObdDeviceSpec.Kind.DEMO) {
+                log.link("OBD: no background service for the simulated adapter")
+                return false
+            }
             if (!canRunInForeground(context, kind)) {
                 log.warn("OBD: not starting the background service (Bluetooth permission missing)")
                 return false

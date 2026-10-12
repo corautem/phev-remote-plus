@@ -6,10 +6,12 @@ import io.github.anwo91.phevlink.core.diag.DiagLog
 import io.github.anwo91.phevlink.data.SettingsStore
 import io.github.anwo91.phevlink.data.StateCache
 import io.github.anwo91.phevlink.link.CarRepository
+import io.github.anwo91.phevlink.link.DemoMode
 import io.github.anwo91.phevlink.notify.Notifier
 import io.github.anwo91.phevlink.obd.ObdRepository
 import io.github.anwo91.phevlink.obd.PrefsTestStore
 import io.github.anwo91.phevlink.core.obd.livetest.LiveTestRunner
+import io.github.anwo91.phevlink.core.obd.emulator.FakeElm
 import io.github.anwo91.phevlink.core.obd.livetest.TestStore
 import io.github.anwo91.phevlink.schedule.DepartureScheduler
 import io.github.anwo91.phevlink.tile.PreheatTileService
@@ -47,13 +49,37 @@ class Graph(app: Application) {
     val notifier = Notifier(app)
     val repo = CarRepository(app, settings, log, cache, notifier)
     /** OBD-II adapter connection (ELM327 over Bluetooth Classic/LE or Wi-Fi). */
-    private val obdLazy = lazy { ObdRepository(app, scope, log) }
+    private val obdLazy = lazy {
+        ObdRepository(app, scope, log, demoLink = {
+            // The demo adapter reads the demo car: its battery % and charging follow the simulated car's.
+            FakeElm.demo(
+                socPercent = { repo.car.value.batteryPercent?.toDouble() },
+                charging = { repo.car.value.charging },
+            )
+        })
+    }
     val obd: ObdRepository by obdLazy
     /** Guided live tests; app-wide so a test keeps running when the screen is left. */
     val liveTests: LiveTestRunner by lazy { LiveTestRunner(scope, log) }
     val testStore: TestStore by lazy { PrefsTestStore(app) }
 
     init {
+        // Demo mode drives the OBD side too: the simulated adapter connects with the simulated car and leaves with it.
+        // A live test running across the switch is stopped — it would mix real and simulated readings, and its
+        // result would land in the wrong store.
+        scope.launch {
+            DemoMode.active.collect { on ->
+                if (liveTests.running) {
+                    log.link("OBD: demo mode ${if (on) "on" else "off"} — stopping the running live test")
+                    liveTests.cancel()
+                }
+                if (on) {
+                    obd.startDemo()
+                } else if (obdLazy.isInitialized()) {
+                    obd.stopDemo()
+                }
+            }
+        }
         // The car's own outside temperature (from an OBD session) beats the forecast for "now" decisions.
         repo.carTemperature = { if (obdLazy.isInitialized()) obdLazy.value.lastAmbient else null }
         repo.onStateSaved = {

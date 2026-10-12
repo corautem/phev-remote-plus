@@ -19,6 +19,7 @@ import io.github.anwo91.phevlink.core.obd.ObdCsvLogger
 import io.github.anwo91.phevlink.core.obd.ObdLink
 import io.github.anwo91.phevlink.core.obd.ObdPhase
 import io.github.anwo91.phevlink.core.obd.ObdState
+import io.github.anwo91.phevlink.core.obd.emulator.FakeElm
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -65,11 +66,13 @@ data class RecordingInfo(val file: File, val rows: Int, val startedAtMs: Long)
  * (LINK lines prefixed "OBD:").
  *
  * @param scope long-lived application scope (sessions and recordings run in it)
+ * @param demoLink builds the simulated adapter for demo mode ([ObdDeviceSpec.Kind.DEMO])
  */
 class ObdRepository(
     context: Context,
     private val scope: CoroutineScope,
     private val log: DiagLog,
+    private val demoLink: () -> ObdLink = { FakeElm.demo() },
 ) {
     /** Last outside temperature the car reported over OBD (°C, wall-clock ms), or null. */
     @Volatile
@@ -150,8 +153,42 @@ class ObdRepository(
             newJob
         }
         _state.value = ObdState(phase = ObdPhase.CONNECTING, message = connectingText(spec), pollCycle = lastCycle)
-        ObdService.start(app, spec.kind, log)
+        if (spec.isDemo) {
+            // Demo rides the open app like the simulated car does: no foreground service, no notification.
+            log.link("OBD: demo session with the simulated adapter (no background service — it runs while the app is open)")
+        } else {
+            ObdService.start(app, spec.kind, log)
+        }
         job.start()
+    }
+
+    /**
+     * Demo mode turned on: connect to the simulated adapter, replacing any real session (the whole app shows the
+     * simulated car now). Nothing about it is stored. Safe to call from any thread; no-op if already in a demo session.
+     */
+    fun startDemo() {
+        val current = _device.value
+        if (current?.isDemo == true && _sessionActive.value) {
+            log.link("OBD: demo mode on — the simulated adapter is already connected")
+            return
+        }
+        if (current != null && !current.isDemo && _sessionActive.value) {
+            log.link("OBD: demo mode on — closing the session with ${current.name} for the simulated adapter")
+        } else {
+            log.link("OBD: demo mode on — connecting the simulated adapter")
+        }
+        connect(ObdDeviceSpec.demo(app.getString(R.string.obd_demo_adapter_name)))
+    }
+
+    /**
+     * Demo mode turned off: end the simulated session and show the real last adapter again (not reconnected
+     * automatically — the user taps Connect, as after any disconnect). No-op when no demo adapter is current.
+     */
+    fun stopDemo() {
+        if (_device.value?.isDemo != true) return
+        log.link("OBD: demo mode off — closing the simulated adapter")
+        disconnect()
+        _device.value = store.last()
     }
 
     /** Stops the session (live polling, link, recording). The service stops itself. */
@@ -300,8 +337,11 @@ class ObdRepository(
                 client.state.collect { s ->
                     // The client starts DISCONNECTED and ends DISCONNECTED; the repository reports those phases itself.
                     // Outside temperature measured by the car, for climate decisions (better than a forecast).
-                    AMBIENT_IDS.firstNotNullOfOrNull { id -> s.values[id]?.value?.let { v -> v to s.values.getValue(id).updatedAtMs } }
-                        ?.let { if (it.first in -40.0..60.0) lastAmbient = it }
+                    // Never from the simulated adapter: its 15 °C would steer the real car's climate decisions.
+                    if (!spec.isDemo) {
+                        AMBIENT_IDS.firstNotNullOfOrNull { id -> s.values[id]?.value?.let { v -> v to s.values.getValue(id).updatedAtMs } }
+                            ?.let { if (it.first in -40.0..60.0) lastAmbient = it }
+                    }
                     if (s.phase != ObdPhase.DISCONNECTED) {
                         val cycle = s.pollCycle + base
                         lastCycle = maxOf(lastCycle, cycle)
@@ -343,11 +383,12 @@ class ObdRepository(
         ObdDeviceSpec.Kind.CLASSIC -> BluetoothClassicLink.open(app, spec.address, spec.name, log)
         ObdDeviceSpec.Kind.BLE -> BluetoothLeLink.open(app, spec.address, spec.name, log)
         ObdDeviceSpec.Kind.WIFI -> WifiTcpLink.open(app, spec.address, spec.name, log)
+        ObdDeviceSpec.Kind.DEMO -> demoLink()
     }
 
     /** Why connecting can't work right now (no Bluetooth, permission, Bluetooth off), or null. */
     private fun blocker(spec: ObdDeviceSpec, afterDrop: Boolean): String? {
-        if (spec.kind == ObdDeviceSpec.Kind.WIFI) return null
+        if (spec.kind == ObdDeviceSpec.Kind.WIFI || spec.kind == ObdDeviceSpec.Kind.DEMO) return null
         if (!ObdDevices.hasBluetooth(app)) return app.getString(R.string.obd_err_no_bluetooth)
         if (!ObdDevices.hasConnectPermission(app)) return app.getString(R.string.obd_err_permission)
         if (!ObdDevices.isBluetoothOn(app)) {
@@ -411,12 +452,14 @@ class ObdRepository(
         ObdDeviceSpec.Kind.CLASSIC -> R.string.obd_kind_classic
         ObdDeviceSpec.Kind.BLE -> R.string.obd_kind_ble
         ObdDeviceSpec.Kind.WIFI -> R.string.obd_kind_wifi
+        ObdDeviceSpec.Kind.DEMO -> R.string.obd_kind_demo
     }
 
     private fun kindForLog(kind: ObdDeviceSpec.Kind): String = when (kind) {
         ObdDeviceSpec.Kind.CLASSIC -> "Bluetooth Classic"
         ObdDeviceSpec.Kind.BLE -> "Bluetooth LE"
         ObdDeviceSpec.Kind.WIFI -> "Wi-Fi"
+        ObdDeviceSpec.Kind.DEMO -> "demo (simulated)"
     }
 
     // ------------------------------------------------------------------ operations
@@ -488,7 +531,9 @@ class ObdRepository(
             val file = try {
                 val dir = app.getExternalFilesDir(LOG_DIR) ?: File(app.filesDir, LOG_DIR)
                 if (!dir.isDirectory && !dir.mkdirs()) throw IOException("cannot create ${dir.absolutePath}")
-                File(dir, "obd-" + SimpleDateFormat("yyyyMMdd-HHmmss", Locale.US).format(Date()) + ".csv")
+                // Demo recordings are named so they can't be mistaken for logs of the real car.
+                val prefix = if (_device.value?.isDemo == true) "obd-demo-" else "obd-"
+                File(dir, prefix + SimpleDateFormat("yyyyMMdd-HHmmss", Locale.US).format(Date()) + ".csv")
             } catch (e: Exception) {
                 log.error("OBD: cannot start recording: ${e.javaClass.simpleName}: ${e.message}")
                 return false

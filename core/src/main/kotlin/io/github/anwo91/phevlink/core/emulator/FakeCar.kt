@@ -49,7 +49,10 @@ class FakeCar(
     @Volatile var silent = false
     /** In registration mode, 0x10 writes register the client. */
     @Volatile var registrationMode = false
-    /** Simulated minutes per real second for charging and climate countdowns. */
+    /**
+     * Simulated minutes per real second for charging and climate countdowns. Below 1 the charge countdown advances in
+     * whole minutes as the fractions add up (0.25 → one charge minute every 4 s).
+     */
     @Volatile var minutesPerSecond = 1.0
     /** The car acks vehicle-setting writes (0x0f) but never applies or reports them. */
     @Volatile var ignoreSettingChanges = false
@@ -64,6 +67,8 @@ class FakeCar(
     private var pendingMy14Mode = 0x02
     private var climateEndsAtSimMin = 0.0
     private var simMinutes = 0.0
+    /** Charge minutes simulated but not yet taken off the countdown (fractional [minutesPerSecond]). */
+    private var chargeCarry = 0.0
     val acceptedWrites = CopyOnWriteArrayList<Pair<Int, String>>()
     /** Vehicle settings (register 0x16), by id. */
     private val settings = LinkedHashMap<Int, CarSetting>(DEFAULT_SETTINGS)
@@ -195,7 +200,8 @@ class FakeCar(
         regs[Reg.READ_CHARGE_PLUG] = bytes(2, 2)
     }
 
-    private fun simulate() {
+    /** One simulated second (run every second by [start]'s scheduler; tests may call it directly). */
+    internal fun simulate() {
         sessions.forEach { it.resendStaleDump() }
         simulateModel()
     }
@@ -206,7 +212,14 @@ class FakeCar(
         if (cs[0].toInt() == 1) {
             val battery = regs[Reg.READ_BATTERY]!!
             var remaining = ((cs[2].toInt() and 0xff) shl 8) or (cs[1].toInt() and 0xff)
-            remaining = (remaining - minutesPerSecond.toInt().coerceAtLeast(1)).coerceAtLeast(0)
+            // Whole rates keep the old behaviour (at least one minute per tick); fractional ones accumulate.
+            val step = if (minutesPerSecond >= 1.0) {
+                minutesPerSecond.toInt()
+            } else {
+                chargeCarry += minutesPerSecond.coerceAtLeast(0.0)
+                chargeCarry.toInt().also { chargeCarry -= it }
+            }
+            remaining = (remaining - step).coerceAtLeast(0)
             val level = (100 - remaining / 3.2).toInt().coerceIn(0, 100)
             battery[0] = level.toByte()
             if (remaining <= 0 || level >= 100) {

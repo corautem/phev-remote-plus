@@ -25,10 +25,19 @@ data class ObdDeviceSpec(
 
         /** TCP over the adapter's own Wi-Fi network (usually 192.168.0.10:35000). */
         WIFI,
+
+        /**
+         * The simulated adapter of demo mode (an in-process FakeElm). Never stored as a last/recent device and never
+         * read back from storage, so it can't outlive the demo.
+         */
+        DEMO,
     }
 
     /** True when [name] looks like an OBD adapter (see [ObdDevices.looksLikeObd]). */
-    val looksLikeObd: Boolean get() = kind == Kind.WIFI || ObdDevices.looksLikeObd(name)
+    val looksLikeObd: Boolean get() = kind == Kind.WIFI || kind == Kind.DEMO || ObdDevices.looksLikeObd(name)
+
+    /** The demo-mode simulated adapter. */
+    val isDemo: Boolean get() = kind == Kind.DEMO
 
     /** Same adapter (kind and address), regardless of the name. */
     fun sameDevice(other: ObdDeviceSpec): Boolean = kind == other.kind && address.equals(other.address, ignoreCase = true)
@@ -43,6 +52,11 @@ data class ObdDeviceSpec(
         fun defaultWifi(name: String = "Wi-Fi OBD adapter"): ObdDeviceSpec =
             ObdDeviceSpec(Kind.WIFI, "${WifiTcpLink.DEFAULT_HOST}:${WifiTcpLink.DEFAULT_PORT}", name)
 
+        /** The simulated adapter used while demo mode is on. */
+        fun demo(name: String): ObdDeviceSpec = ObdDeviceSpec(Kind.DEMO, DEMO_ADDRESS, name)
+
+        const val DEMO_ADDRESS = "demo"
+
         private fun clean(s: String): String = s.replace('\t', ' ').replace('\n', ' ').replace('\r', ' ').trim()
 
         /** Parses [encode]'s output; null for anything malformed. */
@@ -50,6 +64,7 @@ data class ObdDeviceSpec(
             val parts = line.split(SEP, limit = 3)
             if (parts.size < 2) return null
             val kind = Kind.entries.firstOrNull { it.name == parts[0] } ?: return null
+            if (kind == Kind.DEMO) return null // never persisted; ignore if it somehow was
             val address = parts[1].trim()
             if (address.isEmpty()) return null
             val name = parts.getOrNull(2)?.trim().orEmpty().ifEmpty { address }
@@ -77,6 +92,7 @@ internal class ObdDeviceStore(context: Context) {
     /** Makes [spec] the last used adapter and moves it to the front of the recent list. */
     @Synchronized
     fun remember(spec: ObdDeviceSpec): List<ObdDeviceSpec> {
+        if (spec.isDemo) return recent() // the demo adapter is never stored
         val list = (listOf(spec) + recent().filterNot { it.sameDevice(spec) }).take(MAX_RECENT)
         prefs.edit()
             .putString(KEY_LAST, spec.encode())

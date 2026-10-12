@@ -5,6 +5,8 @@
     <string name="obd_kind_classic">Bluetooth</string>
     <string name="obd_kind_ble">Bluetooth LE</string>
     <string name="obd_kind_wifi">Wi-Fi</string>
+    <string name="obd_kind_demo">Simuleret</string>
+    <string name="obd_demo_adapter_name">Demo-adapter</string>
     <string name="obd_default_device">OBD-adapter</string>
 
     <!-- Connection progress (ObdState.message) -->

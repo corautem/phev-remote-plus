@@ -7,6 +7,7 @@ import kotlinx.coroutines.withTimeoutOrNull
 import java.io.IOException
 import java.util.Collections
 import java.util.Locale
+import kotlin.math.roundToInt
 
 /**
  * In-process emulator of an ELM327 adapter plugged into a 2014–2017 Outlander PHEV (no sockets), for tests and demos.
@@ -28,12 +29,17 @@ import java.util.Locale
  *   service 21: 08 0E 0F 12 1A 1D 1E answer with the OBDb Outlander MY2011 test vectors (CC BY-SA 4.0), other local
  *   ids → 7F 21 31; 18/19 → 7F xx 11.
  * - 7E1/7E9 second OBD ECU (only with [secondObdEcu]): PIDs 01 05, mode 03 → U0100.
- * - 761/762 BMU: 21 01 → the forum example reply (55 bytes); 18 02 FF 00 → one DTC (P0A7F, status 60); 19 → 7F 19 11.
- * - 765/766 OBC: 21 01 → 42 charges at 100 V, 500 at 200 V (made-up values). 753/754, 755/756 motors: 21 02 → front
- *   1000 rpm, rear 0 rpm (made-up values). 18/19 → 7F xx 11.
+ * - 7E2/7EA hybrid/EV control unit (only with [hybridEcu]): PID 01 (MIL + count), modes 03/0A/18 → [hybridDtcs] /
+ *   [hybridPermanentDtcs]; mode 04 clears the stored ones only (permanent codes stay, like a real car).
+ * - 761/762 BMU: 21 01 → the forum example reply (55 bytes) or the [pack] model; 18 02 FF 00 → [bmuDtcs] (default
+ *   P0A7F, status 60); 19 → 7F 19 11.
+ * - 765/766 OBC: 21 01 → 42 charges at 100 V, 500 at 200 V (made-up values); UDS 19 02 (after 10 03) → [obcDtcs].
+ *   753/754, 755/756 motors: 21 02 → front 1000 rpm (0 when not [driving]), rear 0 rpm (made-up values).
+ *   18/19 → 7F xx 11 (19 02 → no codes with [motorsAnswerUds]).
  * - Anything else: no answer (NO DATA).
  *
- * All knobs can be changed at any time; delays are zero by default so tests stay fast.
+ * All knobs can be changed at any time; delays are zero by default so tests stay fast. [demo] builds the scenario the
+ * app's demo mode shows (a parked, charging car with a worn drive battery).
  */
 class FakeElm(
     /** ATI answer and reset banner. */
@@ -114,7 +120,106 @@ class FakeElm(
     val permanentDtcs: MutableList<Int> = Collections.synchronizedList(mutableListOf())
     private val secondEcuDtcs: MutableList<Int> = Collections.synchronizedList(mutableListOf(0xC100))
 
+    /** Adds the hybrid/EV control unit at 7E2/7EA (a generic OBD ECU, so its codes show up in a quick scan). */
+    @Volatile var hybridEcu = false
+
+    /** Stored codes of the hybrid/EV control unit (modes 03 and KWP 18). */
+    val hybridDtcs: MutableList<Int> = Collections.synchronizedList(mutableListOf(0x0A80))
+
+    /** Permanent codes of the hybrid/EV control unit (mode 0A); mode 04 doesn't clear them. */
+    val hybridPermanentDtcs: MutableList<Int> = Collections.synchronizedList(mutableListOf(0x0A80))
+
+    /** BMU codes for KWP `18 02 FF 00` (reported with status 60). */
+    val bmuDtcs: MutableList<Int> = Collections.synchronizedList(mutableListOf(0x0A7F))
+
+    /** OBC codes for UDS `19 02 FF` (failure type 24, status 08 = confirmed). Empty: a clean but answering OBC. */
+    val obcDtcs: MutableList<Int> = Collections.synchronizedList(mutableListOf(0x0A80))
+
+    /** The engine also answers KWP `18 02 FF 00` with its stored codes (otherwise it refuses with 7F 18 11). */
+    @Volatile var engineAnswersKwp = false
+
+    /** The motor controllers answer UDS `19 02 FF` (no codes) instead of refusing every fault-code read. */
+    @Volatile var motorsAnswerUds = false
+
+    /** Car moving (engine 1726 rpm, 50 km/h, front motor 1000 rpm); false = parked with the ignition on. */
+    @Volatile var driving = true
+
+    /** Drive-battery model behind BMU `21 01`/`21 02`; null = the fixed forum sample ([BMU_2101], [BMU_2102]). */
+    @Volatile var pack: Pack? = null
+
+    /**
+     * Whether the OBC is charging right now (AC/DC currents in `21 02`); null = the fixed sample (charging at
+     * 230 V / 14 A). Read on every request, so it can follow a simulated car.
+     */
+    @Volatile var charging: (() -> Boolean?)? = null
+
     @Volatile var vin = "JMAXDGG2WFZ012345"
+
+    /**
+     * A simple drive battery for demos. Cell voltages follow the state of charge ([soc], in %, read on every request:
+     * roughly 3.6 V empty to 4.1 V full — an estimate, not Mitsubishi data) with a tiny fixed scatter; [weakCell]
+     * (1-based) sits [weakCellDropMv] below the rest. [capacityAh] is the BMU's full-charge capacity estimate.
+     */
+    class Pack(
+        val capacityAh: Double,
+        val soc: () -> Double,
+        val weakCell: Int? = null,
+        val weakCellDropMv: Int = 0,
+    ) {
+        private fun socNow(): Double = soc().takeIf { !it.isNaN() }?.coerceIn(0.0, 100.0) ?: 50.0
+
+        /** Millivolts of cells 1..80. */
+        fun cellsMv(): IntArray {
+            val base = Math.round(3600 + socNow() * 5.0).toInt()
+            return IntArray(CELL_COUNT) { i ->
+                val n = i + 1
+                base + ((n * 7) % 3 - 1) - if (n == weakCell) weakCellDropMv else 0
+            }
+        }
+
+        /** `61 01 …` with the documented fields (SoC, highest/lowest cell, pack voltage, capacity, charge) replaced. */
+        fun reply2101(): ByteArray {
+            val out = BMU_2101.copyOf()
+            val cells = cellsMv()
+            var hi = 0
+            var lo = 0
+            for (i in cells.indices) {
+                if (cells[i] > cells[hi]) hi = i
+                if (cells[i] < cells[lo]) lo = i
+            }
+            val soc = socNow()
+            val socRaw = Math.round((soc + 5.0) * 2.0).toInt().coerceIn(0, 255)
+            fun put16(at: Int, v: Int) {
+                out[at] = ((v shr 8) and 0xFF).toByte()
+                out[at + 1] = (v and 0xFF).toByte()
+            }
+            // Offsets in the full reply (payload byte + 2 for the 61 01 echo); see PhevSignals "bmu.*".
+            out[2] = socRaw.toByte()
+            out[3] = socRaw.toByte()
+            put16(4, cells[hi]); out[6] = (hi + 1).toByte()
+            put16(7, cells[lo]); out[9] = (lo + 1).toByte()
+            put16(10, (cells.sum() / 100.0).roundToInt())
+            put16(29, (capacityAh * 10).roundToInt())
+            put16(31, (capacityAh * soc / 100.0 * 10).roundToInt())
+            return out
+        }
+
+        /** `61 02` + the 80 cell voltages, big-endian millivolts. */
+        fun reply2102(): ByteArray {
+            val cells = cellsMv()
+            val out = ByteArray(2 + 2 * cells.size)
+            out[0] = 0x61; out[1] = 0x02
+            for ((i, mv) in cells.withIndex()) {
+                out[2 + 2 * i] = ((mv shr 8) and 0xFF).toByte()
+                out[3 + 2 * i] = (mv and 0xFF).toByte()
+            }
+            return out
+        }
+
+        companion object {
+            const val CELL_COUNT = 80
+        }
+    }
 
     // ------------------------------------------------------------------ introspection
 
@@ -164,6 +269,7 @@ class FakeElm(
     private val ecus = listOf(
         Ecu(0x7E0, 0x7E8, true, { true }, ::engine),
         Ecu(0x7E1, 0x7E9, true, { secondObdEcu }, ::secondEcu),
+        Ecu(0x7E2, 0x7EA, true, { hybridEcu }, ::hybrid),
         Ecu(0x761, 0x762, false, { true }, ::bmu),
         Ecu(0x765, 0x766, false, { true }, ::obc),
         Ecu(0x753, 0x754, false, { true }, { motor(it, front = true) }),
@@ -441,12 +547,12 @@ class FakeElm(
 
     private val enginePids: Map<Int, () -> ByteArray> = mapOf(
         0x01 to { b(if (storedDtcs.isEmpty()) 0x00 else 0x80 or storedDtcs.size, 0x07, 0xE5, 0x00) },
-        0x04 to { b(0x4D) },
+        0x04 to { b(if (driving) 0x4D else 0x00) },
         0x05 to { b(0x7B) },
-        0x0C to { b(0x1A, 0xF8) },
-        0x0D to { b(0x32) },
+        0x0C to { if (driving) b(0x1A, 0xF8) else b(0x00, 0x00) },
+        0x0D to { b(if (driving) 0x32 else 0x00) },
         0x0F to { b(0x46) },
-        0x11 to { b(0x26) },
+        0x11 to { b(if (driving) 0x26 else 0x00) },
         0x1F to { b(0x01, 0x2C) },
         0x21 to { b(0x00, 0x0A) },
         0x2F to { b(0x80) },
@@ -516,8 +622,39 @@ class FakeElm(
                 else -> null
             }
             0x21 -> if (req.size >= 2) engine21[req.u(1)]?.let { listOf(it) } ?: neg(0x21, 0x31) else neg(0x21, 0x13)
+            0x18 -> if (engineAnswersKwp) kwpDtcReply(storedDtcs) else neg(sid, 0x11)
             else -> neg(sid, 0x11)
         }
+    }
+
+    /** KWP2000 ReadDTCByStatus reply: `58 <n> (hi lo status)*`, status 60 for every code. */
+    private fun kwpDtcReply(list: List<Int>): List<ByteArray> {
+        val codes = synchronized(list) { list.toList() }
+        val out = ArrayList<Int>()
+        out += 0x58
+        out += codes.size
+        for (c in codes) {
+            out += (c shr 8) and 0xFF
+            out += c and 0xFF
+            out += 0x60
+        }
+        return listOf(b(*out.toIntArray()))
+    }
+
+    private fun hybrid(req: ByteArray): List<ByteArray>? = when (req.u(0)) {
+        0x01 -> if (req.size >= 2) {
+            // PID 01: MIL on while a code is stored, no readiness monitors of its own.
+            mode01(req.u(1), mapOf(0x01 to { b(if (hybridDtcs.isEmpty()) 0x00 else 0x80 or hybridDtcs.size, 0x00, 0x00, 0x00) }))
+        } else null
+        0x03 -> dtcReply(0x43, hybridDtcs)
+        0x07 -> listOf(b(0x47, 0x00))
+        0x0A -> dtcReply(0x4A, hybridPermanentDtcs)
+        0x04 -> {
+            hybridDtcs.clear()
+            listOf(b(0x44))
+        }
+        0x18 -> kwpDtcReply(hybridDtcs)
+        else -> neg(req.u(0), 0x11)
     }
 
     private fun secondEcu(req: ByteArray): List<ByteArray>? = when (req.u(0)) {
@@ -542,24 +679,31 @@ class FakeElm(
                     return neg(0x21, 0x78)
                 }
                 pendingResponses = 0
-                return List(n) { b(0x7F, 0x21, 0x78) } + BMU_2101
+                return List(n) { b(0x7F, 0x21, 0x78) } + bmu2101()
             }
-            return listOf(BMU_2101)
+            return listOf(bmu2101())
         }
-        if (sid == 0x21 && req.size == 2 && req.u(1) == 0x02) return listOf(BMU_2102)
+        if (sid == 0x21 && req.size == 2 && req.u(1) == 0x02) return listOf(pack?.reply2102() ?: BMU_2102)
         if (sid == 0x21 && req.size == 2 && req.u(1) == 0x03) return listOf(BMU_2103)
         return when (sid) {
-            0x18 -> listOf(b(0x58, 0x01, 0x0A, 0x7F, 0x60))
+            0x18 -> kwpDtcReply(bmuDtcs)
             0x21 -> neg(0x21, 0x31)
             else -> neg(sid, 0x11)
         }
     }
 
+    private fun bmu2101(): ByteArray = pack?.reply2101() ?: BMU_2101
+
     private fun obc(req: ByteArray): List<ByteArray> = when {
         req.u(0) == 0x21 && req.size == 2 && req.u(1) == 0x01 -> listOf(b(0x61, 0x01, 0x00, 0x2A, 0x01, 0xF4, 0x00, 0x00, 0x00, 0x00))
         // 21 02: AC 230.0 V (0x08FC), 14.0 A (0x8C), DC 360.0 V (0x0E10), 9.0 A (0x5A), CP duty 53 % at byte 13.
         req.u(0) == 0x21 && req.size == 2 && req.u(1) == 0x02 ->
-            listOf(b(0x61, 0x02, 0x00, 0x00, 0x08, 0xFC, 0x8C, 0x0E, 0x10, 0x5A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x35))
+            if (charging?.invoke() == false) {
+                // Not charging: no AC input, no DC into the pack, no pilot duty.
+                listOf(b(0x61, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00))
+            } else {
+                listOf(b(0x61, 0x02, 0x00, 0x00, 0x08, 0xFC, 0x8C, 0x0E, 0x10, 0x5A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x35))
+            }
         // 21 03: DC/DC 12 V output current 8.2 A (0x52) at byte 7.
         req.u(0) == 0x21 && req.size == 2 && req.u(1) == 0x03 ->
             listOf(b(0x61, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x52))
@@ -570,18 +714,81 @@ class FakeElm(
         req.u(0) == 0x10 && req.size >= 2 && req.u(1) == 0x03 -> { obcSession = true; listOf(b(0x50, 0x03, 0x00, 0x32, 0x01, 0xF4)) }
         // …and UDS ReadDTCInformation only answers once a session is open (otherwise NRC 0x80).
         req.u(0) == 0x19 && req.size >= 2 && req.u(1) == 0x02 ->
-            if (obcSession) listOf(b(0x59, 0x02, 0xFF, 0x0A, 0x80, 0x24, 0x08)) else neg(0x19, 0x80)
+            if (obcSession) listOf(udsDtcReply(obcDtcs)) else neg(0x19, 0x80)
         else -> neg(req.u(0), 0x11)
+    }
+
+    /** UDS reportDTCByStatusMask reply: `59 02 FF (hi lo 24 08)*`. */
+    private fun udsDtcReply(list: List<Int>): ByteArray {
+        val codes = synchronized(list) { list.toList() }
+        val out = arrayListOf(0x59, 0x02, 0xFF)
+        for (c in codes) {
+            out += (c shr 8) and 0xFF
+            out += c and 0xFF
+            out += 0x24
+            out += 0x08
+        }
+        return b(*out.toIntArray())
     }
 
     private fun motor(req: ByteArray, front: Boolean): List<ByteArray> = when {
         req.u(0) == 0x21 && req.size == 2 && req.u(1) == 0x02 ->
-            listOf(if (front) b(0x61, 0x02, 0x00, 0x00, 0x52, 0x08, 0x00, 0x00) else b(0x61, 0x02, 0x00, 0x00, 0x4E, 0x20, 0x00, 0x00))
+            listOf(if (front && driving) b(0x61, 0x02, 0x00, 0x00, 0x52, 0x08, 0x00, 0x00) else b(0x61, 0x02, 0x00, 0x00, 0x4E, 0x20, 0x00, 0x00))
         req.u(0) == 0x21 -> neg(0x21, 0x31)
+        req.u(0) == 0x19 && req.size >= 2 && req.u(1) == 0x02 && motorsAnswerUds -> listOf(b(0x59, 0x02, 0xFF))
         else -> neg(req.u(0), 0x11)
     }
 
     companion object {
+        /** Demo pack: full-charge capacity estimate (≈ 72 % of the 38 Ah reference of a 2014–2016 car). */
+        const val DEMO_CAPACITY_AH = 27.4
+
+        /** Demo pack: the one weak cell, and how far it sits below the others. */
+        const val DEMO_WEAK_CELL = 23
+        const val DEMO_WEAK_CELL_DROP_MV = 65
+
+        /** Demo state of charge when the caller has none yet (the demo car starts at 64 %). */
+        const val DEMO_DEFAULT_SOC = 64.0
+
+        /**
+         * The app's demo scenario: an MY2015 car parked with the ignition on, plugged in and charging, whose drive
+         * battery is worn —
+         * - quick scan: P0A80 "replace hybrid battery pack" stored (and permanent, so clearing can't hide it) by the
+         *   hybrid/EV control unit; P0456 (EVAP very small leak) pending in the engine ECU;
+         * - full scan adds the BMU's own P0A7F "hybrid battery pack deterioration"; the OBC answers but is clean;
+         * - battery: [DEMO_CAPACITY_AH] (≈ 72 % health) and cell [DEMO_WEAK_CELL] [DEMO_WEAK_CELL_DROP_MV] mV low.
+         *
+         * @param socPercent the car's state of charge (read on every BMU request); null → [DEMO_DEFAULT_SOC]
+         * @param charging whether the car is charging right now; null → assume it is (the demo starts charging)
+         * @param latencyMs answer delay, so scans take a moment like with a real adapter
+         */
+        fun demo(
+            socPercent: () -> Double? = { null },
+            charging: () -> Boolean? = { null },
+            latencyMs: Long = 25L,
+        ): FakeElm = FakeElm(version = "ELM327 v1.5").apply {
+            slowMs = latencyMs
+            driving = false
+            storedDtcs.clear()
+            pendingDtcs.clear()
+            pendingDtcs += 0x0456
+            permanentDtcs.clear()
+            engineAnswersKwp = true
+            motorsAnswerUds = true
+            hybridEcu = true
+            hybridDtcs.clear(); hybridDtcs += 0x0A80
+            hybridPermanentDtcs.clear(); hybridPermanentDtcs += 0x0A80
+            bmuDtcs.clear(); bmuDtcs += 0x0A7F
+            obcDtcs.clear()
+            pack = Pack(
+                capacityAh = DEMO_CAPACITY_AH,
+                soc = { socPercent() ?: DEMO_DEFAULT_SOC },
+                weakCell = DEMO_WEAK_CELL,
+                weakCellDropMv = DEMO_WEAK_CELL_DROP_MV,
+            )
+            this.charging = charging
+        }
+
         /**
          * BMU reply to 21 01 from the myoutlanderphev.com forum thread (frames 762 10 37 ... 762 27 ...),
          * reassembled: 55 bytes starting with 61 01.

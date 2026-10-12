@@ -39,7 +39,10 @@ data class AppSettings(
     val password: String = "",
     /** Car access point MAC, from companion pairing; enables silent background connects. */
     val bssid: String = "",
-    /** "host:port" to talk to an emulator instead of the car (diagnostics). */
+    /**
+     * "host:port" to talk to an emulator instead of the car (diagnostics). Only used while [devMode] is on — read it
+     * through [testAddress].
+     */
     val hostOverride: String = "",
     val modelYearOverride: ModelYear = ModelYear.UNKNOWN,
     val route: Route = Route.AUTO,
@@ -68,7 +71,16 @@ data class AppSettings(
 ) {
     val hasCarWifi: Boolean get() = ssid.isNotBlank() && passwordProblem(password) == null
     val hasBridge: Boolean get() = bridgeUrl.isNotBlank()
-    val canConnect: Boolean get() = hasCarWifi || hasBridge || hostOverride.isNotBlank()
+    /**
+     * The emulator test address in effect: [hostOverride] while developer options are on, blank otherwise. A value
+     * saved earlier stays stored but is inert, so a leftover test address can't hijack the real connection.
+     */
+    val testAddress: String get() = if (devMode) hostOverride.trim() else ""
+
+    /** A test address is saved but ignored because developer options are off. */
+    val testAddressIgnored: Boolean get() = !devMode && hostOverride.isNotBlank()
+
+    val canConnect: Boolean get() = hasCarWifi || hasBridge || testAddress.isNotBlank()
 }
 
 /** Why a WPA2 password would be rejected by Android (a string resource), or null if it is fine. */

@@ -266,6 +266,7 @@ private fun DeviceRow(d: ObdDeviceSpec, guess: AdapterGuess.Guess, onClick: () -
             ObdDeviceSpec.Kind.CLASSIC -> R.string.obd_kind_classic
             ObdDeviceSpec.Kind.BLE -> R.string.obd_kind_ble
             ObdDeviceSpec.Kind.WIFI -> R.string.obd_kind_wifi
+            ObdDeviceSpec.Kind.DEMO -> R.string.obd_kind_demo
         }
     )
     Row(

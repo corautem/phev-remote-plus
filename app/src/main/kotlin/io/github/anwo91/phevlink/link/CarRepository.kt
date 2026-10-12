@@ -125,7 +125,7 @@ class CarRepository(
         network.onAvailable = { direct?.reconnectNow() }
         // Rebuild the link whenever connection-relevant settings change (serialised with activation).
         scope.launch {
-            settings.flow.map { listOf(it.ssid, it.password, it.bssid, it.hostOverride, it.route, it.bridgeUrl, it.bridgeToken, it.modelYearOverride, it.syncClock) }
+            settings.flow.map { listOf(it.ssid, it.password, it.bssid, it.testAddress, it.route, it.bridgeUrl, it.bridgeToken, it.modelYearOverride, it.syncClock) }
                 .distinctUntilChanged()
                 .collect {
                     val wasActive = activeRoute != null
@@ -284,7 +284,13 @@ class CarRepository(
     }
 
     private suspend fun chooseRoute(s: AppSettings): Route {
-        if (s.hostOverride.isNotBlank()) return Route.DIRECT
+        if (s.testAddress.isNotBlank()) {
+            log.link("Route: test address ${s.testAddress} (developer options on) — direct to the emulator")
+            return Route.DIRECT
+        }
+        if (s.testAddressIgnored) {
+            log.link("Route: ignoring the saved test address ${s.hostOverride.trim()} — developer options are off")
+        }
         return when (s.route) {
             Route.DIRECT -> Route.DIRECT
             Route.BRIDGE -> Route.BRIDGE
@@ -311,7 +317,7 @@ class CarRepository(
     }
 
     private fun startDirect(s: AppSettings) {
-        val override = s.hostOverride.takeIf { it.isNotBlank() }
+        val override = s.testAddress.takeIf { it.isNotBlank() }
         val connector = if (override != null) {
             val host = override.substringBefore(':')
             val port = override.substringAfter(':', "8080").toIntOrNull() ?: 8080
@@ -352,9 +358,14 @@ class CarRepository(
 
     /** Demo mode: run a simulated car in this process and connect to it over the loopback, no Wi-Fi involved. */
     private fun startDemo() {
-        val fake = FakeCar(modelYear = ModelYear.MY14) { log.link("[demo] $it") }.start()
+        val fake = FakeCar(modelYear = ModelYear.MY14) { log.link("[demo] $it") }.apply {
+            // The demo story: parked at home, plugged in and charging, slowly enough to watch it climb
+            // (one charge minute every 4 s: 64 % → full in about 8 minutes).
+            minutesPerSecond = DEMO_MINUTES_PER_SECOND
+            plugIn(charge = true)
+        }.start()
         demoCar = fake
-        log.link("Demo mode on — talking to a simulated car on 127.0.0.1:${fake.port}")
+        log.link("Demo mode on — talking to a simulated car on 127.0.0.1:${fake.port} (plugged in, charging from ${fake.batteryPercent} %)")
         val conn = PhevConnection(
             connector = TcpConnector("127.0.0.1", fake.port),
             log = log,
@@ -552,5 +563,7 @@ class CarRepository(
         private const val KICK = "kick"
         /** A car temperature reading older than this is not trusted over the forecast. */
         private const val CAR_TEMP_MAX_AGE_MS = 45 * 60_000L
+        /** Demo car's simulated minutes per real second (charging and climate countdowns). */
+        private const val DEMO_MINUTES_PER_SECOND = 0.25
     }
 }

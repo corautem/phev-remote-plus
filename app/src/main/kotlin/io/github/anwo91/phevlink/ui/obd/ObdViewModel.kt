@@ -7,8 +7,10 @@ import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.obd.ClearDtcsResult
 import io.github.anwo91.phevlink.core.obd.DtcScanResult
 import io.github.anwo91.phevlink.core.obd.livetest.LiveTest
+import io.github.anwo91.phevlink.core.obd.livetest.TestStore
 import io.github.anwo91.phevlink.core.obd.livetest.Verdict
 import io.github.anwo91.phevlink.graph
+import io.github.anwo91.phevlink.link.DemoMode
 import io.github.anwo91.phevlink.obd.ObdDeviceSpec
 import io.github.anwo91.phevlink.util.AppLocale
 import kotlinx.coroutines.CancellationException
@@ -17,6 +19,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 
 /** The OBD tab: connection, live data, fault codes, live tests and tools. */
@@ -30,7 +33,8 @@ class ObdViewModel(app: Application) : AndroidViewModel(app) {
     val logTraffic = obd.logTraffic
     val sessionActive = obd.sessionActive
     val tests = g.liveTests
-    val testStore = g.testStore
+    /** Where live-test baselines and history go: a throw-away store while demo mode is on, never the real one. */
+    val testStore: TestStore get() = if (DemoMode.active.value) DemoMode.testStore else g.testStore
     val log = g.log
 
     /** VIN from the car's Wi-Fi link, if known (for the battery reference capacity). */
@@ -56,6 +60,14 @@ class ObdViewModel(app: Application) : AndroidViewModel(app) {
         // Give the client the VIN known from Wi-Fi so the battery health uses the right model year.
         viewModelScope.launch {
             state.collect { obd.client?.let { c -> if (c.vinHint == null) c.vinHint = wifiVin } }
+        }
+        // Results on screen belong to one car: drop them when switching between the real and the simulated one.
+        viewModelScope.launch {
+            DemoMode.active.drop(1).collect {
+                _lastScan.value = null
+                _lastClear.value = null
+                _terminal.value = emptyList()
+            }
         }
     }
 

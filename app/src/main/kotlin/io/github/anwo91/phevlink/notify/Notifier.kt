@@ -8,6 +8,8 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -71,7 +73,8 @@ class Notifier(private val context: Context) {
         val title = res.getString(alertTitle(a.type))
         val message = state?.let { alertMessage(res, a.type, it, prefs ?: AlertPrefs()) } ?: a.message
         val n = NotificationCompat.Builder(context, CH_ALERTS)
-            .setSmallIcon(R.drawable.ic_stat_car)
+            .setSmallIcon(alertIcon(a.type))
+            .setColor(context.getColor(alertColor(a.type)))
             .setContentTitle(title)
             .setContentText(message)
             .setStyle(NotificationCompat.BigTextStyle().bigText(message))
@@ -96,7 +99,8 @@ class Notifier(private val context: Context) {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )
         val n = NotificationCompat.Builder(context, CH_ALERTS)
-            .setSmallIcon(R.drawable.ic_stat_car)
+            .setSmallIcon(R.drawable.ic_stat_bridge)
+            .setColor(context.getColor(R.color.brand))
             .setContentTitle(res.getString(R.string.notif_bridge_home_title))
             .setContentText(text)
             .setStyle(NotificationCompat.BigTextStyle().bigText(text))
@@ -112,6 +116,7 @@ class Notifier(private val context: Context) {
         ensureChannels()
         val n = NotificationCompat.Builder(context, CH_RESULTS)
             .setSmallIcon(if (ok) R.drawable.ic_stat_car else R.drawable.ic_stat_warn)
+            .setColor(context.getColor(if (ok) R.color.brand else R.color.notif_warn))
             .setContentTitle(title)
             .setContentText(text)
             .setStyle(NotificationCompat.BigTextStyle().bigText(text))
@@ -129,6 +134,7 @@ class Notifier(private val context: Context) {
         ensureChannels()
         return NotificationCompat.Builder(context, CH_LINK)
             .setSmallIcon(R.drawable.ic_stat_car)
+            .setColor(context.getColor(R.color.brand))
             .setContentTitle(title)
             .setContentText(text)
             .setOngoing(true)
@@ -144,6 +150,25 @@ class Notifier(private val context: Context) {
 
     fun updateLink(n: Notification) {
         if (canPost()) nm.notify(ID_LINK, n)
+    }
+
+    /** Status-bar icon by subject, so the bar itself says what the message is about. */
+    @DrawableRes
+    private fun alertIcon(t: AlertType): Int = when (t) {
+        AlertType.CHARGE_COMPLETE, AlertType.CHARGE_STOPPED, AlertType.CHARGE_STARTED -> R.drawable.ic_stat_charge
+        AlertType.CLIMATE_STARTED, AlertType.CLIMATE_FINISHED, AlertType.CLIMATE_CANCELLED -> R.drawable.ic_stat_climate
+        AlertType.LEFT_UNLOCKED, AlertType.DOOR_OPEN -> R.drawable.ic_stat_lock
+        AlertType.LIGHTS_ON -> R.drawable.ic_stat_lights
+        AlertType.THEFT_ALARM, AlertType.CHARGE_TIMER_FAILED -> R.drawable.ic_stat_warn
+    }
+
+    /** Accent colour: teal for news, amber for things to look at, red for the alarm. */
+    @ColorRes
+    private fun alertColor(t: AlertType): Int = when (t) {
+        AlertType.CHARGE_COMPLETE, AlertType.CHARGE_STARTED, AlertType.CLIMATE_STARTED, AlertType.CLIMATE_FINISHED -> R.color.brand
+        AlertType.CHARGE_STOPPED, AlertType.CLIMATE_CANCELLED, AlertType.LEFT_UNLOCKED, AlertType.DOOR_OPEN,
+        AlertType.LIGHTS_ON, AlertType.CHARGE_TIMER_FAILED -> R.color.notif_warn
+        AlertType.THEFT_ALARM -> R.color.notif_alarm
     }
 
     @StringRes

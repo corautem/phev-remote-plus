@@ -138,7 +138,8 @@ class ObdService : LifecycleService() {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_stat_car)
+            .setSmallIcon(R.drawable.ic_stat_obd)
+            .setColor(getColor(R.color.brand))
             .setContentTitle(ui.title)
             .setContentText(ui.text)
             .setStyle(NotificationCompat.BigTextStyle().bigText(ui.text))

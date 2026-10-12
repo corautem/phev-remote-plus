@@ -1,5 +1,11 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="48dp" android:height="48dp" android:viewportWidth="48" android:viewportHeight="48">
-    <path android:fillColor="#B4651E" android:pathData="M24,24m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0"/>
-    <path android:fillColor="#FFFFFF" android:pathData="M26,10 L16,26 L23,26 L21,38 L32,21 L25,21 Z"/>
+    <!-- App shortcut: flash the lights. Brand circle with the in-app line glyph. -->
+    <path android:fillColor="#0E3B43" android:pathData="M24,24m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0"/>
+    <group android:translateX="12" android:translateY="12">
+        <path android:strokeColor="#45D9B5" android:strokeWidth="1.8" android:strokeLineCap="round" android:strokeLineJoin="round"
+            android:pathData="M 8.8 12 a 3.2 3.2 0 1 0 6.4 0 a 3.2 3.2 0 1 0 -6.4 0 Z"/>
+        <path android:strokeColor="#45D9B5" android:strokeWidth="1.8" android:strokeLineCap="round" android:strokeLineJoin="round"
+            android:pathData="M 12 3 v 2.5 M 12 18.5 V 21 M 3 12 h 2.5 M 18.5 12 H 21 M 5.6 5.6 l 1.8 1.8 M 16.6 16.6 l 1.8 1.8 M 18.4 5.6 l -1.8 1.8 M 7.4 16.6 l -1.8 1.8"/>
+    </group>
 </vector>

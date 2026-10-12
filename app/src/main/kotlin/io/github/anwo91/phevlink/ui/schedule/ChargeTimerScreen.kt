@@ -3,6 +3,7 @@ package io.github.anwo91.phevlink.ui.schedule
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -63,7 +64,7 @@ private const val HOLD = "charge-timer"
  * (start–end, 10-minute steps) used on the days you pick (one timer per day), plus "Full charge" days. Starts from what
  * the car reports; "Send to the car" writes it and waits until the car reports it back. Every step is logged.
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun ChargeTimerScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit) {
     val car by vm.car.collectAsState()

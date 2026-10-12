@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="link_paused_setup">Sat på pause, mens du sætter broen op</string>
+    <string name="bs_waiting_home">Venter på, at telefonen kommer tilbage på wifi\'et derhjemme …</string>
+    <string name="bs_not_home">Telefonen er ikke på wifi\'et derhjemme, så den kan ikke nå broen. Forbind til wifi\'et derhjemme, og tryk på Prøv igen.</string>
+    <string name="bs_reg_full_ahead">Bilen siger, at den allerede husker %1$d enheder – det højeste, den kan. Regn med tre bip. Opsætningen viser derefter, hvordan du rydder bilens hukommelse; registrér så broen først og telefonen igen bagefter.</string>
+    <string name="home_bridge_pending_ready">Bilen er hjemme, og broen er på bilens wifi. Fortsæt for at registrere broen – det tager et minut i bilen.</string>
     <string name="home_bridge_pending_button">Fortsæt opsætningen</string>
     <string name="home_bridge_pending_text">Registrer broen i bilen, når bilen er hjemme. Du får en notifikation, når den er tilbage.</string>
     <string name="home_bridge_pending_title">Bro: ét trin tilbage</string>

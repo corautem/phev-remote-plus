@@ -120,7 +120,7 @@ fun HomeScreen(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        if (settings.bridgeSetupPending) item { BridgePendingCard(onOpenBridgeSetup) }
+        if (settings.bridgeSetupPending) item { BridgePendingCard(vm, onOpenBridgeSetup) }
         item { AttentionCard(car) }
         item {
             HeroHeader(
@@ -662,9 +662,21 @@ private fun MoreRow(title: String, subtitle: String, onClick: () -> Unit) {
 
 /** The bridge was set up while the car was away: one step (registration in the car) is left. */
 @Composable
-private fun BridgePendingCard(onContinue: () -> Unit) {
+private fun BridgePendingCard(vm: MainViewModel, onContinue: () -> Unit) {
+    // Ask the bridge while the card is on screen: the background check can be held back for hours by Android.
+    var seen by remember { mutableStateOf<Boolean?>(null) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            seen = vm.bridgeSeesCar()
+            delay(60_000)
+        }
+    }
     SectionCard(title = stringResource(R.string.home_bridge_pending_title)) {
-        Text(stringResource(R.string.home_bridge_pending_text), style = MaterialTheme.typography.bodyMedium)
+        Text(
+            stringResource(if (seen == true) R.string.home_bridge_pending_ready else R.string.home_bridge_pending_text),
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = if (seen == true) FontWeight.Medium else null,
+        )
         Spacer(Modifier.height(8.dp))
         FilledTonalButton(onClick = onContinue) { Text(stringResource(R.string.home_bridge_pending_button)) }
     }

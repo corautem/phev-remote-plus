@@ -113,6 +113,8 @@ class CarRepository(
     private val counter = AtomicInteger()
     /** After the bridge failed to reach the car, prefer the car's Wi-Fi for a while. */
     @Volatile private var preferDirectUntil = 0L
+    /** Who needs the phone to stay on the home network right now (the bridge setup): no joining the car's Wi-Fi. */
+    private val _wifiPause = MutableStateFlow<Set<String>>(emptySet())
 
     /** Hook for the widget/tile to refresh when the state changes. */
     var onStateSaved: (() -> Unit)? = null
@@ -226,6 +228,42 @@ class CarRepository(
 
     val isHeld: Boolean get() = _holders.value.isNotEmpty()
 
+    /** True while something (the bridge setup) needs the phone on the home network, so the app keeps off the car's Wi-Fi. */
+    val carWifiPaused: Boolean get() = _wifiPause.value.isNotEmpty()
+
+    /**
+     * Keep the app off the car's own Wi-Fi until [resumeCarWifi] with the same [tag]. Joining the car's Wi-Fi takes the
+     * phone off the home network on most phones, so e.g. the bridge setup could no longer reach the bridge — and the
+     * phone would also occupy the car while the bridge tries to connect to it. A running car-Wi-Fi link is let go at once.
+     */
+    fun pauseCarWifi(tag: String, why: String) {
+        val first = synchronized(holderLock) {
+            val wasEmpty = _wifiPause.value.isEmpty()
+            _wifiPause.value = _wifiPause.value + tag
+            wasEmpty
+        }
+        if (!first) return
+        scope.launch {
+            activation.withLock {
+                val onCarWifi = activeRoute == Route.DIRECT && demoCar == null && settings.current.testAddress.isBlank()
+                log.link("Car Wi-Fi paused: $why" + if (onCarWifi) " — leaving the car's Wi-Fi so the phone returns to the home network" else "")
+                if (onCarWifi) deactivateLocked()
+            }
+            if (isHeld) activate()
+        }
+    }
+
+    fun resumeCarWifi(tag: String) {
+        val last = synchronized(holderLock) {
+            if (tag !in _wifiPause.value) return
+            _wifiPause.value = _wifiPause.value - tag
+            _wifiPause.value.isEmpty()
+        }
+        if (!last) return
+        log.link("Car Wi-Fi allowed again")
+        scope.launch { if (isHeld) activate() }
+    }
+
     fun isHeldBy(tag: String): Boolean = tag in _holders.value
 
     /** A route (car Wi-Fi or bridge) is running, connected or trying to connect. */
@@ -276,6 +314,11 @@ class CarRepository(
             return@withLock
         }
         val route = chooseRoute(s)
+        if (route == Route.DIRECT && s.testAddress.isBlank() && carWifiPaused) {
+            log.link("Route: not joining the car's Wi-Fi while ${_wifiPause.value.joinToString()} needs the home network")
+            setLink { LinkUi(LinkPhase.OFFLINE, text = str(R.string.link_paused_setup), detail = lastUpdatedText()) }
+            return@withLock
+        }
         activeRoute = route
         when (route) {
             Route.BRIDGE -> startBridge(s)

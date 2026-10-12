@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="link_paused_setup">Paused while you set up the bridge</string>
+    <string name="bs_waiting_home">Waiting for this phone to get back on your home Wi-Fi…</string>
+    <string name="bs_not_home">This phone isn\'t on your home Wi-Fi, so it can\'t reach the bridge. Connect to your home Wi-Fi and tap Try again.</string>
+    <string name="bs_reg_full_ahead">Your car says it already remembers %1$d devices — the most it can. Expect three beeps. Setup then shows how to clear the car\'s memory; after that, register the bridge first and your phone again afterwards.</string>
+    <string name="home_bridge_pending_ready">Your car is home and the bridge is on its Wi-Fi. Continue to register the bridge — it takes a minute in the car.</string>
     <string name="home_bridge_pending_button">Continue setup</string>
     <string name="home_bridge_pending_text">Register the bridge with the car when the car is home. You\'ll get a notification when it\'s back.</string>
     <string name="home_bridge_pending_title">Bridge: one step left</string>

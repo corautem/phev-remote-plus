@@ -174,6 +174,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     fun previousSessionLog(): String = g.cache.loadDiag()
 
+    /** While a bridge setup waits for the car: does the bridge see the car's Wi-Fi right now? Null = can't tell. */
+    suspend fun bridgeSeesCar(): Boolean? = io.github.anwo91.phevlink.link.BridgeHomeJob.check(getApplication(), notify = false)?.connected
+
     /** Connect for a moment and report the outcome — used by setup and settings. */
     fun testConnection(onDone: (Boolean, String) -> Unit) {
         viewModelScope.launch {

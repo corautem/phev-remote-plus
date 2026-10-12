@@ -229,6 +229,20 @@ class BridgeDiscovery(private val context: Context, private val log: DiagLog) {
         return chosen
     }
 
+    /**
+     * The phone's home network, if it is on one: Wi-Fi or Ethernet with internet, not a VPN. The car's own Wi-Fi never
+     * counts (the app joins it as a local-only network without internet). Quiet: no log line.
+     */
+    fun homeNetwork(): Network? {
+        val cm = context.getSystemService(ConnectivityManager::class.java) ?: return null
+        return allNetworks(cm).firstOrNull { n ->
+            val c = cm.getNetworkCapabilities(n) ?: return@firstOrNull false
+            !c.hasTransport(NetworkCapabilities.TRANSPORT_VPN) &&
+                (c.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || c.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) &&
+                c.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        }
+    }
+
     @Suppress("DEPRECATION") // getAllNetworks: still the simple way to list networks; nothing to register for.
     private fun allNetworks(cm: ConnectivityManager): List<Network> = cm.allNetworks.toList()
 }
@@ -273,6 +287,8 @@ class BridgeSetupController(
         val battery: Int? = null,
         val vin: String? = null,
         val registrations: Int? = null,
+        /** Waiting for the phone to get back on the home network (e.g. right after leaving the car's Wi-Fi). */
+        val waitingForHome: Boolean = false,
     )
 
     private val _state = MutableStateFlow(State())
@@ -289,10 +305,45 @@ class BridgeSetupController(
         job = scope.launch { block() }
     }
 
+    /**
+     * The bridge is only reachable from the home network. Right after the app let go of the car's Wi-Fi the phone needs
+     * a few seconds to get back on it, so wait up to [timeoutMs]. Logs only when it actually has to wait.
+     */
+    private suspend fun awaitHomeNetwork(what: String, timeoutMs: Long = 30_000): Boolean {
+        if (discovery.homeNetwork() != null) return true
+        log.link("Bridge setup: this phone is not on the home network ($what) — waiting up to ${timeoutMs / 1000} s for it")
+        _state.update { it.copy(waitingForHome = true) }
+        val t0 = System.currentTimeMillis()
+        var ok = false
+        while (System.currentTimeMillis() - t0 < timeoutMs) {
+            delay(1_000)
+            if (discovery.homeNetwork() != null) { ok = true; break }
+        }
+        _state.update { it.copy(waitingForHome = false) }
+        log.link(
+            if (ok) "Bridge setup: back on the home network after ${(System.currentTimeMillis() - t0) / 1000} s"
+            else "Bridge setup: still not on the home network after ${timeoutMs / 1000} s",
+        )
+        return ok
+    }
+
+    /** The bridge's car Wi-Fi status, asking again every 3 s for up to [timeoutMs] (it may be busy joining). */
+    private suspend fun bridgeWifiStatus(timeoutMs: Long): BridgeWifi? {
+        val until = System.currentTimeMillis() + timeoutMs
+        while (System.currentTimeMillis() < until) {
+            val r = BridgeSetupApi.carWifi(url, token)
+            if (r != null && r.code == 200) return BridgeWifi.from(r.body)
+            delay(3_000)
+        }
+        return null
+    }
+
     /** Opens the wizard: with a working saved bridge it goes straight to the car Wi-Fi step, else it searches. */
     fun start() = launch {
         _state.value = State(searching = true)
         log.link("Bridge setup: started (car Wi-Fi ${if (settings.current.hasCarWifi) "\"${settings.current.ssid}\"" else "not set"}, bridge ${settings.current.bridgeUrl.ifBlank { "none saved" }})")
+        // The app just let go of the car's Wi-Fi (setup pauses it): give the phone a moment to get home again.
+        awaitHomeNetwork("opening setup", 20_000)
         val s = settings.current
         if (s.bridgeUrl.isNotBlank() && s.bridgeToken.isNotBlank()) {
             val hello = BridgeSetupApi.hello(s.bridgeUrl.trimEnd('/'))
@@ -408,6 +459,7 @@ class BridgeSetupController(
             _state.update { it.copy(wifi = WifiState.NEED_CREDENTIALS) }
             return
         }
+        if (!awaitHomeNetwork("checking the bridge's Wi-Fi")) return wifiFailed(NOT_HOME)
         val bridge = BridgeSetupApi.hello(url) ?: return wifiFailed("The bridge doesn't answer at $url")
         if (bridge.emulator) {
             _state.update { it.copy(wifi = WifiState.LEAVING_TEST_MODE) }
@@ -473,8 +525,24 @@ class BridgeSetupController(
         val s = settings.current
         _state.update { it.copy(wifi = WifiState.JOINING, carSignal = signal) }
         val country = Locale.getDefault().country.takeIf { it.length == 2 }
+        if (!awaitHomeNetwork("before joining")) return wifiFailed(NOT_HOME)
         val r = BridgeSetupApi.join(url, token, s.ssid, s.password, country)
-            ?: return wifiFailed("The bridge did not answer while joining")
+        if (r == null) {
+            // The answer got lost (the phone left the home network, or the bridge took long) — the bridge may well
+            // have joined. Ask it what happened instead of giving up.
+            log.warn("Bridge setup: no answer from the bridge while it joined the car's Wi-Fi — asking it what happened")
+            if (!awaitHomeNetwork("after joining")) return wifiFailed(NOT_HOME)
+            val after = bridgeWifiStatus(60_000) ?: return wifiFailed("The bridge did not answer while joining, nor in the minute after")
+            log.link("Bridge setup: bridge now reports profile=${after.ssid} connected=${after.connected} signal=${after.signal} ip=${after.ip}")
+            _state.update {
+                when {
+                    after.connected && after.ssid == s.ssid -> it.copy(wifi = WifiState.CONNECTED, wifiInfo = after, carSignal = after.signal ?: signal)
+                    after.ssid == s.ssid -> it.copy(wifi = WifiState.SAVED_NOT_CONNECTED, wifiInfo = after, wifiDetail = null)
+                    else -> it.copy(wifi = WifiState.FAILED, wifiInfo = after, wifiDetail = "The bridge has no saved network for ${s.ssid}")
+                }
+            }
+            return
+        }
         val info = r.body.obj("status")?.let(BridgeWifi::from)
         val message = r.body.str("message")
         _state.update { it.copy(wifiInfo = info ?: it.wifiInfo) }
@@ -515,7 +583,7 @@ class BridgeSetupController(
     }
 
     private fun wifiFailed(why: String) {
-        log.warn("Bridge setup: $why")
+        log.warn("Bridge setup: " + if (why == NOT_HOME) "this phone isn't on the home network, so it can't reach the bridge" else why)
         _state.update { it.copy(wifi = WifiState.FAILED, wifiDetail = why) }
     }
 
@@ -534,6 +602,10 @@ class BridgeSetupController(
 
     fun register() = launch {
         _state.update { it.copy(reg = RegState.REGISTERING, regDetail = null) }
+        if (!awaitHomeNetwork("registering")) {
+            _state.update { it.copy(reg = RegState.FAILED, regDetail = NOT_HOME) }
+            return@launch
+        }
         val client = BridgeClient(url, token, log, context)
         var r = client.execute(CarCommand.RegisterPhone)
         // The bridge may have been waiting out a retry pause; the car stays in registration mode for 10 minutes.
@@ -562,6 +634,7 @@ class BridgeSetupController(
     /** After the power is off: wait for the bridge to show the real car's data. */
     fun verify() = launch {
         _state.update { it.copy(step = Step.VERIFY, verify = VerifyState.WAITING) }
+        awaitHomeNetwork("checking the bridge reaches the car")
         val client = BridgeClient(url, token, log, context)
         val since = System.currentTimeMillis()
         client.post("connect")
@@ -594,5 +667,12 @@ class BridgeSetupController(
     fun cancel() {
         job?.cancel()
         log.link("Bridge setup: closed at step ${_state.value.step}")
+    }
+
+    companion object {
+        /** Detail code: the phone isn't on the home network, so the bridge can't be reached (the screen explains). */
+        const val NOT_HOME = "not-home"
+        /** Tag for [CarRepository.pauseCarWifi] while the wizard is open. */
+        const val PAUSE_TAG = "bridge setup"
     }
 }

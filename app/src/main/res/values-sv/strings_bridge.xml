@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="link_paused_setup">Pausad medan du konfigurerar bryggan</string>
+    <string name="bs_waiting_home">Väntar på att telefonen ska komma tillbaka till wifi-nätverket hemma …</string>
+    <string name="bs_not_home">Telefonen är inte ansluten till wifi-nätverket hemma, så den når inte bryggan. Anslut till wifi-nätverket hemma och tryck på Försök igen.</string>
+    <string name="bs_reg_full_ahead">Bilen säger att den redan kommer ihåg %1$d enheter – det mesta den klarar. Räkna med tre pip. Konfigurationen visar sedan hur du rensar bilens minne; registrera därefter bryggan först och telefonen igen efteråt.</string>
+    <string name="home_bridge_pending_ready">Bilen är hemma och bryggan är ansluten till bilens wifi. Fortsätt för att registrera bryggan – det tar en minut i bilen.</string>
     <string name="home_bridge_pending_button">Fortsätt konfigurationen</string>
     <string name="home_bridge_pending_text">Registrera bryggan i bilen när bilen är hemma. Du får en avisering när den är tillbaka.</string>
     <string name="home_bridge_pending_title">Brygga: ett steg kvar</string>

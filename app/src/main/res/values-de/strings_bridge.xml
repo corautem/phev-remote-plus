@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="link_paused_setup">Pausiert, während du die Bridge einrichtest</string>
+    <string name="bs_waiting_home">Warte, bis dieses Handy wieder in deinem WLAN zu Hause ist …</string>
+    <string name="bs_not_home">Dieses Handy ist nicht in deinem WLAN zu Hause und erreicht die Bridge deshalb nicht. Verbinde es mit deinem WLAN und tippe auf Erneut versuchen.</string>
+    <string name="bs_reg_full_ahead">Dein Auto meldet, dass es schon %1$d Geräte kennt – mehr geht nicht. Rechne mit drei Pieptönen. Die Einrichtung zeigt dir dann, wie du den Speicher des Autos löschst; danach registrierst du zuerst die Bridge und anschließend dein Handy neu.</string>
+    <string name="home_bridge_pending_ready">Dein Auto ist zu Hause und die Bridge ist in seinem WLAN. Mach weiter, um die Bridge zu registrieren – das dauert eine Minute im Auto.</string>
     <string name="home_bridge_pending_button">Einrichtung fortsetzen</string>
     <string name="home_bridge_pending_text">Registriere die Bridge im Auto, sobald das Auto zu Hause ist. Du bekommst eine Benachrichtigung, wenn es zurück ist.</string>
     <string name="home_bridge_pending_title">Bridge: noch ein Schritt</string>

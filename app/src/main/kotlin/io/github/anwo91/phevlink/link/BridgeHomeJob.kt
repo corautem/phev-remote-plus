@@ -57,29 +57,35 @@ class BridgeHomeJob : JobService() {
             context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().remove(KEY_CAR_HOME).apply()
         }
 
-        /** One check: notify when the bridge has just joined the car's Wi-Fi (car arrived), remember it for next time. */
-        suspend fun check(context: Context) {
+        /**
+         * One check: notify when the bridge has just joined the car's Wi-Fi (car arrived), remember it for next time.
+         * [notify] = false when the app itself asks (it shows the result on screen). Returns what the bridge reported,
+         * or null when nothing is pending or the bridge didn't answer.
+         */
+        suspend fun check(context: Context, notify: Boolean = true): BridgeWifi? {
             val g = context.graph
             val s = g.settings.current
+            val who = if (notify) "Bridge check" else "Bridge check (app open)"
             if (!s.bridgeSetupPending || !s.hasBridge || s.bridgeToken.isBlank()) {
-                g.log.link("Bridge check: nothing pending — stopping the background check")
+                g.log.link("$who: nothing pending — stopping the background check")
                 cancel(context)
-                return
+                return null
             }
             val r = BridgeSetupApi.carWifi(s.bridgeUrl, s.bridgeToken)
             if (r == null || r.code != 200) {
-                g.log.warn("Bridge check: bridge at ${s.bridgeUrl} not reachable (${r?.code ?: "no answer"}) — trying again later")
-                return
+                g.log.warn("$who: bridge at ${s.bridgeUrl} not reachable (${r?.code ?: "no answer"}) — trying again later")
+                return null
             }
             val info = BridgeWifi.from(r.body)
             val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
             val wasHome = prefs.getBoolean(KEY_CAR_HOME, false)
             g.log.link(
-                "Bridge check: bridge ${if (info.connected) "is on the car's Wi-Fi (car home)" else "doesn't see the car"}" +
+                "$who: bridge ${if (info.connected) "is on the car's Wi-Fi (car home)" else "doesn't see the car"}" +
                     (info.signal?.let { ", signal $it%" } ?: "") + "; last check: ${if (wasHome) "home" else "away"}",
             )
-            if (info.connected && !wasHome) g.notifier.bridgeCarHome()
+            if (info.connected && !wasHome && notify) g.notifier.bridgeCarHome()
             prefs.edit().putBoolean(KEY_CAR_HOME, info.connected).apply()
+            return info
         }
     }
 }

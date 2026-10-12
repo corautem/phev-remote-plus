@@ -28,6 +28,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -70,6 +71,13 @@ fun BridgeSetupScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit,
             c.start()
         }
     }
+    // While setup is open the app keeps off the car's Wi-Fi: joining it would take the phone off the home network
+    // (where the bridge is) and occupy the car while the bridge tries to connect.
+    DisposableEffect(Unit) {
+        vm.repo.pauseCarWifi(BridgeSetupController.PAUSE_TAG, "the bridge setup is open")
+        onDispose { vm.repo.resumeCarWifi(BridgeSetupController.PAUSE_TAG) }
+    }
+    val car by vm.car.collectAsState()
     val close = { c.cancel(); onBack() }
     BackHandler(onBack = close)
 
@@ -86,11 +94,12 @@ fun BridgeSetupScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit,
             val total = Step.entries.size
             LinearProgressIndicator(progress = { n.toFloat() / total }, modifier = Modifier.fillMaxWidth())
             Text(stringResource(R.string.bs_step_of, n, total), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (st.waitingForHome) Busy(stringResource(R.string.bs_waiting_home))
             when (st.step) {
                 Step.FIND -> FindStep(c, st)
                 Step.PAIR -> PairStep(st)
                 Step.CAR_WIFI -> WifiStep(vm, c, st, s.ssid, onFinished)
-                Step.REGISTER -> RegisterStep(c, st)
+                Step.REGISTER -> RegisterStep(c, st, car.registrations)
                 Step.VERIFY -> VerifyStep(c, st, onFinished = { c.finish(); onFinished() })
             }
             Spacer(Modifier.height(24.dp))
@@ -257,8 +266,12 @@ private fun WifiStep(vm: MainViewModel, c: BridgeSetupController, st: BridgeSetu
                 FilledTonalButton(onClick = { c.checkWifi() }) { Text(stringResource(R.string.bs_try_again)) }
             }
             WifiState.FAILED -> {
-                Note(stringResource(R.string.bs_wifi_failed), error = true)
-                st.wifiDetail?.let { Note(stringResource(R.string.bs_details, it)) }
+                if (st.wifiDetail == BridgeSetupController.NOT_HOME) {
+                    Note(stringResource(R.string.bs_not_home), error = true)
+                } else {
+                    Note(stringResource(R.string.bs_wifi_failed), error = true)
+                    st.wifiDetail?.let { Note(stringResource(R.string.bs_details, it)) }
+                }
                 Spacer(Modifier.height(8.dp))
                 FilledTonalButton(onClick = { c.checkWifi() }) { Text(stringResource(R.string.bs_try_again)) }
             }
@@ -307,11 +320,16 @@ private fun FinishLater(c: BridgeSetupController, onFinished: () -> Unit) {
 // ------------------------------------------------------------------ 4. register
 
 @Composable
-private fun RegisterStep(c: BridgeSetupController, st: BridgeSetupController.State) {
+private fun RegisterStep(c: BridgeSetupController, st: BridgeSetupController.State, carRegistrations: Int?) {
     SectionCard(title = stringResource(R.string.bs_reg_title)) {
         when (st.reg) {
             RegState.INSTRUCTIONS -> {
                 Text(stringResource(R.string.bs_reg_intro), style = MaterialTheme.typography.bodyMedium)
+                // The car told the app how many devices it remembers: when that's already the maximum, say so first.
+                if (carRegistrations != null && carRegistrations >= MAX_REGISTRATIONS) {
+                    Spacer(Modifier.height(8.dp))
+                    Note(stringResource(R.string.bs_reg_full_ahead, carRegistrations), error = true)
+                }
                 Spacer(Modifier.height(8.dp))
                 Text(stringResource(R.string.bs_reg_steps), style = MaterialTheme.typography.bodyMedium)
                 Spacer(Modifier.height(12.dp))
@@ -348,8 +366,12 @@ private fun RegisterStep(c: BridgeSetupController, st: BridgeSetupController.Sta
                 Button(onClick = { c.verify() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.bs_power_off_done)) }
             }
             RegState.FAILED -> {
-                Note(stringResource(R.string.bs_reg_failed), error = true)
-                st.regDetail?.let { Note(stringResource(R.string.bs_details, it)) }
+                if (st.regDetail == BridgeSetupController.NOT_HOME) {
+                    Note(stringResource(R.string.bs_not_home), error = true)
+                } else {
+                    Note(stringResource(R.string.bs_reg_failed), error = true)
+                    st.regDetail?.let { Note(stringResource(R.string.bs_details, it)) }
+                }
                 Spacer(Modifier.height(4.dp))
                 Note(stringResource(R.string.bs_reg_failed_hint))
                 Spacer(Modifier.height(8.dp))
@@ -391,7 +413,9 @@ private fun VerifyStep(c: BridgeSetupController, st: BridgeSetupController.State
     }
 }
 
-private const val WEAK_SIGNAL = 35
+private const val WEAK_SIGNAL = 40
+/** The car remembers at most two devices (Mitsubishi's operation guide); a third gets three beeps. */
+private const val MAX_REGISTRATIONS = 2
 private const val PROBLEM_SINGLE_RADIO = "single-radio"
 private const val PROBLEM_NO_WIFI = "no-wifi"
 private const val PROBLEM_NO_NM = "no-networkmanager"

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="bs_finish_later">Slutför nu – registrera när bilen är hemma</string>
+    <string name="bs_finish_later_hint">Är bilen inte hemma? Du kan slutföra nu. Bryggan kommer ihåg bilens wifi och ansluter av sig själv när bilen är tillbaka. Öppna sedan Inställningar → Konfigurera brygga en gång till för att registrera den i bilen – det tar en minut i bilen.</string>
     <string name="settings_silent_bridge_note">Du använder en brygga, så det här kan du hoppa över: appen når bilen via bryggan. Det hjälper bara när bilen är borta hemifrån och appen ansluter direkt till bilens wifi.</string>
     <string name="settings_silent_no_bridge">Bara för direkt anslutning till bilen (utan brygga). Parkoppla en gång med bilen i närheten så slutar Android fråga ”Anslut till enheten?”, och widgeten, rutan och avresorna fungerar i bakgrunden.</string>
     <string name="setup_choose_way">Hur ska appen nå din bil?</string>

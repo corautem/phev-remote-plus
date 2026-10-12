@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="bs_finish_later">Jetzt abschließen – registrieren, wenn das Auto da ist</string>
+    <string name="bs_finish_later_hint">Das Auto ist nicht da? Du kannst jetzt abschließen. Die Bridge merkt sich das WLAN des Autos und verbindet sich von selbst, sobald es zurück ist. Öffne dann noch einmal Optionen → Bridge einrichten, um sie im Auto zu registrieren – das dauert eine Minute im Auto.</string>
     <string name="settings_silent_bridge_note">Du nutzt eine Bridge, das hier kannst du also überspringen: Die App erreicht das Auto über die Bridge. Es hilft nur, wenn das Auto nicht zu Hause ist und die App sich direkt mit seinem WLAN verbindet.</string>
     <string name="settings_silent_no_bridge">Nur für die direkte Verbindung zum Auto (ohne Bridge). Einmal koppeln, mit dem Auto in der Nähe, dann fragt Android nicht mehr „Mit Gerät verbinden?“, und Widget, Kachel und Abfahrten funktionieren im Hintergrund.</string>
     <string name="setup_choose_way">Wie soll die App dein Auto erreichen?</string>
@@ -59,7 +61,7 @@
     <string name="bs_reg_question">Wie oft hat das Auto gepiept?</string>
     <string name="bs_beeps_none">Gar nicht</string>
     <string name="bs_reg_no_beep">Das Auto ist nicht in den Registriermodus gegangen. Fang erneut bei AUS an: einmal auf ACC, dann die 10 Tastendrücke VERRIEGELN/ENTRIEGELN innerhalb von 10 Sekunden.</string>
-    <string name="bs_reg_full">Drei Pieptöne: Das Auto kennt schon zwei Geräte, für die Bridge ist kein Platz. Um Platz zu schaffen, müssen alle registrierten Geräte gelöscht werden – auch dein Telefon. Registriere danach die Bridge hier und dein Telefon erneut in den Einstellungen.</string>
+    <string name="bs_reg_full">Drei Pieptöne: Das Auto kennt schon zwei Geräte, für die Bridge ist kein Platz. Um Platz zu schaffen, müssen alle registrierten Geräte gelöscht werden – auch dein Telefon. Registriere danach die Bridge hier und dein Telefon erneut unter Optionen.</string>
     <string name="bs_start_over">Neu beginnen</string>
     <string name="bs_reg_ready">Das Auto wartet jetzt 10 Minuten. Tippe auf die Schaltfläche.</string>
     <string name="bs_reg_button">Bridge registrieren</string>

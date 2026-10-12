@@ -292,7 +292,7 @@ class BridgeSetupController(
     /** Opens the wizard: with a working saved bridge it goes straight to the car Wi-Fi step, else it searches. */
     fun start() = launch {
         _state.value = State(searching = true)
-        log.link("Bridge setup: started")
+        log.link("Bridge setup: started (car Wi-Fi ${if (settings.current.hasCarWifi) "\"${settings.current.ssid}\"" else "not set"}, bridge ${settings.current.bridgeUrl.ifBlank { "none saved" }})")
         val s = settings.current
         if (s.bridgeUrl.isNotBlank() && s.bridgeToken.isNotBlank()) {
             val hello = BridgeSetupApi.hello(s.bridgeUrl.trimEnd('/'))
@@ -486,6 +486,23 @@ class BridgeSetupController(
                 else -> it.copy(wifi = WifiState.FAILED, wifiDetail = message)
             }
         }
+    }
+
+    /**
+     * The car isn't home: keep the car's network saved on the bridge (it joins by itself when the car is back), switch
+     * the app to the bridge, and leave — registration waits until the car is home (Settings → Set up bridge again).
+     * [onDone] runs on the main thread once that is saved.
+     */
+    fun finishWithoutCar(onDone: () -> Unit) = launch {
+        if (_state.value.wifi == WifiState.CAR_NOT_SEEN) joinNow(null)
+        val saved = _state.value.wifi == WifiState.SAVED_NOT_CONNECTED || _state.value.wifi == WifiState.CONNECTED
+        val carWifi = settings.current.hasCarWifi
+        settings.update { it.copy(route = if (carWifi) Route.AUTO else Route.BRIDGE) }
+        log.link(
+            "Bridge setup: finished without the car — car network ${if (saved) "saved on the bridge" else "NOT saved (${_state.value.wifiDetail})"}; " +
+                "register the bridge when the car is home (Settings → Set up bridge)",
+        )
+        withContext(Dispatchers.Main) { onDone() }
     }
 
     private fun wifiFailed(why: String) {

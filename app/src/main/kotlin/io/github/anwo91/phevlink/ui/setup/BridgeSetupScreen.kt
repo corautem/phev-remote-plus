@@ -89,7 +89,7 @@ fun BridgeSetupScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit,
             when (st.step) {
                 Step.FIND -> FindStep(c, st)
                 Step.PAIR -> PairStep(st)
-                Step.CAR_WIFI -> WifiStep(vm, c, st, s.ssid)
+                Step.CAR_WIFI -> WifiStep(vm, c, st, s.ssid, onFinished)
                 Step.REGISTER -> RegisterStep(c, st)
                 Step.VERIFY -> VerifyStep(c, st, onFinished = { c.finish(); onFinished() })
             }
@@ -207,7 +207,7 @@ private fun PairStep(st: BridgeSetupController.State) {
 // ------------------------------------------------------------------ 3. car Wi-Fi
 
 @Composable
-private fun WifiStep(vm: MainViewModel, c: BridgeSetupController, st: BridgeSetupController.State, carSsid: String) {
+private fun WifiStep(vm: MainViewModel, c: BridgeSetupController, st: BridgeSetupController.State, carSsid: String, onFinished: () -> Unit) {
     val s by vm.settings.collectAsState()
     SectionCard(title = stringResource(R.string.bs_wifi_title)) {
         when (st.wifi) {
@@ -233,13 +233,14 @@ private fun WifiStep(vm: MainViewModel, c: BridgeSetupController, st: BridgeSetu
                 Note(stringResource(R.string.bs_wifi_not_seen_tips))
                 Spacer(Modifier.height(8.dp))
                 FilledTonalButton(onClick = { c.checkWifi() }) { Text(stringResource(R.string.bs_try_again)) }
-                TextButton(onClick = { c.saveWithoutCar() }) { Text(stringResource(R.string.bs_save_anyway)) }
+                FinishLater(c, onFinished)
             }
             WifiState.SAVED_NOT_CONNECTED -> {
                 Note(stringResource(R.string.bs_wifi_saved, carSsid))
                 st.wifiDetail?.let { Note(stringResource(R.string.bs_details, it)) }
                 Spacer(Modifier.height(8.dp))
                 FilledTonalButton(onClick = { c.checkWifi() }) { Text(stringResource(R.string.bs_try_again)) }
+                FinishLater(c, onFinished)
             }
             WifiState.PROBLEM -> {
                 when (st.wifiDetail) {
@@ -288,6 +289,19 @@ private fun WifiStep(vm: MainViewModel, c: BridgeSetupController, st: BridgeSetu
             ) { Text(stringResource(R.string.bs_continue)) }
         }
     }
+}
+
+/** The car isn't home: save its network on the bridge and finish now; registration waits for the car. */
+@Composable
+private fun FinishLater(c: BridgeSetupController, onFinished: () -> Unit) {
+    var finishing by rememberSaveable { mutableStateOf(false) }
+    Spacer(Modifier.height(12.dp))
+    Note(stringResource(R.string.bs_finish_later_hint))
+    Spacer(Modifier.height(6.dp))
+    Button(
+        onClick = { finishing = true; c.finishWithoutCar { onFinished() } },
+        enabled = !finishing, modifier = Modifier.fillMaxWidth(),
+    ) { Text(stringResource(R.string.bs_finish_later)) }
 }
 
 // ------------------------------------------------------------------ 4. register

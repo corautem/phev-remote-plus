@@ -45,6 +45,8 @@ data class FoundBridge(
     val pairingOpen: Boolean,
     val pairingReason: String?,
     val needsUpdate: Boolean,
+    /** Release the bridge was built in ("1.0.40"); null for bridges from before in-app updates. */
+    val build: String? = null,
 ) {
     val host: String get() = runCatching { URI(url).host }.getOrNull() ?: url
 }
@@ -91,6 +93,7 @@ object BridgeSetupApi {
                     pairingOpen = p?.get("open") == true,
                     pairingReason = p?.str("reason"),
                     needsUpdate = false,
+                    build = r.body.str("build"),
                 )
             }
             // A bridge from before the setup features: every /api call wants the token.
@@ -122,6 +125,44 @@ object BridgeSetupApi {
 
     suspend fun leaveTestMode(url: String, token: String): Reply? =
         withContext(Dispatchers.IO) { request(url, "config", "POST", token, mapOf("emulator" to false), 4_000, 10_000) }
+
+    // ---- bridge page (status, log, actions, update) ----
+
+    /** The computer: model, OS, uptime, temperature, memory, disk, addresses, bridge build (bridge 1.2+). */
+    suspend fun system(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "system", "GET", token, null, 4_000, 8_000) }
+
+    /** Installed/newest version, a running update and its log; [check] asks GitHub now instead of the cached answer. */
+    suspend fun updateStatus(url: String, token: String, check: Boolean = false): Reply? =
+        withContext(Dispatchers.IO) { request(url, "update" + if (check) "?check=1" else "", "GET", token, null, 4_000, 20_000) }
+
+    suspend fun startUpdate(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "update", "POST", token, emptyMap(), 4_000, 40_000) }
+
+    suspend fun restart(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "restart", "POST", token, emptyMap(), 4_000, 8_000) }
+
+    suspend fun reboot(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "reboot", "POST", token, emptyMap(), 4_000, 20_000) }
+
+    suspend fun connect(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "connect", "POST", token, emptyMap(), 4_000, 10_000) }
+
+    /** The bridge's own log, last [n] lines (plain text), or null when it doesn't answer. */
+    suspend fun log(url: String, token: String, n: Int = 200): String? = withContext(Dispatchers.IO) {
+        try {
+            val c = URI(url.trimEnd('/') + "/api/log?n=$n").toURL().openConnection() as HttpURLConnection
+            c.connectTimeout = 4_000
+            c.readTimeout = 8_000
+            c.setRequestProperty("Authorization", "Bearer $token")
+            val code = c.responseCode
+            val text = if (code == 200) c.inputStream.bufferedReader().use { it.readText() } else null
+            c.disconnect()
+            text
+        } catch (e: Exception) {
+            null
+        }
+    }
 
     private fun request(
         url: String, path: String, method: String, token: String?, body: Map<String, Any?>?,

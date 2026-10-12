@@ -22,7 +22,13 @@ tasks.register<Jar>("fatJar") {
     archiveFileName.set("phev-bridge.jar")
     destinationDirectory.set(layout.buildDirectory.dir("dist"))
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    manifest { attributes["Main-Class"] = "io.github.anwo91.phevlink.bridge.MainKt" }
+    // The release number (same as the app's 1.0.N), read back by the bridge to offer updates.
+    val buildNumber = System.getenv("GITHUB_RUN_NUMBER")
+    manifest {
+        attributes["Main-Class"] = "io.github.anwo91.phevlink.bridge.MainKt"
+        attributes["Implementation-Title"] = "phev-bridge"
+        attributes["Implementation-Version"] = if (buildNumber != null) "1.0.$buildNumber" else "dev"
+    }
     from(sourceSets.main.get().output)
     dependsOn(configurations.runtimeClasspath)
     from({ configurations.runtimeClasspath.get().filter { it.name.endsWith(".jar") }.map { zipTree(it) } })

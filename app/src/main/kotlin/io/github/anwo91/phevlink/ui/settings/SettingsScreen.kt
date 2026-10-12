@@ -82,7 +82,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () -> Unit = {}) {
+fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () -> Unit = {}, onOpenBridge: () -> Unit = {}) {
     val s by vm.settings.collectAsState()
     val car by vm.car.collectAsState()
     val pending by vm.pending.collectAsState()
@@ -170,6 +170,10 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () 
             Text(stringResource(R.string.settings_bridge_setup_hint), style = MaterialTheme.typography.bodyMedium)
             Spacer(Modifier.height(8.dp))
             Button(onClick = onOpenBridgeSetup, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.settings_bridge_setup)) }
+            if (s.hasBridge) {
+                // What the bridge is doing (status, its log) and what you can do with it (restart, update).
+                OutlinedButton(onClick = onOpenBridge, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.bp_open)) }
+            }
             Spacer(Modifier.height(12.dp))
             SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
                 Route.entries.forEachIndexed { i, r ->

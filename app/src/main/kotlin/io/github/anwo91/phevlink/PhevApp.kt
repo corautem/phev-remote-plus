@@ -65,6 +65,9 @@ class Graph(app: Application) {
     val testStore: TestStore by lazy { PrefsTestStore(app) }
     /** The "set up bridge" wizard; app-wide so it survives rotation and waits while the user re-plugs the bridge. */
     val bridgeSetup: BridgeSetupController by lazy { BridgeSetupController(app, settings, log, scope) }
+    val bridgeAdmin: io.github.anwo91.phevlink.link.BridgeAdminController by lazy {
+        io.github.anwo91.phevlink.link.BridgeAdminController(app, settings, log, scope)
+    }
 
     init {
         // Demo mode drives the OBD side too: the simulated adapter connects with the simulated car and leaves with it.

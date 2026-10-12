@@ -44,7 +44,15 @@ class SetupApiTest {
     }
     private val wifi = CarWifi("/h", "", log, wifiRunner, { null }, { true })
     private var restarted = false
-    private val api = HttpApi(config, service, log, pairing, wifi, settings) { restarted = true }
+    private val updRunner = object : CarWifi.Runner {
+        val calls = ArrayList<String>()
+        override fun run(argv: List<String>, stdin: String?, timeoutMs: Long): CarWifi.Run {
+            calls += argv.joinToString(" ")
+            return if (argv.firstOrNull() == "systemctl") CarWifi.Run(3, "inactive\n") else CarWifi.Run(0, "@started\n")
+        }
+    }
+    private val updater = Updater("/u", dir, log, updRunner, { "1.0.99" }, { true }, "1.0.37")
+    private val api = HttpApi(config, service, log, pairing, wifi, settings, updater) { restarted = true }
     private val port = api.start(0)
 
     @After
@@ -119,6 +127,27 @@ class SetupApiTest {
         assertEquals(true, join["ok"])
         assertEquals("secret123\n", wifiRunner.calls.single { it.first.startsWith("sudo -n /h join") }.second)
         assertFalse(log.tail(200).any { it.text.contains("secret123") })
+    }
+
+    @Test
+    fun systemUpdateAndRestartNeedTheToken() {
+        for ((m, path) in listOf("GET" to "/api/system", "GET" to "/api/update", "POST" to "/api/update", "POST" to "/api/restart", "POST" to "/api/reboot")) {
+            assertEquals("$m $path", 401, call(m, path, if (m == "POST") "" else null, token = null).first)
+        }
+        val sys = Json.parseObject(call("GET", "/api/system").second)
+        assertTrue(sys.containsKey("build") && sys.containsKey("java") && sys.containsKey("addresses"))
+
+        val st = Json.parseObject(call("GET", "/api/update").second)
+        assertEquals("1.0.37", st["current"])
+        assertEquals("1.0.99", st["latest"])
+        assertEquals(true, st["available"])
+
+        val (code, text) = call("POST", "/api/update", "")
+        assertEquals(text, 200, code)
+        assertTrue(updRunner.calls.contains("sudo -n /u update-start"))
+
+        assertEquals(200, call("POST", "/api/restart", "").first)
+        assertTrue(restarted)
     }
 
     @Test

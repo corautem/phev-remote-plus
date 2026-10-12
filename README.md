@@ -128,6 +128,16 @@ bridge* (also under Settings → Set up bridge). It
 4. walks you through the car's registration mode, asking how many times the car beeped (3 = memory full),
 5. checks that the bridge reaches the car, and switches the app to use it at home.
 
+While setup is open the app stays off the car's Wi-Fi itself: joining it takes most phones off the home network (where
+the bridge is), and the car's Wi-Fi seems to take only one device at a time. For the same reason the app goes through
+the bridge whenever the bridge is on the car's Wi-Fi.
+
+**Settings → Bridge: status, log and updates** shows what the bridge is doing — its car Wi-Fi and car connection, last
+car data, the computer (model, temperature, memory, disk) and the bridge's own log, live — and lets you connect it to
+the car, restart it, restart the computer and **update it from the app**: the bridge downloads the newest release from
+GitHub, checks its SHA-256 and reinstalls itself (bridges installed before 1.0.38 need the install command above once
+more; after that, updates happen in the app).
+
 Every step is logged in the app's Log tab and in the bridge log (`journalctl -u phev-bridge -f`).
 
 <details><summary>Doing it by hand instead</summary>
@@ -175,6 +185,10 @@ control the car's climate and lights (not locks: the protocol has no remote unlo
 | GET | `/api/carwifi` | The bridge's own link to the car's Wi-Fi (interface, connected, IP, MAC, signal) |
 | POST | `/api/carwifi/scan`, `/api/carwifi/join`, `/api/carwifi/forget` | `{"country":"NO"}` · `{"ssid":…,"password":…}` |
 | POST | `/api/config` | `{"emulator":false}` — saved, then the bridge restarts |
+| GET | `/api/system` | The computer: model, OS, uptime, temperature, memory, disk, addresses, bridge build |
+| GET | `/api/update` | Installed and newest version, whether an update runs, its log (`?check=1` asks GitHub now) |
+| POST | `/api/update` | Update now: download the newest release, check its SHA-256, reinstall, restart |
+| POST | `/api/restart`, `/api/reboot` | Restart the bridge program · restart the computer |
 
 Auth (all but hello/pair): `Authorization: Bearer <token>` or `?token=<token>`.
 

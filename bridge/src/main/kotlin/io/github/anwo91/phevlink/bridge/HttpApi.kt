@@ -32,6 +32,11 @@ import java.util.concurrent.TimeUnit
  *   POST /api/carwifi/join {"ssid":"REMOTExxxxxx","password":"…","country":"NO"} -> save + connect the car network
  *   POST /api/carwifi/forget
  *   POST /api/config       {"emulator":false} -> saved; the bridge restarts to apply it
+ *   GET  /api/system       the computer: model, OS, uptime, temperature, memory, disk, addresses, bridge build
+ *   GET  /api/update       installed/newest version, whether an update runs, its log (?check=1 asks GitHub now)
+ *   POST /api/update       start an update (download the newest release, check it, install, restart)
+ *   POST /api/restart      restart the bridge program (systemd starts it again)
+ *   POST /api/reboot       restart the computer
  *
  * Every /api call needs the token ("Authorization: Bearer <token>" or ?token=<token>), except:
  *   GET  /api/hello        who am I (for the app's discovery) + whether pairing is open
@@ -46,6 +51,7 @@ class HttpApi(
     private val pairing: Pairing? = null,
     private val carWifi: CarWifi? = null,
     private val settingsFile: File? = null,
+    private val updater: Updater? = null,
     private val restart: () -> Unit = {},
 ) {
     private lateinit var server: HttpServer
@@ -94,6 +100,24 @@ class HttpApi(
             }
             path == "carwifi/forget" && ex.requestMethod == "POST" -> withWifi(ex) { json(ex, 200, mapOf("ok" to it.forget())) }
             path == "config" && ex.requestMethod == "POST" -> configChange(ex)
+            path == "system" && ex.requestMethod == "GET" -> json(ex, 200, linkedMapOf(
+                "build" to BridgeService.BUILD, "version" to BridgeService.VERSION,
+                "startedAtMs" to service.startedAtMs, "nowMs" to System.currentTimeMillis(),
+            ) + SystemInfo.read())
+            path == "update" && ex.requestMethod == "GET" -> withUpdater(ex) { json(ex, 200, it.status(force = query(ex)["check"] == "1")) }
+            path == "update" && ex.requestMethod == "POST" -> withUpdater(ex) { u ->
+                val why = u.start(ex.remoteAddress.address.hostAddress)
+                json(ex, if (why == null) 200 else 500, mapOf("ok" to (why == null), "error" to why))
+            }
+            path == "restart" && ex.requestMethod == "POST" -> {
+                log.link("API: restart requested by ${ex.remoteAddress.address.hostAddress}")
+                json(ex, 200, mapOf("ok" to true))
+                restart()
+            }
+            path == "reboot" && ex.requestMethod == "POST" -> withUpdater(ex) { u ->
+                val why = u.reboot(ex.remoteAddress.address.hostAddress)
+                json(ex, if (why == null) 200 else 500, mapOf("ok" to (why == null), "error" to why))
+            }
             path == "status" && ex.requestMethod == "GET" -> json(ex, 200, service.snapshot())
             path == "events" && ex.requestMethod == "GET" -> events(ex)
             path == "command" && ex.requestMethod == "POST" -> command(ex)
@@ -118,6 +142,7 @@ class HttpApi(
         json(ex, 200, linkedMapOf(
             "app" to "phev-bridge",
             "version" to BridgeService.VERSION,
+            "build" to BridgeService.BUILD,
             "name" to hostName(),
             "features" to BridgeService.FEATURES,
             "emulator" to config.emulator,
@@ -151,6 +176,11 @@ class HttpApi(
         log.link("API: emulator=${emulator} saved by ${ex.remoteAddress.address.hostAddress} — restarting to apply it")
         json(ex, 200, mapOf("ok" to true, "restarting" to true))
         restart()
+    }
+
+    private inline fun withUpdater(ex: HttpExchange, block: (Updater) -> Unit) {
+        val u = updater ?: return json(ex, 503, mapOf("ok" to false, "error" to "Updates are not available here"))
+        block(u)
     }
 
     private inline fun withWifi(ex: HttpExchange, block: (CarWifi) -> Unit) {

@@ -151,6 +151,7 @@ class BridgeService(
             "startedAtMs" to startedAtMs,
             "nowMs" to System.currentTimeMillis(),
             "version" to VERSION,
+            "build" to BUILD,
             "features" to FEATURES,
             "emulator" to config.emulator,
             "alerts" to synchronized(recentAlerts) {
@@ -186,9 +187,13 @@ class BridgeService(
     }
 
     companion object {
-        const val VERSION = "1.1"
+        /** API version (what the app can ask for). */
+        const val VERSION = "1.2"
 
-        /** What this bridge can do beyond the car link (the app checks before offering the setup wizard). */
-        val FEATURES = listOf("pair", "carwifi", "config")
+        /** Release this jar was built in ("1.0.40", from the jar's manifest; "dev" for a local build). */
+        val BUILD: String = BridgeService::class.java.`package`?.implementationVersion ?: "dev"
+
+        /** What this bridge can do beyond the car link (the app checks before offering the setup wizard or updates). */
+        val FEATURES = listOf("pair", "carwifi", "config", "system", "update", "restart")
     }
 }

@@ -31,6 +31,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val settings: StateFlow<AppSettings> = g.settings.flow
     val log = g.log
     val bridgeSetup = g.bridgeSetup
+    val bridgeAdmin = g.bridgeAdmin
 
     private val _openPage = MutableStateFlow<String?>(null)
     /** A full-screen page to open (asked for by a notification tap), consumed by the UI with [pageOpened]. */

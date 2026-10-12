@@ -69,17 +69,21 @@ fun main(args: Array<String>) {
     val stateDir = File(config.stateFile).absoluteFile.parentFile
     val pairing = Pairing(config.pairingMinutes, stateDir, log)
     val carWifi = CarWifi(config.wifiHelper, config.carIface, log)
-    // Settings changes from the app (leaving emulator mode) apply on a fresh start; systemd brings us straight back.
+    // Settings changes from the app (leaving emulator mode) and "restart" apply on a fresh start; systemd brings us back.
     val restart = {
         Thread {
             Thread.sleep(800)
-            log.link("Restarting to apply new settings")
+            log.link("Restarting")
             exitProcess(0)
         }.apply { isDaemon = false }.start()
     }
-    val api = HttpApi(config, service, log, pairing, carWifi, configFile, restart)
+    val updater = Updater(File(File(config.wifiHelper).absoluteFile.parentFile, "bridgectl.sh").path, stateDir, log)
+    val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, restart)
     val port = api.start()
-    log.link("Bridge API on http://${config.listenHost}:$port/  (car ${config.carHost}:$carPort)")
+    log.link("Bridge ${BridgeService.BUILD} (API ${BridgeService.VERSION}) on http://${config.listenHost}:$port/  (car ${config.carHost}:$carPort)")
+    // How the last update from the app ended (it restarted us), so it shows in this log too.
+    runCatching { File(stateDir, "update.log").readLines().lastOrNull { it.startsWith("@") } }.getOrNull()
+        ?.let { log.link("Last update: ${it.removePrefix("@")}") }
     pairing.window().let { w ->
         log.link(if (w.open) "Pairing open for ${w.secondsLeft / 60} min ${w.secondsLeft % 60} s (app: Settings → Set up bridge)" else "Pairing closed (${w.reason})")
     }

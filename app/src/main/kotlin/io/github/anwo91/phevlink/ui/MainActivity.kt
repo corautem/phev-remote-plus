@@ -48,6 +48,7 @@ import io.github.anwo91.phevlink.link.DemoMode
 import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.ui.diag.DiagnosticsScreen
 import io.github.anwo91.phevlink.ui.setup.BridgeSetupScreen
+import io.github.anwo91.phevlink.ui.bridge.BridgeScreen
 import io.github.anwo91.phevlink.ui.home.HomeScreen
 import io.github.anwo91.phevlink.ui.obd.ObdScreen
 import io.github.anwo91.phevlink.ui.obd.ObdViewModel
@@ -113,6 +114,7 @@ private object Page {
     const val VEHICLE = "vehicle"
     const val TIPS = "tips"
     const val BRIDGE = "bridge"
+    const val BRIDGE_STATUS = "bridge-status"
 }
 
 /** The always-visible EMULATION bar, shown while demo mode is on so simulated data is never mistaken for the real car. */
@@ -182,6 +184,7 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
         when {
             p == Page.VEHICLE -> VehicleSettingsScreen(vm, m, onBack = { page = null })
             p == Page.BRIDGE -> BridgeSetupScreen(vm, m, onBack = { page = null }, onFinished = { page = null })
+            p == Page.BRIDGE_STATUS -> BridgeScreen(vm, m, onBack = { page = null }, onOpenSetup = { page = Page.BRIDGE })
             p != null && p.startsWith(Page.TIPS) -> TipsScreen(
                 m, initialTip = p.substringAfter(':', "").ifEmpty { null },
                 onBack = { page = null },
@@ -201,7 +204,7 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
                 Tab.SCHEDULE -> ScheduleScreen(vm, m)
                 Tab.OBD -> ObdScreen(obdVm, m, onOpenTip = { page = Page.TIPS + ":" + it })
                 Tab.DIAG -> DiagnosticsScreen(vm, m)
-                Tab.SETTINGS -> SettingsScreen(vm, m, onOpenBridgeSetup = { page = Page.BRIDGE })
+                Tab.SETTINGS -> SettingsScreen(vm, m, onOpenBridgeSetup = { page = Page.BRIDGE }, onOpenBridge = { page = Page.BRIDGE_STATUS })
             }
         }
     }

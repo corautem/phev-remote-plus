@@ -20,5 +20,14 @@
     <string name="set_carpic_icons">Ikoner</string>
     <string name="set_carpic_labels">Etiketter</string>
     <string name="set_carpic_touch">Ved berøring</string>
-    <string name="set_carpic_explain">Trykk på en del av bilen på startsiden for detaljer og knapper; hold for å se den stor. «Ved berøring» holder bildet rent og lyser opp en del når du rører den.</string>
+    <string name="set_carpic_explain">Trykk på en del av bilen på startsiden for detaljer og knapper; hold for å se den stor. «Ved berøring» holder bildet rent og lyser opp en del når du rører den. Fargen deles med de andre telefonene dine via broen.</string>
+    <string name="set_carpic_colour">Farge</string>
+    <string name="car_colour_theme">Som appen</string>
+    <string name="car_colour_white">Hvit</string>
+    <string name="car_colour_silver">Sølv</string>
+    <string name="car_colour_grey">Grå</string>
+    <string name="car_colour_black">Svart</string>
+    <string name="car_colour_red">Rød</string>
+    <string name="car_colour_blue">Blå</string>
+    <string name="car_colour_brown">Brun</string>
 </resources>

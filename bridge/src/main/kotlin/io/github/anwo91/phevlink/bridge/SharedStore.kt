@@ -61,7 +61,7 @@ class SharedStore(private val file: File, private val log: DiagLog, private val 
 
     private fun valid(key: String, v: Any?): Boolean = when (key) {
         "departures" -> v is List<*>
-        "carName", "quickMode", "timeZone" -> v is String && v.length <= 80
+        "carName", "quickMode", "timeZone", "carColor" -> v is String && v.length <= 80
         "fullRangeKm", "quickDuration" -> v is Number
         "homeLat", "homeLon" -> v == null || v is Number
         "quickSmart" -> v is Boolean
@@ -86,6 +86,6 @@ class SharedStore(private val file: File, private val log: DiagLog, private val 
 
     companion object {
         /** What phones may write. */
-        val KEYS = setOf("departures", "carName", "fullRangeKm", "quickMode", "quickDuration", "quickSmart", "homeLat", "homeLon", "timeZone")
+        val KEYS = setOf("departures", "carName", "fullRangeKm", "quickMode", "quickDuration", "quickSmart", "homeLat", "homeLon", "timeZone", "carColor")
     }
 }

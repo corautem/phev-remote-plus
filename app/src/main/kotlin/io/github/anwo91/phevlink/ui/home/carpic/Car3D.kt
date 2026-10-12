@@ -17,6 +17,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.hypot
 import kotlin.math.max
+import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
 
@@ -37,7 +38,10 @@ class Car3DScene : CarScene {
 
     private class V(val x: Float, val y: Float, val z: Float)
 
-    private enum class Kind { BODY, HOOD, GLASS, WINDSCREEN, ROOF, TYRE, RIM, ARCH, HEADLAMP, TAILLAMP, TURN, GRILLE, PLATE, PILLAR, RAIL, PORT, HANDLE, OPENING, LEAF }
+    private enum class Kind {
+        BODY, HOOD, GLASS, WINDSCREEN, ROOF, TYRE, RIM, RIMHOLE, HUB, ARCH, HEADLAMP, TAILLAMP, TURN, GRILLE, CHROME, PLATE,
+        PILLAR, APILLAR, CLAD, RAIL, PORT, HANDLE, OPENING, LEAF,
+    }
 
     private class Face(
         var pts: List<V>,
@@ -59,7 +63,7 @@ class Car3DScene : CarScene {
     private val cam = 9f
     /** Zoomed out a little as the camera looks further down, so the car still fits. */
     private val focal get() = 400f * (1f - 0.4f * ((pitch - 16f) / 54f).coerceIn(0f, 1f))
-    private val cy = 0.83f
+    private val cy = 0.86f
 
     private inner class View {
         val cyaw = cos(yaw * PI / 180).toFloat()
@@ -92,32 +96,40 @@ class Car3DScene : CarScene {
 
     // ------------------------------------------------------------------------------------------ the model
 
-    private class Station(val z: Float, val a: Float, val b: Float, val c: Float, val y0: Float, val y1: Float, val y2: Float)
+    /**
+     * A cross-section of the lower body at [z]: bottom half-width [a] at [y0] (raised over the wheels: the arches),
+     * the top of the dark lower cladding ([bl], [yc]), the widest point ([b], [y1]) and the belt or bonnet edge
+     * ([c], [y2]). Eight points: bottom, cladding, shoulder and top on each side.
+     */
+    private class Station(
+        val z: Float, val a: Float, val y0: Float, val bl: Float, val yc: Float, val b: Float, val y1: Float, val c: Float, val y2: Float,
+    )
 
     private val stations = listOf(
-        Station(-2.33f, .72f, .82f, .72f, .42f, .62f, .98f),
-        Station(-2.20f, .80f, .89f, .82f, .30f, .62f, 1.00f),
-        Station(-1.80f, .82f, .90f, .83f, .30f, .62f, 1.00f),
-        Station(-1.62f, .82f, .90f, .83f, .58f, .66f, 1.00f),
-        Station(-1.38f, .82f, .90f, .83f, .75f, .81f, 1.00f),
-        Station(-1.14f, .82f, .90f, .83f, .58f, .66f, 1.00f),
-        Station(-0.96f, .82f, .90f, .83f, .30f, .62f, 1.00f),
-        Station(-0.05f, .82f, .90f, .83f, .30f, .62f, 1.00f),
-        Station(0.96f, .82f, .90f, .83f, .30f, .62f, 1.00f),
-        Station(1.14f, .82f, .90f, .83f, .58f, .66f, .99f),
-        Station(1.38f, .81f, .90f, .83f, .75f, .81f, .98f),
-        Station(1.62f, .80f, .89f, .82f, .58f, .66f, .955f),
-        Station(1.80f, .79f, .89f, .81f, .30f, .62f, .935f),
-        Station(2.10f, .76f, .87f, .77f, .32f, .60f, .88f),
-        Station(2.33f, .66f, .77f, .64f, .40f, .56f, .76f),
+        Station(-2.33f, .70f, .42f, .78f, .56f, .82f, .84f, .72f, 1.04f),
+        Station(-2.24f, .78f, .34f, .86f, .52f, .89f, .84f, .80f, 1.08f),
+        Station(-1.80f, .80f, .30f, .88f, .48f, .91f, .84f, .83f, 1.08f),
+        Station(-1.62f, .80f, .60f, .88f, .65f, .91f, .84f, .83f, 1.08f),
+        Station(-1.38f, .80f, .76f, .88f, .80f, .91f, .88f, .83f, 1.08f),
+        Station(-1.14f, .80f, .60f, .88f, .65f, .91f, .84f, .83f, 1.08f),
+        Station(-0.96f, .80f, .30f, .88f, .48f, .91f, .84f, .83f, 1.08f),
+        Station(-0.05f, .80f, .30f, .88f, .48f, .91f, .84f, .83f, 1.08f),
+        Station(0.96f, .80f, .30f, .88f, .48f, .91f, .84f, .83f, 1.08f),
+        Station(1.14f, .80f, .60f, .88f, .65f, .91f, .84f, .83f, 1.07f),
+        Station(1.38f, .80f, .76f, .88f, .80f, .91f, .88f, .83f, 1.055f),
+        Station(1.62f, .79f, .60f, .87f, .65f, .90f, .84f, .82f, 1.04f),
+        Station(1.80f, .78f, .32f, .86f, .48f, .89f, .83f, .80f, 1.02f),
+        Station(2.10f, .74f, .34f, .83f, .48f, .87f, .80f, .78f, .98f),
+        Station(2.33f, .66f, .38f, .74f, .50f, .78f, .76f, .66f, .90f),
     )
 
     private fun section(s: Station): List<V> = listOf(
-        V(-s.a, s.y0, s.z), V(s.a, s.y0, s.z), V(s.b, s.y1, s.z), V(s.c, s.y2, s.z), V(-s.c, s.y2, s.z), V(-s.b, s.y1, s.z),
+        V(-s.a, s.y0, s.z), V(s.a, s.y0, s.z), V(s.bl, s.yc, s.z), V(s.b, s.y1, s.z),
+        V(s.c, s.y2, s.z), V(-s.c, s.y2, s.z), V(-s.b, s.y1, s.z), V(-s.bl, s.yc, s.z),
     )
 
-    /** x of the upper side panel (between shoulder line and belt) at height [y], for decals on it. */
-    private fun upperSideX(y: Float) = 0.900f - 0.072f * (y - 0.62f) / 0.38f + 0.006f
+    /** x of the upper side panel (shoulder to belt) at height [y] in the middle of the car, for decals on it. */
+    private fun upperSideX(y: Float) = 0.91f - 0.08f * (y - 0.84f) / 0.24f + 0.006f
 
     private fun quad(a: V, b: V, c: V, d: V) = listOf(a, b, c, d)
 
@@ -148,9 +160,26 @@ class Car3DScene : CarScene {
         return V(p.x, hy + dy * cos(a) - dz * sin(a), hz + dy * sin(a) + dz * cos(a))
     }
 
+    /** The cabin as four rings from the belt line up to the roof crown: (height, half-width, front z, rear z, corner). */
+    private class Ring(val y: Float, val w: Float, val zf: Float, val zr: Float, val k: Float) {
+        /** Eight corners, starting front-right, going round. */
+        fun points(): List<V> = listOf(
+            V(w - k, y, zf), V(w, y, zf - k), V(w, y, zr + k), V(w - k, y, zr),
+            V(-w + k, y, zr), V(-w, y, zr + k), V(-w, y, zf - k), V(-w + k, y, zf),
+        )
+    }
+
     private val ROOF = 1.70f
+
+    private val rings = listOf(
+        Ring(1.08f, .83f, 1.05f, -2.24f, .10f),
+        Ring(1.60f, .74f, 0.36f, -2.02f, .14f),
+        Ring(1.67f, .64f, 0.20f, -1.96f, .16f),
+        Ring(ROOF, .42f, 0.08f, -1.88f, .12f),
+    )
+
     private val portZ = -1.98f
-    private val portY = 0.85f
+    private val portY = 0.94f
     private val port = V(upperSideX(portY), portY, portZ)
 
     /** Builds the faces for [doors]; wheels separately (drawn first, under everything). */
@@ -163,79 +192,111 @@ class Car3DScene : CarScene {
             val s0 = secs[i]; val s1 = secs[i + 1]
             val z0 = stations[i].z; val z1 = stations[i + 1].z
             val zc = (z0 + z1) / 2f
-            for (e in 1..5) {
-                val k = (e + 1) % 6
+            for (e in 1..7) {
+                val k = (e + 1) % 8
+                val top = e == 4
                 // Under the cabin the body top is hidden; skip it.
-                if (e == 3 && z0 >= -2.12f && z1 <= 0.96f) continue
+                if (top && z0 >= -2.24f && z1 <= 0.96f) continue
                 val pts = outward(quad(s0[e], s0[k], s1[k], s1[e]), V(0f, 0.62f, zc))
-                val right = e == 1 || e == 2
-                val side = e != 3
+                val right = e <= 3
+                val clad = e == 1 || e == 7
                 val doorKey = when {
-                    side && z0 == frontDoor.first && z1 == frontDoor.second -> if (right) "fr" else "fl"
-                    side && z0 == rearDoor.first && z1 == rearDoor.second -> if (right) "rr" else "rl"
+                    clad || top -> ""
+                    z0 == frontDoor.first && z1 == frontDoor.second -> if (right) "fr" else "fl"
+                    z0 == rearDoor.first && z1 == rearDoor.second -> if (right) "rr" else "rl"
                     else -> ""
                 }
-                val hood = e == 3 && z0 >= 0.96f
-                val f = Face(pts, if (hood) Kind.HOOD else Kind.BODY, if (hood) CarPart.LIGHTS else CarPart.BODY, tag = doorKey.ifEmpty { if (hood) "hood" else "" })
+                val hood = top && z0 >= 0.96f
+                val kind = when {
+                    clad -> Kind.CLAD
+                    hood -> Kind.HOOD
+                    else -> Kind.BODY
+                }
+                val f = Face(pts, kind, if (hood) CarPart.LIGHTS else CarPart.BODY, tag = doorKey.ifEmpty { if (hood) "hood" else "" })
                 // Door handles and the charge-port flap sit on the upper side panels.
-                if (e == 2 || e == 4) {
-                    val sx = if (e == 2) 1f else -1f
+                if (e == 3 || e == 5) {
+                    val sx = if (e == 3) 1f else -1f
                     if (doorKey.isNotEmpty()) {
                         val hz = if (doorKey[0] == 'f') 0.30f else -0.66f
-                        f.decals += Face(quad(V(sx * upperSideX(0.86f), 0.86f, hz), V(sx * upperSideX(0.86f), 0.86f, hz + 0.20f), V(sx * upperSideX(0.90f), 0.90f, hz + 0.20f), V(sx * upperSideX(0.90f), 0.90f, hz)), Kind.HANDLE, CarPart.BODY)
+                        f.decals += Face(quad(V(sx * upperSideX(0.94f), 0.94f, hz), V(sx * upperSideX(0.94f), 0.94f, hz + 0.20f), V(sx * upperSideX(0.98f), 0.98f, hz + 0.20f), V(sx * upperSideX(0.98f), 0.98f, hz)), Kind.HANDLE, CarPart.BODY)
                     }
-                    if (e == 2 && z0 == -2.20f) {
-                        f.decals += Face(quad(V(upperSideX(0.78f), 0.78f, portZ - 0.10f), V(upperSideX(0.78f), 0.78f, portZ + 0.10f), V(upperSideX(0.92f), 0.92f, portZ + 0.10f), V(upperSideX(0.92f), 0.92f, portZ - 0.10f)), Kind.PORT, CarPart.CHARGE)
+                    if (e == 3 && z0 == -2.24f) {
+                        f.decals += Face(quad(V(upperSideX(0.88f), 0.88f, portZ - 0.10f), V(upperSideX(0.88f), 0.88f, portZ + 0.10f), V(upperSideX(1.0f), 1.0f, portZ + 0.10f), V(upperSideX(1.0f), 1.0f, portZ - 0.10f)), Kind.PORT, CarPart.CHARGE)
                     }
                 }
                 faces += f
             }
         }
-        // Front: grille, headlights, intake, turn lights.
+
+        // Front: bumper cladding, grille with its chrome bar, headlights, intake, turn lights.
         val front = Face(outward(secs.last(), V(0f, 0.62f, 0f)), Kind.BODY, CarPart.LIGHTS, tag = "front")
         val fz = 2.336f
-        front.decals += Face(quad(V(-0.26f, 0.58f, fz), V(0.26f, 0.58f, fz), V(0.24f, 0.73f, fz), V(-0.24f, 0.73f, fz)), Kind.GRILLE, CarPart.LIGHTS)
-        front.decals += Face(quad(V(-0.40f, 0.45f, fz), V(0.40f, 0.45f, fz), V(0.44f, 0.55f, fz), V(-0.44f, 0.55f, fz)), Kind.GRILLE, CarPart.LIGHTS)
+        front.decals += Face(quad(V(-0.66f, 0.38f, fz), V(0.66f, 0.38f, fz), V(0.74f, 0.50f, fz), V(-0.74f, 0.50f, fz)), Kind.CLAD, CarPart.LIGHTS)
+        // A slim upper grille between the headlights and a big lower one, each with a chrome bar.
+        front.decals += Face(quad(V(-0.30f, 0.76f, fz), V(0.30f, 0.76f, fz), V(0.28f, 0.84f, fz), V(-0.28f, 0.84f, fz)), Kind.GRILLE, CarPart.LIGHTS)
+        front.decals += Face(quad(V(-0.31f, 0.79f, fz), V(0.31f, 0.79f, fz), V(0.30f, 0.81f, fz), V(-0.30f, 0.81f, fz)), Kind.CHROME, CarPart.LIGHTS)
+        front.decals += Face(quad(V(-0.38f, 0.50f, fz), V(0.38f, 0.50f, fz), V(0.42f, 0.69f, fz), V(-0.42f, 0.69f, fz)), Kind.GRILLE, CarPart.LIGHTS)
+        front.decals += Face(quad(V(-0.40f, 0.59f, fz), V(0.40f, 0.59f, fz), V(0.405f, 0.61f, fz), V(-0.405f, 0.61f, fz)), Kind.CHROME, CarPart.LIGHTS)
         for (sx in listOf(-1f, 1f)) {
-            front.decals += Face(quad(V(sx * 0.68f, 0.63f, fz), V(sx * 0.29f, 0.66f, fz), V(sx * 0.29f, 0.72f, fz), V(sx * 0.62f, 0.72f, fz)), Kind.HEADLAMP, CarPart.LIGHTS, tag = "head")
-            front.decals += Face(quad(V(sx * 0.66f, 0.47f, fz), V(sx * 0.50f, 0.47f, fz), V(sx * 0.50f, 0.53f, fz), V(sx * 0.70f, 0.53f, fz)), Kind.TURN, CarPart.LIGHTS)
+            front.decals += Face(quad(V(sx * 0.77f, 0.74f, fz), V(sx * 0.32f, 0.76f, fz), V(sx * 0.31f, 0.85f, fz), V(sx * 0.66f, 0.865f, fz)), Kind.HEADLAMP, CarPart.LIGHTS, tag = "head")
+            front.decals += Face(quad(V(sx * 0.71f, 0.54f, fz), V(sx * 0.55f, 0.54f, fz), V(sx * 0.55f, 0.60f, fz), V(sx * 0.73f, 0.60f, fz)), Kind.TURN, CarPart.LIGHTS)
         }
         faces += front
-        // Rear: tail lights and plate.
+        // Rear: bumper cladding, tail lights, plate with a chrome strip.
         val rear = Face(outward(secs.first(), V(0f, 0.62f, 0f)), Kind.BODY, CarPart.BODY, tag = "rear")
         val rz = -2.336f
+        rear.decals += Face(quad(V(-0.70f, 0.42f, rz), V(0.70f, 0.42f, rz), V(0.78f, 0.56f, rz), V(-0.78f, 0.56f, rz)), Kind.CLAD, CarPart.BODY)
         for (sx in listOf(-1f, 1f)) {
-            rear.decals += Face(quad(V(sx * 0.79f, 0.66f, rz), V(sx * 0.50f, 0.69f, rz), V(sx * 0.50f, 0.79f, rz), V(sx * 0.74f, 0.86f, rz)), Kind.TAILLAMP, CarPart.BODY)
-            rear.decals += Face(quad(V(sx * 0.78f, 0.62f, rz), V(sx * 0.62f, 0.62f, rz), V(sx * 0.62f, 0.655f, rz), V(sx * 0.79f, 0.655f, rz)), Kind.TURN, CarPart.BODY)
+            rear.decals += Face(quad(V(sx * 0.81f, 0.80f, rz), V(sx * 0.50f, 0.82f, rz), V(sx * 0.50f, 0.92f, rz), V(sx * 0.76f, 0.95f, rz)), Kind.TAILLAMP, CarPart.BODY)
+            rear.decals += Face(quad(V(sx * 0.80f, 0.755f, rz), V(sx * 0.62f, 0.755f, rz), V(sx * 0.62f, 0.79f, rz), V(sx * 0.81f, 0.79f, rz)), Kind.TURN, CarPart.BODY)
         }
-        rear.decals += Face(quad(V(-0.24f, 0.48f, rz), V(0.24f, 0.48f, rz), V(0.24f, 0.60f, rz), V(-0.24f, 0.60f, rz)), Kind.PLATE, CarPart.BODY)
+        rear.decals += Face(quad(V(-0.22f, 0.58f, rz), V(0.22f, 0.58f, rz), V(0.22f, 0.70f, rz), V(-0.22f, 0.70f, rz)), Kind.PLATE, CarPart.BODY)
+        rear.decals += Face(quad(V(-0.32f, 0.72f, rz), V(0.32f, 0.72f, rz), V(0.32f, 0.74f, rz), V(-0.32f, 0.74f, rz)), Kind.CHROME, CarPart.BODY)
         faces += rear
 
-        // The cabin: a frustum of glass and roof on the belt line, with pillars and roof rails.
-        val ref = V(0f, 1.0f, -0.95f)
-        val b0 = V(-0.83f, 1.0f, -2.12f); val b1 = V(0.83f, 1.0f, -2.12f); val b2 = V(0.83f, 1.0f, 1.05f); val b3 = V(-0.83f, 1.0f, 1.05f)
-        val t0 = V(-0.70f, ROOF, -1.95f); val t1 = V(0.70f, ROOF, -1.95f); val t2 = V(0.70f, ROOF, 0.25f); val t3 = V(-0.70f, ROOF, 0.25f)
-        val roof = Face(outward(quad(t0, t1, t2, t3), ref), Kind.ROOF, CarPart.CABIN)
-        for (sx in listOf(-0.56f, 0.56f)) {
-            roof.decals += Face(quad(V(sx - 0.03f, ROOF + 0.005f, -1.82f), V(sx + 0.03f, ROOF + 0.005f, -1.82f), V(sx + 0.03f, ROOF + 0.005f, 0.10f), V(sx - 0.03f, ROOF + 0.005f, 0.10f)), Kind.RAIL, CarPart.CABIN)
+        // The cabin: rings from the belt up to the roof crown. Glass between the first two, black A-pillars, body
+        // colour above; side windows with a black B-pillar; roof rails and a small spoiler over the tailgate.
+        val ref = V(0f, 1.3f, -0.6f)
+        val rp = rings.map { it.points() }
+        for (band in 0 until rings.size - 1) {
+            val lo = rp[band]; val hi = rp[band + 1]
+            for (j in 0 until 8) {
+                val k = (j + 1) % 8
+                val pts = outward(quad(lo[j], lo[k], hi[k], hi[j]), ref)
+                val face = when {
+                    band > 0 -> Face(pts, Kind.ROOF, CarPart.CABIN)
+                    j == 7 -> Face(pts, Kind.WINDSCREEN, CarPart.CABIN, tag = "windscreen")
+                    j == 3 -> Face(pts, Kind.GLASS, CarPart.CABIN, tag = "rearwindow")
+                    j == 0 || j == 6 -> Face(pts, Kind.APILLAR, CarPart.CABIN)
+                    else -> Face(pts, Kind.PILLAR, CarPart.CABIN)
+                }
+                if (band == 0 && (j == 1 || j == 5)) {
+                    val sx = if (j == 1) 1f else -1f
+                    val r0 = rings[0]; val r1 = rings[1]
+                    fun on(z: Float, y: Float): V {
+                        val t = (y - r0.y) / (r1.y - r0.y)
+                        return V(sx * (r0.w + (r1.w - r0.w) * t + 0.004f), y, z)
+                    }
+                    face.decals += Face(quad(on(-2.06f, 1.12f), on(-1.10f, 1.12f), on(-1.14f, 1.56f), on(-1.84f, 1.56f)), Kind.GLASS, CarPart.CABIN)
+                    face.decals += Face(quad(on(-0.97f, 1.12f), on(-0.10f, 1.12f), on(-0.16f, 1.56f), on(-1.02f, 1.56f)), Kind.GLASS, CarPart.CABIN)
+                    face.decals += Face(quad(on(-0.10f, 1.12f), on(0.03f, 1.12f), on(-0.08f, 1.56f), on(-0.16f, 1.56f)), Kind.APILLAR, CarPart.CABIN)
+                    face.decals += Face(quad(on(0.03f, 1.12f), on(0.85f, 1.12f), on(0.24f, 1.56f), on(-0.08f, 1.56f)), Kind.GLASS, CarPart.CABIN)
+                }
+                faces += face
+            }
+        }
+        val roof = Face(outward(rp.last(), ref), Kind.ROOF, CarPart.CABIN)
+        for (sx in listOf(-0.34f, 0.34f)) {
+            roof.decals += Face(quad(V(sx - 0.025f, ROOF + 0.004f, -1.74f), V(sx + 0.025f, ROOF + 0.004f, -1.74f), V(sx + 0.025f, ROOF + 0.004f, -0.04f), V(sx - 0.025f, ROOF + 0.004f, -0.04f)), Kind.RAIL, CarPart.CABIN)
         }
         faces += roof
-        faces += Face(outward(quad(b3, b2, t2, t3), ref), Kind.WINDSCREEN, CarPart.CABIN, tag = "windscreen")
-        faces += Face(outward(quad(b0, b1, t1, t0), ref), Kind.GLASS, CarPart.CABIN, tag = "rearwindow")
-        for (sx in listOf(-1f, 1f)) {
-            val sideFace = Face(outward(if (sx > 0) quad(b1, b2, t2, t1) else quad(b0, b3, t3, t0), ref), Kind.PILLAR, CarPart.CABIN)
-            fun on(z: Float, y: Float) = V(sx * (0.83f - 0.13f * (y - 1f) / (ROOF - 1f) + 0.004f), y, z)
-            sideFace.decals += Face(quad(on(-2.02f, 1.05f), on(-1.08f, 1.05f), on(-1.16f, 1.64f), on(-1.88f, 1.64f)), Kind.GLASS, CarPart.CABIN)
-            sideFace.decals += Face(quad(on(-0.98f, 1.05f), on(-0.10f, 1.05f), on(-0.18f, 1.64f), on(-1.06f, 1.64f)), Kind.GLASS, CarPart.CABIN)
-            sideFace.decals += Face(quad(on(0.03f, 1.05f), on(0.90f, 1.05f), on(0.31f, 1.62f), on(-0.06f, 1.64f)), Kind.GLASS, CarPart.CABIN)
-            faces += sideFace
-        }
+        faces += Face(quad(V(-0.58f, 1.67f, -1.96f), V(0.58f, 1.67f, -1.96f), V(0.55f, 1.635f, -2.10f), V(-0.55f, 1.635f, -2.10f)), Kind.ROOF, CarPart.CABIN, twoSided = true, tag = "spoiler")
 
         // Mirrors.
         for (sx in listOf(-1f, 1f)) {
-            val x0 = sx * 0.86f; val x1 = sx * 1.00f
-            val y0 = 1.00f; val y1 = 1.10f
-            val z0 = 0.82f; val z1 = 0.96f
+            val x0 = sx * 0.84f; val x1 = sx * 1.00f
+            val y0 = 1.10f; val y1 = 1.20f
+            val z0 = 0.86f; val z1 = 0.98f
             val c = V((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2)
             val box = listOf(
                 quad(V(x0, y0, z0), V(x1, y0, z0), V(x1, y1, z0), V(x0, y1, z0)),
@@ -249,50 +310,61 @@ class Car3DScene : CarScene {
 
         // Open doors swing out on their front hinges (as leaves); the opening shows dark.
         val open = mapOf("fl" to doors.driver, "fr" to doors.frontPassenger, "rl" to doors.rearLeft, "rr" to doors.rearRight)
+        fun isOpen(f: Face) = open[f.tag] == true || (f.tag == "hood" && doors.bonnet) || ((f.tag == "rearwindow" || f.tag == "spoiler") && doors.boot)
         val extra = ArrayList<Face>()
         for (f in faces) {
-            val isOpen = open[f.tag] == true || (f.tag == "hood" && doors.bonnet) || (f.tag == "rearwindow" && doors.boot)
-            if (!isOpen) continue
-            val leaf = when {
-                f.tag == "hood" -> f.pts.map { rotX(it, 1.0f, 0.96f, -38f) }
-                f.tag == "rearwindow" -> f.pts.map { rotX(it, ROOF, -1.95f, 70f) }
+            if (!isOpen(f)) continue
+            val leaf = when (f.tag) {
+                "hood" -> f.pts.map { rotX(it, 1.08f, 0.96f, -38f) }
+                "rearwindow", "spoiler" -> f.pts.map { rotX(it, 1.67f, -1.96f, 70f) }
                 else -> {
                     val right = f.tag[1] == 'r'
                     val hingeZ = if (f.tag[0] == 'f') 0.96f else -0.05f
-                    f.pts.map { rotY(it, if (right) 0.90f else -0.90f, hingeZ, if (right) -50f else 50f) }
+                    f.pts.map { rotY(it, if (right) 0.91f else -0.91f, hingeZ, if (right) -50f else 50f) }
                 }
             }
             extra += Face(leaf, Kind.LEAF, f.part, twoSided = true, tag = if (f.tag.length == 2) "door" else "")
         }
         if (doors.boot) {
             // The tailgate's lower panel lifts with its glass.
-            val panel = quad(V(-0.72f, 0.66f, -2.33f), V(0.72f, 0.66f, -2.33f), V(0.80f, 1.0f, -2.14f), V(-0.80f, 1.0f, -2.14f))
-            extra += Face(panel.map { rotX(it, ROOF, -1.95f, 70f) }, Kind.LEAF, CarPart.BODY, twoSided = true)
+            val panel = quad(V(-0.72f, 0.76f, -2.33f), V(0.72f, 0.76f, -2.33f), V(0.80f, 1.08f, -2.24f), V(-0.80f, 1.08f, -2.24f))
+            extra += Face(panel.map { rotX(it, 1.67f, -1.96f, 70f) }, Kind.LEAF, CarPart.BODY, twoSided = true)
         }
-        faces.forEach { f ->
-            if (open[f.tag] == true || (f.tag == "hood" && doors.bonnet) || (f.tag == "rearwindow" && doors.boot)) {
-                f.decals.clear()
-                faces[faces.indexOf(f)] = Face(f.pts, Kind.OPENING, f.part, decals = f.decals, tag = f.tag)
+        for (i in faces.indices) {
+            val f = faces[i]
+            if (isOpen(f)) {
+                faces[i] = if (f.tag == "spoiler") Face(emptyList(), Kind.OPENING, f.part) else Face(f.pts, Kind.OPENING, f.part, tag = f.tag)
             }
         }
+        faces.removeAll { it.pts.isEmpty() }
         faces += extra
 
-        // Wheels: dark arch discs, tyres and rims.
+        // Wheels: dark arch discs, tyres and five-spoke rims.
         val wheels = ArrayList<Face>()
         for (sx in listOf(-1f, 1f)) for (wz in listOf(-1.38f, 1.38f)) {
-            val n = 14
+            val n = 16
             val r = 0.36f; val yc = 0.36f
             val xo = sx * 0.92f; val xi = sx * 0.68f
             val c = V(sx * 0.80f, yc, wz)
             wheels += Face((0 until 16).map { i -> val a = i * 2 * PI.toFloat() / 16; V(sx * 0.84f, 0.42f + 0.42f * sin(a), wz + 0.42f * cos(a)) }, Kind.ARCH, CarPart.BODY, twoSided = true)
-            val ring = { x: Float, rr: Float -> (0 until n).map { i -> val a = i * 2 * PI.toFloat() / n; V(x, yc + rr * sin(a), wz + rr * cos(a)) } }
+            fun at(x: Float, rr: Float, deg: Float): V {
+                val a = deg * PI.toFloat() / 180f
+                return V(x, yc + rr * sin(a), wz + rr * cos(a))
+            }
+            val ring = { x: Float, rr: Float -> (0 until n).map { i -> at(x, rr, i * 360f / n) } }
             val outer = ring(xo, r); val inner = ring(xi, r)
             for (i in 0 until n) {
                 val j = (i + 1) % n
                 wheels += Face(outward(quad(outer[i], outer[j], inner[j], inner[i]), c), Kind.TYRE, CarPart.BODY)
             }
             val cap = Face(outward(outer, c), Kind.TYRE, CarPart.BODY)
-            cap.decals += Face(ring(xo + sx * 0.004f, 0.22f), Kind.RIM, CarPart.BODY)
+            val xr = xo + sx * 0.004f
+            cap.decals += Face(ring(xr, 0.235f), Kind.RIM, CarPart.BODY)
+            for (s in 0 until 5) {
+                val m = s * 72f + 18f
+                cap.decals += Face(listOf(at(xr, 0.085f, m - 13f), at(xr, 0.205f, m - 24f), at(xr, 0.215f, m), at(xr, 0.205f, m + 24f), at(xr, 0.085f, m + 13f)), Kind.RIMHOLE, CarPart.BODY)
+            }
+            cap.decals += Face(ring(xr, 0.05f), Kind.HUB, CarPart.BODY)
             wheels += cap
         }
         return faces to wheels
@@ -300,13 +372,18 @@ class Car3DScene : CarScene {
 
     // ------------------------------------------------------------------------------------------ drawing
 
-    private class Out(val face: Face, val xs: FloatArray, val ys: FloatArray, val depth: Float, val shade: Float, val visible: Boolean)
+    private class Out(val face: Face, val xs: FloatArray, val ys: FloatArray, val depth: Float, val shade: Float, val visible: Boolean, val spec: Float)
 
     override fun draw(pen: Pen, car: CarState, pal: Palette, anim: Anim, highlight: CarPart?) {
         val v = View()
         val doors = car.doors ?: Doors()
         val (faces, wheels) = build(doors)
         val lightDir = run { val l = floatArrayOf(-0.35f, 0.80f, 0.50f); val n = sqrt(l.sumOf { (it * it).toDouble() }).toFloat(); l.map { it / n } }
+        val half = run {
+            val l = floatArrayOf(lightDir[0], lightDir[1], lightDir[2] + 1f)
+            val n = sqrt(l.sumOf { (it * it).toDouble() }).toFloat()
+            l.map { it / n }
+        }
 
         fun out(f: Face): Out {
             val p = f.pts.map(v::xf)
@@ -322,7 +399,10 @@ class Car3DScene : CarScene {
             var facing = nx * (0f - cxv) + ny * (0f - cyv) + nz * (cam - czv) > 0f
             if (f.twoSided && !facing) { nx = -nx; ny = -ny; nz = -nz; facing = true }
             val lam = max(0f, nx * lightDir[0] + ny * lightDir[1] + nz * lightDir[2])
-            return Out(f, xs, ys, czv, lam, facing)
+            // A glint where the light reflects towards the viewer (glossy paint).
+            val h = max(0f, nx * half[0] + ny * half[1] + nz * half[2])
+            val spec = h.toDouble().pow(28.0).toFloat()
+            return Out(f, xs, ys, czv, lam, facing, spec)
         }
 
         // Ground shadow.
@@ -342,8 +422,8 @@ class Car3DScene : CarScene {
         if (car.headlights == true) {
             for (sx in listOf(-1f, 1f)) {
                 // A cone of light from the lamp down to the road a few metres ahead.
-                val q = listOf(V(sx * 0.62f, 0.68f, 2.36f), V(sx * 0.30f, 0.68f, 2.36f), V(sx * 0.05f, 0f, 5.4f), V(sx * 1.45f, 0f, 5.4f)).map(v::project)
-                val a = v.project(V(sx * 0.45f, 0.68f, 2.36f)); val b = v.project(V(sx * 0.75f, 0f, 5.4f))
+                val q = listOf(V(sx * 0.70f, 0.80f, 2.36f), V(sx * 0.34f, 0.80f, 2.36f), V(sx * 0.05f, 0f, 5.4f), V(sx * 1.45f, 0f, 5.4f)).map(v::project)
+                val a = v.project(V(sx * 0.52f, 0.80f, 2.36f)); val b = v.project(V(sx * 0.75f, 0f, 5.4f))
                 pen.fill(Shape().poly(*q.flatMap { listOf(it[0], it[1]) }.toFloatArray()), Paint.Linear(a[0], a[1], b[0], b[1], intArrayOf(withAlpha(HEADLIGHT, 0.55f), withAlpha(HEADLIGHT, 0f))))
             }
         }
@@ -374,17 +454,17 @@ class Car3DScene : CarScene {
         val rearVisible = v.facing(0f, 0f, -1f, V(0f, 0.6f, -2.33f))
         val lit = car.headlights == true || car.parkingLights == true
         if (lit && frontVisible) for (sx in listOf(-1f, 1f)) {
-            val p = v.project(V(sx * 0.48f, 0.72f, 2.34f))
+            val p = v.project(V(sx * 0.52f, 0.80f, 2.34f))
             pen.glow(p[0], p[1], 12f, if (car.headlights == true) HEADLIGHT else AMBER, 0.6f)
         }
         if (lit && rearVisible) for (sx in listOf(-1f, 1f)) {
-            val p = v.project(V(sx * 0.64f, 0.76f, -2.34f))
+            val p = v.project(V(sx * 0.64f, 0.87f, -2.34f))
             pen.glow(p[0], p[1], 9f, TAIL, 0.5f)
         }
         if (car.hazardLights == true && anim.blinkOn) {
             for (sx in listOf(-1f, 1f)) {
-                if (frontVisible) v.project(V(sx * 0.60f, 0.50f, 2.34f)).let { pen.glow(it[0], it[1], 9f, AMBER, 0.75f) }
-                if (rearVisible) v.project(V(sx * 0.70f, 0.64f, -2.34f)).let { pen.glow(it[0], it[1], 9f, AMBER, 0.75f) }
+                if (frontVisible) v.project(V(sx * 0.63f, 0.57f, 2.34f)).let { pen.glow(it[0], it[1], 9f, AMBER, 0.75f) }
+                if (rearVisible) v.project(V(sx * 0.70f, 0.77f, -2.34f)).let { pen.glow(it[0], it[1], 9f, AMBER, 0.75f) }
             }
         }
         if (car.interiorLights == true) v.project(V(0f, 1.3f, -0.9f)).let { pen.glow(it[0], it[1], 26f, INTERIOR, 0.55f) }
@@ -420,6 +500,7 @@ class Car3DScene : CarScene {
         val lit = f.kind == Kind.HEADLAMP || f.kind == Kind.TAILLAMP || f.kind == Kind.TURN
         if (!lit) c = shade(c, (0.66f + 0.42f * o.shade).coerceAtMost(1.06f))
         if (f.kind == Kind.GLASS || f.kind == Kind.WINDSCREEN) c = lerpColor(c, WHITE, 0.18f * o.shade * o.shade)
+        if (f.kind == Kind.BODY || f.kind == Kind.HOOD || f.kind == Kind.ROOF || f.kind == Kind.PILLAR || f.kind == Kind.LEAF) c = lerpColor(c, WHITE, 0.45f * o.spec)
         if (car.theftAlarm == TheftAlarm.TRIGGERED && (f.kind == Kind.BODY || f.kind == Kind.HOOD || f.kind == Kind.LEAF)) c = lerpColor(c, pal.bad, 0.15f + 0.35f * anim.pulse)
         if (highlight != null && f.part == highlight) c = lerpColor(c, pal.highlight, 0.42f)
         // Same-colour hairline over the edges hides seams between neighbouring faces.
@@ -478,7 +559,12 @@ class Car3DScene : CarScene {
                 else -> glassBase
             }
             Kind.TYRE -> pal.tyre
-            Kind.RIM -> 0xFFB9C0C5.toInt()
+            Kind.RIM -> 0xFFC2C8CC.toInt()
+            Kind.RIMHOLE -> lerpColor(pal.tyre, BLACK, 0.3f)
+            Kind.HUB -> 0xFF8E969C.toInt()
+            Kind.CLAD -> if (pal.dark) 0xFF262B2F.toInt() else 0xFF3B4146.toInt()
+            Kind.CHROME -> 0xFFD8DDE0.toInt()
+            Kind.APILLAR -> lerpColor(pal.glass, BLACK, 0.45f)
             Kind.ARCH -> lerpColor(pal.tyre, BLACK, 0.5f)
             Kind.HEADLAMP -> when {
                 car.headlights == true -> HEADLIGHT
@@ -522,7 +608,7 @@ class Car3DScene : CarScene {
         val nose = v.xf(V(0f, cy, 1f))
         val frontish = nose[2] > -0.45f
         return listOf(
-            hint(CarPart.LIGHTS, V(0f, 0.86f, 1.95f), 0f, visible = frontish),
+            hint(CarPart.LIGHTS, V(0f, 0.97f, 1.80f), 0f, visible = frontish),
             hint(CarPart.CABIN, V(side * 0.77f, 1.33f, -0.55f), -12f),
             hint(CarPart.BODY, V(side * 0.92f, 0.62f, 0.45f), 22f),
             hint(CarPart.CHARGE, port, 0f, visible = rightVisible),

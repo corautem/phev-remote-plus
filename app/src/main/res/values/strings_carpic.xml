@@ -20,5 +20,14 @@
     <string name="set_carpic_icons">Icons</string>
     <string name="set_carpic_labels">Labels</string>
     <string name="set_carpic_touch">On touch</string>
-    <string name="set_carpic_explain">Tap a part of the car on the home screen for details and buttons; hold it to see it large. “On touch” keeps the picture clean and lights a part up when you touch it.</string>
+    <string name="set_carpic_explain">Tap a part of the car on the home screen for details and buttons; hold it to see it large. “On touch” keeps the picture clean and lights a part up when you touch it. The colour is shared with your other phones through the bridge.</string>
+    <string name="set_carpic_colour">Colour</string>
+    <string name="car_colour_theme">Match the app</string>
+    <string name="car_colour_white">White</string>
+    <string name="car_colour_silver">Silver</string>
+    <string name="car_colour_grey">Grey</string>
+    <string name="car_colour_black">Black</string>
+    <string name="car_colour_red">Red</string>
+    <string name="car_colour_blue">Blue</string>
+    <string name="car_colour_brown">Brown</string>
 </resources>

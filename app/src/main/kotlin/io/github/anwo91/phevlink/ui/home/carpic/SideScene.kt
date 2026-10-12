@@ -152,6 +152,13 @@ object SideScene : CarScene {
             }
             if (car.interiorLights == true) glow(100f, 34f, 26f, INTERIOR, 0.7f)
 
+            // Dark plastic along the sills, the bumpers' lower edge and round the wheel arches (an SUV's cladding).
+            val clad = if (pal.dark) 0xFF262B2F.toInt() else 0xFF3B4146.toInt()
+            fill(Shape().rect(0f, 77f, w, h), clad)
+            listOf(REAR_WHEEL, FRONT_WHEEL).forEach { (x, _) ->
+                stroke(Shape().arcTo(x - 20f, 66f, x + 20f, 106f, 180f, 180f), solid(clad), 5f, roundCap = false)
+            }
+
             // Panel lines.
             val seam = solid(pal.outline)
             stroke(Shape().moveTo(110f, 46f).lineTo(110f, 84f), seam, 0.9f)

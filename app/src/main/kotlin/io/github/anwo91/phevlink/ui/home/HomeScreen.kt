@@ -1,5 +1,6 @@
 package io.github.anwo91.phevlink.ui.home
 
+import io.github.anwo91.phevlink.data.CarColour
 import io.github.anwo91.phevlink.data.CarStyle
 import io.github.anwo91.phevlink.data.TapHints
 import io.github.anwo91.phevlink.ui.home.carpic.CarPart
@@ -121,7 +122,7 @@ fun HomeScreen(
         item { AttentionCard(car) }
         item {
             HeroHeader(
-                car, link, settings.fullRangeKm, settings.carName, now, settings.carStyle, settings.tapHints,
+                car, link, settings.fullRangeKm, settings.carName, now, settings.carStyle, settings.tapHints, settings.carColour,
                 onLinkClick = { showLink = true },
                 onPart = { p -> vm.log.add(LogKind.CMD, carPictureLog(p, car)); part = p },
                 onHold = {
@@ -169,9 +170,10 @@ fun HomeScreen(
 
     if (bigPicture) {
         CarPictureDialog(
-            car, settings.carName.ifBlank { "Outlander PHEV" }, settings.carStyle, settings.tapHints,
+            car, settings.carName.ifBlank { "Outlander PHEV" }, settings.carStyle, settings.tapHints, settings.carColour,
             onStyle = { st -> vm.log.add(LogKind.CMD, "Car picture: style $st"); vm.updateSettings { it.copy(carStyle = st) } },
             onHints = { h -> vm.log.add(LogKind.CMD, "Car picture: hints $h"); vm.updateSettings { it.copy(tapHints = h) } },
+            onColour = { c -> vm.log.add(LogKind.CMD, "Car picture: colour $c"); vm.updateSettings { it.copy(carColour = c) } },
             onPart = { p -> vm.log.add(LogKind.CMD, carPictureLog(p, car)); part = p },
             onDismiss = { bigPicture = false },
         )
@@ -227,6 +229,7 @@ private fun HeroHeader(
     now: Long,
     carStyle: CarStyle,
     tapHints: TapHints,
+    carColour: CarColour,
     onLinkClick: () -> Unit,
     onPart: (CarPart) -> Unit,
     onHold: () -> Unit,
@@ -302,7 +305,7 @@ private fun HeroHeader(
                 if (carStyle == CarStyle.TOP) {
                     Spacer(Modifier.width(8.dp))
                     Column(Modifier.width(112.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                        CarPicture(car, carStyle, tapHints, Modifier.width(112.dp).height(224.dp), onPart = onPart, onHold = onHold)
+                        CarPicture(car, carStyle, tapHints, Modifier.width(112.dp).height(224.dp), colour = carColour, onPart = onPart, onHold = onHold)
                         Text(
                             stringResource(R.string.carview_hint_top),
                             style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -317,7 +320,7 @@ private fun HeroHeader(
                 CarPicture(
                     car, carStyle, tapHints,
                     Modifier.fillMaxWidth().height(if (carStyle == CarStyle.SIDE) 136.dp else 190.dp),
-                    onPart = onPart, onHold = onHold,
+                    colour = carColour, onPart = onPart, onHold = onHold,
                 )
                 Text(
                     stringResource(if (carStyle == CarStyle.THREE_D) R.string.carview_hint_3d else R.string.carview_hint_wide),

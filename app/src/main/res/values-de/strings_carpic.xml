@@ -20,5 +20,14 @@
     <string name="set_carpic_icons">Symbole</string>
     <string name="set_carpic_labels">Beschriftung</string>
     <string name="set_carpic_touch">Beim Berühren</string>
-    <string name="set_carpic_explain">Tippe auf der Startseite auf ein Teil des Autos für Details und Tasten; halte es gedrückt, um es groß zu sehen. „Beim Berühren“ hält das Bild schlicht und hebt ein Teil hervor, wenn du es berührst.</string>
+    <string name="set_carpic_explain">Tippe auf der Startseite auf ein Teil des Autos für Details und Tasten; halte es gedrückt, um es groß zu sehen. „Beim Berühren“ hält das Bild schlicht und hebt ein Teil hervor, wenn du es berührst. Die Farbe wird über die Bridge mit deinen anderen Handys geteilt.</string>
+    <string name="set_carpic_colour">Farbe</string>
+    <string name="car_colour_theme">Wie die App</string>
+    <string name="car_colour_white">Weiß</string>
+    <string name="car_colour_silver">Silber</string>
+    <string name="car_colour_grey">Grau</string>
+    <string name="car_colour_black">Schwarz</string>
+    <string name="car_colour_red">Rot</string>
+    <string name="car_colour_blue">Blau</string>
+    <string name="car_colour_brown">Braun</string>
 </resources>

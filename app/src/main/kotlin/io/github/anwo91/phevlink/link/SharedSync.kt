@@ -227,6 +227,7 @@ class SharedSync(
         "homeLat" to s.homeLat,
         "homeLon" to s.homeLon,
         "timeZone" to ZoneId.systemDefault().id,
+        "carColor" to s.carColour.name,
     )
 
     private suspend fun takeOver(take: Map<String, Any?>) {
@@ -242,6 +243,7 @@ class SharedSync(
                     "quickSmart" -> (v as? Boolean)?.let { n.copy(quickSmart = it) } ?: n
                     "homeLat" -> n.copy(homeLat = (v as? Number)?.toDouble())
                     "homeLon" -> n.copy(homeLon = (v as? Number)?.toDouble())
+                    "carColor" -> (v as? String)?.let { runCatching { io.github.anwo91.phevlink.data.CarColour.valueOf(it) }.getOrNull() }?.let { n.copy(carColour = it) } ?: n
                     else -> n
                 }
             }
@@ -301,7 +303,7 @@ class SharedSync(
 
     companion object {
         /** Shared through the bridge. */
-        val KEYS = listOf("departures", "carName", "fullRangeKm", "quickMode", "quickDuration", "quickSmart", "homeLat", "homeLon", "timeZone")
+        val KEYS = listOf("departures", "carName", "fullRangeKm", "quickMode", "quickDuration", "quickSmart", "homeLat", "homeLon", "timeZone", "carColor")
         /** Sent by phones, never taken over from the bridge (each phone keeps its own). */
         private val PUSH_ONLY = setOf("timeZone")
         private const val PREFS = "shared_sync"

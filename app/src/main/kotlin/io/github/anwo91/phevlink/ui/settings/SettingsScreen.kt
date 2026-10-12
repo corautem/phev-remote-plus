@@ -180,6 +180,8 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () 
                 s.carStyle, s.tapHints,
                 onStyle = { st -> vm.log.add(LogKind.CMD, "Car picture: style $st"); set { it.copy(carStyle = st) } },
                 onHints = { h -> vm.log.add(LogKind.CMD, "Car picture: hints $h"); set { it.copy(tapHints = h) } },
+                colour = s.carColour,
+                onColour = { c -> vm.log.add(LogKind.CMD, "Car picture: colour $c"); set { it.copy(carColour = c) } },
             )
             Spacer(Modifier.height(6.dp))
             Text(

@@ -36,6 +36,18 @@ enum class Route(val label: String, @StringRes val labelRes: Int) {
 /** How the car picture on the home screen is drawn. */
 enum class CarStyle { TOP, SIDE, THREE_D }
 
+/** The car's paint in the car picture; [THEME] follows the app's colours. */
+enum class CarColour(val argb: Long?) {
+    THEME(null),
+    WHITE(0xFFF1F1EC),
+    SILVER(0xFFB8BDC1),
+    GREY(0xFF62686D),
+    BLACK(0xFF1E2024),
+    RED(0xFF9B1C22),
+    BLUE(0xFF1F3A63),
+    BROWN(0xFF5B4636),
+}
+
 /** How the car picture shows what can be tapped. */
 enum class TapHints { ICONS, LABELS, HIGHLIGHT }
 
@@ -84,6 +96,8 @@ data class AppSettings(
     val tapHints: TapHints = TapHints.ICONS,
     /** This phone's name in the activity log ("Kari"); blank = the phone's model. */
     val phoneName: String = "",
+    /** The car's paint in the car picture (shared with the other phones through the bridge). */
+    val carColour: CarColour = CarColour.THEME,
 ) {
     /** The name this phone goes by in the activity log. */
     val deviceName: String get() = phoneName.trim().ifEmpty { android.os.Build.MODEL ?: "Phone" }
@@ -157,6 +171,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
         val carStyle = stringPreferencesKey("car_style")
         val tapHints = stringPreferencesKey("tap_hints")
         val phoneName = stringPreferencesKey("phone_name")
+        val carColour = stringPreferencesKey("car_colour")
     }
 
     val flow: StateFlow<AppSettings> = context.dataStore.data
@@ -206,6 +221,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
             carStyle = p[K.carStyle]?.let { runCatching { CarStyle.valueOf(it) }.getOrNull() } ?: d.carStyle,
             tapHints = p[K.tapHints]?.let { runCatching { TapHints.valueOf(it) }.getOrNull() } ?: d.tapHints,
             phoneName = p[K.phoneName] ?: "",
+            carColour = p[K.carColour]?.let { runCatching { CarColour.valueOf(it) }.getOrNull() } ?: d.carColour,
         )
     }
 
@@ -250,6 +266,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
             p[K.carStyle] = s.carStyle.name
             p[K.tapHints] = s.tapHints.name
             p[K.phoneName] = s.phoneName.trim().take(30)
+            p[K.carColour] = s.carColour.name
         }
     }
 }

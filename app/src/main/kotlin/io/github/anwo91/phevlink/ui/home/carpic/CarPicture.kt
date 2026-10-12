@@ -1,5 +1,16 @@
 package io.github.anwo91.phevlink.ui.home.carpic
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.selected
+import io.github.anwo91.phevlink.data.CarColour
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -95,10 +106,11 @@ fun CarPicture(
     hints: TapHints,
     modifier: Modifier = Modifier,
     large: Boolean = false,
+    colour: CarColour = CarColour.THEME,
     onPart: (CarPart) -> Unit,
     onHold: (() -> Unit)? = null,
 ) {
-    val pal = rememberPalette()
+    val pal = rememberPalette(colour)
     val scene3d = remember { Car3DScene() }
     val scene: CarScene = when (style) {
         CarStyle.TOP -> TopScene
@@ -270,14 +282,16 @@ fun CarPicture(
 
 /** The picture's colours from the app theme (light or dark, brand or wallpaper colours). */
 @Composable
-fun rememberPalette(): Palette {
+fun rememberPalette(colour: CarColour = CarColour.THEME): Palette {
     val status = LocalStatus.current
     val cs = MaterialTheme.colorScheme
     val dark = cs.surface.luminance() < 0.5f
-    return remember(cs, status, dark) {
+    return remember(cs, status, dark, colour) {
+        val body = colour.argb?.toInt() ?: (if (dark) cs.surfaceContainerHighest else cs.surface).toArgb()
         Palette(
-            body = (if (dark) cs.surfaceContainerHighest else cs.surface).toArgb(),
-            outline = cs.outline.copy(alpha = 0.75f).toArgb(),
+            body = body,
+            // Dark paint needs a lighter outline to keep its shape.
+            outline = if (luminance(body) < 0.2f) 0xBFA3AAB0.toInt() else cs.outline.copy(alpha = 0.75f).toArgb(),
             glass = if (dark) 0xFF10171B.toInt() else 0xFF3E4A52.toInt(),
             tyre = if (dark) 0xFF0A0D0F.toInt() else 0xFF2F363A.toInt(),
             cable = if (dark) 0xFFB0B8BE.toInt() else 0xFF2F363A.toInt(),
@@ -320,9 +334,12 @@ private fun describe(car: CarState): String {
 }
 
 /** The two choices for the car picture: its style and how it shows what can be tapped. */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun CarPictureOptions(style: CarStyle, hints: TapHints, onStyle: (CarStyle) -> Unit, onHints: (TapHints) -> Unit) {
+fun CarPictureOptions(
+    style: CarStyle, hints: TapHints, onStyle: (CarStyle) -> Unit, onHints: (TapHints) -> Unit,
+    colour: CarColour? = null, onColour: (CarColour) -> Unit = {},
+) {
     Text(stringResource(R.string.set_carpic_style), style = MaterialTheme.typography.labelLarge)
     SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
         val styles = listOf(CarStyle.TOP to R.string.set_carpic_top, CarStyle.SIDE to R.string.set_carpic_side, CarStyle.THREE_D to R.string.set_carpic_3d)
@@ -342,6 +359,39 @@ fun CarPictureOptions(style: CarStyle, hints: TapHints, onStyle: (CarStyle) -> U
             }
         }
     }
+    if (colour != null) {
+        Spacer(Modifier.height(8.dp))
+        Text(stringResource(R.string.set_carpic_colour), style = MaterialTheme.typography.labelLarge)
+        ColourSwatches(colour, onColour)
+    }
+}
+
+/** Round swatches for the car's paint; the first follows the app's colours. */
+@Composable
+private fun ColourSwatches(selected: CarColour, onPick: (CarColour) -> Unit) {
+    val cs = MaterialTheme.colorScheme
+    val names = mapOf(
+        CarColour.THEME to stringResource(R.string.car_colour_theme), CarColour.WHITE to stringResource(R.string.car_colour_white),
+        CarColour.SILVER to stringResource(R.string.car_colour_silver), CarColour.GREY to stringResource(R.string.car_colour_grey),
+        CarColour.BLACK to stringResource(R.string.car_colour_black), CarColour.RED to stringResource(R.string.car_colour_red),
+        CarColour.BLUE to stringResource(R.string.car_colour_blue), CarColour.BROWN to stringResource(R.string.car_colour_brown),
+    )
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 4.dp)) {
+        CarColour.entries.forEach { c ->
+            val fill = c.argb?.let { Color(it) } ?: cs.surfaceContainerHighest
+            val chosen = c == selected
+            Box(
+                Modifier.size(36.dp).clip(CircleShape).background(fill)
+                    .border(if (chosen) 3.dp else 1.dp, if (chosen) cs.primary else cs.outline, CircleShape)
+                    .clickable { onPick(c) }
+                    .semantics { contentDescription = names.getValue(c); this.selected = chosen },
+                contentAlignment = Alignment.Center,
+            ) {
+                if (c == CarColour.THEME) Icon(PhevIcons.Theme, null, Modifier.size(18.dp), tint = cs.onSurfaceVariant)
+                else if (chosen) Icon(PhevIcons.Check, null, Modifier.size(18.dp), tint = if (luminance(fill.toArgb()) > 0.5f) Color.Black else Color.White)
+            }
+        }
+    }
 }
 
 /** The car picture filling the screen (hold the picture on the home screen), with the style choices below it. */
@@ -351,8 +401,10 @@ fun CarPictureDialog(
     title: String,
     style: CarStyle,
     hints: TapHints,
+    colour: CarColour,
     onStyle: (CarStyle) -> Unit,
     onHints: (TapHints) -> Unit,
+    onColour: (CarColour) -> Unit,
     onPart: (CarPart) -> Unit,
     onDismiss: () -> Unit,
 ) {
@@ -370,9 +422,9 @@ fun CarPictureDialog(
                 CarPicture(
                     car, style, hints,
                     Modifier.weight(1f).fillMaxWidth().padding(vertical = 12.dp),
-                    large = true, onPart = onPart,
+                    large = true, colour = colour, onPart = onPart,
                 )
-                CarPictureOptions(style, hints, onStyle, onHints)
+                CarPictureOptions(style, hints, onStyle, onHints, colour, onColour)
                 Spacer(Modifier.height(8.dp))
             }
         }

@@ -102,26 +102,46 @@ network in Android's Wi-Fi settings, you may need to register again.
 The car only talks Wi-Fi within ~10–20 m. The bridge sits within that range at home, keeps in touch with the car, and
 offers an HTTP API + web page. The app uses it automatically when it has fresh data about the car.
 
-What you need: a Raspberry Pi (Zero 2 W, 3, 4, 5) or any small Linux box with Wi-Fi, within range of where the car parks,
-plus a second connection to your home network (Ethernet, or a USB Wi-Fi adapter).
+What you need: a Raspberry Pi (Zero 2 W, 3, 4, 5) or any small Linux box with Wi-Fi and NetworkManager, within range of
+where the car parks, plus a second connection to your home network (Ethernet, or a USB Wi-Fi adapter) — the built-in
+Wi-Fi is reserved for the car.
+
+**Install** (once, on the Pi — kits come with this done):
 
 ```bash
-# 1. Join the car's Wi-Fi on the Pi's built-in Wi-Fi, without making it the default route
-sudo nmcli dev wifi connect REMOTExxxxxx password 'xxxxxxxx' ifname wlan0
-sudo nmcli con modify REMOTExxxxxx ipv4.never-default yes ipv6.method disabled connection.autoconnect yes
-#    (home network stays on eth0 / the USB adapter)
-
-# 2. Install the bridge (download phev-bridge.jar from the same release as the APK)
-git clone https://github.com/Anwo91/phev-remote-plus && cd phev-remote-plus/bridge/deploy
-sudo ./install.sh ~/phev-bridge.jar          # prints your API token
-
-# 3. Register the bridge with the car (it's a new "phone" for the car):
-#    put the car in registration mode (above), then
-curl -X POST -H "Authorization: Bearer <token>" -d '{"action":"register"}' http://localhost:8099/api/command
-
-# 4. Remote access: install Tailscale on the Pi and the phone (https://tailscale.com/download)
-#    then in the app: Settings → How to reach the car → Bridge address  http://<pi-tailscale-ip>:8099  + token
+curl -sL https://github.com/Anwo91/phev-remote-plus/releases/latest/download/phev-bridge-pi.tar.gz | tar xz
+sudo phev-bridge/install.sh phev-bridge/phev-bridge.jar      # also updates an existing bridge, keeping its token
 ```
+
+**Everything else happens in the app: Settings → Set up bridge.** It
+
+1. finds the bridge on your home network (no addresses to type),
+2. pairs with it: unplug the bridge for 5 seconds and plug it back in — for 10 minutes after power-on the bridge hands
+   its token to the first app that asks, once (physical access is the proof; a web page can't do it behind your back),
+3. connects the bridge's Wi-Fi to the car (the car's Wi-Fi name and password come from the app; the profile pins the
+   Pi's real MAC address, keeps your internet on the home connection and never gives up re-joining when the car returns),
+4. walks you through the car's registration mode, asking how many times the car beeped (3 = memory full),
+5. checks that the bridge reaches the car, and switches the app to use it at home.
+
+Every step is logged in the app's Log tab and in the bridge log (`journalctl -u phev-bridge -f`).
+
+<details><summary>Doing it by hand instead</summary>
+
+```bash
+# Join the car's Wi-Fi on wlan0: pinned MAC, not the default route, keeps re-trying when the car is away
+sudo nmcli connection add type wifi ifname wlan0 con-name phev-car ssid REMOTExxxxxx \
+  wifi-sec.key-mgmt wpa-psk wifi-sec.psk 'xxxxxxxx' ipv4.never-default yes ipv6.method disabled \
+  connection.autoconnect yes connection.autoconnect-retries 0 \
+  802-11-wireless.cloned-mac-address permanent 802-11-wireless.powersave 2
+sudo nmcli connection up phev-car
+# Car in registration mode (see above), then:
+curl -X POST -H "Authorization: Bearer <token>" -d '{"action":"register"}' http://localhost:8099/api/command
+```
+If the register call says it couldn't reach the car in time, send it again — the car listens for 10 minutes.
+</details>
+
+**Remote access:** install Tailscale on the Pi and the phone (https://tailscale.com/download), then use the Pi's
+Tailscale address as the bridge address in Settings.
 
 Try it before going near the car: set `emulator=true` in `/etc/phev-bridge.properties` to run against a simulated car.
 
@@ -145,8 +165,13 @@ control the car's climate and lights (not locks: the protocol has no remote unlo
 | POST | `/api/command` | `{"action":"climate","mode":"HEAT","minutes":20}` · `climate_off` · `headlights`/`parking_lights` + `on` · `locate` · `refresh` · `charge_now` · `ack_climate` · `register` · `unregister` · `sync_clock` · `raw` (+ `register`, `data` hex) |
 | POST | `/api/connect`, `/api/disconnect` | |
 | GET | `/api/log?n=300` | Diagnostic log |
+| GET | `/api/hello` | No token: identity for discovery + whether pairing is open |
+| POST | `/api/pair` | No token, header `X-PHEV-Pair: 1`: the token, once per boot, within 10 min of power-on |
+| GET | `/api/carwifi` | The bridge's own link to the car's Wi-Fi (interface, connected, IP, MAC, signal) |
+| POST | `/api/carwifi/scan`, `/api/carwifi/join`, `/api/carwifi/forget` | `{"country":"NO"}` · `{"ssid":…,"password":…}` |
+| POST | `/api/config` | `{"emulator":false}` — saved, then the bridge restarts |
 
-Auth: `Authorization: Bearer <token>` or `?token=<token>`.
+Auth (all but hello/pair): `Authorization: Bearer <token>` or `?token=<token>`.
 
 ## OBD adapter
 

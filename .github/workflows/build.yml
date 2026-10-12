@@ -53,8 +53,8 @@ jobs:
           cp bridge/build/dist/phev-bridge.jar out/
           # One-file bundle for the Raspberry Pi: jar + installer + systemd unit.
           mkdir -p bundle/phev-bridge
-          cp bridge/build/dist/phev-bridge.jar bridge/deploy/install.sh bridge/deploy/phev-bridge.service bundle/phev-bridge/
-          chmod +x bundle/phev-bridge/install.sh
+          cp bridge/build/dist/phev-bridge.jar bridge/deploy/install.sh bridge/deploy/carwifi.sh bridge/deploy/phev-bridge.service bundle/phev-bridge/
+          chmod +x bundle/phev-bridge/install.sh bundle/phev-bridge/carwifi.sh
           tar -czf out/phev-bridge-pi.tar.gz -C bundle phev-bridge
           ls -la out
 

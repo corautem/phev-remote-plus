@@ -29,6 +29,12 @@ data class BridgeConfig(
     /** Run a simulated car instead of talking to the real one (for trying it out). */
     val emulator: Boolean = false,
     val syncClock: Boolean = true,
+    /** Wi-Fi interface that talks to the car; blank = pick automatically (a radio not carrying the home network). */
+    val carIface: String = "",
+    /** Minutes after power-on during which the app may pair (fetch the token) once; 0 disables pairing. */
+    val pairingMinutes: Int = 10,
+    /** Root-owned helper the bridge may run through sudo to manage the car's Wi-Fi profile. */
+    val wifiHelper: String = "/opt/phev-bridge/carwifi.sh",
 ) {
     companion object {
         fun load(file: File?): BridgeConfig {
@@ -50,8 +56,25 @@ data class BridgeConfig(
                 logFile = s("log.file", ""),
                 emulator = s("emulator", "false").toBoolean(),
                 syncClock = s("sync.clock", "true").toBoolean(),
+                carIface = s("car.iface", ""),
+                pairingMinutes = s("pairing.minutes", "10").toIntOrNull()?.coerceIn(0, 60) ?: 10,
+                wifiHelper = s("wifi.helper", "/opt/phev-bridge/carwifi.sh"),
             )
         }
+
+        /** Sets `key=value` in a properties file, keeping every other line and comment. */
+        fun saveProperty(file: File, key: String, value: String): Boolean = runCatching {
+            val lines = if (file.exists()) file.readLines() else SAMPLE.lines()
+            var replaced = false
+            val out = lines.map { line ->
+                if (line.trimStart().startsWith("$key=")) {
+                    replaced = true; "$key=$value"
+                } else line
+            }.toMutableList()
+            if (!replaced) out += "$key=$value"
+            file.writeText(out.joinToString("\n") + "\n")
+            true
+        }.getOrDefault(false)
 
         fun newToken(): String {
             val alphabet = "abcdefghjkmnpqrstuvwxyz23456789"
@@ -82,6 +105,10 @@ data class BridgeConfig(
             sync.clock=true
             # true = run against a simulated car (try it before going near the real one)
             emulator=false
+            # Wi-Fi interface for the car; empty = pick a radio that isn't carrying the home network
+            car.iface=
+            # The app can pair (fetch the token) once within this many minutes after the bridge is powered on; 0 = off
+            pairing.minutes=10
         """.trimIndent()
     }
 }

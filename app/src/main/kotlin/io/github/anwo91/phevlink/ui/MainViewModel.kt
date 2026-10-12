@@ -30,6 +30,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val link = repo.link
     val settings: StateFlow<AppSettings> = g.settings.flow
     val log = g.log
+    val bridgeSetup = g.bridgeSetup
 
     private val _pending = MutableStateFlow<String?>(null)
     /** Label of the command in flight, for button spinners. */

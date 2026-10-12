@@ -12,6 +12,7 @@ import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 import java.io.PrintStream
 import java.time.ZoneId
+import kotlin.system.exitProcess
 
 /**
  * PHEV Link bridge: runs on a small always-on computer (e.g. a Raspberry Pi)
@@ -34,7 +35,7 @@ fun main(args: Array<String>) {
     if (config.token.isBlank()) {
         val token = BridgeConfig.newToken()
         config = config.copy(token = token)
-        val saved = configFile?.let { persistToken(it, token) } ?: false
+        val saved = configFile?.let { BridgeConfig.saveProperty(it, "token", token) } ?: false
         println("=".repeat(60))
         println("Generated API token: $token")
         println(if (saved) "Saved to ${configFile!!.path}" else "Add  token=$token  to your config file to keep it.")
@@ -65,9 +66,27 @@ fun main(args: Array<String>) {
 
     val service = BridgeService(config, log, scope, carPort)
     service.start()
-    val api = HttpApi(config, service, log)
+    val stateDir = File(config.stateFile).absoluteFile.parentFile
+    val pairing = Pairing(config.pairingMinutes, stateDir, log)
+    val carWifi = CarWifi(config.wifiHelper, config.carIface, log)
+    // Settings changes from the app (leaving emulator mode) apply on a fresh start; systemd brings us straight back.
+    val restart = {
+        Thread {
+            Thread.sleep(800)
+            log.link("Restarting to apply new settings")
+            exitProcess(0)
+        }.apply { isDaemon = false }.start()
+    }
+    val api = HttpApi(config, service, log, pairing, carWifi, configFile, restart)
     val port = api.start()
     log.link("Bridge API on http://${config.listenHost}:$port/  (car ${config.carHost}:$carPort)")
+    pairing.window().let { w ->
+        log.link(if (w.open) "Pairing open for ${w.secondsLeft / 60} min ${w.secondsLeft % 60} s (app: Settings → Set up bridge)" else "Pairing closed (${w.reason})")
+    }
+    runCatching { carWifi.status() }.onSuccess { st ->
+        log.link("Car Wi-Fi: iface=${st.iface ?: "-"} state=${st.ifaceState ?: "-"} profile=${st.ssid ?: "none"} connected=${st.connected} home=${st.homeIface ?: "-"}" +
+            (st.problem?.let { " problem=$it" } ?: ""))
+    }
 
     Runtime.getRuntime().addShutdownHook(Thread {
         runCatching { api.stop() }
@@ -76,15 +95,3 @@ fun main(args: Array<String>) {
     Thread.currentThread().join()
 }
 
-private fun persistToken(file: File, token: String): Boolean = runCatching {
-    val lines = if (file.exists()) file.readLines() else BridgeConfig.SAMPLE.lines()
-    var replaced = false
-    val out = lines.map { line ->
-        if (line.trimStart().startsWith("token=")) {
-            replaced = true; "token=$token"
-        } else line
-    }.toMutableList()
-    if (!replaced) out += "token=$token"
-    file.writeText(out.joinToString("\n") + "\n")
-    true
-}.getOrDefault(false)

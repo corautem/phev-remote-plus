@@ -70,12 +70,15 @@ what's built today.
 **Parts ~€54 / ~630 NOK. Suggested retail €99–129** (pre‑flashed + set up is most of the value).
 
 ### Assembly (you, before shipping)
-1. Flash Raspberry Pi OS Lite, enable SSH.
-2. Join the **buyer's** car Wi‑Fi on `wlan0` without making it the default route (see repo README,
-   "The bridge"); leave home Wi‑Fi/Ethernet for the second radio.
-3. Install the bridge: `sudo ./bridge/deploy/install.sh ~/phev-bridge.jar` — note the API token.
-4. Install Tailscale, sign into **your own tailnet or the buyer's** (decide this — see below).
-5. Test against the emulator (`emulator=true` in `/etc/phev-bridge.properties`) before it ever sees a car.
+1. Flash Raspberry Pi OS Lite, enable SSH, set the Wi-Fi country.
+2. Install the bridge: `sudo phev-bridge/install.sh phev-bridge/phev-bridge.jar` (from `phev-bridge-pi.tar.gz`).
+3. Install Tailscale, sign into **your own tailnet or the buyer's** (decide this — see below).
+4. Test against the emulator (`emulator=true` in `/etc/phev-bridge.properties`) before it ever sees a car. Leaving it
+   on is fine: the app's setup switches the bridge to the real car.
+
+The **buyer** then does the rest from the app, with no computer: Settings → **Set up bridge** finds the bridge, pairs by
+re-plugging it, joins the bridge to their car's Wi-Fi and walks them through the car's registration beeps. Their home
+link must be Ethernet or the USB Wi-Fi adapter — the built-in Wi-Fi goes to the car (the app says so if it can't).
 
 **Decide who owns the tailnet.** Simplest for the buyer: they install Tailscale on their phone and Pi,
 on their own account, and you hand over a configured SD image + instructions. Don't leave the box on

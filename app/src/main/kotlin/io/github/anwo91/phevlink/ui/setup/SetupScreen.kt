@@ -55,6 +55,18 @@ fun SetupScreen(vm: MainViewModel) {
     val snack = remember { SnackbarHostState() }
     LaunchedEffect(Unit) { vm.messages.collect { snack.showSnackbar(it) } }
     val notifPerm = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
+    // A kit buyer with a bridge sets it up right here; finishing it also finishes the first-run setup.
+    var showBridge by rememberSaveable { mutableStateOf(false) }
+    if (showBridge) {
+        Scaffold(snackbarHost = { SnackbarHost(snack) }) { pad ->
+            BridgeSetupScreen(
+                vm, Modifier.padding(pad).safeDrawingPadding(),
+                onBack = { showBridge = false },
+                onFinished = { vm.updateSettings { it.copy(setupDone = true) } },
+            )
+        }
+        return
+    }
 
     Scaffold(snackbarHost = { SnackbarHost(snack) }) { pad ->
         Column(
@@ -138,6 +150,11 @@ fun SetupScreen(vm: MainViewModel) {
                         stringResource(R.string.setup_good_to_know),
                         style = MaterialTheme.typography.bodyMedium,
                     )
+                    SectionCard(title = stringResource(R.string.setup_have_bridge)) {
+                        Text(stringResource(R.string.settings_bridge_setup_hint), style = MaterialTheme.typography.bodySmall)
+                        Spacer(Modifier.height(8.dp))
+                        OutlinedButton(onClick = { showBridge = true }) { Text(stringResource(R.string.settings_bridge_setup)) }
+                    }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         TextButton(onClick = { page = 2 }) { Text(stringResource(R.string.common_back)) }
                         Spacer(Modifier.weight(1f))

@@ -151,6 +151,8 @@ class BridgeService(
             "startedAtMs" to startedAtMs,
             "nowMs" to System.currentTimeMillis(),
             "version" to VERSION,
+            "features" to FEATURES,
+            "emulator" to config.emulator,
             "alerts" to synchronized(recentAlerts) {
                 recentAlerts.map { mapOf("type" to it.type.name, "title" to it.title, "message" to it.message, "timeMs" to it.timeMs) }
             },
@@ -184,6 +186,9 @@ class BridgeService(
     }
 
     companion object {
-        const val VERSION = "1.0"
+        const val VERSION = "1.1"
+
+        /** What this bridge can do beyond the car link (the app checks before offering the setup wizard). */
+        val FEATURES = listOf("pair", "carwifi", "config")
     }
 }

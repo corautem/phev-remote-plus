@@ -5,6 +5,7 @@ import android.content.Context
 import io.github.anwo91.phevlink.core.diag.DiagLog
 import io.github.anwo91.phevlink.data.SettingsStore
 import io.github.anwo91.phevlink.data.StateCache
+import io.github.anwo91.phevlink.link.BridgeSetupController
 import io.github.anwo91.phevlink.link.CarRepository
 import io.github.anwo91.phevlink.link.DemoMode
 import io.github.anwo91.phevlink.notify.Notifier
@@ -62,6 +63,8 @@ class Graph(app: Application) {
     /** Guided live tests; app-wide so a test keeps running when the screen is left. */
     val liveTests: LiveTestRunner by lazy { LiveTestRunner(scope, log) }
     val testStore: TestStore by lazy { PrefsTestStore(app) }
+    /** The "set up bridge" wizard; app-wide so it survives rotation and waits while the user re-plugs the bridge. */
+    val bridgeSetup: BridgeSetupController by lazy { BridgeSetupController(app, settings, log, scope) }
 
     init {
         // Demo mode drives the OBD side too: the simulated adapter connects with the simulated car and leaves with it.

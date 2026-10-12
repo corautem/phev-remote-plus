@@ -82,7 +82,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(vm: MainViewModel, modifier: Modifier) {
+fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () -> Unit = {}) {
     val s by vm.settings.collectAsState()
     val car by vm.car.collectAsState()
     val pending by vm.pending.collectAsState()
@@ -167,6 +167,10 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier) {
 
         // -------------------------------------------------------------- route
         SectionCard(title = stringResource(R.string.settings_route_title)) {
+            Text(stringResource(R.string.settings_bridge_setup_hint), style = MaterialTheme.typography.bodyMedium)
+            Spacer(Modifier.height(8.dp))
+            Button(onClick = onOpenBridgeSetup, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.settings_bridge_setup)) }
+            Spacer(Modifier.height(12.dp))
             SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
                 Route.entries.forEachIndexed { i, r ->
                     SegmentedButton(selected = s.route == r, onClick = { set { it.copy(route = r) } }, shape = SegmentedButtonDefaults.itemShape(i, Route.entries.size)) {
@@ -420,7 +424,7 @@ private fun Context.findActivity(): Activity? {
 
 /** A heading that opens a longer help text below it. */
 @Composable
-private fun ExpandableHelp(title: String, text: String) {
+internal fun ExpandableHelp(title: String, text: String) {
     var open by rememberSaveable(title) { mutableStateOf(false) }
     Row(
         Modifier.fillMaxWidth().clickable { open = !open }.padding(vertical = 8.dp),

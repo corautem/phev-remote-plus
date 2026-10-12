@@ -1,0 +1,514 @@
+package io.github.anwo91.phevlink.link
+
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
+import io.github.anwo91.phevlink.core.diag.DiagLog
+import io.github.anwo91.phevlink.core.json.Json
+import io.github.anwo91.phevlink.core.json.obj
+import io.github.anwo91.phevlink.core.json.str
+import io.github.anwo91.phevlink.core.model.CarCommand
+import io.github.anwo91.phevlink.core.model.CommandResult
+import io.github.anwo91.phevlink.data.Route
+import io.github.anwo91.phevlink.data.SettingsStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Semaphore
+import kotlinx.coroutines.sync.withPermit
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
+import java.net.HttpURLConnection
+import java.net.Inet4Address
+import java.net.InetAddress
+import java.net.URI
+import java.util.Locale
+
+/** A PHEV Link bridge answering on the home network. [needsUpdate]: an older bridge without the setup features. */
+data class FoundBridge(
+    val url: String,
+    val name: String,
+    val version: String,
+    val features: List<String>,
+    val emulator: Boolean,
+    val pairingOpen: Boolean,
+    val pairingReason: String?,
+    val needsUpdate: Boolean,
+) {
+    val host: String get() = runCatching { URI(url).host }.getOrNull() ?: url
+}
+
+/** The bridge's own link to the car's Wi-Fi, as reported by GET /api/carwifi. */
+data class BridgeWifi(
+    val problem: String?,
+    val iface: String?,
+    val homeIface: String?,
+    val configured: Boolean,
+    val ssid: String?,
+    val connected: Boolean,
+    val ip: String?,
+    val mac: String?,
+    val signal: Int?,
+) {
+    companion object {
+        fun from(m: Map<String, Any?>) = BridgeWifi(
+            problem = m.str("problem"), iface = m.str("iface"), homeIface = m.str("homeIface"),
+            configured = m["configured"] == true, ssid = m.str("ssid"), connected = m["connected"] == true,
+            ip = m.str("ip"), mac = m.str("mac"), signal = (m["signal"] as? Number)?.toInt(),
+        )
+    }
+}
+
+/** Plain HTTP calls to a bridge for setup (no token needed for hello/pair). */
+object BridgeSetupApi {
+    const val PORT = 8099
+
+    data class Reply(val code: Int, val body: Map<String, Any?>)
+
+    /** Who answers at [url]; null when it isn't a PHEV Link bridge (or nobody answers). */
+    suspend fun hello(url: String, connectMs: Int = 2_500, readMs: Int = 4_000): FoundBridge? = withContext(Dispatchers.IO) {
+        val r = request(url, "hello", "GET", null, null, connectMs, readMs) ?: return@withContext null
+        when {
+            r.code == 200 && r.body["app"] == "phev-bridge" -> {
+                val p = r.body.obj("pairing")
+                FoundBridge(
+                    url = url,
+                    name = r.body.str("name") ?: "phev-bridge",
+                    version = r.body.str("version") ?: "?",
+                    features = (r.body["features"] as? List<*>)?.map { it.toString() }.orEmpty(),
+                    emulator = r.body["emulator"] == true,
+                    pairingOpen = p?.get("open") == true,
+                    pairingReason = p?.str("reason"),
+                    needsUpdate = false,
+                )
+            }
+            // A bridge from before the setup features: every /api call wants the token.
+            r.code == 401 && r.body.str("error")?.contains("token", ignoreCase = true) == true ->
+                FoundBridge(url, url.substringAfter("://").substringBefore(':'), "1.0", emptyList(), false, false, null, needsUpdate = true)
+            else -> null
+        }
+    }
+
+    /** Re-plug pairing: the token, or null with the bridge's reason ("used", "expired", …) in the second value. */
+    suspend fun pair(url: String): Pair<String?, String?> = withContext(Dispatchers.IO) {
+        val r = request(url, "pair", "POST", null, emptyMap(), 4_000, 8_000,
+            mapOf("X-PHEV-Pair" to "1", "X-PHEV-Device" to "${Build.MANUFACTURER} ${Build.MODEL}".take(60)))
+            ?: return@withContext null to "unreachable"
+        if (r.code == 200) (r.body.str("token")?.takeIf { it.isNotBlank() } to null)
+        else null to (r.body.str("reason") ?: r.body.str("error") ?: "HTTP ${r.code}")
+    }
+
+    suspend fun carWifi(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "carwifi", "GET", token, null, 4_000, 15_000) }
+
+    suspend fun scan(url: String, token: String, country: String?): Reply? =
+        withContext(Dispatchers.IO) { request(url, "carwifi/scan", "POST", token, mapOf("country" to country), 4_000, 60_000) }
+
+    suspend fun join(url: String, token: String, ssid: String, password: String, country: String?): Reply? =
+        withContext(Dispatchers.IO) {
+            request(url, "carwifi/join", "POST", token, mapOf("ssid" to ssid, "password" to password, "country" to country), 4_000, 120_000)
+        }
+
+    suspend fun leaveTestMode(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "config", "POST", token, mapOf("emulator" to false), 4_000, 10_000) }
+
+    private fun request(
+        url: String, path: String, method: String, token: String?, body: Map<String, Any?>?,
+        connectMs: Int, readMs: Int, headers: Map<String, String> = emptyMap(),
+    ): Reply? = try {
+        val c = URI(url.trimEnd('/') + "/api/" + path).toURL().openConnection() as HttpURLConnection
+        c.requestMethod = method
+        c.connectTimeout = connectMs
+        c.readTimeout = readMs
+        token?.let { c.setRequestProperty("Authorization", "Bearer $it") }
+        headers.forEach { (k, v) -> c.setRequestProperty(k, v) }
+        if (body != null) {
+            c.doOutput = true
+            c.setRequestProperty("Content-Type", "application/json")
+            c.outputStream.use { it.write(Json.write(body).toByteArray()) }
+        }
+        val code = c.responseCode
+        val text = (if (code < 400) c.inputStream else c.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
+        c.disconnect()
+        Reply(code, runCatching { Json.parseObject(text) }.getOrDefault(emptyMap()))
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * Finds bridges on the phone's home network: `phev-bridge.local`, the bridge address already saved, and every address
+ * of the phone's own /24 on port [BridgeSetupApi.PORT] (a few seconds; nothing to install on the bridge for it).
+ */
+class BridgeDiscovery(private val context: Context, private val log: DiagLog) {
+    data class Result(val bridges: List<FoundBridge>, val onLan: Boolean)
+
+    suspend fun find(extraUrls: List<String>): Result = withContext(Dispatchers.IO) {
+        val t0 = System.currentTimeMillis()
+        val cm = context.getSystemService(ConnectivityManager::class.java)
+        val net = cm?.activeNetwork
+        val caps = net?.let { cm?.getNetworkCapabilities(it) }
+        val onLan = caps != null && (caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || caps.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
+        val candidates = LinkedHashSet<String>()
+        extraUrls.filter { it.isNotBlank() }.forEach { candidates += it.trim().trimEnd('/') }
+        val mdns = async {
+            withTimeoutOrNull(2_500) {
+                runCatching { InetAddress.getAllByName("phev-bridge.local").firstOrNull { it is Inet4Address }?.hostAddress }.getOrNull()
+            }
+        }
+        var own: String? = null
+        if (onLan) {
+            val v4 = cm?.getLinkProperties(net)?.linkAddresses?.firstOrNull { it.address is Inet4Address }
+            own = v4?.address?.hostAddress
+            val parts = own?.split('.')
+            if (parts != null && parts.size == 4) {
+                val prefix = parts.take(3).joinToString(".")
+                for (i in 1..254) {
+                    val ip = "$prefix.$i"
+                    if (ip != own) candidates += "http://$ip:${BridgeSetupApi.PORT}"
+                }
+            }
+        }
+        val gate = Semaphore(48)
+        val found = coroutineScope {
+            val sweep = candidates.map { url -> async { gate.withPermit { BridgeSetupApi.hello(url, connectMs = 700, readMs = 2_000) } } }
+            // phev-bridge.local only helps when the sweep can't reach it (another subnet); never wait long for it.
+            val viaName = withTimeoutOrNull(3_000) { mdns.await() }
+                ?.let { "http://$it:${BridgeSetupApi.PORT}" }
+                ?.takeIf { it !in candidates }
+                ?.let { BridgeSetupApi.hello(it, connectMs = 1_500, readMs = 3_000) }
+            sweep.awaitAll() + viaName
+        }.filterNotNull().distinctBy { it.host }
+        log.link(
+            "Bridge search: ${candidates.size} address(es) from ${own ?: "no LAN address"} in ${System.currentTimeMillis() - t0} ms — " +
+                if (found.isEmpty()) "none found" else found.joinToString { "${it.name} at ${it.url} v${it.version}" + if (it.needsUpdate) " (needs update)" else "" },
+        )
+        Result(found, onLan)
+    }
+}
+
+/**
+ * The "set up bridge" wizard's brain, app-wide so it survives rotation and keeps waiting while the user is away
+ * unplugging the bridge. Steps: find → pair (re-plug) → car Wi-Fi (leave test mode, scan, join) → register → verify.
+ * Every step logs to the diagnostic log.
+ */
+class BridgeSetupController(
+    private val context: Context,
+    private val settings: SettingsStore,
+    private val log: DiagLog,
+    private val scope: CoroutineScope,
+) {
+    enum class Step { FIND, PAIR, CAR_WIFI, REGISTER, VERIFY }
+    enum class PairState { IDLE, TRYING, NEED_REPLUG, BRIDGE_OFF }
+    enum class WifiState { IDLE, CHECKING, NEED_CREDENTIALS, LEAVING_TEST_MODE, SEARCHING, JOINING, CONNECTED, CAR_NOT_SEEN, SAVED_NOT_CONNECTED, PROBLEM, FAILED }
+    enum class RegState { INSTRUCTIONS, NO_BEEP, MEMORY_FULL, READY, REGISTERING, REGISTERED, FAILED }
+    enum class VerifyState { WAITING, OK, SLOW }
+
+    data class State(
+        val step: Step = Step.FIND,
+        val searching: Boolean = false,
+        val searched: Boolean = false,
+        val onLan: Boolean = true,
+        val found: List<FoundBridge> = emptyList(),
+        val bridge: FoundBridge? = null,
+        val pair: PairState = PairState.IDLE,
+        val pairReason: String? = null,
+        val wifi: WifiState = WifiState.IDLE,
+        val wifiInfo: BridgeWifi? = null,
+        val carSignal: Int? = null,
+        val wifiDetail: String? = null,
+        val reg: RegState = RegState.INSTRUCTIONS,
+        val regDetail: String? = null,
+        val verify: VerifyState = VerifyState.WAITING,
+        val battery: Int? = null,
+        val vin: String? = null,
+        val registrations: Int? = null,
+    )
+
+    private val _state = MutableStateFlow(State())
+    val state: StateFlow<State> = _state.asStateFlow()
+
+    private var job: Job? = null
+    private val discovery = BridgeDiscovery(context, log)
+
+    private val token: String get() = settings.current.bridgeToken
+    private val url: String get() = _state.value.bridge?.url ?: settings.current.bridgeUrl
+
+    private fun launch(block: suspend () -> Unit) {
+        job?.cancel()
+        job = scope.launch { block() }
+    }
+
+    /** Opens the wizard: with a working saved bridge it goes straight to the car Wi-Fi step, else it searches. */
+    fun start() = launch {
+        _state.value = State(searching = true)
+        log.link("Bridge setup: started")
+        val s = settings.current
+        if (s.bridgeUrl.isNotBlank() && s.bridgeToken.isNotBlank()) {
+            val hello = BridgeSetupApi.hello(s.bridgeUrl.trimEnd('/'))
+            if (hello != null && !hello.needsUpdate && BridgeSetupApi.carWifi(hello.url, s.bridgeToken)?.code == 200) {
+                log.link("Bridge setup: the saved bridge ${hello.url} answers with our token — continuing at the car Wi-Fi step")
+                _state.update { it.copy(searching = false, bridge = hello, step = Step.CAR_WIFI) }
+                checkWifiNow()
+                return@launch
+            }
+        }
+        searchNow()
+    }
+
+    fun search() = launch { searchNow() }
+
+    private suspend fun searchNow() {
+        _state.update { it.copy(step = Step.FIND, searching = true) }
+        val r = discovery.find(listOf(settings.current.bridgeUrl))
+        _state.update { it.copy(searching = false, searched = true, found = r.bridges, onLan = r.onLan) }
+        val usable = r.bridges.filterNot { it.needsUpdate }
+        if (usable.size == 1 && r.bridges.size == 1) chooseNow(usable.first())
+    }
+
+    /** A bridge typed in by hand ("192.168.1.21" or a full URL). */
+    fun useAddress(text: String) = launch {
+        val t = text.trim()
+        if (t.isEmpty()) return@launch
+        val u = if (t.startsWith("http")) t.trimEnd('/') else "http://$t" + if (t.contains(':')) "" else ":${BridgeSetupApi.PORT}"
+        _state.update { it.copy(searching = true) }
+        val b = BridgeSetupApi.hello(u)
+        log.link("Bridge setup: address $u → ${b?.let { "${it.name} v${it.version}" } ?: "no bridge there"}")
+        _state.update { it.copy(searching = false, searched = true, found = listOfNotNull(b)) }
+        if (b != null && !b.needsUpdate) chooseNow(b)
+    }
+
+    fun choose(b: FoundBridge) = launch { chooseNow(b) }
+
+    private suspend fun chooseNow(b: FoundBridge) {
+        _state.update { it.copy(bridge = b) }
+        if (b.needsUpdate) return
+        val s = settings.current
+        if (s.bridgeToken.isNotBlank() && BridgeSetupApi.carWifi(b.url, s.bridgeToken)?.code == 200) {
+            log.link("Bridge setup: ${b.url} already accepts our token")
+            if (s.bridgeUrl != b.url) settings.update { it.copy(bridgeUrl = b.url) }
+            _state.update { it.copy(step = Step.CAR_WIFI) }
+            checkWifiNow()
+            return
+        }
+        _state.update { it.copy(step = Step.PAIR, pair = PairState.TRYING, pairReason = null) }
+        pairLoop(b)
+    }
+
+    /** Pairs as soon as the bridge's window is open; otherwise waits (polling) for the user to re-plug it. */
+    private suspend fun pairLoop(start: FoundBridge) {
+        var bridge = start
+        var offSince = 0L
+        while (true) {
+            val hello = BridgeSetupApi.hello(bridge.url)
+            when {
+                hello == null -> {
+                    if (offSince == 0L) {
+                        offSince = System.currentTimeMillis()
+                        log.link("Bridge setup: ${bridge.url} not answering — waiting for it to come back")
+                    }
+                    _state.update { it.copy(pair = PairState.BRIDGE_OFF) }
+                    // Back after a re-plug but on a new address? Look for it by name once in a while.
+                    if (System.currentTimeMillis() - offSince > 60_000) {
+                        val again = discovery.find(emptyList()).bridges.firstOrNull { it.name == bridge.name && !it.needsUpdate }
+                        if (again != null && again.url != bridge.url) {
+                            log.link("Bridge setup: ${bridge.name} is back at ${again.url}")
+                            bridge = again
+                            _state.update { it.copy(bridge = again) }
+                        }
+                        offSince = System.currentTimeMillis()
+                    }
+                }
+                hello.pairingOpen -> {
+                    offSince = 0L
+                    _state.update { it.copy(pair = PairState.TRYING, bridge = hello) }
+                    val (tok, reason) = BridgeSetupApi.pair(bridge.url)
+                    if (tok != null) {
+                        val carWifi = settings.current.hasCarWifi
+                        settings.update { it.copy(bridgeUrl = bridge.url, bridgeToken = tok, route = if (carWifi) Route.AUTO else Route.BRIDGE) }
+                        log.link("Bridge setup: paired with ${hello.name} at ${bridge.url}; route ${if (carWifi) "automatic" else "bridge only"}")
+                        _state.update { it.copy(step = Step.CAR_WIFI, bridge = hello) }
+                        checkWifiNow()
+                        return
+                    }
+                    log.warn("Bridge setup: pairing with ${bridge.url} refused ($reason)")
+                    _state.update { it.copy(pair = PairState.NEED_REPLUG, pairReason = reason) }
+                }
+                else -> {
+                    offSince = 0L
+                    if (_state.value.pair != PairState.NEED_REPLUG) log.link("Bridge setup: pairing closed on ${bridge.url} (${hello.pairingReason}) — asking to re-plug")
+                    _state.update { it.copy(pair = PairState.NEED_REPLUG, pairReason = hello.pairingReason) }
+                }
+            }
+            delay(2_500)
+        }
+    }
+
+    fun checkWifi() = launch { checkWifiNow() }
+
+    private suspend fun checkWifiNow() {
+        _state.update { it.copy(step = Step.CAR_WIFI, wifi = WifiState.CHECKING, wifiDetail = null) }
+        val s = settings.current
+        if (!s.hasCarWifi) {
+            _state.update { it.copy(wifi = WifiState.NEED_CREDENTIALS) }
+            return
+        }
+        val bridge = BridgeSetupApi.hello(url) ?: return wifiFailed("The bridge doesn't answer at $url")
+        if (bridge.emulator) {
+            _state.update { it.copy(wifi = WifiState.LEAVING_TEST_MODE) }
+            log.link("Bridge setup: the bridge is in test mode (simulated car) — switching it to the real car")
+            val r = BridgeSetupApi.leaveTestMode(url, token)
+            if (r?.code != 200) return wifiFailed("Could not switch off test mode: ${r?.body?.str("error") ?: "no answer"}")
+            delay(3_000)
+            val back = withTimeoutOrNull(120_000) {
+                var h: FoundBridge? = null
+                while (h == null || h.emulator) {
+                    delay(2_000)
+                    h = BridgeSetupApi.hello(url)
+                }
+                h
+            } ?: return wifiFailed("The bridge did not come back after leaving test mode")
+            _state.update { it.copy(bridge = back) }
+            log.link("Bridge setup: bridge back, now talking to the real car")
+        }
+        val st = BridgeSetupApi.carWifi(url, token)
+        if (st == null || st.code != 200) return wifiFailed("Car Wi-Fi status: ${st?.body?.str("error") ?: "no answer"}")
+        val info = BridgeWifi.from(st.body)
+        _state.update { it.copy(wifiInfo = info) }
+        log.link("Bridge setup: bridge Wi-Fi iface=${info.iface} home=${info.homeIface} profile=${info.ssid} connected=${info.connected} problem=${info.problem}")
+        if (info.problem != null) {
+            _state.update { it.copy(wifi = WifiState.PROBLEM, wifiDetail = info.problem) }
+            return
+        }
+        if (info.connected && info.ssid == s.ssid) {
+            _state.update { it.copy(wifi = WifiState.CONNECTED, carSignal = info.signal) }
+            return
+        }
+        _state.update { it.copy(wifi = WifiState.SEARCHING) }
+        val country = Locale.getDefault().country.takeIf { it.length == 2 }
+        val scan = BridgeSetupApi.scan(url, token, country)
+        if (scan == null || scan.body["ok"] != true) {
+            val why = scan?.body?.str("error") ?: "no answer"
+            _state.update { it.copy(wifi = WifiState.PROBLEM, wifiDetail = why) }
+            log.warn("Bridge setup: scan failed: $why")
+            return
+        }
+        @Suppress("UNCHECKED_CAST")
+        val nets = (scan.body["networks"] as? List<Map<String, Any?>>).orEmpty()
+        val car = nets.firstOrNull { it["ssid"] == s.ssid }
+        log.link("Bridge setup: scan saw ${nets.size} network(s); car ${s.ssid} ${car?.let { "at ${it["signal"]}%" } ?: "not seen"}")
+        if (car == null) {
+            _state.update { it.copy(wifi = WifiState.CAR_NOT_SEEN) }
+            return
+        }
+        joinNow((car["signal"] as? Number)?.toInt())
+    }
+
+    /** Save the car's network on the bridge even though it isn't in range now (it joins when the car is home). */
+    fun saveWithoutCar() = launch { joinNow(null) }
+
+    private suspend fun joinNow(signal: Int?) {
+        val s = settings.current
+        _state.update { it.copy(wifi = WifiState.JOINING, carSignal = signal) }
+        val country = Locale.getDefault().country.takeIf { it.length == 2 }
+        val r = BridgeSetupApi.join(url, token, s.ssid, s.password, country)
+            ?: return wifiFailed("The bridge did not answer while joining")
+        val info = r.body.obj("status")?.let(BridgeWifi::from)
+        val message = r.body.str("message")
+        _state.update { it.copy(wifiInfo = info ?: it.wifiInfo) }
+        log.link("Bridge setup: join → saved=${r.body["saved"]} connected=${r.body["connected"]} mac=${info?.mac} ip=${info?.ip}: $message")
+        _state.update {
+            when {
+                r.body["connected"] == true -> it.copy(wifi = WifiState.CONNECTED, carSignal = info?.signal ?: signal)
+                r.body["saved"] == true -> it.copy(wifi = WifiState.SAVED_NOT_CONNECTED, wifiDetail = message)
+                else -> it.copy(wifi = WifiState.FAILED, wifiDetail = message)
+            }
+        }
+    }
+
+    private fun wifiFailed(why: String) {
+        log.warn("Bridge setup: $why")
+        _state.update { it.copy(wifi = WifiState.FAILED, wifiDetail = why) }
+    }
+
+    fun toRegister() {
+        job?.cancel()
+        _state.update { it.copy(step = Step.REGISTER, reg = RegState.INSTRUCTIONS, regDetail = null) }
+    }
+
+    /** What the car did after the LOCK/UNLOCK sequence: 0 = nothing, 1–2 = room for the bridge, 3 = memory full. */
+    fun beeps(n: Int) {
+        log.link("Bridge setup: car beeped $n time(s)")
+        _state.update { it.copy(reg = when (n) { 0 -> RegState.NO_BEEP; 3 -> RegState.MEMORY_FULL; else -> RegState.READY }, regDetail = null) }
+    }
+
+    fun backToInstructions() = _state.update { it.copy(reg = RegState.INSTRUCTIONS, regDetail = null) }
+
+    fun register() = launch {
+        _state.update { it.copy(reg = RegState.REGISTERING, regDetail = null) }
+        val client = BridgeClient(url, token, log, context)
+        var r = client.execute(CarCommand.RegisterPhone)
+        // The bridge may have been waiting out a retry pause; the car stays in registration mode for 10 minutes.
+        if (r is CommandResult.Failure) {
+            log.warn("Bridge setup: register failed (${r.reason}) — trying once more")
+            delay(2_000)
+            r = client.execute(CarCommand.RegisterPhone)
+        }
+        when (r) {
+            is CommandResult.Success -> {
+                log.link("Bridge setup: the car registered the bridge")
+                _state.update { it.copy(reg = RegState.REGISTERED) }
+            }
+            is CommandResult.Failure -> {
+                log.warn("Bridge setup: register failed: ${r.reason}")
+                _state.update { it.copy(reg = RegState.FAILED, regDetail = r.reason) }
+            }
+        }
+    }
+
+    /** After the power is off: wait for the bridge to show the real car's data. */
+    fun verify() = launch {
+        _state.update { it.copy(step = Step.VERIFY, verify = VerifyState.WAITING) }
+        val client = BridgeClient(url, token, log, context)
+        val since = System.currentTimeMillis()
+        client.post("connect")
+        while (System.currentTimeMillis() - since < 150_000) {
+            val snap = client.fetchStatus(6_000)
+            val car = snap?.car
+            val fresh = car?.updatedAtMs?.let { it > since - 60_000 } == true
+            if (snap != null && (snap.link.isConnected || fresh) && car?.hasData == true) {
+                log.link("Bridge setup: verified — bridge sees the car (battery ${car.batteryPercent}%, phones registered ${car.registrations ?: "?"})")
+                _state.update { it.copy(verify = VerifyState.OK, battery = car.batteryPercent, vin = car.vin, registrations = car.registrations) }
+                return@launch
+            }
+            delay(4_000)
+        }
+        log.warn("Bridge setup: no car data from the bridge within 150 s — it will keep trying on its own")
+        _state.update { it.copy(verify = VerifyState.SLOW) }
+    }
+
+    /** Leaves the wizard: routes through the bridge (automatic when the car's Wi-Fi is also set up). */
+    fun finish() {
+        job?.cancel()
+        scope.launch {
+            val carWifi = settings.current.hasCarWifi
+            settings.update { it.copy(route = if (carWifi) Route.AUTO else Route.BRIDGE) }
+            log.link("Bridge setup: finished (route ${if (carWifi) "automatic" else "bridge only"})")
+        }
+    }
+
+    fun cancel() {
+        job?.cancel()
+        log.link("Bridge setup: closed at step ${_state.value.step}")
+    }
+}

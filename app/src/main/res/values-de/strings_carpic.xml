@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Car picture: styles, tap hints, large view. -->
+<resources>
+    <string name="carview_hint_top">Tippe aufs Auto · halten zum Vergrößern</string>
+    <string name="carview_hint_wide">Tippe auf ein Teil für Details · halten zum Vergrößern</string>
+    <string name="carview_hint_3d">Ziehen zum Drehen · Teil antippen · halten zum Vergrößern</string>
+    <string name="carview_large_hint">Tippe auf ein Teil für Details.</string>
+    <string name="carview_large_hint_3d">Zieh zur Seite, um das Auto zu drehen, nach oben und unten, um es zu kippen. Tippe auf ein Teil für Details.</string>
+    <string name="carview_show_large">Groß anzeigen</string>
+    <string name="carview_label_lights">Licht</string>
+    <string name="carview_label_body">Türen</string>
+    <string name="carview_label_cabin">Innenraum</string>
+    <string name="carview_label_charge">Laden</string>
+    <string name="set_carpic_title">Autobild</string>
+    <string name="set_carpic_style">Stil</string>
+    <string name="set_carpic_top">Von oben</string>
+    <string name="set_carpic_side">Seite</string>
+    <string name="set_carpic_3d">3D</string>
+    <string name="set_carpic_hints">Zeigen, was du antippen kannst</string>
+    <string name="set_carpic_icons">Symbole</string>
+    <string name="set_carpic_labels">Beschriftung</string>
+    <string name="set_carpic_touch">Beim Berühren</string>
+    <string name="set_carpic_explain">Tippe auf der Startseite auf ein Teil des Autos für Details und Tasten; halte es gedrückt, um es groß zu sehen. „Beim Berühren“ hält das Bild schlicht und hebt ein Teil hervor, wenn du es berührst.</string>
+</resources>

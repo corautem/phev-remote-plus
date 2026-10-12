@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Car picture in the home hero and its detail dialogs (ui/home/CarTopView.kt). -->
 <resources>
-    <string name="carview_tap_hint">Tryck på bilen</string>
     <string name="carview_desc">Bild av bilen: %1$s. Tryck på en del för detaljer.</string>
     <string name="carview_lights_title">Ljus och motorhuv</string>
     <string name="carview_body_title">Dörrar och lås</string>

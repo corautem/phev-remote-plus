@@ -1,5 +1,11 @@
 package io.github.anwo91.phevlink.ui.home
 
+import io.github.anwo91.phevlink.data.CarStyle
+import io.github.anwo91.phevlink.data.TapHints
+import io.github.anwo91.phevlink.ui.home.carpic.CarPart
+import io.github.anwo91.phevlink.ui.home.carpic.CarPicture
+import io.github.anwo91.phevlink.ui.home.carpic.CarPictureDialog
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -110,6 +116,8 @@ fun HomeScreen(
     var showLink by remember { mutableStateOf(false) }
     // The part of the car picture the user tapped; its dialog explains it and offers the matching actions.
     var part by remember { mutableStateOf<CarPart?>(null) }
+    // Holding the car picture shows it large (and the style choices).
+    var bigPicture by remember { mutableStateOf(false) }
     val ctx = LocalContext.current
     // Re-render "x min ago" texts.
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
@@ -124,9 +132,13 @@ fun HomeScreen(
         item { AttentionCard(car) }
         item {
             HeroHeader(
-                car, link, settings.fullRangeKm, settings.carName, now,
+                car, link, settings.fullRangeKm, settings.carName, now, settings.carStyle, settings.tapHints,
                 onLinkClick = { showLink = true },
                 onPart = { p -> vm.log.add(LogKind.CMD, carPictureLog(p, car)); part = p },
+                onHold = {
+                    vm.log.add(LogKind.CMD, "Car picture: large view (${settings.carStyle}, hints ${settings.tapHints})")
+                    bigPicture = true
+                },
             )
         }
         item {
@@ -166,6 +178,16 @@ fun HomeScreen(
         }
     }
 
+    if (bigPicture) {
+        CarPictureDialog(
+            car, settings.carName.ifBlank { "Outlander PHEV" }, settings.carStyle, settings.tapHints,
+            onStyle = { st -> vm.log.add(LogKind.CMD, "Car picture: style $st"); vm.updateSettings { it.copy(carStyle = st) } },
+            onHints = { h -> vm.log.add(LogKind.CMD, "Car picture: hints $h"); vm.updateSettings { it.copy(tapHints = h) } },
+            onPart = { p -> vm.log.add(LogKind.CMD, carPictureLog(p, car)); part = p },
+            onDismiss = { bigPicture = false },
+        )
+    }
+    // After the large view, so a part's dialog opens on top of it.
     part?.let { p -> CarPartDialog(p, car, pending, settings.fullRangeKm, now, vm, onDismiss = { part = null }) }
     if (showLink) LinkSheet(link, car, onDismiss = { showLink = false }, onRetry = { vm.reconnect(); showLink = false }, onDiagnostics = { showLink = false; onOpenDiagnostics() })
 }
@@ -209,8 +231,11 @@ private fun HeroHeader(
     fullRangeKm: Int,
     carName: String,
     now: Long,
+    carStyle: CarStyle,
+    tapHints: TapHints,
     onLinkClick: () -> Unit,
     onPart: (CarPart) -> Unit,
+    onHold: () -> Unit,
 ) {
     val status = LocalStatus.current
     val brush = Brush.verticalGradient(
@@ -280,14 +305,31 @@ private fun HeroHeader(
                     if (car.batteryWarming) BatteryNote(Icons.Outlined.Whatshot, stringResource(R.string.home_batt_warming), status.charge)
                     if (car.batteryTooCold) BatteryNote(Icons.Outlined.AcUnit, stringResource(R.string.home_batt_too_cold), status.warn)
                 }
-                Spacer(Modifier.width(8.dp))
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    CarTopView(car, Modifier.width(104.dp).height(220.dp), onPart)
-                    Text(
-                        stringResource(R.string.carview_tap_hint),
-                        style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
+                if (carStyle == CarStyle.TOP) {
+                    Spacer(Modifier.width(8.dp))
+                    Column(Modifier.width(112.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                        CarPicture(car, carStyle, tapHints, Modifier.width(112.dp).height(224.dp), onPart = onPart, onHold = onHold)
+                        Text(
+                            stringResource(R.string.carview_hint_top),
+                            style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
                 }
+            }
+            // From the side and in 3D the car is wide: it gets the full width below.
+            if (carStyle != CarStyle.TOP) {
+                Spacer(Modifier.height(12.dp))
+                CarPicture(
+                    car, carStyle, tapHints,
+                    Modifier.fillMaxWidth().height(if (carStyle == CarStyle.SIDE) 136.dp else 190.dp),
+                    onPart = onPart, onHold = onHold,
+                )
+                Text(
+                    stringResource(if (carStyle == CarStyle.THREE_D) R.string.carview_hint_3d else R.string.carview_hint_wide),
+                    style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth(),
+                )
             }
         }
     }

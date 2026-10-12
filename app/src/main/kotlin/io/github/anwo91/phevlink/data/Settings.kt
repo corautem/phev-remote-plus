@@ -33,6 +33,12 @@ enum class Route(val label: String, @StringRes val labelRes: Int) {
     BRIDGE("Bridge only", R.string.route_bridge),
 }
 
+/** How the car picture on the home screen is drawn. */
+enum class CarStyle { TOP, SIDE, THREE_D }
+
+/** How the car picture shows what can be tapped. */
+enum class TapHints { ICONS, LABELS, HIGHLIGHT }
+
 data class AppSettings(
     val setupDone: Boolean = false,
     val ssid: String = "",
@@ -73,6 +79,9 @@ data class AppSettings(
      * with the car. A background check notifies when the car is home; cleared once the bridge is registered.
      */
     val bridgeSetupPending: Boolean = false,
+    /** Car picture: from above, from the side or a 3D model you can turn (this phone only). */
+    val carStyle: CarStyle = CarStyle.TOP,
+    val tapHints: TapHints = TapHints.ICONS,
 ) {
     val hasCarWifi: Boolean get() = ssid.isNotBlank() && passwordProblem(password) == null
     val hasBridge: Boolean get() = bridgeUrl.isNotBlank()
@@ -140,6 +149,8 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
         val carName = stringPreferencesKey("car_name")
         val devMode = booleanPreferencesKey("dev_mode")
         val bridgeSetupPending = booleanPreferencesKey("bridge_setup_pending")
+        val carStyle = stringPreferencesKey("car_style")
+        val tapHints = stringPreferencesKey("tap_hints")
     }
 
     val flow: StateFlow<AppSettings> = context.dataStore.data
@@ -186,6 +197,8 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
             carName = p[K.carName] ?: "",
             devMode = p[K.devMode] ?: false,
             bridgeSetupPending = p[K.bridgeSetupPending] ?: false,
+            carStyle = p[K.carStyle]?.let { runCatching { CarStyle.valueOf(it) }.getOrNull() } ?: d.carStyle,
+            tapHints = p[K.tapHints]?.let { runCatching { TapHints.valueOf(it) }.getOrNull() } ?: d.tapHints,
         )
     }
 
@@ -227,6 +240,8 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
             p[K.carName] = s.carName.trim()
             p[K.devMode] = s.devMode
             p[K.bridgeSetupPending] = s.bridgeSetupPending
+            p[K.carStyle] = s.carStyle.name
+            p[K.tapHints] = s.tapHints.name
         }
     }
 }

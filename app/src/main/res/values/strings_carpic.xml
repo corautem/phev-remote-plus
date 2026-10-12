@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Car picture: styles, tap hints, large view. -->
+<resources>
+    <string name="carview_hint_top">Tap the car · hold to enlarge</string>
+    <string name="carview_hint_wide">Tap a part for details · hold to enlarge</string>
+    <string name="carview_hint_3d">Drag to turn · tap a part · hold to enlarge</string>
+    <string name="carview_large_hint">Tap a part for details.</string>
+    <string name="carview_large_hint_3d">Drag sideways to turn the car, up and down to tilt it. Tap a part for details.</string>
+    <string name="carview_show_large">Show large</string>
+    <string name="carview_label_lights">Lights</string>
+    <string name="carview_label_body">Doors</string>
+    <string name="carview_label_cabin">Cabin</string>
+    <string name="carview_label_charge">Charging</string>
+    <string name="set_carpic_title">Car picture</string>
+    <string name="set_carpic_style">Style</string>
+    <string name="set_carpic_top">From above</string>
+    <string name="set_carpic_side">Side</string>
+    <string name="set_carpic_3d">3D</string>
+    <string name="set_carpic_hints">Show what you can tap</string>
+    <string name="set_carpic_icons">Icons</string>
+    <string name="set_carpic_labels">Labels</string>
+    <string name="set_carpic_touch">On touch</string>
+    <string name="set_carpic_explain">Tap a part of the car on the home screen for details and buttons; hold it to see it large. “On touch” keeps the picture clean and lights a part up when you touch it.</string>
+</resources>

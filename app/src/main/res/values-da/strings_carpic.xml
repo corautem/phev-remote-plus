@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Car picture: styles, tap hints, large view. -->
+<resources>
+    <string name="carview_hint_top">Tryk på bilen · hold for stor visning</string>
+    <string name="carview_hint_wide">Tryk på en del for detaljer · hold for stor visning</string>
+    <string name="carview_hint_3d">Træk for at dreje · tryk på en del · hold for stor visning</string>
+    <string name="carview_large_hint">Tryk på en del for detaljer.</string>
+    <string name="carview_large_hint_3d">Træk til siden for at dreje bilen, op og ned for at vippe den. Tryk på en del for detaljer.</string>
+    <string name="carview_show_large">Vis stor</string>
+    <string name="carview_label_lights">Lys</string>
+    <string name="carview_label_body">Døre</string>
+    <string name="carview_label_cabin">Kabine</string>
+    <string name="carview_label_charge">Opladning</string>
+    <string name="set_carpic_title">Billede af bilen</string>
+    <string name="set_carpic_style">Stil</string>
+    <string name="set_carpic_top">Ovenfra</string>
+    <string name="set_carpic_side">Siden</string>
+    <string name="set_carpic_3d">3D</string>
+    <string name="set_carpic_hints">Vis, hvad du kan trykke på</string>
+    <string name="set_carpic_icons">Ikoner</string>
+    <string name="set_carpic_labels">Etiketter</string>
+    <string name="set_carpic_touch">Ved berøring</string>
+    <string name="set_carpic_explain">Tryk på en del af bilen på startsiden for detaljer og knapper; hold for at se den stor. “Ved berøring” holder billedet rent og lyser en del op, når du rører ved den.</string>
+</resources>

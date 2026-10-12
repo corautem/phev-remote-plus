@@ -1,5 +1,7 @@
 package io.github.anwo91.phevlink.ui.settings
 
+import io.github.anwo91.phevlink.ui.home.carpic.CarPictureOptions
+import io.github.anwo91.phevlink.core.diag.LogKind
 import android.Manifest
 import android.app.Activity
 import android.content.Context
@@ -165,6 +167,20 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () 
             Toggle(stringResource(R.string.settings_dynamic_color), s.dynamicColor) { on -> set { it.copy(dynamicColor = on) } }
             Text(
                 stringResource(R.string.settings_dynamic_color_explain),
+                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+
+        // -------------------------------------------------------- car picture
+        SectionCard(title = stringResource(R.string.set_carpic_title)) {
+            CarPictureOptions(
+                s.carStyle, s.tapHints,
+                onStyle = { st -> vm.log.add(LogKind.CMD, "Car picture: style $st"); set { it.copy(carStyle = st) } },
+                onHints = { h -> vm.log.add(LogKind.CMD, "Car picture: hints $h"); set { it.copy(tapHints = h) } },
+            )
+            Spacer(Modifier.height(6.dp))
+            Text(
+                stringResource(R.string.set_carpic_explain),
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }

@@ -79,7 +79,7 @@ class Car3DScene : CarScene {
         }
 
         fun px(p: FloatArray): Float = w / 2f + p[0] * focal / (cam - p[2])
-        fun py(p: FloatArray): Float = h * 0.54f - p[1] * focal / (cam - p[2])
+        fun py(p: FloatArray): Float = h * 0.49f - p[1] * focal / (cam - p[2])
         fun project(v: V): FloatArray = xf(v).let { floatArrayOf(px(it), py(it), it[2]) }
 
         /** Whether a model-space direction (outward normal) faces the camera at model point [at]. */

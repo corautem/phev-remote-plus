@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Car picture in the home hero and its detail dialogs (ui/home/CarTopView.kt). -->
+<resources>
+    <string name="carview_tap_hint">Tippe aufs Auto</string>
+    <string name="carview_desc">Bild des Autos: %1$s. Tippe auf einen Teil für Details.</string>
+    <string name="carview_lights_title">Licht und Motorhaube</string>
+    <string name="carview_body_title">Türen und Schlösser</string>
+    <string name="carview_cabin_title">Im Auto</string>
+    <string name="carview_charge_title">Batterie und Laden</string>
+    <string name="carview_close">Schließen</string>
+    <string name="carview_open">Offen</string>
+    <string name="carview_closed">Zu</string>
+    <string name="carview_headlights">Fahrlicht</string>
+    <string name="carview_parking">Standlicht</string>
+    <string name="carview_hazards">Warnblinker</string>
+    <string name="carview_interior">Innenlicht</string>
+    <string name="carview_locks">Schlösser</string>
+    <string name="carview_climate">Klima</string>
+    <string name="carview_battery">Batterie</string>
+    <string name="carview_cable">Ladekabel</string>
+    <string name="carview_charge_state">Laden</string>
+    <string name="carview_lights_on_note">Eingeschaltetes Licht leert die kleine 12-V-Batterie des Autos. Schalte es hier aus, wenn es niemand braucht.</string>
+    <string name="carview_open_note">Etwas ist offen. Schau nach dem Auto, bevor du gehst.</string>
+    <string name="carview_no_remote_lock">Die App kann das Auto nicht ver- oder entriegeln – das Fernsystem des Autos bietet das nicht an.</string>
+    <string name="carview_start_climate">Klima starten</string>
+    <string name="carview_stop_climate">Klima stoppen</string>
+    <string name="carview_no_data">Das Auto hat das noch nicht gemeldet. Verbinde dich mit dem Auto, um es zu sehen.</string>
+    <string name="carview_all_closed_short">alles zu</string>
+    <string name="carview_some_open">offen: %1$s</string>
+</resources>

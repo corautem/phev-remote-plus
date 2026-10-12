@@ -18,6 +18,10 @@ The main goal: **a connection that just works.**
 
 - **Dashboard** — battery % with estimated electric range, charging state and "full at" time, plug, doors/boot/bonnet,
   lock state, lights, power switch, car clock.
+- **Car picture** — a top-down drawing of the car beside the battery shows its state at a glance: open doors, boot and
+  bonnet, lights and hazards, the cabin glowing warm or cool while climate runs, the lock, and the charging cable
+  (animated while charging). Tap a part to see what it means and act on it — switch the lights off, start climate,
+  charge now.
 - **Climate** — heat, cool or defrost for 10/20/30 minutes; **Smart** mode picks mode and duration from the outside
   temperature (MET Norway forecast). Handles "stopped by the car" (door opened / battery low) with a one-tap reset.
 - **Departure timers** — "ready to leave at 07:30 on weekdays": 35 min before, the app checks the forecast and starts

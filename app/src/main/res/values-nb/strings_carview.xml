@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Car picture in the home hero and its detail dialogs (ui/home/CarTopView.kt). -->
+<resources>
+    <string name="carview_tap_hint">Trykk på bilen</string>
+    <string name="carview_desc">Bilde av bilen: %1$s. Trykk på en del for detaljer.</string>
+    <string name="carview_lights_title">Lys og panser</string>
+    <string name="carview_body_title">Dører og låser</string>
+    <string name="carview_cabin_title">Inne i bilen</string>
+    <string name="carview_charge_title">Batteri og lading</string>
+    <string name="carview_close">Lukk</string>
+    <string name="carview_open">Åpen</string>
+    <string name="carview_closed">Lukket</string>
+    <string name="carview_headlights">Frontlys</string>
+    <string name="carview_parking">Parklys</string>
+    <string name="carview_hazards">Nødblink</string>
+    <string name="carview_interior">Kupélys</string>
+    <string name="carview_locks">Låser</string>
+    <string name="carview_climate">Klima</string>
+    <string name="carview_battery">Batteri</string>
+    <string name="carview_cable">Ladekabel</string>
+    <string name="carview_charge_state">Lading</string>
+    <string name="carview_lights_on_note">Lys som står på, tapper bilens lille 12 V-batteri. Slå dem av her hvis ingen trenger dem.</string>
+    <string name="carview_open_note">Noe står åpent. Sjekk bilen før du går fra den.</string>
+    <string name="carview_no_remote_lock">Appen kan ikke låse eller låse opp bilen – bilens fjernsystem har ikke den muligheten.</string>
+    <string name="carview_start_climate">Start klima</string>
+    <string name="carview_stop_climate">Stopp klima</string>
+    <string name="carview_no_data">Bilen har ikke sendt dette ennå. Koble til bilen for å se det.</string>
+    <string name="carview_all_closed_short">alt lukket</string>
+    <string name="carview_some_open">åpen: %1$s</string>
+</resources>

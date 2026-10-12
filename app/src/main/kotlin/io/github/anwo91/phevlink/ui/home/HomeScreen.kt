@@ -76,6 +76,7 @@ import io.github.anwo91.phevlink.core.model.PlugState
 import io.github.anwo91.phevlink.core.model.PreAcState
 import io.github.anwo91.phevlink.core.model.ScheduleDecoder
 import io.github.anwo91.phevlink.core.model.TheftAlarm
+import io.github.anwo91.phevlink.core.diag.LogKind
 import io.github.anwo91.phevlink.link.LinkUi
 import io.github.anwo91.phevlink.ui.MainViewModel
 import io.github.anwo91.phevlink.ui.common.BatteryRing
@@ -107,6 +108,8 @@ fun HomeScreen(
     val pendingCmd by vm.pendingCommand.collectAsState()
     val settings by vm.settings.collectAsState()
     var showLink by remember { mutableStateOf(false) }
+    // The part of the car picture the user tapped; its dialog explains it and offers the matching actions.
+    var part by remember { mutableStateOf<CarPart?>(null) }
     val ctx = LocalContext.current
     // Re-render "x min ago" texts.
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
@@ -119,7 +122,13 @@ fun HomeScreen(
     ) {
         if (settings.bridgeSetupPending) item { BridgePendingCard(onOpenBridgeSetup) }
         item { AttentionCard(car) }
-        item { HeroHeader(car, link, settings.fullRangeKm, settings.carName, now) { showLink = true } }
+        item {
+            HeroHeader(
+                car, link, settings.fullRangeKm, settings.carName, now,
+                onLinkClick = { showLink = true },
+                onPart = { p -> vm.log.add(LogKind.CMD, carPictureLog(p, car)); part = p },
+            )
+        }
         item {
             val msgOff = stringResource(R.string.cmd_climate_off)
             val msgCleared = stringResource(R.string.msg_climate_warning_cleared)
@@ -157,6 +166,7 @@ fun HomeScreen(
         }
     }
 
+    part?.let { p -> CarPartDialog(p, car, pending, settings.fullRangeKm, now, vm, onDismiss = { part = null }) }
     if (showLink) LinkSheet(link, car, onDismiss = { showLink = false }, onRetry = { vm.reconnect(); showLink = false }, onDiagnostics = { showLink = false; onOpenDiagnostics() })
 }
 
@@ -193,7 +203,15 @@ private fun AttentionCard(car: CarState) {
  * the one block that looks intentional even before any car data arrives, so the app never looks empty.
  */
 @Composable
-private fun HeroHeader(car: CarState, link: LinkUi, fullRangeKm: Int, carName: String, now: Long, onLinkClick: () -> Unit) {
+private fun HeroHeader(
+    car: CarState,
+    link: LinkUi,
+    fullRangeKm: Int,
+    carName: String,
+    now: Long,
+    onLinkClick: () -> Unit,
+    onPart: (CarPart) -> Unit,
+) {
     val status = LocalStatus.current
     val brush = Brush.verticalGradient(
         listOf(MaterialTheme.colorScheme.primaryContainer, MaterialTheme.colorScheme.surfaceContainer),
@@ -212,16 +230,17 @@ private fun HeroHeader(car: CarState, link: LinkUi, fullRangeKm: Int, carName: S
                 }
                 LinkChip(link, onLinkClick)
             }
-            Spacer(Modifier.height(20.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                BatteryRing(car.batteryPercent, car.isCharging, size = 150.dp) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(car.batteryPercent?.let { "$it" } ?: "–", style = MaterialTheme.typography.displayMedium)
-                        Text("%", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    }
-                }
-                Spacer(Modifier.width(22.dp))
+            Spacer(Modifier.height(16.dp))
+            // Battery and charging on the left, the car picture on the right: tap a part of the car for details.
+            Row(verticalAlignment = Alignment.Top) {
                 Column(Modifier.weight(1f)) {
+                    BatteryRing(car.batteryPercent, car.isCharging, size = 132.dp) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(car.batteryPercent?.let { "$it" } ?: "–", style = MaterialTheme.typography.displayMedium)
+                            Text("%", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
+                    Spacer(Modifier.height(14.dp))
                     val range = car.batteryPercent?.let { (it * fullRangeKm) / 100 }
                     Text(range?.let { "≈ $it km" } ?: "–", style = MaterialTheme.typography.headlineSmall)
                     Text(stringResource(R.string.home_electric_range), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -260,6 +279,14 @@ private fun HeroHeader(car: CarState, link: LinkUi, fullRangeKm: Int, carName: S
                     // Winter: the drive battery's own thermal state.
                     if (car.batteryWarming) BatteryNote(Icons.Outlined.Whatshot, stringResource(R.string.home_batt_warming), status.charge)
                     if (car.batteryTooCold) BatteryNote(Icons.Outlined.AcUnit, stringResource(R.string.home_batt_too_cold), status.warn)
+                }
+                Spacer(Modifier.width(8.dp))
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    CarTopView(car, Modifier.width(104.dp).height(220.dp), onPart)
+                    Text(
+                        stringResource(R.string.carview_tap_hint),
+                        style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
                 }
             }
         }

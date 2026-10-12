@@ -18,9 +18,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -54,6 +51,7 @@ import io.github.anwo91.phevlink.core.planner.Departure
 import io.github.anwo91.phevlink.schedule.DepartureScheduler
 import io.github.anwo91.phevlink.ui.MainViewModel
 import io.github.anwo91.phevlink.ui.common.SectionCard
+import io.github.anwo91.phevlink.ui.icons.PhevIcons
 import io.github.anwo91.phevlink.util.AppLocale
 import io.github.anwo91.phevlink.util.Format
 import io.github.anwo91.phevlink.util.Labels
@@ -129,7 +127,7 @@ fun ScheduleScreen(vm: MainViewModel, modifier: Modifier) {
                     days = setOf(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY),
                 )
             },
-            icon = { Icon(Icons.Outlined.Add, null) },
+            icon = { Icon(PhevIcons.Add, null) },
             text = { Text(stringResource(R.string.sched_add)) },
             modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp),
         )
@@ -187,7 +185,7 @@ private fun DepartureRow(d: Departure, onToggle: (Boolean) -> Unit, onEdit: () -
             }
             Column(horizontalAlignment = Alignment.End) {
                 Switch(checked = d.enabled, onCheckedChange = onToggle)
-                IconButton(onClick = onDelete) { Icon(Icons.Outlined.Delete, stringResource(R.string.common_delete)) }
+                IconButton(onClick = onDelete) { Icon(PhevIcons.Delete, stringResource(R.string.common_delete)) }
             }
         }
     }

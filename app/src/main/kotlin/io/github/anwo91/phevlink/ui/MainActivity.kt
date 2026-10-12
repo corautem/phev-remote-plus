@@ -8,12 +8,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.BugReport
-import androidx.compose.material.icons.outlined.Build
-import androidx.compose.material.icons.outlined.DirectionsCar
-import androidx.compose.material.icons.outlined.Schedule
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
@@ -49,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import io.github.anwo91.phevlink.link.DemoMode
 import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.ui.diag.DiagnosticsScreen
+import io.github.anwo91.phevlink.ui.icons.PhevIcons
 import io.github.anwo91.phevlink.ui.setup.BridgeSetupScreen
 import io.github.anwo91.phevlink.ui.bridge.BridgeScreen
 import io.github.anwo91.phevlink.ui.home.HomeScreen
@@ -112,11 +107,11 @@ class MainActivity : ComponentActivity() {
 }
 
 private enum class Tab(@StringRes val label: Int, val icon: ImageVector) {
-    CAR(R.string.tab_car, Icons.Outlined.DirectionsCar),
-    SCHEDULE(R.string.tab_schedule, Icons.Outlined.Schedule),
-    OBD(R.string.tab_obd, Icons.Outlined.Build),
-    DIAG(R.string.tab_log, Icons.Outlined.BugReport),
-    SETTINGS(R.string.tab_settings, Icons.Outlined.Settings),
+    CAR(R.string.tab_car, PhevIcons.Car),
+    SCHEDULE(R.string.tab_schedule, PhevIcons.Clock),
+    OBD(R.string.tab_obd, PhevIcons.Obd),
+    DIAG(R.string.tab_log, PhevIcons.Log),
+    SETTINGS(R.string.tab_settings, PhevIcons.Settings),
 }
 
 /** Full-screen pages opened from a tab. */

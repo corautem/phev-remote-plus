@@ -19,9 +19,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -54,6 +51,7 @@ import io.github.anwo91.phevlink.core.model.VehicleSettingsText
 import io.github.anwo91.phevlink.core.model.VisibleSetting
 import io.github.anwo91.phevlink.ui.MainViewModel
 import io.github.anwo91.phevlink.ui.common.SectionCard
+import io.github.anwo91.phevlink.ui.icons.PhevIcons
 import io.github.anwo91.phevlink.util.AppLocale
 
 /**
@@ -81,7 +79,7 @@ fun VehicleSettingsScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> U
 
     Column(modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth().padding(4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.common_back)) }
+            IconButton(onClick = onBack) { Icon(PhevIcons.Back, stringResource(R.string.common_back)) }
             Text(stringResource(R.string.vs_title), style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
             if (pending != null) CircularProgressIndicator(Modifier.padding(end = 12.dp).size(20.dp), strokeWidth = 2.dp)
         }
@@ -117,7 +115,7 @@ fun VehicleSettingsScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> U
                                     )
                                 }
                             }
-                            Icon(Icons.Outlined.Info, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Icon(PhevIcons.Info, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }
@@ -154,7 +152,7 @@ fun VehicleSettingsScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> U
                                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary,
                                     )
                                 }
-                                Icon(Icons.Outlined.Info, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Icon(PhevIcons.Info, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
                         }
                     }

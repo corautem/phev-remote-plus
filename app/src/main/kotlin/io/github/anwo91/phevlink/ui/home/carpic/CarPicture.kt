@@ -17,12 +17,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Air
-import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material.icons.outlined.EvStation
-import androidx.compose.material.icons.outlined.Lightbulb
-import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -76,6 +70,7 @@ import io.github.anwo91.phevlink.core.model.PlugState
 import io.github.anwo91.phevlink.core.model.TheftAlarm
 import io.github.anwo91.phevlink.data.CarStyle
 import io.github.anwo91.phevlink.data.TapHints
+import io.github.anwo91.phevlink.ui.icons.PhevIcons
 import io.github.anwo91.phevlink.ui.theme.LocalStatus
 import io.github.anwo91.phevlink.util.Labels
 import kotlinx.coroutines.delay
@@ -152,10 +147,10 @@ fun CarPicture(
     )
     val labels = remember(labelTexts, labelStyle) { labelTexts.mapValues { (_, t) -> measurer.measure(t, labelStyle) } }
     val icons = mapOf(
-        CarPart.LIGHTS to rememberVectorPainter(Icons.Outlined.Lightbulb),
-        CarPart.BODY to rememberVectorPainter(Icons.Outlined.Lock),
-        CarPart.CABIN to rememberVectorPainter(Icons.Outlined.Air),
-        CarPart.CHARGE to rememberVectorPainter(Icons.Outlined.EvStation),
+        CarPart.LIGHTS to rememberVectorPainter(PhevIcons.Headlights),
+        CarPart.BODY to rememberVectorPainter(PhevIcons.Door),
+        CarPart.CABIN to rememberVectorPainter(PhevIcons.Temperature),
+        CarPart.CHARGE to rememberVectorPainter(PhevIcons.Plug),
     )
     val badgeFill = cs.surface.copy(alpha = 0.92f)
     val accent = cs.primary
@@ -366,7 +361,7 @@ fun CarPictureDialog(
             Column(Modifier.fillMaxSize().padding(16.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(title, style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
-                    IconButton(onClick = onDismiss) { Icon(Icons.Outlined.Close, stringResource(R.string.carview_close)) }
+                    IconButton(onClick = onDismiss) { Icon(PhevIcons.Close, stringResource(R.string.carview_close)) }
                 }
                 Text(
                     stringResource(if (style == CarStyle.THREE_D) R.string.carview_large_hint_3d else R.string.carview_large_hint),

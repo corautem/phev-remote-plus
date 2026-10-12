@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
+    <!-- Status bar: OBD session (the 16-pin connector) -->
+    <path android:strokeColor="#FFFFFFFF" android:strokeWidth="1.8" android:strokeLineCap="round" android:strokeLineJoin="round"
+        android:pathData="M 4 7.5 h 16 l -1.6 8.2 a 1 1 0 0 1 -1 0.8 H 6.6 a 1 1 0 0 1 -1 -0.8 z"/>
+    <path android:fillColor="#FFFFFFFF"
+        android:pathData="M 7.4 10.5 a 1.1 1.1 0 1 0 2.2 0 a 1.1 1.1 0 1 0 -2.2 0 Z"/>
+    <path android:fillColor="#FFFFFFFF"
+        android:pathData="M 10.9 10.5 a 1.1 1.1 0 1 0 2.2 0 a 1.1 1.1 0 1 0 -2.2 0 Z"/>
+    <path android:fillColor="#FFFFFFFF"
+        android:pathData="M 14.4 10.5 a 1.1 1.1 0 1 0 2.2 0 a 1.1 1.1 0 1 0 -2.2 0 Z"/>
+    <path android:fillColor="#FFFFFFFF"
+        android:pathData="M 9.1 13.5 a 1.1 1.1 0 1 0 2.2 0 a 1.1 1.1 0 1 0 -2.2 0 Z"/>
+    <path android:fillColor="#FFFFFFFF"
+        android:pathData="M 12.7 13.5 a 1.1 1.1 0 1 0 2.2 0 a 1.1 1.1 0 1 0 -2.2 0 Z"/>
+</vector>

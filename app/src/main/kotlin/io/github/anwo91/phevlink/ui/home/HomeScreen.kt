@@ -24,20 +24,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AcUnit
-import androidx.compose.material.icons.outlined.WarningAmber
-import androidx.compose.material.icons.outlined.Air
-import androidx.compose.material.icons.outlined.AutoAwesome
-import androidx.compose.material.icons.outlined.EmojiObjects
-import androidx.compose.material.icons.outlined.EvStation
-import androidx.compose.material.icons.outlined.Flare
-import androidx.compose.material.icons.outlined.Highlight
-import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material.icons.outlined.LockOpen
-import androidx.compose.material.icons.outlined.Refresh
-import androidx.compose.material.icons.outlined.Schedule
-import androidx.compose.material.icons.outlined.Whatshot
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -92,6 +78,7 @@ import io.github.anwo91.phevlink.ui.common.Pill
 import io.github.anwo91.phevlink.ui.common.SectionCard
 import io.github.anwo91.phevlink.ui.common.phaseColor
 import io.github.anwo91.phevlink.ui.common.quantityString
+import io.github.anwo91.phevlink.ui.icons.PhevIcons
 import io.github.anwo91.phevlink.ui.theme.LocalStatus
 import io.github.anwo91.phevlink.util.Format
 import io.github.anwo91.phevlink.util.Labels
@@ -211,7 +198,7 @@ private fun AttentionCard(car: CarState) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             messages.forEach { m ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Outlined.WarningAmber, null, Modifier.size(20.dp))
+                    Icon(PhevIcons.Warning, null, Modifier.size(20.dp))
                     Spacer(Modifier.width(10.dp))
                     Text(m, style = MaterialTheme.typography.bodyMedium)
                 }
@@ -302,8 +289,8 @@ private fun HeroHeader(
                         else -> Unit
                     }
                     // Winter: the drive battery's own thermal state.
-                    if (car.batteryWarming) BatteryNote(Icons.Outlined.Whatshot, stringResource(R.string.home_batt_warming), status.charge)
-                    if (car.batteryTooCold) BatteryNote(Icons.Outlined.AcUnit, stringResource(R.string.home_batt_too_cold), status.warn)
+                    if (car.batteryWarming) BatteryNote(PhevIcons.Heat, stringResource(R.string.home_batt_warming), status.charge)
+                    if (car.batteryTooCold) BatteryNote(PhevIcons.Cool, stringResource(R.string.home_batt_too_cold), status.warn)
                 }
                 if (carStyle == CarStyle.TOP) {
                     Spacer(Modifier.width(8.dp))
@@ -445,7 +432,7 @@ private fun ClimateCard(
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     BusyButton(stringResource(R.string.climate_start), pending, Modifier.weight(1f)) { onStart(mode, dur) }
                     OutlinedButton(onClick = onSmart, enabled = pending == null, modifier = Modifier.weight(1f)) {
-                        Icon(Icons.Outlined.AutoAwesome, null, Modifier.size(18.dp))
+                        Icon(PhevIcons.Smart, null, Modifier.size(18.dp))
                         Spacer(Modifier.width(6.dp))
                         Text(stringResource(R.string.climate_smart))
                     }
@@ -461,9 +448,9 @@ private fun ClimateCard(
 }
 
 fun modeIcon(m: ClimateMode): ImageVector = when (m) {
-    ClimateMode.HEAT -> Icons.Outlined.Whatshot
-    ClimateMode.COOL -> Icons.Outlined.AcUnit
-    ClimateMode.WINDSCREEN -> Icons.Outlined.Air
+    ClimateMode.HEAT -> PhevIcons.Heat
+    ClimateMode.COOL -> PhevIcons.Cool
+    ClimateMode.WINDSCREEN -> PhevIcons.Defrost
 }
 
 @Composable
@@ -485,19 +472,19 @@ private fun QuickActions(car: CarState, pending: String?, vm: MainViewModel) {
     SectionCard(title = stringResource(R.string.quick_title)) {
         val msgFlashed = stringResource(R.string.msg_headlights_flashed)
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            ActionButton(stringResource(R.string.quick_flash), Icons.Outlined.Flare, pending, Modifier.weight(1f)) { vm.run(CarCommand.Locate(), msgFlashed) }
+            ActionButton(stringResource(R.string.quick_flash), PhevIcons.Flash, pending, Modifier.weight(1f)) { vm.run(CarCommand.Locate(), msgFlashed) }
             ActionButton(
                 stringResource(if (car.headlights == true) R.string.quick_lights_off else R.string.quick_headlights),
-                Icons.Outlined.Highlight, pending, Modifier.weight(1f),
+                PhevIcons.Headlights, pending, Modifier.weight(1f),
             ) { vm.run(CarCommand.Headlights(car.headlights != true)) }
         }
         Spacer(Modifier.height(8.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             ActionButton(
                 stringResource(if (car.parkingLights == true) R.string.quick_parking_off else R.string.quick_parking_lights),
-                Icons.Outlined.EmojiObjects, pending, Modifier.weight(1f),
+                PhevIcons.ParkingLights, pending, Modifier.weight(1f),
             ) { vm.run(CarCommand.ParkingLights(car.parkingLights != true)) }
-            ActionButton(stringResource(R.string.common_refresh), Icons.Outlined.Refresh, pending, Modifier.weight(1f)) { vm.refresh() }
+            ActionButton(stringResource(R.string.common_refresh), PhevIcons.Refresh, pending, Modifier.weight(1f)) { vm.refresh() }
         }
         // The timer buttons only mean something when the car has a charge timer: without one it charges as soon as
         // it's plugged in, and "Back to timer" would say "done" while nothing changes.
@@ -506,12 +493,12 @@ private fun QuickActions(car: CarState, pending: String?, vm: MainViewModel) {
         if (car.plug == PlugState.PLUGGED && !car.isCharging && (car.chargeWaiting || timerSet)) {
             Spacer(Modifier.height(8.dp))
             val msgCharge = stringResource(R.string.msg_charge_requested)
-            ActionButton(stringResource(R.string.quick_charge_now), Icons.Outlined.EvStation, pending, Modifier.fillMaxWidth()) {
+            ActionButton(stringResource(R.string.quick_charge_now), PhevIcons.Plug, pending, Modifier.fillMaxWidth()) {
                 vm.run(CarCommand.ChargeNow, msgCharge)
             }
         } else if (car.isCharging && timerSet) {
             Spacer(Modifier.height(8.dp))
-            ActionButton(stringResource(R.string.quick_resume_timer), Icons.Outlined.Schedule, pending, Modifier.fillMaxWidth()) {
+            ActionButton(stringResource(R.string.quick_resume_timer), PhevIcons.Clock, pending, Modifier.fillMaxWidth()) {
                 vm.run(CarCommand.ResumeChargeTimer)
             }
         }
@@ -534,11 +521,11 @@ private fun SecurityCard(car: CarState) {
     SectionCard(title = stringResource(R.string.security_title), trailing = {
         when (car.locked) {
             true -> Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Outlined.Lock, null, tint = status.good, modifier = Modifier.size(18.dp))
+                Icon(PhevIcons.Lock, null, tint = status.good, modifier = Modifier.size(18.dp))
                 Spacer(Modifier.width(4.dp)); Text(stringResource(R.string.security_locked), color = status.good)
             }
             false -> Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Outlined.LockOpen, null, tint = status.warn, modifier = Modifier.size(18.dp))
+                Icon(PhevIcons.Unlock, null, tint = status.warn, modifier = Modifier.size(18.dp))
                 Spacer(Modifier.width(4.dp)); Text(stringResource(R.string.security_unlocked), color = status.warn)
             }
             null -> Unit
@@ -599,7 +586,7 @@ private fun DepartureCard(vm: MainViewModel, onOpenSchedule: () -> Unit) {
             )
         } else {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Outlined.Schedule, null, tint = MaterialTheme.colorScheme.primary)
+                Icon(PhevIcons.Clock, null, tint = MaterialTheme.colorScheme.primary)
                 Spacer(Modifier.width(10.dp))
                 Column {
                     Text(Format.clockOrDay(next.atMs), style = MaterialTheme.typography.titleMedium)

@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilledTonalButton
@@ -52,6 +50,7 @@ import io.github.anwo91.phevlink.link.FoundBridge
 import io.github.anwo91.phevlink.ui.MainViewModel
 import io.github.anwo91.phevlink.ui.common.SectionCard
 import io.github.anwo91.phevlink.data.passwordProblemRes
+import io.github.anwo91.phevlink.ui.icons.PhevIcons
 import io.github.anwo91.phevlink.ui.settings.ExpandableHelp
 
 /**
@@ -83,7 +82,7 @@ fun BridgeSetupScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit,
 
     Column(modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth().padding(4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = close) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.common_back)) }
+            IconButton(onClick = close) { Icon(PhevIcons.Back, stringResource(R.string.common_back)) }
             Text(stringResource(R.string.bs_title), style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
         }
         Column(

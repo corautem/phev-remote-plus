@@ -2,4 +2,7 @@
     <color name="window_bg">#F4F6F7</color>
     <color name="brand">#0F8A7A</color>
     <color name="icon_bg">#0E3B43</color>
+    <!-- Notification accents: reminders and failures, and the theft alarm. Normal ones use brand. -->
+    <color name="notif_warn">#B4551C</color>
+    <color name="notif_alarm">#B3261E</color>
 </resources>

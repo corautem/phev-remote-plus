@@ -1,0 +1,6 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
+    <!-- Widget button: stop (tinted by the widget) -->
+    <path android:strokeColor="#FFFFFFFF" android:strokeWidth="1.8" android:strokeLineCap="round" android:strokeLineJoin="round"
+        android:pathData="M 9 7 h 6 a 2 2 0 0 1 2 2 v 6 a 2 2 0 0 1 -2 2 h -6 a 2 2 0 0 1 -2 -2 v -6 a 2 2 0 0 1 2 -2 Z"/>
+</vector>

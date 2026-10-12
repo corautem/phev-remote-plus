@@ -19,11 +19,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Bluetooth
-import androidx.compose.material.icons.outlined.BluetoothSearching
-import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material.icons.outlined.Wifi
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilledTonalButton
@@ -58,6 +53,7 @@ import io.github.anwo91.phevlink.core.obd.AdapterGuess
 import io.github.anwo91.phevlink.obd.ObdCandidate
 import io.github.anwo91.phevlink.obd.ObdDeviceSpec
 import io.github.anwo91.phevlink.obd.ObdDevices
+import io.github.anwo91.phevlink.ui.icons.PhevIcons
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -211,7 +207,7 @@ fun DevicePicker(vm: ObdViewModel, onDismiss: () -> Unit, onPicked: (ObdDeviceSp
                                 }
                             }
                         }) {
-                            Icon(Icons.Outlined.BluetoothSearching, null)
+                            Icon(PhevIcons.BluetoothSearching, null)
                             Spacer(Modifier.width(6.dp))
                             Text(stringResource(R.string.obd_pick_scan))
                         }
@@ -258,8 +254,8 @@ private fun SectionLabel(text: String) {
 @Composable
 private fun DeviceRow(d: ObdDeviceSpec, guess: AdapterGuess.Guess, onClick: () -> Unit, onForget: (() -> Unit)? = null) {
     val icon: ImageVector = when (d.kind) {
-        ObdDeviceSpec.Kind.WIFI -> Icons.Outlined.Wifi
-        else -> Icons.Outlined.Bluetooth
+        ObdDeviceSpec.Kind.WIFI -> PhevIcons.Wifi
+        else -> PhevIcons.Bluetooth
     }
     val kind = stringResource(
         when (d.kind) {
@@ -288,7 +284,7 @@ private fun DeviceRow(d: ObdDeviceSpec, guess: AdapterGuess.Guess, onClick: () -
             }
         }
         if (onForget != null) {
-            IconButton(onClick = onForget) { Icon(Icons.Outlined.Close, stringResource(R.string.obd_pick_forget)) }
+            IconButton(onClick = onForget) { Icon(PhevIcons.Close, stringResource(R.string.obd_pick_forget)) }
         }
     }
 }

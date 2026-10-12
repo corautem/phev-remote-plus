@@ -17,10 +17,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.ExpandLess
-import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -53,6 +49,7 @@ import io.github.anwo91.phevlink.core.obd.livetest.LiveTestText
 import io.github.anwo91.phevlink.core.obd.livetest.LiveTests
 import io.github.anwo91.phevlink.ui.common.Pill
 import io.github.anwo91.phevlink.ui.common.SectionCard
+import io.github.anwo91.phevlink.ui.icons.PhevIcons
 import io.github.anwo91.phevlink.ui.obd.Bullet
 import io.github.anwo91.phevlink.ui.obd.DtcDetailDialog
 import io.github.anwo91.phevlink.ui.obd.Heading
@@ -90,7 +87,7 @@ fun TipsScreen(
 
     Column(modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth().padding(4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.common_back)) }
+            IconButton(onClick = onBack) { Icon(PhevIcons.Back, stringResource(R.string.common_back)) }
             Text(stringResource(R.string.tips_title), style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
         }
         Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 12.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -146,7 +143,7 @@ private fun TipCard(
                 Text(t.category, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
                 Text(t.title, style = MaterialTheme.typography.titleMedium)
             }
-            Icon(if (open) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore, null)
+            Icon(if (open) PhevIcons.ChevronUp else PhevIcons.ChevronDown, null)
         }
         if (!open) return@SectionCard
         if (t.symptoms.isNotEmpty()) {

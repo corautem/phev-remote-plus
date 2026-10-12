@@ -25,9 +25,10 @@ class BridgeAdminController(
     private val settings: SettingsStore,
     private val log: DiagLog,
     private val scope: CoroutineScope,
+    private val repo: () -> CarRepository,
 ) {
     enum class UpdatePhase { IDLE, STARTING, RUNNING, RESTARTING, DONE, FAILED }
-    enum class Action { CONNECT, RESTART, REBOOT, CHECK }
+    enum class Action { CONNECT, RESTART, REBOOT, CHECK, PAUSE, RESUME }
     enum class Outcome { OK, FAILED }
 
     data class UpdateInfo(
@@ -67,6 +68,7 @@ class BridgeAdminController(
     ) {
         val canUpdate: Boolean get() = "update" in features && update?.canUpdate != false
         val canRestart: Boolean get() = "restart" in features
+        val canPause: Boolean get() = "carwifi-pause" in features
     }
 
     private val _state = MutableStateFlow(State())
@@ -169,6 +171,35 @@ class BridgeAdminController(
     fun reboot() = action(Action.REBOOT) { BridgeSetupApi.reboot(url, token).problem() }
 
     fun checkForUpdate() = action(Action.CHECK) { if (fetchUpdate(check = true) == null) "no answer" else null }
+
+    /**
+     * The bridge leaves the car's Wi-Fi for [minutes] so this phone can use it (to register the phone): the car takes
+     * one device at a time. The app goes straight to the car's Wi-Fi meanwhile; the bridge comes back by itself.
+     */
+    fun pauseCarWifi(minutes: Int = 10) = action(Action.PAUSE) {
+        val r = BridgeSetupApi.pauseCarWifi(url, token, minutes)
+        val why = r.problem()
+        if (why == null) {
+            val until = (r?.body?.get("pausedUntilMs") as? Number)?.toLong() ?: (System.currentTimeMillis() + minutes * 60_000L)
+            repo().preferCarWifi(until, "the bridge stepped aside so this phone can use the car's Wi-Fi")
+        }
+        refreshWifi()
+        why
+    }
+
+    fun resumeCarWifi() = action(Action.RESUME) {
+        val why = BridgeSetupApi.resumeCarWifi(url, token).problem()
+        repo().preferCarWifi(0, "the bridge is back on the car's Wi-Fi")
+        refreshWifi()
+        why
+    }
+
+    /** Fresh car Wi-Fi status (also used by Settings, which doesn't run the page's polling). */
+    suspend fun refreshWifi() {
+        if (url.isBlank() || token.isBlank()) return
+        BridgeSetupApi.carWifi(url, token)?.takeIf { it.code == 200 }?.let { r -> _state.update { it.copy(wifi = BridgeWifi.from(r.body)) } }
+        BridgeSetupApi.hello(url)?.let { h -> _state.update { it.copy(features = h.features, build = h.build, reachable = true) } }
+    }
 
     /**
      * Starts the update and follows it: the bridge downloads and installs the newest release, then restarts. Done

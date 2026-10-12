@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="bs_reg_cleared_button">Done — the car beeped once</string>
+    <string name="bs_reg_cleared">Memory cleared. The car now restarts its Wi-Fi, with the name and password from the card. Switch the car\'s power OFF and wait until the bridge is back on the car\'s Wi-Fi.</string>
+    <string name="bs_reg_waiting_bridge">Waiting for the bridge to see the car…</string>
+    <string name="bs_reg_bridge_back">The bridge is on the car\'s Wi-Fi again.</string>
+    <string name="bs_reg_again">Enter registration mode again</string>
+    <string name="bs_reg_continue_anyway">Continue anyway</string>
+    <string name="bs_reg_wait_wifi">Waiting for the bridge to be on the car\'s Wi-Fi…</string>
+    <string name="bs_reg_no_car_wifi">The bridge isn\'t on the car\'s Wi-Fi, so it can\'t reach the car. Switch the car\'s power OFF, wait a minute, then enter registration mode again.</string>
+    <string name="bs_verify_phone">The car\'s memory was cleared, so register this phone again too: Settings → Phone registration (the bridge steps aside for it).</string>
+    <string name="settings_reg_bridge_note">You have a bridge, and the car\'s Wi-Fi takes one device at a time. Let the bridge step aside first, then register this phone.</string>
+    <string name="settings_reg_bridge_pause">Let the bridge step aside (10 min)</string>
+    <string name="settings_reg_bridge_paused">The bridge stays off the car\'s Wi-Fi until %1$s — register this phone now.</string>
+    <string name="settings_reg_bridge_resume">Bridge back now</string>
+    <string name="settings_reg_bridge_old">Your bridge is too old for this. Update it under Settings → Bridge, or unplug it while you register this phone.</string>
+    <string name="bp_pause">Let this phone use the car\'s Wi-Fi (10 min)</string>
+    <string name="bp_paused">The bridge stays off the car\'s Wi-Fi until %1$s, so a phone can use it.</string>
+    <string name="bp_resume">Back on the car\'s Wi-Fi now</string>
+    <string name="bp_done_pause">The bridge stepped aside for 10 minutes.</string>
+    <string name="bp_done_resume">The bridge is joining the car\'s Wi-Fi again.</string>
     <string name="link_paused_setup">Paused while you set up the bridge</string>
     <string name="bs_waiting_home">Waiting for this phone to get back on your home Wi-Fi…</string>
     <string name="bs_not_home">This phone isn\'t on your home Wi-Fi, so it can\'t reach the bridge. Connect to your home Wi-Fi and tap Try again.</string>
@@ -68,7 +87,7 @@
     <string name="bs_reg_title">Let the car remember the bridge</string>
     <string name="bs_reg_intro">The car only talks to devices it has registered — at most two. Register the bridge once:</string>
     <string name="bs_reg_steps">1. Sit in the car with the key and close the driver\'s door. Power switch OFF.\n2. Press the power switch once to ACC, without touching the brake.\n3. Within 10 seconds, press LOCK and UNLOCK on the key alternately — 10 presses in total, starting with LOCK.\n4. Listen to the beeps.</string>
-    <string name="bs_reg_question">How many times did the car beep?</string>
+    <string name="bs_reg_question">How many times did the car beep after the 10 presses?</string>
     <string name="bs_beeps_none">None</string>
     <string name="bs_reg_no_beep">The car didn\'t go into registration mode. Start again from power OFF: one press to ACC, then the 10 LOCK/UNLOCK presses within 10 seconds.</string>
     <string name="bs_reg_full">Three beeps: the car already remembers two devices, so there\'s no room for the bridge. To make room, every registered device has to be deleted — your phone too. Afterwards, register the bridge here and your phone again in Settings.</string>

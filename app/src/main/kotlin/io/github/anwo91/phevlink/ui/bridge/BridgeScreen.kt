@@ -208,6 +208,21 @@ private fun ActionsCard(c: BridgeAdminController, st: BridgeAdminController.Stat
                 Text(stringResource(R.string.bp_restart))
             }
         }
+        if (st.canPause) {
+            // The car's Wi-Fi takes one device at a time: the bridge steps aside so a phone can use it (to register).
+            val w = st.wifi
+            val until = w?.pausedUntilMs
+            if (w?.paused == true && until != null) {
+                Note(stringResource(R.string.bp_paused, Format.clock(until)))
+                FilledTonalButton(onClick = { c.resumeCarWifi() }, enabled = !busy, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.bp_resume))
+                }
+            } else {
+                FilledTonalButton(onClick = { c.pauseCarWifi() }, enabled = !busy, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.bp_pause))
+                }
+            }
+        }
         if (st.canUpdate) {
             OutlinedButton(onClick = { confirmReboot = true }, enabled = !busy, modifier = Modifier.fillMaxWidth()) {
                 Text(stringResource(R.string.bp_reboot))
@@ -225,6 +240,8 @@ private fun ActionsCard(c: BridgeAdminController, st: BridgeAdminController.Stat
                             Action.RESTART -> R.string.bp_done_restart
                             Action.REBOOT -> R.string.bp_done_reboot
                             Action.CHECK -> R.string.bp_done_check
+                            Action.PAUSE -> R.string.bp_done_pause
+                            Action.RESUME -> R.string.bp_done_resume
                         },
                     ),
                 )

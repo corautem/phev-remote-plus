@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="bs_reg_cleared_button">Klart – bilen pep en gång</string>
+    <string name="bs_reg_cleared">Minnet är rensat. Bilen startar nu om sitt wifi med namnet och lösenordet från kortet. Slå AV strömmen i bilen och vänta tills bryggan är tillbaka på bilens wifi.</string>
+    <string name="bs_reg_waiting_bridge">Väntar på att bryggan ska se bilen …</string>
+    <string name="bs_reg_bridge_back">Bryggan är ansluten till bilens wifi igen.</string>
+    <string name="bs_reg_again">Gå in i registreringsläge igen</string>
+    <string name="bs_reg_continue_anyway">Fortsätt ändå</string>
+    <string name="bs_reg_wait_wifi">Väntar på att bryggan ska ansluta till bilens wifi …</string>
+    <string name="bs_reg_no_car_wifi">Bryggan är inte ansluten till bilens wifi, så den når inte bilen. Slå AV strömmen i bilen, vänta en minut och gå sedan in i registreringsläge igen.</string>
+    <string name="bs_verify_phone">Bilens minne rensades, så registrera även telefonen igen: Inställningar → Registrering av telefon (bryggan kliver åt sidan för det).</string>
+    <string name="settings_reg_bridge_note">Du har en brygga, och bilens wifi tar en enhet åt gången. Låt bryggan kliva åt sidan först och registrera sedan telefonen.</string>
+    <string name="settings_reg_bridge_pause">Låt bryggan kliva åt sidan (10 min)</string>
+    <string name="settings_reg_bridge_paused">Bryggan håller sig borta från bilens wifi till %1$s – registrera telefonen nu.</string>
+    <string name="settings_reg_bridge_resume">Bryggan tillbaka nu</string>
+    <string name="settings_reg_bridge_old">Din brygga är för gammal för detta. Uppdatera den under Inställningar → Brygga, eller dra ur den medan du registrerar telefonen.</string>
+    <string name="bp_pause">Låt telefonen använda bilens wifi (10 min)</string>
+    <string name="bp_paused">Bryggan håller sig borta från bilens wifi till %1$s, så att en telefon kan använda det.</string>
+    <string name="bp_resume">Tillbaka på bilens wifi nu</string>
+    <string name="bp_done_pause">Bryggan klev åt sidan i 10 minuter.</string>
+    <string name="bp_done_resume">Bryggan ansluter till bilens wifi igen.</string>
     <string name="link_paused_setup">Pausad medan du konfigurerar bryggan</string>
     <string name="bs_waiting_home">Väntar på att telefonen ska komma tillbaka till wifi-nätverket hemma …</string>
     <string name="bs_not_home">Telefonen är inte ansluten till wifi-nätverket hemma, så den når inte bryggan. Anslut till wifi-nätverket hemma och tryck på Försök igen.</string>
@@ -68,7 +87,7 @@
     <string name="bs_reg_title">Låt bilen komma ihåg bryggan</string>
     <string name="bs_reg_intro">Bilen pratar bara med enheter som den har registrerat – högst två. Registrera bryggan en gång:</string>
     <string name="bs_reg_steps">1. Sätt dig i bilen med nyckeln och stäng förardörren. Startknapp AV.\n2. Tryck på startknappen en gång till ACC, utan att röra bromsen.\n3. Inom 10 sekunder trycker du växelvis LÅS och LÅS UPP på nyckeln – 10 tryck totalt, börja med LÅS.\n4. Lyssna efter pip.</string>
-    <string name="bs_reg_question">Hur många gånger pep bilen?</string>
+    <string name="bs_reg_question">Hur många gånger pep bilen efter de 10 trycken?</string>
     <string name="bs_beeps_none">Inga</string>
     <string name="bs_reg_no_beep">Bilen gick inte in i registreringsläge. Börja om från AV: ett tryck till ACC, sedan de 10 LÅS/LÅS UPP-trycken inom 10 sekunder.</string>
     <string name="bs_reg_full">Tre pip: bilen kommer redan ihåg två enheter, så det finns ingen plats för bryggan. För att få plats måste alla registrerade enheter raderas – även din telefon. Registrera sedan bryggan här och telefonen igen under Inställningar.</string>

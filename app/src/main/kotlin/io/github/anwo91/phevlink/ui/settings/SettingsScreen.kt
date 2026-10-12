@@ -46,6 +46,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -79,6 +80,37 @@ import io.github.anwo91.phevlink.weather.MetNo
 import io.github.anwo91.phevlink.link.BridgeClient
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.rememberCoroutineScope
+
+/**
+ * With a bridge, the phone can only reach the car's Wi-Fi (to register) while the bridge is off it: the car takes one
+ * device at a time. Lets the bridge step aside for 10 minutes, and shows until when.
+ */
+@Composable
+private fun BridgeStepAside(vm: MainViewModel) {
+    val c = vm.bridgeAdmin
+    val st by c.state.collectAsState()
+    LaunchedEffect(Unit) { c.refreshWifi() }
+    Spacer(Modifier.height(6.dp))
+    Text(stringResource(R.string.settings_reg_bridge_note), style = MaterialTheme.typography.bodySmall)
+    Spacer(Modifier.height(6.dp))
+    val until = st.wifi?.pausedUntilMs
+    when {
+        st.wifi?.paused == true && until != null -> {
+            Text(
+                stringResource(R.string.settings_reg_bridge_paused, io.github.anwo91.phevlink.util.Format.clock(until)),
+                style = MaterialTheme.typography.bodyMedium, color = io.github.anwo91.phevlink.ui.theme.LocalStatus.current.good,
+            )
+            TextButton(onClick = { c.resumeCarWifi() }, enabled = st.busy == null) { Text(stringResource(R.string.settings_reg_bridge_resume)) }
+        }
+        st.reachable == true && !st.canPause -> Text(
+            stringResource(R.string.settings_reg_bridge_old), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error,
+        )
+        else -> FilledTonalButton(onClick = { c.pauseCarWifi() }, enabled = st.busy == null && st.canPause, modifier = Modifier.fillMaxWidth()) {
+            Text(stringResource(R.string.settings_reg_bridge_pause))
+        }
+    }
+    Spacer(Modifier.height(6.dp))
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -150,6 +182,7 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () 
             Text(stringResource(R.string.registration_steps), style = MaterialTheme.typography.bodySmall)
             Spacer(Modifier.height(8.dp))
             LabeledValue(stringResource(R.string.settings_registered_phones), car.registrations?.toString() ?: "–")
+            if (s.hasBridge) BridgeStepAside(vm)
             val msgRegistered = stringResource(R.string.msg_phone_registered)
             val msgUnregistered = stringResource(R.string.msg_phone_unregistered)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {

@@ -9,12 +9,15 @@
 #   join <iface> <ssid> [CC]   save the car's network as profile "phev-car" on <iface> and bring it up;
 #                              the password comes on stdin (never on the command line)
 #   forget                     remove the "phev-car" profile
+#   pause <iface>              leave the car's Wi-Fi and stay off it (until resume, or until NetworkManager restarts),
+#                              so a phone can use the car's Wi-Fi — the car takes one device at a time
+#   resume <iface>             allow the car's Wi-Fi again and join it
 #
 # CC = two-letter Wi-Fi country (from the phone); set on Raspberry Pi OS when it differs, which also lifts the
 # rfkill block a fresh Pi OS has until a country is set.
 #
 # Lines starting with "@" are status words for the bridge: @saved, @up-ok, @up-failed <why>, @removed <name>,
-# @disabled <name>, @error <why>.
+# @disabled <name>, @paused, @resumed, @error <why>.
 set -u
 export LC_ALL=C
 CON=phev-car
@@ -95,7 +98,28 @@ case "$action" in
     if nmcli connection delete "$CON" >/dev/null 2>&1; then echo "@removed $CON"; else echo "@removed none"; fi
     ;;
 
+  pause)
+    IFACE=${2:-}
+    valid_iface "$IFACE" || die "bad interface name"
+    # Not persistent on purpose: a reboot or NetworkManager restart brings the car's Wi-Fi back by itself.
+    nmcli device disconnect "$IFACE" >/dev/null 2>&1 || true
+    nmcli device set "$IFACE" autoconnect no >/dev/null 2>&1 || die "could not pause $IFACE"
+    echo "@paused"
+    ;;
+
+  resume)
+    IFACE=${2:-}
+    valid_iface "$IFACE" || die "bad interface name"
+    nmcli device set "$IFACE" autoconnect yes >/dev/null 2>&1 || die "could not resume $IFACE"
+    echo "@resumed"
+    if out=$(nmcli --wait 30 connection up "$CON" ifname "$IFACE" 2>&1); then
+      echo "@up-ok"
+    else
+      echo "@up-failed ${out//$'\n'/ }"
+    fi
+    ;;
+
   *)
-    die "usage: carwifi.sh scan <iface> [CC] | join <iface> <ssid> [CC] (password on stdin) | forget"
+    die "usage: carwifi.sh scan <iface> [CC] | join <iface> <ssid> [CC] (password on stdin) | forget | pause <iface> | resume <iface>"
     ;;
 esac

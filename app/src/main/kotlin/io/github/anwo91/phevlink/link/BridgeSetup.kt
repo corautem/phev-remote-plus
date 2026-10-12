@@ -62,12 +62,17 @@ data class BridgeWifi(
     val ip: String?,
     val mac: String?,
     val signal: Int?,
+    /** Until when the bridge stays off the car's Wi-Fi so a phone can use it; null/0 = not paused (bridge 1.2+). */
+    val pausedUntilMs: Long? = null,
 ) {
+    val paused: Boolean get() = (pausedUntilMs ?: 0L) > System.currentTimeMillis()
+
     companion object {
         fun from(m: Map<String, Any?>) = BridgeWifi(
             problem = m.str("problem"), iface = m.str("iface"), homeIface = m.str("homeIface"),
             configured = m["configured"] == true, ssid = m.str("ssid"), connected = m["connected"] == true,
             ip = m.str("ip"), mac = m.str("mac"), signal = (m["signal"] as? Number)?.toInt(),
+            pausedUntilMs = (m["pausedUntilMs"] as? Number)?.toLong()?.takeIf { it > 0 },
         )
     }
 }
@@ -144,6 +149,13 @@ object BridgeSetupApi {
 
     suspend fun reboot(url: String, token: String): Reply? =
         withContext(Dispatchers.IO) { request(url, "reboot", "POST", token, emptyMap(), 4_000, 20_000) }
+
+    /** Bridge leaves the car's Wi-Fi for [minutes] so a phone can use it (the car takes one device at a time). */
+    suspend fun pauseCarWifi(url: String, token: String, minutes: Int): Reply? =
+        withContext(Dispatchers.IO) { request(url, "carwifi/pause", "POST", token, mapOf("minutes" to minutes), 4_000, 30_000) }
+
+    suspend fun resumeCarWifi(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "carwifi/resume", "POST", token, emptyMap(), 4_000, 50_000) }
 
     suspend fun connect(url: String, token: String): Reply? =
         withContext(Dispatchers.IO) { request(url, "connect", "POST", token, emptyMap(), 4_000, 10_000) }
@@ -302,7 +314,7 @@ class BridgeSetupController(
     enum class Step { FIND, PAIR, CAR_WIFI, REGISTER, VERIFY }
     enum class PairState { IDLE, TRYING, NEED_REPLUG, BRIDGE_OFF }
     enum class WifiState { IDLE, CHECKING, NEED_CREDENTIALS, LEAVING_TEST_MODE, SEARCHING, JOINING, CONNECTED, CAR_NOT_SEEN, SAVED_NOT_CONNECTED, PROBLEM, FAILED }
-    enum class RegState { INSTRUCTIONS, NO_BEEP, MEMORY_FULL, READY, REGISTERING, REGISTERED, FAILED }
+    enum class RegState { INSTRUCTIONS, NO_BEEP, MEMORY_FULL, CLEARED, READY, REGISTERING, REGISTERED, FAILED }
     enum class VerifyState { WAITING, OK, SLOW }
 
     data class State(
@@ -330,6 +342,12 @@ class BridgeSetupController(
         val registrations: Int? = null,
         /** Waiting for the phone to get back on the home network (e.g. right after leaving the car's Wi-Fi). */
         val waitingForHome: Boolean = false,
+        /** After the car's memory was cleared: is the bridge back on the car's Wi-Fi? null = not known yet. */
+        val bridgeOnCar: Boolean? = null,
+        /** Registering is waiting for the bridge to be on the car's Wi-Fi first. */
+        val regWaitingWifi: Boolean = false,
+        /** The car's memory was cleared in this setup, so the phone has to be registered again afterwards. */
+        val memoryCleared: Boolean = false,
     )
 
     private val _state = MutableStateFlow(State())
@@ -639,13 +657,55 @@ class BridgeSetupController(
         _state.update { it.copy(reg = when (n) { 0 -> RegState.NO_BEEP; 3 -> RegState.MEMORY_FULL; else -> RegState.READY }, regDetail = null) }
     }
 
-    fun backToInstructions() = _state.update { it.copy(reg = RegState.INSTRUCTIONS, regDetail = null) }
+    fun backToInstructions() {
+        job?.cancel()
+        _state.update { it.copy(reg = RegState.INSTRUCTIONS, regDetail = null) }
+    }
+
+    /**
+     * The car confirmed clearing its memory (one beep). That also restarts its Wi-Fi (name and password back to the
+     * card), so the bridge loses it for a while: follow the bridge until it is back on the car's Wi-Fi before the user
+     * enters registration mode again.
+     */
+    fun memoryCleared() = launch {
+        log.link("Bridge setup: the car's memory was cleared — waiting for the bridge to get back on the car's Wi-Fi")
+        _state.update { it.copy(reg = RegState.CLEARED, memoryCleared = true, bridgeOnCar = null) }
+        val t0 = System.currentTimeMillis()
+        var was: Boolean? = null
+        while (System.currentTimeMillis() - t0 < 10 * 60_000L) {
+            val on = BridgeSetupApi.carWifi(url, token)?.takeIf { it.code == 200 }?.let { BridgeWifi.from(it.body).connected }
+            if (on != null && on != was) {
+                log.link("Bridge setup: bridge ${if (on) "is back on" else "is not on"} the car's Wi-Fi (${(System.currentTimeMillis() - t0) / 1000} s after clearing)")
+                was = on
+            }
+            _state.update { it.copy(bridgeOnCar = on ?: it.bridgeOnCar) }
+            delay(5_000)
+        }
+    }
 
     fun register() = launch {
         _state.update { it.copy(reg = RegState.REGISTERING, regDetail = null) }
         if (!awaitHomeNetwork("registering")) {
             _state.update { it.copy(reg = RegState.FAILED, regDetail = NOT_HOME) }
             return@launch
+        }
+        // The bridge can only reach the car over the car's Wi-Fi: make sure it's on it (it may be rejoining).
+        if (bridgeWifiStatus(10_000)?.connected != true) {
+            log.link("Bridge setup: the bridge isn't on the car's Wi-Fi yet — waiting up to 90 s before registering")
+            _state.update { it.copy(regWaitingWifi = true) }
+            val t0 = System.currentTimeMillis()
+            var on = false
+            while (System.currentTimeMillis() - t0 < 90_000) {
+                delay(4_000)
+                if (bridgeWifiStatus(6_000)?.connected == true) { on = true; break }
+            }
+            _state.update { it.copy(regWaitingWifi = false) }
+            if (!on) {
+                log.warn("Bridge setup: the bridge didn't get on the car's Wi-Fi within 90 s — not registering")
+                _state.update { it.copy(reg = RegState.FAILED, regDetail = NO_CAR_WIFI) }
+                return@launch
+            }
+            log.link("Bridge setup: bridge is on the car's Wi-Fi after ${(System.currentTimeMillis() - t0) / 1000} s")
         }
         val client = BridgeClient(url, token, log, context)
         var r = client.execute(CarCommand.RegisterPhone)
@@ -713,6 +773,8 @@ class BridgeSetupController(
     companion object {
         /** Detail code: the phone isn't on the home network, so the bridge can't be reached (the screen explains). */
         const val NOT_HOME = "not-home"
+        /** Detail code: the bridge isn't on the car's Wi-Fi, so it can't reach the car to register. */
+        const val NO_CAR_WIFI = "no-car-wifi"
         /** Tag for [CarRepository.pauseCarWifi] while the wizard is open. */
         const val PAUSE_TAG = "bridge setup"
     }

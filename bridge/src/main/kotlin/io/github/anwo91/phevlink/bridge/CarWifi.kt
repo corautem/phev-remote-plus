@@ -130,6 +130,55 @@ class CarWifi(
         return JoinResult(saved, saved, after.connected, message, after)
     }
 
+    /** Until when the bridge stays off the car's Wi-Fi so a phone can use it (0 = not paused). */
+    @Volatile var pausedUntilMs: Long = 0L
+        private set
+    private val resumeTimer by lazy { java.util.Timer("carwifi-resume", true) }
+    private var resumeTask: java.util.TimerTask? = null
+
+    /**
+     * Leave the car's Wi-Fi for [minutes] (1–30) so a phone can use it — e.g. to register the phone; the car takes one
+     * device at a time. Comes back by itself afterwards (then [onResumed] runs), and after a reboot. Null = paused.
+     */
+    @Synchronized
+    fun pause(minutes: Int, onResumed: () -> Unit = {}): String? {
+        val st = status()
+        val iface = st.iface ?: return st.problem ?: PROBLEM_NO_WIFI
+        if (st.problem == PROBLEM_HELPER_MISSING) return PROBLEM_HELPER_MISSING
+        val r = runHelper(listOf("pause", iface), null, 20_000)
+        if (r.out.lineSequence().none { it.trim() == "@paused" }) {
+            return helperError(r).also { log.warn("Car Wi-Fi: pause on $iface failed: $it") }
+        }
+        val m = minutes.coerceIn(1, 30)
+        pausedUntilMs = System.currentTimeMillis() + m * 60_000L
+        resumeTask?.cancel()
+        val task = object : java.util.TimerTask() {
+            override fun run() {
+                resume("the $m-minute pause is over")
+                runCatching { onResumed() }
+            }
+        }
+        resumeTask = task
+        resumeTimer.schedule(task, m * 60_000L)
+        log.link("Car Wi-Fi: left the car's Wi-Fi on $iface for $m min so a phone can use it")
+        return null
+    }
+
+    /** Join the car's Wi-Fi again after [pause]. Null = done (joining may still take a moment when the car is asleep). */
+    @Synchronized
+    fun resume(why: String): String? {
+        resumeTask?.cancel()
+        resumeTask = null
+        pausedUntilMs = 0L
+        val st = status()
+        val iface = st.iface ?: return st.problem ?: PROBLEM_NO_WIFI
+        val r = runHelper(listOf("resume", iface), null, 45_000)
+        val ok = r.out.lineSequence().any { it.trim() == "@resumed" }
+        val up = r.out.lineSequence().firstOrNull { it.startsWith("@up") }?.removePrefix("@")
+        log.link("Car Wi-Fi: back on the car's Wi-Fi on $iface ($why) — ${up ?: r.out.trim().take(200)}")
+        return if (ok) null else helperError(r)
+    }
+
     fun forget(): Boolean {
         val r = runHelper(listOf("forget"), null, 20_000)
         log.link("Car Wi-Fi: forget — ${r.out.trim().ifEmpty { "code ${r.code}" }}")

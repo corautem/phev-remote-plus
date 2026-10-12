@@ -32,6 +32,8 @@ class CarWifiScriptTest {
               "connection delete"*|"connection modify"*|"connection add"*) exit 0 ;;
               "--wait 45 connection up phev-car ifname wlan0") [ -f "${dir.path}/up-fails" ] && { echo "Error: No network with SSID found."; exit 10; }; exit 0 ;;
               "-t -f SSID,SIGNAL,SECURITY device wifi list ifname wlan0 --rescan yes") printf 'REMOTE46pdmp:71:WPA2\nNeighbour:40:WPA2\n' ;;
+              "device disconnect wlan0"|"device set wlan0 autoconnect no"|"device set wlan0 autoconnect yes") exit 0 ;;
+              "--wait 30 connection up phev-car ifname wlan0") exit 0 ;;
               *) echo "unexpected: $*" >&2; exit 99 ;;
             esac
         """)
@@ -46,7 +48,8 @@ class CarWifiScriptTest {
         val pb = ProcessBuilder(listOf("bash", script.path) + args).redirectErrorStream(true)
         pb.environment()["PATH"] = dir.path + ":/usr/bin:/bin"
         val p = pb.start()
-        p.outputStream.use { it.write(stdin.toByteArray()) }
+        // The script may exit before reading stdin (bad input is refused at once): a broken pipe is fine here.
+        runCatching { p.outputStream.use { it.write(stdin.toByteArray()) } }
         val out = p.inputStream.bufferedReader().readText()
         return p.waitFor() to out
     }
@@ -93,6 +96,21 @@ class CarWifiScriptTest {
         assertEquals(2, run("join", "wlan0", "REMOTE46pdmp", "norway", stdin = "secret123\n").first)
         assertEquals(2, run("reboot").first)
         assertFalse(recorded().any { it.startsWith("connection add") || it.startsWith("connection delete") })
+    }
+
+    @Test
+    fun pauseLeavesTheCarWifiAndResumeJoinsAgain() {
+        val (code, out) = run("pause", "wlan0")
+        assertEquals(out, 0, code)
+        assertTrue(out, out.contains("@paused"))
+        assertTrue(recorded().containsAll(listOf("device disconnect wlan0", "device set wlan0 autoconnect no")))
+        assertFalse("never touches the saved profile", recorded().any { it.startsWith("connection modify") || it.startsWith("connection delete") })
+
+        val (code2, out2) = run("resume", "wlan0")
+        assertEquals(out2, 0, code2)
+        assertTrue(out2, out2.contains("@resumed") && out2.contains("@up-ok"))
+        assertTrue(recorded().contains("device set wlan0 autoconnect yes"))
+        assertEquals(2, run("pause", "wlan0;reboot").first)
     }
 
     @Test

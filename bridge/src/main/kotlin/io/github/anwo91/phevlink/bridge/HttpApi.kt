@@ -31,6 +31,8 @@ import java.util.concurrent.TimeUnit
  *   POST /api/carwifi/scan {"country":"NO"} -> networks the car radio sees
  *   POST /api/carwifi/join {"ssid":"REMOTExxxxxx","password":"…","country":"NO"} -> save + connect the car network
  *   POST /api/carwifi/forget
+ *   POST /api/carwifi/pause {"minutes":10} -> leave the car's Wi-Fi so a phone can use it (comes back by itself)
+ *   POST /api/carwifi/resume -> back on the car's Wi-Fi now
  *   POST /api/config       {"emulator":false} -> saved; the bridge restarts to apply it
  *   GET  /api/system       the computer: model, OS, uptime, temperature, memory, disk, addresses, bridge build
  *   GET  /api/update       installed/newest version, whether an update runs, its log (?check=1 asks GitHub now)
@@ -79,7 +81,20 @@ class HttpApi(
         if (path == "pair" && ex.requestMethod == "POST") return pair(ex)
         if (!authorized(ex)) return send(ex, 401, "application/json", """{"ok":false,"error":"Missing or wrong token"}""")
         when {
-            path == "carwifi" && ex.requestMethod == "GET" -> withWifi(ex) { json(ex, 200, it.status().toMap()) }
+            path == "carwifi" && ex.requestMethod == "GET" -> withWifi(ex) { json(ex, 200, it.status().toMap() + ("pausedUntilMs" to it.pausedUntilMs)) }
+            path == "carwifi/pause" && ex.requestMethod == "POST" -> withWifi(ex) { wifi ->
+                val minutes = (body(ex)["minutes"] as? Number)?.toInt() ?: 10
+                log.link("API: leave the car's Wi-Fi for $minutes min, asked by ${ex.remoteAddress.address.hostAddress}")
+                runBlocking { service.disconnectNow() }
+                val why = wifi.pause(minutes) { runBlocking { service.connectNow() } }
+                if (why != null) runBlocking { service.connectNow() }
+                json(ex, if (why == null) 200 else 500, mapOf("ok" to (why == null), "error" to why, "pausedUntilMs" to wifi.pausedUntilMs))
+            }
+            path == "carwifi/resume" && ex.requestMethod == "POST" -> withWifi(ex) { wifi ->
+                val why = wifi.resume("asked by ${ex.remoteAddress.address.hostAddress}")
+                runBlocking { service.connectNow() }
+                json(ex, if (why == null) 200 else 500, mapOf("ok" to (why == null), "error" to why))
+            }
             path == "carwifi/scan" && ex.requestMethod == "POST" -> withWifi(ex) { wifi ->
                 val (nets, error) = wifi.scan(body(ex)["country"]?.toString())
                 json(ex, 200, linkedMapOf(

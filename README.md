@@ -130,7 +130,14 @@ bridge* (also under Settings → Set up bridge). It
 
 While setup is open the app stays off the car's Wi-Fi itself: joining it takes most phones off the home network (where
 the bridge is), and the car's Wi-Fi seems to take only one device at a time. For the same reason the app goes through
-the bridge whenever the bridge is on the car's Wi-Fi.
+the bridge whenever the bridge is on the car's Wi-Fi. To register a phone while the bridge holds the car's Wi-Fi,
+Settings → Phone registration has **Let the bridge step aside (10 min)**: the bridge leaves the car's Wi-Fi and rejoins
+by itself afterwards (or after a reboot).
+
+The car remembers at most two devices — the bridge takes one. If it answers the registration sequence with three beeps,
+setup walks you through clearing its memory (one beep confirms it; the car's Wi-Fi then restarts with the name and
+password from the card), waits until the bridge is back on the car's Wi-Fi, and only then asks for registration mode
+again.
 
 **Settings → Bridge: status, log and updates** shows what the bridge is doing — its car Wi-Fi and car connection, last
 car data, the computer (model, temperature, memory, disk) and the bridge's own log, live — and lets you connect it to
@@ -184,6 +191,7 @@ control the car's climate and lights (not locks: the protocol has no remote unlo
 | POST | `/api/pair` | No token, header `X-PHEV-Pair: 1`: the token, once per boot, within 10 min of power-on |
 | GET | `/api/carwifi` | The bridge's own link to the car's Wi-Fi (interface, connected, IP, MAC, signal) |
 | POST | `/api/carwifi/scan`, `/api/carwifi/join`, `/api/carwifi/forget` | `{"country":"NO"}` · `{"ssid":…,"password":…}` |
+| POST | `/api/carwifi/pause`, `/api/carwifi/resume` | `{"minutes":10}` — leave the car's Wi-Fi so a phone can use it (comes back by itself) |
 | POST | `/api/config` | `{"emulator":false}` — saved, then the bridge restarts |
 | GET | `/api/system` | The computer: model, OS, uptime, temperature, memory, disk, addresses, bridge build |
 | GET | `/api/update` | Installed and newest version, whether an update runs, its log (`?check=1` asks GitHub now) |

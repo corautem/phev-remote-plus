@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="bs_reg_cleared_button">Fertig – das Auto hat einmal gepiept</string>
+    <string name="bs_reg_cleared">Speicher gelöscht. Das Auto startet jetzt sein WLAN neu, mit Name und Passwort von der Karte. Schalte das Auto AUS und warte, bis die Bridge wieder im WLAN des Autos ist.</string>
+    <string name="bs_reg_waiting_bridge">Warte, bis die Bridge das Auto sieht …</string>
+    <string name="bs_reg_bridge_back">Die Bridge ist wieder im WLAN des Autos.</string>
+    <string name="bs_reg_again">Registriermodus erneut starten</string>
+    <string name="bs_reg_continue_anyway">Trotzdem weiter</string>
+    <string name="bs_reg_wait_wifi">Warte, bis die Bridge im WLAN des Autos ist …</string>
+    <string name="bs_reg_no_car_wifi">Die Bridge ist nicht im WLAN des Autos und erreicht es deshalb nicht. Schalte das Auto AUS, warte eine Minute und starte dann den Registriermodus erneut.</string>
+    <string name="bs_verify_phone">Der Speicher des Autos wurde gelöscht, registriere also auch dieses Handy neu: Optionen → Handy registrieren (die Bridge macht dafür Platz).</string>
+    <string name="settings_reg_bridge_note">Du hast eine Bridge, und das WLAN des Autos nimmt nur ein Gerät gleichzeitig. Lass die Bridge zuerst Platz machen und registriere dann dieses Handy.</string>
+    <string name="settings_reg_bridge_pause">Bridge Platz machen lassen (10 Min.)</string>
+    <string name="settings_reg_bridge_paused">Die Bridge bleibt bis %1$s aus dem WLAN des Autos – registriere dein Handy jetzt.</string>
+    <string name="settings_reg_bridge_resume">Bridge jetzt zurück</string>
+    <string name="settings_reg_bridge_old">Deine Bridge ist dafür zu alt. Aktualisiere sie unter Optionen → Bridge, oder zieh ihren Stecker, während du dieses Handy registrierst.</string>
+    <string name="bp_pause">Dieses Handy das WLAN des Autos nutzen lassen (10 Min.)</string>
+    <string name="bp_paused">Die Bridge bleibt bis %1$s aus dem WLAN des Autos, damit ein Handy es nutzen kann.</string>
+    <string name="bp_resume">Jetzt zurück ins WLAN des Autos</string>
+    <string name="bp_done_pause">Die Bridge macht 10 Minuten Platz.</string>
+    <string name="bp_done_resume">Die Bridge verbindet sich wieder mit dem WLAN des Autos.</string>
     <string name="link_paused_setup">Pausiert, während du die Bridge einrichtest</string>
     <string name="bs_waiting_home">Warte, bis dieses Handy wieder in deinem WLAN zu Hause ist …</string>
     <string name="bs_not_home">Dieses Handy ist nicht in deinem WLAN zu Hause und erreicht die Bridge deshalb nicht. Verbinde es mit deinem WLAN und tippe auf Erneut versuchen.</string>
@@ -68,7 +87,7 @@
     <string name="bs_reg_title">Das Auto die Bridge kennenlernen lassen</string>
     <string name="bs_reg_intro">Das Auto spricht nur mit Geräten, die es registriert hat – höchstens zwei. Registriere die Bridge einmal:</string>
     <string name="bs_reg_steps">1. Setz dich mit dem Schlüssel ins Auto und schließ die Fahrertür. Startknopf AUS.\n2. Drück den Startknopf einmal auf ACC, ohne die Bremse zu berühren.\n3. Drück innerhalb von 10 Sekunden abwechselnd VERRIEGELN und ENTRIEGELN am Schlüssel – insgesamt 10-mal, beginnend mit VERRIEGELN.\n4. Achte auf die Pieptöne.</string>
-    <string name="bs_reg_question">Wie oft hat das Auto gepiept?</string>
+    <string name="bs_reg_question">Wie oft hat das Auto nach den 10 Tastendrücken gepiept?</string>
     <string name="bs_beeps_none">Gar nicht</string>
     <string name="bs_reg_no_beep">Das Auto ist nicht in den Registriermodus gegangen. Fang erneut bei AUS an: einmal auf ACC, dann die 10 Tastendrücke VERRIEGELN/ENTRIEGELN innerhalb von 10 Sekunden.</string>
     <string name="bs_reg_full">Drei Pieptöne: Das Auto kennt schon zwei Geräte, für die Bridge ist kein Platz. Um Platz zu schaffen, müssen alle registrierten Geräte gelöscht werden – auch dein Telefon. Registriere danach die Bridge hier und dein Telefon erneut unter Optionen.</string>

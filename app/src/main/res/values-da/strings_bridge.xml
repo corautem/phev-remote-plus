@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="bs_reg_cleared_button">Færdig – bilen bippede én gang</string>
+    <string name="bs_reg_cleared">Hukommelsen er ryddet. Bilen genstarter nu sit wifi med navnet og adgangskoden fra kortet. Slå strømmen i bilen FRA, og vent, til broen er tilbage på bilens wifi.</string>
+    <string name="bs_reg_waiting_bridge">Venter på, at broen kan se bilen …</string>
+    <string name="bs_reg_bridge_back">Broen er på bilens wifi igen.</string>
+    <string name="bs_reg_again">Gå i registreringstilstand igen</string>
+    <string name="bs_reg_continue_anyway">Fortsæt alligevel</string>
+    <string name="bs_reg_wait_wifi">Venter på, at broen kommer på bilens wifi …</string>
+    <string name="bs_reg_no_car_wifi">Broen er ikke på bilens wifi, så den kan ikke nå bilen. Slå strømmen i bilen FRA, vent et minut, og gå så i registreringstilstand igen.</string>
+    <string name="bs_verify_phone">Bilens hukommelse blev ryddet, så registrér også telefonen igen: Indstillinger → Registrering af telefon (broen træder til side imens).</string>
+    <string name="settings_reg_bridge_note">Du har en bro, og bilens wifi tager én enhed ad gangen. Lad broen træde til side først, og registrér så telefonen.</string>
+    <string name="settings_reg_bridge_pause">Lad broen træde til side (10 min)</string>
+    <string name="settings_reg_bridge_paused">Broen holder sig fra bilens wifi til %1$s – registrér telefonen nu.</string>
+    <string name="settings_reg_bridge_resume">Broen tilbage nu</string>
+    <string name="settings_reg_bridge_old">Din bro er for gammel til dette. Opdatér den under Indstillinger → Bro, eller tag strømmen fra den, mens du registrerer telefonen.</string>
+    <string name="bp_pause">Lad telefonen bruge bilens wifi (10 min)</string>
+    <string name="bp_paused">Broen holder sig fra bilens wifi til %1$s, så en telefon kan bruge det.</string>
+    <string name="bp_resume">Tilbage på bilens wifi nu</string>
+    <string name="bp_done_pause">Broen trådte til side i 10 minutter.</string>
+    <string name="bp_done_resume">Broen forbinder til bilens wifi igen.</string>
     <string name="link_paused_setup">Sat på pause, mens du sætter broen op</string>
     <string name="bs_waiting_home">Venter på, at telefonen kommer tilbage på wifi\'et derhjemme …</string>
     <string name="bs_not_home">Telefonen er ikke på wifi\'et derhjemme, så den kan ikke nå broen. Forbind til wifi\'et derhjemme, og tryk på Prøv igen.</string>
@@ -68,7 +87,7 @@
     <string name="bs_reg_title">Lad bilen huske broen</string>
     <string name="bs_reg_intro">Bilen taler kun med enheder, den har registreret – højst to. Registrer broen én gang:</string>
     <string name="bs_reg_steps">1. Sæt dig i bilen med nøglen, og luk førerdøren. Tænd/sluk-knap OFF.\n2. Tryk én gang på tænd/sluk-knappen til ACC uden at røre bremsen.\n3. Inden for 10 sekunder trykker du skiftevis LÅS og LÅS OP på nøglen – 10 tryk i alt, start med LÅS.\n4. Lyt efter bip.</string>
-    <string name="bs_reg_question">Hvor mange gange bippede bilen?</string>
+    <string name="bs_reg_question">Hvor mange gange bippede bilen efter de 10 tryk?</string>
     <string name="bs_beeps_none">Ingen</string>
     <string name="bs_reg_no_beep">Bilen gik ikke i registreringstilstand. Start forfra fra OFF: ét tryk til ACC, derefter de 10 LÅS/LÅS OP-tryk inden for 10 sekunder.</string>
     <string name="bs_reg_full">Tre bip: bilen husker allerede to enheder, så der er ikke plads til broen. For at få plads skal alle registrerede enheder slettes – også din telefon. Registrer derefter broen her og telefonen igen under Indstillinger.</string>

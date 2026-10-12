@@ -352,14 +352,29 @@ private fun RegisterStep(c: BridgeSetupController, st: BridgeSetupController.Sta
                 Spacer(Modifier.height(8.dp))
                 Text(stringResource(R.string.registration_full), style = MaterialTheme.typography.bodySmall)
                 Spacer(Modifier.height(8.dp))
-                FilledTonalButton(onClick = { c.backToInstructions() }) { Text(stringResource(R.string.bs_start_over)) }
+                // The single beep after clearing is the confirmation — not registration mode (that comes next).
+                Button(onClick = { c.memoryCleared() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.bs_reg_cleared_button)) }
+                TextButton(onClick = { c.backToInstructions() }) { Text(stringResource(R.string.bs_start_over)) }
+            }
+            RegState.CLEARED -> {
+                Text(stringResource(R.string.bs_reg_cleared), style = MaterialTheme.typography.bodyMedium)
+                Spacer(Modifier.height(10.dp))
+                if (st.bridgeOnCar == true) {
+                    Text(stringResource(R.string.bs_reg_bridge_back), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
+                    Spacer(Modifier.height(8.dp))
+                    Button(onClick = { c.backToInstructions() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.bs_reg_again)) }
+                } else {
+                    Busy(stringResource(R.string.bs_reg_waiting_bridge))
+                    Spacer(Modifier.height(8.dp))
+                    TextButton(onClick = { c.backToInstructions() }) { Text(stringResource(R.string.bs_reg_continue_anyway)) }
+                }
             }
             RegState.READY -> {
                 Text(stringResource(R.string.bs_reg_ready), style = MaterialTheme.typography.bodyMedium)
                 Spacer(Modifier.height(12.dp))
                 Button(onClick = { c.register() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.bs_reg_button)) }
             }
-            RegState.REGISTERING -> Busy(stringResource(R.string.bs_registering))
+            RegState.REGISTERING -> Busy(stringResource(if (st.regWaitingWifi) R.string.bs_reg_wait_wifi else R.string.bs_registering))
             RegState.REGISTERED -> {
                 Text(stringResource(R.string.bs_reg_done), style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Medium)
                 Spacer(Modifier.height(12.dp))
@@ -368,6 +383,8 @@ private fun RegisterStep(c: BridgeSetupController, st: BridgeSetupController.Sta
             RegState.FAILED -> {
                 if (st.regDetail == BridgeSetupController.NOT_HOME) {
                     Note(stringResource(R.string.bs_not_home), error = true)
+                } else if (st.regDetail == BridgeSetupController.NO_CAR_WIFI) {
+                    Note(stringResource(R.string.bs_reg_no_car_wifi), error = true)
                 } else {
                     Note(stringResource(R.string.bs_reg_failed), error = true)
                     st.regDetail?.let { Note(stringResource(R.string.bs_details, it)) }
@@ -398,6 +415,11 @@ private fun VerifyStep(c: BridgeSetupController, st: BridgeSetupController.State
                 )
                 Spacer(Modifier.height(6.dp))
                 Note(stringResource(R.string.bs_verify_ok_hint))
+                if (st.memoryCleared) {
+                    // Clearing the car's memory removed this phone too; it needs the bridge to step aside to register.
+                    Spacer(Modifier.height(6.dp))
+                    Note(stringResource(R.string.bs_verify_phone), error = true)
+                }
                 Spacer(Modifier.height(12.dp))
                 Button(onClick = onFinished, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.bs_finish)) }
             }

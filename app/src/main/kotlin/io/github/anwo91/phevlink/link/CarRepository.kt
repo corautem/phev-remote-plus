@@ -228,6 +228,19 @@ class CarRepository(
 
     val isHeld: Boolean get() = _holders.value.isNotEmpty()
 
+    /**
+     * Use the car's Wi-Fi rather than the bridge until [untilMs] (0 = back to normal) and rebuild the link now — while
+     * the bridge has stepped off the car's Wi-Fi so this phone can use it (e.g. to register the phone).
+     */
+    fun preferCarWifi(untilMs: Long, why: String) {
+        preferDirectUntil = untilMs
+        log.link(if (untilMs > 0) "Route: using the car's Wi-Fi directly until ${Format.clock(untilMs)} ($why)" else "Route: back to normal ($why)")
+        scope.launch {
+            activation.withLock { deactivateLocked() }
+            if (isHeld) activate()
+        }
+    }
+
     /** True while something (the bridge setup) needs the phone on the home network, so the app keeps off the car's Wi-Fi. */
     val carWifiPaused: Boolean get() = _wifiPause.value.isNotEmpty()
 

@@ -405,4 +405,15 @@
     <string name="diag_register_hex">Register (hex)</string>
     <string name="diag_data_hex">Data (hex)</string>
     <string name="diag_send">Send</string>
+    <!-- Demo mode / emulation (added by 1.0.28) -->
+    <string name="emulation_banner">EMULERING — simulert bil, ikke din virkelige bil</string>
+    <string name="emulation_stop">Stopp</string>
+    <string name="settings_demo_title">Demomodus</string>
+    <string name="settings_demo_explain">Utforsk appen med en simulert bil – ingen bil, dongle eller bro nødvendig. Slås av når du lukker appen.</string>
+    <string name="settings_demo_start">Start demo</string>
+    <string name="settings_demo_stop">Stopp demo</string>
+    <string name="settings_demo_running">Demo kjører – viser en simulert bil</string>
+    <string name="settings_car_name">Bilnavn</string>
+    <string name="settings_dev_on">Utviklervalg på</string>
+    <string name="setup_try_demo">Bare prøv med en simulert bil</string>
 </resources>

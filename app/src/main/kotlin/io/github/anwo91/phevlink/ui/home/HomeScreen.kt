@@ -117,7 +117,7 @@ fun HomeScreen(
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item { AttentionCard(car) }
-        item { HeroHeader(car, link, settings.fullRangeKm, now) { showLink = true } }
+        item { HeroHeader(car, link, settings.fullRangeKm, settings.carName, now) { showLink = true } }
         item {
             val msgOff = stringResource(R.string.cmd_climate_off)
             val msgCleared = stringResource(R.string.msg_climate_warning_cleared)
@@ -191,7 +191,7 @@ private fun AttentionCard(car: CarState) {
  * the one block that looks intentional even before any car data arrives, so the app never looks empty.
  */
 @Composable
-private fun HeroHeader(car: CarState, link: LinkUi, fullRangeKm: Int, now: Long, onLinkClick: () -> Unit) {
+private fun HeroHeader(car: CarState, link: LinkUi, fullRangeKm: Int, carName: String, now: Long, onLinkClick: () -> Unit) {
     val status = LocalStatus.current
     val brush = Brush.verticalGradient(
         listOf(MaterialTheme.colorScheme.primaryContainer, MaterialTheme.colorScheme.surfaceContainer),
@@ -202,7 +202,7 @@ private fun HeroHeader(car: CarState, link: LinkUi, fullRangeKm: Int, now: Long,
         Column {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f)) {
-                    Text("Outlander PHEV", style = MaterialTheme.typography.titleLarge)
+                    Text(carName.ifBlank { "Outlander PHEV" }, style = MaterialTheme.typography.titleLarge)
                     Text(
                         car.updatedAtMs?.let { stringResource(R.string.home_updated, Format.ago(it, now)) } ?: stringResource(R.string.home_no_data),
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,

@@ -48,6 +48,7 @@ import kotlinx.coroutines.withContext
 import java.time.LocalTime
 import java.time.ZonedDateTime
 import java.util.concurrent.atomic.AtomicInteger
+import io.github.anwo91.phevlink.core.emulator.FakeCar
 
 enum class LinkPhase { OFFLINE, SEARCHING, CONNECTING, HANDSHAKE, CONNECTED, RETRYING, FAILED }
 
@@ -104,6 +105,7 @@ class CarRepository(
     private val activation = Mutex()
     @Volatile private var direct: PhevConnection? = null
     @Volatile private var bridge: BridgeClient? = null
+    @Volatile private var demoCar: FakeCar? = null
     @Volatile private var activeRoute: Route? = null
     private val routeJobs = mutableListOf<Job>()
     private var lingerJob: Job? = null
@@ -229,6 +231,20 @@ class CarRepository(
     /** A route (car Wi-Fi or bridge) is running, connected or trying to connect. */
     val isActive: Boolean get() = activeRoute != null
 
+    /**
+     * Turn the in-app simulated car ([DemoMode]) on or off and rebuild the link so the change takes effect.
+     * Demo runs only while the app is open (it rides the UI's hold on the link) and is never persisted.
+     */
+    fun setDemo(on: Boolean) {
+        if (DemoMode.active.value == on) return
+        DemoMode.set(on)
+        log.link(if (on) "Demo mode requested" else "Demo mode off — reconnecting to the real car")
+        scope.launch {
+            activation.withLock { deactivateLocked() }
+            if (isHeld) activate()
+        }
+    }
+
     /** Try again right now (user tapped the status chip). */
     fun reconnect() {
         if (network.state.value is CarNetwork.State.Failed) network.retry()
@@ -249,6 +265,11 @@ class CarRepository(
 
     private suspend fun activate() = activation.withLock {
         if (activeRoute != null || !isHeld) return@withLock
+        if (DemoMode.active.value) {
+            activeRoute = Route.DIRECT
+            startDemo()
+            return@withLock
+        }
         val s = settings.current
         if (!s.canConnect) {
             setLink { LinkUi(LinkPhase.FAILED, text = str(R.string.link_not_set_up), detail = str(R.string.link_not_set_up_detail)) }
@@ -329,6 +350,33 @@ class CarRepository(
         conn.start()
     }
 
+    /** Demo mode: run a simulated car in this process and connect to it over the loopback, no Wi-Fi involved. */
+    private fun startDemo() {
+        val fake = FakeCar(modelYear = ModelYear.MY14) { log.link("[demo] $it") }.start()
+        demoCar = fake
+        log.link("Demo mode on — talking to a simulated car on 127.0.0.1:${fake.port}")
+        val conn = PhevConnection(
+            connector = TcpConnector("127.0.0.1", fake.port),
+            log = log,
+            scope = scope,
+            config = ConnectionConfig(
+                session = SessionConfig(
+                    syncClockOnConnect = false,
+                    fallbackModelYear = ModelYear.MY14,
+                    refreshIntervalMs = 2 * 60_000L,
+                ),
+                connectTimeoutMs = 40_000,
+            ),
+            initialState = _car.value,
+        )
+        direct = conn
+        routeJobs += scope.launch { conn.car.collect { _car.value = it } }
+        routeJobs += scope.launch {
+            conn.status.collect { st -> setLink { describeDirect(st, CarNetwork.State.Idle, test = true) } }
+        }
+        conn.start()
+    }
+
     private fun startBridge(s: AppSettings) {
         val client = BridgeClient(s.bridgeUrl, s.bridgeToken, log, context)
         bridge = client
@@ -361,6 +409,8 @@ class CarRepository(
             cache.saveDiag(log.dump())
         }
         network.stop()
+        demoCar?.let { runCatching { it.stop() } }
+        demoCar = null
         b?.stopEvents()
         setLink { LinkUi(LinkPhase.OFFLINE, text = str(R.string.link_not_connected), detail = lastUpdatedText()) }
         cache.save(_car.value)

@@ -61,6 +61,10 @@ data class AppSettings(
     val recordPings: Boolean = false,
     /** Use the phone's wallpaper colours (Material You) instead of the PHEV Link brand. */
     val dynamicColor: Boolean = false,
+    /** A name the owner gave the car, shown instead of the model. Blank = the default title. */
+    val carName: String = "",
+    /** Developer options unlocked (reveals the emulator test-address field). Tap the version seven times. */
+    val devMode: Boolean = false,
 ) {
     val hasCarWifi: Boolean get() = ssid.isNotBlank() && passwordProblem(password) == null
     val hasBridge: Boolean get() = bridgeUrl.isNotBlank()
@@ -116,6 +120,8 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
         val syncClock = booleanPreferencesKey("sync_clock")
         val recordPings = booleanPreferencesKey("record_pings")
         val dynamicColor = booleanPreferencesKey("dynamic_color")
+        val carName = stringPreferencesKey("car_name")
+        val devMode = booleanPreferencesKey("dev_mode")
     }
 
     val flow: StateFlow<AppSettings> = context.dataStore.data
@@ -159,6 +165,8 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
             syncClock = p[K.syncClock] ?: true,
             recordPings = p[K.recordPings] ?: false,
             dynamicColor = p[K.dynamicColor] ?: false,
+            carName = p[K.carName] ?: "",
+            devMode = p[K.devMode] ?: false,
         )
     }
 
@@ -197,6 +205,8 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
             p[K.syncClock] = s.syncClock
             p[K.recordPings] = s.recordPings
             p[K.dynamicColor] = s.dynamicColor
+            p[K.carName] = s.carName.trim()
+            p[K.devMode] = s.devMode
         }
     }
 }

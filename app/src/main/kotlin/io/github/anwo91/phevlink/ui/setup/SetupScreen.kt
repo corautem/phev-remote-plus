@@ -77,6 +77,9 @@ fun SetupScreen(vm: MainViewModel) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) notifPerm.launch(Manifest.permission.POST_NOTIFICATIONS)
                         page = 1
                     }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.setup_start)) }
+                    TextButton(onClick = { vm.setDemo(true) }, modifier = Modifier.fillMaxWidth()) {
+                        Text(stringResource(R.string.setup_try_demo))
+                    }
                 }
                 1 -> {
                     Text(stringResource(R.string.setup_step1_title), style = MaterialTheme.typography.titleLarge)

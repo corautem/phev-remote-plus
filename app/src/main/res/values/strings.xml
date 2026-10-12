@@ -414,4 +414,15 @@
     <string name="diag_register_hex">Register (hex)</string>
     <string name="diag_data_hex">Data (hex)</string>
     <string name="diag_send">Send</string>
+    <!-- Demo mode / emulation (added by 1.0.28) -->
+    <string name="emulation_banner">EMULATION — simulated car, not your real vehicle</string>
+    <string name="emulation_stop">Stop</string>
+    <string name="settings_demo_title">Demo mode</string>
+    <string name="settings_demo_explain">Explore the app with a simulated car — no car, dongle or bridge needed. Turns off when you close the app.</string>
+    <string name="settings_demo_start">Start demo</string>
+    <string name="settings_demo_stop">Stop demo</string>
+    <string name="settings_demo_running">Demo running — showing a simulated car</string>
+    <string name="settings_car_name">Car name</string>
+    <string name="settings_dev_on">Developer options on</string>
+    <string name="setup_try_demo">Just try it with a simulated car</string>
 </resources>

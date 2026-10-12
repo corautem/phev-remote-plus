@@ -33,6 +33,17 @@ import androidx.annotation.StringRes
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import io.github.anwo91.phevlink.link.DemoMode
 import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.ui.diag.DiagnosticsScreen
 import io.github.anwo91.phevlink.ui.home.HomeScreen
@@ -88,10 +99,34 @@ private object Page {
     const val TIPS = "tips"
 }
 
+/** The always-visible EMULATION bar, shown while demo mode is on so simulated data is never mistaken for the real car. */
+@Composable
+private fun EmulationBanner(onStop: () -> Unit) {
+    Surface(
+        color = MaterialTheme.colorScheme.tertiaryContainer,
+        contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+    ) {
+        Row(
+            Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 16.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                stringResource(R.string.emulation_banner),
+                style = MaterialTheme.typography.labelLarge,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.weight(1f),
+            )
+            TextButton(onClick = onStop) { Text(stringResource(R.string.emulation_stop)) }
+        }
+    }
+}
+
 @Composable
 fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
     val settings by vm.settings.collectAsState()
-    if (!settings.setupDone) {
+    val demo by DemoMode.active.collectAsState()
+    if (!settings.setupDone && !demo) {
         SetupScreen(vm)
         return
     }
@@ -104,6 +139,7 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
     }
     Scaffold(
         snackbarHost = { SnackbarHost(snack) },
+        topBar = { if (demo) EmulationBanner(onStop = { vm.setDemo(false) }) },
         bottomBar = {
             NavigationBar {
                 Tab.entries.forEachIndexed { i, t ->

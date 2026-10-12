@@ -86,6 +86,7 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier) {
     val s by vm.settings.collectAsState()
     val car by vm.car.collectAsState()
     val pending by vm.pending.collectAsState()
+    val demo by io.github.anwo91.phevlink.link.DemoMode.active.collectAsState()
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     fun set(t: (AppSettings) -> AppSettings) = vm.updateSettings(t)
@@ -96,11 +97,36 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier) {
     ) {
         Text(stringResource(R.string.settings_title), style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(top = 8.dp))
 
+        // ---------------------------------------------------------------- demo
+        SectionCard(title = stringResource(R.string.settings_demo_title)) {
+            Text(
+                stringResource(R.string.settings_demo_explain),
+                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Spacer(Modifier.height(8.dp))
+            if (demo) {
+                Text(
+                    stringResource(R.string.settings_demo_running),
+                    style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
+                )
+                Spacer(Modifier.height(8.dp))
+                FilledTonalButton(onClick = { vm.setDemo(false) }) { Text(stringResource(R.string.settings_demo_stop)) }
+            } else {
+                FilledTonalButton(onClick = { vm.setDemo(true) }) { Text(stringResource(R.string.settings_demo_start)) }
+            }
+        }
+
         // ------------------------------------------------------------ language
         LanguageCard()
 
         // --------------------------------------------------------- appearance
         SectionCard(title = stringResource(R.string.settings_appearance)) {
+            var carName by rememberSaveable(s.carName) { mutableStateOf(s.carName) }
+            OutlinedTextField(
+                carName, { v -> carName = v; set { it.copy(carName = v) } },
+                label = { Text(stringResource(R.string.settings_car_name)) }, singleLine = true, modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(Modifier.height(8.dp))
             Toggle(stringResource(R.string.settings_dynamic_color), s.dynamicColor) { on -> set { it.copy(dynamicColor = on) } }
             Text(
                 stringResource(R.string.settings_dynamic_color_explain),
@@ -294,15 +320,25 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier) {
                     SegmentedButton(selected = s.modelYearOverride == my, onClick = { set { it.copy(modelYearOverride = my) } }, shape = SegmentedButtonDefaults.itemShape(i, 3)) { Text(label) }
                 }
             }
-            Spacer(Modifier.height(8.dp))
-            var host by rememberSaveable(s.hostOverride) { mutableStateOf(s.hostOverride) }
-            OutlinedTextField(host, { host = it }, label = { Text(stringResource(R.string.settings_test_address)) }, singleLine = true,
-                modifier = Modifier.fillMaxWidth(), supportingText = { Text(stringResource(R.string.settings_test_address_hint)) })
-            FilledTonalButton(onClick = { set { it.copy(hostOverride = host) } }) { Text(stringResource(R.string.settings_apply)) }
+            if (s.devMode) {
+                Spacer(Modifier.height(8.dp))
+                var host by rememberSaveable(s.hostOverride) { mutableStateOf(s.hostOverride) }
+                OutlinedTextField(host, { host = it }, label = { Text(stringResource(R.string.settings_test_address)) }, singleLine = true,
+                    modifier = Modifier.fillMaxWidth(), supportingText = { Text(stringResource(R.string.settings_test_address_hint)) })
+                FilledTonalButton(onClick = { set { it.copy(hostOverride = host) } }) { Text(stringResource(R.string.settings_apply)) }
+            }
         }
 
         SectionCard(title = stringResource(R.string.settings_about)) {
-            LabeledValue(stringResource(R.string.settings_version), BuildConfig.VERSION_NAME)
+            var devTaps by remember { mutableStateOf(0) }
+            val devOnMsg = stringResource(R.string.settings_dev_on)
+            LabeledValue(
+                stringResource(R.string.settings_version), BuildConfig.VERSION_NAME,
+                modifier = if (s.devMode) Modifier else Modifier.clickable {
+                    devTaps++
+                    if (devTaps >= 7) { set { it.copy(devMode = true) }; vm.toast(devOnMsg) }
+                },
+            )
             Text(
                 stringResource(R.string.settings_about_text),
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,

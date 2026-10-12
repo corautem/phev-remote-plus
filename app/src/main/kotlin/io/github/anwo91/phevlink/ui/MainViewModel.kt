@@ -102,6 +102,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         repo.release(CarRepository.UI, lingerMs = 30_000)
     }
 
+    /** Turn the in-app simulated car on or off (demo mode). Never persisted; off again on the next cold start. */
+    fun setDemo(on: Boolean) = repo.setDemo(on)
+
     /** While the app is open (allowed to start services), hand ongoing charging/climate to the watcher. */
     private fun maybeStartWatch() {
         val s = settings.value

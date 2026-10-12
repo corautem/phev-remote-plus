@@ -347,14 +347,19 @@ class CarRepository(
                 // recently without errors (the car is at home). Otherwise the car is elsewhere.
                 val recent = snap?.car?.updatedAtMs?.let { System.currentTimeMillis() - it < 15 * 60_000 } == true
                 val useBridge = snap != null && (snap.link.isConnected || (recent && snap.link is LinkStatus.Idle))
+                // The car's Wi-Fi takes one device at a time: when the bridge is on it (the car is home), the phone
+                // can't join it anyway — go through the bridge even before it has fresh data.
+                val bridgeOnCarWifi = snap != null && !useBridge &&
+                    BridgeSetupApi.carWifi(s.bridgeUrl, s.bridgeToken)?.takeIf { it.code == 200 }?.let { BridgeWifi.from(it.body).connected } == true
                 log.link(
                     "Route: " + when {
                         snap == null -> "bridge unreachable → car Wi-Fi"
                         useBridge -> "bridge is in touch with the car → bridge"
-                        else -> "bridge has no fresh contact with the car → car Wi-Fi"
+                        bridgeOnCarWifi -> "bridge is on the car's Wi-Fi (the car takes one device at a time) but has no fresh data yet → bridge"
+                        else -> "bridge has no fresh contact with the car and isn't on its Wi-Fi → car Wi-Fi"
                     }
                 )
-                if (useBridge) Route.BRIDGE else Route.DIRECT
+                if (useBridge || bridgeOnCarWifi) Route.BRIDGE else Route.DIRECT
             }
         }
     }

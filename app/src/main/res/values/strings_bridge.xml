@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="settings_silent_bridge_note">You use a bridge, so you can skip this: the app reaches the car through the bridge. It only helps when the car is away from home and the app connects to the car\'s Wi-Fi directly.</string>
+    <string name="settings_silent_no_bridge">Only for connecting straight to the car (no bridge). Pair once, with the car nearby, so Android stops asking “Connect to device?” and the widget, tile and departures work in the background.</string>
     <string name="setup_choose_way">How will the app reach your car?</string>
     <string name="setup_save_wifi_first">Tap Save above first.</string>
     <string name="bs_search_info">Searched %1$d addresses around this phone (%2$s) in %3$d s.</string>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="settings_silent_bridge_note">Du bruker bro, så dette kan du hoppe over: appen når bilen gjennom broen. Det hjelper bare når bilen er borte fra hjemmet og appen kobler direkte til bilens Wi-Fi.</string>
+    <string name="settings_silent_no_bridge">Bare for direkte tilkobling til bilen (uten bro). Koble sammen én gang med bilen i nærheten, så slutter Android å spørre «Koble til enheten?», og widgeten, hurtiginnstillingen og avreisene virker i bakgrunnen.</string>
     <string name="setup_choose_way">Hvordan skal appen nå bilen?</string>
     <string name="setup_save_wifi_first">Trykk Lagre over først.</string>
     <string name="bs_search_info">Søkte gjennom %1$d adresser rundt denne telefonen (%2$s) på %3$d s.</string>

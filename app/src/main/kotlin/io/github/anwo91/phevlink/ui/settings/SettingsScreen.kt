@@ -480,19 +480,11 @@ private fun Toggle(label: String, value: Boolean, onChange: (Boolean) -> Unit) {
 }
 
 @Composable
-fun CarWifiCard(vm: MainViewModel, s: AppSettings, showTest: Boolean = true) {
-    val ctx = LocalContext.current
+fun CarWifiCard(vm: MainViewModel, s: AppSettings, showTest: Boolean = true, showSilent: Boolean = true) {
     var ssid by rememberSaveable(s.ssid) { mutableStateOf(s.ssid) }
     var pw by rememberSaveable(s.password) { mutableStateOf(s.password) }
     var showPw by remember { mutableStateOf(false) }
     var testing by remember { mutableStateOf(false) }
-    val msgPairingCancelled = stringResource(R.string.msg_pairing_cancelled)
-    val pairing = rememberCarPairing { bssid ->
-        if (bssid != null) {
-            vm.updateSettings { it.copy(bssid = bssid) }
-            vm.toast(ctx.getString(R.string.msg_paired, bssid))
-        } else vm.toast(msgPairingCancelled)
-    }
     val pwError = io.github.anwo91.phevlink.data.passwordProblemRes(pw).takeIf { pw.isNotEmpty() }?.let { stringResource(it) }
     SectionCard(title = stringResource(R.string.settings_car_wifi)) {
         Text(
@@ -531,20 +523,46 @@ fun CarWifiCard(vm: MainViewModel, s: AppSettings, showTest: Boolean = true) {
                 enabled = !testing, modifier = Modifier.weight(1f),
             ) { Text(stringResource(if (testing) R.string.settings_testing else R.string.common_test)) }
         }
-        HorizontalDivider(Modifier.padding(vertical = 10.dp))
-        Text(stringResource(R.string.settings_silent_title), style = MaterialTheme.typography.labelLarge)
+        if (showSilent) {
+            HorizontalDivider(Modifier.padding(vertical = 10.dp))
+            Text(stringResource(R.string.settings_silent_title), style = MaterialTheme.typography.labelLarge)
+            SilentConnections(vm, s, ssid.trim())
+        }
+    }
+}
+
+/**
+ * "Pair with car" (Android companion pairing with the car's access point), which only matters when the phone itself
+ * joins the car's Wi-Fi. Tells the user so: with a bridge set up it says they can skip it.
+ */
+@Composable
+fun SilentConnections(vm: MainViewModel, s: AppSettings, ssid: String = s.ssid) {
+    val ctx = LocalContext.current
+    val msgPairingCancelled = stringResource(R.string.msg_pairing_cancelled)
+    val pairing = rememberCarPairing { bssid ->
+        if (bssid != null) {
+            vm.updateSettings { it.copy(bssid = bssid) }
+            vm.toast(ctx.getString(R.string.msg_paired, bssid))
+        } else vm.toast(msgPairingCancelled)
+    }
+    val usesBridge = s.hasBridge
+    if (s.bssid.isNotBlank()) {
+        Text(stringResource(R.string.settings_paired_with, s.bssid), style = MaterialTheme.typography.bodySmall)
+    }
+    if (usesBridge) {
         Text(
-            if (s.bssid.isNotBlank()) stringResource(R.string.settings_paired_with, s.bssid)
-            else stringResource(R.string.settings_pair_explain),
-            style = MaterialTheme.typography.bodySmall,
+            stringResource(R.string.settings_silent_bridge_note),
+            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 6.dp)) {
-            OutlinedButton(onClick = { pairing.start(ssid.trim()) { err -> vm.toast(err) } }, modifier = Modifier.weight(1f)) {
-                Text(stringResource(if (s.bssid.isNotBlank()) R.string.settings_pair_again else R.string.settings_pair))
-            }
-            if (s.bssid.isNotBlank()) OutlinedButton(onClick = { vm.updateSettings { it.copy(bssid = "") } }, modifier = Modifier.weight(1f)) {
-                Text(stringResource(R.string.settings_forget))
-            }
+    } else if (s.bssid.isBlank()) {
+        Text(stringResource(R.string.settings_silent_no_bridge), style = MaterialTheme.typography.bodySmall)
+    }
+    Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 6.dp)) {
+        OutlinedButton(onClick = { pairing.start(ssid) { err -> vm.toast(err) } }, modifier = Modifier.weight(1f)) {
+            Text(stringResource(if (s.bssid.isNotBlank()) R.string.settings_pair_again else R.string.settings_pair))
+        }
+        if (s.bssid.isNotBlank()) OutlinedButton(onClick = { vm.updateSettings { it.copy(bssid = "") } }, modifier = Modifier.weight(1f)) {
+            Text(stringResource(R.string.settings_forget))
         }
     }
 }

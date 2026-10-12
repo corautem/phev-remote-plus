@@ -43,6 +43,7 @@ import io.github.anwo91.phevlink.core.model.CarCommand
 import io.github.anwo91.phevlink.ui.MainViewModel
 import io.github.anwo91.phevlink.ui.common.SectionCard
 import io.github.anwo91.phevlink.ui.settings.CarWifiCard
+import io.github.anwo91.phevlink.ui.settings.SilentConnections
 
 private const val PAGES = 4
 
@@ -95,11 +96,8 @@ fun SetupScreen(vm: MainViewModel) {
                 }
                 1 -> {
                     Text(stringResource(R.string.setup_step1_title), style = MaterialTheme.typography.titleLarge)
-                    CarWifiCard(vm, s, showTest = false)
-                    Text(
-                        stringResource(R.string.setup_pairing_note),
-                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
+                    // Silent connections only matter without a bridge: offered on the "Car Wi-Fi only" path (next page).
+                    CarWifiCard(vm, s, showTest = false, showSilent = false)
                     // Both ways need the car's Wi-Fi; then choose how the app reaches the car — the bridge (preferred) first.
                     Text(stringResource(R.string.setup_choose_way), style = MaterialTheme.typography.titleMedium)
                     if (!s.hasCarWifi) {
@@ -122,6 +120,14 @@ fun SetupScreen(vm: MainViewModel) {
                 }
                 2 -> {
                     Text(stringResource(R.string.setup_step2_title), style = MaterialTheme.typography.titleLarge)
+                    SectionCard(title = stringResource(R.string.settings_silent_title)) {
+                        SilentConnections(vm, s)
+                        Spacer(Modifier.height(6.dp))
+                        Text(
+                            stringResource(R.string.setup_pairing_note),
+                            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
                     SectionCard(title = stringResource(R.string.setup_connect)) {
                         Text(stringResource(R.string.setup_status, link.text), style = MaterialTheme.typography.bodyMedium)
                         link.detail?.let { Text(it, style = MaterialTheme.typography.bodySmall) }

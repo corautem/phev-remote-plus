@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="settings_silent_bridge_note">Du använder en brygga, så det här kan du hoppa över: appen når bilen via bryggan. Det hjälper bara när bilen är borta hemifrån och appen ansluter direkt till bilens wifi.</string>
+    <string name="settings_silent_no_bridge">Bara för direkt anslutning till bilen (utan brygga). Parkoppla en gång med bilen i närheten så slutar Android fråga ”Anslut till enheten?”, och widgeten, rutan och avresorna fungerar i bakgrunden.</string>
     <string name="setup_choose_way">Hur ska appen nå din bil?</string>
     <string name="setup_save_wifi_first">Tryck på Spara ovan först.</string>
     <string name="bs_search_info">Sökte igenom %1$d adresser runt den här telefonen (%2$s) på %3$d s.</string>

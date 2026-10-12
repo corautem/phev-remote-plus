@@ -99,6 +99,7 @@ fun HomeScreen(
     onOpenVehicleSettings: () -> Unit = {},
     onOpenTips: () -> Unit = {},
     onOpenObd: () -> Unit = {},
+    onOpenBridgeSetup: () -> Unit = {},
 ) {
     val car by vm.car.collectAsState()
     val link by vm.link.collectAsState()
@@ -116,6 +117,7 @@ fun HomeScreen(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
+        if (settings.bridgeSetupPending) item { BridgePendingCard(onOpenBridgeSetup) }
         item { AttentionCard(car) }
         item { HeroHeader(car, link, settings.fullRangeKm, settings.carName, now) { showLink = true } }
         item {
@@ -628,5 +630,15 @@ private fun MoreRow(title: String, subtitle: String, onClick: () -> Unit) {
     Column(Modifier.fillMaxWidth().clickable(onClick = onClick).padding(vertical = 8.dp)) {
         Text(title, style = MaterialTheme.typography.bodyLarge)
         Text(subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
+}
+
+/** The bridge was set up while the car was away: one step (registration in the car) is left. */
+@Composable
+private fun BridgePendingCard(onContinue: () -> Unit) {
+    SectionCard(title = stringResource(R.string.home_bridge_pending_title)) {
+        Text(stringResource(R.string.home_bridge_pending_text), style = MaterialTheme.typography.bodyMedium)
+        Spacer(Modifier.height(8.dp))
+        FilledTonalButton(onClick = onContinue) { Text(stringResource(R.string.home_bridge_pending_button)) }
     }
 }

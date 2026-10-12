@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="home_bridge_pending_button">Fortsæt opsætningen</string>
+    <string name="home_bridge_pending_text">Registrer broen i bilen, når bilen er hjemme. Du får en notifikation, når den er tilbage.</string>
+    <string name="home_bridge_pending_title">Bro: ét trin tilbage</string>
+    <string name="notif_bridge_home_text">Gør opsætningen af broen færdig: registrer den i bilen. Det tager et minut i bilen.</string>
+    <string name="notif_bridge_home_title">Bilen er hjemme</string>
     <string name="bs_finish_later">Afslut nu – registrer, når bilen er hjemme</string>
-    <string name="bs_finish_later_hint">Er bilen ikke hjemme? Du kan afslutte nu. Broen husker bilens Wi-Fi og forbinder af sig selv, når bilen er tilbage. Åbn så Indstillinger → Opsæt bro én gang til for at registrere den i bilen – det tager et minut i bilen.</string>
+    <string name="bs_finish_later_hint">Er bilen ikke hjemme? Afslut nu. Broen husker bilens Wi-Fi og forbinder af sig selv, når bilen er tilbage – så får du en notifikation. Registreringen tager et minut i bilen.</string>
     <string name="settings_silent_bridge_note">Du bruger en bro, så det her kan du springe over: appen når bilen gennem broen. Det hjælper kun, når bilen er væk hjemmefra, og appen forbinder direkte til bilens Wi-Fi.</string>
     <string name="settings_silent_no_bridge">Kun til direkte forbindelse til bilen (uden bro). Par én gang med bilen i nærheden, så holder Android op med at spørge »Opret forbindelse til enheden?«, og widget, felt og afgange virker i baggrunden.</string>
     <string name="setup_choose_way">Hvordan skal appen nå bilen?</string>

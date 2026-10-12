@@ -32,6 +32,16 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val log = g.log
     val bridgeSetup = g.bridgeSetup
 
+    private val _openPage = MutableStateFlow<String?>(null)
+    /** A full-screen page to open (asked for by a notification tap), consumed by the UI with [pageOpened]. */
+    val openPage: StateFlow<String?> = _openPage.asStateFlow()
+    fun requestPage(page: String?) {
+        if (page != null) _openPage.value = page
+    }
+    fun pageOpened() {
+        _openPage.value = null
+    }
+
     private val _pending = MutableStateFlow<String?>(null)
     /** Label of the command in flight, for button spinners. */
     val pending: StateFlow<String?> = _pending.asStateFlow()

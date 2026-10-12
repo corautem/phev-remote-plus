@@ -82,6 +82,31 @@ class Notifier(private val context: Context) {
         nm.notify(ID_ALERT_BASE + a.type.ordinal, n)
     }
 
+    /** The car is home while the bridge still waits to be registered: tap opens the bridge setup at that step. */
+    fun bridgeCarHome() {
+        if (!canPost()) return
+        ensureChannels()
+        val res = AppLocale.localized(context)
+        val text = res.getString(R.string.notif_bridge_home_text)
+        val open = PendingIntent.getActivity(
+            context, REQ_BRIDGE_SETUP,
+            Intent(context, MainActivity::class.java)
+                .putExtra(MainActivity.EXTRA_OPEN, MainActivity.OPEN_BRIDGE_SETUP)
+                .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+        )
+        val n = NotificationCompat.Builder(context, CH_ALERTS)
+            .setSmallIcon(R.drawable.ic_stat_car)
+            .setContentTitle(res.getString(R.string.notif_bridge_home_title))
+            .setContentText(text)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(text))
+            .setCategory(NotificationCompat.CATEGORY_REMINDER)
+            .setContentIntent(open)
+            .setAutoCancel(true)
+            .build()
+        nm.notify(ID_BRIDGE_HOME, n)
+    }
+
     fun result(title: String, text: String, ok: Boolean) {
         if (!canPost()) return
         ensureChannels()
@@ -182,5 +207,7 @@ class Notifier(private val context: Context) {
         const val ID_LINK = 1
         const val ID_RESULT = 2
         const val ID_ALERT_BASE = 100
+        const val ID_BRIDGE_HOME = 60
+        private const val REQ_BRIDGE_SETUP = 7
     }
 }

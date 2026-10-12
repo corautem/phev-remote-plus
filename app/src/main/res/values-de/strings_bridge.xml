@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="home_bridge_pending_button">Einrichtung fortsetzen</string>
+    <string name="home_bridge_pending_text">Registriere die Bridge im Auto, sobald das Auto zu Hause ist. Du bekommst eine Benachrichtigung, wenn es zurück ist.</string>
+    <string name="home_bridge_pending_title">Bridge: noch ein Schritt</string>
+    <string name="notif_bridge_home_text">Schließ die Einrichtung der Bridge ab: Registriere sie im Auto. Das dauert eine Minute im Auto.</string>
+    <string name="notif_bridge_home_title">Dein Auto ist zu Hause</string>
     <string name="bs_finish_later">Jetzt abschließen – registrieren, wenn das Auto da ist</string>
-    <string name="bs_finish_later_hint">Das Auto ist nicht da? Du kannst jetzt abschließen. Die Bridge merkt sich das WLAN des Autos und verbindet sich von selbst, sobald es zurück ist. Öffne dann noch einmal Optionen → Bridge einrichten, um sie im Auto zu registrieren – das dauert eine Minute im Auto.</string>
+    <string name="bs_finish_later_hint">Das Auto ist nicht da? Schließ jetzt ab. Die Bridge merkt sich das WLAN des Autos und verbindet sich von selbst, sobald es zurück ist – dann bekommst du eine Benachrichtigung. Die Registrierung dauert eine Minute im Auto.</string>
     <string name="settings_silent_bridge_note">Du nutzt eine Bridge, das hier kannst du also überspringen: Die App erreicht das Auto über die Bridge. Es hilft nur, wenn das Auto nicht zu Hause ist und die App sich direkt mit seinem WLAN verbindet.</string>
     <string name="settings_silent_no_bridge">Nur für die direkte Verbindung zum Auto (ohne Bridge). Einmal koppeln, mit dem Auto in der Nähe, dann fragt Android nicht mehr „Mit Gerät verbinden?“, und Widget, Kachel und Abfahrten funktionieren im Hintergrund.</string>
     <string name="setup_choose_way">Wie soll die App dein Auto erreichen?</string>

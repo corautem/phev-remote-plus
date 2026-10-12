@@ -68,6 +68,11 @@ data class AppSettings(
     val carName: String = "",
     /** Developer options unlocked (reveals the emulator test-address field). Tap the version seven times. */
     val devMode: Boolean = false,
+    /**
+     * Bridge set up while the car was away: it is paired and knows the car's Wi-Fi, but still has to be registered
+     * with the car. A background check notifies when the car is home; cleared once the bridge is registered.
+     */
+    val bridgeSetupPending: Boolean = false,
 ) {
     val hasCarWifi: Boolean get() = ssid.isNotBlank() && passwordProblem(password) == null
     val hasBridge: Boolean get() = bridgeUrl.isNotBlank()
@@ -134,6 +139,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
         val dynamicColor = booleanPreferencesKey("dynamic_color")
         val carName = stringPreferencesKey("car_name")
         val devMode = booleanPreferencesKey("dev_mode")
+        val bridgeSetupPending = booleanPreferencesKey("bridge_setup_pending")
     }
 
     val flow: StateFlow<AppSettings> = context.dataStore.data
@@ -179,6 +185,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
             dynamicColor = p[K.dynamicColor] ?: false,
             carName = p[K.carName] ?: "",
             devMode = p[K.devMode] ?: false,
+            bridgeSetupPending = p[K.bridgeSetupPending] ?: false,
         )
     }
 
@@ -219,6 +226,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
             p[K.dynamicColor] = s.dynamicColor
             p[K.carName] = s.carName.trim()
             p[K.devMode] = s.devMode
+            p[K.bridgeSetupPending] = s.bridgeSetupPending
         }
     }
 }

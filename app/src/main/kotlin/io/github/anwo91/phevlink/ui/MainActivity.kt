@@ -1,6 +1,7 @@
 package io.github.anwo91.phevlink.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -69,15 +70,28 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        if (savedInstanceState == null) vm.requestPage(intent?.getStringExtra(EXTRA_OPEN))
         setContent {
             val settings by vm.settings.collectAsState()
             PhevTheme(dynamicColor = settings.dynamicColor) { AppRoot(vm, obdVm) }
         }
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        vm.requestPage(intent.getStringExtra(EXTRA_OPEN))
+    }
+
     override fun onStart() {
         super.onStart()
         vm.onVisible()
+    }
+
+    companion object {
+        /** Intent extra: a page to open on launch (from a notification). */
+        const val EXTRA_OPEN = "io.github.anwo91.phevlink.OPEN"
+        const val OPEN_BRIDGE_SETUP = "bridge"
     }
 
     override fun onStop() {
@@ -135,6 +149,14 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
     var tab by rememberSaveable { mutableIntStateOf(0) }
     // An open page ("vehicle", "tips" or "tips:<id>") is drawn over the current tab.
     var page by rememberSaveable { mutableStateOf<String?>(null) }
+    // A page asked for from outside (a notification tap): open it once.
+    val requested by vm.openPage.collectAsState()
+    LaunchedEffect(requested) {
+        requested?.let {
+            page = it
+            vm.pageOpened()
+        }
+    }
     val snack = remember { SnackbarHostState() }
     LaunchedEffect(Unit) {
         vm.messages.collect { snack.showSnackbar(it) }
@@ -174,6 +196,7 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
                     onOpenVehicleSettings = { page = Page.VEHICLE },
                     onOpenTips = { page = Page.TIPS },
                     onOpenObd = { tab = Tab.OBD.ordinal },
+                    onOpenBridgeSetup = { page = Page.BRIDGE },
                 )
                 Tab.SCHEDULE -> ScheduleScreen(vm, m)
                 Tab.OBD -> ObdScreen(obdVm, m, onOpenTip = { page = Page.TIPS + ":" + it })

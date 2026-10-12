@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Set up bridge wizard (ui/setup/BridgeSetupScreen.kt). -->
 <resources>
+    <string name="home_bridge_pending_button">Continue setup</string>
+    <string name="home_bridge_pending_text">Register the bridge with the car when the car is home. You\'ll get a notification when it\'s back.</string>
+    <string name="home_bridge_pending_title">Bridge: one step left</string>
+    <string name="notif_bridge_home_text">Finish setting up the bridge: register it with the car. It takes a minute in the car.</string>
+    <string name="notif_bridge_home_title">Your car is home</string>
     <string name="bs_finish_later">Finish now — register when the car is home</string>
-    <string name="bs_finish_later_hint">The car isn\'t home? You can finish now. The bridge keeps the car\'s Wi-Fi saved and connects by itself when the car is back. Then open Settings → Set up bridge once more to register it with the car — a minute in the car.</string>
+    <string name="bs_finish_later_hint">The car isn\'t home? Finish now. The bridge keeps the car\'s Wi-Fi saved and connects by itself when the car is back — you\'ll get a notification then. Registering takes a minute in the car.</string>
     <string name="settings_silent_bridge_note">You use a bridge, so you can skip this: the app reaches the car through the bridge. It only helps when the car is away from home and the app connects to the car\'s Wi-Fi directly.</string>
     <string name="settings_silent_no_bridge">Only for connecting straight to the car (no bridge). Pair once, with the car nearby, so Android stops asking “Connect to device?” and the widget, tile and departures work in the background.</string>
     <string name="setup_choose_way">How will the app reach your car?</string>

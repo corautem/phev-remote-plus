@@ -491,18 +491,27 @@ class BridgeSetupController(
     /**
      * The car isn't home: keep the car's network saved on the bridge (it joins by itself when the car is back), switch
      * the app to the bridge, and leave — registration waits until the car is home (Settings → Set up bridge again).
-     * [onDone] runs on the main thread once that is saved.
+     * Returns at once: [onDone] runs on the main thread as soon as the app is switched over; the car's network is
+     * saved on the bridge in the background, and [BridgeHomeJob] notifies when the car is home.
      */
-    fun finishWithoutCar(onDone: () -> Unit) = launch {
-        if (_state.value.wifi == WifiState.CAR_NOT_SEEN) joinNow(null)
-        val saved = _state.value.wifi == WifiState.SAVED_NOT_CONNECTED || _state.value.wifi == WifiState.CONNECTED
-        val carWifi = settings.current.hasCarWifi
-        settings.update { it.copy(route = if (carWifi) Route.AUTO else Route.BRIDGE) }
-        log.link(
-            "Bridge setup: finished without the car — car network ${if (saved) "saved on the bridge" else "NOT saved (${_state.value.wifiDetail})"}; " +
-                "register the bridge when the car is home (Settings → Set up bridge)",
-        )
-        withContext(Dispatchers.Main) { onDone() }
+    fun finishWithoutCar(onDone: () -> Unit) {
+        job?.cancel()
+        val needSave = _state.value.wifi != WifiState.SAVED_NOT_CONNECTED && _state.value.wifi != WifiState.CONNECTED
+        val bridgeUrl = url
+        scope.launch {
+            val carWifi = settings.current.hasCarWifi
+            settings.update { it.copy(route = if (carWifi) Route.AUTO else Route.BRIDGE, bridgeSetupPending = true) }
+            BridgeHomeJob.schedule(context)
+            log.link("Bridge setup: finished without the car — will notify when the bridge sees the car, then register it")
+            withContext(Dispatchers.Main) { onDone() }
+            // Save the car's network on the bridge in the background: it tries to connect for up to 45 s (the car is
+            // away, so that fails), but the profile is stored first and the bridge joins by itself when the car is back.
+            if (needSave) {
+                val s = settings.current
+                val r = BridgeSetupApi.join(bridgeUrl, s.bridgeToken, s.ssid, s.password, Locale.getDefault().country.takeIf { it.length == 2 })
+                log.link("Bridge setup: car network saved on the bridge in the background — saved=${r?.body?.get("saved")}, connected=${r?.body?.get("connected")}: ${r?.body?.str("message") ?: "no answer"}")
+            }
+        }
     }
 
     private fun wifiFailed(why: String) {
@@ -537,6 +546,11 @@ class BridgeSetupController(
             is CommandResult.Success -> {
                 log.link("Bridge setup: the car registered the bridge")
                 _state.update { it.copy(reg = RegState.REGISTERED) }
+                if (settings.current.bridgeSetupPending) {
+                    settings.update { it.copy(bridgeSetupPending = false) }
+                    BridgeHomeJob.cancel(context)
+                    log.link("Bridge setup: nothing pending any more — background check stopped")
+                }
             }
             is CommandResult.Failure -> {
                 log.warn("Bridge setup: register failed: ${r.reason}")
@@ -571,7 +585,8 @@ class BridgeSetupController(
         job?.cancel()
         scope.launch {
             val carWifi = settings.current.hasCarWifi
-            settings.update { it.copy(route = if (carWifi) Route.AUTO else Route.BRIDGE) }
+            settings.update { it.copy(route = if (carWifi) Route.AUTO else Route.BRIDGE, bridgeSetupPending = false) }
+            BridgeHomeJob.cancel(context)
             log.link("Bridge setup: finished (route ${if (carWifi) "automatic" else "bridge only"})")
         }
     }

@@ -102,6 +102,12 @@
 
         <receiver android:name=".schedule.DepartureReceiver" android:exported="false" />
 
+        <!-- Waits for the car to come home while a bridge setup is pending, then notifies. -->
+        <service
+            android:name=".link.BridgeHomeJob"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <receiver android:name=".schedule.RescheduleReceiver" android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

@@ -398,7 +398,7 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () 
                 stringResource(R.string.settings_about_text),
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            OutlinedButton(onClick = { set { it.copy(setupDone = false) } }, modifier = Modifier.padding(top = 8.dp)) {
+            OutlinedButton(onClick = { vm.runSetupAgain() }, modifier = Modifier.padding(top = 8.dp)) {
                 Text(stringResource(R.string.settings_run_setup))
             }
         }

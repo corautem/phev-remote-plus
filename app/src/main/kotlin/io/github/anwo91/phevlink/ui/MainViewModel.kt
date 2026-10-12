@@ -35,6 +35,15 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val sharedSync = g.sharedSync
     val appUpdater = g.appUpdater
 
+    private val _setupRequested = MutableStateFlow(false)
+    /** The owner chose "Run setup again" (the only time the first-run setup shows on a phone that is set up). */
+    val setupRequested: StateFlow<Boolean> = _setupRequested.asStateFlow()
+    fun runSetupAgain() {
+        log.link("Setup: \"Run setup again\" chosen")
+        _setupRequested.value = true
+        updateSettings { it.copy(setupDone = false) }
+    }
+
     private val _openPage = MutableStateFlow<String?>(null)
     /** A full-screen page to open (asked for by a notification tap), consumed by the UI with [pageOpened]. */
     val openPage: StateFlow<String?> = _openPage.asStateFlow()
@@ -66,6 +75,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     init {
         log.addListener(logListener)
+        logStart()
+        viewModelScope.launch {
+            settings.collect { if (it.setupDone) _setupRequested.value = false }
+        }
         // New versions of the app and the bridge, at most every few hours (shown under Settings → Updates).
         appUpdater.checkIfDue()
         if (settings.value.hasBridge) bridgeAdmin.checkUpdatesIfDue()
@@ -121,6 +134,21 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** Turn the in-app simulated car on or off (demo mode). Never persisted; off again on the next cold start. */
     fun setDemo(on: Boolean) = repo.setDemo(on)
+
+    /** One line per app start: version (and the one before, after an update) and how the app is set up. */
+    private fun logStart() {
+        val ctx = getApplication<Application>()
+        val prefs = ctx.getSharedPreferences("app_meta", android.content.Context.MODE_PRIVATE)
+        val now = io.github.anwo91.phevlink.BuildConfig.VERSION_NAME
+        val before = prefs.getString("last_version", null)
+        prefs.edit().putString("last_version", now).apply()
+        val s = settings.value
+        log.link(
+            "App start: PHEV Link $now" + (if (before != null && before != now) " (updated from $before)" else "") +
+                " — setup ${if (s.setupDone) "done" else "NOT done"}, car Wi-Fi ${if (s.hasCarWifi) "saved" else "not saved"}, " +
+                "bridge ${if (s.hasBridge) "set up" else "none"}, route ${s.route.label}",
+        )
+    }
 
     /** While the app is open (allowed to start services), hand ongoing charging/climate to the watcher. */
     private fun maybeStartWatch() {

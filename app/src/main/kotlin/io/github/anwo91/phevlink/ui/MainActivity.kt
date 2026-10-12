@@ -149,13 +149,27 @@ private fun EmulationBanner(onStop: () -> Unit) {
 fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
     val settings by vm.settings.collectAsState()
     val demo by DemoMode.active.collectAsState()
-    if (!settings.setupDone && !demo) {
+    val setupRequested by vm.setupRequested.collectAsState()
+    // The first-run setup is for phones that can't reach the car yet (or when the owner asks for it again). A phone
+    // whose car Wi-Fi or bridge is already saved when the app starts never lands there by itself — e.g. after an app
+    // update. Checked once per start, so saving the Wi-Fi during the setup doesn't end the setup early.
+    val strayAtStart = remember { !settings.setupDone && settings.canConnect && !setupRequested }
+    val stray = strayAtStart && !settings.setupDone && !setupRequested
+    LaunchedEffect(stray) {
+        if (stray) {
+            vm.log.warn("Setup: marked unfinished although the car Wi-Fi/bridge is saved — opening the app, not the setup")
+            vm.updateSettings { it.copy(setupDone = true) }
+        }
+    }
+    if (!settings.setupDone && !demo && !stray) {
         SetupScreen(vm)
         return
     }
     var tab by rememberSaveable { mutableIntStateOf(0) }
     // An open page ("vehicle", "tips" or "tips:<id>") is drawn over the current tab.
     var page by rememberSaveable { mutableStateOf<String?>(null) }
+    // Which page shows (also one restored after the app was restarted, e.g. by an update) — logged for support.
+    LaunchedEffect(page) { vm.log.link("UI: ${page?.let { "page $it" } ?: "tabs"}") }
     // A page asked for from outside (a notification tap): open it once.
     val requested by vm.openPage.collectAsState()
     LaunchedEffect(requested) {

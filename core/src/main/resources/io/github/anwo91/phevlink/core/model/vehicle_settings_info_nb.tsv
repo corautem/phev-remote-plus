@@ -1,0 +1,113 @@
+# Vehicle settings explained (own words, for owners) - Norwegian bokmål (nb).
+info.1	Velger når blinklysspaken virker: bare når bilen er helt slått på, eller også i tilbehørsmodus (ACC).
+when.1	Endre den hvis du vil at blinklyset skal virke (eller ikke virke) når bilen bare står i tilbehørsmodus.
+info.2	Når den er på, gir et lett trykk på blinklysspaken tre blink – praktisk ved filskifte.
+when.2	Slå den av hvis du får tre blink når du bare ville gi et kort signal.
+info.3	Bestemmer hvor mange ganger blinklysene blinker som kvittering når du låser og låser opp med nøkkelen eller nøkkelløs betjening.
+when.3	Endre den hvis du vil ha flere, færre eller ingen kvitteringsblink, for eksempel for å være diskré om natten.
+info.4	Velger hvordan vindusviskerne foran oppfører seg på intervall: fast pause, en pause du stiller selv, en som også følger farten, eller en som styres av regnsensoren.
+when.4	Velg den hastighetsavhengige eller regnfølsomme varianten hvis du vil at viskerne skal tilpasse seg selv, eller fast intervall hvis du vil ha forutsigbar visking.
+info.5	Bestemmer om viskerne går av seg selv når du spyler, og om de tar en ettervisk noen sekunder senere for å fjerne dråper som renner ned.
+when.5	Velg alternativet med forsinket ettervisk hvis spylervæske renner nedover frontruten etter spylingen.
+info.6	Bestemmer pausen mellom hvert strøk når bakruteviskeren går på intervall (0 sekunder betyr at den visker uten stans).
+when.6	Bruk lengre pause i lett yr og kortere i kraftigere regn.
+info.7	Bestemmer hvor lenge lyset i ladeluken står på før det slukker av seg selv.
+when.7	Velg lengre tid hvis du ofte setter i ladekabelen i mørket, og kortere hvis du vil spare 12 V-batteriet.
+info.8	Styrer om og når sidespeilene feller seg inn og ut av seg selv, for eksempel når du låser og låser opp, eller når du kjører av gårde.
+when.8	Endre den hvis du vil at speilene skal felles inn automatisk når bilen står parkert, eller hvis du vil at de skal slutte å bevege seg av seg selv.
+info.9	Bestemmer hvor mørkt det må bli før frontlysene slås på automatisk.
+when.9	Velg en tidligere innstilling hvis lyset kommer på for sent i skumringen, eller en senere hvis det kommer på for lett.
+info.10	Når lysbryteren står på AUTO, slås frontlysene på når vindusviskerne foran går.
+when.10	Slå den på hvis du vil at frontlysene skal slå seg på automatisk når det regner.
+info.11	Bestemmer hvor lenge kupélyset lyser etter at du har lukket dørene.
+when.11	Velg lengre tid hvis du trenger mer tid til å ta på beltet eller finne ting i mørket, og kortere for å spare batteriet.
+info.12	Slukker frontlysene og/eller parklysene av seg selv hvis de står på etter at bilen er slått av og førerdøren åpnes.
+when.12	Slå den bare av hvis du med vilje vil la lysene stå på når bilen er parkert. Ellers beskytter den 12 V-batteriet.
+info.13	Slukker kupélyset automatisk etter valgt tid hvis det står på mens bilen er slått av.
+when.13	Velg kortere tid for å beskytte 12 V-batteriet, eller slå den av hvis du trenger lyset på lenge (camping, lasting).
+info.14	Bestemmer hvor lenge du må holde et lett trykk på blinklysspaken før det gir filskiftblink med tre blink.
+when.14	Velg «Lang» hvis du utløser de tre blinkene ved et uhell, og «Kort» hvis de er vanskelige å få til.
+info.15	Gjør at ett drag i spylerspaken spyler og visker automatisk, uten at du må holde spaken.
+when.15	Slå den på hvis du vil spyle frontruten med ett enkelt drag i spaken.
+info.16	Låser opp dørene av seg selv når du setter giret i P eller slår av bilen (om du vil, bare når sperrebryteren for vinduene er av).
+when.16	Slå den på hvis du vil at det skal være lettvint å gå ut av bilen. La den være av hvis du vil at dørene skal holde seg låst til du selv velger å låse opp.
+info.17	Velger om ett trykk på opplåsingsknappen låser opp alle dører eller bare førerdøren (et nytt trykk låser opp resten).
+when.17	Velg «Kun førerdøren» for ekstra sikkerhet hvis du ofte kjører alene.
+info.19	Bestemmer om dobbellåsing (den ekstra sikre låsingen som også kobler ut dørhåndtakene innvendig) krever to trykk på låseknappen eller ett.
+when.19	Endre den hvis du vil dobbellåse med ett trykk, eller vil unngå å dobbellåse ved et uhell mens noen sitter i bilen.
+info.20	Får hornet til å gi et kort pip når du låser med nøkkelen: hver gang, bare i dagslys, bare ved andre trykk, eller aldri.
+when.20	Slå den av eller begrens den til dagtid hvis pipet forstyrrer naboene.
+info.21	Velger om bilen piper som kvittering ved låsing og opplåsing med nøkkelløs betjening (ta på dørhåndtaket), med fjernstyrt sentrallås (knappene på nøkkelen), begge deler eller ingen av dem.
+when.21	Slå den av hvis du vil låse lydløst, eller på hvis du vil høre at bilen faktisk ble låst.
+info.22	Hvis du låser opp med nøkkelen, men ikke åpner noen dør, låser bilen seg igjen etter denne tiden.
+when.22	Velg lengre tid hvis bilen låser seg igjen før du rekker frem til den.
+info.23	Slår fabrikkmontert tyverialarm på eller av.
+when.23	La den være på for å beskytte bilen. Slå den bare av hvis du har en grunn, for eksempel hyppige falske alarmer.
+info.24	Bestemmer hvor lenge de elektriske vinduene (og soltaket, hvis bilen har det) virker etter at du har slått av bilen.
+when.24	Velg lengre tid hvis du ofte lukker vinduene etter at du har slått av bilen.
+info.25	Ser ut til å bestemme hvor lenge alarmens første varseltrinn varer før full alarm går.
+when.25	Velg kortere tid hvis du vil at full alarm skal gå tidligere.
+info.26	Lar deg åpne eller lukke vinduene og/eller felle sidespeilene ved å holde inne låse- eller opplåsingsknappen på nøkkelen.
+when.26	Slå den på hvis du vil lufte bilen eller lukke vinduer du har glemt, fra utsiden.
+info.27	Ser ut til å la panikkfunksjonen på nøkkelen utløse alarmen med vilje, for å skremme noen bort eller tiltrekke oppmerksomhet.
+when.27	Slå den av hvis alarmen utløses ved et uhell.
+info.28	Velger kort eller langt pip når hornet kvitterer for låsing.
+when.28	Velg «Kort» hvis du vil forstyrre mindre.
+info.29	Når du setter bilen i revers, tar bakruteviskeren et strøk: enten bare når bakrutevisker er på, eller når visker foran eller bak er på.
+when.29	Velg «Når visker foran eller bak er på» for å få klar bakrute når du rygger i regnvær.
+info.30	Ingen har dokumentert denne ennå: Mitsubishis app gir den aldri noe navn (på noe språk), og det gjør heller ikke instruksjonsbøkene eller forumene. Bilen din har innstillingen, så den gjør noe.
+when.30	La den være som den er, med mindre du vil eksperimentere. Noter i så fall først hvilket valg som står nå, og bytt tilbake hvis noe oppfører seg annerledes.
+info.32	Rett etter at du har låst, blir opplåsing med nøkkelen og nøkkelløs betjening ignorert i noen sekunder, så et utilsiktet trykk ikke låser opp bilen.
+when.32	Slå den på hvis du av og til låser opp ved et uhell like etter at du har låst.
+info.33	Gir et signal med hornet når motoren fjernstartes, på biler som har fjernstart av motoren.
+when.33	Har bare betydning på biler med fjernstart av motoren.
+info.34	Ser ut til å styre om vinduene fortsatt kan åpnes, ikke bare lukkes, mens vindustimeren går etter at du har slått av bilen.
+when.34	Slå den av hvis du bare vil kunne lukke vinduene etter at du har slått av bilen.
+info.35	Bestemmer hvilke vinduer sperrebryteren påvirker: alle dører eller kun førerdøren. Mitsubishis egne beskrivelser av dette er motstridende, så sjekk hva som skjer etter at du har endret den.
+when.35	Endre den hvis sperrebryteren sperrer flere eller færre vinduer enn du vil.
+info.36	Slår av ACC-strømmen (radio, strømuttak) automatisk etter 30 eller 60 minutter hvis bilen blir stående i tilbehørsmodus.
+when.36	Slå den på for å unngå at 12 V-batteriet blir flatt hvis bilen av og til blir stående i tilbehørsmodus.
+info.38	Ingen har dokumentert denne ennå: Mitsubishis app gir den aldri noe navn (på noe språk), og det gjør heller ikke instruksjonsbøkene eller forumene. Bilen din har innstillingen, så den gjør noe.
+when.38	La den være som den er, med mindre du vil eksperimentere. Noter i så fall først hvilket valg som står nå, og bytt tilbake hvis noe oppfører seg annerledes.
+info.39	Ingen har dokumentert denne ennå: Mitsubishis app gir den aldri noe navn (på noe språk), og det gjør heller ikke instruksjonsbøkene eller forumene. Bilen din har innstillingen, så den gjør noe.
+when.39	La den være som den er, med mindre du vil eksperimentere. Noter i så fall først hvilket valg som står nå, og bytt tilbake hvis noe oppfører seg annerledes.
+info.41	Ser ut til å bestemme hvor lett alarmens bevegelsessensor i kupeen (innbruddssensoren) utløses, fra nivå 1 (mest følsom) til nivå 4 (minst følsom).
+when.41	Senk følsomheten hvis alarmen går av seg selv (insekter, luftbevegelser, en solskjerm som beveger seg).
+info.42	Lar frontlysene lyse en stund etter at du har slått av bilen og gått ut, så du ser hvor du går («coming home»-lys).
+when.42	Velg lengre tid hvis du parkerer et sted der det er mørkt.
+info.43	Tenner parklysene eller frontlysene når du låser opp med nøkkelen, så det blir lettere å finne og komme seg til bilen.
+when.43	Slå den på hvis du ofte parkerer på mørke parkeringsplasser, og av hvis du vil være diskré eller spare batteriet.
+info.50	Lar klimaanlegget selv veksle mellom frisk luft utenfra og resirkulert luft, eller overlater det til deg.
+when.50	Velg «Manuell» hvis du vil ha full kontroll, for eksempel for å holde eksos fra trafikken ute.
+info.51	Lar klimaanlegget selv slå A/C-kompressoren av og på, eller overlater det til deg.
+when.51	Velg «Manuell» for å spare energi hvis du sjelden trenger kjøling eller avfukting.
+info.53	Velger om klimaanlegget prioriterer å spare energi (Eco) eller komfort.
+when.53	Velg «Eco» for lengre elektrisk rekkevidde, og «Komfort» for raskere oppvarming og kjøling.
+info.54	Justerer fordelingen mellom fotrommet og frontruten når luften går til begge.
+when.54	Send mer mot frontruten hvis den dugger, eller mer til fotrommet hvis du blir kald på føttene.
+info.55	Justerer fordelingen mellom ansiktet og fotrommet når luften går til begge.
+when.55	Juster etter smak, for eksempel mer til fotrommet om vinteren.
+info.56	Slår på bakrutevarmen av seg selv når du starter bilen.
+when.56	Slå den på hvis du vanligvis trenger den om vinteren, og av for å spare energi.
+info.57	Starter kjøling eller varme av seg selv når du låser opp dørene, så kupeen allerede varmes opp eller kjøles ned når du setter deg inn.
+when.57	Slå den på for en mer behagelig start når det er varmt eller kaldt ute.
+info.58	Når luften bare går til fotrommet (fotmodus), sendes litt luft mot frontruten for å holde den fri for dugg.
+when.58	Slå den på hvis frontruten dugger i fotmodus.
+info.60	Lar motoren gå på forhøyet tomgang når bilen står stille, så varmeanlegget får mer varme.
+when.60	Slå den på i streng kulde hvis varmen føles svak når bilen står stille.
+# Names for ids Mitsubishi's app never shows (theft alarm group; 25/41 option order from a modified app, unverified).
+rname.23	Tyverialarm
+ropt.23.0	Av
+ropt.23.1	På
+rname.25	Forvarselets varighet
+ropt.25.0	10 sekunder
+ropt.25.1	6 sekunder
+ropt.25.2	0 sekunder
+rname.27	Panikkalarm
+ropt.27.0	Av
+ropt.27.1	På
+rname.41	Følsomhet for tyverisensor
+ropt.41.0	Nivå 1 (mest følsom)
+ropt.41.1	Nivå 2
+ropt.41.2	Nivå 3
+ropt.41.3	Nivå 4 (minst følsom)

@@ -65,7 +65,12 @@ object VehicleSettingsCatalog {
         2,                            // 60
     )
 
-    /** Ids whose name/options are empty in this market's build of the official app: never shown. */
+    /**
+     * The theft-alarm group (23 alarm on/off, 25 pre-alarm time, 27 panic alarm, 41 sensor sensitivity). The official
+     * app hides it in every build (blank names in all languages, and its group check refuses it), so it is never
+     * offered for changing here either; the settings screen lists it read-only with researched names when the car
+     * reports it (see VehicleSettingsText.researchedName).
+     */
     val HIDDEN_IDS: Set<Int> = setOf(23, 25, 27, 41)
 
     const val GROUP_KEYLESS = "Keyless entry & operation"

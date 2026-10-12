@@ -1,0 +1,114 @@
+# Vehicle settings explained (own words, for owners). Keys: info.<id> = what it does, when.<id> = when to change it.
+# Sources: research in docs/ (official app strings for names only; texts written for PHEV Link).
+info.1	Chooses when the indicator stalk works: only with the car switched fully on, or also in accessory mode.
+when.1	Change it if you want the indicators to work (or not) while the car is only in accessory mode.
+info.2	When on, a light tap on the indicator stalk flashes the indicators three times, handy for changing lanes.
+when.2	Turn it off if you get three flashes when you only meant a quick signal.
+info.3	Sets how many times the indicators flash to confirm locking and unlocking with the remote or keyless system.
+when.3	Change it if you want more, fewer or no confirmation flashes, for example to be discreet at night.
+info.4	Chooses how the front wipers behave on the intermittent setting: a fixed pause, a pause you set, one that also follows road speed, or one driven by the rain sensor.
+when.4	Pick the speed- or rain-linked mode if you want the wipers to adjust themselves, or the fixed mode for predictable wiping.
+info.5	Decides whether the wipers sweep automatically when you spray washer fluid, and whether they do one extra wipe a few seconds later to clear drips.
+when.5	Choose the delayed-wipe option if washer fluid runs down the screen after washing.
+info.6	Sets the pause between sweeps of the rear wiper on its intermittent setting (0 seconds means it wipes non-stop).
+when.6	Use a longer pause in light drizzle and a shorter one in heavier rain.
+info.7	Sets how long the small light inside the charging port stays on before switching itself off.
+when.7	Lengthen it if you often plug in in the dark; shorten it if you want to spare the 12 V battery.
+info.8	Controls whether and when the door mirrors fold and unfold by themselves, for example when you lock and unlock or as you drive off.
+when.8	Change it if you want the mirrors folded away automatically when parked, or want them to stop moving on their own.
+info.9	Sets how dark it has to get before the automatic headlights switch on.
+when.9	Choose an earlier setting if the lights come on too late at dusk, or a later one if they come on too readily.
+info.10	With the light switch on AUTO, switches the headlights on when the front wipers are running.
+when.10	Turn it on if you want the headlights on automatically whenever it rains.
+info.11	Sets how long the interior light stays on after you shut the doors.
+when.11	Lengthen it for more time to buckle up or find things in the dark; shorten it to save the battery.
+info.12	Switches the headlights and/or tail lights off by themselves if they are left on after the car is switched off and the driver's door is opened.
+when.12	Only turn it off if you deliberately want the lights to stay on when parked; otherwise it protects the 12 V battery.
+info.13	Switches the interior lights off automatically if they are left on with the car off, after the chosen time.
+when.13	Shorten it to protect the 12 V battery, or turn it off if you need the lights on for long periods (camping, loading).
+info.14	Sets how long you must hold the indicator stalk lightly before it counts as a three-flash lane-change signal.
+when.14	Pick 'Long' if you trigger the three flashes by accident, 'Short' if they are hard to trigger.
+info.15	Lets a single pull of the washer lever spray and wipe automatically, without holding the lever.
+when.15	Turn it on if you want one-touch screen washing.
+info.16	Unlocks the doors by itself when you shift into P or switch the car off (optionally only when the window-lock switch is off).
+when.16	Turn it on for convenience when getting out; keep it off if you want the doors to stay locked until you choose.
+info.17	Chooses whether one press of unlock opens all the doors or only the driver's door (a second press opens the rest).
+when.17	Choose driver's door only for extra security if you often travel alone.
+info.19	Sets whether deadlocking (the extra-secure lock that also disables the inside door handles) needs two presses of the lock button or one.
+when.19	Change it if you want one-press deadlocking, or want to avoid deadlocking by accident with people inside.
+info.20	Makes the horn give a short chirp when you lock with the remote: on every lock, only in daylight, only on a second press, or never.
+when.20	Turn it off or limit it to daytime if the chirp disturbs neighbours.
+info.21	Chooses whether the car beeps to confirm locking and unlocking with the keyless (touch-the-handle) system, the remote, both or neither.
+when.21	Turn it off for silent locking, or on if you want to hear that the car really locked.
+info.22	If you unlock with the remote but don't open a door, the car locks itself again after this time.
+when.22	Lengthen it if the car relocks before you reach it.
+info.23	Turns the factory theft alarm on or off.
+when.23	Keep it on for protection; turn it off only if you have a reason, such as frequent false alarms.
+info.24	Sets how long the electric windows (and sunroof, if fitted) keep working after you switch the car off.
+when.24	Lengthen it if you often close the windows after switching off.
+info.25	Appears to set how long the alarm's first warning stage lasts before the full alarm goes off.
+when.25	Shorten it if you want the full alarm sooner.
+info.26	Lets you open or close the windows and/or fold the mirrors by holding the remote's lock or unlock button.
+when.26	Turn it on if you want to air the car or close forgotten windows from outside.
+info.27	Appears to allow the remote's panic function to set off the alarm on purpose, to scare someone off or attract attention.
+when.27	Turn it off if it is set off by accident.
+info.28	Chooses a short or long horn chirp when the horn confirms locking.
+when.28	Choose 'Short' to be less disruptive.
+info.29	When you select reverse, the rear wiper gives a sweep: either only when the rear wiper is on, or when either the front or the rear wiper is on.
+when.29	Choose the front-or-rear option for a clear rear window when reversing in rain.
+info.30	Nobody has documented this one yet: Mitsubishi's app never names it (in any language), and neither do the manuals or forums. Your car offers it, so it does something.
+when.30	Leave it as it is unless you want to experiment: note the current option first, and change it back if anything behaves differently.
+info.32	Right after you lock, the remote and keyless unlock are ignored for a few seconds, so an accidental press doesn't unlock the car.
+when.32	Turn it on if you sometimes unlock by mistake just after locking.
+info.33	Sounds the horn when the engine is started remotely, on cars with a remote engine start.
+when.33	Only relevant on cars with remote engine start.
+info.34	Appears to control whether the windows can still be opened, not just closed, during the window timer after you switch off.
+when.34	Turn it off if you only want to be able to close windows after switching off.
+info.35	Sets which windows the window-lock button affects: all doors, or only the driver's door. Mitsubishi's own descriptions of this disagree, so check the effect after changing it.
+when.35	Change it if the window lock blocks more or fewer windows than you want.
+info.36	Turns accessory power (radio, sockets) off automatically after 30 or 60 minutes if the car is left in accessory mode.
+when.36	Turn it on to avoid a flat 12 V battery if the car is sometimes left in accessory mode.
+info.38	Nobody has documented this one yet: Mitsubishi's app never names it (in any language), and neither do the manuals or forums. Your car offers it, so it does something.
+when.38	Leave it as it is unless you want to experiment: note the current option first, and change it back if anything behaves differently.
+info.39	Nobody has documented this one yet: Mitsubishi's app never names it (in any language), and neither do the manuals or forums. Your car offers it, so it does something.
+when.39	Leave it as it is unless you want to experiment: note the current option first, and change it back if anything behaves differently.
+info.41	Appears to set how easily the alarm's interior movement (intrusion) sensor is triggered, from Level 1 (most sensitive) to Level 4 (least).
+when.41	Lower it if the alarm goes off by itself (insects, air movement, a sunshade moving).
+info.42	Keeps the headlights on for a while after you switch off and get out, to light your way ('coming home' lights).
+when.42	Choose a longer time if you park somewhere dark.
+info.43	Switches on the parking lights or headlights when you unlock with the remote, to help you find and reach the car.
+when.43	Turn it on for dark car parks, off to be discreet or save battery.
+info.50	Lets the climate system switch between fresh outside air and recirculated air by itself, or leaves it to you.
+when.50	Choose 'Manual' if you want full control, for example to keep traffic fumes out.
+info.51	Lets the climate system switch the air-conditioning compressor on and off by itself, or leaves it to you.
+when.51	Choose 'Manual' to save energy if you rarely need cooling or dehumidifying.
+info.53	Chooses whether the climate system favours saving energy (Eco) or comfort.
+when.53	Pick 'Eco' for more electric range, 'Comfort' for faster heating and cooling.
+info.54	When air blows to both the feet and the windscreen, shifts the balance between the two.
+when.54	Send more to the windscreen if it mists up, or more to the feet if they get cold.
+info.55	When air blows to both the face and the feet, shifts the balance between the two.
+when.55	Adjust to taste, for example more to the feet in winter.
+info.56	Switches the rear-window demister on by itself when you start the car.
+when.56	Turn it on if you usually need it in winter, off to save energy.
+info.57	Starts the air conditioning or heater by itself when you unlock the doors, so the cabin is warming or cooling as you get in.
+when.57	Turn it on for a more comfortable start in hot or cold weather.
+info.58	In feet-only mode, lets a little air flow to the windscreen to help keep it clear.
+when.58	Turn it on if the windscreen mists up in feet mode.
+info.60	Lets the engine run faster while stationary so the heater gets more warmth.
+when.60	Turn it on in very cold weather if the heater feels weak while standing still.
+# Names for ids Mitsubishi's app never shows (theft alarm group; 25/41 option order from a modified app, unverified).
+rname.23	Theft alarm
+ropt.23.0	Off
+ropt.23.1	On
+rname.25	Pre-alarm duration
+ropt.25.0	10 seconds
+ropt.25.1	6 seconds
+ropt.25.2	0 seconds
+rname.27	Panic alarm
+ropt.27.0	Off
+ropt.27.1	On
+rname.41	Theft sensor sensitivity
+ropt.41.0	Level 1 (most sensitive)
+ropt.41.1	Level 2
+ropt.41.2	Level 3
+ropt.41.3	Level 4 (least sensitive)

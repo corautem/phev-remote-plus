@@ -1,0 +1,113 @@
+# Vehicle settings explained (own words, for owners) - Swedish (sv).
+info.1	Väljer när blinkersspaken fungerar: bara när bilen är helt påslagen, eller även i tillbehörsläge (ACC).
+when.1	Ändra om du vill att blinkersen ska fungera (eller inte) när bilen bara står i tillbehörsläge.
+info.2	När den är på ger ett lätt tryck på blinkersspaken tre blink – praktiskt vid filbyte.
+when.2	Stäng av den om du får tre blink när du bara ville ge en kort signal.
+info.3	Ställer in hur många gånger blinkersen blinkar som kvittens när du låser och låser upp med fjärrkontrollen eller nyckelfritt system.
+when.3	Ändra om du vill ha fler, färre eller inga kvittensblink, till exempel för att vara diskret på natten.
+info.4	Väljer hur vindrutetorkarna fram beter sig i intervalläge: fast paus, en paus du ställer in själv, en som även följer hastigheten, eller en som styrs av regnsensorn.
+when.4	Välj det hastighetskänsliga eller regnkänsliga läget om du vill att torkarna ska anpassa sig själva, eller det fasta för förutsägbar torkning.
+info.5	Avgör om torkarna går automatiskt när du spolar, och om de gör en eftertorkning några sekunder senare för att ta bort droppar.
+when.5	Välj alternativet med fördröjd eftertorkning om spolarvätska rinner ner över rutan efter spolningen.
+info.6	Ställer in pausen mellan varje drag när bakrutetorkaren går i intervalläge (0 sekunder betyder att den torkar utan paus).
+when.6	Använd längre paus vid lätt duggregn och kortare vid kraftigare regn.
+info.7	Ställer in hur länge laddluckans belysning lyser innan den slocknar av sig själv.
+when.7	Välj längre tid om du ofta kopplar in laddkabeln i mörker, och kortare om du vill spara på 12 V-batteriet.
+info.8	Styr om och när ytterspeglarna fälls in och ut av sig själva, till exempel när du låser och låser upp eller när du kör iväg.
+when.8	Ändra om du vill att speglarna ska fällas in automatiskt när bilen står parkerad, eller om du vill att de ska sluta röra sig av sig själva.
+info.9	Ställer in hur mörkt det måste bli innan halvljuset tänds automatiskt.
+when.9	Välj en tidigare inställning om ljuset tänds för sent i skymningen, eller en senare om det tänds för lätt.
+info.10	När ljusomkopplaren står på AUTO tänds halvljuset när vindrutetorkarna fram är igång.
+when.10	Slå på den om du vill att halvljuset ska tändas automatiskt när det regnar.
+info.11	Ställer in hur länge innerbelysningen lyser efter att du har stängt dörrarna.
+when.11	Välj längre tid om du vill ha mer tid att spänna fast dig eller hitta saker i mörkret, och kortare för att spara batteriet.
+info.12	Släcker halvljuset och/eller parkeringsljuset av sig självt om det lämnas tänt efter att bilen stängts av och förardörren öppnas.
+when.12	Stäng bara av den om du medvetet vill att ljuset ska vara tänt när bilen står parkerad. Annars skyddar den 12 V-batteriet.
+info.13	Släcker innerbelysningen automatiskt efter vald tid om den lämnas tänd när bilen är avstängd.
+when.13	Välj kortare tid för att skydda 12 V-batteriet, eller stäng av den om du behöver ljuset tänt länge (camping, lastning).
+info.14	Ställer in hur länge du måste hålla blinkersspaken lätt nedtryckt innan det räknas som filbytesblinkers (tre blink).
+when.14	Välj ”Lång” om du råkar utlösa de tre blinken av misstag, och ”Kort” om de är svåra att få fram.
+info.15	Gör att ett enda drag i spolarspaken spolar och torkar automatiskt, utan att du behöver hålla kvar spaken.
+when.15	Slå på den om du vill spola rutan med ett enda drag.
+info.16	Låser upp dörrarna av sig självt när du lägger i P eller stänger av bilen (valfritt bara när spärrknappen för elfönstren är avslagen).
+when.16	Slå på den om du vill att det ska vara smidigt att kliva ur. Låt den vara avstängd om dörrarna ska förbli låsta tills du själv väljer.
+info.17	Väljer om ett tryck på upplåsning låser upp alla dörrar eller bara förardörren (ett andra tryck låser upp resten).
+when.17	Välj ”Endast förardörren” för extra säkerhet om du ofta åker ensam.
+info.19	Ställer in om säkerhetslåsning (det extra säkra låsläget som också kopplar ur dörrhandtagen på insidan) kräver två tryck på låsknappen eller ett.
+when.19	Ändra om du vill säkerhetslåsa med ett tryck, eller vill undvika att säkerhetslåsa av misstag när någon sitter i bilen.
+info.20	Får signalhornet att ge ett kort tut när du låser med fjärrkontrollen: varje gång, bara i dagsljus, bara vid andra trycket, eller aldrig.
+when.20	Stäng av den eller begränsa den till dagtid om tutet stör grannarna.
+info.21	Väljer om bilen piper som kvittens vid låsning och upplåsning med nyckelfritt system (du rör vid dörrhandtaget), med fjärrkontrollen, båda eller inget av dem.
+when.21	Stäng av den för tyst låsning, eller slå på den om du vill höra att bilen verkligen låstes.
+info.22	Om du låser upp med fjärrkontrollen men inte öppnar någon dörr, låser bilen sig igen efter den här tiden.
+when.22	Välj längre tid om bilen hinner låsa sig igen innan du kommer fram till den.
+info.23	Slår på eller stänger av bilens fabriksmonterade stöldlarm.
+when.23	Låt det vara på som skydd. Stäng bara av det om du har ett skäl, till exempel om larmet ofta går i onödan.
+info.24	Ställer in hur länge elfönstren (och soltaket, om bilen har ett) fungerar efter att du har stängt av bilen.
+when.24	Välj längre tid om du ofta stänger fönstren efter att ha stängt av bilen.
+info.25	Verkar ställa in hur länge larmets första varningssteg varar innan fullt larm går.
+when.25	Välj kortare tid om du vill att fullt larm ska gå tidigare.
+info.26	Låter dig öppna eller stänga fönstren och/eller fälla ytterspeglarna genom att hålla in lås- eller upplåsningsknappen på fjärrkontrollen.
+when.26	Slå på den om du vill vädra bilen eller stänga bortglömda fönster utifrån.
+info.27	Verkar låta panikfunktionen på fjärrkontrollen utlösa larmet med flit, för att skrämma bort någon eller väcka uppmärksamhet.
+when.27	Stäng av den om larmet utlöses av misstag.
+info.28	Väljer kort eller långt tut när signalhornet kvitterar låsningen.
+when.28	Välj ”Kort” om du vill störa mindre.
+info.29	När du lägger i backen gör bakrutetorkaren ett drag: antingen bara när bakre torkaren är på, eller när främre eller bakre torkaren är på.
+when.29	Välj ”När främre eller bakre torkaren är på” för fri sikt bakåt när du backar i regn.
+info.30	Ingen har dokumenterat den här än: Mitsubishis app ger den aldrig något namn (på något språk), och det gör inte heller instruktionsböckerna eller forumen. Din bil har inställningen, så den gör något.
+when.30	Låt den vara som den är om du inte vill experimentera. Anteckna i så fall först vilket alternativ som är valt, och ändra tillbaka om något beter sig annorlunda.
+info.32	Direkt efter att du har låst ignoreras upplåsning med fjärrkontrollen och nyckelfritt system i några sekunder, så att ett oavsiktligt tryck inte låser upp bilen.
+when.32	Slå på den om du ibland råkar låsa upp direkt efter att du har låst.
+info.33	Tutar med signalhornet när motorn fjärrstartas, på bilar med fjärrstart av motorn.
+when.33	Gäller bara bilar med fjärrstart av motorn.
+info.34	Verkar styra om fönstren fortfarande kan öppnas, inte bara stängas, medan fönstertimern löper efter att du har stängt av bilen.
+when.34	Slå av den om du bara vill kunna stänga fönstren när bilen är avstängd.
+info.35	Ställer in vilka fönster spärrknappen påverkar: alla dörrar eller endast förardörren. Mitsubishis egna beskrivningar av detta går isär, så kontrollera vad som händer efter att du har ändrat den.
+when.35	Ändra om spärrknappen spärrar fler eller färre fönster än du vill.
+info.36	Stänger av ACC-strömmen (radio, eluttag) automatiskt efter 30 eller 60 minuter om bilen lämnas i tillbehörsläge.
+when.36	Slå på den för att undvika urladdat 12 V-batteri om bilen ibland lämnas i tillbehörsläge.
+info.38	Ingen har dokumenterat den här än: Mitsubishis app ger den aldrig något namn (på något språk), och det gör inte heller instruktionsböckerna eller forumen. Din bil har inställningen, så den gör något.
+when.38	Låt den vara som den är om du inte vill experimentera. Anteckna i så fall först vilket alternativ som är valt, och ändra tillbaka om något beter sig annorlunda.
+info.39	Ingen har dokumenterat den här än: Mitsubishis app ger den aldrig något namn (på något språk), och det gör inte heller instruktionsböckerna eller forumen. Din bil har inställningen, så den gör något.
+when.39	Låt den vara som den är om du inte vill experimentera. Anteckna i så fall först vilket alternativ som är valt, och ändra tillbaka om något beter sig annorlunda.
+info.41	Verkar ställa in hur lätt larmets rörelsesensor i kupén (intrångssensorn) löser ut, från nivå 1 (känsligast) till nivå 4 (minst känslig).
+when.41	Sänk känsligheten om larmet går av sig självt (insekter, luftrörelser, ett solskydd som rör sig).
+info.42	Låter halvljuset lysa en stund efter att du har stängt av bilen och klivit ur, så att du ser vart du går (”coming home”-ljus).
+when.42	Välj längre tid om du parkerar någonstans där det är mörkt.
+info.43	Tänder parkeringsljuset eller strålkastarna när du låser upp med fjärrkontrollen, så att det blir lättare att hitta och ta dig till bilen.
+when.43	Slå på den om du ofta parkerar på mörka parkeringsplatser, och av om du vill vara diskret eller spara batteriet.
+info.50	Låter klimatanläggningen själv växla mellan friskluft utifrån och återcirkulerad luft, eller överlåter det åt dig.
+when.50	Välj ”Manuell” om du vill ha full kontroll, till exempel för att hålla avgaser från trafiken ute.
+info.51	Låter klimatanläggningen själv slå på och av A/C-kompressorn, eller överlåter det åt dig.
+when.51	Välj ”Manuell” för att spara energi om du sällan behöver kylning eller avfuktning.
+info.53	Väljer om klimatanläggningen prioriterar att spara energi (Eco) eller komfort.
+when.53	Välj ”Eco” för längre elräckvidd och ”Komfort” för snabbare uppvärmning och kylning.
+info.54	Ändrar fördelningen mellan fötterna och vindrutan när luften blåser åt båda hållen.
+when.54	Skicka mer till vindrutan om den immar igen, eller mer till fötterna om de blir kalla.
+info.55	Ändrar fördelningen mellan ansiktet och fötterna när luften blåser åt båda hållen.
+when.55	Ställ in efter smak, till exempel mer till fötterna på vintern.
+info.56	Slår på bakrutevärmen av sig själv när du startar bilen.
+when.56	Slå på den om du brukar behöva den på vintern, och av för att spara energi.
+info.57	Startar A/C eller värme av sig själv när du låser upp dörrarna, så att kupén redan värms upp eller kyls ner när du sätter dig in.
+when.57	Slå på den för en behagligare start när det är varmt eller kallt ute.
+info.58	När luften bara blåser mot fötterna (fotläge) släpps lite luft mot vindrutan för att hålla den fri från imma.
+when.58	Slå på den om vindrutan immar igen i fotläge.
+info.60	Låter motorn gå på högre tomgång när bilen står stilla, så att värmesystemet får mer värme.
+when.60	Slå på den vid sträng kyla om värmen känns svag när bilen står stilla.
+# Names for ids Mitsubishi's app never shows (theft alarm group; 25/41 option order from a modified app, unverified).
+rname.23	Stöldlarm
+ropt.23.0	Av
+ropt.23.1	På
+rname.25	Förlarmets längd
+ropt.25.0	10 sekunder
+ropt.25.1	6 sekunder
+ropt.25.2	0 sekunder
+rname.27	Paniklarm
+ropt.27.0	Av
+ropt.27.1	På
+rname.41	Stöldsensorns känslighet
+ropt.41.0	Nivå 1 (känsligast)
+ropt.41.1	Nivå 2
+ropt.41.2	Nivå 3
+ropt.41.3	Nivå 4 (minst känslig)

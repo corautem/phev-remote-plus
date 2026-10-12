@@ -47,8 +47,28 @@ object VehicleSettingsText {
         }
     }
 
-    private fun load(lang: String): Map<String, String> {
-        val stream = VehicleSettingsText::class.java.getResourceAsStream("${DIR}vehicle_settings_$lang.tsv") ?: return emptyMap()
+    private val infoTables = ConcurrentHashMap<String, Map<String, String>>()
+
+    private fun infoTable(lang: String): Map<String, String> = infoTables.getOrPut(lang) { loadFile("vehicle_settings_info_$lang.tsv") }
+
+    private fun info(key: String, lang: String): String? = infoTable(lang)[key] ?: infoTable("en")[key]
+
+    /** What setting [id] does, in plain words (from `vehicle_settings_info_<lang>.tsv`, English fallback). */
+    fun info(id: Int, lang: String): String? = info("info.$id", lang)
+
+    /** When an owner would change setting [id]. */
+    fun whenToChange(id: Int, lang: String): String? = info("when.$id", lang)
+
+    /** A name for an id Mitsubishi's app never shows, found by research (the theft-alarm group), or null. */
+    fun researchedName(id: Int, lang: String): String? = info("rname.$id", lang)
+
+    /** Option label for such an id, or null. */
+    fun researchedOption(id: Int, option: Int, lang: String): String? = info("ropt.$id.$option", lang)
+
+    private fun load(lang: String): Map<String, String> = loadFile("vehicle_settings_$lang.tsv")
+
+    private fun loadFile(name: String): Map<String, String> {
+        val stream = VehicleSettingsText::class.java.getResourceAsStream("$DIR$name") ?: return emptyMap()
         return try {
             val map = HashMap<String, String>()
             stream.bufferedReader(Charsets.UTF_8).useLines { lines ->

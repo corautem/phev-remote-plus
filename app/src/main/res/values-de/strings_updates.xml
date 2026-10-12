@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Settings → Updates, calm bridge restarts, charge timer help. -->
 <resources>
+    <string name="vs_when">Wann du sie änderst</string>
+    <string name="vs_connect_to_change">Zum Ändern muss die App mit dem Auto verbunden sein (direkt oder über die Bridge).</string>
+    <string name="vs_read_only_alarm">Mitsubishis App versteckt die Alarm-Einstellungen, deshalb zeigt PHEV Link sie nur an. Die Namen stammen aus Recherchen und sind vielleicht nicht ganz genau.</string>
     <string name="upd_title">Updates</string>
     <string name="upd_app">PHEV Link %1$s</string>
     <string name="upd_bridge">Bridge %1$s</string>

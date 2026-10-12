@@ -1,0 +1,113 @@
+# Vehicle settings explained (own words, for owners) - German (de), informal "du".
+info.1	Legt fest, wann der Blinkerhebel funktioniert: nur bei ganz eingeschaltetem Auto oder auch im Zubehörmodus (ACC).
+when.1	Ändere das, wenn die Blinker im Zubehörmodus funktionieren sollen (oder eben nicht).
+info.2	Ist die Funktion an, blinken die Blinker dreimal, wenn du den Blinkerhebel leicht antippst – praktisch beim Spurwechsel.
+when.2	Schalte die Funktion aus, wenn es dreimal blinkt, obwohl du nur kurz blinken wolltest.
+info.3	Legt fest, wie oft die Blinker zur Bestätigung blinken, wenn du mit der Fernbedienung oder dem Keyless-System ver- und entriegelst.
+when.3	Ändere das, wenn es öfter, seltener oder gar nicht blinken soll, zum Beispiel um nachts nicht aufzufallen.
+info.4	Legt fest, wie sich die vorderen Scheibenwischer im Intervallbetrieb verhalten: feste Pause, selbst eingestellte Pause, zusätzlich abhängig von der Geschwindigkeit oder gesteuert vom Regensensor.
+when.4	Wähle die geschwindigkeits- oder regenabhängige Variante, wenn sich die Wischer selbst anpassen sollen, oder die feste für gleichmäßiges Wischen.
+info.5	Legt fest, ob die Wischer automatisch wischen, wenn du die Scheibe einsprühst, und ob sie ein paar Sekunden später einmal nachwischen, um Tropfen zu entfernen.
+when.5	Wähle die Variante mit verzögertem Nachwischen, wenn nach dem Waschen Wasser über die Scheibe läuft.
+info.6	Legt die Pause zwischen den Wischvorgängen des Heckwischers im Intervallbetrieb fest (0 Sekunden heißt: Er wischt ohne Pause).
+when.6	Nimm eine längere Pause bei leichtem Nieselregen und eine kürzere bei stärkerem Regen.
+info.7	Legt fest, wie lange die kleine Lampe in der Ladeklappe leuchtet, bevor sie von selbst ausgeht.
+when.7	Stell eine längere Zeit ein, wenn du oft im Dunkeln das Ladekabel einsteckst, und eine kürzere, wenn du die 12-V-Batterie schonen willst.
+info.8	Steuert, ob und wann die Außenspiegel von selbst ein- und ausklappen, zum Beispiel beim Ver- und Entriegeln oder beim Losfahren.
+when.8	Ändere das, wenn die Spiegel beim Parken automatisch einklappen sollen oder wenn sie sich nicht mehr von selbst bewegen sollen.
+info.9	Legt fest, wie dunkel es werden muss, bevor die Lichtautomatik das Fahrlicht einschaltet.
+when.9	Wähle eine frühere Stufe, wenn das Licht in der Dämmerung zu spät angeht, oder eine spätere, wenn es zu schnell angeht.
+info.10	Wenn der Lichtschalter auf AUTO steht, geht das Fahrlicht an, sobald die vorderen Scheibenwischer laufen.
+when.10	Schalte die Funktion ein, wenn bei Regen automatisch das Fahrlicht angehen soll.
+info.11	Legt fest, wie lange das Innenlicht nach dem Schließen der Türen anbleibt.
+when.11	Stell eine längere Zeit ein, wenn du mehr Zeit zum Anschnallen oder Suchen im Dunkeln brauchst, und eine kürzere, um die Batterie zu schonen.
+info.12	Schaltet Fahrlicht und/oder Standlicht von selbst aus, wenn das Licht nach dem Ausschalten des Autos noch an ist und die Fahrertür geöffnet wird.
+when.12	Schalte die Funktion nur aus, wenn das Licht beim Parken absichtlich anbleiben soll. Sonst schützt sie die 12-V-Batterie.
+info.13	Schaltet das Innenlicht nach der gewählten Zeit automatisch aus, wenn es bei ausgeschaltetem Auto anbleibt.
+when.13	Wähle eine kürzere Zeit, um die 12-V-Batterie zu schützen, oder schalte die Funktion aus, wenn du das Licht lange brauchst (Camping, Beladen).
+info.14	Legt fest, wie lange du den Blinkerhebel leicht gedrückt halten musst, bis der Spurwechselblinker (dreimal blinken) auslöst.
+when.14	Wähle „Lang“, wenn du das dreimalige Blinken versehentlich auslöst, und „Kurz“, wenn es sich schwer auslösen lässt.
+info.15	Ein einziges Ziehen am Wischerhebel reicht, damit gesprüht und gewischt wird, ohne dass du den Hebel festhalten musst.
+when.15	Schalte die Funktion ein, wenn du die Scheibe mit einem einzigen Zug waschen willst.
+info.16	Entriegelt die Türen von selbst, wenn du in P schaltest oder das Auto ausschaltest (wahlweise nur, wenn der Sperrschalter der Fensterheber aus ist).
+when.16	Schalte die Funktion ein, wenn das Aussteigen bequemer sein soll. Lass sie aus, wenn die Türen verriegelt bleiben sollen, bis du selbst entriegelst.
+info.17	Legt fest, ob ein Druck auf Entriegeln alle Türen entriegelt oder nur die Fahrertür (ein zweiter Druck entriegelt den Rest).
+when.17	Wähle „Nur die Fahrertür“ für mehr Sicherheit, wenn du oft allein unterwegs bist.
+info.19	Legt fest, ob für die Doppelverriegelung (die extra sichere Verriegelung, die auch die Türgriffe innen außer Funktion setzt) zwei Tastendrücke nötig sind oder einer.
+when.19	Ändere das, wenn du mit einem Tastendruck doppelt verriegeln willst oder vermeiden willst, versehentlich doppelt zu verriegeln, während jemand im Auto sitzt.
+info.20	Lässt die Hupe kurz ertönen, wenn du mit der Fernbedienung verriegelst: bei jedem Verriegeln, nur bei Tageslicht, nur beim zweiten Tastendruck oder nie.
+when.20	Schalte die Funktion aus oder beschränke sie auf tagsüber, wenn der Hupton die Nachbarn stört.
+info.21	Legt fest, ob das Auto beim Ver- und Entriegeln zur Bestätigung piept: per Keyless Operation (Türgriff berühren), per Fernbedienung (Keyless Entry), bei beidem oder bei keinem.
+when.21	Schalte das Piepen aus, wenn du lautlos verriegeln willst, oder ein, wenn du hören willst, dass das Auto wirklich verriegelt ist.
+info.22	Wenn du mit der Fernbedienung entriegelst, aber keine Tür öffnest, verriegelt sich das Auto nach dieser Zeit wieder.
+when.22	Stell eine längere Zeit ein, wenn das Auto wieder verriegelt, bevor du dort bist.
+info.23	Schaltet die werkseitige Diebstahlwarnanlage ein oder aus.
+when.23	Lass sie zum Schutz eingeschaltet. Schalte sie nur aus, wenn du einen Grund hast, etwa häufigen Fehlalarm.
+info.24	Legt fest, wie lange die elektrischen Fensterheber (und das Schiebedach, falls vorhanden) nach dem Ausschalten des Autos noch funktionieren.
+when.24	Stell eine längere Zeit ein, wenn du die Fenster oft erst nach dem Ausschalten schließt.
+info.25	Scheint festzulegen, wie lange die erste Warnstufe der Alarmanlage dauert, bevor der volle Alarm losgeht.
+when.25	Stell eine kürzere Zeit ein, wenn der volle Alarm früher losgehen soll.
+info.26	Damit kannst du die Fenster öffnen oder schließen und/oder die Außenspiegel klappen, indem du die Verriegelungs- oder Entriegelungstaste der Fernbedienung gedrückt hältst.
+when.26	Schalte die Funktion ein, wenn du das Auto von außen lüften oder vergessene Fenster schließen willst.
+info.27	Scheint der Panikfunktion der Fernbedienung zu erlauben, den Alarm absichtlich auszulösen, um jemanden zu verscheuchen oder Aufmerksamkeit zu erregen.
+when.27	Schalte die Funktion aus, wenn der Alarm versehentlich ausgelöst wird.
+info.28	Legt fest, ob der Hupton zur Bestätigung beim Verriegeln kurz oder lang ist.
+when.28	Wähle „Kurz“, um weniger zu stören.
+info.29	Wenn du den Rückwärtsgang einlegst, wischt der Heckwischer einmal: entweder nur, wenn der Heckwischer eingeschaltet ist, oder wenn Front- oder Heckwischer eingeschaltet ist.
+when.29	Wähle „Wenn Front- oder Heckwischer eingeschaltet ist“, damit du beim Rückwärtsfahren im Regen freie Sicht nach hinten hast.
+info.30	Diese Einstellung hat noch niemand dokumentiert: Mitsubishis App gibt ihr in keiner Sprache einen Namen, und auch Handbücher und Foren nennen sie nicht. Dein Auto bietet sie an, also bewirkt sie etwas.
+when.30	Lass sie, wie sie ist, außer du willst experimentieren. Notier dir dann zuerst die aktuelle Option und stell sie zurück, wenn sich irgendetwas anders verhält.
+info.32	Direkt nach dem Verriegeln werden Fernbedienung und Keyless-Entriegelung ein paar Sekunden lang ignoriert, damit ein versehentlicher Tastendruck das Auto nicht wieder entriegelt.
+when.32	Schalte die Funktion ein, wenn du direkt nach dem Verriegeln manchmal aus Versehen wieder entriegelst.
+info.33	Lässt die Hupe ertönen, wenn der Motor aus der Ferne gestartet wird, bei Autos mit Motor-Fernstart.
+when.33	Nur relevant bei Autos mit Motor-Fernstart.
+info.34	Scheint zu steuern, ob sich die Fenster während der Timerzeit nach dem Ausschalten noch öffnen lassen und nicht nur schließen.
+when.34	Schalte die Funktion aus, wenn sich die Fenster nach dem Ausschalten nur noch schließen lassen sollen.
+info.35	Legt fest, auf welche Fenster der Sperrschalter wirkt: alle Türen oder nur die Fahrertür. Mitsubishis eigene Beschreibungen widersprechen sich hier, also prüf nach dem Ändern, was tatsächlich passiert.
+when.35	Ändere das, wenn der Sperrschalter mehr oder weniger Fenster sperrt, als du willst.
+info.36	Schaltet die ACC-Stromversorgung (Radio, Steckdosen) nach 30 oder 60 Minuten automatisch ab, wenn das Auto im Zubehörmodus stehen bleibt.
+when.36	Schalte die Funktion ein, damit die 12-V-Batterie nicht leer wird, falls das Auto mal im Zubehörmodus stehen bleibt.
+info.38	Diese Einstellung hat noch niemand dokumentiert: Mitsubishis App gibt ihr in keiner Sprache einen Namen, und auch Handbücher und Foren nennen sie nicht. Dein Auto bietet sie an, also bewirkt sie etwas.
+when.38	Lass sie, wie sie ist, außer du willst experimentieren. Notier dir dann zuerst die aktuelle Option und stell sie zurück, wenn sich irgendetwas anders verhält.
+info.39	Diese Einstellung hat noch niemand dokumentiert: Mitsubishis App gibt ihr in keiner Sprache einen Namen, und auch Handbücher und Foren nennen sie nicht. Dein Auto bietet sie an, also bewirkt sie etwas.
+when.39	Lass sie, wie sie ist, außer du willst experimentieren. Notier dir dann zuerst die aktuelle Option und stell sie zurück, wenn sich irgendetwas anders verhält.
+info.41	Scheint einzustellen, wie leicht der Innenraumsensor der Alarmanlage (Innenraumüberwachung) auslöst, von Stufe 1 (am empfindlichsten) bis Stufe 4 (am wenigsten empfindlich).
+when.41	Verringere die Empfindlichkeit, wenn der Alarm von selbst losgeht (Insekten, Luftbewegung, ein verrutschender Sonnenschutz).
+info.42	Lässt das Fahrlicht nach dem Ausschalten und Aussteigen noch eine Weile an, damit du deinen Weg siehst (Coming-Home-Licht).
+when.42	Wähle eine längere Zeit, wenn du an dunklen Orten parkst.
+info.43	Schaltet beim Entriegeln mit der Fernbedienung Standlicht oder Scheinwerfer ein, damit du das Auto leichter findest und gut hinkommst.
+when.43	Schalte die Funktion ein, wenn du oft auf dunklen Parkplätzen stehst, und aus, wenn du unauffällig sein oder die Batterie schonen willst.
+info.50	Lässt die Klimaanlage selbst zwischen Frischluft und Umluft wechseln oder überlässt das dir.
+when.50	Wähle „Manuell“, wenn du volle Kontrolle willst, zum Beispiel um Abgase aus dem Verkehr draußen zu halten.
+info.51	Lässt die Klimaanlage den Klimakompressor selbst ein- und ausschalten oder überlässt das dir.
+when.51	Wähle „Manuell“, um Energie zu sparen, wenn du selten Kühlung oder Entfeuchtung brauchst.
+info.53	Legt fest, ob die Klimaanlage aufs Energiesparen (Eco) oder auf Komfort ausgelegt ist.
+when.53	Wähle „Eco“ für mehr elektrische Reichweite und „Komfort“ für schnelleres Heizen und Kühlen.
+info.54	Verschiebt die Aufteilung zwischen Fußraum und Windschutzscheibe, wenn die Luft in beide Richtungen strömt.
+when.54	Schick mehr Luft zur Windschutzscheibe, wenn sie beschlägt, oder mehr in den Fußraum, wenn du kalte Füße bekommst.
+info.55	Verschiebt die Aufteilung zwischen Oberkörper und Fußraum, wenn die Luft in beide Richtungen strömt.
+when.55	Stell es nach Geschmack ein, zum Beispiel im Winter mehr in den Fußraum.
+info.56	Schaltet die Heckscheibenheizung beim Starten des Autos von selbst ein.
+when.56	Schalte die Funktion ein, wenn du die Heizung im Winter meistens brauchst, und aus, um Energie zu sparen.
+info.57	Startet Klimaanlage oder Heizung von selbst, wenn du die Türen entriegelst, damit der Innenraum schon wärmer oder kühler wird, während du einsteigst.
+when.57	Schalte die Funktion ein, damit der Start bei Hitze oder Kälte angenehmer ist.
+info.58	Wenn die Luft nur in den Fußraum strömt (Fußraum-Modus), geht ein wenig Luft zur Windschutzscheibe, damit sie frei bleibt.
+when.58	Schalte die Funktion ein, wenn die Windschutzscheibe im Fußraum-Modus beschlägt.
+info.60	Lässt den Motor im Stand mit erhöhtem Leerlauf laufen, damit die Heizung mehr Wärme bekommt.
+when.60	Schalte die Funktion bei starker Kälte ein, wenn die Heizung im Stand schwach wirkt.
+# Names for ids Mitsubishi's app never shows (theft alarm group; 25/41 option order from a modified app, unverified).
+rname.23	Diebstahlwarnanlage
+ropt.23.0	Aus
+ropt.23.1	An
+rname.25	Dauer des Voralarms
+ropt.25.0	10 Sekunden
+ropt.25.1	6 Sekunden
+ropt.25.2	0 Sekunden
+rname.27	Panikalarm
+ropt.27.0	Aus
+ropt.27.1	An
+rname.41	Empfindlichkeit des Diebstahlsensors
+ropt.41.0	Stufe 1 (am empfindlichsten)
+ropt.41.1	Stufe 2
+ropt.41.2	Stufe 3
+ropt.41.3	Stufe 4 (am wenigsten empfindlich)

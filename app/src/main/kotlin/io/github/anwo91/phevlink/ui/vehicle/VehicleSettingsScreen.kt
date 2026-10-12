@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -20,6 +21,7 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -43,6 +45,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.model.CarCommand
@@ -99,14 +102,22 @@ fun VehicleSettingsScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> U
                 SectionCard(title = g.title) {
                     g.items.forEachIndexed { i, item ->
                         if (i > 0) HorizontalDivider()
+                        // Always tappable: the dialog explains the setting even when it can't be changed right now.
                         Row(
-                            Modifier.fillMaxWidth().clickable(enabled = canChange) { editing = item }.padding(vertical = 10.dp),
+                            Modifier.fillMaxWidth().clickable { editing = item }.padding(vertical = 10.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             Column(Modifier.weight(1f)) {
                                 Text(item.name, style = MaterialTheme.typography.bodyMedium)
                                 Text(item.currentLabel, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Medium)
+                                VehicleSettingsText.info(item.id, lang)?.let {
+                                    Text(
+                                        it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        maxLines = 2, overflow = TextOverflow.Ellipsis,
+                                    )
+                                }
                             }
+                            Icon(Icons.Outlined.Info, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }
@@ -122,22 +133,28 @@ fun VehicleSettingsScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> U
                         Text(stringResource(R.string.vs_unnamed_hint), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         unnamed.forEach { (id, st) ->
                             val options = (0..6).filter { ((st.mask shr it) and 1) == 1 }
+                            // The theft-alarm group has names from research; Mitsubishi hides it, so it stays read-only.
+                            val researched = VehicleSettingsText.researchedName(id, lang)
+                            val title = researched ?: stringResource(R.string.vs_unnamed_item, id)
+                            fun label(o: Int) = VehicleSettingsText.researchedOption(id, o, lang) ?: ctx.getString(R.string.vs_option_n, o + 1)
                             Row(
-                                Modifier.fillMaxWidth().clickable(enabled = canChange && options.isNotEmpty()) {
+                                Modifier.fillMaxWidth().clickable {
                                     editing = VisibleSetting(
-                                        io.github.anwo91.phevlink.core.model.SettingDef(id, ctx.getString(R.string.vs_unnamed_item, id), emptyList(), ""),
-                                        st.value, ctx.getString(R.string.vs_option_n, st.value + 1),
-                                        options.map { it to ctx.getString(R.string.vs_option_n, it + 1) },
+                                        io.github.anwo91.phevlink.core.model.SettingDef(id, title, emptyList(), ""),
+                                        st.value, label(st.value),
+                                        options.map { it to label(it) },
                                     )
                                 }.padding(vertical = 10.dp),
                             ) {
                                 Column(Modifier.weight(1f)) {
-                                    Text(stringResource(R.string.vs_unnamed_item, id), style = MaterialTheme.typography.bodyMedium)
+                                    Text(title, style = MaterialTheme.typography.bodyMedium)
                                     Text(
-                                        stringResource(R.string.vs_unnamed_value, st.value + 1, options.joinToString(", ") { (it + 1).toString() }),
+                                        if (researched != null) label(st.value)
+                                        else stringResource(R.string.vs_unnamed_value, st.value + 1, options.joinToString(", ") { (it + 1).toString() }),
                                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary,
                                     )
                                 }
+                                Icon(Icons.Outlined.Info, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
                         }
                     }
@@ -158,32 +175,55 @@ fun VehicleSettingsScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> U
 
     editing?.let { item ->
         var choice by remember(item.id) { mutableStateOf(item.value) }
+        // The theft-alarm group is hidden by Mitsubishi in every build: explained here, never changed.
+        val readOnly = item.id in VehicleSettingsCatalog.HIDDEN_IDS
+        val editable = canChange && !readOnly && item.options.isNotEmpty()
         AlertDialog(
             onDismissRequest = { editing = null },
             title = { Text(item.name) },
             text = {
-                Column(Modifier.heightIn(max = 480.dp).verticalScroll(rememberScrollState())) {
+                Column(Modifier.heightIn(max = 520.dp).verticalScroll(rememberScrollState())) {
+                    VehicleSettingsText.info(item.id, lang)?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
+                    VehicleSettingsText.whenToChange(item.id, lang)?.let {
+                        Spacer(Modifier.height(6.dp))
+                        Text(stringResource(R.string.vs_when), style = MaterialTheme.typography.labelLarge)
+                        Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                    Spacer(Modifier.height(10.dp))
                     item.options.forEach { (option, label) ->
                         Row(
-                            Modifier.fillMaxWidth().selectable(selected = choice == option, onClick = { choice = option }, role = Role.RadioButton).padding(vertical = 6.dp),
+                            Modifier.fillMaxWidth()
+                                .selectable(selected = choice == option, enabled = editable, onClick = { choice = option }, role = Role.RadioButton)
+                                .padding(vertical = 6.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            RadioButton(selected = choice == option, onClick = null)
+                            RadioButton(selected = choice == option, onClick = null, enabled = editable)
                             Spacer(Modifier.width(8.dp))
                             Text(label, style = MaterialTheme.typography.bodyMedium)
                         }
                     }
+                    if (!editable) {
+                        Spacer(Modifier.height(6.dp))
+                        Text(
+                            stringResource(if (readOnly) R.string.vs_read_only_alarm else R.string.vs_connect_to_change),
+                            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error,
+                        )
+                    }
                 }
             },
             confirmButton = {
-                TextButton(
-                    onClick = {
-                        editing = null
-                        if (choice != item.value) vm.run(CarCommand.ChangeSetting(item.id, choice))
-                    },
-                ) { Text(stringResource(R.string.vs_apply)) }
+                if (editable) {
+                    TextButton(
+                        onClick = {
+                            editing = null
+                            if (choice != item.value) vm.run(CarCommand.ChangeSetting(item.id, choice))
+                        },
+                    ) { Text(stringResource(R.string.vs_apply)) }
+                } else {
+                    TextButton(onClick = { editing = null }) { Text(stringResource(R.string.carview_close)) }
+                }
             },
-            dismissButton = { TextButton(onClick = { editing = null }) { Text(stringResource(R.string.common_cancel)) } },
+            dismissButton = if (editable) ({ TextButton(onClick = { editing = null }) { Text(stringResource(R.string.common_cancel)) } }) else null,
         )
     }
     if (confirmReset) {

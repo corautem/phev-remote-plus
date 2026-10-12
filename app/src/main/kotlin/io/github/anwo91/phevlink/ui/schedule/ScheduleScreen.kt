@@ -3,6 +3,7 @@ package io.github.anwo91.phevlink.ui.schedule
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -170,10 +171,12 @@ private fun describeDays(days: Set<DayOfWeek>): String = when {
 private fun DepartureRow(d: Departure, onToggle: (Boolean) -> Unit, onEdit: () -> Unit, onDelete: () -> Unit) {
     SectionCard(modifier = Modifier) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Column(Modifier.weight(1f)) {
-                TextButton(onClick = onEdit, contentPadding = PaddingValues(0.dp)) {
-                    Text("%02d:%02d".format(d.time.hour, d.time.minute), style = MaterialTheme.typography.displaySmall)
-                }
+            // The whole left part opens the editor (not just the time); the switch and delete keep their own taps.
+            Column(Modifier.weight(1f).clickable(onClick = onEdit)) {
+                Text(
+                    "%02d:%02d".format(d.time.hour, d.time.minute), style = MaterialTheme.typography.displaySmall,
+                    color = MaterialTheme.colorScheme.primary,
+                )
                 Text(describeDays(d.days), style = MaterialTheme.typography.bodyMedium)
                 Text(
                     if (d.smart) stringResource(R.string.sched_smart_row)

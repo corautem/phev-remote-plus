@@ -94,6 +94,7 @@ fun HomeScreen(
     onOpenTips: () -> Unit = {},
     onOpenObd: () -> Unit = {},
     onOpenBridgeSetup: () -> Unit = {},
+    onOpenChargeTimer: () -> Unit = {},
 ) {
     val car by vm.car.collectAsState()
     val link by vm.link.collectAsState()
@@ -150,9 +151,9 @@ fun HomeScreen(
         }
         item { QuickActions(car, pending, vm) }
         item { SecurityCard(car) }
-        item { ScheduleCard(car) }
+        item { ScheduleCard(car, onOpenChargeTimer) }
         item { DepartureCard(vm, onOpenSchedule) }
-        item { MoreCard(onOpenVehicleSettings, onOpenTips, onOpenObd) }
+        item { MoreCard(onOpenVehicleSettings, onOpenTips, onOpenObd, onOpenChargeTimer) }
         item {
             Text(
                 listOfNotNull(
@@ -175,7 +176,12 @@ fun HomeScreen(
         )
     }
     // After the large view, so a part's dialog opens on top of it.
-    part?.let { p -> CarPartDialog(p, car, pending, settings.fullRangeKm, now, vm, onDismiss = { part = null }) }
+    part?.let { p ->
+        CarPartDialog(
+            p, car, pending, settings.fullRangeKm, now, vm, onDismiss = { part = null },
+            onOpenChargeTimer = { part = null; bigPicture = false; onOpenChargeTimer() },
+        )
+    }
     if (showLink) LinkSheet(link, car, onDismiss = { showLink = false }, onRetry = { vm.reconnect(); showLink = false }, onDiagnostics = { showLink = false; onOpenDiagnostics() })
 }
 
@@ -632,7 +638,7 @@ private fun LinkSheet(link: LinkUi, car: CarState, onDismiss: () -> Unit, onRetr
 
 /** The car's own charge and climate timers, read-only. Shows nothing until the car reports a programmed timer. */
 @Composable
-private fun ScheduleCard(car: CarState) {
+private fun ScheduleCard(car: CarState, onOpenChargeTimer: () -> Unit) {
     if (!ScheduleDecoder.hasAny(car)) return
     val status = LocalStatus.current
     fun dayName(d: Int): String =
@@ -657,6 +663,7 @@ private fun ScheduleCard(car: CarState) {
                 val extra = if (d.fullCharge) " · " + stringResource(R.string.sched_full) else ""
                 LabeledValue(dayName(d.day), window + extra)
             }
+            TextButton(onClick = onOpenChargeTimer) { Text(stringResource(R.string.ct_change)) }
         }
         if (climate.isNotEmpty() || ScheduleDecoder.climateTimerOn(car)) {
             Spacer(Modifier.height(8.dp))
@@ -676,8 +683,9 @@ private fun ScheduleCard(car: CarState) {
 
 /** Entry points to the car's own settings, the tips and the OBD diagnostics. */
 @Composable
-private fun MoreCard(onOpenVehicleSettings: () -> Unit, onOpenTips: () -> Unit, onOpenObd: () -> Unit) {
+private fun MoreCard(onOpenVehicleSettings: () -> Unit, onOpenTips: () -> Unit, onOpenObd: () -> Unit, onOpenChargeTimer: () -> Unit) {
     SectionCard(title = stringResource(R.string.home_more)) {
+        MoreRow(stringResource(R.string.ct_title), stringResource(R.string.ct_more), onOpenChargeTimer)
         MoreRow(stringResource(R.string.vs_title), stringResource(R.string.home_more_vs), onOpenVehicleSettings)
         MoreRow(stringResource(R.string.tips_title), stringResource(R.string.home_more_tips), onOpenTips)
         MoreRow(stringResource(R.string.tab_obd), stringResource(R.string.home_more_obd), onOpenObd)

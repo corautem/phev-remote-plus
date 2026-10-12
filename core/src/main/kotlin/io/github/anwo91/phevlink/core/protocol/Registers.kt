@@ -21,6 +21,8 @@ object Reg {
     const val READ_CHARGE_TIMER_PROG = 0x18   // 16 bytes: per-day charge window (start/end hour+min), see ScheduleDecoder
     const val READ_CLIMATE_TIMER_PROG = 0x19  // 9 bytes: [state][per-day start hour][per-day start min]
     const val READ_CHARGE_TIMER_STATE_B = 0x1b // low nibble: 1 = suspended (charge now), >=2 = timer on
+    const val READ_CHARGE_PRESETS = 0x20      // MY14, 10 bytes: per-day timer choice + Timer 1–3 windows, see ChargeTimerCodec
+    const val READ_CLIMATE_PRESETS = 0x22     // MY14, 6 bytes: climate timer presets
     /** MY18+ only (the official app's register table for 2014–2017 cars has no entry): "Always Communicate" 1/0. */
     const val READ_WIFI_ALWAYS_ON_MY18 = 0x0b
     const val READ_PRE_AC_STATE = 0x10        // 0=off 2=running 3=cancelled (door/low battery)
@@ -44,6 +46,7 @@ object Reg {
     const val READ_ECU_VERSION = 0xc0
 
     // --- client -> car
+    const val WRITE_CHARGE_TIMER_MY14 = 0x01  // 28 bytes: the whole charge timer, see ChargeTimerCodec
     const val WRITE_AC_SCHEDULE_MY14 = 0x02   // 15 bytes, byte 6 = mode | duration<<4
     const val WRITE_AC_SWITCH_MY14 = 0x04     // 0x02 = on, 0x01 = off
     const val WRITE_CLOCK_SYNC = 0x05
@@ -74,6 +77,8 @@ object Reg {
         READ_CHARGE_TIMER_PROG to "charge timer schedule",
         READ_CLIMATE_TIMER_PROG to "climate timer schedule",
         READ_CHARGE_TIMER_STATE_B to "charge timer on/off",
+        READ_CHARGE_PRESETS to "charge timer presets",
+        READ_CLIMATE_PRESETS to "climate timer presets",
         READ_WIFI_ALWAYS_ON_MY18 to "Wi-Fi always on (MY18)",
         READ_PRE_AC_STATE to "climate state",
         READ_CAR_CLOCK to "car clock",
@@ -97,6 +102,7 @@ object Reg {
     )
 
     private val writeNames = mapOf(
+        WRITE_CHARGE_TIMER_MY14 to "charge timer (MY14)",
         WRITE_AC_SCHEDULE_MY14 to "climate mode (MY14)",
         WRITE_AC_SWITCH_MY14 to "climate on/off (MY14)",
         WRITE_CLOCK_SYNC to "clock sync",

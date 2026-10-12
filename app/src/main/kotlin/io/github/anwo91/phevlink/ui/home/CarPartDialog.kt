@@ -52,6 +52,7 @@ fun CarPartDialog(
     now: Long,
     vm: MainViewModel,
     onDismiss: () -> Unit,
+    onOpenChargeTimer: () -> Unit = {},
 ) {
     val status = LocalStatus.current
     val title = when (part) {
@@ -196,6 +197,10 @@ fun CarPartDialog(
                         } else if (car.isCharging && timerSet) {
                             Spacer(Modifier.height(6.dp))
                             DialogAction(pending, stringResource(R.string.quick_resume_timer)) { vm.run(CarCommand.ResumeChargeTimer) }
+                        }
+                        Spacer(Modifier.height(6.dp))
+                        TextButton(onClick = onOpenChargeTimer, modifier = Modifier.fillMaxWidth()) {
+                            Text(stringResource(if (timerSet) R.string.ct_change_timer else R.string.ct_set_timer))
                         }
                     }
                 }

@@ -25,6 +25,8 @@ The main goal: **a connection that just works.**
   finger (and tilt in the large view). What can be tapped shows as icons, as labels, or lights up when touched.
 - **Climate** — heat, cool or defrost for 10/20/30 minutes; **Smart** mode picks mode and duration from the outside
   temperature (MET Norway forecast). Handles "stopped by the car" (door opened / battery low) with a one-tap reset.
+- **Charge timer** — set the car's own charge timer (2014–2017 cars): up to three time windows, each on the days you
+  pick, plus "full charge" days; the car keeps it and waits for the window when plugged in. "Charge now" skips it once.
 - **Departure timers** — "ready to leave at 07:30 on weekdays": 35 min before, the app checks the forecast and starts
   defrost/heat/cool just long enough, so the car is ready when you walk out. Mild morning? It skips and tells you.
   With a bridge, departures are shared by all your phones and the bridge starts them itself while the car is home.

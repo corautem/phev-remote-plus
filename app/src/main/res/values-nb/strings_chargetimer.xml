@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The car's charge timer editor. -->
+<resources>
+    <string name="ct_title">Ladetimer</string>
+    <string name="ct_intro">Når bilen er koblet til, kan den vente og bare lade innenfor et tidsvindu – for eksempel om natten. Du stiller det inn her; bilen husker timeren og følger den selv, også når ingen telefon er i nærheten.</string>
+    <string name="ct_now_none">Nå: ingen timer – bilen lader så snart den er koblet til.</string>
+    <string name="ct_now_on">Nå: timeren er på.</string>
+    <string name="ct_now_paused">Nå: timeren er satt på pause («Lad nå»). Den kommer tilbake når bilen slås på, eller med «Tilbake til ladetimeren».</string>
+    <string name="ct_my18">Å stille ladetimeren fungerer foreløpig på biler fra 2014–2017.</string>
+    <string name="ct_reading">Leser timeren fra bilen …</string>
+    <string name="ct_timer">Timer %1$d</string>
+    <string name="ct_clear">Fjern denne timeren</string>
+    <string name="ct_from">Fra %1$s</string>
+    <string name="ct_to">Til %1$s</string>
+    <string name="ct_not_set">Ikke satt. Velg tidene, og så dagene den skal brukes.</string>
+    <string name="ct_overnight">Over midnatt: lader fra kvelden til neste morgen.</string>
+    <string name="ct_full_title">Full lading</string>
+    <string name="ct_full_explain">Disse dagene fortsetter bilen å lade etter at vinduet er slutt, til batteriet er fullt. Kobler du til etter at vinduet er slutt, starter ikke ladingen.</string>
+    <string name="ct_charge_now_note">«Lad nå» på startsiden hopper over timeren én gang; timeren kommer tilbake av seg selv neste gang bilen slås på.</string>
+    <string name="ct_sent">Ladetimeren er lagret i bilen</string>
+    <string name="ct_send">Send til bilen</string>
+    <string name="ct_undo">Angre</string>
+    <string name="ct_in_step">Bilen har denne timeren.</string>
+    <string name="ct_pick_start">Timer %1$d starter</string>
+    <string name="ct_pick_end">Timer %1$d slutter</string>
+    <string name="ct_ten_minutes">Tidene går i steg på 10 minutter (rundes ned).</string>
+    <string name="ct_ok">OK</string>
+    <string name="ct_change">Endre ladetimeren</string>
+    <string name="ct_more">Lad bare om natten eller til faste tider</string>
+    <string name="ct_change_timer">Endre ladetimeren</string>
+    <string name="ct_set_timer">Still inn en ladetimer</string>
+    <string name="ct_sched_note">Bilens egen ladetimer bestemmer når den lader etter at du kobler til. Den er noe annet enn avgangene, som varmer eller kjøler bilen.</string>
+    <string name="ct_open">Åpne ladetimeren</string>
+    <string name="cmd_set_charge_timer">Still inn ladetimeren</string>
+    <string name="msg_charge_timer_unconfirmed">Bilen bekreftet ikke den nye ladetimeren – oppdater og sjekk den.</string>
+    <string name="msg_bridge_needs_update">Broen kan ikke dette ennå – oppdater den under Innstillinger → Oppdateringer.</string>
+</resources>

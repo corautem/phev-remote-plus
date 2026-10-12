@@ -48,6 +48,7 @@ object Labels {
             CarCommand.AckClimateCancelled -> res.getString(R.string.cmd_ack_climate)
             CarCommand.ChargeNow -> res.getString(R.string.cmd_charge_now)
             CarCommand.ResumeChargeTimer -> res.getString(R.string.cmd_resume_charge_timer)
+            is CarCommand.SetChargeTimer -> res.getString(R.string.cmd_set_charge_timer)
             is CarCommand.SyncClock -> res.getString(R.string.cmd_sync_clock)
             is CarCommand.ChangeSetting -> {
                 val lang = AppLocale.effectiveLanguage(context)
@@ -69,11 +70,14 @@ object Labels {
         val res = AppLocale.localized(context)
         return when (reason) {
             CarCommand.ChangeSetting.UNCONFIRMED -> res.getString(R.string.msg_setting_unconfirmed)
+            CarCommand.SetChargeTimer.UNCONFIRMED -> res.getString(R.string.msg_charge_timer_unconfirmed)
+            CarCommand.SetChargeTimer.NOT_MY14 -> res.getString(R.string.ct_my18)
             CarCommand.ClimateOn.POWER_ON -> res.getString(R.string.msg_climate_needs_off)
             CarCommand.ClimateOn.QUICK_CHARGING -> res.getString(R.string.msg_climate_quick_charging)
             CarCommand.ClimateOn.NOT_STARTED -> res.getString(R.string.msg_climate_not_started)
             CarCommand.ChargeNow.NOT_PLUGGED -> res.getString(R.string.msg_charge_not_plugged)
-            else -> reason
+            // An older bridge doesn't know a newer command.
+            else -> if (reason.startsWith("Unknown action")) res.getString(R.string.msg_bridge_needs_update) else reason
         }
     }
 

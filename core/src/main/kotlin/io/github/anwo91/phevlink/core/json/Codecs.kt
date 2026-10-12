@@ -1,5 +1,7 @@
 package io.github.anwo91.phevlink.core.json
 
+import io.github.anwo91.phevlink.core.model.ChargeWindow
+import io.github.anwo91.phevlink.core.model.ChargeTimerProgram
 import io.github.anwo91.phevlink.core.model.CarCommand
 import io.github.anwo91.phevlink.core.model.CarSetting
 import io.github.anwo91.phevlink.core.model.CarState
@@ -218,6 +220,12 @@ object Codecs {
         CarCommand.AckClimateCancelled -> mapOf("action" to "ack_climate")
         CarCommand.ChargeNow -> mapOf("action" to "charge_now")
         CarCommand.ResumeChargeTimer -> mapOf("action" to "resume_charge_timer")
+        is CarCommand.SetChargeTimer -> mapOf(
+            "action" to "charge_timer",
+            "windows" to c.program.windows.map { w -> w?.let { mapOf("start" to it.start.toString(), "end" to it.end.toString()) } },
+            "days" to c.program.dayTimer,
+            "full" to c.program.fullDays.sorted(),
+        )
         is CarCommand.SyncClock -> mapOf("action" to "sync_clock", "time" to c.time.toString())
         is CarCommand.ChangeSetting -> mapOf("action" to "setting", "id" to c.id, "value" to c.value)
         CarCommand.ResetSettings -> mapOf("action" to "reset_settings")
@@ -254,6 +262,17 @@ object Codecs {
             "ack_climate" -> CarCommand.AckClimateCancelled
             "charge_now" -> CarCommand.ChargeNow
             "resume_charge_timer" -> CarCommand.ResumeChargeTimer
+            "charge_timer" -> CarCommand.SetChargeTimer(
+                ChargeTimerProgram(
+                    windows = (m["windows"] as? List<*> ?: throw IllegalArgumentException("Missing 'windows'")).map { w ->
+                        (w as? Map<*, *>)?.let {
+                            ChargeWindow(java.time.LocalTime.parse(it["start"].toString()), java.time.LocalTime.parse(it["end"].toString()))
+                        }
+                    },
+                    dayTimer = (m["days"] as? List<*> ?: throw IllegalArgumentException("Missing 'days'")).map { (it as Number).toInt() },
+                    fullDays = (m["full"] as? List<*>).orEmpty().map { (it as Number).toInt() }.toSet(),
+                ),
+            )
             "sync_clock" -> CarCommand.SyncClock(
                 m["time"]?.toString()?.let { java.time.LocalDateTime.parse(it) } ?: java.time.LocalDateTime.now()
             )

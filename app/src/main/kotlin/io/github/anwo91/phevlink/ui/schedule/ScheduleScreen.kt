@@ -62,7 +62,7 @@ import java.util.Locale
 import java.util.UUID
 
 @Composable
-fun ScheduleScreen(vm: MainViewModel, modifier: Modifier) {
+fun ScheduleScreen(vm: MainViewModel, modifier: Modifier, onOpenChargeTimer: () -> Unit = {}) {
     val settings by vm.settings.collectAsState()
     var editing by remember { mutableStateOf<Departure?>(null) }
     val ctx = LocalContext.current
@@ -111,6 +111,13 @@ fun ScheduleScreen(vm: MainViewModel, modifier: Modifier) {
                 }
             }
             if (settings.hasBridge) item { SharedNote(vm) }
+            // The car's own charge timer lives in the car; it is set from its own page.
+            item {
+                SectionCard(title = stringResource(R.string.ct_title)) {
+                    Text(stringResource(R.string.ct_sched_note), style = MaterialTheme.typography.bodySmall)
+                    TextButton(onClick = onOpenChargeTimer) { Text(stringResource(R.string.ct_open)) }
+                }
+            }
             items(settings.departures, key = { it.id }) { d ->
                 DepartureRow(
                     d,

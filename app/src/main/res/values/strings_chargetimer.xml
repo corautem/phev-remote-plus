@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The car's charge timer editor. -->
+<resources>
+    <string name="ct_title">Charge timer</string>
+    <string name="ct_intro">Plugged in, the car can wait and only charge within a time window — at night, for example. You set it here; the car keeps the timer and follows it on its own, also when no phone is near.</string>
+    <string name="ct_now_none">Now: no timer — the car charges as soon as it\'s plugged in.</string>
+    <string name="ct_now_on">Now: the timer is on.</string>
+    <string name="ct_now_paused">Now: the timer is paused (“Charge now”). It comes back when the car is switched on, or with “Back to the charge timer”.</string>
+    <string name="ct_my18">Setting the charge timer works on 2014–2017 cars for now.</string>
+    <string name="ct_reading">Reading the timer from the car…</string>
+    <string name="ct_timer">Timer %1$d</string>
+    <string name="ct_clear">Clear this timer</string>
+    <string name="ct_from">From %1$s</string>
+    <string name="ct_to">To %1$s</string>
+    <string name="ct_not_set">Not set. Pick the times, then the days to use it on.</string>
+    <string name="ct_overnight">Over midnight: charges from the evening until the next morning.</string>
+    <string name="ct_full_title">Full charge</string>
+    <string name="ct_full_explain">On these days the car carries on charging after the window has ended until the battery is full. Plugging in after the window has ended doesn\'t start charging.</string>
+    <string name="ct_charge_now_note">“Charge now” on the home screen skips the timer once; the timer comes back by itself the next time the car is switched on.</string>
+    <string name="ct_sent">Charge timer saved in the car</string>
+    <string name="ct_send">Send to the car</string>
+    <string name="ct_undo">Undo</string>
+    <string name="ct_in_step">The car has this timer.</string>
+    <string name="ct_pick_start">Timer %1$d starts at</string>
+    <string name="ct_pick_end">Timer %1$d ends at</string>
+    <string name="ct_ten_minutes">Times go in 10-minute steps (rounded down).</string>
+    <string name="ct_ok">OK</string>
+    <string name="ct_change">Change the charge timer</string>
+    <string name="ct_more">Charge only at night or at set times</string>
+    <string name="ct_change_timer">Change the charge timer</string>
+    <string name="ct_set_timer">Set a charge timer</string>
+    <string name="ct_sched_note">The car\'s own charge timer decides when it charges after you plug in. It\'s separate from the departures, which warm or cool the car.</string>
+    <string name="ct_open">Open the charge timer</string>
+    <string name="cmd_set_charge_timer">Set the charge timer</string>
+    <string name="msg_charge_timer_unconfirmed">The car didn\'t confirm the new charge timer — refresh and check it.</string>
+    <string name="msg_bridge_needs_update">The bridge doesn\'t know this yet — update it under Settings → Updates.</string>
+</resources>

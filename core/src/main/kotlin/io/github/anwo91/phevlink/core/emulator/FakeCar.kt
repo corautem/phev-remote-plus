@@ -100,6 +100,13 @@ class FakeCar(
             // Climate timer registers the official app echoes back in the MY14 climate write.
             regs[0x19] = bytes(0x01, 0x7d, 0x38, 0xb0, 0x01, 0x83, 0xbd, 0x00, 0x01)
             regs[0x22] = bytes(0x00, 0x01, 0x00, 0x02, 0x03, 0x04)
+            if (my14) {
+                // No charge timer: every slot unset (hour 31, minute 7), timer state 1 (charges when plugged in).
+                regs[Reg.READ_CHARGE_TIMER_PROG] = bytes(0xff, 0xff, 0xff, 0xff, 0x07, 0xff, 0xff, 0x1f, 0xff, 0xff, 0xff, 0xff, 0x07, 0xff, 0xff, 0x1f)
+                regs[Reg.READ_CHARGE_PRESETS] = bytes(0x00, 0x00, 0xff, 0x7f, 0xff, 0x01, 0xff, 0x7f, 0xff, 0x01)
+                regs[Reg.READ_FULL_CHARGE_DAYS] = bytes(0)
+                regs[Reg.READ_CHARGE_TIMER_STATE_B] = bytes(1)
+            }
             if (!my14) regs[Reg.READ_WIFI_ALWAYS_ON_MY18] = bytes(0)
         }
     }
@@ -287,12 +294,26 @@ class FakeCar(
                 Reg.WRITE_UNREGISTER_CLIENT -> regs[Reg.READ_VIN]!![19] = (registrations - 1).coerceAtLeast(0).toByte()
                 Reg.WRITE_ACK_AC_TERMINATION -> regs[Reg.READ_PRE_AC_STATE]!![0] = 0
                 Reg.WRITE_CLOCK_SYNC -> if (data.size >= 7) regs[Reg.READ_CAR_CLOCK] = data.copyOf(7)
+                // The whole charge timer (MY14): echoed into the presets, full-charge days, per-day windows and state.
+                Reg.WRITE_CHARGE_TIMER_MY14 -> if (modelYear == ModelYear.MY14 && data.size == 28) {
+                    regs[Reg.READ_CHARGE_PRESETS] = data.copyOfRange(0, 2) + data.copyOfRange(3, 11)
+                    regs[Reg.READ_FULL_CHARGE_DAYS] = bytes(d(2))
+                    regs[Reg.READ_CHARGE_TIMER_STATE_B] = bytes(d(11))
+                    regs[Reg.READ_CHARGE_TIMER_PROG] = data.copyOfRange(12, 28)
+                }
                 Reg.WRITE_CHARGE_TIMER_CANCEL -> when (d(0)) {
                     // [01] = charge now (suspend timer); [02] = resume timer (back to waiting).
-                    0x01 -> if (regs[Reg.READ_CHARGE_PLUG]!![0].toInt() != 0 || regs[Reg.READ_CHARGE_PLUG]!![1].toInt() != 0) startChargingLocked()
+                    0x01 -> {
+                        if (regs.containsKey(Reg.READ_CHARGE_TIMER_STATE_B)) regs[Reg.READ_CHARGE_TIMER_STATE_B] = bytes(1)
+                        if (regs[Reg.READ_CHARGE_PLUG]!![0].toInt() != 0 || regs[Reg.READ_CHARGE_PLUG]!![1].toInt() != 0) startChargingLocked()
+                    }
                     0x02 -> {
-                        regs[Reg.READ_CHARGE_STATUS] = bytes(0, 0xff, 0xff)
-                        regs[Reg.READ_CHARGE_PLUG] = bytes(0, 1)
+                        if (regs.containsKey(Reg.READ_CHARGE_TIMER_STATE_B)) regs[Reg.READ_CHARGE_TIMER_STATE_B] = bytes(2)
+                        // Plugged in: stop charging and wait for the timer again.
+                        if (regs[Reg.READ_CHARGE_PLUG]!![0].toInt() != 0 || regs[Reg.READ_CHARGE_PLUG]!![1].toInt() != 0) {
+                            regs[Reg.READ_CHARGE_STATUS] = bytes(0, 0xff, 0xff)
+                            regs[Reg.READ_CHARGE_PLUG] = bytes(0, 1)
+                        }
                     }
                 }
             }

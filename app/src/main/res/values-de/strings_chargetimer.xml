@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The car's charge timer editor. -->
+<resources>
+    <string name="ct_title">Lade-Timer</string>
+    <string name="ct_intro">Eingesteckt kann das Auto warten und nur in einem Zeitfenster laden – zum Beispiel nachts. Du stellst es hier ein; das Auto merkt sich den Timer und hält sich selbst daran, auch wenn kein Handy in der Nähe ist.</string>
+    <string name="ct_now_none">Jetzt: kein Timer – das Auto lädt, sobald es eingesteckt ist.</string>
+    <string name="ct_now_on">Jetzt: Der Timer ist an.</string>
+    <string name="ct_now_paused">Jetzt: Der Timer ist pausiert („Jetzt laden“). Er kommt zurück, wenn das Auto eingeschaltet wird, oder mit „Zurück zum Lade-Timer“.</string>
+    <string name="ct_my18">Den Lade-Timer einstellen geht vorerst bei Autos von 2014–2017.</string>
+    <string name="ct_reading">Lese den Timer aus dem Auto …</string>
+    <string name="ct_timer">Timer %1$d</string>
+    <string name="ct_clear">Diesen Timer löschen</string>
+    <string name="ct_from">Von %1$s</string>
+    <string name="ct_to">Bis %1$s</string>
+    <string name="ct_not_set">Nicht eingestellt. Wähle die Zeiten und dann die Tage, an denen er gilt.</string>
+    <string name="ct_overnight">Über Mitternacht: lädt vom Abend bis zum nächsten Morgen.</string>
+    <string name="ct_full_title">Volladung</string>
+    <string name="ct_full_explain">An diesen Tagen lädt das Auto nach dem Ende des Zeitfensters weiter, bis der Akku voll ist. Steckst du erst nach dem Ende des Zeitfensters ein, startet das Laden nicht.</string>
+    <string name="ct_charge_now_note">„Jetzt laden“ auf der Startseite überspringt den Timer einmal; der Timer kommt von selbst zurück, wenn das Auto das nächste Mal eingeschaltet wird.</string>
+    <string name="ct_sent">Lade-Timer im Auto gespeichert</string>
+    <string name="ct_send">Ans Auto senden</string>
+    <string name="ct_undo">Rückgängig</string>
+    <string name="ct_in_step">Das Auto hat diesen Timer.</string>
+    <string name="ct_pick_start">Timer %1$d beginnt um</string>
+    <string name="ct_pick_end">Timer %1$d endet um</string>
+    <string name="ct_ten_minutes">Die Zeiten gehen in 10-Minuten-Schritten (abgerundet).</string>
+    <string name="ct_ok">OK</string>
+    <string name="ct_change">Lade-Timer ändern</string>
+    <string name="ct_more">Nur nachts oder zu festen Zeiten laden</string>
+    <string name="ct_change_timer">Lade-Timer ändern</string>
+    <string name="ct_set_timer">Lade-Timer einstellen</string>
+    <string name="ct_sched_note">Der eigene Lade-Timer des Autos bestimmt, wann es nach dem Einstecken lädt. Er ist etwas anderes als die Abfahrten, die das Auto wärmen oder kühlen.</string>
+    <string name="ct_open">Lade-Timer öffnen</string>
+    <string name="cmd_set_charge_timer">Lade-Timer einstellen</string>
+    <string name="msg_charge_timer_unconfirmed">Das Auto hat den neuen Lade-Timer nicht bestätigt – aktualisiere und prüfe ihn.</string>
+    <string name="msg_bridge_needs_update">Die Bridge kann das noch nicht – aktualisiere sie unter Optionen → Updates.</string>
+</resources>

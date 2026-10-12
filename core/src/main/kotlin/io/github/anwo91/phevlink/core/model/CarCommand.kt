@@ -187,6 +187,47 @@ sealed interface CarCommand {
     }
 
     /**
+     * Program the car's charge timer (2014–2017 cars), like Mitsubishi's app: the whole timer in register 0x01
+     * (28 bytes, see [ChargeTimerCodec]), then wait until the car reports it back (0x20 and 0x0e). When a timer is
+     * now set but the car's timer was paused or off, switch it on (0x17 = on value), as the official app does once it
+     * sees the new schedule; with no timer left, 0x17 = 1 (the car charges as soon as it's plugged in).
+     */
+    data class SetChargeTimer(val program: ChargeTimerProgram) : CarCommand {
+        override val label = "Set charge timer: ${program.summary()}"
+        override val confirmMs: Long get() = CONFIRM_MS
+
+        override fun requiredRegisters(modelYear: ModelYear) = setOf(Reg.READ_CHARGE_TIMER_STATE_B)
+
+        override fun refusal(state: CarState, fresh: Set<Int>): String? =
+            if (state.modelYear == ModelYear.MY18 || state.modelYear == ModelYear.MY24) NOT_MY14 else null
+
+        override fun toWrites(modelYear: ModelYear, state: CarState): List<RegisterWrite> {
+            val target = program.normalized()
+            val current = state.registers[Reg.READ_CHARGE_TIMER_STATE_B]?.hex
+                ?.let { runCatching { it.hexToBytes() }.getOrNull() }?.firstOrNull()?.toInt()?.and(0xff)
+            val st = ChargeTimerCodec.stateByte(target, current)
+            val writes = mutableListOf(
+                RegisterWrite(
+                    Reg.WRITE_CHARGE_TIMER_MY14, ChargeTimerCodec.encodeMy14(target, st),
+                    awaitState = { s -> ChargeTimerProgram.read(s)?.let { it.normalized() == target } == true },
+                    awaitMs = CONFIRM_MS,
+                    unconfirmedMessage = UNCONFIRMED,
+                ),
+            )
+            val on = current != null && (current and 0x0f) >= 2
+            if (target.active && !on) writes += RegisterWrite(Reg.WRITE_CHARGE_TIMER_CANCEL, bytes(st))
+            if (!target.active && on) writes += RegisterWrite(Reg.WRITE_CHARGE_TIMER_CANCEL, bytes(0x01))
+            return writes
+        }
+
+        companion object {
+            const val CONFIRM_MS = 10_000L
+            const val UNCONFIRMED = "The car did not confirm the new charge timer — check it in the app after a refresh"
+            const val NOT_MY14 = "Setting the charge timer works on 2014–2017 cars for now"
+        }
+    }
+
+    /**
      * Set the car's clock (its charge and climate timers run on it). Same format
      * as the official app: [yy mm dd hh mi ss dow flag], dow with Sunday = 0;
      * the official app sets flag = 1 only on rooted phones.

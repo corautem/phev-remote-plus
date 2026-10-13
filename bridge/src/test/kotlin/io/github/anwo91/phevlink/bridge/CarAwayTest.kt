@@ -18,7 +18,7 @@ import java.io.File
 /** Off the car's Wi-Fi the bridge says why at once (field log: 5-second timeouts every 30 s, "timed out reaching the car"). */
 class CarAwayTest {
     @Test
-    fun saysTheCarIsAwayInsteadOfTimingOutAndConnectsWhenBack() = runBlocking {
+    fun saysTheCarIsAwayInsteadOfTimingOutAndConnectsWhenBack(): Unit = runBlocking {
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
         val car = FakeCar().start()
         val stateFile = File.createTempFile("bridge", ".json").apply { delete() }

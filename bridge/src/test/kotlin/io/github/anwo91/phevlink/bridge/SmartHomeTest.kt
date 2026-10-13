@@ -82,7 +82,7 @@ class SmartHomeTest {
         assertNull(sh.change(mapOf("enabled" to false), "Pixel"))
         assertTrue(broker.waitFor { broker.retained.keys.none { it.startsWith("homeassistant/") && "/$id/" in it } })
         assertEquals("offline", broker.retained["$base/availability"])
-        assertEquals("off", (sh.describe()["status"] as Map<*, *>)["phase"])
+        assertTrue(sh.describe()["status"].toString(), broker.waitFor { (sh.describe()["status"] as Map<*, *>)["phase"] == "off" })
         assertTrue(File(dir, "smarthome.json").readText().contains("\"enabled\":false"))
     }
 

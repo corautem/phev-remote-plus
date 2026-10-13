@@ -114,7 +114,7 @@ class MqttLink(
                     session = s
                 }
                 s.start()
-                set(Phase.CONNECTED, null)
+                set(Phase.CONNECTED, null, gen)
                 log.link("Smart home: connected to the broker at ${o.host}:${o.port}" + (o.username?.let { " as $it" } ?: " (no login)") + (if (fails > 0) " after $fails failed tries" else ""))
                 fails = 0
                 runCatching { onConnected() }.onFailure { log.warn("Smart home: announcing failed: ${it.message}") }
@@ -122,21 +122,21 @@ class MqttLink(
                 session = null
                 if (gen != generation) return
                 log.warn("Smart home: lost the broker — $why")
-                set(Phase.ERROR, why)
+                set(Phase.ERROR, why, gen)
                 waitMs = 2_000
             } catch (e: MqttClient.Refused) {
                 fails++
                 val auth = e.code == 4 || e.code == 5
                 waitMs = if (auth) 5 * 60_000L else BACKOFF_S[(fails - 1).coerceIn(0, BACKOFF_S.lastIndex)] * 1000L
                 log.warn("Smart home: the broker at ${o.host}:${o.port} said no — ${e.message}; trying again in ${waitMs / 1000} s")
-                set(Phase.ERROR, e.message)
+                set(Phase.ERROR, e.message, gen)
             } catch (e: IOException) {
                 fails++
                 waitMs = BACKOFF_S[(fails - 1).coerceIn(0, BACKOFF_S.lastIndex)] * 1000L
                 val msg = describe(e)
                 // Quiet after a few: one line a minute is enough while the broker is away.
                 if (fails <= 3 || fails % 10 == 0) log.warn("Smart home: can't reach the broker at ${o.host}:${o.port} — $msg; trying again in ${waitMs / 1000} s (try $fails)")
-                set(Phase.ERROR, msg)
+                set(Phase.ERROR, msg, gen)
             }
             synchronized(wake) {
                 if (gen == generation) runCatching { wake.wait(waitMs) }
@@ -144,7 +144,9 @@ class MqttLink(
         }
     }
 
-    private fun set(p: Phase, err: String?) {
+    /** [gen]: from the connection thread of that generation — ignored once the link was stopped or restarted. */
+    private fun set(p: Phase, err: String?, gen: Int? = null) {
+        if (gen != null && gen != generation) return
         if (p != phase) sinceMs = now()
         phase = p
         error = err

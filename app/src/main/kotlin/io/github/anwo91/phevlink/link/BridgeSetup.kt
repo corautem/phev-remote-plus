@@ -185,6 +185,18 @@ object BridgeSetupApi {
     suspend fun localMqtt(url: String, token: String): Reply? =
         withContext(Dispatchers.IO) { request(url, "mqtt/local", "POST", token, emptyMap(), 4_000, 10_000) }
 
+    /** The car in Google Home / Apple Home / Alexa through Matter: on/off, pairing code, paired apps (bridge with "matter"). */
+    suspend fun matter(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "matter", "GET", token, null, 4_000, 8_000) }
+
+    /** Matter settings: {"enabled":…, "devices":{"climate":…,"headlights":…,"parking":…}, "language":…}; answers once started. */
+    suspend fun putMatter(url: String, token: String, changes: Map<String, Any?>): Reply? =
+        withContext(Dispatchers.IO) { request(url, "matter", "POST", token, changes, 4_000, 30_000) }
+
+    /** Removes every Matter pairing (Google Home and the rest); a new code. */
+    suspend fun resetMatter(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "matter/reset", "POST", token, emptyMap(), 4_000, 40_000) }
+
     /** "Add another phone": the bridge opens pairing for one more phone for [minutes] (bridge with "pair-invite"). */
     suspend fun openPairing(url: String, token: String, minutes: Int): Reply? =
         withContext(Dispatchers.IO) { request(url, "pair/open", "POST", token, mapOf("minutes" to minutes), 4_000, 8_000) }

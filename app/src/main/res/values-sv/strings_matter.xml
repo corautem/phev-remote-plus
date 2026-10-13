@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge page → Google Home (Matter). -->
+<resources>
+    <string name="mt_title">Google Home</string>
+    <string name="mt_subtitle">Även Apple Home och Alexa – via Matter, utan Home Assistant eller moln</string>
+    <string name="mt_intro">Lägg till bilen i Google Home: slå av och på klimatet i Google Home-appen eller med rösten, och lamporna om du vill. Bryggan pratar Matter, standarden Google Home använder för lokala enheter. Du behöver en Google-högtalare, -skärm eller -tv-box hemma.</string>
+    <string name="mt_set_up">Konfigurera</string>
+    <string name="mt_needs_update">Uppdatera bryggan för att lägga till bilen i Google Home (Inställningar → Uppdateringar).</string>
+    <string name="mt_starting">Startar…</string>
+    <string name="mt_err_missing">Bryggan kan inte köra det här än: uppdatera bryggan (Inställningar → Uppdateringar). Den installerar själv det den behöver (Node.js).</string>
+    <string name="mt_err_ipv6">IPv6 är avstängt på bryggans dator, och Matter behöver det.</string>
+    <string name="mt_err_other">Körs inte: %1$s</string>
+    <string name="mt_try_again">Försök igen</string>
+    <string name="mt_step1_title">1 · En gång: låt Google Home godta bryggan</string>
+    <string name="mt_step1_show">Så gör du</string>
+    <string name="mt_step1">Google Home lägger bara till Matter-enheter som den känner till. Registrera PHEV Link en gång, inloggad med samma Google-konto som Google Home:\n1. Öppna Google Home Developer Console och skapa ett projekt (valfritt namn).\n2. Välj ”Add Matter integration” och sedan ”Next: Setup”.\n3. Product name: PHEV Link. Device type: den som passar bäst, t.ex. Outlet.\n4. Vendor ID: 0xFFF1 (testleverantören). Product ID: 0x8000.\n5. Save &amp; continue. Det är allt – inget publiceras.</string>
+    <string name="mt_open_console">Öppna utvecklarkonsolen</string>
+    <string name="mt_step2_title">2 · Lägg till den i Google Home</string>
+    <string name="mt_step2">I Google Home-appen: Enheter → Lägg till → Matter-aktiverad enhet, och skanna den här koden (eller skriv in siffrorna). När Google säger att enheten inte är certifierad fortsätter du.</string>
+    <string name="mt_code">Kod %1$s</string>
+    <string name="mt_copy_code">Kopiera</string>
+    <string name="mt_copied">Koden har kopierats</string>
+    <string name="mt_waiting">Väntar på att Google Home lägger till den…</string>
+    <string name="mt_paired">Tillagd i: %1$s</string>
+    <string name="mt_climate_name">Bilklimat</string>
+    <string name="mt_voice">Prova ”Hey Google, slå på %1$s”. Du kan byta namn på brytarna och lägga dem i ett rum i Google Home-appen.</string>
+    <string name="mt_away_note">Medan bilen är borta hemifrån visas brytarna som offline.</string>
+    <string name="mt_share_title">Vad som delas</string>
+    <string name="mt_share_climate">Klimat av/på</string>
+    <string name="mt_share_headlights">Strålkastare</string>
+    <string name="mt_share_parking">Parkeringsljus</string>
+    <string name="mt_share_note">Ändrar du detta startar kopplingen om en kort stund; Google Home uppdaterar sig själv (eller säg ”Hey Google, synkronisera mina enheter”).</string>
+    <string name="mt_other_title">Även Apple Home eller Alexa</string>
+    <string name="mt_other_apps">I Google Home-appen öppnar du bilens enhet → Inställningar → Länkade Matter-appar och -tjänster → Länka appar och tjänster. Den visar en ny kod: skanna den i den andra appen.</string>
+    <string name="mt_remove">Ta bort från alla appar</string>
+    <string name="mt_remove_confirm">Ta bort bilen från Google Home och alla andra appar? Du kan lägga till den igen med en ny kod.</string>
+    <string name="mt_off_done">Avstängd.</string>
+    <string name="mt_removed">Borttagen – lägg till den igen med den nya koden.</string>
+    <string name="act_bridge_matter_on">%1$s delade bilen med Google Home</string>
+    <string name="act_bridge_matter_off">%1$s slutade dela bilen med Google Home</string>
+    <string name="act_bridge_matter_reset">%1$s tog bort bilen från Google Home och de andra apparna</string>
+</resources>

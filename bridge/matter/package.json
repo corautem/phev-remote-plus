@@ -1,0 +1,23 @@
+{
+  "name": "phev-matter",
+  "private": true,
+  "version": "1.0.0",
+  "description": "PHEV Link bridge: the car as a Matter bridge (Google Home, Apple Home, Alexa) — started and driven by the bridge over stdin/stdout.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "esbuild src/phev-matter.mjs --bundle --platform=node --target=node18 --format=esm --outfile=dist/phev-matter.mjs --banner:js=\"import { createRequire as __cr } from 'module'; const require = __cr(import.meta.url);\"",
+    "test": "node test/pairing-test.mjs"
+  },
+  "dependencies": {
+    "@matter/main": "0.15.6",
+    "@matter/nodejs": "0.15.6",
+    "qrcode-generator": "1.4.4"
+  },
+  "devDependencies": {
+    "@project-chip/matter.js": "0.15.6",
+    "esbuild": "0.24.2"
+  }
+}

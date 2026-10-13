@@ -113,7 +113,18 @@ fun main(args: Array<String>) {
         bridgectl = File(File(config.wifiHelper).absoluteFile.parentFile, "bridgectl.sh").path,
     )
     smartHome.start()
-    val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, shared, activity, watch, smartHome, restart)
+    // Google Home, Apple Home, Alexa … through Matter (a small Node.js program next to the jar): off until switched on.
+    val matter = MatterLink(
+        stateDir, service, activity,
+        home = { if (config.emulator) service.connection.status.value.isConnected else watch.onCarWifi },
+        homeIface = { runCatching { carWifi.status().homeIface }.getOrNull() },
+        climateOn = { smartHome.climateFor() },
+        carName = { shared.snapshot()["carName"]?.toString() },
+        log = log, scope = scope,
+        program = { MatterLink.defaultProgram(File(config.wifiHelper).absoluteFile.parentFile) },
+    )
+    matter.start() // the program stops by itself when the bridge exits (its stdin closes)
+    val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, shared, activity, watch, smartHome, matter, restart)
     activity.add(io.github.anwo91.phevlink.core.activity.Activity(System.currentTimeMillis(), "bridge", "bridge.started", mapOf("build" to BridgeService.BUILD)))
     val port = api.start()
     log.link("Bridge ${BridgeService.BUILD} (API ${BridgeService.VERSION}) on http://${config.listenHost}:$port/  (car ${config.carHost}:$carPort)")

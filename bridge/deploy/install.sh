@@ -37,6 +37,40 @@ else
   echo "WARNING: the sudo rule was rejected, so the app can't set up the car's Wi-Fi or update the bridge."
 fi
 
+# Matter (Google Home, Apple Home, Alexa): a small Node.js program the bridge runs when it's switched on in the app.
+# Node.js 18+ from the system (Raspberry Pi OS Bookworm has 18), else the bridge's own copy of Node.js 20.
+if [ -f "$HERE/matter/phev-matter.mjs" ]; then
+  install -d /opt/phev-bridge/matter
+  install -m 0644 "$HERE/matter/phev-matter.mjs" /opt/phev-bridge/matter/phev-matter.mjs
+  node_ok() { local v; v=$("$1" --version 2>/dev/null | sed -n 's/^v\([0-9]*\).*/\1/p'); [ -n "$v" ] && [ "$v" -ge 18 ]; }
+  have=0
+  if node_ok node || node_ok /opt/phev-bridge/node/bin/node; then have=1; fi
+  if [ $have -eq 0 ]; then
+    echo "Installing Node.js for the Matter link…"
+    { apt-get install -y -qq nodejs || { apt-get update -qq && apt-get install -y -qq nodejs; }; } >/dev/null 2>&1 || true
+    if node_ok node; then have=1; fi
+  fi
+  if [ $have -eq 0 ]; then
+    case "$(uname -m)" in aarch64) A=arm64 ;; armv7l) A=armv7l ;; x86_64) A=x64 ;; *) A="" ;; esac
+    if [ -n "$A" ]; then
+      echo "Getting Node.js 20 for the Matter link…"
+      t=$(mktemp -d)
+      base=https://nodejs.org/dist/latest-v20.x
+      if curl -fsSL --retry 3 -o "$t/SHASUMS256.txt" "$base/SHASUMS256.txt"; then
+        line=$(grep " node-v20[0-9.]*-linux-$A.tar.gz\$" "$t/SHASUMS256.txt" | head -n1 || true)
+        f=${line##* }
+        want=${line%% *}
+        if [ -n "$line" ] && curl -fsSL --retry 3 -o "$t/$f" "$base/$f" && [ "$(sha256sum "$t/$f" | cut -d' ' -f1)" = "$want" ]; then
+          rm -rf /opt/phev-bridge/node && mkdir -p /opt/phev-bridge/node
+          tar -xzf "$t/$f" -C /opt/phev-bridge/node --strip-components=1 && node_ok /opt/phev-bridge/node/bin/node && have=1
+        fi
+      fi
+      rm -rf "$t"
+    fi
+  fi
+  [ $have -eq 1 ] || echo "WARNING: Node.js 18 or newer isn't available, so the car can't be shared with Google Home (Matter)."
+fi
+
 systemctl daemon-reload
 systemctl enable phev-bridge >/dev/null
 systemctl restart phev-bridge

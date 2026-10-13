@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge page → Google Home (Matter). -->
+<resources>
+    <string name="mt_title">Google Home</string>
+    <string name="mt_subtitle">Also Apple Home and Alexa — through Matter, no Home Assistant or cloud needed</string>
+    <string name="mt_intro">Add the car to Google Home: switch the climate on and off in the Google Home app or by voice, and the lights if you like. The bridge speaks Matter, the standard Google Home uses for local devices. You need a Google speaker, display or TV box at home.</string>
+    <string name="mt_set_up">Set up</string>
+    <string name="mt_needs_update">Update the bridge to add the car to Google Home (Settings → Updates).</string>
+    <string name="mt_starting">Starting…</string>
+    <string name="mt_err_missing">The bridge can\'t run this yet: update the bridge (Settings → Updates). It installs what it needs (Node.js) by itself.</string>
+    <string name="mt_err_ipv6">IPv6 is switched off on the bridge computer, and Matter needs it.</string>
+    <string name="mt_err_other">Not running: %1$s</string>
+    <string name="mt_try_again">Try again</string>
+    <string name="mt_step1_title">1 · Once: let Google Home accept the bridge</string>
+    <string name="mt_step1_show">How</string>
+    <string name="mt_step1">Google Home only adds Matter devices it knows about. Register PHEV Link once, signed in with the same Google account as your Google Home:\n1. Open the Google Home Developer Console and create a project (any name).\n2. Choose “Add Matter integration”, then “Next: Setup”.\n3. Product name: PHEV Link. Device type: the closest one, e.g. Outlet.\n4. Vendor ID: 0xFFF1 (the test vendor). Product ID: 0x8000.\n5. Save &amp; continue. That\'s all — nothing is published.</string>
+    <string name="mt_open_console">Open the developer console</string>
+    <string name="mt_step2_title">2 · Add it in Google Home</string>
+    <string name="mt_step2">In the Google Home app: Devices → Add → Matter-enabled device, and scan this code (or enter the numbers). When Google says the device isn\'t certified, continue.</string>
+    <string name="mt_code">Code %1$s</string>
+    <string name="mt_copy_code">Copy</string>
+    <string name="mt_copied">Code copied</string>
+    <string name="mt_waiting">Waiting for Google Home to add it…</string>
+    <string name="mt_paired">Added to: %1$s</string>
+    <string name="mt_climate_name">Car climate</string>
+    <string name="mt_voice">Try “Hey Google, turn on %1$s”. You can rename the switches and put them in a room in the Google Home app.</string>
+    <string name="mt_away_note">While the car is away from home, its switches show as offline.</string>
+    <string name="mt_share_title">What to share</string>
+    <string name="mt_share_climate">Climate on/off</string>
+    <string name="mt_share_headlights">Headlights</string>
+    <string name="mt_share_parking">Parking lights</string>
+    <string name="mt_share_note">Changing this restarts the link for a moment; Google Home updates by itself (or say “Hey Google, sync my devices”).</string>
+    <string name="mt_other_title">Apple Home or Alexa too</string>
+    <string name="mt_other_apps">In the Google Home app open the car\'s device → Settings → Linked Matter apps &amp; services → Link apps &amp; services. It shows a new code: scan it in the other app.</string>
+    <string name="mt_remove">Remove from all apps</string>
+    <string name="mt_remove_confirm">Remove the car from Google Home and every other app? You can add it again with a new code.</string>
+    <string name="mt_off_done">Turned off.</string>
+    <string name="mt_removed">Removed — add it again with the new code.</string>
+    <string name="act_bridge_matter_on">%1$s shared the car with Google Home</string>
+    <string name="act_bridge_matter_off">%1$s stopped sharing the car with Google Home</string>
+    <string name="act_bridge_matter_reset">%1$s removed the car from Google Home and the other apps</string>
+</resources>

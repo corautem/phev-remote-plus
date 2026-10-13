@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge page → Google Home (Matter). -->
+<resources>
+    <string name="mt_title">Google Home</string>
+    <string name="mt_subtitle">Også Apple Home og Alexa – via Matter, uden Home Assistant eller sky</string>
+    <string name="mt_intro">Føj bilen til Google Home: tænd og sluk klimaet i Google Home-appen eller med stemmen, og lysene hvis du vil. Broen taler Matter, standarden Google Home bruger til lokale enheder. Du skal have en Google-højttaler, -skærm eller -tv-boks derhjemme.</string>
+    <string name="mt_set_up">Opsæt</string>
+    <string name="mt_needs_update">Opdater broen for at føje bilen til Google Home (Indstillinger → Opdateringer).</string>
+    <string name="mt_starting">Starter…</string>
+    <string name="mt_err_missing">Broen kan ikke køre dette endnu: opdater broen (Indstillinger → Opdateringer). Den installerer selv det, den skal bruge (Node.js).</string>
+    <string name="mt_err_ipv6">IPv6 er slået fra på broens computer, og Matter skal bruge det.</string>
+    <string name="mt_err_other">Kører ikke: %1$s</string>
+    <string name="mt_try_again">Prøv igen</string>
+    <string name="mt_step1_title">1 · Én gang: lad Google Home acceptere broen</string>
+    <string name="mt_step1_show">Sådan gør du</string>
+    <string name="mt_step1">Google Home tilføjer kun Matter-enheder, den kender. Registrer PHEV Link én gang, logget ind med samme Google-konto som Google Home:\n1. Åbn Google Home Developer Console, og opret et projekt (valgfrit navn).\n2. Vælg »Add Matter integration« og derefter »Next: Setup«.\n3. Product name: PHEV Link. Device type: den, der passer bedst, f.eks. Outlet.\n4. Vendor ID: 0xFFF1 (testleverandøren). Product ID: 0x8000.\n5. Save &amp; continue. Det er alt – intet bliver offentliggjort.</string>
+    <string name="mt_open_console">Åbn udviklerkonsollen</string>
+    <string name="mt_step2_title">2 · Tilføj den i Google Home</string>
+    <string name="mt_step2">I Google Home-appen: Enheder → Tilføj → Matter-aktiveret enhed, og scan denne kode (eller indtast tallene). Når Google siger, at enheden ikke er certificeret, fortsætter du.</string>
+    <string name="mt_code">Kode %1$s</string>
+    <string name="mt_copy_code">Kopiér</string>
+    <string name="mt_copied">Koden er kopieret</string>
+    <string name="mt_waiting">Venter på, at Google Home tilføjer den…</string>
+    <string name="mt_paired">Tilføjet til: %1$s</string>
+    <string name="mt_climate_name">Bilklima</string>
+    <string name="mt_voice">Prøv »Hey Google, tænd %1$s«. Du kan omdøbe kontakterne og placere dem i et rum i Google Home-appen.</string>
+    <string name="mt_away_note">Mens bilen er væk hjemmefra, vises kontakterne som offline.</string>
+    <string name="mt_share_title">Hvad der deles</string>
+    <string name="mt_share_climate">Klima til/fra</string>
+    <string name="mt_share_headlights">Forlygter</string>
+    <string name="mt_share_parking">Parkeringslys</string>
+    <string name="mt_share_note">Ændrer du dette, genstarter forbindelsen et øjeblik; Google Home opdaterer sig selv (eller sig »Hey Google, synkroniser mine enheder«).</string>
+    <string name="mt_other_title">Også Apple Home eller Alexa</string>
+    <string name="mt_other_apps">I Google Home-appen åbner du bilens enhed → Indstillinger → Tilknyttede Matter-apps og -tjenester → Tilknyt apps og tjenester. Den viser en ny kode: scan den i den anden app.</string>
+    <string name="mt_remove">Fjern fra alle apps</string>
+    <string name="mt_remove_confirm">Fjern bilen fra Google Home og alle andre apps? Du kan tilføje den igen med en ny kode.</string>
+    <string name="mt_off_done">Slået fra.</string>
+    <string name="mt_removed">Fjernet – tilføj den igen med den nye kode.</string>
+    <string name="act_bridge_matter_on">%1$s delte bilen med Google Home</string>
+    <string name="act_bridge_matter_off">%1$s holdt op med at dele bilen med Google Home</string>
+    <string name="act_bridge_matter_reset">%1$s fjernede bilen fra Google Home og de andre apps</string>
+</resources>

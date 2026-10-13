@@ -83,3 +83,29 @@ They are covered by this project's GPL-3.0-or-later license, and the guidance an
   this file. The other 215 (titles that did not match the English one, for example a different bank,
   sensor letter, side or component, plus some hand-reviewed titles) are translations from this project's
   glossary.
+
+## Matter program of the bridge (`bridge/matter`)
+
+The bridge's Matter program (`phev-matter.mjs`, which lets Google Home, Apple Home and Alexa add the car) is one file
+built with esbuild from the packages below. It ships in the Raspberry Pi bundle, not in the app.
+
+### matter.js
+
+- Project: https://github.com/project-chip/matter.js
+- Packages: `@matter/main`, `@matter/general`, `@matter/model`, `@matter/node`, `@matter/nodejs`, `@matter/protocol`,
+  `@matter/types` 0.15.6
+- Copyright: the matter.js authors (Project CHIP / Connectivity Standards Alliance contributors)
+- License: Apache License 2.0 (compatible with GPL-3.0)
+
+### noble cryptography
+
+- Projects: https://github.com/paulmillr/noble-curves (1.9.7), https://github.com/paulmillr/noble-hashes (1.8.0)
+- Copyright: Paul Miller
+- License: MIT
+
+### qrcode-generator
+
+- Project: https://github.com/kazuhikoarase/qrcode-generator (1.4.4)
+- Copyright: 2009 Kazuhiko Arase
+- License: MIT
+- Draws the pairing QR code the app shows.

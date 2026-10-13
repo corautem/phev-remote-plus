@@ -270,7 +270,7 @@ class SmartHome(
                 activity.add(Activity(now(), WHO, "shared.changed", mapOf("keys" to a.changes.keys.joinToString())))
                 dirty = true
             }
-            HomeAssistant.Action.ClimateOn -> scope.launch { run(climateCommand(), "climate on") }
+            HomeAssistant.Action.ClimateOn -> scope.launch { run(climateFor(), "climate on") }
             is HomeAssistant.Action.Car -> scope.launch { run(a.command, a.label) }
         }
     }
@@ -292,8 +292,8 @@ class SmartHome(
         dirty = true
     }
 
-    /** "Climate on" from the smart home: the shared one-tap choice (mode, time), from the weather when that is on. */
-    private fun climateCommand(): CarCommand.ClimateOn {
+    /** "Climate on" from a smart home: the shared one-tap choice (mode, time), from the weather when that is on. */
+    fun climateFor(): CarCommand.ClimateOn {
         val sh = shared.snapshot()
         val mode = quickMode(sh)
         val duration = quickDuration(sh)

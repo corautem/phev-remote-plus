@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Bridge page → Smart home (Home Assistant over MQTT). -->
 <resources>
-    <string name="sh_title">Smarta hem</string>
+    <string name="sh_title">Home Assistant</string>
     <string name="sh_intro">Visa bilen i Home Assistant: batteri, laddning, klimat av och på, lampor och händelser för dina automationer (färdigladdad, larm, bilen hemma). Google Home och Alexa kan sedan använda den via Home Assistant. Det går över MQTT: Mosquitto-tillägget i Home Assistant, eller en broker på den här bryggan.</string>
     <string name="sh_set_up">Konfigurera</string>
     <string name="sh_needs_update">Uppdatera bryggan för att koppla bilen till Home Assistant (Inställningar → Uppdateringar).</string>

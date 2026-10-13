@@ -41,6 +41,10 @@ import java.util.concurrent.TimeUnit
  *                          -> saved, (re)connected; answers once connected or failed (a few seconds)
  *   POST /api/mqtt/find    MQTT brokers on the home network (and which run Home Assistant)
  *   POST /api/mqtt/local   set up an MQTT broker (Mosquitto) on the bridge computer and use it (runs in the background)
+ *   GET  /api/matter       the car in Google Home / Apple Home / Alexa through Matter: on/off, pairing code (QR and
+ *                          manual), paired controllers, what is shared
+ *   POST /api/matter       {"enabled":true,"devices":{"climate":true,"headlights":false,"parking":false},"language":"nb"}
+ *   POST /api/matter/reset remove every pairing; a new code
  *   POST /api/carwifi/rejoin -> if the bridge is off the car's Wi-Fi (and not paused), ask NetworkManager to join it now;
  *                          {"connected":…,"tried":…,"message":…,"inSight":…,"signal":…} (takes up to ~35 s)
  *   POST /api/pair/open    {"minutes":10} -> "Add another phone": pairing open for one more phone (needs the token)
@@ -76,6 +80,7 @@ class HttpApi(
     private val activity: ActivityLog? = null,
     private val watch: CarWifiWatch? = null,
     private val smartHome: SmartHome? = null,
+    private val matter: MatterLink? = null,
     private val restart: () -> Unit = {},
 ) {
     private lateinit var server: HttpServer
@@ -125,6 +130,21 @@ class HttpApi(
                 val r = w.check(rejoinNow = true, who = who(ex))
                 log.link("API: rejoin the car's Wi-Fi, asked by ${who(ex)} — ${r.message}")
                 json(ex, 200, linkedMapOf<String, Any?>("ok" to true, "pausedUntilMs" to wifi.pausedUntilMs) + r.toMap())
+            }
+            path == "matter" && ex.requestMethod == "GET" -> withMatter(ex) { json(ex, 200, it.describe()) }
+            path == "matter" && ex.requestMethod == "POST" -> withMatter(ex) { m ->
+                val wasOn = m.settings.enabled
+                m.change(body(ex), who(ex))
+                if (m.settings.enabled != wasOn) record(ex, if (m.settings.enabled) "bridge.matter_on" else "bridge.matter_off", emptyMap(), null)
+                // Starting takes a moment: answer with the code once it is there (or after a few seconds).
+                val until = System.currentTimeMillis() + 8_000
+                while (m.settings.enabled && System.currentTimeMillis() < until && m.describe()["phase"] == "starting") Thread.sleep(200)
+                json(ex, 200, linkedMapOf<String, Any?>("ok" to true) + m.describe())
+            }
+            path == "matter/reset" && ex.requestMethod == "POST" -> withMatter(ex) { m ->
+                m.reset(who(ex))
+                record(ex, "bridge.matter_reset", emptyMap(), null)
+                json(ex, 200, linkedMapOf<String, Any?>("ok" to true) + m.describe())
             }
             path == "mqtt" && ex.requestMethod == "GET" -> withSmartHome(ex) { json(ex, 200, it.describe()) }
             path == "mqtt" && ex.requestMethod == "POST" -> withSmartHome(ex) { sh ->
@@ -293,6 +313,11 @@ class HttpApi(
 
     private fun record(ex: HttpExchange, code: String, params: Map<String, Any?>, failure: String?) {
         activity?.add(Activity(System.currentTimeMillis(), who(ex), code, params, ok = failure == null, detail = failure))
+    }
+
+    private inline fun withMatter(ex: HttpExchange, block: (MatterLink) -> Unit) {
+        val m = matter ?: return json(ex, 503, mapOf("ok" to false, "error" to "Matter is not available here"))
+        block(m)
     }
 
     private inline fun withSmartHome(ex: HttpExchange, block: (SmartHome) -> Unit) {

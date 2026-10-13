@@ -222,6 +222,6 @@ class BridgeService(
         val BUILD: String = BridgeService::class.java.`package`?.implementationVersion ?: "dev"
 
         /** What this bridge can do beyond the car link (the app checks before offering the setup wizard or updates). */
-        val FEATURES = listOf("pair", "carwifi", "config", "system", "update", "restart", "carwifi-pause", "pair-invite", "shared", "departures", "charge-timer", "activity", "carwifi-rejoin", "smarthome")
+        val FEATURES = listOf("pair", "carwifi", "config", "system", "update", "restart", "carwifi-pause", "pair-invite", "shared", "departures", "charge-timer", "activity", "carwifi-rejoin", "smarthome", "matter")
     }
 }

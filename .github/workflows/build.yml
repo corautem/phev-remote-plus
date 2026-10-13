@@ -41,6 +41,43 @@ jobs:
           set -o pipefail
           ./gradlew :bridge:fatJar --stacktrace 2>&1 | tee -a build.log
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      # Matter (Google Home, Apple Home, Alexa): a small Node.js program bundled into one file for the Pi.
+      - name: Build the Matter program
+        run: |
+          set -o pipefail
+          cd bridge/matter
+          npm ci --no-audit --no-fund 2>&1 | tail -5 | tee -a ../../build.log
+          npm run build 2>&1 | tee -a ../../build.log
+          test -s dist/phev-matter.mjs
+
+      # Pairs the bundled program with matter.js' own controller (standing in for Google Home). Kept apart: the
+      # runner's network may not allow it, so the result is reported, not fatal.
+      - name: Test the Matter program
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd bridge/matter
+          set +e
+          timeout 180 node test/pairing-test.mjs dist/phev-matter.mjs > matter-test.log 2>&1
+          code=$?
+          echo "exit $code" >> matter-test.log
+          tail -40 matter-test.log
+          content=$(tail -c 200000 matter-test.log | base64 -w0)
+          if ! gh api "repos/${{ github.repository }}/branches/ci-logs" >/dev/null 2>&1; then
+            main_sha=$(gh api "repos/${{ github.repository }}/git/ref/heads/main" --jq .object.sha)
+            gh api -X POST "repos/${{ github.repository }}/git/refs" -f ref=refs/heads/ci-logs -f sha="$main_sha" >/dev/null
+          fi
+          sha=$(gh api "repos/${{ github.repository }}/contents/matter-test.log?ref=ci-logs" --jq .sha 2>/dev/null || true)
+          args=(-X PUT "repos/${{ github.repository }}/contents/matter-test.log" -f message="Matter test run ${{ github.run_number }}" -f branch=ci-logs -f content="$content")
+          [ -n "$sha" ] && args+=(-f sha="$sha")
+          gh api "${args[@]}" >/dev/null || true
+          exit $code
+
       - name: Build Android app
         run: |
           set -o pipefail
@@ -54,6 +91,8 @@ jobs:
           # One-file bundle for the Raspberry Pi: jar + installer + systemd unit.
           mkdir -p bundle/phev-bridge
           cp bridge/build/dist/phev-bridge.jar bridge/deploy/install.sh bridge/deploy/carwifi.sh bridge/deploy/bridgectl.sh bridge/deploy/phev-bridge.service bundle/phev-bridge/
+          mkdir -p bundle/phev-bridge/matter
+          cp bridge/matter/dist/phev-matter.mjs bundle/phev-bridge/matter/
           echo "1.0.${{ github.run_number }}" > bundle/phev-bridge/VERSION
           chmod +x bundle/phev-bridge/install.sh bundle/phev-bridge/carwifi.sh bundle/phev-bridge/bridgectl.sh
           tar -czf out/phev-bridge-pi.tar.gz -C bundle phev-bridge

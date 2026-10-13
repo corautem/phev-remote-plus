@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge page → Google Home (Matter). -->
+<resources>
+    <string name="mt_title">Google Home</string>
+    <string name="mt_subtitle">Auch Apple Home und Alexa – über Matter, ohne Home Assistant oder Cloud</string>
+    <string name="mt_intro">Füg das Auto zu Google Home hinzu: Klima in der Google-Home-App oder per Sprache ein- und ausschalten, und auf Wunsch das Licht. Die Bridge spricht Matter, den Standard, den Google Home für lokale Geräte nutzt. Du brauchst zu Hause einen Google-Lautsprecher, ein Display oder eine TV-Box.</string>
+    <string name="mt_set_up">Einrichten</string>
+    <string name="mt_needs_update">Aktualisiere die Bridge, um das Auto zu Google Home hinzuzufügen (Optionen → Updates).</string>
+    <string name="mt_starting">Starte…</string>
+    <string name="mt_err_missing">Die Bridge kann das noch nicht: aktualisiere die Bridge (Optionen → Updates). Sie installiert selbst, was sie braucht (Node.js).</string>
+    <string name="mt_err_ipv6">IPv6 ist auf dem Computer der Bridge ausgeschaltet, und Matter braucht es.</string>
+    <string name="mt_err_other">Läuft nicht: %1$s</string>
+    <string name="mt_try_again">Erneut versuchen</string>
+    <string name="mt_step1_title">1 · Einmalig: Google Home die Bridge erlauben</string>
+    <string name="mt_step1_show">So geht\'s</string>
+    <string name="mt_step1">Google Home fügt nur Matter-Geräte hinzu, die es kennt. Registrier PHEV Link einmal, angemeldet mit demselben Google-Konto wie Google Home:\n1. Öffne die Google Home Developer Console und leg ein Projekt an (beliebiger Name).\n2. Wähl „Add Matter integration“ und dann „Next: Setup“.\n3. Product name: PHEV Link. Device type: der passendste, z. B. Outlet.\n4. Vendor ID: 0xFFF1 (der Testhersteller). Product ID: 0x8000.\n5. Save &amp; continue. Das war\'s – nichts wird veröffentlicht.</string>
+    <string name="mt_open_console">Entwicklerkonsole öffnen</string>
+    <string name="mt_step2_title">2 · In Google Home hinzufügen</string>
+    <string name="mt_step2">In der Google-Home-App: Geräte → Hinzufügen → Matter-fähiges Gerät, und scanne diesen Code (oder gib die Zahlen ein). Wenn Google sagt, dass das Gerät nicht zertifiziert ist, mach weiter.</string>
+    <string name="mt_code">Code %1$s</string>
+    <string name="mt_copy_code">Kopieren</string>
+    <string name="mt_copied">Code kopiert</string>
+    <string name="mt_waiting">Warte darauf, dass Google Home es hinzufügt…</string>
+    <string name="mt_paired">Hinzugefügt zu: %1$s</string>
+    <string name="mt_climate_name">Autoklima</string>
+    <string name="mt_voice">Probier „Hey Google, schalte %1$s ein“. In der Google-Home-App kannst du die Schalter umbenennen und einem Raum zuordnen.</string>
+    <string name="mt_away_note">Solange das Auto nicht zu Hause ist, erscheinen seine Schalter als offline.</string>
+    <string name="mt_share_title">Was geteilt wird</string>
+    <string name="mt_share_climate">Klima an/aus</string>
+    <string name="mt_share_headlights">Scheinwerfer</string>
+    <string name="mt_share_parking">Standlicht</string>
+    <string name="mt_share_note">Eine Änderung startet die Verbindung kurz neu; Google Home aktualisiert sich selbst (oder sag „Hey Google, synchronisiere meine Geräte“).</string>
+    <string name="mt_other_title">Auch Apple Home oder Alexa</string>
+    <string name="mt_other_apps">Öffne in der Google-Home-App das Gerät des Autos → Einstellungen → Verknüpfte Matter-Apps und -Dienste → Apps und Dienste verknüpfen. Es zeigt einen neuen Code: scanne ihn in der anderen App.</string>
+    <string name="mt_remove">Aus allen Apps entfernen</string>
+    <string name="mt_remove_confirm">Das Auto aus Google Home und allen anderen Apps entfernen? Du kannst es mit einem neuen Code wieder hinzufügen.</string>
+    <string name="mt_off_done">Ausgeschaltet.</string>
+    <string name="mt_removed">Entfernt – füg es mit dem neuen Code wieder hinzu.</string>
+    <string name="act_bridge_matter_on">%1$s hat das Auto mit Google Home geteilt</string>
+    <string name="act_bridge_matter_off">%1$s teilt das Auto nicht mehr mit Google Home</string>
+    <string name="act_bridge_matter_reset">%1$s hat das Auto aus Google Home und den anderen Apps entfernt</string>
+</resources>

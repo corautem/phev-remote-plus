@@ -319,6 +319,9 @@ object ActivityLabels {
             "bridge.carwifi_back" -> minutes?.let { res.getString(R.string.act_bridge_back, Format.minutes(it, ctx)) } ?: res.getString(R.string.act_bridge_resumed)
             "bridge.smarthome_on" -> res.getString(R.string.act_bridge_smarthome_on, who)
             "bridge.smarthome_off" -> res.getString(R.string.act_bridge_smarthome_off, who)
+            "bridge.matter_on" -> res.getString(R.string.act_bridge_matter_on, who)
+            "bridge.matter_off" -> res.getString(R.string.act_bridge_matter_off, who)
+            "bridge.matter_reset" -> res.getString(R.string.act_bridge_matter_reset, who)
             "bridge.paired" -> res.getString(R.string.act_bridge_paired, who)
             "bridge.invite" -> res.getString(R.string.act_bridge_invite, who)
             else -> null

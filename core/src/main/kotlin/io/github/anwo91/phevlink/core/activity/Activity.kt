@@ -251,6 +251,9 @@ object ActivityText {
             "bridge.carwifi_back" -> "The bridge is back on the car's Wi-Fi" + (a.int("minutes")?.let { " after ${hm(it)}" } ?: "")
             "bridge.smarthome_on" -> "$who connected the car to the smart home" + (a.str("broker")?.let { " (MQTT broker $it)" } ?: "")
             "bridge.smarthome_off" -> "$who switched the smart-home link off"
+            "bridge.matter_on" -> "$who shared the car with Google Home / Matter"
+            "bridge.matter_off" -> "$who stopped sharing the car through Matter"
+            "bridge.matter_reset" -> "$who removed the car's Matter pairings"
             "bridge.paired" -> "$who was paired with the bridge"
             "bridge.invite" -> "$who opened pairing for another phone"
             else -> "$who: ${a.code}"

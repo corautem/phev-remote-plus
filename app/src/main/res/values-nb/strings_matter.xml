@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge page → Google Home (Matter). -->
+<resources>
+    <string name="mt_title">Google Home</string>
+    <string name="mt_subtitle">Også Apple Home og Alexa – via Matter, uten Home Assistant eller sky</string>
+    <string name="mt_intro">Legg bilen til i Google Home: slå klimaet av og på i Google Home-appen eller med stemmen, og lysene om du vil. Broen snakker Matter, standarden Google Home bruker for lokale enheter. Du trenger en Google-høyttaler, -skjerm eller -TV-boks hjemme.</string>
+    <string name="mt_set_up">Sett opp</string>
+    <string name="mt_needs_update">Oppdater broen for å legge bilen til i Google Home (Innstillinger → Oppdateringer).</string>
+    <string name="mt_starting">Starter…</string>
+    <string name="mt_err_missing">Broen kan ikke kjøre dette ennå: oppdater broen (Innstillinger → Oppdateringer). Den installerer det den trenger (Node.js) selv.</string>
+    <string name="mt_err_ipv6">IPv6 er slått av på broens datamaskin, og Matter trenger det.</string>
+    <string name="mt_err_other">Kjører ikke: %1$s</string>
+    <string name="mt_try_again">Prøv igjen</string>
+    <string name="mt_step1_title">1 · Én gang: la Google Home godta broen</string>
+    <string name="mt_step1_show">Slik gjør du</string>
+    <string name="mt_step1">Google Home legger bare til Matter-enheter den kjenner. Registrer PHEV Link én gang, logget inn med samme Google-konto som Google Home:\n1. Åpne Google Home Developer Console og opprett et prosjekt (hvilket som helst navn).\n2. Velg «Add Matter integration», og så «Next: Setup».\n3. Product name: PHEV Link. Device type: den som passer best, f.eks. Outlet.\n4. Vendor ID: 0xFFF1 (testleverandøren). Product ID: 0x8000.\n5. Save &amp; continue. Det er alt – ingenting blir publisert.</string>
+    <string name="mt_open_console">Åpne utviklerkonsollen</string>
+    <string name="mt_step2_title">2 · Legg den til i Google Home</string>
+    <string name="mt_step2">I Google Home-appen: Enheter → Legg til → Matter-aktivert enhet, og skann denne koden (eller skriv inn tallene). Når Google sier at enheten ikke er sertifisert, fortsetter du.</string>
+    <string name="mt_code">Kode %1$s</string>
+    <string name="mt_copy_code">Kopier</string>
+    <string name="mt_copied">Koden er kopiert</string>
+    <string name="mt_waiting">Venter på at Google Home legger den til…</string>
+    <string name="mt_paired">Lagt til i: %1$s</string>
+    <string name="mt_climate_name">Bilklima</string>
+    <string name="mt_voice">Prøv «Hey Google, slå på %1$s». Du kan gi bryterne nye navn og legge dem i et rom i Google Home-appen.</string>
+    <string name="mt_away_note">Mens bilen er borte hjemmefra, vises bryterne som frakoblet.</string>
+    <string name="mt_share_title">Hva som deles</string>
+    <string name="mt_share_climate">Klima av/på</string>
+    <string name="mt_share_headlights">Frontlys</string>
+    <string name="mt_share_parking">Parkeringslys</string>
+    <string name="mt_share_note">Endrer du dette, starter koblingen på nytt et øyeblikk; Google Home oppdaterer seg selv (eller si «Hey Google, synkroniser enhetene mine»).</string>
+    <string name="mt_other_title">Apple Home eller Alexa også</string>
+    <string name="mt_other_apps">I Google Home-appen åpner du bilens enhet → Innstillinger → Tilknyttede Matter-apper og -tjenester → Knytt til apper og tjenester. Den viser en ny kode: skann den i den andre appen.</string>
+    <string name="mt_remove">Fjern fra alle apper</string>
+    <string name="mt_remove_confirm">Fjerne bilen fra Google Home og alle andre apper? Du kan legge den til igjen med en ny kode.</string>
+    <string name="mt_off_done">Slått av.</string>
+    <string name="mt_removed">Fjernet – legg den til igjen med den nye koden.</string>
+    <string name="act_bridge_matter_on">%1$s delte bilen med Google Home</string>
+    <string name="act_bridge_matter_off">%1$s sluttet å dele bilen med Google Home</string>
+    <string name="act_bridge_matter_reset">%1$s fjernet bilen fra Google Home og de andre appene</string>
+</resources>

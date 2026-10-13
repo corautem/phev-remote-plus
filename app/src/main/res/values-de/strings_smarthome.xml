@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Bridge page → Smart home (Home Assistant over MQTT). -->
 <resources>
-    <string name="sh_title">Smart Home</string>
+    <string name="sh_title">Home Assistant</string>
     <string name="sh_intro">Zeig das Auto in Home Assistant: Batterie, Laden, Klima an und aus, Licht und Ereignisse für deine Automationen (fertig geladen, Alarm, Auto zu Hause). Google Home und Alexa können es dann über Home Assistant nutzen. Es läuft über MQTT: das Mosquitto-Add-on in Home Assistant oder einen Broker auf dieser Bridge.</string>
     <string name="sh_set_up">Einrichten</string>
     <string name="sh_needs_update">Aktualisiere die Bridge, um das Auto mit Home Assistant zu verbinden (Optionen → Updates).</string>

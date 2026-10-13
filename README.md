@@ -33,6 +33,8 @@ The main goal: **a connection that just works.**
 - **Smart home** — with the bridge, the car shows up in Home Assistant by itself (MQTT discovery): battery, charging,
   climate switch, lights, charge buttons, and events for automations (charging finished, alarm, car home or away).
   Google Home and Alexa through Home Assistant. Set up from the app; the bridge can run the MQTT broker itself.
+  Or straight into **Google Home** (also Apple Home, Alexa) without Home Assistant: the bridge speaks Matter — scan
+  the code in the app.
 - **Charge timer** — set the car's own charge timer (2014–2017 cars): up to three time windows, each on the days you
   pick, plus "full charge" days; the car keeps it and waits for the window when plugged in. "Charge now" skips it once.
 - **Departure timers** — "ready to leave at 07:30 on weekdays": 35 min before, the app checks the forecast and starts
@@ -212,6 +214,21 @@ module never rests may drain it over long periods.
 **Security:** never expose port 8099 to the internet directly — use Tailscale/WireGuard. Anyone with the token can
 control the car's climate and lights (not locks: the protocol has no remote unlock).
 
+### Google Home, Apple Home, Alexa (Matter)
+
+The bridge can show up in Google Home as a Matter bridge — no Home Assistant, no cloud: a small Node.js program
+(`bridge/matter`, matter.js) runs next to the bridge when switched on in the app (**Bridge page → Google Home → Set
+up**). It shares the car's climate (on/off), and optionally the headlights and parking lights; while the car is away
+they show as offline. Commands run like a phone's and appear in the activity log as "Google Home" (or Apple Home,
+Alexa…). Climate on uses the shared one-tap choice (and the weather when smart).
+
+Google Home only adds uncertified Matter devices that are registered in its developer console under the same Google
+account, once: console.home.google.com → create a project → Add Matter integration → product name PHEV Link → Vendor ID
+`0xFFF1`, Product ID `0x8000` → Save. Then Google Home app → Devices → Add → Matter-enabled device → scan the code the
+app shows. A Google speaker, display or TV box at home is needed (Matter's hub). Apple Home and Alexa can be added
+afterwards from Google Home (Linked Matter apps & services). The bridge installer sets up Node.js (18+) when missing;
+Matter needs IPv6 on the bridge's home network (on by default).
+
 ### Smart home (Home Assistant)
 
 The bridge can put the car into Home Assistant over MQTT, with Home Assistant's discovery: no YAML, the car just shows
@@ -265,6 +282,8 @@ like the bridge's own port, never open it to the internet.
 | POST | `/api/carwifi/pause`, `/api/carwifi/resume` | `{"minutes":10}` — leave the car's Wi-Fi so a phone can use it (comes back by itself) |
 | GET/POST | `/api/mqtt` | smart-home link settings and status / save and (re)connect: `{"enabled":true,"host":"…","port":1883,"username":"…","password":"…","language":"nb"}` |
 | POST | `/api/mqtt/find`, `/api/mqtt/local` | MQTT brokers on the home network / set up Mosquitto on the bridge computer and use it |
+| GET/POST | `/api/matter` | Google Home / Matter: status, pairing code (QR rows, manual code), paired apps / `{"enabled":true,"devices":{"climate":true,"headlights":false,"parking":false}}` |
+| POST | `/api/matter/reset` | remove every Matter pairing; a new code |
 | POST | `/api/carwifi/rejoin` | off the car's Wi-Fi and not paused: join it now; `connected`, `tried`, `inSight`, `signal` (takes up to ~35 s) |
 | POST | `/api/config` | `{"emulator":false}` — saved, then the bridge restarts |
 | GET | `/api/system` | The computer: model, OS, uptime, temperature, memory, disk, addresses, bridge build |

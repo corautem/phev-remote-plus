@@ -1,5 +1,7 @@
 package io.github.anwo91.phevlink.ui.home.carpic
 
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -367,6 +369,7 @@ fun CarPictureOptions(
 }
 
 /** Round swatches for the car's paint; the first follows the app's colours. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun ColourSwatches(selected: CarColour, onPick: (CarColour) -> Unit) {
     val cs = MaterialTheme.colorScheme

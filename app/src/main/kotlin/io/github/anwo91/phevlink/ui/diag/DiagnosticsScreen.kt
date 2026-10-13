@@ -2,6 +2,15 @@ package io.github.anwo91.phevlink.ui.diag
 
 import android.content.Intent
 import androidx.annotation.StringRes
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,7 +30,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -63,11 +71,13 @@ import io.github.anwo91.phevlink.util.Labels
 import java.time.LocalDateTime
 
 private enum class Filter(@StringRes val label: Int, val kinds: Set<LogKind>) {
-    ALL(R.string.diag_filter_all, LogKind.entries.toSet()),
+    /** Everything except the raw packets (the default: what happened, without the wire noise). */
+    EVENTS(R.string.diag_filter_events, LogKind.entries.toSet() - setOf(LogKind.TX, LogKind.RX)),
     LINK(R.string.diag_connection, setOf(LogKind.LINK, LogKind.WARN, LogKind.ERROR)),
     CMDS(R.string.diag_filter_commands, setOf(LogKind.CMD, LogKind.ERROR, LogKind.WARN)),
-    PACKETS(R.string.diag_filter_packets, setOf(LogKind.TX, LogKind.RX)),
     STATE(R.string.diag_filter_state, setOf(LogKind.STATE)),
+    PACKETS(R.string.diag_filter_packets, setOf(LogKind.TX, LogKind.RX)),
+    ALL(R.string.diag_filter_all, LogKind.entries.toSet()),
 }
 
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
@@ -92,58 +102,116 @@ fun DiagnosticsScreen(vm: MainViewModel, modifier: Modifier) {
 private fun LogTab(vm: MainViewModel) {
     val ctx = LocalContext.current
     val version by vm.logVersion.collectAsState()
-    var filter by rememberSaveable { mutableStateOf(Filter.ALL) }
+    var filter by rememberSaveable { mutableStateOf(Filter.EVENTS) }
     var previous by rememberSaveable { mutableStateOf(false) }
+    var menu by remember { mutableStateOf(false) }
     val entries = remember(version, filter) { vm.log.snapshot().filter { it.kind in filter.kinds } }
     val listState = rememberLazyListState()
     LaunchedEffect(version, filter) { if (entries.isNotEmpty() && !previous) listState.scrollToItem(entries.size - 1) }
 
     Column(Modifier.fillMaxSize()) {
-        Row(
-            Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Filter.entries.forEach { f -> FilterChip(selected = filter == f, onClick = { filter = f }, label = { Text(stringResource(f.label)) }) }
-            IconButton(onClick = { previous = !previous }) { Icon(PhevIcons.History, stringResource(R.string.diag_previous_session)) }
+        // One tidy toolbar: what to show on the left, previous session / share / clear on the right.
+        Row(Modifier.fillMaxWidth().padding(start = 4.dp, end = 4.dp, top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+            Box {
+                TextButton(onClick = { menu = true }, enabled = !previous) {
+                    Text(stringResource(R.string.diag_show_filter, stringResource(filter.label)))
+                    Spacer(Modifier.width(4.dp))
+                    Icon(PhevIcons.ChevronDown, null, modifier = Modifier.size(18.dp))
+                }
+                DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+                    Filter.entries.forEach { f ->
+                        DropdownMenuItem(
+                            text = { Text(stringResource(f.label)) },
+                            onClick = { filter = f; menu = false },
+                            trailingIcon = if (f == filter) { { Icon(PhevIcons.Check, null) } } else null,
+                        )
+                    }
+                }
+            }
+            Spacer(Modifier.weight(1f))
+            IconButton(onClick = { previous = !previous }) {
+                Icon(
+                    PhevIcons.History, stringResource(R.string.diag_previous_session),
+                    tint = if (previous) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
             IconButton(onClick = {
                 val text = if (previous) vm.previousSessionLog() else vm.log.dump()
                 val send = Intent(Intent.ACTION_SEND).setType("text/plain")
                     .putExtra(Intent.EXTRA_SUBJECT, ctx.getString(R.string.diag_share_subject, LocalDateTime.now().toString()))
                     .putExtra(Intent.EXTRA_TEXT, text)
                 ctx.startActivity(Intent.createChooser(send, ctx.getString(R.string.diag_share_log)))
-            }) { Icon(PhevIcons.Share, stringResource(R.string.diag_share)) }
+            }) { Icon(PhevIcons.Share, stringResource(R.string.diag_share), tint = MaterialTheme.colorScheme.onSurfaceVariant) }
             val msgCleared = stringResource(R.string.msg_log_cleared)
-            IconButton(onClick = { vm.log.clear(); vm.toast(msgCleared) }) { Icon(PhevIcons.Delete, stringResource(R.string.diag_clear)) }
+            IconButton(onClick = { vm.log.clear(); vm.toast(msgCleared) }, enabled = !previous) {
+                Icon(PhevIcons.Delete, stringResource(R.string.diag_clear), tint = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
         }
+        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
         if (previous) {
+            Row(
+                Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.secondaryContainer).padding(start = 16.dp, end = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    stringResource(R.string.diag_previous_session), style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer, modifier = Modifier.weight(1f),
+                )
+                TextButton(onClick = { previous = false }) { Text(stringResource(R.string.diag_back_to_now)) }
+            }
             val noSession = stringResource(R.string.diag_no_saved_session)
             val text = remember { vm.previousSessionLog().ifBlank { noSession } }
             Text(
-                text, style = Mono,
-                modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).horizontalScroll(rememberScrollState()).padding(8.dp),
+                text, style = Mono, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).horizontalScroll(rememberScrollState()).padding(12.dp),
             )
+        } else if (entries.isEmpty()) {
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(stringResource(R.string.diag_empty), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
         } else {
-            LazyColumn(state = listState, modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(8.dp)) {
+            LazyColumn(state = listState, modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)) {
                 items(entries) { e -> LogLine(e) }
             }
         }
     }
 }
 
+/** One line: the time, a coloured dot for the kind, the text (warnings and errors in their colour); packets in mono with their bytes. */
 @Composable
 private fun LogLine(e: LogEntry) {
     val s = LocalStatus.current
-    val color = when (e.kind) {
+    val kindColor = when (e.kind) {
         LogKind.ERROR -> s.bad
         LogKind.WARN -> s.warn
         LogKind.LINK -> MaterialTheme.colorScheme.primary
         LogKind.CMD -> s.charge
         LogKind.STATE -> s.good
-        else -> MaterialTheme.colorScheme.onSurfaceVariant
+        else -> MaterialTheme.colorScheme.outline
     }
-    Column(Modifier.padding(vertical = 2.dp)) {
-        Text("${Format.clock(e.timeMs)}:${"%02d".format((e.timeMs / 1000) % 60)} ${e.kind.tag} ${e.text}", style = Mono, color = color)
-        if (e.rawHex != null) Text("    ${e.xor?.let { "x%02x ".format(it) } ?: ""}${e.rawHex}", style = Mono, color = Color.Gray)
+    val packet = e.kind == LogKind.TX || e.kind == LogKind.RX
+    val muted = MaterialTheme.colorScheme.onSurfaceVariant
+    Row(Modifier.fillMaxWidth().padding(vertical = 3.dp)) {
+        Text(
+            "${Format.clock(e.timeMs)}:${"%02d".format((e.timeMs / 1000) % 60)}",
+            style = Mono.copy(fontSize = 11.sp), color = muted, modifier = Modifier.width(58.dp).padding(top = 1.dp),
+        )
+        Box(Modifier.padding(top = 5.dp).size(7.dp).background(kindColor, CircleShape))
+        Spacer(Modifier.width(8.dp))
+        Column(Modifier.weight(1f)) {
+            Text(
+                (if (packet) e.kind.tag + " " else "") + e.text,
+                style = if (packet) Mono.copy(fontSize = 11.sp) else MaterialTheme.typography.bodySmall,
+                color = when (e.kind) {
+                    LogKind.ERROR, LogKind.WARN -> kindColor
+                    LogKind.TX, LogKind.RX -> muted
+                    else -> MaterialTheme.colorScheme.onSurface
+                },
+            )
+            if (e.rawHex != null) {
+                Text("${e.xor?.let { "x%02x ".format(it) } ?: ""}${e.rawHex}", style = Mono.copy(fontSize = 10.sp), color = Color.Gray)
+            }
+        }
     }
 }
 

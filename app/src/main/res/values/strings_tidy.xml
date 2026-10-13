@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Grouped settings page, tidier log page. -->
+<resources>
+    <string name="set_group_connection">Car connection</string>
+    <string name="set_group_climate">Climate and alerts</string>
+    <string name="set_group_look">Look and language</string>
+    <string name="set_group_other">Other</string>
+    <string name="set_sum_not_set">Not set</string>
+    <string name="set_sum_no_bridge">no bridge</string>
+    <string name="set_sum_on_of">On · %1$d of %2$d</string>
+    <string name="set_sum_off">Off</string>
+    <string name="set_sum_stay">Why the link drops, and phone tips</string>
+    <string name="set_sum_quick">%1$s, %2$d min</string>
+    <string name="set_sum_quick_smart">%1$s, %2$d min · adjusts to the weather</string>
+    <string name="set_sum_demo">Try the app with a simulated car</string>
+    <string name="set_sum_advanced">Car clock, range and protocol</string>
+    <string name="set_bridge_manual">Address and token (by hand)</string>
+    <string name="diag_filter_events">Events</string>
+    <string name="diag_show_filter">Show: %1$s</string>
+    <string name="diag_back_to_now">Back to now</string>
+    <string name="diag_empty">Nothing here yet.</string>
+</resources>

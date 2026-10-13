@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Grouped settings page, tidier log page. -->
+<resources>
+    <string name="set_group_connection">Forbindelse til bilen</string>
+    <string name="set_group_climate">Klima og advarsler</string>
+    <string name="set_group_look">Udseende og sprog</string>
+    <string name="set_group_other">Andet</string>
+    <string name="set_sum_not_set">Ikke angivet</string>
+    <string name="set_sum_no_bridge">ingen bro</string>
+    <string name="set_sum_on_of">Til · %1$d af %2$d</string>
+    <string name="set_sum_off">Fra</string>
+    <string name="set_sum_stay">Hvorfor forbindelsen falder ud, og tips til telefonen</string>
+    <string name="set_sum_quick">%1$s, %2$d min</string>
+    <string name="set_sum_quick_smart">%1$s, %2$d min · tilpasses vejret</string>
+    <string name="set_sum_demo">Prøv appen med en simuleret bil</string>
+    <string name="set_sum_advanced">Bilens ur, rækkevidde og protokol</string>
+    <string name="set_bridge_manual">Adresse og token (manuelt)</string>
+    <string name="diag_filter_events">Hændelser</string>
+    <string name="diag_show_filter">Vis: %1$s</string>
+    <string name="diag_back_to_now">Tilbage til nu</string>
+    <string name="diag_empty">Intet her endnu.</string>
+</resources>

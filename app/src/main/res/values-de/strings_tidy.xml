@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Grouped settings page, tidier log page. -->
+<resources>
+    <string name="set_group_connection">Verbindung zum Auto</string>
+    <string name="set_group_climate">Klima und Benachrichtigungen</string>
+    <string name="set_group_look">Aussehen und Sprache</string>
+    <string name="set_group_other">Sonstiges</string>
+    <string name="set_sum_not_set">Nicht festgelegt</string>
+    <string name="set_sum_no_bridge">keine Bridge</string>
+    <string name="set_sum_on_of">An · %1$d von %2$d</string>
+    <string name="set_sum_off">Aus</string>
+    <string name="set_sum_stay">Warum die Verbindung abbricht, und Tipps fürs Handy</string>
+    <string name="set_sum_quick">%1$s, %2$d min</string>
+    <string name="set_sum_quick_smart">%1$s, %2$d min · passt sich dem Wetter an</string>
+    <string name="set_sum_demo">Probier die App mit einem simulierten Auto aus</string>
+    <string name="set_sum_advanced">Uhr des Autos, Reichweite und Protokoll</string>
+    <string name="set_bridge_manual">Adresse und Token (von Hand)</string>
+    <string name="diag_filter_events">Ereignisse</string>
+    <string name="diag_show_filter">Zeige: %1$s</string>
+    <string name="diag_back_to_now">Zurück zu jetzt</string>
+    <string name="diag_empty">Noch nichts hier.</string>
+</resources>

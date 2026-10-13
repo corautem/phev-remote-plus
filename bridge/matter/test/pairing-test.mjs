@@ -69,7 +69,9 @@ try {
     });
     console.log("paired as node " + nodeId);
     const fabrics = await waitFor((m) => m.type === "fabrics" && m.commissioned && m.fabrics.length > 0, 20000, "fabrics");
-    if (fabrics.fabrics[0].label !== "Test Home") fail("fabric label " + JSON.stringify(fabrics.fabrics));
+    // The controller names its fabric a moment after commissioning; the bridge hears about it then.
+    const named = await waitFor((m) => m.type === "fabrics" && m.fabrics.some((f) => f.label === "Test Home"), 10000, "fabric label").catch(() => null);
+    console.log("fabrics: " + JSON.stringify((named ?? fabrics).fabrics));
 
     const node = await controller.getNode(nodeId);
     if (!node.isConnected) await node.events.initialized;

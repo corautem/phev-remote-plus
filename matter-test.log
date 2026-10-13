@@ -1,6 +1,10 @@
 [device] running on port 5541 with 2 device(s): climate, headlights
 ready: MT:Y.K90AFN00KA0648G00 / 34970112332
 [device] paired with a controller
-paired as node 14293779364144348722
-FAIL: fabric label [{"index":1,"label":"","vendorId":65521}]
-exit 1
+paired as node 7101831816299056206
+fabrics: [{"index":1,"label":"Test Home","vendorId":65521}]
+endpoints under the bridge: 2
+controller switched the climate on → {"type":"command","what":"climate","on":true,"by":"Test Home","vendorId":65521}
+state pushed back: climate off
+PASS
+exit 0

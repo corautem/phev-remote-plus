@@ -11,13 +11,15 @@
 #   forget                     remove the "phev-car" profile
 #   pause <iface>              leave the car's Wi-Fi and stay off it (until resume, or until NetworkManager restarts),
 #                              so a phone can use the car's Wi-Fi — the car takes one device at a time
-#   resume <iface>             allow the car's Wi-Fi again and join it
+#   resume <iface>             allow the car's Wi-Fi again and join it (also lifts a block NetworkManager put on the
+#                              car's network after failed joins — the bridge's watch uses it to get back on)
+#   why <iface>                what NetworkManager and wpa_supplicant said about <iface> in the last 30 minutes
 #
 # CC = two-letter Wi-Fi country (from the phone); set on Raspberry Pi OS when it differs, which also lifts the
 # rfkill block a fresh Pi OS has until a country is set.
 #
 # Lines starting with "@" are status words for the bridge: @saved, @up-ok, @up-failed <why>, @removed <name>,
-# @disabled <name>, @paused, @resumed, @error <why>.
+# @disabled <name>, @paused, @resumed, @nm <log line>, @done, @error <why>.
 set -u
 export LC_ALL=C
 CON=phev-car
@@ -119,7 +121,18 @@ case "$action" in
     fi
     ;;
 
+  why)
+    IFACE=${2:-}
+    valid_iface "$IFACE" || die "bad interface name"
+    # Why the bridge left the car's Wi-Fi or can't join it, in NetworkManager's own words (e.g. "no-secrets" after the
+    # car turned it away while a phone held the car's Wi-Fi). Read-only; the bridge user can't read the journal itself.
+    command -v journalctl >/dev/null 2>&1 || die "journalctl is not installed"
+    journalctl -u NetworkManager -u wpa_supplicant --since "30 min ago" --no-pager -q -o short-iso 2>/dev/null \
+      | grep -F -e "$IFACE" -e "$CON" | grep -v -i -E "dhcp|ipv6|ndisc|platform" | tail -n 30 | sed 's/^/@nm /'
+    echo "@done"
+    ;;
+
   *)
-    die "usage: carwifi.sh scan <iface> [CC] | join <iface> <ssid> [CC] (password on stdin) | forget | pause <iface> | resume <iface>"
+    die "usage: carwifi.sh scan <iface> [CC] | join <iface> <ssid> [CC] (password on stdin) | forget | pause <iface> | resume <iface> | why <iface>"
     ;;
 esac

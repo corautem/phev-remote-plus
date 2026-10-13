@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge back on the car's Wi-Fi, phone not registered, late departures. -->
+<resources>
+    <string name="link_bridge_rejoining">Getting the bridge back on the car\'s Wi-Fi…</string>
+    <string name="link_no_session_hint">The car answers but won\'t start a session. If this keeps happening, this phone isn\'t registered with the car — register it under Settings.</string>
+    <string name="link_bridge_only">This phone isn\'t using the car\'s Wi-Fi for a while: the car didn\'t start a session for it (not registered?). Using the bridge.</string>
+    <string name="act_bridge_lost_near">The bridge lost the car\'s Wi-Fi — the car is still in range, so it keeps trying</string>
+    <string name="act_bridge_lost_away">The bridge lost the car\'s Wi-Fi — the car has probably left</string>
+    <string name="act_bridge_back">The bridge is back on the car\'s Wi-Fi after %1$s</string>
+    <string name="notif_departure_late">Android started this %1$d min late. Setting PHEV Link\'s battery use to “Unrestricted” helps.</string>
+</resources>

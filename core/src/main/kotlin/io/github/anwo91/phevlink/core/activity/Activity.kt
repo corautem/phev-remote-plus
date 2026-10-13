@@ -246,6 +246,9 @@ object ActivityText {
             "bridge.reboot" -> "$who restarted the bridge computer"
             "bridge.carwifi_paused" -> "$who asked the bridge to step aside for ${a.int("minutes")} min"
             "bridge.carwifi_resumed" -> "The bridge is back on the car's Wi-Fi"
+            "bridge.carwifi_lost" -> "The bridge lost the car's Wi-Fi" +
+                (if (a.bool("inSight") == true) " — the car is still in range; the bridge keeps trying to get back on" else " — the car has probably left")
+            "bridge.carwifi_back" -> "The bridge is back on the car's Wi-Fi" + (a.int("minutes")?.let { " after ${hm(it)}" } ?: "")
             "bridge.paired" -> "$who was paired with the bridge"
             "bridge.invite" -> "$who opened pairing for another phone"
             else -> "$who: ${a.code}"

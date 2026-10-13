@@ -6,6 +6,7 @@ import io.github.anwo91.phevlink.core.emulator.FakeCar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileDescriptor
 import java.io.FileOutputStream
@@ -88,7 +89,10 @@ fun main(args: Array<String>) {
         execute = { service.execute(it) },
         onActivity = { activity.add(it) },
     ).start(scope)
-    val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, shared, activity, restart)
+    // Keeps the bridge on the car's Wi-Fi: NetworkManager gives up after failed joins (e.g. while a phone held the car's Wi-Fi).
+    val watch = CarWifiWatch(carWifi, log, onActivity = { activity.add(it) }, onBack = { scope.launch { service.connectNow() } })
+    if (!config.emulator) watch.start(scope)
+    val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, shared, activity, watch, restart)
     activity.add(io.github.anwo91.phevlink.core.activity.Activity(System.currentTimeMillis(), "bridge", "bridge.started", mapOf("build" to BridgeService.BUILD)))
     val port = api.start()
     log.link("Bridge ${BridgeService.BUILD} (API ${BridgeService.VERSION}) on http://${config.listenHost}:$port/  (car ${config.carHost}:$carPort)")

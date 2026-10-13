@@ -39,6 +39,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -113,6 +114,22 @@ class CarRepository(
     private val counter = AtomicInteger()
     /** After the bridge failed to reach the car, prefer the car's Wi-Fi for a while. */
     @Volatile private var preferDirectUntil = 0L
+    /** Kept across process restarts: background alarms usually start a fresh process. */
+    private val linkPrefs = context.getSharedPreferences("link_state", Context.MODE_PRIVATE)
+    /**
+     * The car accepted this phone's link again and again without starting a session: the phone isn't registered (or
+     * the car's Wi-Fi module is stuck). Until then, while the car is near the bridge, keep off the car's Wi-Fi — every
+     * join takes the car's only Wi-Fi slot from the bridge. Field log: an unregistered phone joined the car's Wi-Fi from
+     * background checks all night, the bridge stayed off it, and the morning departure failed.
+     */
+    private var directBlockedUntil: Long
+        get() = linkPrefs.getLong(KEY_BLOCKED_UNTIL, 0L)
+        set(v) = linkPrefs.edit().putLong(KEY_BLOCKED_UNTIL, v).apply()
+    /** How many blocks in a row (each one longer); back to 0 once the car starts a session for this phone. */
+    private var noSessionStrikes: Int
+        get() = linkPrefs.getInt(KEY_STRIKES, 0)
+        set(v) = linkPrefs.edit().putInt(KEY_STRIKES, v).apply()
+    private val directBlocked: Boolean get() = System.currentTimeMillis() < directBlockedUntil
     /** Who needs the phone to stay on the home network right now (the bridge setup): no joining the car's Wi-Fi. */
     private val _wifiPause = MutableStateFlow<Set<String>>(emptySet())
 
@@ -298,6 +315,15 @@ class CarRepository(
 
     /** Try again right now (user tapped the status chip). */
     fun reconnect() {
+        if (directBlocked) {
+            // The person asked: give the car's Wi-Fi another chance now (a refusal again blocks it for longer).
+            directBlockedUntil = 0L
+            log.link("Route: the car's Wi-Fi is allowed again (reconnect tapped)")
+            if (activeRoute == Route.BRIDGE) scope.launch {
+                activation.withLock { deactivateLocked() }
+                if (isHeld) activate()
+            }
+        }
         if (network.state.value is CarNetwork.State.Failed) network.retry()
         direct?.reconnectNow()
         if (!isHeld) {
@@ -353,26 +379,64 @@ class CarRepository(
             Route.AUTO -> {
                 if (!s.hasBridge) return Route.DIRECT
                 if (!s.hasCarWifi) return Route.BRIDGE
-                if (System.currentTimeMillis() < preferDirectUntil) return Route.DIRECT
+                val now = System.currentTimeMillis()
+                if (now < preferDirectUntil) return Route.DIRECT
+                val blocked = directBlocked
                 setLink { LinkUi(LinkPhase.CONNECTING, Route.BRIDGE, str(R.string.link_checking_bridge)) }
                 val snap = BridgeClient(s.bridgeUrl, s.bridgeToken, log, context).fetchStatus(3_000)
+                if (snap == null) {
+                    log.link("Route: bridge unreachable → car Wi-Fi" + if (blocked) " (the car refused this phone a session lately, but the bridge can't help from here)" else "")
+                    return Route.DIRECT
+                }
                 // Only trust the bridge if it is in touch with the car right now, or checked it
                 // recently without errors (the car is at home). Otherwise the car is elsewhere.
-                val recent = snap?.car?.updatedAtMs?.let { System.currentTimeMillis() - it < 15 * 60_000 } == true
-                val useBridge = snap != null && (snap.link.isConnected || (recent && snap.link is LinkStatus.Idle))
+                val recent = snap.car.updatedAtMs?.let { now - it < 15 * 60_000 } == true
+                if (snap.link.isConnected || (recent && snap.link is LinkStatus.Idle)) {
+                    log.link("Route: bridge is in touch with the car → bridge")
+                    return Route.BRIDGE
+                }
+                val wifi = BridgeSetupApi.carWifi(s.bridgeUrl, s.bridgeToken)?.takeIf { it.code == 200 }?.let { BridgeWifi.from(it.body) }
                 // The car's Wi-Fi takes one device at a time: when the bridge is on it (the car is home), the phone
                 // can't join it anyway — go through the bridge even before it has fresh data.
-                val bridgeOnCarWifi = snap != null && !useBridge &&
-                    BridgeSetupApi.carWifi(s.bridgeUrl, s.bridgeToken)?.takeIf { it.code == 200 }?.let { BridgeWifi.from(it.body).connected } == true
-                log.link(
-                    "Route: " + when {
-                        snap == null -> "bridge unreachable → car Wi-Fi"
-                        useBridge -> "bridge is in touch with the car → bridge"
-                        bridgeOnCarWifi -> "bridge is on the car's Wi-Fi (the car takes one device at a time) but has no fresh data yet → bridge"
-                        else -> "bridge has no fresh contact with the car and isn't on its Wi-Fi → car Wi-Fi"
+                if (wifi?.connected == true) {
+                    log.link("Route: bridge is on the car's Wi-Fi (the car takes one device at a time) but has no fresh data yet → bridge")
+                    return Route.BRIDGE
+                }
+                if (wifi?.paused == true) {
+                    log.link("Route: the bridge has stepped off the car's Wi-Fi for a phone until ${Format.clock(wifi.pausedUntilMs ?: 0L)} → car Wi-Fi")
+                    return Route.DIRECT
+                }
+                // The bridge is off the car's Wi-Fi (NetworkManager gives up after failed joins): get it back on before
+                // this phone takes the car's only Wi-Fi slot itself.
+                var inSight: Boolean? = null
+                if (wifi != null && wifi.configured && wifi.iface != null) {
+                    setLink { LinkUi(LinkPhase.CONNECTING, Route.BRIDGE, str(R.string.link_bridge_rejoining)) }
+                    val t0 = System.currentTimeMillis()
+                    val r = BridgeSetupApi.rejoinCarWifi(s.bridgeUrl, s.bridgeToken)
+                    val took = (System.currentTimeMillis() - t0) / 1000
+                    when {
+                        r == null -> log.link("Route: asked the bridge to rejoin the car's Wi-Fi — no answer after $took s")
+                        r.code == 404 -> log.link("Route: this bridge can't be asked to rejoin the car's Wi-Fi yet (update the bridge)")
+                        r.code != 200 -> log.link("Route: bridge rejoin refused (${r.code}: ${r.body["error"] ?: "?"})")
+                        else -> {
+                            inSight = r.body["inSight"] == true
+                            if (r.body["connected"] == true) {
+                                log.link("Route: the bridge got back on the car's Wi-Fi ($took s) → bridge")
+                                return Route.BRIDGE
+                            }
+                            log.link(
+                                "Route: the bridge couldn't get back on the car's Wi-Fi in $took s (${r.body["message"] ?: "?"}); the car's network is " +
+                                    if (inSight == true) "in its sight at ${r.body["signal"]} %" else "not in its sight"
+                            )
+                        }
                     }
-                )
-                if (useBridge || bridgeOnCarWifi) Route.BRIDGE else Route.DIRECT
+                }
+                if (blocked && inSight != false) {
+                    log.link("Route: the car refused this phone a session lately (not registered?) and may be next to the bridge → bridge until ${Format.clock(directBlockedUntil)}, keeping off the car's Wi-Fi")
+                    return Route.BRIDGE
+                }
+                log.link("Route: bridge has no contact with the car" + (if (inSight == false) " and can't see it (the car is away)" else "") + " → car Wi-Fi")
+                Route.DIRECT
             }
         }
     }
@@ -405,16 +469,53 @@ class CarRepository(
         direct = conn
         routeJobs += scope.launch { conn.car.collect { _car.value = it } }
         routeJobs += scope.launch {
-            combine(conn.status, network.state) { a, b -> a to b }.collectLatest { (st, net) ->
-                setLink { describeDirect(st, net, override != null) }
+            combine(conn.status, network.state, conn.noSessions) { a, b, c -> Triple(a, b, c) }.collectLatest { (st, net, ns) ->
+                setLink { describeDirect(st, net, override != null, ns) }
                 // "Reconnecting in 8 s" and "not found" (after 20 s of searching) count: redraw every second.
                 while (st is LinkStatus.Retrying || (net is CarNetwork.State.Searching && st !is LinkStatus.Connected)) {
                     delay(1_000)
-                    setLink { describeDirect(st, net, override != null) }
+                    setLink { describeDirect(st, net, override != null, ns) }
+                }
+            }
+        }
+        if (override == null) {
+            routeJobs += scope.launch {
+                val n = conn.noSessions.first { it >= NO_SESSION_LIMIT }
+                onNoSessions(conn, n)
+            }
+            routeJobs += scope.launch {
+                conn.status.first { it is LinkStatus.Connected }
+                if (noSessionStrikes > 0 || directBlockedUntil > 0) {
+                    noSessionStrikes = 0
+                    directBlockedUntil = 0L
+                    log.link("Car Wi-Fi: the car started a session for this phone — no longer keeping off the car's Wi-Fi")
                 }
             }
         }
         conn.start()
+    }
+
+    /**
+     * The car accepted this phone's link [n] times in a row without starting a session. With a bridge (Automatic), leave
+     * the car's Wi-Fi to the bridge for an hour, then 2, 4, 8 hours if it happens again.
+     */
+    private fun onNoSessions(conn: PhevConnection, n: Int) {
+        val s = settings.current
+        if (DemoMode.active.value) return
+        log.warn("Car Wi-Fi: the car accepted the link $n times in a row without starting a session — this phone may not be registered with the car (Settings → Phone registration)")
+        if (!s.hasBridge || s.route != Route.AUTO) return
+        val strikes = noSessionStrikes + 1
+        val minutes = (60L shl (strikes - 1).coerceAtMost(3))
+        noSessionStrikes = strikes
+        directBlockedUntil = System.currentTimeMillis() + minutes * 60_000
+        log.link(
+            "Route: leaving the car's Wi-Fi to the bridge while the car is near it, until ${Format.clock(directBlockedUntil)} " +
+                "(${minutes / 60} h, time $strikes) — every join takes the car's only Wi-Fi slot from the bridge"
+        )
+        scope.launch {
+            activation.withLock { if (direct === conn) deactivateLocked() }
+            if (isHeld) activate()
+        }
     }
 
     /** Demo mode: run a simulated car in this process and connect to it over the loopback, no Wi-Fi involved. */
@@ -506,13 +607,23 @@ class CarRepository(
     private suspend fun executeRouted(cmd: CarCommand, timeoutMs: Long, lingerMs: Long, usedDirect: (Boolean) -> Unit): CommandResult {
         val tag = "cmd-${counter.incrementAndGet()}"
         hold(tag)
-        val deadline = System.currentTimeMillis() + timeoutMs
+        var deadline = System.currentTimeMillis() + timeoutMs
+        // Choosing the route may take a while (getting the bridge back on the car's Wi-Fi: up to ~35 s); that time
+        // doesn't count against the command, up to a limit.
+        var routeGrace = ROUTE_GRACE_MS
         try {
             var last: CommandResult? = null
             var triedFallback = false
             while (System.currentTimeMillis() < deadline) {
                 // Wait for activation (the route choice may involve a quick bridge check).
+                val t0 = System.currentTimeMillis()
                 val (d, b) = activation.withLock { direct to bridge }
+                val waited = System.currentTimeMillis() - t0
+                if (waited > 1_000 && routeGrace > 0) {
+                    val extra = minOf(waited, routeGrace)
+                    deadline += extra
+                    routeGrace -= extra
+                }
                 if (d == null && b == null) {
                     if (!settings.current.canConnect) return CommandResult.Failure(cmd, str(R.string.link_err_not_set_up))
                     if (activeRoute == null && isHeld) scope.launch { activate() }
@@ -530,8 +641,9 @@ class CarRepository(
                     }
                     // The connection we used was replaced meanwhile: run it on the new one.
                     r is CommandResult.Failure && r.retryable && (direct !== d || bridge !== b) -> continue
-                    // The bridge could not reach the car: in Automatic mode try the car's Wi-Fi.
-                    b != null && !triedFallback && settings.current.route == Route.AUTO && settings.current.hasCarWifi -> {
+                    // The bridge could not reach the car: in Automatic mode try the car's Wi-Fi (not while the car keeps
+                    // refusing this phone a session — that would only take the car's Wi-Fi from the bridge).
+                    b != null && !triedFallback && settings.current.route == Route.AUTO && settings.current.hasCarWifi && !directBlocked -> {
                         triedFallback = true
                         log.link("Bridge could not do it (${(r as CommandResult.Failure).reason}) — trying the car's Wi-Fi")
                         preferDirectUntil = System.currentTimeMillis() + 10 * 60_000
@@ -587,8 +699,9 @@ class CarRepository(
 
     // ------------------------------------------------------------- describing
 
-    private fun describeDirect(st: LinkStatus, net: CarNetwork.State, test: Boolean): LinkUi {
+    private fun describeDirect(st: LinkStatus, net: CarNetwork.State, test: Boolean, noSessions: Int = 0): LinkUi {
         val via = Route.DIRECT
+        val notRegistered = !test && noSessions >= NO_SESSION_LIMIT
         if (!test) when (net) {
             is CarNetwork.State.Failed -> return LinkUi(LinkPhase.FAILED, via, str(R.string.link_cant_join), net.reason)
             is CarNetwork.State.Searching -> if (st !is LinkStatus.Connected) {
@@ -601,7 +714,10 @@ class CarRepository(
             else -> Unit
         }
         return when (st) {
-            is LinkStatus.Idle -> LinkUi(LinkPhase.OFFLINE, via, str(R.string.link_not_connected), st.lastError ?: lastUpdatedText())
+            is LinkStatus.Idle -> LinkUi(
+                LinkPhase.OFFLINE, via, str(R.string.link_not_connected),
+                if (notRegistered) str(R.string.link_no_session_hint) else st.lastError ?: lastUpdatedText(),
+            )
             is LinkStatus.Connecting -> LinkUi(LinkPhase.CONNECTING, via, str(R.string.link_connecting), if (st.attempt > 1) str(R.string.link_attempt, st.attempt) else null)
             LinkStatus.Handshaking -> LinkUi(LinkPhase.HANDSHAKE, via, str(R.string.link_handshake))
             is LinkStatus.Connected -> LinkUi(
@@ -610,7 +726,7 @@ class CarRepository(
             )
             is LinkStatus.Retrying -> LinkUi(
                 LinkPhase.RETRYING, via, str(R.string.link_retrying, ((st.retryAtMs - System.currentTimeMillis()) / 1000).coerceAtLeast(0)),
-                st.lastError,
+                if (notRegistered) str(R.string.link_no_session_hint) else st.lastError,
             )
         }
     }
@@ -619,6 +735,10 @@ class CarRepository(
         val via = Route.BRIDGE
         if (reachable == false) return LinkUi(LinkPhase.FAILED, via, str(R.string.link_bridge_unreachable), err)
         if (snap == null) return LinkUi(LinkPhase.CONNECTING, via, str(R.string.link_connecting_bridge))
+        // Kept off the car's Wi-Fi (the car refused this phone a session): say so while the bridge can't reach the car.
+        if (directBlocked && snap.link is LinkStatus.Retrying && settings.current.route == Route.AUTO) {
+            return LinkUi(LinkPhase.RETRYING, via, str(R.string.link_bridge_cant_reach), str(R.string.link_bridge_only))
+        }
         return when (val l = snap.link) {
             is LinkStatus.Connected -> LinkUi(LinkPhase.CONNECTED, via, str(R.string.link_via_bridge), str(R.string.link_bridge_live), l.sinceMs)
             is LinkStatus.Idle -> LinkUi(
@@ -637,5 +757,11 @@ class CarRepository(
         private const val CAR_TEMP_MAX_AGE_MS = 45 * 60_000L
         /** Demo car's simulated minutes per real second (charging and climate countdowns). */
         private const val DEMO_MINUTES_PER_SECOND = 0.25
+        /** This many link closes in a row without a session: the phone is probably not registered with the car. */
+        private const val NO_SESSION_LIMIT = 2
+        /** Time spent choosing the route that doesn't count against a command's timeout. */
+        private const val ROUTE_GRACE_MS = 45_000L
+        private const val KEY_BLOCKED_UNTIL = "direct_blocked_until"
+        private const val KEY_STRIKES = "no_session_strikes"
     }
 }

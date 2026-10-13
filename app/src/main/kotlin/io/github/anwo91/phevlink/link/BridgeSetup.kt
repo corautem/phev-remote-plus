@@ -162,6 +162,13 @@ object BridgeSetupApi {
     suspend fun resumeCarWifi(url: String, token: String): Reply? =
         withContext(Dispatchers.IO) { request(url, "carwifi/resume", "POST", token, emptyMap(), 4_000, 50_000) }
 
+    /**
+     * Bridge off the car's Wi-Fi: ask it to join again now, before this phone takes the car's Wi-Fi itself (bridge with
+     * "carwifi-rejoin"; 404 from older ones). Reply: connected, tried, message, inSight, signal.
+     */
+    suspend fun rejoinCarWifi(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "carwifi/rejoin", "POST", token, emptyMap(), 4_000, 50_000) }
+
     /** "Add another phone": the bridge opens pairing for one more phone for [minutes] (bridge with "pair-invite"). */
     suspend fun openPairing(url: String, token: String, minutes: Int): Reply? =
         withContext(Dispatchers.IO) { request(url, "pair/open", "POST", token, mapOf("minutes" to minutes), 4_000, 8_000) }

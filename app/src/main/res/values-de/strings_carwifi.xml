@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge back on the car's Wi-Fi, phone not registered, late departures. -->
+<resources>
+    <string name="link_bridge_rejoining">Bringe die Bridge zurück ins WLAN des Autos…</string>
+    <string name="link_no_session_hint">Das Auto antwortet, startet aber keine Sitzung. Passiert das ständig, ist dieses Handy nicht im Auto registriert – registriere es unter Optionen.</string>
+    <string name="link_bridge_only">Dieses Handy nutzt das WLAN des Autos eine Weile nicht: Das Auto hat keine Sitzung dafür gestartet (nicht registriert?). Nutze die Bridge.</string>
+    <string name="act_bridge_lost_near">Die Bridge hat das WLAN des Autos verloren – das Auto ist noch in Reichweite, sie versucht es weiter</string>
+    <string name="act_bridge_lost_away">Die Bridge hat das WLAN des Autos verloren – das Auto ist wohl losgefahren</string>
+    <string name="act_bridge_back">Die Bridge ist nach %1$s wieder im WLAN des Autos</string>
+    <string name="notif_departure_late">Android hat das %1$d min zu spät gestartet. Es hilft, die Akkunutzung von PHEV Link auf „Uneingeschränkt“ zu stellen.</string>
+</resources>

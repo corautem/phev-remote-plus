@@ -145,6 +145,13 @@ the bridge whenever the bridge is on the car's Wi-Fi. To register a phone while 
 Settings → Phone registration has **Let the bridge step aside (10 min)**: the bridge leaves the car's Wi-Fi and rejoins
 by itself afterwards (or after a reboot).
 
+The bridge watches its own link to the car's Wi-Fi: NetworkManager gives up on a network after failed joins (for
+example while a phone held the car's Wi-Fi), so when the bridge finds itself off the car's Wi-Fi it asks NetworkManager
+to join again — after 1, 2, 4, 8 and then every 10 minutes, and at once when the car's network comes back in sight. A
+phone that is about to use the car's Wi-Fi itself first asks the bridge to rejoin. When the car keeps refusing a phone a
+session (the phone isn't registered), that phone leaves the car's Wi-Fi to the bridge for an hour (longer if it happens
+again) while the car is near the bridge. Losing and getting back the car's Wi-Fi shows in the activity log.
+
 **Another phone:** on a phone that already uses the bridge, Settings → Bridge → **Add another phone** opens pairing
 for one more phone for 10 minutes (no unplugging). On the new phone: install PHEV Link, enter the car's Wi-Fi card,
 choose *I have a PHEV Link bridge* — it pairs, sees the bridge already talks to the car and finishes without another
@@ -216,6 +223,7 @@ control the car's climate and lights (not locks: the protocol has no remote unlo
 | POST | `/api/carwifi/scan`, `/api/carwifi/join`, `/api/carwifi/forget` | `{"country":"NO"}` · `{"ssid":…,"password":…}` |
 | POST | `/api/pair/open` | `{"minutes":10}` — "Add another phone": pairing open for one more phone (token needed) |
 | POST | `/api/carwifi/pause`, `/api/carwifi/resume` | `{"minutes":10}` — leave the car's Wi-Fi so a phone can use it (comes back by itself) |
+| POST | `/api/carwifi/rejoin` | off the car's Wi-Fi and not paused: join it now; `connected`, `tried`, `inSight`, `signal` (takes up to ~35 s) |
 | POST | `/api/config` | `{"emulator":false}` — saved, then the bridge restarts |
 | GET | `/api/system` | The computer: model, OS, uptime, temperature, memory, disk, addresses, bridge build |
 | GET | `/api/update` | Installed and newest version, whether an update runs, its log (`?check=1` asks GitHub now) |

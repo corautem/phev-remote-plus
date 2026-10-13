@@ -104,6 +104,9 @@ class PhevConnection(
 ) {
     private val _status = MutableStateFlow<LinkStatus>(LinkStatus.Idle())
     val status: StateFlow<LinkStatus> = _status.asStateFlow()
+    private val _noSessions = MutableStateFlow(0)
+    /** How many times in a row the car accepted the link but closed it without starting a session (0 after a session). */
+    val noSessions: StateFlow<Int> = _noSessions.asStateFlow()
 
     private val _car = MutableStateFlow(initialState)
     val car: StateFlow<CarState> = _car.asStateFlow()
@@ -224,6 +227,7 @@ class PhevConnection(
                 // Escalate the settle on repeated "no session" closes (1×, 2×, 3× carSettleMs, capped) so we don't
                 // thrash it every 20 s when the car is asleep; a real session that starts resets the streak.
                 if (outcome.started) noSessionStreak = 0 else noSessionStreak++
+                _noSessions.value = noSessionStreak
                 val settle = if (!outcome.started) config.carSettleMs * noSessionStreak.coerceAtMost(3) else 0L
                 backoff(failures, outcome.reason, floorMs = settle, interruptible = settle == 0L)
             }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge back on the car's Wi-Fi, phone not registered, late departures. -->
+<resources>
+    <string name="link_bridge_rejoining">Får broen tilbage på bilens Wi-Fi…</string>
+    <string name="link_no_session_hint">Bilen svarer, men starter ingen session. Sker det hele tiden, er denne telefon ikke registreret i bilen – registrer den under Indstillinger.</string>
+    <string name="link_bridge_only">Denne telefon bruger ikke bilens Wi-Fi i et stykke tid: bilen startede ingen session for den (ikke registreret?). Bruger broen.</string>
+    <string name="act_bridge_lost_near">Broen mistede bilens Wi-Fi – bilen er stadig inden for rækkevidde, så den prøver igen</string>
+    <string name="act_bridge_lost_away">Broen mistede bilens Wi-Fi – bilen er nok kørt</string>
+    <string name="act_bridge_back">Broen er tilbage på bilens Wi-Fi efter %1$s</string>
+    <string name="notif_departure_late">Android startede dette %1$d min for sent. Det hjælper at sætte batteriforbrug for PHEV Link til »Ubegrænset«.</string>
+</resources>

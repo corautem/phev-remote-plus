@@ -50,7 +50,7 @@ object DepartureScheduler {
             context.graph.log.link("No departures scheduled")
             return
         }
-        setExact(context, am, n.planAtMs, planIntent(context, n.departureId, n.atMs))
+        setExact(context, am, n.planAtMs, planIntent(context, n.departureId, n.atMs, n.planAtMs))
         context.graph.log.link(
             "Next departure ${Format.clockOrDay(n.atMs, locale = Locale.ENGLISH)} — " +
                 "weather check at ${Format.clockOrDay(n.planAtMs, locale = Locale.ENGLISH)}"
@@ -65,18 +65,20 @@ object DepartureScheduler {
                 .putExtra(LinkService.EXTRA_DEPARTURE, depId)
                 .putExtra(LinkService.EXTRA_AT, atMs)
                 .putExtra(LinkService.EXTRA_MODE, mode.name)
-                .putExtra(LinkService.EXTRA_MINUTES, duration.minutes),
+                .putExtra(LinkService.EXTRA_MINUTES, duration.minutes)
+                .putExtra(LinkService.EXTRA_DUE, startAtMs),
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )
         setExact(context, am, startAtMs, pi)
         context.graph.log.link("${mode.label} ${duration.minutes} min will start at ${Format.clock(startAtMs)}")
     }
 
-    private fun planIntent(context: Context, depId: String?, atMs: Long): PendingIntent = PendingIntent.getBroadcast(
+    private fun planIntent(context: Context, depId: String?, atMs: Long, dueMs: Long = 0L): PendingIntent = PendingIntent.getBroadcast(
         context, REQ_PLAN,
         Intent(context, DepartureReceiver::class.java).setAction(LinkService.ACTION_PLAN)
             .putExtra(LinkService.EXTRA_DEPARTURE, depId)
-            .putExtra(LinkService.EXTRA_AT, atMs),
+            .putExtra(LinkService.EXTRA_AT, atMs)
+            .putExtra(LinkService.EXTRA_DUE, dueMs),
         PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
     )
 
@@ -99,10 +101,37 @@ class DepartureReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         // Keep the CPU awake until the service has started and taken its own wake lock.
         io.github.anwo91.phevlink.link.WakeHolder.acquireForReceiver(context)
+        logLateness(context, intent)
         val forward = Intent(context, LinkService::class.java).setAction(intent.action).putExtras(intent)
         LinkService.start(context, forward)
     }
 }
+
+/**
+ * Field log: a departure's start ran 12 minutes late. Says when an alarm was due and when it fired, and if late, what
+ * may have held it back (exact alarms not allowed, battery optimisation), so the next log tells.
+ */
+private fun logLateness(context: Context, intent: Intent) {
+    val due = intent.getLongExtra(LinkService.EXTRA_DUE, 0L)
+    if (due <= 0L) return
+    val late = System.currentTimeMillis() - due
+    val what = intent.action?.substringAfterLast('.')?.lowercase() ?: "alarm"
+    val log = context.graph.log
+    if (late < LATE_MS) {
+        log.link("Alarm $what: due ${Format.clock(due)}, on time")
+        return
+    }
+    val pm = context.getSystemService(android.os.PowerManager::class.java)
+    val unrestricted = runCatching { pm.isIgnoringBatteryOptimizations(context.packageName) }.getOrNull()
+    log.warn(
+        "Alarm $what: due ${Format.clock(due)}, fired ${late / 60_000} min ${(late / 1000) % 60} s late — " +
+            "exact alarms ${if (DepartureScheduler.exactAlarmsAllowed(context)) "allowed" else "NOT allowed"}, " +
+            "battery use ${when (unrestricted) { true -> "unrestricted"; false -> "optimised (Android may hold alarms back)"; null -> "?" }}"
+    )
+}
+
+/** An alarm this late is worth a warning (and a hint in the notification). */
+const val LATE_MS = 3 * 60_000L
 
 /** Alarms do not survive reboots, time changes or app updates; set them again. */
 class RescheduleReceiver : BroadcastReceiver() {

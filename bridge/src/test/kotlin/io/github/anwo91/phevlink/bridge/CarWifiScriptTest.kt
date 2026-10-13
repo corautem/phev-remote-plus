@@ -119,4 +119,25 @@ class CarWifiScriptTest {
         assertEquals(out, 0, code)
         assertEquals(listOf("REMOTE46pdmp" to 71, "Neighbour" to 40), CarWifi.parseScan(out).map { it.ssid to it.signal })
     }
+
+    @Test
+    fun whyShowsNetworkManagersWordsAboutTheCarRadioOnly() {
+        stub("journalctl", """
+            echo "$*" > "${dir.path}/journal-args.txt"
+            echo "2026-10-13T01:06:10+0200 pi NetworkManager[512]: <info>  [1.2] device (wlan1): state change: activated -> disconnected"
+            echo "2026-10-13T01:06:12+0200 pi NetworkManager[512]: <warn>  [1.3] device (wlan0): Activation: (wifi) association took too long"
+            echo "2026-10-13T01:06:13+0200 pi NetworkManager[512]: <info>  [1.4] device (wlan0): dhcp4 (wlan0): state changed"
+            echo "2026-10-13T01:06:40+0200 pi NetworkManager[512]: <warn>  [1.5] device (wlan0): state change: need-auth -> failed (reason 'no-secrets')"
+            echo "2026-10-13T01:06:41+0200 pi wpa_supplicant[400]: wlan0: CTRL-EVENT-SSID-TEMP-DISABLED id=0 ssid=\"REMOTE46pdmp\" auth_failures=1"
+        """)
+        val (code, out) = run("why", "wlan0")
+        assertEquals(out, 0, code)
+        val lines = out.lines().filter { it.startsWith("@nm ") }
+        assertEquals(out, 3, lines.size)
+        assertTrue(lines.any { it.contains("no-secrets") })
+        assertFalse("other radios and DHCP chatter are left out", out.contains("wlan1") || out.contains("dhcp4"))
+        assertTrue(out.trim().endsWith("@done"))
+        assertTrue(File(dir, "journal-args.txt").readText().contains("-u NetworkManager"))
+        assertEquals(2, run("why", "wlan0;reboot").first)
+    }
 }

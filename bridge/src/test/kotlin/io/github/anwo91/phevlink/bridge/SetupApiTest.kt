@@ -53,7 +53,7 @@ class SetupApiTest {
     }
     private val updater = Updater("/u", dir, log, updRunner, { "1.0.99" }, { true }, "1.0.37")
     private val shared = SharedStore(File(dir, "shared.json"), log)
-    private val api = HttpApi(config, service, log, pairing, wifi, settings, updater, shared) { restarted = true }
+    private val api = HttpApi(config, service, log, pairing, wifi, settings, updater, shared, watch = CarWifiWatch(wifi, log)) { restarted = true }
     private val port = api.start(0)
 
     @After
@@ -178,5 +178,18 @@ class SetupApiTest {
         assertEquals("Pixel 8", m["updatedBy"])
         val hello = Json.parseObject(call("GET", "/api/hello", token = null).second)
         assertTrue((hello["features"] as List<*>).containsAll(listOf("shared", "departures")))
+    }
+
+    @Test
+    fun rejoinAsksTheWatchAndSaysWhatHappened() {
+        // No car network saved yet: nothing to rejoin, and the helper is never asked.
+        val (code, text) = call("POST", "/api/carwifi/rejoin", "{}", headers = mapOf("X-PHEV-Device" to "Pixel%208"))
+        assertEquals(text, 200, code)
+        val m = Json.parseObject(text)
+        assertEquals(false, m["connected"])
+        assertEquals(false, m["tried"])
+        assertTrue(text, m["message"].toString().contains("isn't set up"))
+        assertFalse(wifiRunner.calls.any { it.first.contains(" resume ") })
+        assertEquals(401, call("POST", "/api/carwifi/rejoin", "{}", token = null).first)
     }
 }

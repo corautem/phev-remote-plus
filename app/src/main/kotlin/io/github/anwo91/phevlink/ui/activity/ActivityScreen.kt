@@ -315,6 +315,8 @@ object ActivityLabels {
             "bridge.reboot" -> res.getString(R.string.act_bridge_reboot, who)
             "bridge.carwifi_paused" -> a.int("minutes")?.let { res.getString(R.string.act_bridge_paused, who, it) }
             "bridge.carwifi_resumed" -> res.getString(R.string.act_bridge_resumed)
+            "bridge.carwifi_lost" -> res.getString(if (a.bool("inSight") == true) R.string.act_bridge_lost_near else R.string.act_bridge_lost_away)
+            "bridge.carwifi_back" -> minutes?.let { res.getString(R.string.act_bridge_back, Format.minutes(it, ctx)) } ?: res.getString(R.string.act_bridge_resumed)
             "bridge.paired" -> res.getString(R.string.act_bridge_paired, who)
             "bridge.invite" -> res.getString(R.string.act_bridge_invite, who)
             else -> null

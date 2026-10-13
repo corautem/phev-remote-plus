@@ -250,6 +250,7 @@ class LinkService : LifecycleService() {
             startDeparture(intent.apply {
                 putExtra(EXTRA_MODE, plan.mode.name)
                 putExtra(EXTRA_MINUTES, plan.duration.minutes)
+                putExtra(EXTRA_DUE, startAt)
             })
         }
     }
@@ -260,6 +261,14 @@ class LinkService : LifecycleService() {
         val minutes = intent.getIntExtra(EXTRA_MINUTES, 20)
         val cmd = CarCommand.ClimateOn(mode, ClimateDuration.fromMinutes(minutes))
         val depId = intent.getStringExtra(EXTRA_DEPARTURE)
+        val due = intent.getLongExtra(EXTRA_DUE, 0L)
+        val lateMs = if (due > 0) System.currentTimeMillis() - due else 0L
+        graph.log.link(
+            "Departure ${Format.clock(atMs)}: starting ${mode.name.lowercase()} $minutes min" +
+                if (due > 0) " — due ${Format.clock(due)}, " + (if (lateMs >= 60_000) "running ${lateMs / 60_000} min late" else "on time") else ""
+        )
+        // Started well after it was due: Android held the alarm back (battery restrictions) — say so in the notification.
+        val lateHint = if (lateMs >= io.github.anwo91.phevlink.schedule.LATE_MS) "\n" + str(R.string.notif_departure_late, (lateMs / 60_000).toInt()) else ""
         val sync = graph.sharedSync
         // The bridge runs shared departures itself while it is with the car; then this phone only reports how it went.
         val bridge = if (depId != null && sync.state.value.bridgeRunsDepartures) sync.bridgeTakesDeparture() else false
@@ -300,13 +309,13 @@ class LinkService : LifecycleService() {
             when (val r = repo.execute(cmd, timeoutMs = 120_000)) {
                 is CommandResult.Success -> graph.notifier.result(
                     str(R.string.notif_departure_started, str(Labels.mode(mode))),
-                    str(R.string.notif_departure_ready, Format.clock(atMs)), ok = true,
+                    str(R.string.notif_departure_ready, Format.clock(atMs)) + lateHint, ok = true,
                 )
                 is CommandResult.Failure -> graph.notifier.result(
                     str(R.string.notif_departure_failed, str(Labels.modeInline(mode))),
                     // Couldn't reach the bridge either: if the car is home, the bridge starts it anyway.
-                    if (bridge == null) str(R.string.notif_departure_maybe_bridge)
-                    else str(R.string.notif_departure_retry, Labels.failureReason(this, r.reason).replaceFirstChar { it.uppercase() }),
+                    (if (bridge == null) str(R.string.notif_departure_maybe_bridge)
+                    else str(R.string.notif_departure_retry, Labels.failureReason(this, r.reason).replaceFirstChar { it.uppercase() })) + lateHint,
                     ok = false,
                 )
             }
@@ -426,6 +435,8 @@ class LinkService : LifecycleService() {
         const val EXTRA_MODE = "mode"
         const val EXTRA_MINUTES = "minutes"
         const val EXTRA_FAILURES = "failures"
+        /** When the alarm behind this start was due (wall clock ms), to log how late it ran. */
+        const val EXTRA_DUE = "due"
 
         fun intent(context: Context, action: String) = Intent(context, LinkService::class.java).setAction(action)
 

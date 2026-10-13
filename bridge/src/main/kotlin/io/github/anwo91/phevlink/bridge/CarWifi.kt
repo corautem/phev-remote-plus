@@ -179,6 +179,45 @@ class CarWifi(
         return if (ok) null else helperError(r)
     }
 
+    /** True while the bridge stays off the car's Wi-Fi so a phone can use it. */
+    val paused: Boolean get() = pausedUntilMs > System.currentTimeMillis()
+
+    /**
+     * Ask NetworkManager to join the car's Wi-Fi again now — also lifts the block NetworkManager puts on a network after
+     * failed joins. Not while [paused]. First = joined; second = what happened, in words for the log.
+     */
+    @Synchronized
+    fun rejoin(): Pair<Boolean, String> {
+        if (paused) return false to "paused for a phone"
+        val st = status()
+        val iface = st.iface ?: return false to (st.problem ?: PROBLEM_NO_WIFI)
+        if (!st.configured) return false to "the car's network isn't set up"
+        if (st.connected) return true to "already on it"
+        val r = runHelper(listOf("resume", iface), null, 45_000)
+        if (r.out.lineSequence().none { it.trim() == "@resumed" }) return false to helperError(r)
+        val failed = r.out.lineSequence().firstOrNull { it.startsWith("@up-failed") }?.removePrefix("@up-failed")?.trim()
+        return when {
+            failed != null -> false to failed.ifEmpty { "failed" }
+            r.out.lineSequence().any { it.trim() == "@up-ok" } -> true to "joined"
+            else -> false to "no answer from NetworkManager"
+        }
+    }
+
+    /** Signal (%) of the car's network [ssid] in NetworkManager's latest scan on [iface] (no new scan), or null when not in sight. */
+    fun inSight(iface: String, ssid: String?): Int? {
+        if (ssid.isNullOrEmpty()) return null
+        val r = runner.run(listOf("nmcli", "-t", "-f", "SSID,SIGNAL", "device", "wifi", "list", "ifname", iface, "--rescan", "no"), null, 6_000)
+        if (r.code != 0) return null
+        return r.out.lineSequence().map { splitTerse(it) }.filter { it.firstOrNull() == ssid }
+            .mapNotNull { it.getOrNull(1)?.toIntOrNull() }.maxOrNull()
+    }
+
+    /** What NetworkManager logged about [iface] in the last 30 minutes (through the helper; empty with an older helper). */
+    fun recentNmLog(iface: String): List<String> {
+        val r = runHelper(listOf("why", iface), null, 15_000)
+        return r.out.lineSequence().filter { it.startsWith("@nm ") }.map { it.removePrefix("@nm ").trim() }.toList()
+    }
+
     fun forget(): Boolean {
         val r = runHelper(listOf("forget"), null, 20_000)
         log.link("Car Wi-Fi: forget — ${r.out.trim().ifEmpty { "code ${r.code}" }}")

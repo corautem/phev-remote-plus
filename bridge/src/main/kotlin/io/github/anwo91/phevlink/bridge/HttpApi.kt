@@ -36,6 +36,8 @@ import java.util.concurrent.TimeUnit
  *   POST /api/carwifi/forget
  *   POST /api/carwifi/pause {"minutes":10} -> leave the car's Wi-Fi so a phone can use it (comes back by itself)
  *   POST /api/carwifi/resume -> back on the car's Wi-Fi now
+ *   POST /api/carwifi/rejoin -> if the bridge is off the car's Wi-Fi (and not paused), ask NetworkManager to join it now;
+ *                          {"connected":…,"tried":…,"message":…,"inSight":…,"signal":…} (takes up to ~35 s)
  *   POST /api/pair/open    {"minutes":10} -> "Add another phone": pairing open for one more phone (needs the token)
  *   POST /api/config       {"emulator":false} -> saved; the bridge restarts to apply it
  *   GET  /api/system       the computer: model, OS, uptime, temperature, memory, disk, addresses, bridge build
@@ -67,6 +69,7 @@ class HttpApi(
     private val updater: Updater? = null,
     private val shared: SharedStore? = null,
     private val activity: ActivityLog? = null,
+    private val watch: CarWifiWatch? = null,
     private val restart: () -> Unit = {},
 ) {
     private lateinit var server: HttpServer
@@ -109,6 +112,13 @@ class HttpApi(
                 runBlocking { service.connectNow() }
                 record(ex, "bridge.carwifi_resumed", emptyMap(), why)
                 json(ex, if (why == null) 200 else 500, mapOf("ok" to (why == null), "error" to why))
+            }
+            path == "carwifi/rejoin" && ex.requestMethod == "POST" -> withWifi(ex) { wifi ->
+                // A phone is about to fall back to the car's own Wi-Fi: get the bridge back on it first if it can be.
+                val w = watch ?: return@withWifi json(ex, 503, mapOf("ok" to false, "error" to "The car Wi-Fi watch is not running here"))
+                val r = w.check(rejoinNow = true, who = who(ex))
+                log.link("API: rejoin the car's Wi-Fi, asked by ${who(ex)} — ${r.message}")
+                json(ex, 200, linkedMapOf<String, Any?>("ok" to true, "pausedUntilMs" to wifi.pausedUntilMs) + r.toMap())
             }
             path == "carwifi/scan" && ex.requestMethod == "POST" -> withWifi(ex) { wifi ->
                 val (nets, error) = wifi.scan(body(ex)["country"]?.toString())

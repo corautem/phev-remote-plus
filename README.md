@@ -148,7 +148,9 @@ by itself afterwards (or after a reboot).
 The bridge watches its own link to the car's Wi-Fi: NetworkManager gives up on a network after failed joins (for
 example while a phone held the car's Wi-Fi), so when the bridge finds itself off the car's Wi-Fi it asks NetworkManager
 to join again — after 1, 2, 4, 8 and then every 10 minutes, and at once when the car's network comes back in sight. A
-phone that is about to use the car's Wi-Fi itself first asks the bridge to rejoin. When the car keeps refusing a phone a
+phone that is about to use the car's Wi-Fi itself first asks the bridge to rejoin. While a phone is on the same
+network as the bridge it never joins the car's Wi-Fi by itself (only Settings → Phone registration's step-aside does);
+away from home it may, e.g. next to the car at work. When the car keeps refusing a phone a
 session (the phone isn't registered), that phone leaves the car's Wi-Fi to the bridge for an hour (longer if it happens
 again) while the car is near the bridge. Losing and getting back the car's Wi-Fi shows in the activity log.
 

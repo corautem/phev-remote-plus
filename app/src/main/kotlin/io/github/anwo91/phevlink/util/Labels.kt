@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.annotation.StringRes
 import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.model.CarCommand
+import io.github.anwo91.phevlink.core.session.Unreachable
 import io.github.anwo91.phevlink.core.model.ClimateMode
 import io.github.anwo91.phevlink.core.model.Doors
 import io.github.anwo91.phevlink.core.model.VehicleSettingsText
@@ -76,6 +77,8 @@ object Labels {
             CarCommand.ClimateOn.QUICK_CHARGING -> res.getString(R.string.msg_climate_quick_charging)
             CarCommand.ClimateOn.NOT_STARTED -> res.getString(R.string.msg_climate_not_started)
             CarCommand.ChargeNow.NOT_PLUGGED -> res.getString(R.string.msg_charge_not_plugged)
+            Unreachable.OFF_CAR_WIFI -> res.getString(R.string.link_bridge_car_away)
+            Unreachable.STEPPED_ASIDE -> res.getString(R.string.link_bridge_stepped_aside)
             // An older bridge doesn't know a newer command.
             else -> if (reason.startsWith("Unknown action")) res.getString(R.string.msg_bridge_needs_update) else reason
         }

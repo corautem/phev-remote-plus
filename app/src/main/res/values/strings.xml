@@ -325,7 +325,7 @@
     <string name="route_auto">Automatic</string>
     <string name="route_direct">Car Wi-Fi only</string>
     <string name="route_bridge">Bridge only</string>
-    <string name="settings_route_explain">Automatic uses the bridge when it has fresh data about the car (car parked at home), otherwise the car\'s own Wi-Fi.</string>
+    <string name="settings_route_explain">Automatic uses the bridge when it has fresh data about the car (car parked at home), otherwise the car\'s own Wi-Fi — but never while this phone is on the same network as the bridge.</string>
     <string name="settings_bridge_address">Bridge address</string>
     <string name="settings_bridge_token">Bridge token</string>
     <string name="settings_quick_title">One-tap climate (widget, tile, shortcuts)</string>

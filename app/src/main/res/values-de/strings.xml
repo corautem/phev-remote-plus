@@ -316,7 +316,7 @@
     <string name="route_auto">Automatisch</string>
     <string name="route_direct">Nur Auto-Wi-Fi</string>
     <string name="route_bridge">Nur Bridge</string>
-    <string name="settings_route_explain">Automatisch nutzt die Bridge, wenn sie aktuelle Daten vom Auto hat (Auto steht zu Hause), sonst das Wi-Fi des Autos.</string>
+    <string name="settings_route_explain">Automatisch nutzt die Bridge, wenn sie aktuelle Daten vom Auto hat (Auto steht zu Hause), sonst das Wi-Fi des Autos – aber nie, solange dein Handy im selben Netz wie die Bridge ist.</string>
     <string name="settings_bridge_address">Bridge-Adresse</string>
     <string name="settings_bridge_token">Bridge-Token</string>
     <string name="settings_quick_title">Klima per Fingertipp (Widget, Kachel, Verknüpfungen)</string>

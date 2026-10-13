@@ -1,6 +1,9 @@
 package io.github.anwo91.phevlink.link
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.LinkAddress
+import android.net.NetworkCapabilities
 import androidx.annotation.StringRes
 import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.alerts.Alert
@@ -46,6 +49,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import java.net.Inet4Address
 import java.time.LocalTime
 import java.time.ZonedDateTime
 import java.util.concurrent.atomic.AtomicInteger
@@ -384,9 +388,19 @@ class CarRepository(
                 val blocked = directBlocked
                 setLink { LinkUi(LinkPhase.CONNECTING, Route.BRIDGE, str(R.string.link_checking_bridge)) }
                 val snap = BridgeClient(s.bridgeUrl, s.bridgeToken, log, context).fetchStatus(3_000)
-                if (snap == null) {
-                    log.link("Route: bridge unreachable → car Wi-Fi" + if (blocked) " (the car refused this phone a session lately, but the bridge can't help from here)" else "")
+                // On the bridge's own network the phone never joins the car's Wi-Fi by itself: the bridge is there for
+                // that, and the car's Wi-Fi takes one device at a time (asked for). Away from home it may.
+                val atHome = onBridgeNetwork(s, refresh = snap != null)
+                fun carWifiUnlessHome(why: String): Route {
+                    if (atHome != null) {
+                        log.link("Route: $why — but this phone is on the bridge's network ($atHome), so it stays off the car's Wi-Fi → bridge")
+                        return Route.BRIDGE
+                    }
+                    log.link("Route: $why → car Wi-Fi")
                     return Route.DIRECT
+                }
+                if (snap == null) {
+                    return carWifiUnlessHome("bridge unreachable" + if (blocked) " (the car refused this phone a session lately, but the bridge can't help from here)" else "")
                 }
                 // Only trust the bridge if it is in touch with the car right now, or checked it
                 // recently without errors (the car is at home). Otherwise the car is elsewhere.
@@ -403,8 +417,7 @@ class CarRepository(
                     return Route.BRIDGE
                 }
                 if (wifi?.paused == true) {
-                    log.link("Route: the bridge has stepped off the car's Wi-Fi for a phone until ${Format.clock(wifi.pausedUntilMs ?: 0L)} → car Wi-Fi")
-                    return Route.DIRECT
+                    return carWifiUnlessHome("the bridge has stepped off the car's Wi-Fi for a phone until ${Format.clock(wifi.pausedUntilMs ?: 0L)}")
                 }
                 // The bridge is off the car's Wi-Fi (NetworkManager gives up after failed joins): get it back on before
                 // this phone takes the car's only Wi-Fi slot itself.
@@ -435,8 +448,7 @@ class CarRepository(
                     log.link("Route: the car refused this phone a session lately (not registered?) and may be next to the bridge → bridge until ${Format.clock(directBlockedUntil)}, keeping off the car's Wi-Fi")
                     return Route.BRIDGE
                 }
-                log.link("Route: bridge has no contact with the car" + (if (inSight == false) " and can't see it (the car is away)" else "") + " → car Wi-Fi")
-                Route.DIRECT
+                carWifiUnlessHome("bridge has no contact with the car" + if (inSight == false) " and can't see it (the car is away)" else "")
             }
         }
     }
@@ -643,7 +655,10 @@ class CarRepository(
                     r is CommandResult.Failure && r.retryable && (direct !== d || bridge !== b) -> continue
                     // The bridge could not reach the car: in Automatic mode try the car's Wi-Fi (not while the car keeps
                     // refusing this phone a session — that would only take the car's Wi-Fi from the bridge).
-                    b != null && !triedFallback && settings.current.route == Route.AUTO && settings.current.hasCarWifi && !directBlocked -> {
+                    b != null && !triedFallback && settings.current.route == Route.AUTO && settings.current.hasCarWifi && !directBlocked &&
+                        onBridgeNetwork(settings.current, refresh = false).also { home ->
+                            if (home != null) log.link("Bridge could not do it (${(r as CommandResult.Failure).reason}) — not trying the car's Wi-Fi: this phone is on the bridge's network ($home)")
+                        } == null -> {
                         triedFallback = true
                         log.link("Bridge could not do it (${(r as CommandResult.Failure).reason}) — trying the car's Wi-Fi")
                         preferDirectUntil = System.currentTimeMillis() + 10 * 60_000
@@ -697,6 +712,63 @@ class CarRepository(
 
     fun lastUpdatedText(): String? = _car.value.updatedAtMs?.let { str(R.string.link_last_data, Format.ago(it, context = context)) }
 
+    // ------------------------------------------------------------ home network
+
+    /**
+     * Is this phone on the bridge's own network right now (home Wi-Fi or Ethernet, not a VPN, not the car's Wi-Fi)?
+     * Then the app never joins the car's Wi-Fi by itself. Compares the phone's network with the bridge's own addresses
+     * (asked from the bridge now and then and remembered, so it also works while the bridge is down; the bridge's car
+     * Wi-Fi radio left out). Null = not at home, or not known; else a short description for the log.
+     */
+    private suspend fun onBridgeNetwork(s: AppSettings, refresh: Boolean): String? {
+        val cm = context.getSystemService(ConnectivityManager::class.java) ?: return null
+        @Suppress("DEPRECATION") // getAllNetworks: the simple way to list networks; nothing to register for.
+        val mine = cm.allNetworks.mapNotNull { n ->
+            val c = cm.getNetworkCapabilities(n) ?: return@mapNotNull null
+            val lan = !c.hasTransport(NetworkCapabilities.TRANSPORT_VPN) &&
+                (c.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || c.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) &&
+                c.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) // the car's Wi-Fi has no internet
+            if (!lan) null else cm.getLinkProperties(n)?.linkAddresses?.firstOrNull { it.address is Inet4Address }
+        }
+        if (mine.isEmpty()) return null
+        val bridgeIps = bridgeLanAddresses(s, refresh)
+        for (la in mine) for (ip in bridgeIps) {
+            if (sameSubnet(la, ip)) return "${la.address.hostAddress}/${la.prefixLength}, bridge at $ip"
+        }
+        return null
+    }
+
+    /** The bridge's own IPv4 addresses except its car Wi-Fi radio (remembered; asked again every few hours). */
+    private suspend fun bridgeLanAddresses(s: AppSettings, refresh: Boolean): List<String> {
+        val urlHost = runCatching { java.net.URI(s.bridgeUrl).host }.getOrNull()?.takeIf { IPV4.matches(it) }
+        val cachedFor = linkPrefs.getString(KEY_LAN_URL, null)
+        var cached = if (cachedFor == s.bridgeUrl) linkPrefs.getString(KEY_LAN_IPS, null)?.split(',')?.filter { it.isNotBlank() } else null
+        val age = System.currentTimeMillis() - linkPrefs.getLong(KEY_LAN_AT, 0L)
+        if (refresh && (cached == null || age > LAN_REFRESH_MS)) {
+            val sys = BridgeSetupApi.system(s.bridgeUrl, s.bridgeToken)?.takeIf { it.code == 200 }?.body
+            val carIface = BridgeSetupApi.carWifi(s.bridgeUrl, s.bridgeToken)?.takeIf { it.code == 200 }?.body?.get("iface")?.toString()
+            @Suppress("UNCHECKED_CAST")
+            val all = sys?.get("addresses") as? Map<String, Any?>
+            if (all != null) {
+                val lan = all.filterKeys { it != carIface }.values.mapNotNull { v -> v?.toString()?.takeIf { IPV4.matches(it) } }
+                linkPrefs.edit().putString(KEY_LAN_URL, s.bridgeUrl).putString(KEY_LAN_IPS, lan.joinToString(","))
+                    .putLong(KEY_LAN_AT, System.currentTimeMillis()).apply()
+                if (lan != cached) log.link("Bridge addresses on its networks: ${lan.joinToString().ifEmpty { "none" }}" + (carIface?.let { " (car Wi-Fi on $it left out)" } ?: ""))
+                cached = lan
+            }
+        }
+        return (listOfNotNull(urlHost) + cached.orEmpty()).distinct()
+    }
+
+    private fun sameSubnet(la: LinkAddress, ip: String): Boolean {
+        val mine = (la.address as? Inet4Address)?.address?.map { it.toInt() and 0xff } ?: return false
+        val other = ip.split('.').mapNotNull { it.toIntOrNull() }.takeIf { it.size == 4 } ?: return false
+        val bits = la.prefixLength.coerceIn(8, 32)
+        fun v(b: List<Int>) = (b[0].toLong() shl 24) or (b[1].toLong() shl 16) or (b[2].toLong() shl 8) or b[3].toLong()
+        val mask = (0xFFFFFFFFL shl (32 - bits)) and 0xFFFFFFFFL
+        return (v(mine) and mask) == (v(other) and mask)
+    }
+
     // ------------------------------------------------------------- describing
 
     private fun describeDirect(st: LinkStatus, net: CarNetwork.State, test: Boolean, noSessions: Int = 0): LinkUi {
@@ -745,7 +817,7 @@ class CarRepository(
                 LinkPhase.CONNECTED, via, str(R.string.link_bridge_online),
                 str(R.string.link_bridge_idle, snap.car.updatedAtMs?.let { Format.ago(it, context = context) } ?: str(R.string.link_never)),
             )
-            is LinkStatus.Retrying -> LinkUi(LinkPhase.RETRYING, via, str(R.string.link_bridge_cant_reach), l.lastError)
+            is LinkStatus.Retrying -> LinkUi(LinkPhase.RETRYING, via, str(R.string.link_bridge_cant_reach), Labels.failureReason(context, l.lastError))
             else -> LinkUi(LinkPhase.CONNECTING, via, str(R.string.link_bridge_connecting_car))
         }
     }
@@ -763,5 +835,10 @@ class CarRepository(
         private const val ROUTE_GRACE_MS = 45_000L
         private const val KEY_BLOCKED_UNTIL = "direct_blocked_until"
         private const val KEY_STRIKES = "no_session_strikes"
+        private const val KEY_LAN_URL = "bridge_lan_url"
+        private const val KEY_LAN_IPS = "bridge_lan_ips"
+        private const val KEY_LAN_AT = "bridge_lan_at"
+        private const val LAN_REFRESH_MS = 6 * 3600_000L
+        private val IPV4 = Regex("""^\d{1,3}(\.\d{1,3}){3}$""")
     }
 }

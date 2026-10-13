@@ -3,6 +3,7 @@ package io.github.anwo91.phevlink.bridge
 import io.github.anwo91.phevlink.core.diag.DiagLog
 import io.github.anwo91.phevlink.core.diag.LogEntry
 import io.github.anwo91.phevlink.core.emulator.FakeCar
+import io.github.anwo91.phevlink.core.session.Unreachable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -68,10 +69,16 @@ fun main(args: Array<String>) {
     val stateDir = File(config.stateFile).absoluteFile.parentFile
     // Who did what, and what the car did (charging in detail): kept on the bridge for every phone to read.
     val activity = ActivityLog(File(stateDir, "activity.jsonl"), log)
-    val service = BridgeService(config, log, scope, carPort, activity)
+    val carWifi = CarWifi(config.wifiHelper, config.carIface, log)
+    // Off the car's Wi-Fi (the car is away): say so at once instead of timing out on the car's address.
+    val unreachableBecause: () -> String? = {
+        if (config.emulator) null else carWifi.status().takeIf { it.configured && it.iface != null && !it.connected }?.let {
+            if (carWifi.paused) Unreachable.STEPPED_ASIDE else Unreachable.OFF_CAR_WIFI
+        }
+    }
+    val service = BridgeService(config, log, scope, carPort, activity, unreachableBecause)
     service.start()
     val pairing = Pairing(config.pairingMinutes, stateDir, log)
-    val carWifi = CarWifi(config.wifiHelper, config.carIface, log)
     // Settings changes from the app (leaving emulator mode) and "restart" apply on a fresh start; systemd brings us back.
     val restart = {
         Thread {

@@ -316,7 +316,7 @@
     <string name="route_auto">Automatisk</string>
     <string name="route_direct">Kun bilens Wi-Fi</string>
     <string name="route_bridge">Kun bro</string>
-    <string name="settings_route_explain">Automatisk bruger broen, når den har friske data fra bilen (bilen holder derhjemme), ellers bilens eget Wi-Fi.</string>
+    <string name="settings_route_explain">Automatisk bruger broen, når den har friske data fra bilen (bilen holder derhjemme), ellers bilens eget Wi-Fi – men aldrig mens telefonen er på samme netværk som broen.</string>
     <string name="settings_bridge_address">Broens adresse</string>
     <string name="settings_bridge_token">Broens token</string>
     <string name="settings_quick_title">Klima med ét tryk (widget, felt, genveje)</string>

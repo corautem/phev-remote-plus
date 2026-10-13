@@ -12,8 +12,10 @@ import io.github.anwo91.phevlink.core.session.ConnectionConfig
 import io.github.anwo91.phevlink.core.session.LinkStatus
 import io.github.anwo91.phevlink.core.session.PhevConnection
 import io.github.anwo91.phevlink.core.session.SessionConfig
+import io.github.anwo91.phevlink.core.session.SocketConnector
 import io.github.anwo91.phevlink.core.session.TcpConnector
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
@@ -22,7 +24,9 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
+import java.io.IOException
 import java.io.File
 import java.util.concurrent.CopyOnWriteArrayList
 
@@ -37,6 +41,11 @@ class BridgeService(
     carPort: Int = config.carPort,
     /** Where what the car does (charging, climate, doors…) is written down. */
     private val activity: ActivityLog? = null,
+    /**
+     * Why the car can't be reached right now without trying, or null: the bridge is off the car's Wi-Fi (the car is
+     * away). Saves 5-second timeouts and gives the app a reason people understand instead of "timed out".
+     */
+    private val unreachableBecause: () -> String? = { null },
 ) {
     private val tracker = io.github.anwo91.phevlink.core.activity.CarEventTracker()
     val startedAtMs = System.currentTimeMillis()
@@ -47,9 +56,13 @@ class BridgeService(
     private var holds = 0
     private var lingerJob: Job? = null
     val recentAlerts = ArrayDeque<Alert>()
+    private val tcp = TcpConnector(config.carHost, carPort)
 
     val connection = PhevConnection(
-        connector = TcpConnector(config.carHost, carPort),
+        connector = SocketConnector {
+            withContext(Dispatchers.IO) { runCatching { unreachableBecause() }.getOrNull() }?.let { throw IOException(it) }
+            tcp.connect()
+        },
         log = log,
         scope = scope,
         config = ConnectionConfig(
@@ -103,6 +116,11 @@ class BridgeService(
     }
 
     suspend fun execute(cmd: CarCommand): CommandResult {
+        // The car is away (the bridge is off its Wi-Fi): say so now rather than after 45 seconds of trying.
+        withContext(Dispatchers.IO) { runCatching { unreachableBecause() }.getOrNull() }?.let {
+            log.link("Command ${Codecs.commandToMap(cmd)["action"]}: not tried — $it")
+            return CommandResult.Failure(cmd, it)
+        }
         hold()
         try {
             return connection.execute(cmd, 45_000)

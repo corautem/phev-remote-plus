@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Bridge back on the car's Wi-Fi, phone not registered, late departures. -->
 <resources>
+    <string name="link_bridge_car_away">Bilen er ikke inden for broens rækkevidde – den er væk hjemmefra, eller bilens Wi-Fi sover</string>
+    <string name="link_bridge_stepped_aside">Broen har forladt bilens Wi-Fi for en telefon</string>
     <string name="link_bridge_rejoining">Får broen tilbage på bilens Wi-Fi…</string>
     <string name="link_no_session_hint">Bilen svarer, men starter ingen session. Sker det hele tiden, er denne telefon ikke registreret i bilen – registrer den under Indstillinger.</string>
     <string name="link_bridge_only">Denne telefon bruger ikke bilens Wi-Fi i et stykke tid: bilen startede ingen session for den (ikke registreret?). Bruger broen.</string>

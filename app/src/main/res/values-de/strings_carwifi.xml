@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Bridge back on the car's Wi-Fi, phone not registered, late departures. -->
 <resources>
+    <string name="link_bridge_car_away">Das Auto ist nicht in Reichweite der Bridge – es ist nicht zu Hause, oder sein WLAN schläft</string>
+    <string name="link_bridge_stepped_aside">Die Bridge hat das WLAN des Autos für ein Handy freigegeben</string>
     <string name="link_bridge_rejoining">Bringe die Bridge zurück ins WLAN des Autos…</string>
     <string name="link_no_session_hint">Das Auto antwortet, startet aber keine Sitzung. Passiert das ständig, ist dieses Handy nicht im Auto registriert – registriere es unter Optionen.</string>
     <string name="link_bridge_only">Dieses Handy nutzt das WLAN des Autos eine Weile nicht: Das Auto hat keine Sitzung dafür gestartet (nicht registriert?). Nutze die Bridge.</string>

@@ -316,7 +316,7 @@
     <string name="route_auto">Automatiskt</string>
     <string name="route_direct">Bara bilens Wi-Fi</string>
     <string name="route_bridge">Bara brygga</string>
-    <string name="settings_route_explain">Automatiskt använder bryggan när den har färska data från bilen (bilen står hemma), annars bilens eget Wi-Fi.</string>
+    <string name="settings_route_explain">Automatiskt använder bryggan när den har färska data från bilen (bilen står hemma), annars bilens eget Wi-Fi – men aldrig medan telefonen är på samma nätverk som bryggan.</string>
     <string name="settings_bridge_address">Bryggans adress</string>
     <string name="settings_bridge_token">Bryggans token</string>
     <string name="settings_quick_title">Klimat med ett tryck (widget, ruta, genvägar)</string>

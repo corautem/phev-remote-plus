@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Bridge back on the car's Wi-Fi, phone not registered, late departures. -->
 <resources>
+    <string name="link_bridge_car_away">The car isn\'t within the bridge\'s reach — it\'s away from home, or its Wi-Fi is asleep</string>
+    <string name="link_bridge_stepped_aside">The bridge has stepped off the car\'s Wi-Fi for a phone</string>
     <string name="link_bridge_rejoining">Getting the bridge back on the car\'s Wi-Fi…</string>
     <string name="link_no_session_hint">The car answers but won\'t start a session. If this keeps happening, this phone isn\'t registered with the car — register it under Settings.</string>
     <string name="link_bridge_only">This phone isn\'t using the car\'s Wi-Fi for a while: the car didn\'t start a session for it (not registered?). Using the bridge.</string>

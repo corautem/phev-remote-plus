@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge page → Smart home (Home Assistant over MQTT). -->
+<resources>
+    <string name="sh_title">Smart home</string>
+    <string name="sh_intro">Vis bilen i Home Assistant: batteri, opladning, klima til og fra, lys og hændelser til dine automatiseringer (færdigopladet, alarm, bilen hjemme). Google Home og Alexa kan så bruge den via Home Assistant. Det går over MQTT: Mosquitto-tilføjelsen i Home Assistant, eller en broker på denne bro.</string>
+    <string name="sh_set_up">Opsæt</string>
+    <string name="sh_needs_update">Opdater broen for at forbinde bilen med Home Assistant (Indstillinger → Opdateringer).</string>
+    <string name="sh_loading">Spørger broen…</string>
+    <string name="sh_connected">Forbundet til brokeren på %1$s</string>
+    <string name="sh_connecting">Forbinder til brokeren…</string>
+    <string name="sh_cant_connect">Kan ikke forbinde: %1$s</string>
+    <string name="sh_in_ha">I Home Assistant er bilen enheden »%1$s« – Indstillinger → Enheder og tjenester → MQTT.</string>
+    <string name="sh_change">Ændr</string>
+    <string name="sh_turn_off">Slå fra</string>
+    <string name="sh_find_title">MQTT-broker</string>
+    <string name="sh_finding">Leder efter brokere på dit netværk…</string>
+    <string name="sh_none_found">Fandt ingen broker på broens netværk. Indtast en nedenfor, eller lad broen køre en.</string>
+    <string name="sh_found_ha">Home Assistant</string>
+    <string name="sh_found_bridge">På denne bro</string>
+    <string name="sh_found_broker">MQTT-broker</string>
+    <string name="sh_search_again">Søg igen</string>
+    <string name="sh_address">Brokerens adresse</string>
+    <string name="sh_port">Port</string>
+    <string name="sh_user">Brugernavn</string>
+    <string name="sh_password">Adgangskode</string>
+    <string name="sh_password_keep">Uændret</string>
+    <string name="sh_login_hint">Med Mosquitto-tilføjelsen i Home Assistant bruger du en Home Assistant-bruger lavet til bilen (Indstillinger → Personer → Brugere).</string>
+    <string name="sh_connect">Forbind</string>
+    <string name="sh_local_title">Ingen broker?</string>
+    <string name="sh_local_explain">Broen kan selv køre en (Mosquitto, med adgangskode). Tager omkring et minut, og broen skal have internet til det.</string>
+    <string name="sh_local_button">Kør en broker på broen</string>
+    <string name="sh_local_installing">Sætter brokeren op på broen…</string>
+    <string name="sh_local_failed">Kunne ikke sætte brokeren op: %1$s</string>
+    <string name="sh_local_ha_title">Forbind Home Assistant med broen</string>
+    <string name="sh_local_ha_steps">I Home Assistant: Indstillinger → Enheder og tjenester → Tilføj integration → MQTT, og indtast:</string>
+    <string name="sh_copy_password">Kopiér adgangskode</string>
+    <string name="sh_copied">Adgangskoden er kopieret</string>
+    <string name="sh_ha_broker_title">Home Assistants egen broker</string>
+    <string name="sh_ha_broker">I Home Assistant: Indstillinger → Tilføjelsesprogrammer → Butik → Mosquitto broker → Installer, og derefter Start. Lav en bruger til bilen (Indstillinger → Personer → Brugere), vælg Home Assistant ovenfor og indtast den bruger her. Home Assistant finder selv brokeren.</string>
+    <string name="sh_voice_title">Google Home og Alexa</string>
+    <string name="sh_voice">Del bilen fra Home Assistant: Indstillinger → Stemmeassistenter → Eksponer, og vælg bilens kontakter, f.eks. Klima. Så kan du sige »Hey Google, tænd %1$s Klima«. Det kræver Home Assistant Cloud, eller Home Assistants egen opsætning af Google Assistant eller Alexa.</string>
+    <string name="sh_auto_title">Til automatiseringer</string>
+    <string name="sh_auto">Færdigopladet, alarm, bilen hjemme, bilen væk og mere kommer i bilens »Bilhændelse«-enhed – brug dem som udløsere. Andre systemer (Node-RED, openHAB, Homey) kan bruge MQTT-emnerne under %1$s/.</string>
+    <string name="sh_connected_done">Forbundet – bilen er i Home Assistant nu.</string>
+    <string name="sh_off_done">Slået fra – bilen er taget ud af Home Assistant.</string>
+    <string name="sh_err_bridge">Kan ikke få kontakt med broen.</string>
+    <string name="sh_err_login">forkert brugernavn eller adgangskode</string>
+    <string name="sh_err_no_broker">intet svarer der – kører brokeren?</string>
+    <string name="sh_err_no_answer">intet svar – forkert adresse, eller en firewall?</string>
+    <string name="sh_err_unknown_host">ukendt adresse</string>
+    <string name="sh_err_address">Indtast brokerens adresse.</string>
+    <string name="sh_err_port">Porten skal være 1–65535.</string>
+    <string name="act_bridge_smarthome_on">%1$s forbandt bilen med smart home</string>
+    <string name="act_bridge_smarthome_off">%1$s slog forbindelsen til smart home fra</string>
+</resources>

@@ -15,6 +15,12 @@ import java.io.File
 class ActivityLog(private val file: File?, private val log: DiagLog, private val capacity: Int = 3000) {
     private val entries = ArrayDeque<Activity>()
     private val ids = HashSet<String>()
+    private val listeners = java.util.concurrent.CopyOnWriteArrayList<(Activity) -> Unit>()
+
+    /** Told about every new line (after it is kept), e.g. the smart-home link. */
+    fun addListener(l: (Activity) -> Unit) {
+        listeners += l
+    }
     private var linesInFile = 0
 
     init {
@@ -33,6 +39,7 @@ class ActivityLog(private val file: File?, private val log: DiagLog, private val
         while (entries.size > capacity) ids.remove(entries.removeFirst().id)
         log.link("Activity: " + ActivityText.english(a) + (a.via?.let { " [$it]" } ?: ""))
         append(a)
+        listeners.forEach { l -> runCatching { l(a) } }
         return true
     }
 

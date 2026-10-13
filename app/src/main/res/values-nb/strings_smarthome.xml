@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge page → Smart home (Home Assistant over MQTT). -->
+<resources>
+    <string name="sh_title">Smarthus</string>
+    <string name="sh_intro">Vis bilen i Home Assistant: batteri, lading, klima av og på, lys og hendelser til automasjonene dine (ferdig ladet, alarm, bilen hjemme). Google Home og Alexa kan da bruke den via Home Assistant. Det går over MQTT: Mosquitto-tillegget i Home Assistant, eller en megler på denne broen.</string>
+    <string name="sh_set_up">Sett opp</string>
+    <string name="sh_needs_update">Oppdater broen for å koble bilen til Home Assistant (Innstillinger → Oppdateringer).</string>
+    <string name="sh_loading">Spør broen…</string>
+    <string name="sh_connected">Koblet til megleren på %1$s</string>
+    <string name="sh_connecting">Kobler til megleren…</string>
+    <string name="sh_cant_connect">Får ikke koblet til: %1$s</string>
+    <string name="sh_in_ha">I Home Assistant er bilen enheten «%1$s» – Innstillinger → Enheter og tjenester → MQTT.</string>
+    <string name="sh_change">Endre</string>
+    <string name="sh_turn_off">Slå av</string>
+    <string name="sh_find_title">MQTT-megler</string>
+    <string name="sh_finding">Leter etter meglere på nettverket ditt…</string>
+    <string name="sh_none_found">Fant ingen megler på broens nettverk. Skriv inn en nedenfor, eller la broen kjøre en.</string>
+    <string name="sh_found_ha">Home Assistant</string>
+    <string name="sh_found_bridge">På denne broen</string>
+    <string name="sh_found_broker">MQTT-megler</string>
+    <string name="sh_search_again">Søk igjen</string>
+    <string name="sh_address">Meglerens adresse</string>
+    <string name="sh_port">Port</string>
+    <string name="sh_user">Brukernavn</string>
+    <string name="sh_password">Passord</string>
+    <string name="sh_password_keep">Uendret</string>
+    <string name="sh_login_hint">Med Mosquitto-tillegget i Home Assistant bruker du en Home Assistant-bruker laget for bilen (Innstillinger → Personer → Brukere).</string>
+    <string name="sh_connect">Koble til</string>
+    <string name="sh_local_title">Ingen megler?</string>
+    <string name="sh_local_explain">Broen kan kjøre en selv (Mosquitto, med passord). Tar omtrent ett minutt, og broen trenger internett til det.</string>
+    <string name="sh_local_button">Kjør en megler på broen</string>
+    <string name="sh_local_installing">Setter opp megleren på broen…</string>
+    <string name="sh_local_failed">Fikk ikke satt opp megleren: %1$s</string>
+    <string name="sh_local_ha_title">Koble Home Assistant til broen</string>
+    <string name="sh_local_ha_steps">I Home Assistant: Innstillinger → Enheter og tjenester → Legg til integrasjon → MQTT, og skriv inn:</string>
+    <string name="sh_copy_password">Kopier passord</string>
+    <string name="sh_copied">Passordet er kopiert</string>
+    <string name="sh_ha_broker_title">Home Assistants egen megler</string>
+    <string name="sh_ha_broker">I Home Assistant: Innstillinger → Tillegg → Tilleggsbutikk → Mosquitto broker → Installer, og så Start. Lag en bruker for bilen (Innstillinger → Personer → Brukere), velg Home Assistant ovenfor og skriv inn den brukeren her. Home Assistant finner megleren selv.</string>
+    <string name="sh_voice_title">Google Home og Alexa</string>
+    <string name="sh_voice">Del bilen fra Home Assistant: Innstillinger → Taleassistenter → Eksponer, og velg bilens brytere, f.eks. Klima. Da kan du si «Hey Google, slå på %1$s Klima». Dette krever Home Assistant Cloud, eller Home Assistants eget oppsett for Google Assistant eller Alexa.</string>
+    <string name="sh_auto_title">Til automasjoner</string>
+    <string name="sh_auto">Ferdig ladet, alarm, bilen hjemme, bilen borte og mer kommer i bilens «Bilhendelse»-enhet – bruk dem som utløsere. Andre systemer (Node-RED, openHAB, Homey) kan bruke MQTT-emnene under %1$s/.</string>
+    <string name="sh_connected_done">Koblet til – bilen er i Home Assistant nå.</string>
+    <string name="sh_off_done">Slått av – bilen er tatt ut av Home Assistant.</string>
+    <string name="sh_err_bridge">Får ikke kontakt med broen.</string>
+    <string name="sh_err_login">feil brukernavn eller passord</string>
+    <string name="sh_err_no_broker">ingenting svarer der – kjører megleren?</string>
+    <string name="sh_err_no_answer">ikke noe svar – feil adresse, eller en brannmur?</string>
+    <string name="sh_err_unknown_host">ukjent adresse</string>
+    <string name="sh_err_address">Skriv inn meglerens adresse.</string>
+    <string name="sh_err_port">Porten må være 1–65535.</string>
+    <string name="act_bridge_smarthome_on">%1$s koblet bilen til smarthuset</string>
+    <string name="act_bridge_smarthome_off">%1$s slo av koblingen til smarthuset</string>
+</resources>

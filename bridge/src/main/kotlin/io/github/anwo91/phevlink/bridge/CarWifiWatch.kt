@@ -45,7 +45,10 @@ class CarWifiWatch(
     }
 
     /** Null until the first look; then whether the bridge was on the car's Wi-Fi at the last look. */
-    private var connected: Boolean? = null
+    @Volatile private var connected: Boolean? = null
+
+    /** On the car's Wi-Fi at the last look (the car is home); null before the first look or when there's nothing to watch. */
+    val onCarWifi: Boolean? get() = connected
     /** When the current stretch (on or off the car's Wi-Fi) began. */
     private var since = 0L
     private var lastSignal: Int? = null

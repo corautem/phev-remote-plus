@@ -157,6 +157,11 @@ class BridgeService(
     }
 
     fun addListener(l: (Map<String, Any?>) -> Unit) = listeners.add(l)
+
+    private val alertListeners = CopyOnWriteArrayList<(Alert) -> Unit>()
+
+    /** Told about every reminder the bridge raises (left unlocked, door open, …), e.g. the smart-home link. */
+    fun addAlertListener(l: (Alert) -> Unit) = alertListeners.add(l)
     fun removeListener(l: (Map<String, Any?>) -> Unit) = listeners.remove(l)
 
     fun snapshot(
@@ -189,6 +194,7 @@ class BridgeService(
             while (recentAlerts.size > 20) recentAlerts.removeFirst()
         }
         scope.launch { notifier.send(a.title, a.message, a.type.name) }
+        alertListeners.forEach { l -> runCatching { l(a) } }
     }
 
     private fun loadState(): CarState = runCatching {
@@ -216,6 +222,6 @@ class BridgeService(
         val BUILD: String = BridgeService::class.java.`package`?.implementationVersion ?: "dev"
 
         /** What this bridge can do beyond the car link (the app checks before offering the setup wizard or updates). */
-        val FEATURES = listOf("pair", "carwifi", "config", "system", "update", "restart", "carwifi-pause", "pair-invite", "shared", "departures", "charge-timer", "activity", "carwifi-rejoin")
+        val FEATURES = listOf("pair", "carwifi", "config", "system", "update", "restart", "carwifi-pause", "pair-invite", "shared", "departures", "charge-timer", "activity", "carwifi-rejoin", "smarthome")
     }
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge page → Smart home (Home Assistant over MQTT). -->
+<resources>
+    <string name="sh_title">Smart Home</string>
+    <string name="sh_intro">Zeig das Auto in Home Assistant: Batterie, Laden, Klima an und aus, Licht und Ereignisse für deine Automationen (fertig geladen, Alarm, Auto zu Hause). Google Home und Alexa können es dann über Home Assistant nutzen. Es läuft über MQTT: das Mosquitto-Add-on in Home Assistant oder einen Broker auf dieser Bridge.</string>
+    <string name="sh_set_up">Einrichten</string>
+    <string name="sh_needs_update">Aktualisiere die Bridge, um das Auto mit Home Assistant zu verbinden (Optionen → Updates).</string>
+    <string name="sh_loading">Frage die Bridge…</string>
+    <string name="sh_connected">Verbunden mit dem Broker unter %1$s</string>
+    <string name="sh_connecting">Verbinde mit dem Broker…</string>
+    <string name="sh_cant_connect">Keine Verbindung: %1$s</string>
+    <string name="sh_in_ha">In Home Assistant ist das Auto das Gerät „%1$s“ – Einstellungen → Geräte &amp; Dienste → MQTT.</string>
+    <string name="sh_change">Ändern</string>
+    <string name="sh_turn_off">Ausschalten</string>
+    <string name="sh_find_title">MQTT-Broker</string>
+    <string name="sh_finding">Suche Broker in deinem Netzwerk…</string>
+    <string name="sh_none_found">Kein Broker im Netzwerk der Bridge gefunden. Gib unten einen ein oder lass die Bridge einen betreiben.</string>
+    <string name="sh_found_ha">Home Assistant</string>
+    <string name="sh_found_bridge">Auf dieser Bridge</string>
+    <string name="sh_found_broker">MQTT-Broker</string>
+    <string name="sh_search_again">Erneut suchen</string>
+    <string name="sh_address">Adresse des Brokers</string>
+    <string name="sh_port">Port</string>
+    <string name="sh_user">Benutzername</string>
+    <string name="sh_password">Passwort</string>
+    <string name="sh_password_keep">Unverändert</string>
+    <string name="sh_login_hint">Mit dem Mosquitto-Add-on von Home Assistant nimmst du einen Home-Assistant-Benutzer, der fürs Auto angelegt ist (Einstellungen → Personen → Benutzer).</string>
+    <string name="sh_connect">Verbinden</string>
+    <string name="sh_local_title">Kein Broker?</string>
+    <string name="sh_local_explain">Die Bridge kann selbst einen betreiben (Mosquitto, mit Passwort). Dauert etwa eine Minute, und die Bridge braucht dafür Internet.</string>
+    <string name="sh_local_button">Broker auf der Bridge betreiben</string>
+    <string name="sh_local_installing">Richte den Broker auf der Bridge ein…</string>
+    <string name="sh_local_failed">Broker konnte nicht eingerichtet werden: %1$s</string>
+    <string name="sh_local_ha_title">Home Assistant mit der Bridge verbinden</string>
+    <string name="sh_local_ha_steps">In Home Assistant: Einstellungen → Geräte &amp; Dienste → Integration hinzufügen → MQTT, und gib ein:</string>
+    <string name="sh_copy_password">Passwort kopieren</string>
+    <string name="sh_copied">Passwort kopiert</string>
+    <string name="sh_ha_broker_title">Der eigene Broker von Home Assistant</string>
+    <string name="sh_ha_broker">In Home Assistant: Einstellungen → Add-ons → Add-on Store → Mosquitto broker → Installieren, dann Starten. Leg einen Benutzer fürs Auto an (Einstellungen → Personen → Benutzer), wähl oben Home Assistant und gib hier diesen Benutzer ein. Home Assistant findet den Broker selbst.</string>
+    <string name="sh_voice_title">Google Home und Alexa</string>
+    <string name="sh_voice">Gib das Auto in Home Assistant frei: Einstellungen → Sprachassistenten → Freigeben, und wähl die Schalter des Autos, z. B. Klima. Dann kannst du sagen „Hey Google, schalte %1$s Klima ein“. Dafür brauchst du Home Assistant Cloud oder die eigene Google-Assistant- bzw. Alexa-Einrichtung von Home Assistant.</string>
+    <string name="sh_auto_title">Für Automationen</string>
+    <string name="sh_auto">Fertig geladen, Alarm, Auto zu Hause, Auto weg und mehr kommen in der Entität „Autoereignis“ des Autos – nutz sie als Auslöser. Andere Systeme (Node-RED, openHAB, Homey) können die MQTT-Topics unter %1$s/ nutzen.</string>
+    <string name="sh_connected_done">Verbunden – das Auto ist jetzt in Home Assistant.</string>
+    <string name="sh_off_done">Ausgeschaltet – das Auto wurde aus Home Assistant entfernt.</string>
+    <string name="sh_err_bridge">Bridge nicht erreichbar.</string>
+    <string name="sh_err_login">falscher Benutzername oder falsches Passwort</string>
+    <string name="sh_err_no_broker">dort antwortet nichts – läuft der Broker?</string>
+    <string name="sh_err_no_answer">keine Antwort – falsche Adresse oder eine Firewall?</string>
+    <string name="sh_err_unknown_host">unbekannte Adresse</string>
+    <string name="sh_err_address">Gib die Adresse des Brokers ein.</string>
+    <string name="sh_err_port">Der Port muss 1–65535 sein.</string>
+    <string name="act_bridge_smarthome_on">%1$s hat das Auto mit dem Smart Home verbunden</string>
+    <string name="act_bridge_smarthome_off">%1$s hat die Smart-Home-Verbindung ausgeschaltet</string>
+</resources>

@@ -100,6 +100,10 @@ fun BridgeScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit, onOp
             if (st.reachable == true || st.restarting || st.phase != UpdatePhase.IDLE) {
                 ActionsCard(c, st)
                 RecentActivityCard(vm, onOpenActivity)
+                // Home Assistant (MQTT): only once the bridge has said what it can do.
+                if (st.features.isNotEmpty()) {
+                    SmartHomeCard(vm, s.bridgeUrl, s.bridgeToken, supported = "smarthome" in st.features, carName = s.carName.ifBlank { "Outlander PHEV" })
+                }
                 UpdateCard(c, st)
                 LogCard(st)
             }

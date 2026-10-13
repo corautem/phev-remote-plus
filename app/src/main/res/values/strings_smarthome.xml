@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge page → Smart home (Home Assistant over MQTT). -->
+<resources>
+    <string name="sh_title">Smart home</string>
+    <string name="sh_intro">Show the car in Home Assistant: battery, charging, climate on and off, lights, and events for your automations (charging done, alarm, car home). Google Home and Alexa can then use it through Home Assistant. It uses MQTT: Home Assistant\'s Mosquitto add-on, or a broker on this bridge.</string>
+    <string name="sh_set_up">Set up</string>
+    <string name="sh_needs_update">Update the bridge to connect the car to Home Assistant (Settings → Updates).</string>
+    <string name="sh_loading">Asking the bridge…</string>
+    <string name="sh_connected">Connected to the broker at %1$s</string>
+    <string name="sh_connecting">Connecting to the broker…</string>
+    <string name="sh_cant_connect">Can\'t connect: %1$s</string>
+    <string name="sh_in_ha">In Home Assistant the car is the device “%1$s” — Settings → Devices &amp; services → MQTT.</string>
+    <string name="sh_change">Change</string>
+    <string name="sh_turn_off">Turn off</string>
+    <string name="sh_find_title">MQTT broker</string>
+    <string name="sh_finding">Looking for brokers on your network…</string>
+    <string name="sh_none_found">No broker found on the bridge\'s network. Enter one below, or let the bridge run one.</string>
+    <string name="sh_found_ha">Home Assistant</string>
+    <string name="sh_found_bridge">On this bridge</string>
+    <string name="sh_found_broker">MQTT broker</string>
+    <string name="sh_search_again">Search again</string>
+    <string name="sh_address">Broker address</string>
+    <string name="sh_port">Port</string>
+    <string name="sh_user">User name</string>
+    <string name="sh_password">Password</string>
+    <string name="sh_password_keep">Unchanged</string>
+    <string name="sh_login_hint">With Home Assistant\'s Mosquitto add-on, use a Home Assistant user made for the car (Settings → People → Users).</string>
+    <string name="sh_connect">Connect</string>
+    <string name="sh_local_title">No broker?</string>
+    <string name="sh_local_explain">The bridge can run one itself (Mosquitto, with a password). Takes about a minute, and the bridge needs internet for it.</string>
+    <string name="sh_local_button">Run a broker on the bridge</string>
+    <string name="sh_local_installing">Setting up the broker on the bridge…</string>
+    <string name="sh_local_failed">Couldn\'t set up the broker: %1$s</string>
+    <string name="sh_local_ha_title">Connect Home Assistant to the bridge</string>
+    <string name="sh_local_ha_steps">In Home Assistant: Settings → Devices &amp; services → Add integration → MQTT, and enter:</string>
+    <string name="sh_copy_password">Copy password</string>
+    <string name="sh_copied">Password copied</string>
+    <string name="sh_ha_broker_title">Home Assistant\'s own broker</string>
+    <string name="sh_ha_broker">In Home Assistant: Settings → Add-ons → Add-on store → Mosquitto broker → Install, then Start. Make a user for the car (Settings → People → Users), then pick Home Assistant above and enter that user here. Home Assistant finds the broker by itself.</string>
+    <string name="sh_voice_title">Google Home and Alexa</string>
+    <string name="sh_voice">Share the car from Home Assistant: Settings → Voice assistants → Expose, and pick the car\'s switches, e.g. Climate. Then you can say “Hey Google, turn on %1$s Climate”. This needs Home Assistant Cloud, or Home Assistant\'s own Google Assistant or Alexa setup.</string>
+    <string name="sh_auto_title">For automations</string>
+    <string name="sh_auto">Charging finished, alarm, car home, car away and more come in the car\'s “Car event” entity — use them as triggers. Other systems (Node-RED, openHAB, Homey) can use the MQTT topics under %1$s/.</string>
+    <string name="sh_connected_done">Connected — the car is in Home Assistant now.</string>
+    <string name="sh_off_done">Turned off — the car has been taken out of Home Assistant.</string>
+    <string name="sh_err_bridge">Can\'t reach the bridge.</string>
+    <string name="sh_err_login">wrong user name or password</string>
+    <string name="sh_err_no_broker">nothing answers there — is the broker running?</string>
+    <string name="sh_err_no_answer">no answer — wrong address, or a firewall?</string>
+    <string name="sh_err_unknown_host">unknown address</string>
+    <string name="sh_err_address">Enter the broker\'s address.</string>
+    <string name="sh_err_port">The port must be 1–65535.</string>
+    <string name="act_bridge_smarthome_on">%1$s connected the car to the smart home</string>
+    <string name="act_bridge_smarthome_off">%1$s switched the smart-home link off</string>
+</resources>

@@ -36,6 +36,11 @@ import java.util.concurrent.TimeUnit
  *   POST /api/carwifi/forget
  *   POST /api/carwifi/pause {"minutes":10} -> leave the car's Wi-Fi so a phone can use it (comes back by itself)
  *   POST /api/carwifi/resume -> back on the car's Wi-Fi now
+ *   GET  /api/mqtt         the smart-home link (Home Assistant over MQTT): settings (no password), status, last command
+ *   POST /api/mqtt         {"enabled":true,"host":"192.168.1.10","port":1883,"username":"…","password":"…","language":"nb"}
+ *                          -> saved, (re)connected; answers once connected or failed (a few seconds)
+ *   POST /api/mqtt/find    MQTT brokers on the home network (and which run Home Assistant)
+ *   POST /api/mqtt/local   set up an MQTT broker (Mosquitto) on the bridge computer and use it (runs in the background)
  *   POST /api/carwifi/rejoin -> if the bridge is off the car's Wi-Fi (and not paused), ask NetworkManager to join it now;
  *                          {"connected":…,"tried":…,"message":…,"inSight":…,"signal":…} (takes up to ~35 s)
  *   POST /api/pair/open    {"minutes":10} -> "Add another phone": pairing open for one more phone (needs the token)
@@ -70,6 +75,7 @@ class HttpApi(
     private val shared: SharedStore? = null,
     private val activity: ActivityLog? = null,
     private val watch: CarWifiWatch? = null,
+    private val smartHome: SmartHome? = null,
     private val restart: () -> Unit = {},
 ) {
     private lateinit var server: HttpServer
@@ -119,6 +125,25 @@ class HttpApi(
                 val r = w.check(rejoinNow = true, who = who(ex))
                 log.link("API: rejoin the car's Wi-Fi, asked by ${who(ex)} — ${r.message}")
                 json(ex, 200, linkedMapOf<String, Any?>("ok" to true, "pausedUntilMs" to wifi.pausedUntilMs) + r.toMap())
+            }
+            path == "mqtt" && ex.requestMethod == "GET" -> withSmartHome(ex) { json(ex, 200, it.describe()) }
+            path == "mqtt" && ex.requestMethod == "POST" -> withSmartHome(ex) { sh ->
+                val b = body(ex)
+                val wasOn = sh.settings.enabled
+                val bad = sh.change(b, who(ex))
+                if (bad != null) return@withSmartHome json(ex, 400, mapOf("ok" to false, "error" to bad))
+                val on = sh.settings.enabled
+                if (on != wasOn || (on && b.containsKey("host"))) {
+                    record(ex, if (on) "bridge.smarthome_on" else "bridge.smarthome_off", if (on) mapOf("broker" to sh.settings.host) else emptyMap(), null)
+                }
+                json(ex, 200, linkedMapOf<String, Any?>("ok" to true) + sh.describe())
+            }
+            path == "mqtt/find" && ex.requestMethod == "POST" -> withSmartHome(ex) { sh ->
+                json(ex, 200, mapOf("ok" to true, "brokers" to runBlocking { sh.findBrokers() }))
+            }
+            path == "mqtt/local" && ex.requestMethod == "POST" -> withSmartHome(ex) { sh ->
+                val started = sh.setUpLocalBroker(who(ex))
+                json(ex, 200, linkedMapOf<String, Any?>("ok" to true, "started" to started) + sh.describe())
             }
             path == "carwifi/scan" && ex.requestMethod == "POST" -> withWifi(ex) { wifi ->
                 val (nets, error) = wifi.scan(body(ex)["country"]?.toString())
@@ -268,6 +293,11 @@ class HttpApi(
 
     private fun record(ex: HttpExchange, code: String, params: Map<String, Any?>, failure: String?) {
         activity?.add(Activity(System.currentTimeMillis(), who(ex), code, params, ok = failure == null, detail = failure))
+    }
+
+    private inline fun withSmartHome(ex: HttpExchange, block: (SmartHome) -> Unit) {
+        val s = smartHome ?: return json(ex, 503, mapOf("ok" to false, "error" to "The smart-home link is not available here"))
+        block(s)
     }
 
     private inline fun withShared(ex: HttpExchange, block: (SharedStore) -> Unit) {

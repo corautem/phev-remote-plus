@@ -30,6 +30,9 @@ The main goal: **a connection that just works.**
   (from → to %, time, ≈ kWh), climate, locks, doors, lights, power switch, alarm; plus the bridge's departures and its
   own events. Kept on the bridge for every phone (and on its web page); filters for charging, climate, doors & lights,
   people and the bridge.
+- **Smart home** — with the bridge, the car shows up in Home Assistant by itself (MQTT discovery): battery, charging,
+  climate switch, lights, charge buttons, and events for automations (charging finished, alarm, car home or away).
+  Google Home and Alexa through Home Assistant. Set up from the app; the bridge can run the MQTT broker itself.
 - **Charge timer** — set the car's own charge timer (2014–2017 cars): up to three time windows, each on the days you
   pick, plus "full charge" days; the car keeps it and waits for the window when plugged in. "Charge now" skips it once.
 - **Departure timers** — "ready to leave at 07:30 on weekdays": 35 min before, the app checks the forecast and starts
@@ -209,6 +212,41 @@ module never rests may drain it over long periods.
 **Security:** never expose port 8099 to the internet directly — use Tailscale/WireGuard. Anyone with the token can
 control the car's climate and lights (not locks: the protocol has no remote unlock).
 
+### Smart home (Home Assistant)
+
+The bridge can put the car into Home Assistant over MQTT, with Home Assistant's discovery: no YAML, the car just shows
+up as a device. Set it up in the app: **Bridge page → Smart home → Set up**. The bridge looks for MQTT brokers on its
+network (and marks which one runs Home Assistant); pick one and enter a user (with Home Assistant's Mosquitto add-on:
+a Home Assistant user made for the car). No broker? **Run a broker on the bridge** installs Mosquitto on the bridge
+computer with a generated password, and the app shows what to type into Home Assistant's MQTT integration.
+
+What the car brings into Home Assistant (names in the app's language):
+
+| Kind | Entities |
+|---|---|
+| Sensors | battery %, electric range (from the shared full range), time to full, full at, charge timer, climate ends, last update |
+| Binary sensors | charging, charging cable, lock, doors (each door as an attribute), theft alarm, switched on, at home, bridge link |
+| Switches | climate (mode and time from the shared one-tap choice, or the weather when smart), headlights, parking lights |
+| Selects | climate mode, climate time (shared with the phones' one-tap climate) |
+| Buttons | charge now, charge on timer, flash lights, refresh |
+| Event | "Car event": charge_started, charge_finished, charge_stopped, plugged, unplugged, climate_on/off/cancelled, alarm, locked, unlocked, door_open, doors_closed, car_home, car_away, departure_started/failed, left_unlocked, door_left_open, lights_left_on, command_failed, … |
+
+Commands from Home Assistant run like a phone's and appear in the activity log as "Home Assistant". Retained command
+messages are never acted on (they would replay on every reconnect). Google Home and Alexa reach the car through Home
+Assistant (expose e.g. the Climate switch). Other systems can use the topics directly:
+
+```
+phevlink/<id>/availability   online / offline (the bridge's last will)
+phevlink/<id>/state          everything as one JSON object (retained)
+phevlink/<id>/event          {"event_type": "charge_finished", "text": "…", …}
+phevlink/<id>/activity       every activity line as JSON
+phevlink/<id>/cmd/<what>     climate ON|OFF, climate_mode, climate_minutes, headlights ON|OFF, parking_lights ON|OFF,
+                             locate, charge_now, charge_timer, refresh (PRESS)
+```
+
+Turning the link off takes the car out of Home Assistant again. Keep the broker on your home network with a login;
+like the bridge's own port, never open it to the internet.
+
 ### Bridge API
 
 | Method | Path | |
@@ -225,6 +263,8 @@ control the car's climate and lights (not locks: the protocol has no remote unlo
 | POST | `/api/carwifi/scan`, `/api/carwifi/join`, `/api/carwifi/forget` | `{"country":"NO"}` · `{"ssid":…,"password":…}` |
 | POST | `/api/pair/open` | `{"minutes":10}` — "Add another phone": pairing open for one more phone (token needed) |
 | POST | `/api/carwifi/pause`, `/api/carwifi/resume` | `{"minutes":10}` — leave the car's Wi-Fi so a phone can use it (comes back by itself) |
+| GET/POST | `/api/mqtt` | smart-home link settings and status / save and (re)connect: `{"enabled":true,"host":"…","port":1883,"username":"…","password":"…","language":"nb"}` |
+| POST | `/api/mqtt/find`, `/api/mqtt/local` | MQTT brokers on the home network / set up Mosquitto on the bridge computer and use it |
 | POST | `/api/carwifi/rejoin` | off the car's Wi-Fi and not paused: join it now; `connected`, `tried`, `inSight`, `signal` (takes up to ~35 s) |
 | POST | `/api/config` | `{"emulator":false}` — saved, then the bridge restarts |
 | GET | `/api/system` | The computer: model, OS, uptime, temperature, memory, disk, addresses, bridge build |

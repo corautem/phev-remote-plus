@@ -99,7 +99,21 @@ fun main(args: Array<String>) {
     // Keeps the bridge on the car's Wi-Fi: NetworkManager gives up after failed joins (e.g. while a phone held the car's Wi-Fi).
     val watch = CarWifiWatch(carWifi, log, onActivity = { activity.add(it) }, onBack = { scope.launch { service.connectNow() } })
     if (!config.emulator) watch.start(scope)
-    val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, shared, activity, watch, restart)
+    // Home Assistant (and other smart homes) over MQTT: off until switched on from the app.
+    val lanAddresses: () -> List<String> = {
+        val carIface = runCatching { carWifi.status().iface }.getOrNull()
+        java.net.NetworkInterface.getNetworkInterfaces().toList()
+            .filter { it.isUp && !it.isLoopback && it.name != carIface && !it.name.startsWith("docker") && !it.name.startsWith("tailscale") }
+            .flatMap { nif -> nif.inetAddresses.toList().filterIsInstance<java.net.Inet4Address>().filter { it.isSiteLocalAddress }.map { it.hostAddress } }
+    }
+    val smartHome = SmartHome(
+        stateDir, service, shared, activity,
+        home = { if (config.emulator) service.connection.status.value.isConnected else watch.onCarWifi },
+        lanAddresses = lanAddresses, log = log, scope = scope,
+        bridgectl = File(File(config.wifiHelper).absoluteFile.parentFile, "bridgectl.sh").path,
+    )
+    smartHome.start()
+    val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, shared, activity, watch, smartHome, restart)
     activity.add(io.github.anwo91.phevlink.core.activity.Activity(System.currentTimeMillis(), "bridge", "bridge.started", mapOf("build" to BridgeService.BUILD)))
     val port = api.start()
     log.link("Bridge ${BridgeService.BUILD} (API ${BridgeService.VERSION}) on http://${config.listenHost}:$port/  (car ${config.carHost}:$carPort)")

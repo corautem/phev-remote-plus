@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge page → Smart home (Home Assistant over MQTT). -->
+<resources>
+    <string name="sh_title">Smarta hem</string>
+    <string name="sh_intro">Visa bilen i Home Assistant: batteri, laddning, klimat av och på, lampor och händelser för dina automationer (färdigladdad, larm, bilen hemma). Google Home och Alexa kan sedan använda den via Home Assistant. Det går över MQTT: Mosquitto-tillägget i Home Assistant, eller en broker på den här bryggan.</string>
+    <string name="sh_set_up">Konfigurera</string>
+    <string name="sh_needs_update">Uppdatera bryggan för att koppla bilen till Home Assistant (Inställningar → Uppdateringar).</string>
+    <string name="sh_loading">Frågar bryggan…</string>
+    <string name="sh_connected">Ansluten till brokern på %1$s</string>
+    <string name="sh_connecting">Ansluter till brokern…</string>
+    <string name="sh_cant_connect">Kan inte ansluta: %1$s</string>
+    <string name="sh_in_ha">I Home Assistant är bilen enheten ”%1$s” – Inställningar → Enheter och tjänster → MQTT.</string>
+    <string name="sh_change">Ändra</string>
+    <string name="sh_turn_off">Stäng av</string>
+    <string name="sh_find_title">MQTT-broker</string>
+    <string name="sh_finding">Letar efter brokers i ditt nätverk…</string>
+    <string name="sh_none_found">Hittade ingen broker i bryggans nätverk. Skriv in en nedan, eller låt bryggan köra en.</string>
+    <string name="sh_found_ha">Home Assistant</string>
+    <string name="sh_found_bridge">På den här bryggan</string>
+    <string name="sh_found_broker">MQTT-broker</string>
+    <string name="sh_search_again">Sök igen</string>
+    <string name="sh_address">Brokerns adress</string>
+    <string name="sh_port">Port</string>
+    <string name="sh_user">Användarnamn</string>
+    <string name="sh_password">Lösenord</string>
+    <string name="sh_password_keep">Oförändrat</string>
+    <string name="sh_login_hint">Med Mosquitto-tillägget i Home Assistant använder du en Home Assistant-användare som skapats för bilen (Inställningar → Personer → Användare).</string>
+    <string name="sh_connect">Anslut</string>
+    <string name="sh_local_title">Ingen broker?</string>
+    <string name="sh_local_explain">Bryggan kan köra en själv (Mosquitto, med lösenord). Tar ungefär en minut, och bryggan behöver internet för det.</string>
+    <string name="sh_local_button">Kör en broker på bryggan</string>
+    <string name="sh_local_installing">Konfigurerar brokern på bryggan…</string>
+    <string name="sh_local_failed">Kunde inte konfigurera brokern: %1$s</string>
+    <string name="sh_local_ha_title">Koppla Home Assistant till bryggan</string>
+    <string name="sh_local_ha_steps">I Home Assistant: Inställningar → Enheter och tjänster → Lägg till integration → MQTT, och ange:</string>
+    <string name="sh_copy_password">Kopiera lösenord</string>
+    <string name="sh_copied">Lösenordet har kopierats</string>
+    <string name="sh_ha_broker_title">Home Assistants egen broker</string>
+    <string name="sh_ha_broker">I Home Assistant: Inställningar → Tillägg → Tilläggsbutik → Mosquitto broker → Installera, och sedan Starta. Skapa en användare för bilen (Inställningar → Personer → Användare), välj Home Assistant ovan och skriv in den användaren här. Home Assistant hittar brokern själv.</string>
+    <string name="sh_voice_title">Google Home och Alexa</string>
+    <string name="sh_voice">Dela bilen från Home Assistant: Inställningar → Röstassistenter → Exponera, och välj bilens brytare, t.ex. Klimat. Sedan kan du säga ”Hey Google, slå på %1$s Klimat”. Det kräver Home Assistant Cloud, eller Home Assistants egen konfiguration för Google Assistant eller Alexa.</string>
+    <string name="sh_auto_title">För automationer</string>
+    <string name="sh_auto">Färdigladdad, larm, bilen hemma, bilen borta och mer kommer i bilens ”Bilhändelse”-entitet – använd dem som utlösare. Andra system (Node-RED, openHAB, Homey) kan använda MQTT-ämnena under %1$s/.</string>
+    <string name="sh_connected_done">Ansluten – bilen finns i Home Assistant nu.</string>
+    <string name="sh_off_done">Avstängd – bilen har tagits bort från Home Assistant.</string>
+    <string name="sh_err_bridge">Når inte bryggan.</string>
+    <string name="sh_err_login">fel användarnamn eller lösenord</string>
+    <string name="sh_err_no_broker">inget svarar där – är brokern igång?</string>
+    <string name="sh_err_no_answer">inget svar – fel adress, eller en brandvägg?</string>
+    <string name="sh_err_unknown_host">okänd adress</string>
+    <string name="sh_err_address">Ange brokerns adress.</string>
+    <string name="sh_err_port">Porten måste vara 1–65535.</string>
+    <string name="act_bridge_smarthome_on">%1$s kopplade bilen till det smarta hemmet</string>
+    <string name="act_bridge_smarthome_off">%1$s stängde av kopplingen till det smarta hemmet</string>
+</resources>

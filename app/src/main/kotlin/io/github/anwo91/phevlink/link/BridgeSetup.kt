@@ -169,6 +169,22 @@ object BridgeSetupApi {
     suspend fun rejoinCarWifi(url: String, token: String): Reply? =
         withContext(Dispatchers.IO) { request(url, "carwifi/rejoin", "POST", token, emptyMap(), 4_000, 50_000) }
 
+    /** The smart-home link (Home Assistant over MQTT): settings, status (bridge with "smarthome"). */
+    suspend fun mqtt(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "mqtt", "GET", token, null, 4_000, 8_000) }
+
+    /** Saves smart-home settings; the bridge answers once it is connected or has failed (a few seconds). */
+    suspend fun putMqtt(url: String, token: String, changes: Map<String, Any?>): Reply? =
+        withContext(Dispatchers.IO) { request(url, "mqtt", "POST", token, changes, 4_000, 25_000) }
+
+    /** MQTT brokers on the bridge's home network (a few seconds). */
+    suspend fun findMqtt(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "mqtt/find", "POST", token, emptyMap(), 4_000, 45_000) }
+
+    /** Sets up an MQTT broker on the bridge computer (in the background; follow it with [mqtt]). */
+    suspend fun localMqtt(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "mqtt/local", "POST", token, emptyMap(), 4_000, 10_000) }
+
     /** "Add another phone": the bridge opens pairing for one more phone for [minutes] (bridge with "pair-invite"). */
     suspend fun openPairing(url: String, token: String, minutes: Int): Reply? =
         withContext(Dispatchers.IO) { request(url, "pair/open", "POST", token, mapOf("minutes" to minutes), 4_000, 8_000) }

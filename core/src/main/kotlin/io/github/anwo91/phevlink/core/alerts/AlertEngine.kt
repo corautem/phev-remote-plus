@@ -20,9 +20,12 @@ enum class AlertType(val title: String) {
     CHARGE_TIMER_FAILED("Charge did not start"),
     /** Evening reminder from the bridge: the car is home, low and not plugged in (see the bridge's reminders). */
     PLUG_IN_REMINDER("Plug in tonight?"),
+    /** Sunday evening from the bridge: the week's charging (energy, cost) and trips; numbers in [Alert.params]. */
+    WEEKLY_SUMMARY("Your week with the car"),
 }
 
-data class Alert(val type: AlertType, val message: String, val timeMs: Long) {
+/** [params]: numbers the phones put into their own language (the weekly summary); [message] is the English text. */
+data class Alert(val type: AlertType, val message: String, val timeMs: Long, val params: Map<String, Any?> = emptyMap()) {
     val title: String get() = type.title
 }
 
@@ -42,6 +45,7 @@ data class AlertPrefs(
     val theftAlarm: Boolean = true,
     val chargeTimerFailed: Boolean = true,
     val plugInReminder: Boolean = true,
+    val weeklySummary: Boolean = true,
 ) {
     fun enabled(t: AlertType) = when (t) {
         AlertType.CHARGE_COMPLETE -> chargeComplete
@@ -56,6 +60,7 @@ data class AlertPrefs(
         AlertType.THEFT_ALARM -> theftAlarm
         AlertType.CHARGE_TIMER_FAILED -> chargeTimerFailed
         AlertType.PLUG_IN_REMINDER -> plugInReminder
+        AlertType.WEEKLY_SUMMARY -> weeklySummary
     }
 }
 

@@ -40,6 +40,8 @@
     <string name="faq_obd_a">En ELM327-kompatibel Bluetooth-adapter. OBDLink og Vgate iCar Pro fungerer best; billige kopier leser det grunnleggende, men klarer ikke å filtrere bort støyen fra bilen. Paringskoden er som regel 1234.</string>
     <string name="faq_bridge_q">Broen svarer ikke</string>
     <string name="faq_bridge_a">Sjekk at broen (den lille datamaskinen) har strøm og er på Wi-Fi hjemme, og at denne telefonen er på samme nett – eller på VPN når du er borte. Innstillinger → Bro viser status og kan starte den på nytt. I mellomtiden bruker appen bilens Wi-Fi direkte når du står ved bilen.</string>
+    <string name="faq_cost_q">Hvordan regnes kostnad og turer ut?</string>
+    <string name="faq_cost_a">Broen registrerer hver lading hjemme: batterinivået før og etter gir strømmen (en full lading tar omtrent 12 kWh fra stikkontakten på 2014–2018-biler; endre det under Innstillinger → Strømpris). Kostnaden bruker prisen din: områdets spotpris time for time (med mva, minus strømstøtten), Norgespris eller fastpris, pluss nettleien du legger inn. En tur varer fra bilen forlater broens rekkevidde til den er tilbake; batteriet den brukte gir elektriske km ut fra full rekkevidde. Alt er anslag.</string>
     <string name="faq_alerts_q">Hvordan virker varsler med bro?</string>
     <string name="faq_alerts_a">Broen holder øye med bilen hele døgnet. Telefonen viser varslene med en gang mens appen er åpen, ellers innen en time – hvert par minutter mens bilen lader eller forvarmes. Kommer de sent, sett batteribruk for PHEV Link til «Ubegrenset».</string>
     <string name="faq_google_q">Hvordan legger jeg bilen til i Google Home?</string>
@@ -47,7 +49,7 @@
     <string name="faq_ha_q">Virker det med Home Assistant?</string>
     <string name="faq_ha_a">Ja, via MQTT: pek broen mot megleren din (for eksempel Mosquitto-tillegget), eller la broen sette opp en. Bilen dukker da opp med sensorer og brytere, og en «Bilhendelse» for automatiseringer.</string>
     <string name="faq_privacy_q">Hvor havner dataene mine?</string>
-    <string name="faq_privacy_a">Bare der du har satt det opp: appen snakker med bilen, broen din, Meteorologisk institutt (koordinatene til hjemmet, for værvarselet) og GitHub (for å se etter oppdateringer). Ingen konto og ingen skytjeneste.</string>
+    <string name="faq_privacy_a">Bare der du har satt det opp: appen snakker med bilen, broen din, Meteorologisk institutt (koordinatene til hjemmet, for værvarselet) og GitHub (for å se etter oppdateringer). Ingen konto og ingen skytjeneste. Med spotpris henter broen også dagens priser for prisområdet ditt fra hvakosterstrommen.no eller elprisetjustnu.se.</string>
     <string name="faq_update_q">Hvordan fungerer oppdateringer?</string>
     <string name="faq_update_a">Appen ser etter ny versjon på GitHub og installerer den når du har tillatt «Installer ukjente apper». Broen oppdateres også fra appen, under Innstillinger → Bro.</string>
 </resources>

@@ -304,6 +304,12 @@ object ActivityLabels {
             "car.switched_on" -> res.getString(R.string.act_car_switched_on)
             "car.switched_off" -> res.getString(R.string.act_car_switched_off)
             "car.alarm" -> res.getString(R.string.act_car_alarm)
+            "car.trip" -> minutes?.let { m ->
+                val from = a.int("fromPct")
+                val to = a.int("toPct")
+                if (from != null && to != null) res.getString(R.string.act_car_trip_pct, Format.minutes(m, ctx), from, to)
+                else res.getString(R.string.act_car_trip, Format.minutes(m, ctx))
+            }
             "departure.started" -> if (mode != null && minutes != null) res.getString(R.string.act_dep_started, mode, minutes, a.str("at") ?: "?") else null
             "departure.skipped" -> res.getString(R.string.act_dep_skipped, a.str("at") ?: "?")
             "departure.failed" -> res.getString(R.string.act_dep_failed, a.str("at") ?: "?")

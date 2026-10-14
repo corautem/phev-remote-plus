@@ -98,6 +98,7 @@ fun HomeScreen(
     onOpenBridgeSetup: () -> Unit = {},
     onOpenChargeTimer: () -> Unit = {},
     onOpenActivity: () -> Unit = {},
+    onOpenHistory: () -> Unit = {},
 ) {
     val car by vm.car.collectAsState()
     val link by vm.link.collectAsState()
@@ -163,7 +164,7 @@ fun HomeScreen(
         item { QuickActions(car, pending, vm) }
         item { SecurityCard(car) }
         item { TimersCard(vm, car, onOpenSchedule, onOpenChargeTimer) }
-        item { MoreCard(onOpenActivity, onOpenVehicleSettings, onOpenHelp = { onOpenHelp(null) }) }
+        item { MoreCard(onOpenActivity, onOpenHistory, onOpenVehicleSettings, onOpenHelp = { onOpenHelp(null) }) }
     }
 
     if (bigPicture) {
@@ -816,11 +817,12 @@ private fun LinkSheet(link: LinkUi, car: CarState, onDismiss: () -> Unit, onRetr
     }
 }
 
-/** The rest: the shared activity log, the car's own settings, and Help & FAQ. */
+/** The rest: the shared activity log, charging and trips, the car's own settings, and Help & FAQ. */
 @Composable
-private fun MoreCard(onOpenActivity: () -> Unit, onOpenVehicleSettings: () -> Unit, onOpenHelp: () -> Unit) {
+private fun MoreCard(onOpenActivity: () -> Unit, onOpenHistory: () -> Unit, onOpenVehicleSettings: () -> Unit, onOpenHelp: () -> Unit) {
     SectionCard(title = stringResource(R.string.home_more)) {
         MoreRow(stringResource(R.string.act_title), stringResource(R.string.act_more), onOpenActivity)
+        MoreRow(stringResource(R.string.hist_title), stringResource(R.string.hist_more), onOpenHistory)
         MoreRow(stringResource(R.string.vs_title), stringResource(R.string.home_more_vs), onOpenVehicleSettings)
         MoreRow(stringResource(R.string.help_title), stringResource(R.string.home_more_tips), onOpenHelp)
     }

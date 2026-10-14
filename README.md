@@ -30,6 +30,12 @@ The main goal: **a connection that just works.**
   (from → to %, time, ≈ kWh), climate, locks, doors, lights, power switch, alarm; plus the bridge's departures and its
   own events. Kept on the bridge for every phone (and on its web page); filters for charging, climate, doors & lights,
   people and the bridge.
+- **Charging and trips** — the bridge keeps every charge at home with its energy from the wall (from the battery levels;
+  a full charge ≈ 12 kWh on 2014–2018 cars, adjustable) and what it cost: the area's spot price hour by hour
+  (hvakosterstrommen.no for Norway, elprisetjustnu.se for Sweden, with VAT and the Norwegian electricity support),
+  Norgespris or a fixed price, plus your grid fee — with monthly totals. Trips: from leaving the bridge's reach until
+  back, with the battery used (≈ electric km). On Sunday evening every phone gets the week's summary. Settings →
+  Charging, or Home → More → Charging and trips.
 - **Smart home** — with the bridge, the car shows up in Home Assistant by itself (MQTT discovery): battery, charging,
   climate switch, lights, charge buttons, and events for automations (charging finished, alarm, car home or away).
   Google Home and Alexa through Home Assistant. Set up from the app; the bridge can run the MQTT broker itself.
@@ -315,6 +321,7 @@ like the bridge's own port, never open it to the internet.
 | POST | `/api/shared` | `{"departures":[…],"carName":"…"}` — saves only the keys sent |
 | GET | `/api/activity` | `?limit=200&before=<ms>` — who did what and what the car did, newest first, with an English `text` |
 | POST | `/api/activity` | `{"entries":[…]}` — a phone reports what it did straight over the car's Wi-Fi (`cmd.…` only) |
+| GET | `/api/history` | `?limit=300` — charges at home (`fromPct`, `toPct`, `kwh` from the wall, `cost`, `perKwh`, `currency`, `area`) and trips (`leftMs`, `backMs`, battery before/after), newest first; `week` and `month` summaries; the price `plan` |
 
 Auth (all but hello/pair): `Authorization: Bearer <token>` or `?token=<token>`.
 

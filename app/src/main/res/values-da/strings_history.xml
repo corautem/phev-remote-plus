@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Charging and trips (kept by the bridge), electricity price, weekly summary. -->
+<resources>
+    <string name="hist_title">Opladning og ture</string>
+    <string name="hist_more">Strøm, pris og ture, gemt af broen</string>
+    <string name="hist_charging">Opladning</string>
+    <string name="hist_trips">Ture</string>
+    <string name="hist_week">Seneste 7 dage</string>
+    <string name="hist_month">Denne måned</string>
+    <string name="hist_needs_bridge">Opladning og ture registreres af broen derhjemme. Sæt en bro op for at gemme dem.</string>
+    <string name="hist_old_bridge">Opdater broen for at gemme opladning og ture (Indstillinger → Bro).</string>
+    <string name="hist_failed">Kunne ikke få forbindelse til broen. Den skal kunne nås – på dit Wi-Fi derhjemme eller via VPN.</string>
+    <string name="hist_no_charges">Ingen opladning registreret endnu. Fra nu af registrerer broen hver opladning derhjemme.</string>
+    <string name="hist_no_trips">Ingen ture registreret endnu. En tur varer, fra bilen forlader broens rækkevidde, til den er tilbage.</string>
+    <string name="hist_cost_later">pris senere</string>
+    <string name="hist_estimate">Strømmen anslås ud fra batteriniveauet: en fuld opladning tager omkring %1$s kWh fra stikkontakten (kan ændres under elprisen).</string>
+    <string name="hist_trips_note">Ture: den tid, bilen var uden for broens rækkevidde, og det batteri, den brugte. Elektriske km er et skøn ud fra den fulde rækkevidde.</string>
+    <string name="hist_used">%1$d %% brugt</string>
+    <string name="hist_gained">+%1$d %% (opladet ude)</string>
+    <plurals name="hist_charges_kwh">
+        <item quantity="one">%1$d opladning · %2$s kWh</item>
+        <item quantity="other">%1$d opladninger · %2$s kWh</item>
+    </plurals>
+    <plurals name="hist_trips_away">
+        <item quantity="one">%1$d tur · %2$s væk</item>
+        <item quantity="other">%1$d ture · %2$s væk</item>
+    </plurals>
+    <plurals name="week_charges">
+        <item quantity="one">%1$d opladning, %2$s kWh</item>
+        <item quantity="other">%1$d opladninger, %2$s kWh</item>
+    </plurals>
+    <plurals name="week_trips">
+        <item quantity="one">%1$d tur, %2$d %% af batteriet</item>
+        <item quantity="other">%1$d ture, %2$d %% af batteriet</item>
+    </plurals>
+    <string name="week_km">(≈ %1$d km på el)</string>
+    <string name="alert_title_weekly">Din uge med bilen</string>
+    <string name="settings_alert_weekly">Ugeoversigt</string>
+    <string name="settings_alert_weekly_note">Søndag aften: ugens opladning, pris og ture.</string>
+    <string name="set_group_charging">Opladning</string>
+    <string name="set_sum_price">Spotpris, Norgespris eller fast pris</string>
+    <string name="price_title">Elpris</string>
+    <string name="price_model">Sådan betaler du</string>
+    <string name="price_spot">Spotpris</string>
+    <string name="price_norgespris">Norgespris</string>
+    <string name="price_fixed">Fast pris</string>
+    <string name="price_area">Prisområde</string>
+    <string name="price_area_auto">Auto (%1$s)</string>
+    <string name="price_area_auto_none">Auto</string>
+    <string name="price_area_missing">Vælg dit prisområde, eller angiv hjemstedet (Indstillinger → Vejrsted), så det kan gættes.</string>
+    <string name="price_support">Træk den norske elstøtte (strømstøtte) fra</string>
+    <string name="price_support_note">90 % af timeprisen over 77 øre/kWh (uden moms), som i 2026.</string>
+    <string name="price_norgespris_note">50 øre/kWh med moms (40 øre i Nordnorge, hvor der ikke er moms).</string>
+    <string name="price_fixed_field">Pris per kWh inkl. moms (%1$s)</string>
+    <string name="price_fee_field">Nettarif og tillæg per kWh (%1$s)</string>
+    <string name="price_fee_hint">Den del af nettariffen, der betales per kWh, plus et eventuelt tillæg fra elselskabet, inkl. moms. 0 for at udelade.</string>
+    <string name="price_full_field">Strøm til en fuld opladning (kWh fra stikkontakten)</string>
+    <string name="price_full_hint">Omkring 12 for 2014–2018-biler, 14–15 for 2019 og nyere. Ladetab er medregnet.</string>
+    <string name="price_bad_number">Tjek tallene</string>
+    <string name="price_privacy">Til spotprisen henter broen dagens priser for dit område fra hvakosterstrommen.no (Norge) eller elprisetjustnu.se (Sverige) – kun området og datoen sendes.</string>
+    <string name="act_car_trip">Tilbage efter %1$s</string>
+    <string name="act_car_trip_pct">Tilbage efter %1$s – batteri %2$d → %3$d %%</string>
+</resources>

@@ -92,6 +92,9 @@ object BridgeAlerts {
     private const val KEY_SEEN = "seen_ms"
     private const val FIRST_LOOK_MS = 15 * 60_000L
 
+    /** Kinds only the bridge raises: shown even on a phone that makes its own alerts. */
+    private val BRIDGE_ONLY = setOf(AlertType.PLUG_IN_REMINDER, AlertType.WEEKLY_SUMMARY)
+
     /** How many notifications were shown. */
     @Synchronized
     fun deliver(context: Context, snap: BridgeClient.Snapshot): Int {
@@ -104,11 +107,12 @@ object BridgeAlerts {
         val newest = maxOf(seen, snap.alerts.maxOfOrNull { it.timeMs } ?: seen, if (seen < 0) now - FIRST_LOOK_MS else seen)
         prefs.edit().putString(KEY_URL, s.bridgeUrl).putLong(KEY_SEEN, newest).apply()
         if (fresh.isEmpty()) return 0
-        if (!s.phoneAlerts || !BridgeCheck.alertsFromBridge(context)) {
-            g.log.link("Bridge alerts: ${fresh.size} new (${fresh.joinToString { it.type }}) — not shown: this phone " +
-                if (!s.phoneAlerts) "has alerts off" else "uses its own alerts")
+        if (!s.phoneAlerts) {
+            g.log.link("Bridge alerts: ${fresh.size} new (${fresh.joinToString { it.type }}) — not shown: this phone has alerts off")
             return 0
         }
+        // A phone with its own alerts still shows what only the bridge works out (the evening reminder, the week).
+        val own = !BridgeCheck.alertsFromBridge(context)
         var shown = 0
         for (a in fresh) {
             val type = runCatching { AlertType.valueOf(a.type) }.getOrNull()
@@ -116,11 +120,15 @@ object BridgeAlerts {
                 g.log.link("Bridge alerts: unknown kind ${a.type} (${a.message}) — not shown (update the app)")
                 continue
             }
+            if (own && type !in BRIDGE_ONLY) {
+                g.log.link("Bridge alerts: ${a.type} at ${Format.clock(a.timeMs)} — not shown: this phone uses its own alerts")
+                continue
+            }
             if (!s.alerts.enabled(type)) {
                 g.log.link("Bridge alerts: ${a.type} at ${Format.clock(a.timeMs)} — off on this phone")
                 continue
             }
-            g.notifier.alert(Alert(type, a.message, a.timeMs), snap.car, s.alerts)
+            g.notifier.alert(Alert(type, a.message, a.timeMs, a.params), snap.car, s.alerts)
             g.log.link("Bridge alerts: showed ${a.type} from ${Format.clock(a.timeMs)} (${a.message})")
             shown++
         }

@@ -40,6 +40,8 @@
     <string name="faq_obd_a">An ELM327-compatible Bluetooth adapter. OBDLink and Vgate iCar Pro work best; cheap clones read the basics but can\'t filter the car\'s chatter. The pairing PIN is usually 1234.</string>
     <string name="faq_bridge_q">The bridge isn\'t answering</string>
     <string name="faq_bridge_a">Check that the bridge (the small computer) has power and is on your home Wi-Fi, and that this phone is on the same network — or on the VPN when you\'re away. Settings → Bridge shows its status and can restart it. Meanwhile, next to the car, the app uses the car\'s Wi-Fi directly.</string>
+    <string name="faq_cost_q">How are charging cost and trips worked out?</string>
+    <string name="faq_cost_a">The bridge records each charge at home: the battery level before and after gives the energy (a full charge takes about 12 kWh from the wall on 2014–2018 cars; change it under Settings → Electricity price). The cost uses your price: the area\'s spot price hour by hour (with VAT, minus the electricity support), Norgespris or a fixed price, plus the grid fee you enter. A trip lasts from when the car leaves the bridge\'s reach until it is back; the battery it used gives electric km from your full range. All of it is an estimate.</string>
     <string name="faq_alerts_q">How do alerts work with a bridge?</string>
     <string name="faq_alerts_a">The bridge watches the car around the clock. This phone shows its alerts at once while the app is open, otherwise within the hour — every few minutes while the car charges or preheats. If they arrive late, set PHEV Link\'s battery use to \"Unrestricted\".</string>
     <string name="faq_google_q">How do I add the car to Google Home?</string>
@@ -47,7 +49,7 @@
     <string name="faq_ha_q">Does it work with Home Assistant?</string>
     <string name="faq_ha_a">Yes, over MQTT: point the bridge at your broker (for example the Mosquitto add-on), or let the bridge set one up. The car then shows up with sensors and switches, and a \"Car event\" entity for automations.</string>
     <string name="faq_privacy_q">Where does my data go?</string>
-    <string name="faq_privacy_a">Only where you set it up: the app talks to the car, your bridge, MET Norway (your home coordinates, for the forecast) and GitHub (to check for updates). There is no account and no cloud service.</string>
+    <string name="faq_privacy_a">Only where you set it up: the app talks to the car, your bridge, MET Norway (your home coordinates, for the forecast) and GitHub (to check for updates). There is no account and no cloud service. With a spot price, the bridge also fetches the day\'s prices for your price area from hvakosterstrommen.no or elprisetjustnu.se.</string>
     <string name="faq_update_q">How do updates work?</string>
     <string name="faq_update_a">The app checks GitHub for a new version and installs it once you have allowed \"Install unknown apps\". The bridge is updated from the app too, under Settings → Bridge.</string>
 </resources>

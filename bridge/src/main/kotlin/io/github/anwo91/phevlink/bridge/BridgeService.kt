@@ -192,7 +192,7 @@ class BridgeService(
             "features" to FEATURES,
             "emulator" to config.emulator,
             "alerts" to synchronized(recentAlerts) {
-                recentAlerts.map { mapOf("type" to it.type.name, "title" to it.title, "message" to it.message, "timeMs" to it.timeMs) }
+                recentAlerts.map { mapOf("type" to it.type.name, "title" to it.title, "message" to it.message, "timeMs" to it.timeMs, "params" to it.params) }
             },
         ),
     )
@@ -235,6 +235,6 @@ class BridgeService(
         val BUILD: String = BridgeService::class.java.`package`?.implementationVersion ?: "dev"
 
         /** What this bridge can do beyond the car link (the app checks before offering the setup wizard or updates). */
-        val FEATURES = listOf("pair", "carwifi", "config", "system", "update", "restart", "carwifi-pause", "pair-invite", "shared", "departures", "charge-timer", "activity", "carwifi-rejoin", "smarthome", "matter", "log-file", "reach")
+        val FEATURES = listOf("pair", "carwifi", "config", "system", "update", "restart", "carwifi-pause", "pair-invite", "shared", "departures", "charge-timer", "activity", "carwifi-rejoin", "smarthome", "matter", "log-file", "reach", "history")
     }
 }

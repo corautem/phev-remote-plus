@@ -59,6 +59,7 @@ import java.util.concurrent.TimeUnit
  *   POST /api/shared       {"departures":[…],"carName":"…"} -> saved (only the keys sent; last writer wins per key)
  *   GET  /api/activity     ?limit=200&before=<ms>: who did what and what the car did, newest first (+ English "text")
  *   POST /api/activity     {"entries":[…]}: a phone reports what it did straight over the car's Wi-Fi ("cmd.…" only)
+ *   GET  /api/history      ?limit=300: charges (energy, cost) and trips, newest first, this week, this month, the price plan
  *
  * Phones name themselves in the "X-PHEV-Device" header (URL-encoded); that name goes into the activity log.
  *
@@ -81,6 +82,7 @@ class HttpApi(
     private val watch: CarWifiWatch? = null,
     private val smartHome: SmartHome? = null,
     private val matter: MatterLink? = null,
+    private val history: EnergyHistory? = null,
     private val restart: () -> Unit = {},
 ) {
     private lateinit var server: HttpServer
@@ -237,6 +239,10 @@ class HttpApi(
                 val added = list.filter { it.code.startsWith("cmd.") }.take(500)
                     .count { a.add(it.copy(who = it.who.ifBlank { by }, via = it.via ?: "direct")) }
                 json(ex, 200, mapOf("ok" to true, "added" to added))
+            }
+            path == "history" && ex.requestMethod == "GET" -> {
+                val h = history ?: return json(ex, 503, mapOf("ok" to false, "error" to "No history here"))
+                json(ex, 200, h.describe(query(ex)["limit"]?.toIntOrNull()?.coerceIn(1, 1000) ?: 300))
             }
             path == "status" && ex.requestMethod == "GET" -> json(ex, 200, service.snapshot())
             path == "events" && ex.requestMethod == "GET" -> events(ex)

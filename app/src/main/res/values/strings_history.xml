@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Charging and trips (kept by the bridge), electricity price, weekly summary. -->
+<resources>
+    <string name="hist_title">Charging and trips</string>
+    <string name="hist_more">Energy, cost and trips, kept by the bridge</string>
+    <string name="hist_charging">Charging</string>
+    <string name="hist_trips">Trips</string>
+    <string name="hist_week">Last 7 days</string>
+    <string name="hist_month">This month</string>
+    <string name="hist_needs_bridge">Charging and trips are recorded by the bridge at home. Set up a bridge to keep them.</string>
+    <string name="hist_old_bridge">Update the bridge to keep charging and trips (Settings → Bridge).</string>
+    <string name="hist_failed">Couldn\'t reach the bridge. It has to be reachable — on your home Wi-Fi, or over a VPN.</string>
+    <string name="hist_no_charges">No charging recorded yet. From now on the bridge records every charge at home.</string>
+    <string name="hist_no_trips">No trips recorded yet. A trip lasts from when the car leaves the bridge\'s reach until it\'s back.</string>
+    <string name="hist_cost_later">cost later</string>
+    <string name="hist_estimate">Energy is estimated from the battery level: a full charge takes about %1$s kWh from the wall (change it under the price).</string>
+    <string name="hist_trips_note">Trips: the time the car was out of the bridge\'s reach and the battery it used. Electric km is an estimate from your full range.</string>
+    <string name="hist_used">%1$d %% used</string>
+    <string name="hist_gained">+%1$d %% (charged away)</string>
+    <plurals name="hist_charges_kwh">
+        <item quantity="one">%1$d charge · %2$s kWh</item>
+        <item quantity="other">%1$d charges · %2$s kWh</item>
+    </plurals>
+    <plurals name="hist_trips_away">
+        <item quantity="one">%1$d trip · %2$s away</item>
+        <item quantity="other">%1$d trips · %2$s away</item>
+    </plurals>
+    <plurals name="week_charges">
+        <item quantity="one">%1$d charge, %2$s kWh</item>
+        <item quantity="other">%1$d charges, %2$s kWh</item>
+    </plurals>
+    <plurals name="week_trips">
+        <item quantity="one">%1$d trip, %2$d %% of the battery</item>
+        <item quantity="other">%1$d trips, %2$d %% of the battery</item>
+    </plurals>
+    <string name="week_km">(≈ %1$d km electric)</string>
+    <string name="alert_title_weekly">Your week with the car</string>
+    <string name="settings_alert_weekly">Weekly summary</string>
+    <string name="settings_alert_weekly_note">Sunday evening: the week\'s charging, cost and trips.</string>
+    <string name="set_group_charging">Charging</string>
+    <string name="set_sum_price">Spot price, Norgespris or a fixed price</string>
+    <string name="price_title">Electricity price</string>
+    <string name="price_model">How you pay</string>
+    <string name="price_spot">Spot price</string>
+    <string name="price_norgespris">Norgespris</string>
+    <string name="price_fixed">Fixed price</string>
+    <string name="price_area">Price area</string>
+    <string name="price_area_auto">Auto (%1$s)</string>
+    <string name="price_area_auto_none">Auto</string>
+    <string name="price_area_missing">Pick your price area, or set the home location (Settings → Weather location) so it can be guessed.</string>
+    <string name="price_support">Subtract the electricity support (strømstøtte)</string>
+    <string name="price_support_note">90 % of each hour\'s spot price above 77 øre/kWh (before VAT), as in 2026.</string>
+    <string name="price_norgespris_note">50 øre/kWh with VAT (40 øre in Northern Norway, which has no VAT).</string>
+    <string name="price_fixed_field">Price per kWh incl. VAT (%1$s)</string>
+    <string name="price_fee_field">Grid fee and markup per kWh (%1$s)</string>
+    <string name="price_fee_hint">The per-kWh part of your grid bill plus any supplier markup, VAT included. 0 to leave it out.</string>
+    <string name="price_full_field">Energy for a full charge (kWh from the wall)</string>
+    <string name="price_full_hint">About 12 for 2014–2018 cars, 14–15 for 2019 and newer. Charging losses included.</string>
+    <string name="price_bad_number">Check the numbers</string>
+    <string name="price_privacy">For the spot price the bridge downloads the day\'s prices for your area from hvakosterstrommen.no (Norway) or elprisetjustnu.se (Sweden) — only the area and the date are sent.</string>
+    <string name="act_car_trip">Back after %1$s</string>
+    <string name="act_car_trip_pct">Back after %1$s — battery %2$d → %3$d %%</string>
+</resources>

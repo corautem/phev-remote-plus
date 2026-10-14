@@ -120,6 +120,7 @@ fun SettingsScreen(
     onOpenSmartHome: (String) -> Unit = {},
     onOpenHelp: () -> Unit = {},
     onOpenDiagnostics: () -> Unit = {},
+    onOpenHistory: () -> Unit = {},
 ) {
     val s by vm.settings.collectAsState()
     val car by vm.car.collectAsState()
@@ -224,6 +225,21 @@ fun SettingsScreen(
             val weatherSummary = if (s.homeLat != null && s.homeLon != null) "%.2f, %.2f".format(java.util.Locale.ROOT, s.homeLat, s.homeLon) else notSet
             SettingsRow(PhevIcons.Forecast, stringResource(R.string.settings_weather_title), weatherSummary) {
                 WeatherContent(vm, s)
+            }
+        }
+
+        // ------------------------------------------------------------ charging (kept by the bridge)
+        SettingsGroup(stringResource(R.string.set_group_charging)) {
+            SettingsRow(
+                PhevIcons.Chart, stringResource(R.string.hist_title),
+                if (s.hasBridge) stringResource(R.string.hist_more) else stringResource(R.string.set_sum_needs_bridge),
+                first = true, onClick = onOpenHistory,
+            )
+            SettingsRow(
+                PhevIcons.Bolt, stringResource(R.string.price_title),
+                if (s.hasBridge) stringResource(R.string.set_sum_price) else stringResource(R.string.set_sum_needs_bridge),
+            ) {
+                io.github.anwo91.phevlink.ui.history.PriceSettings(vm, s)
             }
         }
 

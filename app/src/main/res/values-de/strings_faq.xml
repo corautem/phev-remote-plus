@@ -40,6 +40,8 @@
     <string name="faq_obd_a">Ein ELM327-kompatibler Bluetooth-Adapter. OBDLink und Vgate iCar Pro funktionieren am besten; billige Klone lesen die Grundwerte, können das Grundrauschen des Autos aber nicht herausfiltern. Die Kopplungs-PIN ist meist 1234.</string>
     <string name="faq_bridge_q">Die Bridge antwortet nicht</string>
     <string name="faq_bridge_a">Prüfe, ob die Bridge (der kleine Computer) Strom hat und in deinem WLAN zu Hause ist, und ob dieses Handy im selben Netz ist – oder unterwegs im VPN. Optionen → Bridge zeigt ihren Status und kann sie neu starten. Solange nutzt die App direkt das WLAN des Autos, wenn du daneben stehst.</string>
+    <string name="faq_cost_q">Wie werden Ladekosten und Fahrten berechnet?</string>
+    <string name="faq_cost_a">Die Bridge zeichnet jeden Ladevorgang zu Hause auf: Der Akkustand vorher und nachher ergibt den Strom (eine volle Ladung braucht bei Modellen 2014–2018 etwa 12 kWh aus der Steckdose; änderbar unter Optionen → Strompreis). Die Kosten nutzen deinen Preis: den Spotpreis der Zone Stunde für Stunde (mit MwSt., abzüglich der norwegischen Stromhilfe), Norgespris oder einen Festpreis, plus das Netzentgelt, das du einträgst. Eine Fahrt reicht vom Verlassen der Reichweite der Bridge bis zur Rückkehr; der verbrauchte Akku ergibt elektrische km aus deiner vollen Reichweite. Alles sind Schätzungen.</string>
     <string name="faq_alerts_q">Wie funktionieren Benachrichtigungen mit Bridge?</string>
     <string name="faq_alerts_a">Die Bridge behält das Auto rund um die Uhr im Blick. Dein Handy zeigt ihre Benachrichtigungen sofort, solange die App offen ist, sonst innerhalb einer Stunde – alle paar Minuten, solange das Auto lädt oder vorklimatisiert. Kommen sie zu spät, stelle die Akkunutzung von PHEV Link auf „Nicht eingeschränkt“.</string>
     <string name="faq_google_q">Wie füge ich das Auto zu Google Home hinzu?</string>
@@ -47,7 +49,7 @@
     <string name="faq_ha_q">Funktioniert es mit Home Assistant?</string>
     <string name="faq_ha_a">Ja, über MQTT: richte die Bridge auf deinen Broker (etwa das Mosquitto-Add-on) oder lass die Bridge einen einrichten. Das Auto erscheint dann mit Sensoren und Schaltern sowie einer Entität „Auto-Ereignis“ für Automationen.</string>
     <string name="faq_privacy_q">Wohin gehen meine Daten?</string>
-    <string name="faq_privacy_a">Nur dorthin, wo du es eingerichtet hast: Die App spricht mit dem Auto, deiner Bridge, dem Norwegischen Meteorologischen Institut (die Koordinaten deines Zuhauses, für die Vorhersage) und GitHub (für Updates). Kein Konto, kein Cloud-Dienst.</string>
+    <string name="faq_privacy_a">Nur dorthin, wo du es eingerichtet hast: Die App spricht mit dem Auto, deiner Bridge, dem Norwegischen Meteorologischen Institut (die Koordinaten deines Zuhauses, für die Vorhersage) und GitHub (für Updates). Kein Konto, kein Cloud-Dienst. Mit Spotpreis lädt die Bridge außerdem die Tagespreise deiner Preiszone von hvakosterstrommen.no oder elprisetjustnu.se.</string>
     <string name="faq_update_q">Wie funktionieren Updates?</string>
     <string name="faq_update_a">Die App sucht auf GitHub nach einer neuen Version und installiert sie, sobald du „Unbekannte Apps installieren“ erlaubt hast. Die Bridge wird ebenfalls aus der App aktualisiert, unter Optionen → Bridge.</string>
 </resources>

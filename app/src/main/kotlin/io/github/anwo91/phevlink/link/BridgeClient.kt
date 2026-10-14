@@ -43,7 +43,8 @@ class BridgeClient(
     private val context: Context = PhevApp.instance,
 ) {
     /** One reminder the bridge raised (left unlocked, charge complete …), in the bridge's clock. */
-    data class BridgeAlert(val type: String, val message: String, val timeMs: Long)
+    /** [params]: numbers to put into words here (the weekly summary). */
+    data class BridgeAlert(val type: String, val message: String, val timeMs: Long, val params: Map<String, Any?> = emptyMap())
 
     data class Snapshot(
         val link: LinkStatus,
@@ -233,7 +234,9 @@ class BridgeClient(
                 val am = a as? Map<*, *> ?: return@mapNotNull null
                 val type = am["type"] as? String ?: return@mapNotNull null
                 val time = (am["timeMs"] as? Number)?.toLong() ?: return@mapNotNull null
-                BridgeAlert(type, am["message"] as? String ?: "", time)
+                @Suppress("UNCHECKED_CAST")
+                val params = (am["params"] as? Map<String, Any?>).orEmpty()
+                BridgeAlert(type, am["message"] as? String ?: "", time, params)
             },
         )
     }

@@ -235,6 +235,8 @@ object ActivityText {
             "car.switched_on" -> "Car switched on"
             "car.switched_off" -> "Car switched off$pct"
             "car.alarm" -> "ALARM: the theft alarm went off"
+            "car.trip" -> "Back after ${hm(a.int("minutes") ?: 0)}" +
+                (if (a.int("fromPct") != null && a.int("toPct") != null) " — battery ${a.int("fromPct")} → ${a.int("toPct")} %" else "")
             "departure.started" -> "$who started ${mode(a.str("mode"))} for ${a.int("minutes")} min for the ${a.str("at")} departure"
             "departure.skipped" -> "Departure ${a.str("at")}: mild weather, nothing to do"
             "departure.failed" -> "Departure ${a.str("at")}: the car didn't start the climate"

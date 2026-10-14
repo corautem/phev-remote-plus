@@ -55,6 +55,7 @@ object Faq {
         FaqEntry("timer", R.string.faq_group_use, R.string.faq_timer_q, R.string.faq_timer_a),
         FaqEntry("12v", R.string.faq_group_battery, R.string.faq_12v_q, R.string.faq_12v_a),
         FaqEntry("health", R.string.faq_group_battery, R.string.faq_health_q, R.string.faq_health_a),
+        FaqEntry("cost", R.string.faq_group_battery, R.string.faq_cost_q, R.string.faq_cost_a),
         FaqEntry("obd", R.string.faq_group_battery, R.string.faq_obd_q, R.string.faq_obd_a),
         FaqEntry("bridge", R.string.faq_group_bridge, R.string.faq_bridge_q, R.string.faq_bridge_a),
         FaqEntry("alerts", R.string.faq_group_bridge, R.string.faq_alerts_q, R.string.faq_alerts_a),

@@ -211,6 +211,10 @@ object BridgeSetupApi {
             request(url, "shared", "POST", token, changes, 4_000, 8_000)
         }
 
+    /** Charging (energy, cost) and trips, this week and month, and the price plan (bridge with "history"). */
+    suspend fun history(url: String, token: String, limit: Int = 300): Reply? =
+        withContext(Dispatchers.IO) { request(url, "history?limit=$limit", "GET", token, null, 4_000, 15_000) }
+
     /** The bridge's activity log, newest first (bridge with "activity"). */
     suspend fun activity(url: String, token: String, limit: Int = 300, beforeMs: Long? = null): Reply? =
         withContext(Dispatchers.IO) {

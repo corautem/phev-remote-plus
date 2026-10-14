@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Charging and trips (kept by the bridge), electricity price, weekly summary. -->
+<resources>
+    <string name="hist_title">Laden und Fahrten</string>
+    <string name="hist_more">Strom, Kosten und Fahrten, von der Bridge gespeichert</string>
+    <string name="hist_charging">Laden</string>
+    <string name="hist_trips">Fahrten</string>
+    <string name="hist_week">Letzte 7 Tage</string>
+    <string name="hist_month">Dieser Monat</string>
+    <string name="hist_needs_bridge">Ladevorgänge und Fahrten zeichnet die Bridge zu Hause auf. Richte eine Bridge ein, um sie zu speichern.</string>
+    <string name="hist_old_bridge">Aktualisiere die Bridge, um Ladevorgänge und Fahrten zu speichern (Optionen → Bridge).</string>
+    <string name="hist_failed">Die Bridge war nicht erreichbar. Sie muss erreichbar sein – im WLAN zu Hause oder über VPN.</string>
+    <string name="hist_no_charges">Noch keine Ladevorgänge. Ab jetzt zeichnet die Bridge jeden Ladevorgang zu Hause auf.</string>
+    <string name="hist_no_trips">Noch keine Fahrten. Eine Fahrt reicht vom Verlassen der Reichweite der Bridge bis zur Rückkehr.</string>
+    <string name="hist_cost_later">Kosten folgen</string>
+    <string name="hist_estimate">Der Strom wird aus dem Akkustand geschätzt: Eine volle Ladung braucht etwa %1$s kWh aus der Steckdose (änderbar beim Strompreis).</string>
+    <string name="hist_trips_note">Fahrten: die Zeit außerhalb der Reichweite der Bridge und der verbrauchte Akku. Elektrische km sind eine Schätzung aus deiner vollen Reichweite.</string>
+    <string name="hist_used">%1$d %% verbraucht</string>
+    <string name="hist_gained">+%1$d %% (unterwegs geladen)</string>
+    <plurals name="hist_charges_kwh">
+        <item quantity="one">%1$d Ladung · %2$s kWh</item>
+        <item quantity="other">%1$d Ladungen · %2$s kWh</item>
+    </plurals>
+    <plurals name="hist_trips_away">
+        <item quantity="one">%1$d Fahrt · %2$s weg</item>
+        <item quantity="other">%1$d Fahrten · %2$s weg</item>
+    </plurals>
+    <plurals name="week_charges">
+        <item quantity="one">%1$d Ladung, %2$s kWh</item>
+        <item quantity="other">%1$d Ladungen, %2$s kWh</item>
+    </plurals>
+    <plurals name="week_trips">
+        <item quantity="one">%1$d Fahrt, %2$d %% des Akkus</item>
+        <item quantity="other">%1$d Fahrten, %2$d %% des Akkus</item>
+    </plurals>
+    <string name="week_km">(≈ %1$d km elektrisch)</string>
+    <string name="alert_title_weekly">Deine Woche mit dem Auto</string>
+    <string name="settings_alert_weekly">Wochenübersicht</string>
+    <string name="settings_alert_weekly_note">Sonntagabend: Laden, Kosten und Fahrten der Woche.</string>
+    <string name="set_group_charging">Laden</string>
+    <string name="set_sum_price">Spotpreis, Norgespris oder Festpreis</string>
+    <string name="price_title">Strompreis</string>
+    <string name="price_model">So zahlst du</string>
+    <string name="price_spot">Spotpreis</string>
+    <string name="price_norgespris">Norgespris</string>
+    <string name="price_fixed">Festpreis</string>
+    <string name="price_area">Preiszone</string>
+    <string name="price_area_auto">Auto (%1$s)</string>
+    <string name="price_area_auto_none">Auto</string>
+    <string name="price_area_missing">Wähle deine Preiszone oder lege den Heimatort fest (Optionen → Wetterort), damit sie geschätzt werden kann.</string>
+    <string name="price_support">Norwegische Stromhilfe (strømstøtte) abziehen</string>
+    <string name="price_support_note">90 % des Stundenpreises über 77 Øre/kWh (ohne MwSt.), Stand 2026.</string>
+    <string name="price_norgespris_note">50 Øre/kWh mit MwSt. (40 Øre in Nordnorwegen, wo keine MwSt. anfällt).</string>
+    <string name="price_fixed_field">Preis pro kWh inkl. MwSt. (%1$s)</string>
+    <string name="price_fee_field">Netzentgelt und Aufschlag pro kWh (%1$s)</string>
+    <string name="price_fee_hint">Der Arbeitspreis des Netzentgelts plus ein Aufschlag deines Anbieters, inkl. MwSt. 0 zum Weglassen.</string>
+    <string name="price_full_field">Strom für eine volle Ladung (kWh aus der Steckdose)</string>
+    <string name="price_full_hint">Etwa 12 bei Modellen 2014–2018, 14–15 ab 2019. Ladeverluste eingerechnet.</string>
+    <string name="price_bad_number">Prüfe die Zahlen</string>
+    <string name="price_privacy">Für den Spotpreis lädt die Bridge die Tagespreise deiner Zone von hvakosterstrommen.no (Norwegen) oder elprisetjustnu.se (Schweden) – gesendet werden nur Zone und Datum.</string>
+    <string name="act_car_trip">Zurück nach %1$s</string>
+    <string name="act_car_trip_pct">Zurück nach %1$s – Akku %2$d → %3$d %%</string>
+</resources>

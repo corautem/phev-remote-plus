@@ -22,6 +22,7 @@ import io.github.anwo91.phevlink.ui.MainActivity
 import io.github.anwo91.phevlink.util.AppLocale
 import io.github.anwo91.phevlink.util.Format
 import io.github.anwo91.phevlink.util.Labels
+import io.github.anwo91.phevlink.util.Money
 
 class Notifier(private val context: Context) {
     private val nm = context.getSystemService(NotificationManager::class.java)
@@ -71,7 +72,8 @@ class Notifier(private val context: Context) {
         ensureChannels()
         val res = AppLocale.localized(context)
         val title = res.getString(alertTitle(a.type))
-        val message = state?.let { alertMessage(res, a.type, it, prefs ?: AlertPrefs()) } ?: a.message
+        val message = if (a.type == AlertType.WEEKLY_SUMMARY) weeklyText(res, a.params) ?: a.message
+            else state?.let { alertMessage(res, a.type, it, prefs ?: AlertPrefs()) } ?: a.message
         val n = NotificationCompat.Builder(context, CH_ALERTS)
             .setSmallIcon(alertIcon(a.type))
             .setColor(context.getColor(alertColor(a.type)))
@@ -79,10 +81,35 @@ class Notifier(private val context: Context) {
             .setContentText(message)
             .setStyle(NotificationCompat.BigTextStyle().bigText(message))
             .setCategory(if (a.type == AlertType.CHARGE_COMPLETE || a.type == AlertType.CLIMATE_FINISHED) NotificationCompat.CATEGORY_STATUS else NotificationCompat.CATEGORY_REMINDER)
-            .setContentIntent(openAppIntent())
+            .setContentIntent(if (a.type == AlertType.WEEKLY_SUMMARY) openPageIntent(MainActivity.OPEN_HISTORY, REQ_HISTORY) else openAppIntent())
             .setAutoCancel(true)
             .build()
         nm.notify(ID_ALERT_BASE + a.type.ordinal, n)
+    }
+
+    private fun openPageIntent(page: String, req: Int): PendingIntent = PendingIntent.getActivity(
+        context, req,
+        Intent(context, MainActivity::class.java).putExtra(MainActivity.EXTRA_OPEN, page).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
+        PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+    )
+
+    /** The week in a few words: "3 charges, 24.0 kWh · 31 kr" and "5 trips, 120 % of the battery ≈ 50 km". */
+    private fun weeklyText(res: Context, p: Map<String, Any?>): String? {
+        val charges = (p["charges"] as? Number)?.toInt() ?: return null
+        val trips = (p["trips"] as? Number)?.toInt() ?: 0
+        val loc = AppLocale.uiLocale(res)
+        val lines = ArrayList<String>()
+        if (charges > 0) {
+            val kwh = String.format(loc, "%.1f", (p["kwh"] as? Number)?.toDouble() ?: 0.0)
+            val cost = (p["cost"] as? Number)?.toDouble()?.let { Money.format(it, p["currency"] as? String, loc) }
+            lines += res.resources.getQuantityString(R.plurals.week_charges, charges, charges, kwh) + (cost?.let { " · ≈ $it" } ?: "")
+        }
+        if (trips > 0) {
+            val used = (p["usedPct"] as? Number)?.toInt() ?: 0
+            val km = (p["electricKm"] as? Number)?.toInt()
+            lines += res.resources.getQuantityString(R.plurals.week_trips, trips, trips, used) + (km?.let { " " + res.getString(R.string.week_km, it) } ?: "")
+        }
+        return lines.joinToString("\n").ifEmpty { null }
     }
 
     /** The car is home while the bridge still waits to be registered: tap opens the bridge setup at that step. */
@@ -181,13 +208,13 @@ class Notifier(private val context: Context) {
         AlertType.LEFT_UNLOCKED, AlertType.DOOR_OPEN -> R.drawable.ic_stat_lock
         AlertType.LIGHTS_ON -> R.drawable.ic_stat_lights
         AlertType.THEFT_ALARM, AlertType.CHARGE_TIMER_FAILED -> R.drawable.ic_stat_warn
-        AlertType.PLUG_IN_REMINDER -> R.drawable.ic_stat_charge
+        AlertType.PLUG_IN_REMINDER, AlertType.WEEKLY_SUMMARY -> R.drawable.ic_stat_charge
     }
 
     /** Accent colour: teal for news, amber for things to look at, red for the alarm. */
     @ColorRes
     private fun alertColor(t: AlertType): Int = when (t) {
-        AlertType.CHARGE_COMPLETE, AlertType.CHARGE_STARTED, AlertType.CLIMATE_STARTED, AlertType.CLIMATE_FINISHED -> R.color.brand
+        AlertType.CHARGE_COMPLETE, AlertType.CHARGE_STARTED, AlertType.CLIMATE_STARTED, AlertType.CLIMATE_FINISHED, AlertType.WEEKLY_SUMMARY -> R.color.brand
         AlertType.CHARGE_STOPPED, AlertType.CLIMATE_CANCELLED, AlertType.LEFT_UNLOCKED, AlertType.DOOR_OPEN,
         AlertType.LIGHTS_ON, AlertType.CHARGE_TIMER_FAILED, AlertType.PLUG_IN_REMINDER -> R.color.notif_warn
         AlertType.THEFT_ALARM -> R.color.notif_alarm
@@ -207,6 +234,7 @@ class Notifier(private val context: Context) {
         AlertType.THEFT_ALARM -> R.string.alert_title_theft
         AlertType.CHARGE_TIMER_FAILED -> R.string.alert_title_charge_failed
         AlertType.PLUG_IN_REMINDER -> R.string.alert_title_plug_in
+        AlertType.WEEKLY_SUMMARY -> R.string.alert_title_weekly
     }
 
     /** Same content as the core's English message (see AlertEngine), from the same car state. Null if it cannot be rebuilt. */
@@ -246,6 +274,7 @@ class Notifier(private val context: Context) {
             AlertType.THEFT_ALARM -> res.getString(R.string.alert_theft)
             AlertType.CHARGE_TIMER_FAILED -> res.getString(R.string.alert_charge_failed)
             AlertType.PLUG_IN_REMINDER -> if (pct != null) res.getString(R.string.alert_plug_in_pct, pct) else res.getString(R.string.alert_plug_in)
+            AlertType.WEEKLY_SUMMARY -> null
         }
     }
 
@@ -258,5 +287,6 @@ class Notifier(private val context: Context) {
         const val ID_ALERT_BASE = 100
         const val ID_BRIDGE_HOME = 60
         private const val REQ_BRIDGE_SETUP = 7
+        private const val REQ_HISTORY = 8
     }
 }

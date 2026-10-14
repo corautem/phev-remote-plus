@@ -138,7 +138,11 @@ fun main(args: Array<String>) {
         carHome = { if (config.emulator) service.connection.status.value.isConnected else watch.onCarWifi },
         raise = { service.raiseAlert(it) }, log = log,
     ).start(scope)
-    val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, shared, activity, watch, smartHome, matter, restart)
+    // Charging (energy, cost from the area's spot prices) and trips, kept for every phone; the Sunday summary.
+    val history = EnergyHistory(stateDir, shared, SpotPrices(File(stateDir, "prices"), log), activity, log, scope)
+    history.raise = { service.raiseAlert(it) }
+    history.start(reach = if (config.emulator) null else ({ watch.reach() }), car = { service.connection.car.value })
+    val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, shared, activity, watch, smartHome, matter, history = history, restart = restart)
     activity.add(io.github.anwo91.phevlink.core.activity.Activity(System.currentTimeMillis(), "bridge", "bridge.started", mapOf("build" to BridgeService.BUILD)))
     val port = api.start()
     log.link("Bridge ${BridgeService.BUILD} (API ${BridgeService.VERSION}) on http://${config.listenHost}:$port/  (car ${config.carHost}:$carPort)")

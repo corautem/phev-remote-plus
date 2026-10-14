@@ -169,6 +169,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
         val aChargeStarted = booleanPreferencesKey("a_charge_started")
         val aClimateStarted = booleanPreferencesKey("a_climate_started")
         val aPlugIn = booleanPreferencesKey("a_plug_in")
+        val aWeekly = booleanPreferencesKey("a_weekly")
         val alertsFromBridge = booleanPreferencesKey("alerts_from_bridge")
         val watch = booleanPreferencesKey("watch")
         val watchInterval = intPreferencesKey("watch_interval")
@@ -224,6 +225,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
                 chargeStarted = p[K.aChargeStarted] ?: a.chargeStarted,
                 climateStarted = p[K.aClimateStarted] ?: a.climateStarted,
                 plugInReminder = p[K.aPlugIn] ?: a.plugInReminder,
+                weeklySummary = p[K.aWeekly] ?: a.weeklySummary,
             ),
             alertsFromBridge = p[K.alertsFromBridge] ?: true,
             watchWhileBusy = p[K.watch] ?: true,
@@ -276,6 +278,7 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
             p[K.aChargeStarted] = s.alerts.chargeStarted
             p[K.aClimateStarted] = s.alerts.climateStarted
             p[K.aPlugIn] = s.alerts.plugInReminder
+            p[K.aWeekly] = s.alerts.weeklySummary
             p[K.alertsFromBridge] = s.alertsFromBridge
             p[K.watch] = s.watchWhileBusy
             p[K.watchInterval] = s.watchIntervalMinutes

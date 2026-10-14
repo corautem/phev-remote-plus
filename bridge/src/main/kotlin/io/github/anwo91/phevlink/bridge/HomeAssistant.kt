@@ -236,9 +236,11 @@ class HomeAssistant(val id: String, private val language: String = "en", val pre
             AlertType.DOOR_OPEN -> "door_left_open"
             AlertType.LIGHTS_ON -> "lights_left_on"
             AlertType.PLUG_IN_REMINDER -> "plug_in_reminder"
+            AlertType.WEEKLY_SUMMARY -> "weekly_summary"
             else -> return null
         }
-        return Json.write(linkedMapOf("event_type" to type, "text" to alert.message))
+        // The weekly summary's numbers (charges, kwh, cost, trips …) go along for automations.
+        return Json.write(linkedMapOf<String, Any?>("event_type" to type, "text" to alert.message) + alert.params.filterKeys { it != "event_type" && it != "text" })
     }
 
     // ------------------------------------------------------------------ names

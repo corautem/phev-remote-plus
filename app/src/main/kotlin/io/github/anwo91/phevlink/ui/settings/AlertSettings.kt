@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
 
 /** Which alerts are on, as a list (for the summary line). */
 fun alertSwitches(a: AlertPrefs): List<Boolean> =
-    listOf(a.chargeComplete, a.chargeStopped, a.climateFinished, a.climateCancelled, a.leftUnlocked, a.doorOpen, a.lightsOn, a.theftAlarm, a.chargeTimerFailed, a.plugInReminder)
+    listOf(a.chargeComplete, a.chargeStopped, a.climateFinished, a.climateCancelled, a.leftUnlocked, a.doorOpen, a.lightsOn, a.theftAlarm, a.chargeTimerFailed, a.plugInReminder, a.weeklySummary)
 
 /**
  * Settings → Alerts: on/off, where they come from (the bridge or this phone), each kind, and the background watch.
@@ -64,6 +64,8 @@ fun AlertsContent(vm: MainViewModel, s: AppSettings) {
     if (s.hasBridge) {
         ToggleRow(stringResource(R.string.settings_alert_plug_in), a.plugInReminder) { on -> set { it.copy(alerts = it.alerts.copy(plugInReminder = on)) } }
         if (a.plugInReminder) PlugReminderSettings(vm, s)
+        ToggleRow(stringResource(R.string.settings_alert_weekly), a.weeklySummary) { on -> set { it.copy(alerts = it.alerts.copy(weeklySummary = on)) } }
+        Note(stringResource(R.string.settings_alert_weekly_note))
     }
 }
 

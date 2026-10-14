@@ -52,6 +52,7 @@ import io.github.anwo91.phevlink.ui.home.HomeScreen
 import io.github.anwo91.phevlink.ui.obd.ObdScreen
 import io.github.anwo91.phevlink.ui.obd.ObdViewModel
 import io.github.anwo91.phevlink.ui.tips.Faq
+import io.github.anwo91.phevlink.ui.history.HistoryScreen
 import io.github.anwo91.phevlink.ui.tips.TipsScreen
 import io.github.anwo91.phevlink.ui.bridge.SmartHomeScreen
 import io.github.anwo91.phevlink.ui.vehicle.VehicleSettingsScreen
@@ -102,6 +103,8 @@ class MainActivity : ComponentActivity() {
         /** Intent extra: a page to open on launch (from a notification). */
         const val EXTRA_OPEN = "io.github.anwo91.phevlink.OPEN"
         const val OPEN_BRIDGE_SETUP = "bridge"
+        /** Charging and trips (the weekly summary's tap). */
+        const val OPEN_HISTORY = "history"
     }
 
     override fun onStop() {
@@ -129,6 +132,8 @@ private object Page {
     const val DIAGNOSTICS = "diagnostics"
     /** Google Home ("smart-home:matter") or Home Assistant ("smart-home:ha"). */
     const val SMART_HOME = "smart-home"
+    /** Charging (energy, cost) and trips, kept by the bridge. */
+    const val HISTORY = MainActivity.OPEN_HISTORY
 }
 
 /** The always-visible EMULATION bar, shown while demo mode is on so simulated data is never mistaken for the real car. */
@@ -235,6 +240,7 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
             p == Page.CHARGE_TIMER -> ChargeTimerScreen(vm, m, onBack = { back() })
             p == Page.ACTIVITY -> io.github.anwo91.phevlink.ui.activity.ActivityScreen(vm, m, onBack = { back() })
             p == Page.DIAGNOSTICS -> DiagnosticsScreen(vm, m, onBack = { back() })
+            p == Page.HISTORY -> HistoryScreen(vm, m, onBack = { back() }, onOpenSetup = { show(Page.BRIDGE) })
             p != null && p.startsWith(Page.SMART_HOME) -> SmartHomeScreen(
                 vm, m, which = p.substringAfter(':', "matter"), onBack = { back() }, onOpenSetup = { show(Page.BRIDGE) },
             )
@@ -255,6 +261,7 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
                     onOpenBridgeSetup = { show(Page.BRIDGE) },
                     onOpenChargeTimer = { show(Page.CHARGE_TIMER) },
                     onOpenActivity = { show(Page.ACTIVITY) },
+                    onOpenHistory = { show(Page.HISTORY) },
                 )
                 Tab.SCHEDULE -> ScheduleScreen(vm, m, onOpenChargeTimer = { show(Page.CHARGE_TIMER) })
                 Tab.OBD -> ObdScreen(obdVm, m, onOpenTip = { show(Page.TIPS + ":" + it) })
@@ -265,6 +272,7 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
                     onOpenSmartHome = { show(Page.SMART_HOME + ":" + it) },
                     onOpenHelp = { show(Page.TIPS) },
                     onOpenDiagnostics = { show(Page.DIAGNOSTICS) },
+                    onOpenHistory = { show(Page.HISTORY) },
                 )
             } }
         }

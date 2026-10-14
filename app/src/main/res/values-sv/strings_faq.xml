@@ -40,6 +40,8 @@
     <string name="faq_obd_a">En ELM327-kompatibel Bluetooth-adapter. OBDLink och Vgate iCar Pro fungerar bäst; billiga kopior läser grunderna men kan inte filtrera bort bilens brus. Parkopplingskoden är oftast 1234.</string>
     <string name="faq_bridge_q">Bryggan svarar inte</string>
     <string name="faq_bridge_a">Kontrollera att bryggan (den lilla datorn) har ström och är på wifi hemma, och att den här telefonen är på samma nät – eller på VPN när du är borta. Inställningar → Brygga visar status och kan starta om den. Under tiden använder appen bilens Wi-Fi direkt när du står vid bilen.</string>
+    <string name="faq_cost_q">Hur räknas kostnad och resor ut?</string>
+    <string name="faq_cost_a">Bryggan registrerar varje laddning hemma: batterinivån före och efter ger energin (en full laddning tar ungefär 12 kWh från uttaget på bilar 2014–2018; ändra det under Inställningar → Elpris). Kostnaden använder ditt pris: områdets spotpris timme för timme (med moms, minus det norska elstödet), Norgespris eller ett fast pris, plus elnätsavgiften du anger. En resa varar från att bilen lämnar bryggans räckvidd tills den är tillbaka; batteriet den använde ger elektriska km utifrån din fulla räckvidd. Allt är uppskattningar.</string>
     <string name="faq_alerts_q">Hur fungerar aviseringar med brygga?</string>
     <string name="faq_alerts_a">Bryggan håller koll på bilen dygnet runt. Telefonen visar dess aviseringar direkt medan appen är öppen, annars inom en timme – med några minuters mellanrum medan bilen laddar eller förvärms. Kommer de sent, ställ PHEV Links batterianvändning på ”Obegränsad”.</string>
     <string name="faq_google_q">Hur lägger jag till bilen i Google Home?</string>
@@ -47,7 +49,7 @@
     <string name="faq_ha_q">Fungerar det med Home Assistant?</string>
     <string name="faq_ha_a">Ja, via MQTT: peka bryggan mot din broker (till exempel Mosquitto-tillägget) eller låt bryggan sätta upp en. Bilen dyker då upp med sensorer och brytare och en ”Bilhändelse” för automatiseringar.</string>
     <string name="faq_privacy_q">Vart tar mina data vägen?</string>
-    <string name="faq_privacy_a">Bara dit du har ställt in: appen pratar med bilen, din brygga, Norska meteorologiska institutet (hemmets koordinater, för prognosen) och GitHub (för att söka efter uppdateringar). Inget konto och ingen molntjänst.</string>
+    <string name="faq_privacy_a">Bara dit du har ställt in: appen pratar med bilen, din brygga, Norska meteorologiska institutet (hemmets koordinater, för prognosen) och GitHub (för att söka efter uppdateringar). Inget konto och ingen molntjänst. Med spotpris hämtar bryggan också dagens priser för ditt elområde från hvakosterstrommen.no eller elprisetjustnu.se.</string>
     <string name="faq_update_q">Hur fungerar uppdateringar?</string>
     <string name="faq_update_a">Appen söker efter en ny version på GitHub och installerar den när du har tillåtit ”Installera okända appar”. Bryggan uppdateras också från appen, under Inställningar → Brygga.</string>
 </resources>

@@ -1,6 +1,9 @@
 package io.github.anwo91.phevlink.bridge
 
 import io.github.anwo91.phevlink.core.diag.DiagLog
+import io.github.anwo91.phevlink.core.energy.PriceAreas
+import io.github.anwo91.phevlink.core.energy.PriceModel
+import io.github.anwo91.phevlink.core.energy.PricePlan
 import io.github.anwo91.phevlink.core.json.Codecs
 import io.github.anwo91.phevlink.core.json.Json
 import io.github.anwo91.phevlink.core.planner.Departure
@@ -67,8 +70,32 @@ class SharedStore(private val file: File, private val log: DiagLog, private val 
         "quickSmart", "plugReminder" -> v is Boolean
         "plugReminderAt" -> v is String && HHMM.matches(v)
         "plugReminderBelow" -> v is Number && v.toInt() in 10..100
+        "priceModel" -> v is String && v.lowercase() in setOf("spot", "norgespris", "fixed")
+        "priceArea" -> v == null || (v is String && (v.isEmpty() || PriceAreas.valid(v)))
+        "priceFixed" -> v == null || (v is Number && v.toDouble() in 0.0..20.0)
+        "priceGridFee" -> v is Number && v.toDouble() in 0.0..10.0
+        "priceSupport", "weeklySummary" -> v is Boolean
+        "fullChargeKwh" -> v is Number && v.toDouble() in 4.0..30.0
+        "priceCurrency" -> v is String && Regex("^[A-Z]{3}$").matches(v)
         else -> false
     }
+
+    /** What electricity costs at home (shared by all phones): spot/Norgespris/fixed, area, fees, charger losses. */
+    fun pricePlan(): PricePlan = PricePlan(
+        model = PriceModel.of(data["priceModel"] as? String),
+        area = (data["priceArea"] as? String)?.takeIf { PriceAreas.valid(it) }?.uppercase(),
+        fixedPerKwh = (data["priceFixed"] as? Number)?.toDouble(),
+        gridFeePerKwh = (data["priceGridFee"] as? Number)?.toDouble() ?: 0.0,
+        support = data["priceSupport"] as? Boolean ?: true,
+        fullChargeKwh = (data["fullChargeKwh"] as? Number)?.toDouble() ?: PricePlan.DEFAULT_FULL_CHARGE_KWH,
+        currency = data["priceCurrency"] as? String,
+    )
+
+    /** The price area: chosen, or guessed from the home location (null when neither). */
+    fun priceArea(): String? = pricePlan().area ?: location()?.let { (la, lo) -> PriceAreas.guess(la, lo) }
+
+    /** The Sunday-evening summary of the week (on by default). */
+    fun weeklySummary(): Boolean = data["weeklySummary"] as? Boolean ?: true
 
     /** The evening plug-in reminder: on (default), at what local time ("21:00"), below what battery %. */
     data class PlugReminder(val enabled: Boolean, val at: java.time.LocalTime, val belowPercent: Int)
@@ -100,6 +127,7 @@ class SharedStore(private val file: File, private val log: DiagLog, private val 
         val KEYS = setOf(
             "departures", "carName", "fullRangeKm", "quickMode", "quickDuration", "quickSmart", "homeLat", "homeLon", "timeZone", "carColor",
             "plugReminder", "plugReminderAt", "plugReminderBelow",
+            "priceModel", "priceArea", "priceFixed", "priceGridFee", "priceSupport", "fullChargeKwh", "weeklySummary", "priceCurrency",
         )
         private val HHMM = Regex("^([01]\\d|2[0-3]):[0-5]\\d$")
     }

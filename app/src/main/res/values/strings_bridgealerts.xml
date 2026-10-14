@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Alerts from the bridge, evening plug-in reminder. -->
+<resources>
+    <string name="settings_alerts_from_bridge">Alerts from the bridge</string>
+    <string name="settings_alerts_from_bridge_on">The bridge watches the car around the clock and this phone shows its alerts — at once while the app is open, otherwise within the hour (every few minutes while charging or preheating). This phone\'s own checks are off while it uses the bridge.</string>
+    <string name="settings_alerts_from_bridge_off">This phone checks for alerts itself, only while it\'s connected to the car.</string>
+    <string name="settings_alert_charge_timer_failed">Scheduled charge didn\'t start</string>
+    <string name="settings_alert_theft">Security alarm</string>
+    <string name="settings_alert_plug_in">Evening reminder: plug in</string>
+    <string name="alert_title_plug_in">Plug in tonight?</string>
+    <string name="alert_plug_in_pct">Battery %1$d %%, not plugged in.</string>
+    <string name="alert_plug_in">The car isn\'t plugged in.</string>
+    <string name="rem_on">Remind all phones</string>
+    <string name="rem_explain">If the car is home and not plugged in at this time, the bridge reminds every phone — only when the battery is below the level you pick. Set here for all phones.</string>
+    <string name="rem_time">Time</string>
+    <string name="rem_below">When the battery is below</string>
+    <string name="rem_always">Always</string>
+    <string name="rem_load_failed">The bridge didn\'t answer — this can be changed when the phone reaches the bridge.</string>
+</resources>

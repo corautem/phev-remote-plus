@@ -42,7 +42,17 @@ class BridgeClient(
     private val log: DiagLog,
     private val context: Context = PhevApp.instance,
 ) {
-    data class Snapshot(val link: LinkStatus, val car: CarState, val bridgeNowMs: Long?, val reach: BridgeReach? = null)
+    /** One reminder the bridge raised (left unlocked, charge complete …), in the bridge's clock. */
+    data class BridgeAlert(val type: String, val message: String, val timeMs: Long)
+
+    data class Snapshot(
+        val link: LinkStatus,
+        val car: CarState,
+        val bridgeNowMs: Long?,
+        val reach: BridgeReach? = null,
+        /** The bridge's latest alerts (newest last), for phones that show the bridge's alerts. */
+        val alerts: List<BridgeAlert> = emptyList(),
+    )
 
     private val _snapshot = MutableStateFlow<Snapshot?>(null)
     val snapshot: StateFlow<Snapshot?> = _snapshot.asStateFlow()
@@ -219,6 +229,12 @@ class BridgeClient(
             car = m.obj("car")?.let(Codecs::carStateFromMap) ?: CarState(),
             bridgeNowMs = m.obj("bridge")?.long("nowMs"),
             reach = BridgeReach.from(m.obj("reach")),
+            alerts = (m.obj("bridge")?.get("alerts") as? List<*>).orEmpty().mapNotNull { a ->
+                val am = a as? Map<*, *> ?: return@mapNotNull null
+                val type = am["type"] as? String ?: return@mapNotNull null
+                val time = (am["timeMs"] as? Number)?.toLong() ?: return@mapNotNull null
+                BridgeAlert(type, am["message"] as? String ?: "", time)
+            },
         )
     }
 }

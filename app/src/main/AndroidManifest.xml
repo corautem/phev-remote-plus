@@ -103,6 +103,8 @@
         </provider>
 
         <receiver android:name=".schedule.DepartureReceiver" android:exported="false" />
+        <!-- A short look at the bridge after its evening reminder time. -->
+        <receiver android:name=".link.BridgeCheckReceiver" android:exported="false" />
 
         <!-- Waits for the car to come home while a bridge setup is pending, then notifies. -->
         <service

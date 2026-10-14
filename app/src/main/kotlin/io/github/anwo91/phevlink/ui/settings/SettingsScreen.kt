@@ -197,21 +197,10 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () 
                     }
                 }
             }
-            val a = s.alerts
-            val alertList = listOf(a.chargeComplete, a.chargeStopped, a.climateFinished, a.climateCancelled, a.leftUnlocked, a.doorOpen, a.lightsOn)
+            val alertList = alertSwitches(s.alerts)
             val alertsSummary = if (s.phoneAlerts) stringResource(R.string.set_sum_on_of, alertList.count { it }, alertList.size) else stringResource(R.string.set_sum_off)
             SettingsRow(PhevIcons.Bell, stringResource(R.string.settings_alerts_title), alertsSummary) {
-                Toggle(stringResource(R.string.settings_alerts), s.phoneAlerts) { on -> set { it.copy(phoneAlerts = on) } }
-                if (s.phoneAlerts) {
-                    HorizontalDivider(Modifier.padding(vertical = 4.dp))
-                    Toggle(stringResource(R.string.settings_alert_charge_complete), a.chargeComplete) { on -> set { it.copy(alerts = it.alerts.copy(chargeComplete = on)) } }
-                    Toggle(stringResource(R.string.settings_alert_charge_stopped), a.chargeStopped) { on -> set { it.copy(alerts = it.alerts.copy(chargeStopped = on)) } }
-                    Toggle(stringResource(R.string.settings_alert_climate_finished), a.climateFinished) { on -> set { it.copy(alerts = it.alerts.copy(climateFinished = on)) } }
-                    Toggle(stringResource(R.string.settings_alert_climate_cancelled), a.climateCancelled) { on -> set { it.copy(alerts = it.alerts.copy(climateCancelled = on)) } }
-                    Toggle(stringResource(R.string.settings_alert_left_unlocked), a.leftUnlocked) { on -> set { it.copy(alerts = it.alerts.copy(leftUnlocked = on)) } }
-                    Toggle(stringResource(R.string.settings_alert_door_open), a.doorOpen) { on -> set { it.copy(alerts = it.alerts.copy(doorOpen = on)) } }
-                    Toggle(stringResource(R.string.settings_alert_lights_on), a.lightsOn) { on -> set { it.copy(alerts = it.alerts.copy(lightsOn = on)) } }
-                }
+                AlertsContent(vm, s)
                 HorizontalDivider(Modifier.padding(vertical = 4.dp))
                 Toggle(stringResource(R.string.settings_watch), s.watchWhileBusy) { on -> set { it.copy(watchWhileBusy = on) } }
                 Text(

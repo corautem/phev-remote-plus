@@ -132,6 +132,12 @@ fun main(args: Array<String>) {
     )
     matter.start() // the program stops by itself when the bridge exits (its stdin closes)
     runGuard.watchMemory(scope, extra = { matter.memoryNote() })
+    // Evening plug-in reminder (shared settings), raised like the other alerts so every phone gets it.
+    Reminders(
+        shared, car = { service.connection.car.value },
+        carHome = { if (config.emulator) service.connection.status.value.isConnected else watch.onCarWifi },
+        raise = { service.raiseAlert(it) }, log = log,
+    ).start(scope)
     val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, shared, activity, watch, smartHome, matter, restart)
     activity.add(io.github.anwo91.phevlink.core.activity.Activity(System.currentTimeMillis(), "bridge", "bridge.started", mapOf("build" to BridgeService.BUILD)))
     val port = api.start()

@@ -57,6 +57,8 @@ class SharedSync(
         val reachable: Boolean = false,
         val lastDeparture: BridgeDeparture? = null,
         val updatedBy: String? = null,
+        /** Everything the bridge shares, as last agreed (incl. bridge-only settings such as the evening reminder). */
+        val shared: Map<String, Any?>? = null,
     ) {
         /** The bridge runs departures while the car is home. */
         val bridgeRunsDepartures: Boolean get() = supported == true
@@ -166,8 +168,9 @@ class SharedSync(
         val last = lastDeparture(agreed)
         scheduleBackground()
         _state.update {
-            it.copy(lastSyncMs = System.currentTimeMillis(), reachable = true, lastDeparture = last, updatedBy = agreed["updatedBy"] as? String)
+            it.copy(lastSyncMs = System.currentTimeMillis(), reachable = true, lastDeparture = last, updatedBy = agreed["updatedBy"] as? String, shared = agreed)
         }
+        ReminderAlarm.schedule(context, agreed)
         if (take.isNotEmpty() || send.isNotEmpty() || why == "app start") {
             log.link(
                 "Shared data ($why, rev ${(agreed["rev"] as? Number)?.toLong() ?: "?"}): " +
@@ -298,7 +301,7 @@ class SharedSync(
             .setPersisted(true)
             .build()
         val r = js.schedule(info)
-        log.link("Shared data: background sync every hour " + if (r == JobScheduler.RESULT_SUCCESS) "scheduled" else "could NOT be scheduled")
+        log.link("Bridge: background check every hour " + if (r == JobScheduler.RESULT_SUCCESS) "scheduled" else "could NOT be scheduled")
     }
 
     companion object {
@@ -313,7 +316,10 @@ class SharedSync(
     }
 }
 
-/** Hourly background sync, so a departure added on another phone reaches this one without opening the app. */
+/**
+ * Hourly background look at the bridge: the car's status and the bridge's alerts ([BridgeCheck]), and the shared data,
+ * so a departure added on another phone reaches this one without opening the app.
+ */
 class SharedSyncJob : JobService() {
     private var work: Job? = null
 
@@ -325,6 +331,7 @@ class SharedSyncJob : JobService() {
         }
         work = g.scope.launch {
             try {
+                BridgeCheck.run(applicationContext, "hourly")
                 g.sharedSync.sync("background")
             } finally {
                 jobFinished(params, false)

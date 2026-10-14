@@ -235,6 +235,7 @@ class HomeAssistant(val id: String, private val language: String = "en", val pre
             AlertType.LEFT_UNLOCKED -> "left_unlocked"
             AlertType.DOOR_OPEN -> "door_left_open"
             AlertType.LIGHTS_ON -> "lights_left_on"
+            AlertType.PLUG_IN_REMINDER -> "plug_in_reminder"
             else -> return null
         }
         return Json.write(linkedMapOf("event_type" to type, "text" to alert.message))
@@ -253,7 +254,7 @@ class HomeAssistant(val id: String, private val language: String = "en", val pre
             "charge_started", "charge_finished", "charge_stopped", "charge_timer_failed", "plugged", "unplugged",
             "climate_on", "climate_off", "climate_cancelled", "alarm", "locked", "unlocked", "door_open", "doors_closed",
             "switched_on", "switched_off", "car_home", "car_away", "bridge_off_car_wifi", "departure_started",
-            "departure_failed", "left_unlocked", "door_left_open", "lights_left_on", "command_failed",
+            "departure_failed", "left_unlocked", "door_left_open", "lights_left_on", "command_failed", "plug_in_reminder",
         )
 
         private val LANGS = listOf("en", "nb", "da", "de", "sv")

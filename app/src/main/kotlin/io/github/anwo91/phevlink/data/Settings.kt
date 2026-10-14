@@ -74,6 +74,11 @@ data class AppSettings(
     val homeLon: Double? = null,
     val alerts: AlertPrefs = AlertPrefs(),
     val phoneAlerts: Boolean = true,
+    /**
+     * With a bridge: alerts come from the bridge (it watches the car around the clock; this phone shows them after its
+     * background check or at once while open) instead of this phone's own checks, which then stay off on the bridge.
+     */
+    val alertsFromBridge: Boolean = true,
     /** Keep checking in the background while the car is charging or preconditioning. */
     val watchWhileBusy: Boolean = true,
     val watchIntervalMinutes: Int = 10,
@@ -159,6 +164,12 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
         val aLeftUnlocked = booleanPreferencesKey("a_left_unlocked")
         val aDoorOpen = booleanPreferencesKey("a_door_open")
         val aLightsOn = booleanPreferencesKey("a_lights_on")
+        val aTheft = booleanPreferencesKey("a_theft")
+        val aChargeTimerFailed = booleanPreferencesKey("a_charge_timer_failed")
+        val aChargeStarted = booleanPreferencesKey("a_charge_started")
+        val aClimateStarted = booleanPreferencesKey("a_climate_started")
+        val aPlugIn = booleanPreferencesKey("a_plug_in")
+        val alertsFromBridge = booleanPreferencesKey("alerts_from_bridge")
         val watch = booleanPreferencesKey("watch")
         val watchInterval = intPreferencesKey("watch_interval")
         val fullRange = intPreferencesKey("full_range_km")
@@ -208,7 +219,13 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
                 leftUnlocked = p[K.aLeftUnlocked] ?: a.leftUnlocked,
                 doorOpen = p[K.aDoorOpen] ?: a.doorOpen,
                 lightsOn = p[K.aLightsOn] ?: a.lightsOn,
+                theftAlarm = p[K.aTheft] ?: a.theftAlarm,
+                chargeTimerFailed = p[K.aChargeTimerFailed] ?: a.chargeTimerFailed,
+                chargeStarted = p[K.aChargeStarted] ?: a.chargeStarted,
+                climateStarted = p[K.aClimateStarted] ?: a.climateStarted,
+                plugInReminder = p[K.aPlugIn] ?: a.plugInReminder,
             ),
+            alertsFromBridge = p[K.alertsFromBridge] ?: true,
             watchWhileBusy = p[K.watch] ?: true,
             watchIntervalMinutes = p[K.watchInterval] ?: 10,
             fullRangeKm = p[K.fullRange] ?: 45,
@@ -254,6 +271,12 @@ class SettingsStore(private val context: Context, scope: CoroutineScope) {
             p[K.aLeftUnlocked] = s.alerts.leftUnlocked
             p[K.aDoorOpen] = s.alerts.doorOpen
             p[K.aLightsOn] = s.alerts.lightsOn
+            p[K.aTheft] = s.alerts.theftAlarm
+            p[K.aChargeTimerFailed] = s.alerts.chargeTimerFailed
+            p[K.aChargeStarted] = s.alerts.chargeStarted
+            p[K.aClimateStarted] = s.alerts.climateStarted
+            p[K.aPlugIn] = s.alerts.plugInReminder
+            p[K.alertsFromBridge] = s.alertsFromBridge
             p[K.watch] = s.watchWhileBusy
             p[K.watchInterval] = s.watchIntervalMinutes
             p[K.fullRange] = s.fullRangeKm

@@ -197,6 +197,9 @@ class BridgeService(
         ),
     )
 
+    /** Raises a reminder worked out elsewhere (e.g. the evening plug-in reminder): phones, ntfy and smart homes get it. */
+    fun raiseAlert(a: Alert) = raise(a)
+
     private fun raise(a: Alert) {
         log.link("ALERT ${a.title}: ${a.message}")
         synchronized(recentAlerts) {

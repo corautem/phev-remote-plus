@@ -175,6 +175,15 @@ the car, restart it, restart the computer and **update it from the app**: the br
 GitHub, checks its SHA-256 and reinstalls itself (bridges installed before 1.0.38 need the install command above once
 more; after that, updates happen in the app).
 
+**Alerts from the bridge, and the phone's background look:** the bridge watches the car around the clock (charge
+complete or stopped, left unlocked, door or lights left on, security alarm, scheduled charge didn't start) and, at 21:00
+by default, reminds you to plug in when the car is home, low and not plugged in (time and level shared by all phones,
+Settings → Alerts). With the app closed, the phone reads the bridge's saved status once an hour — every few minutes
+while the car charges or preheats, and just after the reminder time — which never wakes the car and takes about a
+second on home Wi-Fi. It shows the bridge's new alerts (each once) and keeps the widget fresh. While the app is open
+they arrive at once over the live stream. "Alerts from the bridge" can be turned off per phone (then the phone checks
+for alerts itself while connected, as before).
+
 **When the car isn't within reach** the app says so plainly at the top of the Car page — "Car not within reach · not
 seen since 14:32" (the bridge hasn't seen the car's Wi-Fi: it may be away, or just out of the bridge's reach), "Car not
 nearby" (this phone searched for the car's Wi-Fi), "Bridge not answering" or "Can't reach the bridge at home" — in grey

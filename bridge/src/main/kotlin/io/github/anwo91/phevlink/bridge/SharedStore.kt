@@ -64,9 +64,20 @@ class SharedStore(private val file: File, private val log: DiagLog, private val 
         "carName", "quickMode", "timeZone", "carColor" -> v is String && v.length <= 80
         "fullRangeKm", "quickDuration" -> v is Number
         "homeLat", "homeLon" -> v == null || v is Number
-        "quickSmart" -> v is Boolean
+        "quickSmart", "plugReminder" -> v is Boolean
+        "plugReminderAt" -> v is String && HHMM.matches(v)
+        "plugReminderBelow" -> v is Number && v.toInt() in 10..100
         else -> false
     }
+
+    /** The evening plug-in reminder: on (default), at what local time ("21:00"), below what battery %. */
+    data class PlugReminder(val enabled: Boolean, val at: java.time.LocalTime, val belowPercent: Int)
+
+    fun plugReminder(): PlugReminder = PlugReminder(
+        enabled = data["plugReminder"] as? Boolean ?: true,
+        at = (data["plugReminderAt"] as? String)?.let { runCatching { java.time.LocalTime.parse(it) }.getOrNull() } ?: java.time.LocalTime.of(21, 0),
+        belowPercent = (data["plugReminderBelow"] as? Number)?.toInt() ?: 80,
+    )
 
     private fun load(): Map<String, Any?> =
         runCatching { if (file.exists()) Json.parseObject(file.readText()) else emptyMap() }.getOrElse {
@@ -86,6 +97,10 @@ class SharedStore(private val file: File, private val log: DiagLog, private val 
 
     companion object {
         /** What phones may write. */
-        val KEYS = setOf("departures", "carName", "fullRangeKm", "quickMode", "quickDuration", "quickSmart", "homeLat", "homeLon", "timeZone", "carColor")
+        val KEYS = setOf(
+            "departures", "carName", "fullRangeKm", "quickMode", "quickDuration", "quickSmart", "homeLat", "homeLon", "timeZone", "carColor",
+            "plugReminder", "plugReminderAt", "plugReminderBelow",
+        )
+        private val HHMM = Regex("^([01]\\d|2[0-3]):[0-5]\\d$")
     }
 }

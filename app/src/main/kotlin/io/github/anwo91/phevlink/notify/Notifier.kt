@@ -181,6 +181,7 @@ class Notifier(private val context: Context) {
         AlertType.LEFT_UNLOCKED, AlertType.DOOR_OPEN -> R.drawable.ic_stat_lock
         AlertType.LIGHTS_ON -> R.drawable.ic_stat_lights
         AlertType.THEFT_ALARM, AlertType.CHARGE_TIMER_FAILED -> R.drawable.ic_stat_warn
+        AlertType.PLUG_IN_REMINDER -> R.drawable.ic_stat_charge
     }
 
     /** Accent colour: teal for news, amber for things to look at, red for the alarm. */
@@ -188,7 +189,7 @@ class Notifier(private val context: Context) {
     private fun alertColor(t: AlertType): Int = when (t) {
         AlertType.CHARGE_COMPLETE, AlertType.CHARGE_STARTED, AlertType.CLIMATE_STARTED, AlertType.CLIMATE_FINISHED -> R.color.brand
         AlertType.CHARGE_STOPPED, AlertType.CLIMATE_CANCELLED, AlertType.LEFT_UNLOCKED, AlertType.DOOR_OPEN,
-        AlertType.LIGHTS_ON, AlertType.CHARGE_TIMER_FAILED -> R.color.notif_warn
+        AlertType.LIGHTS_ON, AlertType.CHARGE_TIMER_FAILED, AlertType.PLUG_IN_REMINDER -> R.color.notif_warn
         AlertType.THEFT_ALARM -> R.color.notif_alarm
     }
 
@@ -205,6 +206,7 @@ class Notifier(private val context: Context) {
         AlertType.LIGHTS_ON -> R.string.alert_title_lights_on
         AlertType.THEFT_ALARM -> R.string.alert_title_theft
         AlertType.CHARGE_TIMER_FAILED -> R.string.alert_title_charge_failed
+        AlertType.PLUG_IN_REMINDER -> R.string.alert_title_plug_in
     }
 
     /** Same content as the core's English message (see AlertEngine), from the same car state. Null if it cannot be rebuilt. */
@@ -243,6 +245,7 @@ class Notifier(private val context: Context) {
             }
             AlertType.THEFT_ALARM -> res.getString(R.string.alert_theft)
             AlertType.CHARGE_TIMER_FAILED -> res.getString(R.string.alert_charge_failed)
+            AlertType.PLUG_IN_REMINDER -> if (pct != null) res.getString(R.string.alert_plug_in_pct, pct) else res.getString(R.string.alert_plug_in)
         }
     }
 

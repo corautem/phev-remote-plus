@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Alerts from the bridge, evening plug-in reminder. -->
+<resources>
+    <string name="settings_alerts_from_bridge">Hinweise von der Bridge</string>
+    <string name="settings_alerts_from_bridge_on">Die Bridge behält das Auto rund um die Uhr im Blick, und dieses Handy zeigt ihre Hinweise – sofort, solange die App offen ist, sonst innerhalb einer Stunde (alle paar Minuten, solange das Auto lädt oder vorklimatisiert). Die eigenen Prüfungen des Handys sind aus, solange es die Bridge nutzt.</string>
+    <string name="settings_alerts_from_bridge_off">Dieses Handy prüft selbst auf Hinweise, nur solange es mit dem Auto verbunden ist.</string>
+    <string name="settings_alert_charge_timer_failed">Geplantes Laden nicht gestartet</string>
+    <string name="settings_alert_theft">Diebstahlalarm</string>
+    <string name="settings_alert_plug_in">Abend-Erinnerung: einstecken</string>
+    <string name="alert_title_plug_in">Heute Abend einstecken?</string>
+    <string name="alert_plug_in_pct">Batterie %1$d %%, nicht eingesteckt.</string>
+    <string name="alert_plug_in">Das Auto ist nicht eingesteckt.</string>
+    <string name="rem_on">Alle Handys erinnern</string>
+    <string name="rem_explain">Ist das Auto zu dieser Zeit zu Hause und nicht eingesteckt, erinnert die Bridge alle Handys daran – nur wenn die Batterie unter dem gewählten Stand ist. Gilt für alle Handys.</string>
+    <string name="rem_time">Uhrzeit</string>
+    <string name="rem_below">Wenn die Batterie unter</string>
+    <string name="rem_always">Immer</string>
+    <string name="rem_load_failed">Die Bridge hat nicht geantwortet – das lässt sich ändern, sobald dein Handy die Bridge erreicht.</string>
+</resources>

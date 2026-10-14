@@ -226,6 +226,8 @@ class LinkService : LifecycleService() {
     private suspend fun planDeparture(intent: Intent) {
         // Another phone may have changed or removed this departure: take over the bridge's list first (if reachable).
         if (graph.settings.current.hasBridge) withTimeoutOrNull(12_000) { graph.sharedSync.sync("before a departure") }
+        // Awake anyway: a look at the bridge's status and alerts too, if none happened lately.
+        BridgeCheck.runIfStale(this, "departure")
         val s = graph.settings.current
         val id = intent.getStringExtra(EXTRA_DEPARTURE) ?: return
         val atMs = intent.getLongExtra(EXTRA_AT, 0L)
@@ -356,6 +358,17 @@ class LinkService : LifecycleService() {
 
     private suspend fun watchTick(failuresBefore: Int) {
         if (!graph.settings.current.watchWhileBusy) return
+        // With a bridge: read its saved status (about a second, never wakes the car) instead of a full car link.
+        // BridgeCheck plans the next look itself while the car is busy.
+        val s = graph.settings.current
+        if (s.hasBridge && s.route != io.github.anwo91.phevlink.data.Route.DIRECT && !DemoMode.active.value) {
+            val snap = BridgeCheck.run(this, "watch")
+            if (snap != null) {
+                if (!repo.busy(snap.car)) graph.log.link("Background watch finished — nothing more to wait for")
+                return
+            }
+            graph.log.link("Background watch: the bridge didn't answer — checking the car directly")
+        }
         if (!repo.busy()) {
             graph.log.link("Background watch: nothing to watch")
             return

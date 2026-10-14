@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Alerts from the bridge, evening plug-in reminder. -->
+<resources>
+    <string name="settings_alerts_from_bridge">Aviseringar från bryggan</string>
+    <string name="settings_alerts_from_bridge_on">Bryggan håller koll på bilen dygnet runt och den här telefonen visar dess aviseringar – direkt medan appen är öppen, annars inom en timme (med några minuters mellanrum medan bilen laddar eller förvärms). Telefonens egna kontroller är av medan den använder bryggan.</string>
+    <string name="settings_alerts_from_bridge_off">Den här telefonen letar själv efter aviseringar, bara medan den är ansluten till bilen.</string>
+    <string name="settings_alert_charge_timer_failed">Schemalagd laddning startade inte</string>
+    <string name="settings_alert_theft">Stöldlarm</string>
+    <string name="settings_alert_plug_in">Kvällspåminnelse: koppla in</string>
+    <string name="alert_title_plug_in">Koppla in laddaren i kväll?</string>
+    <string name="alert_plug_in_pct">Batteri %1$d %%, inte inkopplad.</string>
+    <string name="alert_plug_in">Bilen är inte inkopplad.</string>
+    <string name="rem_on">Påminn alla telefoner</string>
+    <string name="rem_explain">Är bilen hemma och inte inkopplad vid den här tiden påminner bryggan alla telefoner – bara när batteriet är under nivån du väljer. Gäller alla telefoner.</string>
+    <string name="rem_time">Tid</string>
+    <string name="rem_below">När batteriet är under</string>
+    <string name="rem_always">Alltid</string>
+    <string name="rem_load_failed">Bryggan svarade inte – det kan ändras när telefonen når bryggan.</string>
+</resources>

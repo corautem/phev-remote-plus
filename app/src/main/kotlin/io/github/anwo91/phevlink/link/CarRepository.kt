@@ -184,7 +184,7 @@ class CarRepository(
             var lastSaved = 0L
             _car.collectLatest { s ->
                 val s2 = settings.current
-                if (s2.phoneAlerts && _link.value.connected) {
+                if (s2.phoneAlerts && _link.value.connected && !bridgeGivesAlerts()) {
                     notify(synchronized(alerts) { alerts.prefs = s2.alerts; alerts.onState(s, System.currentTimeMillis()) }, s)
                 }
                 if (System.currentTimeMillis() - lastSaved > 5_000) {
@@ -198,12 +198,15 @@ class CarRepository(
         scope.launch {
             while (isActive) {
                 delay(30_000)
-                if (settings.current.phoneAlerts && _link.value.connected) {
+                if (settings.current.phoneAlerts && _link.value.connected && !bridgeGivesAlerts()) {
                     notify(synchronized(alerts) { alerts.onTick(System.currentTimeMillis()) }, _car.value)
                 }
             }
         }
     }
+
+    /** On the bridge route with "alerts from the bridge": the bridge's alerts are shown instead of this phone's own. */
+    private fun bridgeGivesAlerts(): Boolean = activeRoute == Route.BRIDGE && settings.current.alertsFromBridge
 
     private fun notify(list: List<Alert>, state: CarState) {
         val prefs = settings.current.alerts
@@ -617,7 +620,11 @@ class CarRepository(
                         if (r.state != lastReach) log.link("Reach (from the bridge): ${lastReach ?: "–"} → $r")
                         lastReach = r.state
                     }
-                    if (snap != null) lastBridgeReach = snap.reach
+                    if (snap != null) {
+                        lastBridgeReach = snap.reach
+                        // New alerts from the bridge show at once while the app is open.
+                        if (snap.alerts.isNotEmpty()) BridgeAlerts.deliver(context, snap)
+                    }
                     // Only matters when the bridge doesn't answer: "bridge down" at home vs. "can't reach home" away.
                     val atHome = if (reachable == false) onBridgeNetwork(s, refresh = false) != null else null
                     setLink { describeBridge(snap, reachable, err, atHome) }
@@ -765,6 +772,19 @@ class CarRepository(
         val fresh = state.updatedAtMs?.let { now - it < 18 * 3600_000L } == true
         val charging = state.charging == true && fresh
         return climate || charging
+    }
+
+    /**
+     * Car data from the bridge's background check (the app may be closed): taken when newer than what's shown, and
+     * saved so the widget and tile show it. A live link of this phone's own has fresher data and wins.
+     */
+    fun takeBridgeSnapshot(snap: BridgeClient.Snapshot) {
+        lastBridgeReach = snap.reach
+        if (!snap.car.hasData || activeRoute == Route.DIRECT) return
+        if ((snap.car.updatedAtMs ?: 0L) <= (_car.value.updatedAtMs ?: 0L)) return
+        _car.value = snap.car
+        cache.save(snap.car)
+        onStateSaved?.invoke()
     }
 
     /**

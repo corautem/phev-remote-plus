@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Alerts from the bridge, evening plug-in reminder. -->
+<resources>
+    <string name="settings_alerts_from_bridge">Varsler fra broen</string>
+    <string name="settings_alerts_from_bridge_on">Broen holder øye med bilen hele døgnet, og denne telefonen viser varslene dens – med en gang mens appen er åpen, ellers innen en time (hvert par minutter mens bilen lader eller forvarmes). Telefonens egne sjekker er av mens den bruker broen.</string>
+    <string name="settings_alerts_from_bridge_off">Denne telefonen ser etter varsler selv, bare mens den er koblet til bilen.</string>
+    <string name="settings_alert_charge_timer_failed">Planlagt lading startet ikke</string>
+    <string name="settings_alert_theft">Tyverialarm</string>
+    <string name="settings_alert_plug_in">Kveldspåminnelse: sett i laderen</string>
+    <string name="alert_title_plug_in">Sette i laderen i kveld?</string>
+    <string name="alert_plug_in_pct">Batteri %1$d %%, ikke tilkoblet lader.</string>
+    <string name="alert_plug_in">Bilen er ikke koblet til lader.</string>
+    <string name="rem_on">Minn alle telefoner på</string>
+    <string name="rem_explain">Er bilen hjemme og ikke tilkoblet lader på dette tidspunktet, minner broen alle telefoner på det – bare når batteriet er under nivået du velger. Gjelder alle telefoner.</string>
+    <string name="rem_time">Klokkeslett</string>
+    <string name="rem_below">Når batteriet er under</string>
+    <string name="rem_always">Alltid</string>
+    <string name="rem_load_failed">Broen svarte ikke – dette kan endres når telefonen når broen.</string>
+</resources>

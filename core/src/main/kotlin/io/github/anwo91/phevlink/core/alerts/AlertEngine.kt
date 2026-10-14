@@ -18,6 +18,8 @@ enum class AlertType(val title: String) {
     LIGHTS_ON("Lights left on"),
     THEFT_ALARM("Security alarm"),
     CHARGE_TIMER_FAILED("Charge did not start"),
+    /** Evening reminder from the bridge: the car is home, low and not plugged in (see the bridge's reminders). */
+    PLUG_IN_REMINDER("Plug in tonight?"),
 }
 
 data class Alert(val type: AlertType, val message: String, val timeMs: Long) {
@@ -39,6 +41,7 @@ data class AlertPrefs(
     val lightsOnMinutes: Int = 3,
     val theftAlarm: Boolean = true,
     val chargeTimerFailed: Boolean = true,
+    val plugInReminder: Boolean = true,
 ) {
     fun enabled(t: AlertType) = when (t) {
         AlertType.CHARGE_COMPLETE -> chargeComplete
@@ -52,6 +55,7 @@ data class AlertPrefs(
         AlertType.LIGHTS_ON -> lightsOn
         AlertType.THEFT_ALARM -> theftAlarm
         AlertType.CHARGE_TIMER_FAILED -> chargeTimerFailed
+        AlertType.PLUG_IN_REMINDER -> plugInReminder
     }
 }
 

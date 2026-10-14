@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Smart charging (the bridge moves tonight's charging to the cheapest hours). -->
 <resources>
+    <string name="ct_smart_note">Nattens fönster är satt av smart laddning; din egen timer kommer tillbaka på morgonen. Sparar du en ändring här blir den kvar, och smart laddning drar sig tillbaka i natt.</string>
+    <string name="act_smart_stepped_back">Smart laddning: timern ändrades på en telefon – får vara som den ställdes</string>
+    <string name="smart_status_state_failed">Bryggan kunde inte spara sina anteckningar – den lät timern vara</string>
+    <string name="smart_status_restoring">Återställer din egen timer när bilen är inom räckhåll</string>
+    <string name="smart_status_writing">Ställer bilens timer …</string>
+    <string name="smart_status_no_slot">Alla tre timrar används av andra dagar – bryggan lät timern vara</string>
+    <string name="smart_status_flat_price">Kräver spotpris med elområde (Elpris) – laddar som vanligt</string>
     <string name="smart_title">Smart laddning</string>
     <string name="set_sum_smart">Ladda under de billigaste timmarna innan du åker</string>
-    <string name="smart_explain">När bilen är inkopplad hemma flyttar bryggan nattens laddning till de billigaste timmarna innan du behöver bilen, med bilens egen laddtimer (bilar 2014–2017). Bilen laddar alltid till full, och din egen timer återställs efteråt. Nytt: håll koll de första nätterna.</string>
+    <string name="smart_explain">När bilen är inkopplad hemma flyttar bryggan nattens laddning till de billigaste timmarna innan du behöver bilen, med bilens egen laddtimer (bilar 2014–2017, spotpris). Med ”full laddning” fortsätter bilen efter fönstret tills den är full, och din egen timer återställs på morgonen. Stäng av för att få tillbaka din timer direkt (när bilen är inom räckhåll). Nytt: håll koll de första nätterna.</string>
     <string name="smart_ready">Klar till</string>
     <string name="smart_departures">Eller till nästa avresa, om den är tidigare</string>
     <string name="smart_old_bridge">Uppdatera bryggan för att använda smart laddning (Inställningar → Brygga).</string>
@@ -18,7 +25,7 @@
     <string name="smart_status_my18">Bara bilar 2014–2017 låter bryggan ställa laddtimern</string>
     <string name="smart_status_no_timer_data">Väntar på att bilen rapporterar sin laddtimer</string>
     <string name="smart_status_failed">Bilen tog inte emot timern – laddar som vanligt i natt</string>
-    <string name="smart_status_changed">Timern ändrades på en telefon – får stå kvar i natt</string>
+    <string name="smart_status_changed">Laddtimern ändrades på en telefon – bryggan lät den vara som den ställdes</string>
     <string name="smart_status_done">Klart för i natt – din egen timer är tillbaka</string>
     <string name="smart_status_off">Av</string>
     <string name="act_smart_planned">Smart laddning: i natt %1$s–%2$s</string>

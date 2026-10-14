@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Smart charging (the bridge moves tonight's charging to the cheapest hours). -->
 <resources>
+    <string name="ct_smart_note">Nattens vindue er sat af smart opladning; din egen timer kommer tilbage om morgenen. Gemmer du en ændring her, bliver den stående, og smart opladning trækker sig for i nat.</string>
+    <string name="act_smart_stepped_back">Smart opladning: timeren blev ændret på en telefon – står, som den blev sat</string>
+    <string name="smart_status_state_failed">Broen kunne ikke gemme sine noter – den lod timeren være</string>
+    <string name="smart_status_restoring">Sætter din egen timer tilbage, når bilen er inden for rækkevidde</string>
+    <string name="smart_status_writing">Indstiller bilens timer …</string>
+    <string name="smart_status_no_slot">Alle tre timere bruges af andre dage – broen lod timeren være</string>
+    <string name="smart_status_flat_price">Kræver spotpris med prisområde (Elpris) – lader som normalt</string>
     <string name="smart_title">Smart opladning</string>
     <string name="set_sum_smart">Oplad i de billigste timer, før du kører</string>
-    <string name="smart_explain">Når bilen er sat til opladning derhjemme, flytter broen nattens opladning til de billigste timer, før du skal bruge bilen, med bilens egen ladetimer (2014–2017-biler). Bilen lader altid helt op, og din egen timer sættes tilbage bagefter. Nyt: hold øje med de første nætter.</string>
+    <string name="smart_explain">Når bilen er sat til opladning derhjemme, flytter broen nattens opladning til de billigste timer, før du skal bruge bilen, med bilens egen ladetimer (2014–2017-biler, spotpris). Med »fuld opladning« lader bilen videre efter vinduet, til den er fuld, og din egen timer sættes tilbage om morgenen. Slå fra for at sætte din timer tilbage med det samme (når bilen er inden for rækkevidde). Nyt: hold øje med de første nætter.</string>
     <string name="smart_ready">Klar til</string>
     <string name="smart_departures">Eller til næste afgang, hvis den er tidligere</string>
     <string name="smart_old_bridge">Opdater broen for at bruge smart opladning (Indstillinger → Bro).</string>
@@ -18,7 +25,7 @@
     <string name="smart_status_my18">Kun 2014–2017-biler lader broen indstille ladetimeren</string>
     <string name="smart_status_no_timer_data">Venter på, at bilen melder sin ladetimer</string>
     <string name="smart_status_failed">Bilen tog ikke imod timeren – lader som normalt i nat</string>
-    <string name="smart_status_changed">Timeren blev ændret på en telefon – får lov at stå i nat</string>
+    <string name="smart_status_changed">Ladetimeren blev ændret på en telefon – broen lod den stå, som den blev sat</string>
     <string name="smart_status_done">Færdig for i nat – din egen timer er tilbage</string>
     <string name="smart_status_off">Fra</string>
     <string name="act_smart_planned">Smart opladning: i nat %1$s–%2$s</string>

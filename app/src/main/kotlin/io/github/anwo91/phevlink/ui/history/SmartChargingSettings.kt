@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -69,8 +70,8 @@ fun SmartChargingSettings(vm: MainViewModel, s: AppSettings) {
             val r = BridgeSetupApi.putShared(s.bridgeUrl, s.bridgeToken, changes)
             vm.log.link("Smart charging: $changes → " + if (r?.code == 200) "saved on the bridge" else "not saved (${r?.code ?: "no answer"})")
             failed = r?.code != 200
-            // The bridge looks every minute; show what it decided a little later.
-            kotlinx.coroutines.delay(65_000)
+            // Not saved: show what the bridge really has. Saved: the bridge looks every minute; show what it decided.
+            if (!failed) kotlinx.coroutines.delay(65_000)
             loads++
         }
     }
@@ -108,15 +109,35 @@ fun SmartChargingSettings(vm: MainViewModel, s: AppSettings) {
                 Text(stringResource(R.string.smart_departures), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
                 Switch(checked = deps, onCheckedChange = { save(mapOf("smartUseDepartures" to it)) })
             }
-            smart?.let { sm ->
-                Text(
-                    smartStatusText(ctx, sm), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.padding(top = 4.dp),
-                )
-            }
+        }
+        // Tonight's plan — also while switched off, until the owner's timer is back on the car.
+        smart?.takeIf { on || it["status"] in BUSY }?.let { sm ->
+            Text(
+                smartStatusText(ctx, sm), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(top = 4.dp),
+            )
         }
         if (failed) Note(stringResource(R.string.rem_load_failed))
     }
+}
+
+/** Statuses where the car carries (or gets) the bridge's window. */
+val BUSY = setOf("planned", "writing", "restoring")
+
+/**
+ * On the charge timer page: tonight's window comes from smart charging, the owner's timer comes back in the morning,
+ * and a change saved there stays. Shows nothing otherwise (or without a bridge).
+ */
+@Composable
+fun SmartTimerNote(vm: MainViewModel) {
+    val s by vm.settings.collectAsState()
+    var busy by remember { mutableStateOf(false) }
+    LaunchedEffect(s.bridgeUrl) {
+        if (!s.hasBridge) return@LaunchedEffect
+        val h = BridgeSetupApi.history(s.bridgeUrl, s.bridgeToken, limit = 1)
+        busy = (h?.body?.get("smart") as? Map<*, *>)?.get("status") in BUSY
+    }
+    if (busy) Text(stringResource(R.string.ct_smart_note), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
 }
 
 /** What the bridge plans tonight, or why it doesn't — from GET /api/history's "smart". */
@@ -145,6 +166,11 @@ fun smartStatusText(ctx: Context, sm: Map<String, Any?>): String {
         "failed" -> res.getString(R.string.smart_status_failed)
         "changed" -> res.getString(R.string.smart_status_changed)
         "done" -> res.getString(R.string.smart_status_done)
+        "flat_price" -> res.getString(R.string.smart_status_flat_price)
+        "no_slot" -> res.getString(R.string.smart_status_no_slot)
+        "writing" -> res.getString(R.string.smart_status_writing)
+        "restoring" -> res.getString(R.string.smart_status_restoring)
+        "state_failed" -> res.getString(R.string.smart_status_state_failed)
         else -> res.getString(R.string.smart_status_waiting)
     }
 }

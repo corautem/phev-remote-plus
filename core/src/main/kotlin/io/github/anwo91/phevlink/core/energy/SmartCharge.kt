@@ -5,8 +5,8 @@ import io.github.anwo91.phevlink.core.model.ChargeWindow
 import io.github.anwo91.phevlink.core.planner.ClimatePlanner
 import io.github.anwo91.phevlink.core.planner.Departure
 import java.time.Instant
+import java.time.LocalDateTime
 import java.time.LocalTime
-import java.time.ZoneId
 import java.time.ZonedDateTime
 import kotlin.math.ceil
 
@@ -103,37 +103,39 @@ object SmartCharge {
     }
 
     /**
-     * For a flat price (Norgespris, fixed): finish just before [readyByMs] — night hours, when the grid fee is often
-     * lower, and a battery still warm when you leave. Null when there isn't time (charge right away).
+     * The owner's [owner] timer with tonight's window, in the car's own clock ([carTime]: epoch ms → the car's local
+     * time). Tonight's days — the day the window starts, today (the plug-in day: an owner's window later this evening
+     * would start the charge early) and yesterday when its overnight window is still running — all point at one timer
+     * slot no other day uses, with "full charge", so the car waits for the window and then keeps going until full.
+     * Null when no slot is free (every timer is used by other days) or the window can't be written.
      */
-    fun latest(earliestMs: Long, readyByMs: Long, minutes: Int): ChargePlan? {
-        if (minutes <= 0) return null
-        val len = minutes * 60_000L
-        val start = floorStep(readyByMs - len)
-        if (start < ceilStep(earliestMs)) return null
-        return ChargePlan(start, start + len, readyByMs, null, null)
-    }
-
-    /**
-     * The owner's [owner] timer with tonight's window: the day the window starts uses a timer slot of its own (a free
-     * one when there is one), with "full charge" so the car never stops short. Null when the window can't be written
-     * (24 hours or more).
-     */
-    fun program(owner: ChargeTimerProgram?, plan: ChargePlan, zone: ZoneId): ChargeTimerProgram? {
+    fun program(owner: ChargeTimerProgram?, plan: ChargePlan, nowMs: Long, carTime: (Long) -> LocalDateTime): ChargeTimerProgram? {
         val base = (owner ?: ChargeTimerProgram.EMPTY).normalized()
-        val start = Instant.ofEpochMilli(plan.startMs).atZone(zone)
-        val end = Instant.ofEpochMilli(plan.endMs).atZone(zone)
-        if (plan.endMs - plan.startMs >= 24 * 3_600_000L) return null
-        val window = runCatching { ChargeWindow(start.toLocalTime().withSecond(0).withNano(0), end.toLocalTime().withSecond(0).withNano(0)) }.getOrNull() ?: return null
-        val day = start.dayOfWeek.value % 7 // the car counts Sunday as 0
-        val usedByOthers = (0..6).filter { it != day }.map { base.dayTimer[it] }.toSet()
+        if (plan.endMs - plan.startMs >= 23 * 3_600_000L) return null
+        val start = floorStep(carTime(plan.startMs))
+        val end = ceilStep(carTime(plan.endMs))
+        val window = runCatching { ChargeWindow(start.toLocalTime(), end.toLocalTime()) }.getOrNull() ?: return null
+        val now = carTime(nowMs)
+        val today = day(now)
+        val yesterday = (today + 6) % 7
+        val days = linkedSetOf(day(start), today)
+        base.window(yesterday)?.let { w -> if (w.end < w.start && now.toLocalTime() < w.end) days += yesterday }
+        val usedByOthers = (0..6).filter { it !in days }.map { base.dayTimer[it] }.filter { it in 1..3 }.toSet()
         val slot = (1..3).firstOrNull { base.windows[it - 1] == null && it !in usedByOthers }
             ?: (1..3).firstOrNull { it !in usedByOthers }
-            ?: base.dayTimer[day].takeIf { it in 1..3 }
-            ?: 3
+            ?: return null
         val windows = base.windows.toMutableList().also { it[slot - 1] = window }
-        val days = base.dayTimer.toMutableList().also { it[day] = slot }
-        return ChargeTimerProgram(windows, days, base.fullDays + day).normalized()
+        val dayTimer = base.dayTimer.toMutableList().also { l -> days.forEach { l[it] = slot } }
+        return ChargeTimerProgram(windows, dayTimer, base.fullDays + days).normalized()
+    }
+
+    /** The car counts Sunday as day 0. */
+    private fun day(t: LocalDateTime): Int = t.dayOfWeek.value % 7
+
+    private fun floorStep(t: LocalDateTime): LocalDateTime = t.withSecond(0).withNano(0).let { it.minusMinutes((it.minute % 10).toLong()) }
+    private fun ceilStep(t: LocalDateTime): LocalDateTime {
+        val f = floorStep(t)
+        return if (f == t.withNano(0) && t.second == 0) f else f.plusMinutes(10)
     }
 
     /** Average price over [fromMs]..[toMs] (time-weighted), null unless the slots cover all of it. */

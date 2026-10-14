@@ -260,6 +260,7 @@ object ActivityText {
             "smart.planned" -> "Smart charging: tonight ${a.str("start")}–${a.str("end")}" + ((a.params["saving"] as? Number)?.let { ", saves ≈ %.2f %s".format(it.toDouble(), a.str("currency") ?: "") } ?: "")
             "smart.done" -> "Smart charging: the owner's charge timer is back (${a.str("reason")})"
             "smart.failed" -> "Smart charging: the car didn't take the timer — charging as usual"
+            "smart.stepped_back" -> "Smart charging: the timer was changed on a phone — left as it was set"
             "bridge.invite" -> "$who opened pairing for another phone"
             else -> "$who: ${a.code}"
         }

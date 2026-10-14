@@ -114,6 +114,8 @@ fun ChargeTimerScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit)
                 else -> stringResource(R.string.ct_now_paused)
             }
             now?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+            // Tonight's window from smart charging (the bridge puts the owner's timer back in the morning).
+            io.github.anwo91.phevlink.ui.history.SmartTimerNote(vm)
             when {
                 unsupported -> Text(stringResource(R.string.ct_my18), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
                 d == null -> Row(verticalAlignment = Alignment.CenterVertically) {

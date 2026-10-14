@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Smart charging (the bridge moves tonight's charging to the cheapest hours). -->
 <resources>
+    <string name="ct_smart_note">Das Fenster für heute Nacht hat smartes Laden gesetzt; dein eigener Timer kommt morgens zurück. Speicherst du hier eine Änderung, bleibt sie, und smartes Laden zieht sich für heute Nacht zurück.</string>
+    <string name="act_smart_stepped_back">Smartes Laden: der Timer wurde auf einem Handy geändert – bleibt so</string>
+    <string name="smart_status_state_failed">Die Bridge konnte ihre Notizen nicht speichern – sie lässt den Timer in Ruhe</string>
+    <string name="smart_status_restoring">Stellt deinen eigenen Timer wieder her, sobald das Auto in Reichweite ist</string>
+    <string name="smart_status_writing">Stellt den Timer des Autos ein …</string>
+    <string name="smart_status_no_slot">Alle drei Timer werden an anderen Tagen genutzt – die Bridge lässt den Timer in Ruhe</string>
+    <string name="smart_status_flat_price">Braucht einen Spotpreis mit Preiszone (Strompreis) – lädt wie gewohnt</string>
     <string name="smart_title">Smartes Laden</string>
     <string name="set_sum_smart">In den günstigsten Stunden laden, bevor du losfährst</string>
-    <string name="smart_explain">Wenn das Auto zu Hause angesteckt ist, verlegt die Bridge das Laden in der Nacht in die günstigsten Stunden, bevor du das Auto brauchst – mit dem eigenen Lade-Timer des Autos (Modelle 2014–2017). Das Auto lädt immer voll, und dein eigener Timer wird danach wiederhergestellt. Neu: Behalte die ersten Nächte im Blick.</string>
+    <string name="smart_explain">Wenn das Auto zu Hause angesteckt ist, verlegt die Bridge das Laden in der Nacht in die günstigsten Stunden, bevor du das Auto brauchst – mit dem eigenen Lade-Timer des Autos (Modelle 2014–2017, Spotpreis). Mit „Volladung“ lädt das Auto nach dem Fenster weiter, bis es voll ist, und dein eigener Timer kommt morgens zurück. Schalte es aus, um deinen Timer sofort zurückzubekommen (wenn das Auto in Reichweite ist). Neu: Behalte die ersten Nächte im Blick.</string>
     <string name="smart_ready">Fertig bis</string>
     <string name="smart_departures">Oder bis zur nächsten Abfahrt, wenn früher</string>
     <string name="smart_old_bridge">Aktualisiere die Bridge, um smartes Laden zu nutzen (Optionen → Bridge).</string>
@@ -18,7 +25,7 @@
     <string name="smart_status_my18">Nur bei Modellen 2014–2017 kann die Bridge den Lade-Timer setzen</string>
     <string name="smart_status_no_timer_data">Wartet, bis das Auto seinen Lade-Timer meldet</string>
     <string name="smart_status_failed">Das Auto hat den Timer nicht übernommen – lädt heute Nacht wie gewohnt</string>
-    <string name="smart_status_changed">Der Timer wurde auf einem Handy geändert – bleibt heute Nacht so</string>
+    <string name="smart_status_changed">Der Lade-Timer wurde auf einem Handy geändert – die Bridge hat ihn so gelassen</string>
     <string name="smart_status_done">Fertig für heute Nacht – dein eigener Timer ist zurück</string>
     <string name="smart_status_off">Aus</string>
     <string name="act_smart_planned">Smartes Laden: heute Nacht %1$s–%2$s</string>

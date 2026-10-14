@@ -33,6 +33,7 @@ class SmartChargerTest {
     private var t = ZonedDateTime.of(2026, 10, 14, 18, 0, 0, 0, zone) // Wednesday evening
     private val written = ArrayList<ChargeTimerProgram>()
     private var accept = true
+    private var reachButFail = false
 
     /** The owner's timer: 23:00–07:00 on weekdays. */
     private val ownerTimer = ChargeTimerProgram(
@@ -49,8 +50,8 @@ class SmartChargerTest {
         return CarState(
             batteryPercent = pct, plug = plug, modelYear = ModelYear.MY14, updatedAtMs = t.toInstant().toEpochMilli(),
             registers = mapOf(
-                Reg.READ_CHARGE_PRESETS to RawRegister(Reg.READ_CHARGE_PRESETS, presets.toHex(), 0, 0),
-                Reg.READ_FULL_CHARGE_DAYS to RawRegister(Reg.READ_FULL_CHARGE_DAYS, byteArrayOf(raw[2]).toHex(), 0, 0),
+                Reg.READ_CHARGE_PRESETS to RawRegister(Reg.READ_CHARGE_PRESETS, presets.toHex(), t.toInstant().toEpochMilli(), 0),
+                Reg.READ_FULL_CHARGE_DAYS to RawRegister(Reg.READ_FULL_CHARGE_DAYS, byteArrayOf(raw[2]).toHex(), t.toInstant().toEpochMilli(), 0),
             ),
         )
     }
@@ -77,12 +78,20 @@ class SmartChargerTest {
             store, history, prices, activity, car = { car }, carHome = { true },
             execute = { cmd ->
                 val p = (cmd as CarCommand.SetChargeTimer).program
-                if (accept) {
-                    written += p
-                    program = p
-                    car = carWith(p, car.batteryPercent ?: 0, car.plug)
-                    CommandResult.Success(cmd, 900)
-                } else CommandResult.Failure(cmd, "no answer")
+                when {
+                    reachButFail -> {
+                        program = p
+                        car = carWith(p, car.batteryPercent ?: 0, car.plug)
+                        CommandResult.Failure(cmd, "the car didn't confirm")
+                    }
+                    accept -> {
+                        written += p
+                        program = p
+                        car = carWith(p, car.batteryPercent ?: 0, car.plug)
+                        CommandResult.Success(cmd, 900)
+                    }
+                    else -> CommandResult.Failure(cmd, "no answer")
+                }
             },
             log = log, file = File(dir, "smart_charge.json"), now = { t.toInstant().toEpochMilli() },
         )
@@ -95,6 +104,7 @@ class SmartChargerTest {
         val p = written.single()
         // 40 → 100 % at 18 %/h with margin: 230 min, cheapest from 01:00 Thursday (day 4), with full charge.
         assertEquals(ChargeWindow(LocalTime.of(1, 0), LocalTime.of(4, 50)), p.window(4))
+        assertEquals("tonight (Wednesday) too", ChargeWindow(LocalTime.of(1, 0), LocalTime.of(4, 50)), p.window(3))
         assertTrue(4 in p.fullDays)
         assertEquals("other weekdays keep the owner's timer", ownerTimer.windows[0], p.window(1))
         assertEquals("planned", s.describe()["status"])
@@ -155,17 +165,55 @@ class SmartChargerTest {
     }
 
     @Test
-    fun aFlatPriceChargesJustBeforeMorning() = runBlocking {
-        rig(mapOf("smartCharge" to true, "priceModel" to "norgespris")).tick()
-        assertEquals(ChargeWindow(LocalTime.of(3, 10), LocalTime.of(7, 0)), written.single().window(4))
+    fun aFlatPriceLeavesTheTimerAlone() = runBlocking {
+        val s = rig(mapOf("smartCharge" to true, "priceModel" to "norgespris"))
+        s.tick()
+        assertTrue(written.isEmpty())
+        assertEquals("flat_price", s.describe()["status"])
     }
 
     @Test
-    fun theCarRefusingGivesUpAfterThreeTries() = runBlocking {
+    fun aWriteThatFailedButReachedTheCarIsStillPutBack() = runBlocking {
+        reachButFail = true
+        val s = rig()
+        s.tick()
+        assertEquals("writing", s.describe()["status"])
+        // The car does carry the bridge's program: next look confirms it instead of taking it for the owner's.
+        reachButFail = false
+        t = t.plusMinutes(1)
+        s.tick()
+        assertEquals("planned", s.describe()["status"])
+        t = t.plusHours(1)
+        car = carWith(program, 40, PlugState.UNPLUGGED)
+        s.tick()
+        assertEquals(ownerTimer.normalized(), written.last())
+    }
+
+    @Test
+    fun aPhoneChangingTheTimerWhileUnpluggedIsKept() = runBlocking {
+        val s = rig()
+        s.tick()
+        // Unplugged and away (the bridge can't put it back yet); a phone sets a new timer next to the car.
+        t = t.plusHours(1)
+        val mine = ChargeTimerProgram(listOf(ChargeWindow(LocalTime.of(22, 0), LocalTime.of(6, 0)), null, null), List(7) { 1 }, emptySet())
+        car = carWith(mine, 40, PlugState.UNPLUGGED)
+        s.tick()
+        assertEquals("nothing put back over the phone's timer", 1, written.size)
+        assertEquals("changed", s.describe()["status"])
+    }
+
+    @Test
+    fun theCarRefusingLeavesItsOwnTimer() = runBlocking {
         accept = false
         val s = rig()
-        repeat(4) { s.tick(); t = t.plusMinutes(1) }
+        // Three tries (the car keeps reporting the owner's timer, fresh), then it's charging as usual.
+        repeat(5) {
+            s.tick()
+            t = t.plusMinutes(1)
+            car = carWith(ownerTimer, 40, PlugState.PLUGGED)
+        }
+        assertTrue(written.isEmpty())
         assertEquals("failed", s.describe()["status"])
-        assertNull(written.lastOrNull())
+        assertTrue(log.dump(), log.dump().contains("never took"))
     }
 }

@@ -154,7 +154,7 @@ private fun androidx.compose.foundation.lazy.LazyListScope.charging(
     d: History, loc: Locale, vm: MainViewModel, s: io.github.anwo91.phevlink.data.AppSettings, reload: () -> Unit,
 ) {
     item { Totals(d) }
-    d.smart?.takeIf { it["enabled"] == true }?.let { sm -> item(key = "smart") { SmartCard(sm) } }
+    d.smart?.takeIf { it["enabled"] == true || it["status"] in BUSY }?.let { sm -> item(key = "smart") { SmartCard(sm) } }
     if (d.charges.isEmpty()) item { SectionCard { Text(stringResource(R.string.hist_no_charges), style = MaterialTheme.typography.bodyMedium) } }
     val zone = ZoneId.systemDefault()
     val byMonth = d.charges.groupBy { Instant.ofEpochMilli(it.endMs).atZone(zone).let { z -> z.year * 100 + z.monthValue } }

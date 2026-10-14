@@ -307,6 +307,7 @@ object ActivityLabels {
             "smart.planned" -> res.getString(R.string.act_smart_planned, a.str("start") ?: "?", a.str("end") ?: "?")
             "smart.done" -> res.getString(R.string.act_smart_done)
             "smart.failed" -> res.getString(R.string.act_smart_failed)
+            "smart.stepped_back" -> res.getString(R.string.act_smart_stepped_back)
             "car.trip" -> minutes?.let { m ->
                 val from = a.int("fromPct")
                 val to = a.int("toPct")

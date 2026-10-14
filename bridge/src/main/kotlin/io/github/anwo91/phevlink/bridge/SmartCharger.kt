@@ -15,23 +15,34 @@ import io.github.anwo91.phevlink.core.model.ChargeTimerProgram
 import io.github.anwo91.phevlink.core.model.CommandResult
 import io.github.anwo91.phevlink.core.model.PlugState
 import io.github.anwo91.phevlink.core.protocol.ModelYear
+import io.github.anwo91.phevlink.core.protocol.Reg
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.io.File
+import java.time.Duration
 import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import kotlin.math.abs
+import kotlin.math.roundToLong
 
 /**
- * Smart charging (opt-in, shared setting): when the car is plugged in at home, the bridge works out how long it needs
- * to get full and moves tonight's charging to the cheapest hours before the car is needed (the next departure, or
- * 07:00) — with a spot price the cheapest stretch, with a flat price the hours just before (night grid fees). It does
- * that with the car's own charge timer (2014–2017 cars): tonight's day gets its own window with "full charge", so the
- * car never stops short; the owner's timer is kept and put back once the car is full, unplugged or the morning is
- * over. If a phone changes the timer meanwhile, the bridge steps back. Every decision is logged.
+ * Smart charging (opt-in, shared setting; spot price only): when the car is plugged in at home, the bridge works out
+ * how long it needs to get full and moves tonight's charging to the cheapest hours before the car is needed (the next
+ * departure, or 07:00), using the car's own charge timer (2014–2017 cars). The owner's timer is never lost:
+ * - it is read only from what the car sent during this run of the bridge (both timer registers), and saved — with
+ *   the program about to be written — to smart_charge.json (atomically) *before* anything is written;
+ * - every program the bridge wrote or tried tonight is remembered, so a write that failed but reached the car still
+ *   counts as the bridge's and is put back;
+ * - before putting it back, the bridge checks the car still carries one of its own programs: if a phone changed the
+ *   timer meanwhile, that change stays;
+ * - putting it back is retried (with growing pauses) until it works, and only while the car is within reach.
+ * Every decision is logged.
  */
 class SmartCharger(
     private val store: SharedStore,
@@ -46,23 +57,30 @@ class SmartCharger(
     private val file: File,
     private val now: () -> Long = System::currentTimeMillis,
 ) {
-    /** What the bridge has done this plug-in (kept across restarts, so the owner's timer is never lost). */
     private data class State(
-        /** The owner's timer before the bridge changed it (null = had none / not changed). */
+        /** The owner's timer before the bridge changed it. */
         val owner: ChargeTimerProgram? = null,
-        /** What the bridge wrote; non-null while the car carries the bridge's window. */
+        /** The bridge's program on the car (or being written); non-null until the owner's is back. */
         val written: ChargeTimerProgram? = null,
+        /** The car confirmed [written]. */
+        val confirmed: Boolean = false,
+        /** Every program the bridge wrote or tried tonight. */
+        val ours: List<ChargeTimerProgram> = emptyList(),
         val plan: ChargePlan? = null,
         /** When this plug-in was first seen; null while unplugged. */
         val pluggedMs: Long? = null,
         /** This plug-in is decided (planned, or nothing to do): [note] says what. */
         val decided: Boolean = false,
         val note: String = "waiting",
-        val tries: Int = 0,
+        val writeTries: Int = 0,
+        val restoreTries: Int = 0,
+        val nextRestoreMs: Long = 0,
         val rewrites: Int = 0,
-        val plannedAtMs: Long = 0,
+        val lastWriteMs: Long = 0,
     )
 
+    /** When this run of the bridge started: the owner's timer is only taken from what the car sent since. */
+    private val runStartMs = now()
     @Volatile private var st = load()
     private var keptChargingLogged = false
 
@@ -79,13 +97,17 @@ class SmartCharger(
     fun describe(): Map<String, Any?> {
         val s = st
         val cfg = store.smartCharging()
-        val area = store.priceArea()
         val plan = s.plan
-        val saving = plan?.let { savingFor(it, car().batteryPercent ?: 0) }
+        val status = when {
+            s.written != null && !cfg.enabled -> "restoring"
+            s.written != null && !s.confirmed -> "writing"
+            s.written != null -> "planned"
+            else -> s.note
+        }
         return linkedMapOf(
             "enabled" to cfg.enabled, "readyAt" to cfg.readyAt.toString(), "useDepartures" to cfg.useDepartures,
-            "status" to if (s.written != null) "planned" else s.note,
-            "plan" to plan?.toMap(), "saving" to saving, "currency" to store.pricePlan().currencyFor(area),
+            "status" to status, "plan" to plan?.toMap(), "saving" to plan?.let { savingFor(it, car().batteryPercent ?: 0) },
+            "currency" to store.pricePlan().currencyFor(store.priceArea()),
         )
     }
 
@@ -95,53 +117,77 @@ class SmartCharger(
         val c = car()
         val t = now()
         val home = carHome() == true
-        val s = st
-
-        // The bridge's window is on the car: put the owner's timer back when it has done its job.
-        if (s.written != null) {
-            val nowProgram = ChargeTimerProgram.read(c)?.normalized()
-            val why = when {
-                !cfg.enabled -> "smart charging was switched off"
-                c.plug == PlugState.UNPLUGGED -> "the car was unplugged"
-                (c.batteryPercent ?: 0) >= 99 && !c.isCharging -> "the battery is full"
-                s.plan != null && t > s.plan.readyByMs + 3 * HOUR -> "the morning is over"
-                else -> null
-            }
-            if (why == null && nowProgram != null && nowProgram != s.written && t - s.plannedAtMs > 3 * 60_000L) {
-                log.link("Smart charging: the car's timer was changed by someone else (${nowProgram.summary()}) — stepping back; it stays as they set it")
-                record("smart.done", "reason" to "changed")
-                update(State(pluggedMs = s.pluggedMs, decided = true, note = "changed"))
-                return
-            }
-            if (why == null) {
-                if (c.isCharging && s.plan != null && t < s.plan.startMs - 5 * 60_000L && !keptChargingLogged) {
-                    keptChargingLogged = true
-                    log.link("Smart charging: the car is charging already although its window starts at ${clock(s.plan.startMs)} — it didn't pause for the new timer")
-                }
-                replan(c, cfg, t)
-                return
-            }
-            if (!home) return // can't reach the car: put it back once it's home
-            restore(why)
-            return
-        }
+        if (st.written != null) return carryingOurs(c, cfg, t, home)
 
         // Unplugged: forget this plug-in.
         if (c.plug != PlugState.PLUGGED) {
-            if (s.pluggedMs != null || s.decided) update(State(note = if (cfg.enabled) "waiting" else "off"))
+            if (st.pluggedMs != null || st.decided) update(State(note = if (cfg.enabled) "waiting" else "off"))
             return
         }
         if (!cfg.enabled) {
-            if (s.note != "off") update(s.copy(note = "off"))
+            if (st.note != "off") update(st.copy(note = "off"))
             return
         }
         if (!home) return
-        if (s.pluggedMs == null) {
+        if (st.pluggedMs == null) {
             log.link("Smart charging: plugged in at ${c.batteryPercent ?: "?"} % — planning")
-            update(s.copy(pluggedMs = t, decided = false, tries = 0))
+            update(st.copy(pluggedMs = t, decided = false, writeTries = 0))
         }
         if (st.decided) return
         decide(c, cfg, t)
+    }
+
+    /** The car carries (or may carry) the bridge's window: confirm it, move it, or put the owner's timer back. */
+    private suspend fun carryingOurs(c: CarState, cfg: SharedStore.SmartCharging, t: Long, home: Boolean) {
+        val s = st
+        val written = s.written ?: return
+        val onCar = timerSince(c, s.lastWriteMs)
+        if (onCar != null && onCar !in s.ours) {
+            if (onCar == ownerProgram(s)) {
+                if (s.confirmed || s.writeTries >= 3) {
+                    // The owner's timer is on the car (put back by a phone, or the write never took): nothing to do.
+                    log.link("Smart charging: the car has the owner's timer (${onCar.summary()}) — " + if (s.confirmed) "put back by a phone; done" else "tonight's timer never took; charging as usual")
+                    update(State(pluggedMs = s.pluggedMs.takeIf { c.plug == PlugState.PLUGGED }, decided = true, note = if (s.confirmed) "done" else "failed"))
+                    return
+                }
+                // Not confirmed yet: the write didn't take — tried again below.
+            } else {
+                // Someone else changed the timer (a phone): that stays — nothing to put back.
+                log.link("Smart charging: the car's timer was changed by someone else (${onCar.summary()}) — stepping back; it stays as they set it. The timer before tonight was: ${ownerProgram(s).summary()}")
+                record("smart.stepped_back")
+                update(State(pluggedMs = s.pluggedMs.takeIf { c.plug == PlugState.PLUGGED }, decided = true, note = "changed"))
+                return
+            }
+        }
+        if (!s.confirmed && onCar == written) {
+            log.link("Smart charging: the car confirms tonight's timer (${written.summary()})")
+            update(s.copy(confirmed = true, writeTries = 0, note = "planned"))
+            return
+        }
+        val plan = s.plan
+        val why = when {
+            !cfg.enabled -> "smart charging was switched off"
+            c.plug == PlugState.UNPLUGGED -> "the car was unplugged"
+            (c.batteryPercent ?: 0) >= 99 && !c.isCharging -> "the battery is full"
+            plan != null && t > plan.readyByMs + 3 * HOUR && !c.isCharging -> "the morning is over"
+            !s.confirmed && s.writeTries >= 3 -> "the car didn't take tonight's timer"
+            else -> null
+        }
+        if (why != null) {
+            if (home && t >= s.nextRestoreMs) restore(why, c)
+            return
+        }
+        if (!home) return
+        if (!s.confirmed) {
+            // The last write failed and the car doesn't show it: try the same program again.
+            if (t - s.lastWriteMs >= 60_000L) write(s.owner, written, plan ?: return, c.batteryPercent ?: 0, first = false)
+            return
+        }
+        if (c.isCharging && plan != null && t < plan.startMs - 5 * 60_000L && !keptChargingLogged) {
+            keptChargingLogged = true
+            log.link("Smart charging: the car is charging already although its window starts at ${clock(plan.startMs)} — it didn't pause for the timer")
+        }
+        replan(c, cfg, t)
     }
 
     private suspend fun decide(c: CarState, cfg: SharedStore.SmartCharging, t: Long) {
@@ -150,7 +196,11 @@ class SmartCharger(
         if (pct >= 95) return skip("full", "the battery is at $pct % already")
         val since = st.pluggedMs ?: t
         if (activity.recent(30).any { it.code == "cmd.charge_now" && it.atMs >= since - 10 * 60_000L }) return skip("charge_now", "\"Charge now\" was pressed — leaving it")
-        val owner = ChargeTimerProgram.read(c)
+        val pricePlan = store.pricePlan()
+        val area = store.priceArea()
+        if (pricePlan.model != PriceModel.SPOT || area == null) return skip("flat_price", "smart charging needs a spot price with a price area (the price is ${pricePlan.model.name.lowercase()}${if (area == null) ", no area" else ""})")
+        // The owner's timer, as the car sent it during this run (both registers): put back exactly afterwards.
+        val owner = timerSince(c, runStartMs)
         if (owner == null) {
             if (st.note != "no_timer_data") {
                 log.link("Smart charging: waiting for the car to report its charge timer (needed to put it back afterwards)")
@@ -158,106 +208,172 @@ class SmartCharger(
             }
             return
         }
-        val plan = makePlan(pct, cfg, t)
-        if (plan == null) {
-            val model = store.pricePlan().model
-            val area = store.priceArea()
-            // Spot price before the next day's prices are out (about 13:00): try again later rather than give up.
-            if (model == PriceModel.SPOT && area != null && ZonedDateTime.ofInstant(Instant.ofEpochMilli(t), store.zone()).hour < 14) {
+        val plan = makePlan(pct, cfg, t, area)
+        val avg = plan?.avgPrice
+        val rightAway = plan?.nowPrice
+        if (plan == null || avg == null || rightAway == null) {
+            // Before the next day's prices are out (about 13:00): try again later rather than give up.
+            if (hourOf(t) < 14) {
                 if (st.note != "waiting_prices") {
-                    log.link("Smart charging: tomorrow's prices aren't out yet — planning when they are")
+                    log.link("Smart charging: not enough prices yet to plan before ${readyByText(cfg, t)} — planning when tomorrow's are out")
                     update(st.copy(note = "waiting_prices"))
                 }
                 return
             }
             return skip("no_time", "no window fits before ${readyByText(cfg, t)} — charging as usual")
         }
-        val avg = plan.avgPrice
-        val rightAway = plan.nowPrice
-        if (avg != null && rightAway != null && rightAway - avg < MIN_SAVING) {
+        if (rightAway - avg < MIN_SAVING) {
             return skip("no_saving", "charging right away is about as cheap (%.2f vs %.2f) — charging as usual".format(rightAway, avg))
         }
-        write(owner, plan, pct, first = true)
+        val program = SmartCharge.program(owner, plan, t, carTime(c))
+            ?: return skip("no_slot", "every timer slot is used by other days (${owner.summary()}) — leaving the timer alone")
+        write(owner, program, plan, pct, first = true)
     }
 
-    /** The plan for [pct] %: the cheapest (spot) or latest (flat price) window before the car is needed. */
-    private fun makePlan(pct: Int, cfg: SharedStore.SmartCharging, t: Long): ChargePlan? {
-        val zone = store.zone()
-        val readyBy = SmartCharge.readyBy(ZonedDateTime.ofInstant(Instant.ofEpochMilli(t), zone), cfg.readyAt, store.departures(), cfg.useDepartures)
-            .toInstant().toEpochMilli()
+    /** The cheapest window before the car is needed, ending half an hour early for margin. */
+    private fun makePlan(pct: Int, cfg: SharedStore.SmartCharging, t: Long, area: String): ChargePlan? {
+        val readyBy = readyBy(cfg, t)
         val minutes = SmartCharge.minutesNeeded(pct, 100, SmartCharge.pctPerHour(history.recentCharges()))
         val earliest = t + 5 * 60_000L
-        val plan = store.pricePlan()
-        val area = store.priceArea()
-        return if (plan.model == PriceModel.SPOT && area != null) {
-            SmartCharge.cheapest(earliest, readyBy, minutes, prices.slots(area, earliest, readyBy))
-        } else {
-            SmartCharge.latest(earliest, readyBy, minutes)
-        }
+        val deadline = readyBy - MARGIN_MS
+        return SmartCharge.cheapest(earliest, deadline, minutes, prices.slots(area, earliest, deadline))?.copy(readyByMs = readyBy)
     }
 
-    private suspend fun write(owner: ChargeTimerProgram?, plan: ChargePlan, pct: Int, first: Boolean) {
-        val program = SmartCharge.program(owner, plan, store.zone()) ?: return skip("no_time", "the window is too long for the car's timer")
+    /**
+     * Writes [program] (tonight's window on [owner]'s timer). The state — the owner's timer and the program — is saved
+     * first; if that fails nothing is written.
+     */
+    private suspend fun write(owner: ChargeTimerProgram?, program: ChargeTimerProgram, plan: ChargePlan, pct: Int, first: Boolean) {
+        val s = st
+        val t = now()
+        val pending = s.copy(
+            owner = if (first) owner else s.owner, written = program, confirmed = false, ours = (s.ours + program).distinct(),
+            plan = plan, decided = true, note = "writing", lastWriteMs = t, writeTries = if (first) 0 else s.writeTries,
+        )
+        if (!update(pending)) {
+            st = s
+            return skip("state_failed", "couldn't save its state — not touching the car's timer")
+        }
         val saving = savingFor(plan, pct)
         log.link(
-            "Smart charging: ${if (first) "charging" else "moving to"} ${clock(plan.startMs)}–${clock(plan.endMs)} for ${pct} → 100 %" +
-                (plan.avgPrice?.let { " at %.2f (right away %.2f)".format(it, plan.nowPrice ?: 0.0) } ?: " (flat price: just before ${clock(plan.readyByMs)})") +
-                (saving?.let { ", saves ≈ %.2f".format(it) } ?: "") + " — setting the car's timer: ${program.summary()}",
+            "Smart charging: ${if (first) "charging" else "writing"} ${clock(plan.startMs)}–${clock(plan.endMs)} for $pct → 100 %" +
+                " at %.2f (right away %.2f)".format(plan.avgPrice ?: 0.0, plan.nowPrice ?: 0.0) + (saving?.let { ", saves ≈ %.2f".format(it) } ?: "") +
+                " — car's timer now: ${program.summary()}; owner's timer (put back afterwards): ${(pending.owner ?: ChargeTimerProgram.EMPTY).summary()}",
         )
         when (val r = execute(CarCommand.SetChargeTimer(program))) {
             is CommandResult.Success -> {
                 keptChargingLogged = false
-                update(st.copy(owner = if (first) owner else st.owner, written = program, plan = plan, decided = true, note = "planned", plannedAtMs = now(), rewrites = if (first) 0 else st.rewrites + 1))
-                record("smart.planned", "start" to clock(plan.startMs), "end" to clock(plan.endMs), "saving" to saving, "currency" to store.pricePlan().currencyFor(store.priceArea()))
+                update(st.copy(confirmed = true, writeTries = 0, note = "planned"))
+                if (first || s.plan?.startMs != plan.startMs) {
+                    record("smart.planned", "start" to clock(plan.startMs), "end" to clock(plan.endMs), "saving" to saving, "currency" to store.pricePlan().currencyFor(store.priceArea()))
+                }
             }
             is CommandResult.Failure -> {
-                val tries = st.tries + 1
-                log.warn("Smart charging: the car didn't take the timer (${r.reason})" + if (tries >= 3) " — giving up for tonight, charging as usual" else " — trying again in a minute")
-                update(st.copy(tries = tries, decided = tries >= 3, note = if (tries >= 3) "failed" else st.note))
+                val tries = st.writeTries + 1
+                // It may have reached the car anyway: the program stays "ours", and the owner's timer goes back if it
+                // never confirms.
+                log.warn("Smart charging: the car didn't confirm the timer (${r.reason}) — " + if (tries >= 3) "putting the owner's timer back" else "trying again in a minute")
+                update(st.copy(writeTries = tries))
                 if (tries >= 3) record("smart.failed", "detail" to r.reason)
             }
         }
     }
 
-    /** Tomorrow's prices came out (or got cheaper): move the window if it hasn't started and the move is worth it. */
+    /** Tomorrow's prices came out, or the car is needed earlier now: move the window if it hasn't started. */
     private suspend fun replan(c: CarState, cfg: SharedStore.SmartCharging, t: Long) {
         val s = st
         val plan = s.plan ?: return
         val current = plan.avgPrice ?: return
-        if (s.rewrites >= 2 || t - s.plannedAtMs < 30 * 60_000L || t > plan.startMs - 15 * 60_000L || c.isCharging) return
+        if (s.rewrites >= 3 || t - s.lastWriteMs < 30 * 60_000L || t > plan.startMs - 15 * 60_000L || c.isCharging) return
         val pct = c.batteryPercent ?: return
-        val better = makePlan(pct, cfg, t) ?: return
-        val newPrice = better.avgPrice
-        if (newPrice == null || current - newPrice < MIN_SAVING / 2 || better.startMs == plan.startMs) {
-            update(s.copy(plannedAtMs = t)) // looked; look again in half an hour
+        val area = store.priceArea() ?: return
+        val readyBy = readyBy(cfg, t)
+        val tooLate = plan.endMs > readyBy - MARGIN_MS
+        val better = makePlan(pct, cfg, t, area)
+        val newPrice = better?.avgPrice
+        if (better == null || newPrice == null || better.startMs == plan.startMs || (!tooLate && current - newPrice < MIN_SAVING / 2)) {
+            update(s.copy(lastWriteMs = t)) // looked; look again in half an hour
             return
         }
-        write(s.owner, better, pct, first = false)
+        val program = SmartCharge.program(s.owner, better, t, carTime(c)) ?: return
+        log.link("Smart charging: " + if (tooLate) "the car is needed by ${clock(readyBy)} now — moving the window" else "cheaper hours came in (%.2f → %.2f) — moving the window".format(current, newPrice))
+        update(st.copy(rewrites = s.rewrites + 1))
+        write(s.owner, program, better, pct, first = false)
     }
 
-    private suspend fun restore(why: String) {
+    /** Puts the owner's timer back — unless a phone changed it meanwhile. Retried with growing pauses until it works. */
+    private suspend fun restore(why: String, c: CarState) {
         val s = st
+        val onCar = timerSince(c, s.lastWriteMs)
+        if (onCar != null && onCar == ownerProgram(s)) {
+            log.link("Smart charging: $why — the car has the owner's timer already (${onCar.summary()}); nothing to put back")
+            update(State(pluggedMs = s.pluggedMs.takeIf { c.plug == PlugState.PLUGGED }, decided = true, note = "done"))
+            return
+        }
+        if (onCar != null && onCar !in s.ours) {
+            log.link("Smart charging: $why — but the timer was changed by someone else meanwhile (${onCar.summary()}); leaving it")
+            record("smart.stepped_back")
+            update(State(pluggedMs = s.pluggedMs.takeIf { c.plug == PlugState.PLUGGED }, decided = true, note = "changed"))
+            return
+        }
         val target = s.owner ?: ChargeTimerProgram.EMPTY
-        log.link("Smart charging: $why — putting the owner's timer back (${target.summary()})")
+        log.link("Smart charging: $why — putting the owner's timer back (${target.summary()})" + if (s.restoreTries > 0) ", try ${s.restoreTries + 1}" else "")
         when (val r = execute(CarCommand.SetChargeTimer(target))) {
             is CommandResult.Success -> {
                 record("smart.done", "reason" to why)
                 update(State(pluggedMs = s.pluggedMs.takeIf { car().plug == PlugState.PLUGGED }, decided = true, note = "done"))
             }
             is CommandResult.Failure -> {
-                val tries = s.tries + 1
-                log.warn("Smart charging: couldn't put the timer back (${r.reason}) — trying again" + if (tries >= 5) "; still the bridge's window: ${s.written?.summary()}" else "")
-                update(s.copy(tries = tries))
+                val tries = s.restoreTries + 1
+                val pause = RESTORE_PAUSES_MIN[minOf(tries - 1, RESTORE_PAUSES_MIN.size - 1)]
+                log.warn("Smart charging: couldn't put the owner's timer back (${r.reason}) — trying again in $pause min; the car still has: ${s.written?.summary()}")
+                update(s.copy(restoreTries = tries, nextRestoreMs = now() + pause * 60_000L))
             }
         }
     }
+
+    private fun ownerProgram(s: State): ChargeTimerProgram = (s.owner ?: ChargeTimerProgram.EMPTY).normalized()
 
     private fun skip(code: String, why: String) {
         log.link("Smart charging: $why")
         update(st.copy(decided = true, note = code))
     }
 
-    /** What moving saves, with VAT, for the energy from [pct] to full (spot only). */
+    /**
+     * The charge timer the car reported after [sinceMs] — both the timers (0x20) and the full-charge days (0x0e) —
+     * or null when either is older (or missing): older data could be from before a phone changed it.
+     */
+    private fun timerSince(c: CarState, sinceMs: Long): ChargeTimerProgram? {
+        val presets = c.registers[Reg.READ_CHARGE_PRESETS] ?: return null
+        val full = c.registers[Reg.READ_FULL_CHARGE_DAYS] ?: return null
+        if (presets.updatedAtMs < sinceMs || full.updatedAtMs < sinceMs) return null
+        return ChargeTimerProgram.read(c)?.normalized()
+    }
+
+    /**
+     * Epoch ms → the car's own clock (its timer runs on it). From the clock the car last reported (within 2 days),
+     * rounded to the quarter hour; else the shared time zone.
+     */
+    private fun carTime(c: CarState): (Long) -> LocalDateTime {
+        val zone = store.zone()
+        val clk = c.carClock
+        val readAt = c.carClockReadAtMs
+        val offsetMin = if (clk != null && clk.size >= 5 && readAt != null && now() - readAt < 2 * 24 * HOUR) {
+            runCatching {
+                val carLocal = LocalDateTime.of(clk[0], clk[1], clk[2], clk[3], clk[4])
+                val utc = LocalDateTime.ofInstant(Instant.ofEpochMilli(readAt), ZoneOffset.UTC)
+                (Duration.between(utc, carLocal).toMinutes() / 15.0).roundToLong() * 15
+            }.getOrNull()?.takeIf { abs(it) <= 14 * 60 }
+        } else null
+        val zoneOffsetMin = zone.rules.getOffset(Instant.ofEpochMilli(now())).totalSeconds / 60L
+        if (offsetMin != null && offsetMin != zoneOffsetMin) {
+            log.link("Smart charging: the car's clock is at UTC%+d min, the home time zone at %+d — using the car's".format(offsetMin, zoneOffsetMin))
+        }
+        val target: java.time.ZoneId = if (offsetMin != null) ZoneOffset.ofTotalSeconds((offsetMin * 60).toInt()) else zone
+        return { ms: Long -> LocalDateTime.ofInstant(Instant.ofEpochMilli(ms), target) }
+    }
+
+    /** What moving saves, with VAT, for the energy from [pct] to full. */
     private fun savingFor(plan: ChargePlan, pct: Int): Double? {
         val now = plan.nowPrice ?: return null
         val avg = plan.avgPrice ?: return null
@@ -269,41 +385,56 @@ class SmartCharger(
         activity.add(Activity(now(), Activity.BRIDGE, code, linkedMapOf(*params)))
     }
 
-    private fun readyByText(cfg: SharedStore.SmartCharging, t: Long): String =
-        clock(SmartCharge.readyBy(ZonedDateTime.ofInstant(Instant.ofEpochMilli(t), store.zone()), cfg.readyAt, store.departures(), cfg.useDepartures).toInstant().toEpochMilli())
+    private fun readyBy(cfg: SharedStore.SmartCharging, t: Long): Long =
+        SmartCharge.readyBy(ZonedDateTime.ofInstant(Instant.ofEpochMilli(t), store.zone()), cfg.readyAt, store.departures(), cfg.useDepartures).toInstant().toEpochMilli()
+
+    private fun readyByText(cfg: SharedStore.SmartCharging, t: Long): String = clock(readyBy(cfg, t))
+
+    private fun hourOf(t: Long): Int = Instant.ofEpochMilli(t).atZone(store.zone()).hour
 
     private fun clock(ms: Long): String = Instant.ofEpochMilli(ms).atZone(store.zone()).format(HHMM)
 
     // ------------------------------------------------------------------ state file
 
-    private fun update(next: State) {
+    /** Saves [next] (temp file, then rename). False when it couldn't be saved. */
+    private fun update(next: State): Boolean {
         st = next
-        runCatching {
+        return runCatching {
             file.absoluteFile.parentFile?.mkdirs()
-            file.writeText(
+            val tmp = File(file.path + ".tmp")
+            tmp.writeText(
                 Json.write(
                     linkedMapOf(
-                        "owner" to next.owner?.let { Codecs.commandToMap(CarCommand.SetChargeTimer(it)) },
-                        "written" to next.written?.let { Codecs.commandToMap(CarCommand.SetChargeTimer(it)) },
+                        "owner" to next.owner?.let(::programMap),
+                        "written" to next.written?.let(::programMap),
+                        "confirmed" to next.confirmed,
+                        "ours" to next.ours.map(::programMap),
                         "plan" to next.plan?.toMap(), "pluggedMs" to next.pluggedMs, "decided" to next.decided, "note" to next.note,
-                        "tries" to next.tries, "rewrites" to next.rewrites, "plannedAtMs" to next.plannedAtMs,
+                        "writeTries" to next.writeTries, "restoreTries" to next.restoreTries, "nextRestoreMs" to next.nextRestoreMs,
+                        "rewrites" to next.rewrites, "lastWriteMs" to next.lastWriteMs,
                     ),
                 ),
             )
-        }.onFailure { log.warn("Smart charging: couldn't save its state: ${it.message}") }
+            check(tmp.renameTo(file)) { "rename failed" }
+        }.onFailure { log.warn("Smart charging: couldn't save its state: ${it.message}") }.isSuccess
     }
+
+    private fun programMap(p: ChargeTimerProgram) = Codecs.commandToMap(CarCommand.SetChargeTimer(p))
 
     @Suppress("UNCHECKED_CAST")
     private fun load(): State = runCatching {
         if (!file.exists()) return State()
         val m = Json.parseObject(file.readText())
-        fun program(k: String) = (m[k] as? Map<String, Any?>)?.let { (Codecs.commandFromMap(it) as? CarCommand.SetChargeTimer)?.program }
+        fun program(v: Any?) = (v as? Map<String, Any?>)?.let { (Codecs.commandFromMap(it) as? CarCommand.SetChargeTimer)?.program?.normalized() }
         State(
-            owner = program("owner"), written = program("written"), plan = ChargePlan.fromMap(m["plan"] as? Map<String, Any?>),
+            owner = program(m["owner"]), written = program(m["written"]), confirmed = m["confirmed"] as? Boolean ?: false,
+            ours = (m["ours"] as? List<*>).orEmpty().mapNotNull { program(it) },
+            plan = ChargePlan.fromMap(m["plan"] as? Map<String, Any?>),
             pluggedMs = (m["pluggedMs"] as? Number)?.toLong(), decided = m["decided"] as? Boolean ?: false, note = m["note"] as? String ?: "waiting",
-            tries = (m["tries"] as? Number)?.toInt() ?: 0, rewrites = (m["rewrites"] as? Number)?.toInt() ?: 0,
-            plannedAtMs = (m["plannedAtMs"] as? Number)?.toLong() ?: 0,
-        ).also { s ->
+            writeTries = (m["writeTries"] as? Number)?.toInt() ?: 0, restoreTries = (m["restoreTries"] as? Number)?.toInt() ?: 0,
+            nextRestoreMs = (m["nextRestoreMs"] as? Number)?.toLong() ?: 0, rewrites = (m["rewrites"] as? Number)?.toInt() ?: 0,
+            lastWriteMs = (m["lastWriteMs"] as? Number)?.toLong() ?: 0,
+        ).let { s -> if (s.written != null && s.written !in s.ours) s.copy(ours = s.ours + s.written) else s }.also { s ->
             if (s.written != null) log.link("Smart charging: the car carries the bridge's window (${s.written.summary()}); the owner's timer (${(s.owner ?: ChargeTimerProgram.EMPTY).summary()}) goes back afterwards")
         }
     }.getOrElse {
@@ -313,8 +444,12 @@ class SmartCharger(
 
     companion object {
         private const val HOUR = 3_600_000L
+        /** The window ends at least this long before the car is needed. */
+        private const val MARGIN_MS = 30 * 60_000L
         /** Per kWh (before VAT): below this, moving the charge isn't worth touching the car's timer. */
         private const val MIN_SAVING = 0.05
+        /** Minutes between tries to put the owner's timer back. */
+        private val RESTORE_PAUSES_MIN = listOf(1L, 2L, 5L, 10L, 30L)
         private val HHMM = DateTimeFormatter.ofPattern("HH:mm")
     }
 }

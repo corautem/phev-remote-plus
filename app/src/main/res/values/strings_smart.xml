@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Smart charging (the bridge moves tonight's charging to the cheapest hours). -->
 <resources>
+    <string name="ct_smart_note">Tonight\'s window was set by smart charging; your own timer comes back in the morning. If you save a change here, it stays and smart charging steps back for tonight.</string>
+    <string name="act_smart_stepped_back">Smart charging: the timer was changed on a phone — left as it was set</string>
+    <string name="smart_status_state_failed">The bridge couldn\'t save its notes — it left the timer alone</string>
+    <string name="smart_status_restoring">Putting your own timer back when the car is in reach</string>
+    <string name="smart_status_writing">Setting the car\'s timer…</string>
+    <string name="smart_status_no_slot">All three timers are used by other days — the bridge left the timer alone</string>
+    <string name="smart_status_flat_price">Needs a spot price with a price area (Electricity price) — charging as usual</string>
     <string name="smart_title">Smart charging</string>
     <string name="set_sum_smart">Charge in the cheapest hours before you leave</string>
-    <string name="smart_explain">When the car is plugged in at home, the bridge moves tonight\'s charging to the cheapest hours before you need the car, using the car\'s own charge timer (2014–2017 cars). The car always charges until full, and your own timer is put back afterwards. New: keep an eye on the first nights.</string>
+    <string name="smart_explain">When the car is plugged in at home, the bridge moves tonight\'s charging to the cheapest hours before you need the car, using the car\'s own charge timer (2014–2017 cars, spot price). With \"full charge\" set, the car keeps charging past the window until it\'s full, and your own timer is put back in the morning. Switch this off to put your timer back at once (when the car is in reach). New: keep an eye on the first nights.</string>
     <string name="smart_ready">Ready by</string>
     <string name="smart_departures">Or by my next departure, if earlier</string>
     <string name="smart_old_bridge">Update the bridge to use smart charging (Settings → Bridge).</string>
@@ -18,7 +25,7 @@
     <string name="smart_status_my18">Only 2014–2017 cars let the bridge set the charge timer</string>
     <string name="smart_status_no_timer_data">Waiting for the car to report its charge timer</string>
     <string name="smart_status_failed">The car didn\'t take the timer — charging as usual tonight</string>
-    <string name="smart_status_changed">The timer was changed on a phone — left as it is tonight</string>
+    <string name="smart_status_changed">The charge timer was changed on a phone — the bridge left it as it was set</string>
     <string name="smart_status_done">Done for tonight — your own timer is back</string>
     <string name="smart_status_off">Off</string>
     <string name="act_smart_planned">Smart charging: tonight %1$s–%2$s</string>

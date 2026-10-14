@@ -156,12 +156,14 @@ class CarWifiWatch(
         if (connected != false) lost(t, st)
         var signal = wifi.inSight(iface, st.ssid)
         var scanned = false
-        if (signal == null && (rejoinNow || t - lastScanAt >= SCAN_EVERY_MS)) {
+        // "Not seen" needs a real look made well after the drop (one at the moment of the drop proves nothing).
+        val lookDue = t - since >= AWAY_AFTER_MS && (checkedAtMs ?: 0L) < since + AWAY_AFTER_MS
+        if (signal == null && (rejoinNow || lookDue || t - lastScanAt >= SCAN_EVERY_MS)) {
             // NetworkManager's list can be minutes old: look for real (a few seconds; the radio is idle meanwhile).
             // A phone waiting (rejoinNow) also saves a 30-second join attempt when the car isn't there.
             val (nets, error) = wifi.scan(null, quiet = !rejoinNow)
-            lastScanAt = t
             if (error == null) {
+                lastScanAt = t // a failed scan is tried again at the next look
                 scanned = true
                 checkedAtMs = t
             }
@@ -191,7 +193,7 @@ class CarWifiWatch(
     /** Off the car's Wi-Fi: checking while it may just be a moment, not seen once a real look says so. */
     private fun updateReachOff(t: Long, signal: Int?, scanned: Boolean) {
         val off = t - since
-        val looked = checkedAtMs?.let { it >= since && t - it <= SCAN_EVERY_MS + INTERVAL_MS } == true
+        val looked = checkedAtMs?.let { it >= since + AWAY_AFTER_MS && t - it <= SCAN_EVERY_MS + INTERVAL_MS } == true
         when {
             signal != null -> setReach(REACH_CHECKING, "off the car's Wi-Fi for ${dur(off)}, but the car is in sight ($signal %) — joining")
             off >= AWAY_AFTER_MS && looked ->

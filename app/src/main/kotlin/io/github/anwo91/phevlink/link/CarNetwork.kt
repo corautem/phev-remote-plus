@@ -46,7 +46,8 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
         data object Idle : State
         data class Searching(val sinceMs: Long, val requested: Boolean) : State
         data class Ready(val network: Network, val how: String) : State
-        data class Failed(val reason: String) : State
+        /** [notFound]: Android gave up on the car's network (declined, or not in range) — not a bad password or setup. */
+        data class Failed(val reason: String, val notFound: Boolean = false) : State
     }
 
     private val cm = context.getSystemService(ConnectivityManager::class.java)
@@ -352,7 +353,7 @@ class CarNetwork(private val context: Context, private val log: DiagLog) {
                         return
                     }
                     log.warn("Android could not join the car Wi-Fi (declined, wrong password, or not in range)")
-                    _state.value = State.Failed(AppLocale.localized(context).getString(R.string.net_could_not_join, t.ssid))
+                    _state.value = State.Failed(AppLocale.localized(context).getString(R.string.net_could_not_join, t.ssid), notFound = true)
                 }
             }
         }

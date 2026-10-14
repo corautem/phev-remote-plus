@@ -339,9 +339,9 @@ class LinkService : LifecycleService() {
     }
 
     /** The command failed because the car isn't within reach (not because the car refused or broke something). */
-    private fun outOfReach(reason: String): Boolean =
-        reason == Unreachable.OFF_CAR_WIFI || reason == Unreachable.NOT_NEARBY ||
-            (reason.startsWith(Unreachable.NOT_IN_TIME) && repo.bridgeSaysNotSeen)
+    private fun outOfReach(reason: String): Boolean = reason == Unreachable.NOT_NEARBY ||
+        // The bridge being off the car's Wi-Fi only counts when it also says it doesn't see the car (not a join fault).
+        ((reason == Unreachable.OFF_CAR_WIFI || reason.startsWith(Unreachable.NOT_IN_TIME)) && repo.bridgeSaysNotSeen)
 
     /** One quiet notification: the departure's climate didn't start because the car isn't within reach. */
     private fun notifyNotWithinReach(mode: ClimateMode, atMs: Long, lastSeenMs: Long?) {

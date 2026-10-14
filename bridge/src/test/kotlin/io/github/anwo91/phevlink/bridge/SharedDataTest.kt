@@ -143,7 +143,7 @@ class SharedDataTest {
         r.at(7, 19) // 5 °C → heat 20 min → start 07:10
         assertTrue(r.sent.isEmpty())
         assertEquals("away", r.last?.get("outcome"))
-        assertTrue(log.tail(30).any { it.text.contains("a phone near the car starts it") })
+        assertTrue(log.tail(30).any { it.text.contains("a phone near the car can start it") })
     }
 
     @Test

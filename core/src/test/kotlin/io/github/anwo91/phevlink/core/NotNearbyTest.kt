@@ -69,4 +69,31 @@ class NotNearbyTest {
             car.stop()
         }
     }
+
+    /** Reviewer's case: the car's socket is up but the handshake is slow — the command must run, not be given up. */
+    @Test
+    fun aSlowHandshakeIsNotNotNearby() = runBlocking {
+        val car = FakeCar(ModelYear.MY14).apply { pingsBeforeStart = 4 }.start()
+        try {
+            val pc = PhevConnection(SocketConnector { Socket("127.0.0.1", car.port) }, log, scope, ConnectionConfig())
+            val r = pc.execute(CarCommand.ClimateOn(ClimateMode.HEAT, ClimateDuration.MIN_10), 45_000, connectWithinMs = 500)
+            assertTrue(r.toString(), r is CommandResult.Success)
+            assertTrue(log.dump(), !log.dump().contains("giving up (not nearby)"))
+            pc.stop("test", terminal = true)
+        } finally {
+            car.stop()
+        }
+    }
+
+    @Test
+    fun onTheCarsWifiButRetryingIsNotNotNearby() = runBlocking {
+        // The phone found the car's Wi-Fi (stillLooking = false); the link is just between tries.
+        val pc = PhevConnection(
+            SocketConnector { delay(100); throw IOException("connection refused") }, log, scope,
+            ConnectionConfig(backoffMs = listOf(100, 100, 100)),
+        )
+        val r = pc.execute(CarCommand.RequestUpdate, 1_500, connectWithinMs = 300, stillLooking = { false })
+        assertEquals(Unreachable.NOT_IN_TIME, (r as CommandResult.Failure).reason)
+        pc.stop("test", terminal = true)
+    }
 }

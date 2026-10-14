@@ -255,4 +255,23 @@ class CarWifiWatchTest {
         w.check()
         assertEquals("stepped_aside", w.reachState)
     }
+
+    /** Reviewer's case: the car's own Wi-Fi restarts while it's parked — a scan at the moment of the drop isn't proof. */
+    @Test
+    fun aBriefDropWhileParkedIsNotNotSeen() {
+        val pi = Pi()
+        val w = watch(pi)
+        w.check()
+        pi.onCar = false
+        pi.carInSight = null
+        minutes(1.0)
+        w.check() // scan right at the drop: not in sight (the car's access point is restarting)
+        pi.carInSight = 55 // back up a minute later; NetworkManager hasn't rejoined yet
+        minutes(1.0)
+        w.check()
+        minutes(1.0)
+        w.check()
+        assertEquals("checking", w.reachState)
+        assertFalse(logText().contains("→ not_seen"))
+    }
 }

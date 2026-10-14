@@ -26,7 +26,6 @@ import kotlinx.coroutines.withTimeoutOrNull
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Socket
-import java.util.concurrent.atomic.AtomicBoolean
 
 /** Opens a TCP socket to the car. Android supplies one bound to the car's Wi-Fi network. */
 fun interface SocketConnector {
@@ -112,7 +111,17 @@ class PhevConnection(
     val car: StateFlow<CarState> = _car.asStateFlow()
 
     private class Exec(val command: CarCommand, val result: CompletableDeferred<CommandResult>) {
-        val abandoned = AtomicBoolean(false)
+        /** [WAITING] in the queue, [TAKEN] by a session (it runs), or [ABANDONED] by the caller (it never runs). */
+        val state = java.util.concurrent.atomic.AtomicInteger(WAITING)
+
+        /** The caller gives up: true when the command is guaranteed not to run (no session has taken it). */
+        fun abandon(): Boolean = state.compareAndSet(WAITING, ABANDONED)
+
+        companion object {
+            const val WAITING = 0
+            const val TAKEN = 1
+            const val ABANDONED = 2
+        }
     }
 
     private val commands = Channel<Exec>(Channel.UNLIMITED)
@@ -160,30 +169,39 @@ class PhevConnection(
     /**
      * Run a command, connecting first if needed. Survives reconnects until
      * [timeoutMs] runs out.
-     * @param connectWithinMs give up after this long if the link hasn't connected by then ([Unreachable.NOT_NEARBY]):
-     *   someone tapping a button shouldn't wait out the whole time for a car that isn't nearby. Once connected, the
-     *   command gets its full time (including waiting for the car to confirm).
+     * @param connectWithinMs give up after this long if no link to the car came up by then ([Unreachable.NOT_NEARBY]):
+     *   someone tapping a button shouldn't wait out the whole time for a car that isn't nearby. Only on the first try,
+     *   only while [stillLooking] (the phone hasn't even found the car's Wi-Fi), and only if no session has taken the
+     *   command — once the car answers, the command gets its full time (including waiting for the car to confirm).
      */
-    suspend fun execute(command: CarCommand, timeoutMs: Long = 45_000, connectWithinMs: Long? = null): CommandResult {
+    suspend fun execute(
+        command: CarCommand,
+        timeoutMs: Long = 45_000,
+        connectWithinMs: Long? = null,
+        stillLooking: () -> Boolean = { true },
+    ): CommandResult {
         if (closed) return CommandResult.Failure(command, "Link closed", retryable = true)
         start()
         val begun = clock.monoMs()
         // Waiting for the car to confirm the effect (climate running, setting changed) is not "unreachable".
         val deadline = begun + timeoutMs + command.confirmMs
         var last: CommandResult.Failure? = null
+        var first = true
         while (true) {
             val remaining = deadline - clock.monoMs()
             if (remaining <= 0) return last ?: CommandResult.Failure(command, Unreachable.NOT_IN_TIME)
             val exec = Exec(command, CompletableDeferred())
             commands.send(exec)
+            val mayGiveUp = first && connectWithinMs != null
+            first = false
             val r = withTimeoutOrNull(remaining) outer@{
-                if (connectWithinMs != null && _status.value !is LinkStatus.Connected) {
-                    val wait = connectWithinMs - (clock.monoMs() - begun)
+                if (mayGiveUp) {
+                    val wait = connectWithinMs!! - (clock.monoMs() - begun)
                     // Waiting on the result doesn't cancel it: a link that comes up meanwhile still runs the command.
                     val early = if (wait > 0) withTimeoutOrNull(wait) { exec.result.await() } else null
                     if (early != null) return@outer early
-                    if (_status.value !is LinkStatus.Connected && !exec.result.isCompleted) {
-                        exec.abandoned.set(true)
+                    // Give up only while the phone is still looking for the car and no session has the command.
+                    if (stillLooking() && exec.abandon()) {
                         log.link("Command ${command.javaClass.simpleName}: no link to the car after ${(clock.monoMs() - begun) / 1000} s — giving up (not nearby)")
                         return@outer CommandResult.Failure(command, Unreachable.NOT_NEARBY)
                     }
@@ -191,7 +209,7 @@ class PhevConnection(
                 exec.result.await()
             }
             if (r == null) {
-                exec.abandoned.set(true)
+                exec.abandon()
                 return last?.copy(reason = "${Unreachable.NOT_IN_TIME} (${last.reason})")
                     ?: CommandResult.Failure(command, Unreachable.NOT_IN_TIME)
             }
@@ -362,7 +380,7 @@ class PhevConnection(
                             }
                         }
                         commands.onReceive { exec ->
-                            if (!exec.abandoned.get()) session.execute(exec.command) { exec.result.complete(it) }
+                            if (exec.state.compareAndSet(Exec.WAITING, Exec.TAKEN)) session.execute(exec.command) { exec.result.complete(it) }
                         }
                     }
                 } catch (e: CancellationException) {

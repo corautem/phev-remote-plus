@@ -248,8 +248,9 @@ data class BridgeReach(
         const val NOT_SEEN = "not_seen"
         const val STEPPED_ASIDE = "stepped_aside"
 
+        /** Null when the bridge has nothing to say ("unknown": no car Wi-Fi to watch) — then the older rules apply. */
         fun from(m: Map<String, Any?>?): BridgeReach? {
-            val state = m?.str("state") ?: return null
+            val state = m?.str("state")?.takeIf { it != "unknown" } ?: return null
             return BridgeReach(state, m.long("sinceMs"), m.long("lastSeenMs"), m.long("checkedAtMs"), m["inSight"] as? Boolean)
         }
     }

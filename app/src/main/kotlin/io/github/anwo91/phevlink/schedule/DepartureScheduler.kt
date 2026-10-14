@@ -26,6 +26,7 @@ import java.util.Locale
 object DepartureScheduler {
     private const val REQ_PLAN = 10
     private const val REQ_START = 11
+    private const val REQ_SHOW = 12
 
     data class Next(val departureId: String, val atMs: Long, val planAtMs: Long)
 
@@ -82,10 +83,21 @@ object DepartureScheduler {
         PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
     )
 
+    /**
+     * A departure is an alarm the user set, so it is scheduled as one (setAlarmClock): Android delivers those on time
+     * even with battery optimisation, where exact "allow while idle" alarms were seen firing 16–19 min late. Side
+     * effect: the status bar may show the alarm icon before a departure; tapping it opens the app.
+     */
     private fun setExact(context: Context, am: AlarmManager, atMs: Long, pi: PendingIntent) {
         val exactOk = Build.VERSION.SDK_INT < Build.VERSION_CODES.S || am.canScheduleExactAlarms()
         if (exactOk) {
-            am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, atMs, pi)
+            val show = context.packageManager.getLaunchIntentForPackage(context.packageName)?.let {
+                PendingIntent.getActivity(context, REQ_SHOW, it, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+            }
+            val ok = runCatching { am.setAlarmClock(AlarmManager.AlarmClockInfo(atMs, show), pi) }
+                .onFailure { context.graph.log.warn("Alarm clock not allowed (${it.message}) — using an exact alarm") }
+                .isSuccess
+            if (!ok) am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, atMs, pi)
         } else {
             context.graph.log.warn("Exact alarms not allowed — departures may run a few minutes late")
             am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, atMs, pi)

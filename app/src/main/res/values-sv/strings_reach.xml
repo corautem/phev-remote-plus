@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The car not within reach: Home banner and chip, command failure reasons, skipped departures. -->
+<resources>
+    <string name="reach_not_seen_chip">Inte inom räckvidd</string>
+    <string name="reach_not_seen_title">Bilen är inte inom räckvidd</string>
+    <string name="reach_not_seen_line">Inte sedd sedan %1$s. Den kan vara borta, eller bara utom bryggans räckvidd – den ansluter igen av sig själv.</string>
+    <string name="reach_not_seen_line_never">Bryggan ser inte bilens Wi-Fi. Den kan vara borta, eller bara utom räckvidd – den ansluter igen av sig själv.</string>
+    <string name="reach_checking_chip">Kollar bilen…</string>
+    <string name="reach_checking_line">Bryggan tappade bilens Wi-Fi för en stund sedan och letar efter den.</string>
+    <string name="reach_not_nearby_chip">Inte i närheten</string>
+    <string name="reach_not_nearby_title">Bilen är inte i närheten</string>
+    <string name="reach_not_nearby_line">Den här telefonen hittar inte bilens Wi-Fi. Bilen kan vara borta, eller så sover dess Wi-Fi efter flera dagar parkerad. Appen fortsätter leta medan den är öppen.</string>
+    <string name="reach_bridge_down_chip">Bryggan svarar inte</string>
+    <string name="reach_bridge_down_title">Bryggan svarar inte</string>
+    <string name="reach_bridge_down_line">Telefonen är på hemmanätverket, men bryggan svarar inte. Kontrollera att den har ström.</string>
+    <string name="reach_home_unreachable_chip">Når inte hem</string>
+    <string name="reach_home_unreachable_title">Når inte bryggan hemma</string>
+    <string name="reach_home_unreachable_line">Telefonen är inte på hemmanätverket. Borta från hemmet behöver bryggan en VPN-anslutning hem – kontrollera att den är på.</string>
+    <string name="reach_try_again">Försök igen</string>
+    <string name="reach_as_of">Per %1$s</string>
+    <string name="reach_was_charging">Laddade senast</string>
+    <string name="reach_fail_not_seen">Bilen är inte inom räckvidd – den kan vara borta, eller bara utom bryggans räckvidd</string>
+    <string name="reach_fail_not_nearby">Telefonen hittade inte bilens Wi-Fi – bilen är inte i närheten, eller så sover dess Wi-Fi</string>
+    <string name="reach_fail_in_time">Bilen svarade inte i tid – den kan vara utom räckvidd</string>
+    <string name="reach_dep_title">%1$s inte startad – bilen är inte inom räckvidd</string>
+    <string name="reach_dep_text">Avgången %1$s: bilen har inte varit inom räckvidd sedan %2$s. Den kan vara borta, eller bara utom räckvidd.</string>
+    <string name="reach_dep_text_never">Avgången %1$s: bilen är inte inom räckvidd. Den kan vara borta, eller bara utom räckvidd.</string>
+</resources>

@@ -238,7 +238,7 @@ object ActivityText {
             "departure.started" -> "$who started ${mode(a.str("mode"))} for ${a.int("minutes")} min for the ${a.str("at")} departure"
             "departure.skipped" -> "Departure ${a.str("at")}: mild weather, nothing to do"
             "departure.failed" -> "Departure ${a.str("at")}: the car didn't start the climate"
-            "departure.away" -> "Departure ${a.str("at")}: the car wasn't home; a phone near it starts it"
+            "departure.away" -> "Departure ${a.str("at")}: the car wasn't within the bridge's reach; a phone near it can start it"
             "shared.changed" -> "$who changed ${a.str("keys") ?: "shared settings"}"
             "bridge.started" -> "The bridge started (${a.str("build") ?: "?"})"
             "bridge.update" -> "$who started a bridge update"

@@ -86,7 +86,7 @@ class CarWifi(
     // ------------------------------------------------------------------ changes (through the helper)
 
     /** Networks the car's radio sees, strongest first (hidden networks left out). */
-    fun scan(country: String?): Pair<List<Network>, String?> {
+    fun scan(country: String?, quiet: Boolean = false): Pair<List<Network>, String?> {
         val st = status()
         val iface = st.iface ?: return emptyList<Network>() to (st.problem ?: PROBLEM_NO_WIFI)
         if (st.problem == PROBLEM_HELPER_MISSING) return emptyList<Network>() to PROBLEM_HELPER_MISSING
@@ -98,7 +98,7 @@ class CarWifi(
             return emptyList<Network>() to why
         }
         val nets = parseScan(r.out)
-        log.link("Car Wi-Fi: scan on $iface found ${nets.size} network(s): " + nets.take(8).joinToString { "${it.ssid} (${it.signal}%)" })
+        if (!quiet) log.link("Car Wi-Fi: scan on $iface found ${nets.size} network(s): " + nets.take(8).joinToString { "${it.ssid} (${it.signal}%)" })
         return nets to null
     }
 

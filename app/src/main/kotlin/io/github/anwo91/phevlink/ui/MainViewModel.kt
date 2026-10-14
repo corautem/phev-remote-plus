@@ -221,7 +221,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 while (!link.value.connected && waited < 45_000) {
                     delay(500); waited += 500
                     val l = link.value
-                    if (l.phase == io.github.anwo91.phevlink.link.LinkPhase.FAILED) break
+                    if (l.phase == io.github.anwo91.phevlink.link.LinkPhase.FAILED || l.phase == io.github.anwo91.phevlink.link.LinkPhase.AWAY) break
                 }
                 val l = link.value
                 if (l.connected) onDone(true, str(R.string.msg_connected_battery, car.value.batteryPercent?.toString() ?: "?"))

@@ -127,6 +127,27 @@ class Notifier(private val context: Context) {
         nm.notify(ID_RESULT, n)
     }
 
+    /**
+     * A result that isn't a failure anyone can fix — e.g. a departure skipped because the car isn't within reach:
+     * shown without sound, in the neutral colour, no "try again".
+     */
+    fun quietResult(title: String, text: String) {
+        if (!canPost()) return
+        ensureChannels()
+        val n = NotificationCompat.Builder(context, CH_RESULTS)
+            .setSmallIcon(R.drawable.ic_stat_car)
+            .setColor(context.getColor(R.color.brand))
+            .setContentTitle(title)
+            .setContentText(text)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(text))
+            .setContentIntent(openAppIntent())
+            .setSilent(true)
+            .setAutoCancel(true)
+            .setTimeoutAfter(6 * 3600_000L)
+            .build()
+        nm.notify(ID_RESULT, n)
+    }
+
     /** [immediate] false: Android may wait ~10 s before showing it (a short background linger then shows nothing). */
     fun linkNotification(
         title: String, text: String, immediate: Boolean = true, actions: List<NotificationCompat.Action> = emptyList(),

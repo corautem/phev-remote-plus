@@ -71,6 +71,7 @@ import io.github.anwo91.phevlink.core.model.ScheduleDecoder
 import io.github.anwo91.phevlink.core.model.TheftAlarm
 import io.github.anwo91.phevlink.core.diag.LogKind
 import io.github.anwo91.phevlink.link.LinkUi
+import io.github.anwo91.phevlink.link.OutOfReach
 import io.github.anwo91.phevlink.ui.MainViewModel
 import io.github.anwo91.phevlink.ui.common.BatteryRing
 import io.github.anwo91.phevlink.ui.common.LabeledValue
@@ -119,6 +120,8 @@ fun HomeScreen(
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         if (settings.bridgeSetupPending) item { BridgePendingCard(vm, onOpenBridgeSetup) }
+        // The car can't be reached: say so first, plainly, with what it means.
+        if (link.outOfReach != null) item { ReachBanner(link, onRetry = { vm.reconnect() }) }
         item { AttentionCard(car) }
         item {
             HeroHeader(
@@ -149,6 +152,7 @@ fun HomeScreen(
                 onSmart = { vm.quickClimate() },
                 onStop = { vm.run(CarCommand.ClimateOff, msgOff) },
                 onReset = { vm.run(CarCommand.AckClimateCancelled, msgCleared) },
+                stale = link.outOfReach != null,
             )
         }
         item { QuickActions(car, pending, vm) }
@@ -186,6 +190,44 @@ fun HomeScreen(
         )
     }
     if (showLink) LinkSheet(link, car, onDismiss = { showLink = false }, onRetry = { vm.reconnect(); showLink = false }, onDiagnostics = { showLink = false; onOpenDiagnostics() })
+}
+
+/**
+ * The car can't be reached right now: what that means in one line, and "Try again". Neutral colours — the car being
+ * out of reach is usually just the car being out driving; only the bridge not answering is shown as a fault.
+ */
+@Composable
+private fun ReachBanner(link: LinkUi, onRetry: () -> Unit) {
+    val kind = link.outOfReach ?: return
+    val (icon, title) = when (kind) {
+        OutOfReach.NOT_SEEN -> PhevIcons.Location to stringResource(R.string.reach_not_seen_title)
+        OutOfReach.NOT_NEARBY -> PhevIcons.WifiOff to stringResource(R.string.reach_not_nearby_title)
+        OutOfReach.BRIDGE_DOWN -> PhevIcons.Bridge to stringResource(R.string.reach_bridge_down_title)
+        OutOfReach.HOME_UNREACHABLE -> PhevIcons.Bridge to stringResource(R.string.reach_home_unreachable_title)
+    }
+    val fault = kind == OutOfReach.BRIDGE_DOWN
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = if (fault) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.surfaceVariant,
+            contentColor = if (fault) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onSurfaceVariant,
+        ),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Row(Modifier.padding(start = 16.dp, top = 14.dp, end = 8.dp, bottom = 6.dp), verticalAlignment = Alignment.Top) {
+            Icon(icon, null, Modifier.size(22.dp).padding(top = 2.dp))
+            Spacer(Modifier.width(12.dp))
+            Column(Modifier.weight(1f)) {
+                Text(title, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurface)
+                link.detail?.let {
+                    Spacer(Modifier.height(2.dp))
+                    Text(it, style = MaterialTheme.typography.bodyMedium)
+                }
+                TextButton(onClick = onRetry, contentPadding = PaddingValues(horizontal = 0.dp)) {
+                    Text(stringResource(R.string.reach_try_again))
+                }
+            }
+        }
+    }
 }
 
 /** A single banner for things that need attention now — renders nothing when all is well. */
@@ -235,6 +277,9 @@ private fun HeroHeader(
     onHold: () -> Unit,
 ) {
     val status = LocalStatus.current
+    // The car can't be reached: its values are from when it was last seen — no "charging now" glow or "full at".
+    val stale = link.outOfReach != null
+    val charging = car.isCharging && !stale
     val brush = Brush.verticalGradient(
         listOf(MaterialTheme.colorScheme.primaryContainer, MaterialTheme.colorScheme.surfaceContainer),
     )
@@ -246,7 +291,10 @@ private fun HeroHeader(
                 Column(Modifier.weight(1f)) {
                     Text(carName.ifBlank { "Outlander PHEV" }, style = MaterialTheme.typography.titleLarge)
                     Text(
-                        car.updatedAtMs?.let { stringResource(R.string.home_updated, Format.ago(it, now)) } ?: stringResource(R.string.home_no_data),
+                        car.updatedAtMs?.let {
+                            // Out of reach: what's shown is from then, not now.
+                            if (stale) stringResource(R.string.reach_as_of, Format.clockOrDay(it, now)) else stringResource(R.string.home_updated, Format.ago(it, now))
+                        } ?: stringResource(R.string.home_no_data),
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
@@ -256,7 +304,7 @@ private fun HeroHeader(
             // Battery and charging on the left, the car picture on the right: tap a part of the car for details.
             Row(verticalAlignment = Alignment.Top) {
                 Column(Modifier.weight(1f)) {
-                    BatteryRing(car.batteryPercent, car.isCharging, size = 132.dp) {
+                    BatteryRing(car.batteryPercent, charging, size = 132.dp) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Text(car.batteryPercent?.let { "$it" } ?: "–", style = MaterialTheme.typography.displayMedium)
                             Text("%", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -268,6 +316,7 @@ private fun HeroHeader(
                     Text(stringResource(R.string.home_electric_range), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Spacer(Modifier.height(12.dp))
                     when {
+                        car.isCharging && stale -> Pill(stringResource(R.string.reach_was_charging), status.idle)
                         car.isCharging -> {
                             val label = when (car.chargeKind) {
                                 ChargeKind.TRICKLE -> R.string.home_charge_trickle
@@ -360,11 +409,16 @@ private fun ClimateCard(
     onSmart: () -> Unit,
     onStop: () -> Unit,
     onReset: () -> Unit,
+    stale: Boolean = false,
 ) {
     val status = LocalStatus.current
     var mode by rememberSaveable { mutableStateOf(defaultMode) }
     var dur by rememberSaveable { mutableStateOf(defaultDuration) }
-    val c = car.climate
+    // Out of reach and the last known run should have ended by now: don't show it as still running.
+    val c = car.climate.let { cl ->
+        val end = cl.startedAtMs?.let { it + (cl.duration?.minutes ?: 0) * 60_000L }
+        if (stale && cl.state == PreAcState.RUNNING && (end == null || end < System.currentTimeMillis())) cl.copy(state = PreAcState.OFF) else cl
+    }
     SectionCard(title = stringResource(R.string.climate_title), trailing = {
         when {
             busyText != null -> CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp)

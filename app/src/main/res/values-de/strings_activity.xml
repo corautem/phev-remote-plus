@@ -70,7 +70,7 @@
     <string name="act_dep_started">Die Bridge hat die Klimatisierung gestartet (%1$s, %2$d min) für die Abfahrt um %3$s</string>
     <string name="act_dep_skipped">Abfahrt %1$s: mildes Wetter, nichts zu tun</string>
     <string name="act_dep_failed">Abfahrt %1$s: Das Auto hat die Klimatisierung nicht gestartet</string>
-    <string name="act_dep_away">Abfahrt %1$s: Das Auto war nicht zu Hause, deshalb übernimmt ein Handy am Auto</string>
+    <string name="act_dep_away">Abfahrt %1$s: Das Auto war nicht in Reichweite der Bridge – ein Handy am Auto kann es starten</string>
     <string name="act_shared_departures">%1$s hat die Abfahrten geändert</string>
     <string name="act_shared_changed">%1$s hat die gemeinsamen Einstellungen geändert</string>
     <string name="act_bridge_started">Die Bridge wurde gestartet (%1$s)</string>

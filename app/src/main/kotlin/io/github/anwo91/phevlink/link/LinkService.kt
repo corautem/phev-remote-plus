@@ -19,6 +19,7 @@ import io.github.anwo91.phevlink.core.json.Json
 import io.github.anwo91.phevlink.core.model.CarCommand
 import io.github.anwo91.phevlink.core.model.ClimateDuration
 import io.github.anwo91.phevlink.core.model.ClimateMode
+import io.github.anwo91.phevlink.core.session.Unreachable
 import io.github.anwo91.phevlink.core.model.CommandResult
 import io.github.anwo91.phevlink.core.model.PreAcState
 import io.github.anwo91.phevlink.core.planner.ClimatePlanner
@@ -303,15 +304,26 @@ class LinkService : LifecycleService() {
         } else if (bridge == null) {
             graph.log.link("Departure ${Format.clock(atMs)}: the bridge didn't answer — this phone starts it")
         }
+        // The car isn't within reach and this phone can't look for it either: say so once, quietly — nothing to retry.
+        if (bridge != true) repo.notWithinReach()?.let { reach ->
+            graph.log.link("Departure ${Format.clock(atMs)}: not started — the car isn't within reach ($reach)")
+            notifyNotWithinReach(mode, atMs, reach.lastSeenMs)
+            DepartureScheduler.reschedule(this, after = atMs)
+            return
+        }
         repo.hold("svc-departure")
         try {
             // A scheduled start deserves extra patience: the car's Wi-Fi may need to wake up.
-            when (val r = repo.execute(cmd, timeoutMs = 120_000)) {
+            when (val r = repo.execute(cmd, timeoutMs = 120_000, nearbyMs = null)) {
                 is CommandResult.Success -> graph.notifier.result(
                     str(R.string.notif_departure_started, str(Labels.mode(mode))),
                     str(R.string.notif_departure_ready, Format.clock(atMs)) + lateHint, ok = true,
                 )
-                is CommandResult.Failure -> graph.notifier.result(
+                // Not found nearby, or the bridge doesn't see the car: not a failure anyone can fix now.
+                is CommandResult.Failure -> if (outOfReach(r.reason)) {
+                    graph.log.link("Departure ${Format.clock(atMs)}: not started — the car isn't within reach (${r.reason})")
+                    notifyNotWithinReach(mode, atMs, null)
+                } else graph.notifier.result(
                     str(R.string.notif_departure_failed, str(Labels.modeInline(mode))),
                     // Couldn't reach the bridge either: if the car is home, the bridge starts it anyway.
                     (if (bridge == null) str(R.string.notif_departure_maybe_bridge)
@@ -324,6 +336,20 @@ class LinkService : LifecycleService() {
             DepartureScheduler.reschedule(this, after = atMs)
         }
         armWatchIfBusy()
+    }
+
+    /** The command failed because the car isn't within reach (not because the car refused or broke something). */
+    private fun outOfReach(reason: String): Boolean =
+        reason == Unreachable.OFF_CAR_WIFI || reason == Unreachable.NOT_NEARBY ||
+            (reason.startsWith(Unreachable.NOT_IN_TIME) && repo.bridgeSaysNotSeen)
+
+    /** One quiet notification: the departure's climate didn't start because the car isn't within reach. */
+    private fun notifyNotWithinReach(mode: ClimateMode, atMs: Long, lastSeenMs: Long?) {
+        graph.notifier.quietResult(
+            str(R.string.reach_dep_title, str(Labels.mode(mode))),
+            if (lastSeenMs != null) str(R.string.reach_dep_text, Format.clock(atMs), Format.clockOrDay(lastSeenMs))
+            else str(R.string.reach_dep_text_never, Format.clock(atMs)),
+        )
     }
 
     // ----------------------------------------------------------------- watch

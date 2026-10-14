@@ -74,8 +74,8 @@ class DepartureRunner(
             if (t.isBefore(startAt) || !t.isBefore(at)) continue
             done += key
             if (!carHome()) {
-                log.link("Departures: $label — the car isn't home (the bridge isn't on its Wi-Fi); a phone near the car starts it")
-                store.recordDeparture(result(dep.id, at, "away", "car not home", plan))
+                log.link("Departures: $label — the car isn't within reach (the bridge isn't on its Wi-Fi); a phone near the car can start it")
+                store.recordDeparture(result(dep.id, at, "away", "car not within reach", plan))
                 continue
             }
             log.link("Departures: $label — starting ${plan.mode.label} for ${plan.duration.minutes} min")

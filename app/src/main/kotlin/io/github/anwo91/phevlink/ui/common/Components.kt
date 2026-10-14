@@ -81,6 +81,8 @@ fun phaseColor(phase: LinkPhase): Color {
         LinkPhase.RETRYING -> s.warn
         LinkPhase.FAILED -> s.bad
         LinkPhase.OFFLINE -> s.idle
+        // The car not being within reach is normal (it's out driving), not a fault.
+        LinkPhase.AWAY -> s.idle
     }
 }
 

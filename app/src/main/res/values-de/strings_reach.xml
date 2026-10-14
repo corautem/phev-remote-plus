@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The car not within reach: Home banner and chip, command failure reasons, skipped departures. -->
+<resources>
+    <string name="reach_not_seen_chip">Außer Reichweite</string>
+    <string name="reach_not_seen_title">Auto nicht in Reichweite</string>
+    <string name="reach_not_seen_line">Nicht gesehen seit %1$s. Es ist vielleicht unterwegs oder nur außer Reichweite der Bridge – es verbindet sich von selbst wieder.</string>
+    <string name="reach_not_seen_line_never">Die Bridge sieht das WLAN des Autos nicht. Es ist vielleicht unterwegs oder nur außer Reichweite – es verbindet sich von selbst wieder.</string>
+    <string name="reach_checking_chip">Prüfe das Auto…</string>
+    <string name="reach_checking_line">Die Bridge hat das WLAN des Autos gerade verloren und sucht danach.</string>
+    <string name="reach_not_nearby_chip">Nicht in der Nähe</string>
+    <string name="reach_not_nearby_title">Auto nicht in der Nähe</string>
+    <string name="reach_not_nearby_line">Dein Handy findet das WLAN des Autos nicht. Das Auto ist vielleicht unterwegs, oder sein WLAN schläft nach Tagen Parken. Die App sucht weiter, solange sie offen ist.</string>
+    <string name="reach_bridge_down_chip">Bridge antwortet nicht</string>
+    <string name="reach_bridge_down_title">Bridge antwortet nicht</string>
+    <string name="reach_bridge_down_line">Dein Handy ist im Heimnetz, aber die Bridge antwortet nicht. Prüfe, ob sie Strom hat.</string>
+    <string name="reach_home_unreachable_chip">Zuhause nicht erreichbar</string>
+    <string name="reach_home_unreachable_title">Bridge zu Hause nicht erreichbar</string>
+    <string name="reach_home_unreachable_line">Dein Handy ist nicht im Heimnetz. Unterwegs braucht die Bridge eine VPN-Verbindung nach Hause – prüfe, ob sie an ist.</string>
+    <string name="reach_try_again">Erneut versuchen</string>
+    <string name="reach_as_of">Stand %1$s</string>
+    <string name="reach_was_charging">Lud zuletzt</string>
+    <string name="reach_fail_not_seen">Das Auto ist nicht in Reichweite – vielleicht ist es unterwegs oder nur außer Reichweite der Bridge</string>
+    <string name="reach_fail_not_nearby">Dein Handy hat das WLAN des Autos nicht gefunden – das Auto ist nicht in der Nähe, oder sein WLAN schläft</string>
+    <string name="reach_fail_in_time">Das Auto hat nicht rechtzeitig geantwortet – vielleicht ist es außer Reichweite</string>
+    <string name="reach_dep_title">%1$s nicht gestartet – Auto nicht in Reichweite</string>
+    <string name="reach_dep_text">Abfahrt %1$s: Das Auto war seit %2$s nicht in Reichweite. Vielleicht ist es unterwegs oder nur außer Reichweite.</string>
+    <string name="reach_dep_text_never">Abfahrt %1$s: Das Auto ist nicht in Reichweite. Vielleicht ist es unterwegs oder nur außer Reichweite.</string>
+</resources>

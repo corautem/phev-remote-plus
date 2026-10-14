@@ -6,7 +6,7 @@
     <string name="sched_bridge_last_started">Senast: %1$s – startad av bryggan.</string>
     <string name="sched_bridge_last_failed">Senast: %1$s – bryggan kunde inte starta den (%2$s).</string>
     <string name="sched_bridge_last_skipped">Senast: %1$s – milt väder, så bryggan lät klimatet vara av.</string>
-    <string name="sched_bridge_last_away">Senast: %1$s – bilen var inte hemma, så en telefon skötte det.</string>
+    <string name="sched_bridge_last_away">Senast: %1$s – bilen var inte inom bryggans räckvidd.</string>
     <string name="notif_departure_ready_bridge">Startad av bryggan – bilen är klar till %1$s.</string>
     <string name="notif_departure_maybe_bridge">Telefonen nådde inte bilen. Om bilen är hemma startar bryggan den.</string>
 </resources>

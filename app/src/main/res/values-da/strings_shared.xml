@@ -6,7 +6,7 @@
     <string name="sched_bridge_last_started">Sidst: %1$s – startet af broen.</string>
     <string name="sched_bridge_last_failed">Sidst: %1$s – broen kunne ikke starte den (%2$s).</string>
     <string name="sched_bridge_last_skipped">Sidst: %1$s – mildt vejr, så broen lod klimaanlægget være slukket.</string>
-    <string name="sched_bridge_last_away">Sidst: %1$s – bilen var ikke hjemme, så en telefon klarede det.</string>
+    <string name="sched_bridge_last_away">Sidst: %1$s – bilen var ikke inden for broens rækkevidde.</string>
     <string name="notif_departure_ready_bridge">Startet af broen – bilen er klar til %1$s.</string>
     <string name="notif_departure_maybe_bridge">Telefonen kunne ikke nå bilen. Er bilen hjemme, starter broen den.</string>
 </resources>

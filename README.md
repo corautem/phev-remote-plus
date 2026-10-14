@@ -175,6 +175,13 @@ the car, restart it, restart the computer and **update it from the app**: the br
 GitHub, checks its SHA-256 and reinstalls itself (bridges installed before 1.0.38 need the install command above once
 more; after that, updates happen in the app).
 
+**When the car isn't within reach** the app says so plainly at the top of the Car page — "Car not within reach · not
+seen since 14:32" (the bridge hasn't seen the car's Wi-Fi: it may be away, or just out of the bridge's reach), "Car not
+nearby" (this phone searched for the car's Wi-Fi), "Bridge not answering" or "Can't reach the bridge at home" — in grey
+rather than as an error, with the last known values marked "As of 14:32". Commands then answer within seconds with the
+reason instead of spinning, and a departure that can't start for that reason gets one quiet notification instead of a
+"failed, try again".
+
 Every step is logged in the app's Log tab and in the bridge log (`journalctl -u phev-bridge -f`). The bridge also keeps
 its log in `/var/log/phev-bridge/bridge.log` (at most 4 MB, the previous file as `bridge.log.1`), and every start says
 how the last run ended — normally, the computer restarted (power cut), or the program was stopped abruptly (with the
@@ -272,7 +279,7 @@ like the bridge's own port, never open it to the internet.
 | Method | Path | |
 |---|---|---|
 | GET | `/` | Control page (asks for the token once) |
-| GET | `/api/status` | `{link, car, bridge}` JSON |
+| GET | `/api/status` | `{link, car, reach, bridge}` JSON; `reach.state`: `in_reach`, `checking`, `not_seen` (off the car's Wi-Fi ≥ 90 s and not in a real scan), `stepped_aside`, `unknown`, with `lastSeenMs`/`checkedAtMs` |
 | GET | `/api/events` | Server-sent events, a `status` event per change |
 | POST | `/api/command` | `{"action":"climate","mode":"HEAT","minutes":20}` · `climate_off` · `headlights`/`parking_lights` + `on` · `locate` · `refresh` · `charge_now` · `ack_climate` · `register` · `unregister` · `sync_clock` · `raw` (+ `register`, `data` hex) |
 | POST | `/api/connect`, `/api/disconnect` | |

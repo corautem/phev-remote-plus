@@ -160,23 +160,40 @@ class PhevConnection(
     /**
      * Run a command, connecting first if needed. Survives reconnects until
      * [timeoutMs] runs out.
+     * @param connectWithinMs give up after this long if the link hasn't connected by then ([Unreachable.NOT_NEARBY]):
+     *   someone tapping a button shouldn't wait out the whole time for a car that isn't nearby. Once connected, the
+     *   command gets its full time (including waiting for the car to confirm).
      */
-    suspend fun execute(command: CarCommand, timeoutMs: Long = 45_000): CommandResult {
+    suspend fun execute(command: CarCommand, timeoutMs: Long = 45_000, connectWithinMs: Long? = null): CommandResult {
         if (closed) return CommandResult.Failure(command, "Link closed", retryable = true)
         start()
+        val begun = clock.monoMs()
         // Waiting for the car to confirm the effect (climate running, setting changed) is not "unreachable".
-        val deadline = clock.monoMs() + timeoutMs + command.confirmMs
+        val deadline = begun + timeoutMs + command.confirmMs
         var last: CommandResult.Failure? = null
         while (true) {
             val remaining = deadline - clock.monoMs()
-            if (remaining <= 0) return last ?: CommandResult.Failure(command, "Could not reach the car in time")
+            if (remaining <= 0) return last ?: CommandResult.Failure(command, Unreachable.NOT_IN_TIME)
             val exec = Exec(command, CompletableDeferred())
             commands.send(exec)
-            val r = withTimeoutOrNull(remaining) { exec.result.await() }
+            val r = withTimeoutOrNull(remaining) outer@{
+                if (connectWithinMs != null && _status.value !is LinkStatus.Connected) {
+                    val wait = connectWithinMs - (clock.monoMs() - begun)
+                    // Waiting on the result doesn't cancel it: a link that comes up meanwhile still runs the command.
+                    val early = if (wait > 0) withTimeoutOrNull(wait) { exec.result.await() } else null
+                    if (early != null) return@outer early
+                    if (_status.value !is LinkStatus.Connected && !exec.result.isCompleted) {
+                        exec.abandoned.set(true)
+                        log.link("Command ${command.javaClass.simpleName}: no link to the car after ${(clock.monoMs() - begun) / 1000} s — giving up (not nearby)")
+                        return@outer CommandResult.Failure(command, Unreachable.NOT_NEARBY)
+                    }
+                }
+                exec.result.await()
+            }
             if (r == null) {
                 exec.abandoned.set(true)
-                return last?.copy(reason = "Could not reach the car in time (${last.reason})")
-                    ?: CommandResult.Failure(command, "Could not reach the car in time")
+                return last?.copy(reason = "${Unreachable.NOT_IN_TIME} (${last.reason})")
+                    ?: CommandResult.Failure(command, Unreachable.NOT_IN_TIME)
             }
             if (r is CommandResult.Failure && r.retryable && running) {
                 last = r

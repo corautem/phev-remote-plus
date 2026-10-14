@@ -6,7 +6,7 @@
     <string name="sched_bridge_last_started">Zuletzt: %1$s – von der Bridge gestartet.</string>
     <string name="sched_bridge_last_failed">Zuletzt: %1$s – die Bridge konnte sie nicht starten (%2$s).</string>
     <string name="sched_bridge_last_skipped">Zuletzt: %1$s – mildes Wetter, deshalb hat die Bridge die Klimatisierung ausgelassen.</string>
-    <string name="sched_bridge_last_away">Zuletzt: %1$s – das Auto war nicht zu Hause, deshalb hat ein Handy es übernommen.</string>
+    <string name="sched_bridge_last_away">Zuletzt: %1$s – das Auto war nicht in Reichweite der Bridge.</string>
     <string name="notif_departure_ready_bridge">Von der Bridge gestartet – dein Auto ist um %1$s bereit.</string>
     <string name="notif_departure_maybe_bridge">Dein Handy hat das Auto nicht erreicht. Wenn das Auto zu Hause ist, startet die Bridge sie.</string>
 </resources>

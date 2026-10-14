@@ -70,7 +70,7 @@
     <string name="act_dep_started">The bridge started the climate (%1$s, %2$d min) for the %3$s departure</string>
     <string name="act_dep_skipped">Departure %1$s: mild weather, nothing to do</string>
     <string name="act_dep_failed">Departure %1$s: the car didn\'t start the climate</string>
-    <string name="act_dep_away">Departure %1$s: the car wasn\'t home, so a phone near it handles it</string>
+    <string name="act_dep_away">Departure %1$s: the car wasn\'t within the bridge\'s reach — a phone near the car can start it</string>
     <string name="act_shared_departures">%1$s changed the departures</string>
     <string name="act_shared_changed">%1$s changed the shared settings</string>
     <string name="act_bridge_started">The bridge started (%1$s)</string>

@@ -42,7 +42,7 @@ class BridgeClient(
     private val log: DiagLog,
     private val context: Context = PhevApp.instance,
 ) {
-    data class Snapshot(val link: LinkStatus, val car: CarState, val bridgeNowMs: Long?)
+    data class Snapshot(val link: LinkStatus, val car: CarState, val bridgeNowMs: Long?, val reach: BridgeReach? = null)
 
     private val _snapshot = MutableStateFlow<Snapshot?>(null)
     val snapshot: StateFlow<Snapshot?> = _snapshot.asStateFlow()
@@ -218,6 +218,39 @@ class BridgeClient(
             link = m.obj("link")?.let(Codecs::linkStatusFromMap) ?: LinkStatus.Idle(),
             car = m.obj("car")?.let(Codecs::carStateFromMap) ?: CarState(),
             bridgeNowMs = m.obj("bridge")?.long("nowMs"),
+            reach = BridgeReach.from(m.obj("reach")),
         )
+    }
+}
+
+/**
+ * Whether the bridge can reach the car (bridge with "reach"): `in_reach` (on the car's Wi-Fi), `checking`,
+ * `not_seen` (off the car's Wi-Fi for a while and not seen in a real scan: away, or just out of reach),
+ * `stepped_aside` (made room for a phone) or `unknown`.
+ */
+data class BridgeReach(
+    val state: String,
+    val sinceMs: Long?,
+    /** Last time the bridge was on the car's Wi-Fi, saw it, or heard from it. */
+    val lastSeenMs: Long?,
+    /** When the bridge last looked for the car's Wi-Fi. */
+    val checkedAtMs: Long?,
+    val inSight: Boolean?,
+) {
+    val notSeen: Boolean get() = state == NOT_SEEN
+    val inReach: Boolean get() = state == IN_REACH
+
+    override fun toString(): String = state + (lastSeenMs?.let { " (last seen ${io.github.anwo91.phevlink.util.Format.clockOrDay(it)})" } ?: "")
+
+    companion object {
+        const val IN_REACH = "in_reach"
+        const val CHECKING = "checking"
+        const val NOT_SEEN = "not_seen"
+        const val STEPPED_ASIDE = "stepped_aside"
+
+        fun from(m: Map<String, Any?>?): BridgeReach? {
+            val state = m?.str("state") ?: return null
+            return BridgeReach(state, m.long("sinceMs"), m.long("lastSeenMs"), m.long("checkedAtMs"), m["inSight"] as? Boolean)
+        }
     }
 }

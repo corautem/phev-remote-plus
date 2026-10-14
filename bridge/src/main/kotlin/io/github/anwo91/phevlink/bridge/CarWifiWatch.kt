@@ -28,6 +28,11 @@ import java.time.format.DateTimeFormatter
  *
  * Losing and getting back the car's Wi-Fi is logged with how long, the signal and NetworkManager's own words, and goes
  * into the activity log when it lasted a few minutes — which also shows when the car left and came home.
+ *
+ * It also works out whether the car can be reached at all ([reach]), for the phones to show plainly: on its Wi-Fi =
+ * in reach; off it for [AWAY_AFTER_MS] and not seen in a real scan (at most [SCAN_EVERY_MS] old) = not seen (away, or
+ * its Wi-Fi asleep — the radio can't tell those apart); in between, or in sight while joining = checking. Seeing the
+ * car always wins over not seeing it.
  */
 class CarWifiWatch(
     private val wifi: CarWifi,
@@ -36,7 +41,46 @@ class CarWifiWatch(
     /** Back on the car's Wi-Fi: wake the car link now rather than at its next retry. */
     private val onBack: () -> Unit = {},
     private val now: () -> Long = System::currentTimeMillis,
+    /** When the bridge last heard from the car (its saved state): "last seen" before this run saw it. */
+    private val lastContact: () -> Long? = { null },
 ) {
+    /** Told when [reach] changes (the bridge pushes it to the phones at once). */
+    @Volatile var onReachChange: () -> Unit = {}
+
+    @Volatile private var reachNow = REACH_UNKNOWN
+    @Volatile private var reachSince = now()
+    @Volatile private var lastSeenMs: Long? = null
+    @Volatile private var checkedAtMs: Long? = null
+    @Volatile private var lastInSight: Boolean? = null
+    private var lastScanAt = 0L
+
+    /**
+     * Can the car be reached? `state`: in_reach | checking | not_seen | stepped_aside | unknown (nothing to watch);
+     * `sinceMs` when that began; `lastSeenMs` last time the bridge was on the car's Wi-Fi or saw it (or last heard
+     * from it); `checkedAtMs` when it last looked; `inSight` at that look.
+     */
+    fun reach(): Map<String, Any?> = linkedMapOf(
+        "state" to reachNow,
+        "sinceMs" to reachSince,
+        "lastSeenMs" to (lastSeenMs ?: runCatching { lastContact() }.getOrNull()),
+        "checkedAtMs" to checkedAtMs,
+        "inSight" to lastInSight,
+    )
+
+    /** [reach]'s state alone. */
+    val reachState: String get() = reachNow
+
+    private fun setReach(state: String, why: String) {
+        if (state == reachNow) return
+        val was = reachNow
+        reachNow = state
+        reachSince = now()
+        log.link("Reach: $was → $state — $why")
+        runCatching { onReachChange() }
+    }
+
+    /** "last seen 14:32" for the log. */
+    private fun seenText(): String = (lastSeenMs ?: runCatching { lastContact() }.getOrNull())?.let { "last seen ${clock(it)}" } ?: "never seen by this run"
     /** One look: [connected] now; [tried] = asked NetworkManager to join; [signal] of the car's network when in sight. */
     data class Result(val connected: Boolean, val tried: Boolean, val message: String, val signal: Int?) {
         fun toMap(): Map<String, Any?> = linkedMapOf(
@@ -70,7 +114,10 @@ class CarWifiWatch(
     /** One look, and a join when one is due (or right away with [rejoinNow], on behalf of [who]). */
     @Synchronized
     fun check(rejoinNow: Boolean = false, who: String? = null): Result {
-        if (wifi.paused) return Result(false, false, "paused for a phone", null)
+        if (wifi.paused) {
+            setReach(REACH_STEPPED_ASIDE, "the bridge made room for a phone on the car's Wi-Fi")
+            return Result(false, false, "paused for a phone", null)
+        }
         val st = wifi.status()
         val iface = st.iface
         val idle = when {
@@ -84,11 +131,16 @@ class CarWifiWatch(
             if (why != idleWhy) log.link("Car Wi-Fi watch: nothing to watch — $why")
             idleWhy = why
             connected = null
+            setReach(REACH_UNKNOWN, why)
             return Result(false, false, why, null)
         }
         idleWhy = null
         val t = now()
         if (st.connected) {
+            lastSeenMs = t
+            checkedAtMs = t
+            lastInSight = true
+            setReach(REACH_IN_REACH, "on the car's Wi-Fi (${st.ssid}, signal ${st.signal ?: "?"} %)")
             when (connected) {
                 false -> back(t, st)
                 null -> {
@@ -103,15 +155,25 @@ class CarWifiWatch(
         }
         if (connected != false) lost(t, st)
         var signal = wifi.inSight(iface, st.ssid)
-        if (rejoinNow && signal == null) {
-            // A phone is waiting: a join attempt takes 30 s when the car isn't there, so look first (a few seconds).
-            val (nets, error) = wifi.scan(null)
-            signal = nets.firstOrNull { it.ssid == st.ssid }?.signal
-            if (signal == null) {
-                log.link("Car Wi-Fi watch: ${who ?: "a phone"} asked to rejoin, but the car's network isn't in sight" + (error?.let { " (scan: $it)" } ?: "") + " — the car is away or asleep")
-                wasInSight = false
-                return Result(false, false, "the car's network is not in sight", null)
+        var scanned = false
+        if (signal == null && (rejoinNow || t - lastScanAt >= SCAN_EVERY_MS)) {
+            // NetworkManager's list can be minutes old: look for real (a few seconds; the radio is idle meanwhile).
+            // A phone waiting (rejoinNow) also saves a 30-second join attempt when the car isn't there.
+            val (nets, error) = wifi.scan(null, quiet = !rejoinNow)
+            lastScanAt = t
+            if (error == null) {
+                scanned = true
+                checkedAtMs = t
             }
+            signal = nets.firstOrNull { it.ssid == st.ssid }?.signal
+        }
+        lastInSight = signal != null
+        if (signal != null) lastSeenMs = t
+        updateReachOff(t, signal, scanned)
+        if (rejoinNow && signal == null) {
+            log.link("Car Wi-Fi watch: ${who ?: "a phone"} asked to rejoin, but the car's network isn't in sight — the car is away or asleep")
+            wasInSight = false
+            return Result(false, false, "the car's network is not in sight", null)
         }
         if (signal != null && !wasInSight && tries > 0 && t < nextTryAt) {
             log.link("Car Wi-Fi watch: the car's network is in sight again ($signal %) — joining now")
@@ -124,6 +186,18 @@ class CarWifiWatch(
         }
         if (!rejoinNow && t < nextTryAt) return Result(false, false, "next try at ${clock(nextTryAt)}", signal)
         return attempt(iface, signal, who)
+    }
+
+    /** Off the car's Wi-Fi: checking while it may just be a moment, not seen once a real look says so. */
+    private fun updateReachOff(t: Long, signal: Int?, scanned: Boolean) {
+        val off = t - since
+        val looked = checkedAtMs?.let { it >= since && t - it <= SCAN_EVERY_MS + INTERVAL_MS } == true
+        when {
+            signal != null -> setReach(REACH_CHECKING, "off the car's Wi-Fi for ${dur(off)}, but the car is in sight ($signal %) — joining")
+            off >= AWAY_AFTER_MS && looked ->
+                setReach(REACH_NOT_SEEN, "off the car's Wi-Fi for ${dur(off)} and not in sight (looked ${dur(t - (checkedAtMs ?: t))} ago${if (scanned) ", just now" else ""}); ${seenText()}")
+            else -> setReach(REACH_CHECKING, "off the car's Wi-Fi for ${dur(off)}, not in sight yet — looking again before calling it away")
+        }
     }
 
     private fun attempt(iface: String, signal: Int?, who: String?): Result {
@@ -141,6 +215,10 @@ class CarWifiWatch(
                 back(now(), after)
                 connected = true
                 after.signal?.let { lastSignal = it }
+                lastSeenMs = now()
+                checkedAtMs = lastSeenMs
+                lastInSight = true
+                setReach(REACH_IN_REACH, "joined the car's Wi-Fi (signal ${after.signal ?: "?"} %)")
                 return Result(true, true, "joined", after.signal)
             }
         }
@@ -204,6 +282,18 @@ class CarWifiWatch(
     private fun clock(ms: Long): String = CLOCK.format(Instant.ofEpochMilli(ms))
 
     companion object {
+        const val REACH_IN_REACH = "in_reach"
+        const val REACH_CHECKING = "checking"
+        const val REACH_NOT_SEEN = "not_seen"
+        const val REACH_STEPPED_ASIDE = "stepped_aside"
+        const val REACH_UNKNOWN = "unknown"
+
+        /** Off the car's Wi-Fi at least this long (and not seen in a real scan) before the car counts as not seen. */
+        const val AWAY_AFTER_MS = 90_000L
+
+        /** While off the car's Wi-Fi and not seeing it, a real scan at most this often. */
+        const val SCAN_EVERY_MS = 5 * 60_000L
+
         const val INTERVAL_MS = 60_000L
         private const val START_DELAY_MS = 20_000L
         /** Off the car's Wi-Fi this long goes into the activity log (shorter drops only in the diagnostic log). */

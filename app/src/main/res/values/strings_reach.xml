@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The car not within reach: Home banner and chip, command failure reasons, skipped departures. -->
+<resources>
+    <string name="reach_not_seen_chip">Not in reach</string>
+    <string name="reach_not_seen_title">Car not within reach</string>
+    <string name="reach_not_seen_line">Not seen since %1$s. It may be away, or just out of the bridge\'s reach — it reconnects by itself.</string>
+    <string name="reach_not_seen_line_never">The bridge doesn\'t see the car\'s Wi-Fi. It may be away, or just out of reach — it reconnects by itself.</string>
+    <string name="reach_checking_chip">Checking the car…</string>
+    <string name="reach_checking_line">The bridge lost the car\'s Wi-Fi a moment ago and is looking for it.</string>
+    <string name="reach_not_nearby_chip">Not nearby</string>
+    <string name="reach_not_nearby_title">Car not nearby</string>
+    <string name="reach_not_nearby_line">This phone can\'t find the car\'s Wi-Fi. The car may be away, or its Wi-Fi asleep after days parked. The app keeps looking while it\'s open.</string>
+    <string name="reach_bridge_down_chip">Bridge not answering</string>
+    <string name="reach_bridge_down_title">Bridge not answering</string>
+    <string name="reach_bridge_down_line">This phone is on the home network, but the bridge doesn\'t answer. Check that it has power.</string>
+    <string name="reach_home_unreachable_chip">Can\'t reach home</string>
+    <string name="reach_home_unreachable_title">Can\'t reach the bridge at home</string>
+    <string name="reach_home_unreachable_line">This phone isn\'t on the home network. Away from home, the bridge needs a VPN connection to home — check that it\'s on.</string>
+    <string name="reach_try_again">Try again</string>
+    <string name="reach_as_of">As of %1$s</string>
+    <string name="reach_was_charging">Was charging</string>
+    <string name="reach_fail_not_seen">The car isn\'t within reach — it may be away, or just out of the bridge\'s reach</string>
+    <string name="reach_fail_not_nearby">This phone couldn\'t find the car\'s Wi-Fi — the car isn\'t nearby, or its Wi-Fi is asleep</string>
+    <string name="reach_fail_in_time">The car didn\'t answer in time — it may be out of reach</string>
+    <string name="reach_dep_title">%1$s not started – car not within reach</string>
+    <string name="reach_dep_text">Your %1$s departure: the car hasn\'t been within reach since %2$s. It may be away, or just out of reach.</string>
+    <string name="reach_dep_text_never">Your %1$s departure: the car isn\'t within reach. It may be away, or just out of reach.</string>
+</resources>

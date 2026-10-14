@@ -188,4 +188,71 @@ class CarWifiWatchTest {
         assertTrue(pi.calls.any { it.endsWith("carwifi.sh scan wlan0") })
         assertTrue(logText().contains("isn't in sight"))
     }
+
+    /** What the phones show: in reach / checking / not seen since …, pushed on every change. */
+    @Test
+    fun reachSaysWhenTheCarIsNotSeen() {
+        val pi = Pi()
+        val w = watch(pi)
+        var pushes = 0
+        w.onReachChange = { pushes++ }
+        w.check()
+        assertEquals("in_reach", w.reachState)
+        val seenAt = t
+        assertEquals(seenAt, w.reach()["lastSeenMs"])
+
+        // The car drives off: first just "checking" (could be a moment), then not seen once a real scan says so.
+        pi.onCar = false
+        pi.carInSight = null
+        minutes(1.0)
+        w.check()
+        assertEquals("checking", w.reachState)
+        assertTrue("looked for real", pi.calls.any { it.endsWith("carwifi.sh scan wlan0") })
+        minutes(1.0)
+        w.check()
+        assertEquals("off for only a minute", "checking", w.reachState)
+        minutes(1.0)
+        w.check()
+        assertEquals("not_seen", w.reachState)
+        assertEquals("last seen stays when the car left", seenAt, w.reach()["lastSeenMs"])
+        assertTrue(logText(), logText().contains("Reach: checking → not_seen"))
+
+        // Hours later, still away: a real scan at most every 5 minutes, still not seen.
+        val scansBefore = pi.calls.count { it.endsWith("carwifi.sh scan wlan0") }
+        repeat(10) { minutes(1.0); w.check() }
+        val scans = pi.calls.count { it.endsWith("carwifi.sh scan wlan0") } - scansBefore
+        assertTrue("scans: $scans", scans in 1..3)
+        assertEquals("not_seen", w.reachState)
+
+        // Home again: in sight → checking (joining) → in reach.
+        pi.carInSight = 70
+        pi.resumeJoins = true
+        minutes(1.0)
+        w.check()
+        assertEquals("in_reach", w.reachState)
+        assertTrue(pushes >= 4)
+        assertEquals(t, w.reach()["lastSeenMs"])
+    }
+
+    @Test
+    fun aBridgeStartedWithoutTheCarSaysNotSeenWithTheLastContact() {
+        val pi = Pi().apply { onCar = false; carInSight = null }
+        val w = CarWifiWatch(pi.wifi, log, now = { t }, lastContact = { 123L })
+        w.check()
+        assertEquals("checking", w.reachState)
+        assertEquals(123L, w.reach()["lastSeenMs"])
+        minutes(2.0)
+        w.check()
+        assertEquals("not_seen", w.reachState)
+    }
+
+    @Test
+    fun steppingAsideForAPhoneIsItsOwnState() {
+        val pi = Pi()
+        val w = watch(pi)
+        w.check()
+        pi.wifi.pause(10)
+        w.check()
+        assertEquals("stepped_aside", w.reachState)
+    }
 }

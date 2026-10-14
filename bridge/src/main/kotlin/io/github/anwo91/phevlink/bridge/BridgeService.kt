@@ -158,6 +158,15 @@ class BridgeService(
 
     fun addListener(l: (Map<String, Any?>) -> Unit) = listeners.add(l)
 
+    /** Whether the car can be reached (from the car Wi-Fi watch), for the phones; null when nothing watches. */
+    @Volatile var reach: () -> Map<String, Any?>? = { null }
+
+    /** Sends the current snapshot to every live stream now (e.g. the car's reach changed). */
+    fun pushNow() {
+        val snapshot = snapshot()
+        listeners.forEach { runCatching { it(snapshot) } }
+    }
+
     private val alertListeners = CopyOnWriteArrayList<(Alert) -> Unit>()
 
     /** Told about every reminder the bridge raises (left unlocked, door open, …), e.g. the smart-home link. */
@@ -170,6 +179,7 @@ class BridgeService(
     ): Map<String, Any?> = linkedMapOf(
         "link" to Codecs.linkStatusToMap(link),
         "car" to Codecs.carStateToMap(car),
+        "reach" to runCatching { reach() }.getOrNull(),
         // Vehicle settings with names/labels resolved, for the web page (it has no catalogue).
         "vehicleSettings" to Codecs.visibleSettingsToList(car.settings),
         "bridge" to linkedMapOf(
@@ -222,6 +232,6 @@ class BridgeService(
         val BUILD: String = BridgeService::class.java.`package`?.implementationVersion ?: "dev"
 
         /** What this bridge can do beyond the car link (the app checks before offering the setup wizard or updates). */
-        val FEATURES = listOf("pair", "carwifi", "config", "system", "update", "restart", "carwifi-pause", "pair-invite", "shared", "departures", "charge-timer", "activity", "carwifi-rejoin", "smarthome", "matter", "log-file")
+        val FEATURES = listOf("pair", "carwifi", "config", "system", "update", "restart", "carwifi-pause", "pair-invite", "shared", "departures", "charge-timer", "activity", "carwifi-rejoin", "smarthome", "matter", "log-file", "reach")
     }
 }

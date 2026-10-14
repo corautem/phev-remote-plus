@@ -96,8 +96,16 @@ fun main(args: Array<String>) {
         onActivity = { activity.add(it) },
     ).start(scope)
     // Keeps the bridge on the car's Wi-Fi: NetworkManager gives up after failed joins (e.g. while a phone held the car's Wi-Fi).
-    val watch = CarWifiWatch(carWifi, log, onActivity = { activity.add(it) }, onBack = { scope.launch { service.connectNow() } })
-    if (!config.emulator) watch.start(scope)
+    val watch = CarWifiWatch(
+        carWifi, log, onActivity = { activity.add(it) }, onBack = { scope.launch { service.connectNow() } },
+        lastContact = { service.connection.car.value.updatedAtMs },
+    )
+    if (!config.emulator) {
+        // The phones show whether the car can be reached at all (in reach / checking / not seen since …), pushed on change.
+        service.reach = { watch.reach() }
+        watch.onReachChange = { service.pushNow() }
+        watch.start(scope)
+    }
     // Home Assistant (and other smart homes) over MQTT: off until switched on from the app.
     val lanAddresses: () -> List<String> = {
         val carIface = runCatching { carWifi.status().iface }.getOrNull()

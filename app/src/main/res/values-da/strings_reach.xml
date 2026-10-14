@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The car not within reach: Home banner and chip, command failure reasons, skipped departures. -->
+<resources>
+    <string name="reach_not_seen_chip">Ikke inden for rækkevidde</string>
+    <string name="reach_not_seen_title">Bilen er ikke inden for rækkevidde</string>
+    <string name="reach_not_seen_line">Ikke set siden %1$s. Den kan være væk, eller bare uden for broens rækkevidde – den forbinder sig igen af sig selv.</string>
+    <string name="reach_not_seen_line_never">Broen kan ikke se bilens Wi-Fi. Den kan være væk, eller bare uden for rækkevidde – den forbinder sig igen af sig selv.</string>
+    <string name="reach_checking_chip">Tjekker bilen…</string>
+    <string name="reach_checking_line">Broen mistede bilens Wi-Fi for et øjeblik siden og leder efter den.</string>
+    <string name="reach_not_nearby_chip">Ikke i nærheden</string>
+    <string name="reach_not_nearby_title">Bilen er ikke i nærheden</string>
+    <string name="reach_not_nearby_line">Denne telefon kan ikke finde bilens Wi-Fi. Bilen kan være væk, eller dens Wi-Fi sover efter flere dage parkeret. Appen bliver ved med at lede, mens den er åben.</string>
+    <string name="reach_bridge_down_chip">Broen svarer ikke</string>
+    <string name="reach_bridge_down_title">Broen svarer ikke</string>
+    <string name="reach_bridge_down_line">Telefonen er på hjemmenetværket, men broen svarer ikke. Tjek at den har strøm.</string>
+    <string name="reach_home_unreachable_chip">Kan ikke nå hjem</string>
+    <string name="reach_home_unreachable_title">Kan ikke nå broen derhjemme</string>
+    <string name="reach_home_unreachable_line">Telefonen er ikke på hjemmenetværket. Væk hjemmefra kræver broen en VPN-forbindelse hjem – tjek at den er slået til.</string>
+    <string name="reach_try_again">Prøv igen</string>
+    <string name="reach_as_of">Pr. %1$s</string>
+    <string name="reach_was_charging">Ladede sidst set</string>
+    <string name="reach_fail_not_seen">Bilen er ikke inden for rækkevidde – den kan være væk, eller bare uden for broens rækkevidde</string>
+    <string name="reach_fail_not_nearby">Telefonen kunne ikke finde bilens Wi-Fi – bilen er ikke i nærheden, eller dens Wi-Fi sover</string>
+    <string name="reach_fail_in_time">Bilen svarede ikke i tide – den kan være uden for rækkevidde</string>
+    <string name="reach_dep_title">%1$s ikke startet – bilen er ikke inden for rækkevidde</string>
+    <string name="reach_dep_text">Afgangen %1$s: bilen har ikke været inden for rækkevidde siden %2$s. Den kan være væk, eller bare uden for rækkevidde.</string>
+    <string name="reach_dep_text_never">Afgangen %1$s: bilen er ikke inden for rækkevidde. Den kan være væk, eller bare uden for rækkevidde.</string>
+</resources>

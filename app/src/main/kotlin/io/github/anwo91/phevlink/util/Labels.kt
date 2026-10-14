@@ -77,10 +77,16 @@ object Labels {
             CarCommand.ClimateOn.QUICK_CHARGING -> res.getString(R.string.msg_climate_quick_charging)
             CarCommand.ClimateOn.NOT_STARTED -> res.getString(R.string.msg_climate_not_started)
             CarCommand.ChargeNow.NOT_PLUGGED -> res.getString(R.string.msg_charge_not_plugged)
-            Unreachable.OFF_CAR_WIFI -> res.getString(R.string.link_bridge_car_away)
+            Unreachable.OFF_CAR_WIFI -> res.getString(R.string.reach_fail_not_seen)
             Unreachable.STEPPED_ASIDE -> res.getString(R.string.link_bridge_stepped_aside)
-            // An older bridge doesn't know a newer command.
-            else -> if (reason.startsWith("Unknown action")) res.getString(R.string.msg_bridge_needs_update) else reason
+            Unreachable.NOT_NEARBY -> res.getString(R.string.reach_fail_not_nearby)
+            else -> when {
+                // "Could not reach the car in time (…)": the car never answered.
+                reason.startsWith(Unreachable.NOT_IN_TIME) -> res.getString(R.string.reach_fail_in_time)
+                // An older bridge doesn't know a newer command.
+                reason.startsWith("Unknown action") -> res.getString(R.string.msg_bridge_needs_update)
+                else -> reason
+            }
         }
     }
 

@@ -55,6 +55,15 @@ class FakeElm(
     /** ATCRA answers "?". */
     @Volatile var rejectReceiveFilter = false
 
+    /**
+     * CAN id of a module that sends frames on its own, like the PHEV's 7BC; null = a quiet bus. With headers on and
+     * no receive filter for another id, every OBD answer gets one of its frames before and one after the real
+     * replies: first byte counting 01..3F (so they look like single, first, consecutive and flow-control frames in
+     * turn), second byte 91, then zeros — what a clone without ATCRA prints.
+     */
+    @Volatile var chatterId: Int? = null
+    private var chatterCount = 0x16
+
     /** ATAT1 answers "?". */
     @Volatile var rejectAdaptiveTiming = false
 
@@ -90,6 +99,12 @@ class FakeElm(
      * again; otherwise pending and the real answer come in one block (genuine ELM behaviour).
      */
     @Volatile var pendingSeparatePrompt = false
+
+    /**
+     * false = the engine ECU (7E0/7E8) has gone to sleep while the rest of the car still answers — what happens for a
+     * moment when the real car is switched off.
+     */
+    @Volatile var engineAwake = true
 
     /** Adds a second OBD ECU at 7E1/7E9. */
     @Volatile var secondObdEcu = false
@@ -137,6 +152,12 @@ class FakeElm(
 
     /** The engine also answers KWP `18 02 FF 00` with its stored codes (otherwise it refuses with 7F 18 11). */
     @Volatile var engineAnswersKwp = false
+
+    /**
+     * The diagnostic session the OBC needs before it reports codes: 03 (UDS extended) by default; 92 = the KWP2000
+     * extended session, for a module that answers `10 03` with 7F 10 12 (as some real ones do).
+     */
+    @Volatile var obcSessionId = 0x03
 
     /** The motor controllers answer UDS `19 02 FF` (no codes) instead of refusing every fault-code read. */
     @Volatile var motorsAnswerUds = false
@@ -267,7 +288,7 @@ class FakeElm(
     private inner class Ecu(val txId: Int, val rxId: Int, val obd: Boolean, val active: () -> Boolean, val handle: (ByteArray) -> List<ByteArray>?)
 
     private val ecus = listOf(
-        Ecu(0x7E0, 0x7E8, true, { true }, ::engine),
+        Ecu(0x7E0, 0x7E8, true, { engineAwake }, ::engine),
         Ecu(0x7E1, 0x7E9, true, { secondObdEcu }, ::secondEcu),
         Ecu(0x7E2, 0x7EA, true, { hybridEcu }, ::hybrid),
         Ecu(0x761, 0x762, false, { true }, ::bmu),
@@ -460,6 +481,15 @@ class FakeElm(
         }
         if (protocol == '0') detected = '6'
         var frames = 0
+        val chatter = chatterId?.takeIf { headers && (cra == null || cra == it) }
+        fun chatterFrame() {
+            if (chatter == null) return
+            chatterCount = chatterCount % 0x3F + 1
+            val sep = if (spaces) " " else ""
+            lines += ObdHex.canId(chatter) + sep + ObdHex.format(byteArrayOf(chatterCount.toByte(), 0x91.toByte(), 0, 0, 0, 0, 0, 0), sep)
+            frames++
+        }
+        chatterFrame()
         for (ecu in ecus) {
             if (!ecu.active()) continue
             val addressed = if (header == 0x7DF) ecu.obd else ecu.txId == header
@@ -472,6 +502,7 @@ class FakeElm(
                 lines += printed
             }
         }
+        chatterFrame()
         if (frames == 0) lines += "NO DATA"
         return Resp(lines)
     }
@@ -711,7 +742,9 @@ class FakeElm(
         // Like the real car: KWP ReadDTCByStatus isn't supported here…
         req.u(0) == 0x18 -> neg(0x18, 0x12)
         // …DiagnosticSessionControl to the extended session opens the door…
-        req.u(0) == 0x10 && req.size >= 2 && req.u(1) == 0x03 -> { obcSession = true; listOf(b(0x50, 0x03, 0x00, 0x32, 0x01, 0xF4)) }
+        req.u(0) == 0x10 && req.size >= 2 && req.u(1) == obcSessionId -> { obcSession = true; listOf(b(0x50, obcSessionId, 0x00, 0x32, 0x01, 0xF4)) }
+        req.u(0) == 0x10 && req.size >= 2 && (req.u(1) == 0x01 || req.u(1) == 0x81) -> { obcSession = false; listOf(b(0x50, req.u(1))) }
+        req.u(0) == 0x10 -> neg(0x10, 0x12)
         // …and UDS ReadDTCInformation only answers once a session is open (otherwise NRC 0x80).
         req.u(0) == 0x19 && req.size >= 2 && req.u(1) == 0x02 ->
             if (obcSession) listOf(udsDtcReply(obcDtcs)) else neg(0x19, 0x80)

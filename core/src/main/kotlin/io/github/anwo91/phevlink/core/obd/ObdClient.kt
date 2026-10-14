@@ -174,7 +174,9 @@ class ObdClient(
      * One poll cycle: every item that is due (or everything with [force], which also skips the car-off probe pause);
      * also what the live loop runs. Requests or ECUs that fail twice in a row are skipped for the session
      * ([ObdState.unavailable], [resetUnavailable]) — but only when something else in the same cycle answered, so a
-     * car that was switched off doesn't get its ECUs blamed.
+     * car that was switched off doesn't get its ECUs blamed. A module that answered before and is silent for a whole
+     * cycle is treated as asleep (its requests aren't blamed), and when the car answers again after a silent stretch,
+     * requests paused for lack of an answer are tried again.
      * @return false when the client can't poll (not connected, link lost)
      */
     suspend fun pollOnce(force: Boolean = false): Boolean {
@@ -201,14 +203,25 @@ class ObdClient(
             val items = plan().filter { !health.isDisabled(it.key, it.ecuKey) && (force || isDue(it, now)) }
             val results = ArrayList<Pair<PollItem, Attempt>>()
             val silentThisCycle = HashSet<String>()
+            val answeredThisCycle = HashSet<String>()
+            val unansweredThisCycle = HashMap<String, Int>()
             for (item in items) {
                 currentCoroutineContext().ensureActive()
-                // An ECU that has never answered and just stayed silent: don't spend a timeout on each of its requests.
+                // Don't spend a timeout on each request of a module that is silent right now.
                 if (item.ecuKey in silentThisCycle) continue
                 val a = linkMutex.withLock { pollItemLocked(item) }
                 lastPolled[item.key] = clock()
                 results += item to a
-                if (a.outcome == Outcome.NO_ANSWER && !health.everAnswered(item.ecuKey)) silentThisCycle += item.ecuKey
+                if (a.outcome != Outcome.NO_ANSWER) {
+                    answeredThisCycle += item.ecuKey
+                } else if (!health.everAnswered(item.ecuKey)) {
+                    silentThisCycle += item.ecuKey // never answered
+                } else if (item.ecuKey !in answeredThisCycle) {
+                    // Answered before, nothing yet this cycle: after two misses it is asleep (car switching off?).
+                    val n = (unansweredThisCycle[item.ecuKey] ?: 0) + 1
+                    unansweredThisCycle[item.ecuKey] = n
+                    if (n >= 2) silentThisCycle += item.ecuKey
+                }
             }
             if (force || clock() - lastVoltageMs >= VOLTAGE_PERIOD_MS) {
                 lastVoltageMs = clock()
@@ -575,9 +588,11 @@ class ObdClient(
     private suspend fun probeCarLocked(): Boolean {
         val ok = quiet { elm.exchange(EcuTarget.OBD_BROADCAST, bytesOf(0x01, 0x00)) }?.positive?.isNotEmpty() == true
         if (ok) {
-            log.link("OBD: the car answers")
+            val retry = health.forgiveSilence()
+            log.link("OBD: the car answers" + if (retry > 0) " — trying $retry paused request(s) again" else "")
             silentCycles = 0
-            _state.update { it.copy(carReachable = true, message = "The car answers.") }
+            quietEcus.clear()
+            _state.update { it.copy(carReachable = true, message = "The car answers.", unavailable = health.snapshot()) }
             if (_state.value.supportedPids.isEmpty()) discoverLocked()
         } else {
             _state.update { it.copy(carReachable = false, message = it.message ?: Elm327.MSG_IGNITION) }
@@ -767,11 +782,30 @@ class ObdClient(
             return
         }
         silentCycles = 0
+        // A module that answered before but nothing at all this cycle is asleep or shutting down (the engine ECU stops
+        // a moment before the battery ECU when the car is switched off): that says nothing about single requests.
+        val answeringEcus = results.filter { it.second.outcome != Outcome.NO_ANSWER }.map { it.first.ecuKey }.toSet()
+        val asleep = results.filter { (item, a) ->
+            a.outcome == Outcome.NO_ANSWER && item.ecuKey !in answeringEcus && health.everAnswered(item.ecuKey)
+        }.map { it.first.ecuKey }.toSet()
+        for (ecuKey in asleep) {
+            if (quietEcus.add(ecuKey)) log.link("OBD: ${ecuNameOf(ecuKey)} went quiet while others still answer — not counted against its requests")
+        }
+        for (ecuKey in answeringEcus) {
+            if (quietEcus.remove(ecuKey)) log.link("OBD: ${ecuNameOf(ecuKey)} answers again")
+        }
         for ((item, a) in results) {
+            if (item.ecuKey in asleep) continue
             health.record(item.key, item.ecuKey, item.label, a)?.let { log.warn("OBD: $it") }
         }
         _state.update { it.copy(unavailable = health.snapshot()) }
     }
+
+    /** Modules that went quiet while others answered (for logging the change once). */
+    private val quietEcus: MutableSet<String> = java.util.concurrent.ConcurrentHashMap.newKeySet()
+
+    private fun ecuNameOf(ecuKey: String): String =
+        ecuKey.substringBefore(':').toIntOrNull(16)?.let { Ecus.nameForTx(it) } ?: ecuKey
 
     private fun finishCycle() {
         _state.update { it.copy(pollCycle = it.pollCycle + 1, lastPollMs = clock()) }
@@ -823,40 +857,16 @@ class ObdClient(
         if (includeExtended) {
             for (ecu in Ecus.all) {
                 if (health.isEcuSilent(ObdHex.canId(ecu.txId) + ":21")) continue
-                val target = ecu.target
-                // 1) KWP2000 ReadDTCByStatus — the format older Mitsubishi ECUs use.
-                val kwp = quiet { elm.exchange(target, bytesOf(0x18, 0x02, 0xFF, 0x00)) } ?: continue
-                if (kwp.positive.isNotEmpty()) {
-                    responders += ecu.name
-                    kwp.positive.forEach { dtcs += DtcCodec.parseKwp18(it, ecu.name) }
-                    continue
-                }
-                if (kwp.negative.isEmpty()) continue // nobody home on this id
-                // 2) UDS ReadDTCInformation — the EV ECUs (BMU/OBC/motors) use this.
-                var uds = quiet { elm.exchange(target, bytesOf(0x19, 0x02, 0xFF)) }
-                // 3) If it refused only because we're in the wrong diagnostic session, open an extended
-                //    session (10 03) and ask once more. Still read-only — this is part of reading codes.
-                if (uds != null && uds.positive.isEmpty() && needsSession(uds)) {
-                    log.link("OBD: ${ecu.name} won't report codes in the default session (${refusalReason(uds)}) — opening an extended session (10 03)")
-                    val session = quiet { elm.exchange(target, bytesOf(0x10, 0x03)) }
-                    when {
-                        session != null && session.positive.isNotEmpty() ->
-                            uds = quiet { elm.exchange(target, bytesOf(0x19, 0x02, 0xFF)) }
-                        session != null ->
-                            log.link("OBD: ${ecu.name} would not open a diagnostic session (${refusalReason(session) ?: "no answer"})")
+                when (val read = readModuleCodesLocked(ecu)) {
+                    is ModuleCodes.Read -> {
+                        responders += ecu.name
+                        dtcs += read.codes
                     }
-                }
-                if (uds != null && uds.positive.isNotEmpty()) {
-                    responders += ecu.name
-                    uds.positive.forEach { dtcs += DtcCodec.parseUds19(it, ecu.name) }
-                } else {
-                    val why = when {
-                        uds?.incomplete?.isNotEmpty() == true || kwp.incomplete.isNotEmpty() ->
-                            "adapter couldn't complete the reply (no flow control — needs an OBDLink-class adapter)"
-                        else -> refusalReason(uds) ?: refusalReason(kwp) ?: "no usable answer"
+                    is ModuleCodes.Refused -> {
+                        refused[ecu.name] = read.why
+                        log.link("OBD: ${ecu.name} fault-code read refused (${read.why})")
                     }
-                    refused[ecu.name] = why
-                    log.link("OBD: ${ecu.name} fault-code read refused ($why)")
+                    ModuleCodes.Absent -> Unit
                 }
             }
         }
@@ -877,6 +887,87 @@ class ObdClient(
         }
         log.link("OBD: DTC scan: $message ${unique.joinToString { "${it.code}/${it.kind}/${it.ecuName}" }}")
         return DtcScanResult(unique, responders.toList(), errors, includeExtended, clock(), message)
+    }
+
+    private sealed interface ModuleCodes {
+        class Read(val codes: List<DtcRecord>) : ModuleCodes
+        class Refused(val why: String) : ModuleCodes
+        object Absent : ModuleCodes
+    }
+
+    /**
+     * Asks one manufacturer module for its fault codes, read-only, in the formats Mitsubishi modules use:
+     * 1. KWP2000 ReadDTCByStatus `18 02 FF 00`, and `18 00 FF 00` when the module rejects that format;
+     * 2. UDS ReadDTCInformation `19 02 FF`;
+     * 3. when the module only reports codes in another diagnostic session: UDS extended (`10 03`) or, for modules
+     *    that don't know it, the KWP2000 extended session (`10 92`); then both reads again and back to the default
+     *    session (`10 01` / `10 81`). Programming sessions (`10 02`, `10 85`) and clearing are never sent.
+     * Every step is logged so a log shows which format a module speaks.
+     */
+    private suspend fun readModuleCodesLocked(ecu: KnownEcu): ModuleCodes {
+        val target = ecu.target
+        suspend fun ask(vararg req: Int): ElmResponse? = quiet { elm.exchange(target, bytesOf(*req)) }
+        fun codesOf(resp: ElmResponse?): List<DtcRecord>? {
+            val pos = resp?.positive?.takeIf { it.isNotEmpty() } ?: return null
+            return pos.flatMap { r -> if (r.sid == 0x59) DtcCodec.parseUds19(r, ecu.name) else DtcCodec.parseKwp18(r, ecu.name) }
+        }
+
+        val kwp = ask(0x18, 0x02, 0xFF, 0x00) ?: return ModuleCodes.Absent
+        codesOf(kwp)?.let { return ModuleCodes.Read(it) }
+        if (kwp.negative.isEmpty()) return ModuleCodes.Absent // nobody home on this id
+        var kwpAlt: ElmResponse? = null
+        if (kwp.negative.any { it.nrc == Nrc.SUB_FUNCTION_NOT_SUPPORTED || it.nrc == Nrc.REQUEST_OUT_OF_RANGE }) {
+            kwpAlt = ask(0x18, 0x00, 0xFF, 0x00)
+            log.link("OBD: ${ecu.name}: 18 02 FF 00 → ${answerText(kwp)}; trying 18 00 FF 00 → ${answerText(kwpAlt)}")
+            codesOf(kwpAlt)?.let { return ModuleCodes.Read(it) }
+        }
+        var uds = ask(0x19, 0x02, 0xFF)
+        codesOf(uds)?.let { return ModuleCodes.Read(it) }
+        var inSession: ElmResponse? = null
+        if (uds != null && needsSession(uds)) {
+            var opened: Int? = null
+            for (sub in SESSIONS_FOR_CODES) {
+                log.link("OBD: ${ecu.name} won't report codes in the default session (${refusalReason(uds)}) — asking for diagnostic session ${ObdHex.byte(sub)} (10 ${ObdHex.byte(sub)})")
+                val session = ask(0x10, sub)
+                if (session != null && session.positive.isNotEmpty()) {
+                    opened = sub
+                    break
+                }
+                log.link("OBD: ${ecu.name} would not open session ${ObdHex.byte(sub)} (${refusalReason(session) ?: "no answer"})")
+            }
+            if (opened != null) {
+                try {
+                    uds = ask(0x19, 0x02, 0xFF)
+                    codesOf(uds)?.let { return ModuleCodes.Read(it) }
+                    inSession = ask(0x18, 0x02, 0xFF, 0x00)
+                    codesOf(inSession)?.let { return ModuleCodes.Read(it) }
+                    if (kwpAlt != null) {
+                        inSession = ask(0x18, 0x00, 0xFF, 0x00)
+                        codesOf(inSession)?.let { return ModuleCodes.Read(it) }
+                    }
+                    log.link("OBD: ${ecu.name} in session ${ObdHex.byte(opened)}: 19 02 FF → ${answerText(uds)}, 18 → ${answerText(inSession)}")
+                } finally {
+                    val back = if (opened == 0x03) 0x01 else 0x81
+                    val r = ask(0x10, back)
+                    log.link("OBD: ${ecu.name} back to the default session (10 ${ObdHex.byte(back)}) → ${answerText(r)}")
+                }
+            }
+        }
+        val why = when {
+            uds?.incomplete?.isNotEmpty() == true || kwp.incomplete.isNotEmpty() || inSession?.incomplete?.isNotEmpty() == true ->
+                "adapter couldn't complete the reply (no flow control — needs an OBDLink-class adapter)"
+            else -> refusalReason(inSession) ?: refusalReason(uds) ?: refusalReason(kwpAlt) ?: refusalReason(kwp) ?: "no usable answer"
+        }
+        return ModuleCodes.Refused(why)
+    }
+
+    /** "answered", the refusal reason, or "no answer" — for logs. */
+    private fun answerText(resp: ElmResponse?): String = when {
+        resp == null -> "no answer"
+        resp.positive.isNotEmpty() -> "answered (" + ObdHex.format(resp.positive.first().data.copyOfRange(0, minOf(6, resp.positive.first().data.size))) + ")"
+        resp.negative.isNotEmpty() -> "refused: " + refusalReason(resp) + " (" + ObdHex.format(resp.negative.first().data) + ")"
+        resp.incomplete.isNotEmpty() -> "cut off after ${resp.incomplete.first().received} of ${resp.incomplete.first().expected} bytes"
+        else -> "no answer"
     }
 
     /** The ECU refused only because the service isn't allowed in the current diagnostic session. */
@@ -937,8 +1028,24 @@ class ObdClient(
         private val disabledReq = LinkedHashMap<String, String>()
         private val disabledEcu = LinkedHashMap<String, String>()
 
+        /** Requests paused because nothing (or only part of a reply) came back — worth another try later. */
+        private val pausedForSilence = HashSet<String>()
+
         @Synchronized fun reset() {
-            reqFails.clear(); ecuFails.clear(); answered.clear(); disabledReq.clear(); disabledEcu.clear()
+            reqFails.clear(); ecuFails.clear(); answered.clear(); disabledReq.clear(); disabledEcu.clear(); pausedForSilence.clear()
+        }
+
+        /**
+         * The car answers again after a silent stretch: what was paused for lack of an answer gets another chance
+         * (it may have been the car switching off). Refusals (negative replies) stay paused.
+         * @return how many requests/modules were re-enabled
+         */
+        @Synchronized fun forgiveSilence(): Int {
+            val keys = pausedForSilence.filter { it in disabledReq }
+            keys.forEach { disabledReq.remove(it); reqFails.remove(it) }
+            val n = keys.size + disabledEcu.size
+            disabledEcu.clear(); ecuFails.clear(); pausedForSilence.clear()
+            return n
         }
 
         @Synchronized fun isDisabled(key: String, ecuKey: String) = key in disabledReq || ecuKey in disabledEcu
@@ -948,7 +1055,7 @@ class ObdClient(
         @Synchronized fun everAnswered(ecuKey: String) = ecuKey in answered
 
         @Synchronized fun enable(key: String, ecuKey: String) {
-            disabledReq.remove(key); disabledEcu.remove(ecuKey); reqFails.remove(key); ecuFails.remove(ecuKey)
+            disabledReq.remove(key); disabledEcu.remove(ecuKey); reqFails.remove(key); ecuFails.remove(ecuKey); pausedForSilence.remove(key)
         }
 
         /** Returns a log line when something got disabled. */
@@ -975,6 +1082,7 @@ class ObdClient(
             reqFails[key] = n
             if (n >= 2 && key !in disabledReq) {
                 disabledReq[key] = "$label: ${a.detail} twice in a row; skipped for this session"
+                if (a.outcome != Outcome.NEGATIVE) pausedForSilence += key
                 return "disabled ${disabledReq[key]}"
             }
             return null
@@ -987,6 +1095,9 @@ class ObdClient(
     }
 
     companion object {
+        /** Diagnostic sessions asked for when a module only reports codes outside the default one: UDS extended, KWP2000 extended. */
+        private val SESSIONS_FOR_CODES = listOf(0x03, 0x92)
+
         const val ID_ADAPTER_VOLTAGE = "adapter.voltage"
         const val GROUP_ADAPTER = "Adapter"
 

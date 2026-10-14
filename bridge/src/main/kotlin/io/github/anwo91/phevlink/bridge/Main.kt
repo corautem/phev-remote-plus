@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileDescriptor
 import java.io.FileOutputStream
-import java.io.OutputStreamWriter
 import java.io.PrintStream
 import java.time.ZoneId
 import kotlin.system.exitProcess
@@ -45,17 +44,17 @@ fun main(args: Array<String>) {
     }
 
     val log = DiagLog(capacity = 5000)
-    val logWriter = config.logFile.takeIf { it.isNotBlank() }?.let {
-        runCatching {
-            File(it).absoluteFile.parentFile?.mkdirs()
-            OutputStreamWriter(FileOutputStream(it, true), Charsets.UTF_8)
-        }.getOrNull()
-    }
+    val logFile = config.logFile.takeIf { it.isNotBlank() }?.let(::File)
+    val logWriter = logFile?.let { LogFileWriter(it) }
     log.addListener { e: LogEntry ->
-        val line = e.format(ZoneId.systemDefault())
-        println(line)
-        logWriter?.apply { write(line); write("\n"); flush() }
+        println(e.format(ZoneId.systemDefault()))
+        logWriter?.write(e)
     }
+    // How the last run ended (power cut, killed, normal) and how memory is doing — before anything else is logged.
+    val runGuard = RunGuard(File(config.stateFile).absoluteFile.parentFile, log)
+    runGuard.checkLastRun(logFile)
+    runGuard.markRunning()
+    Thread.setDefaultUncaughtExceptionHandler { t, e -> log.error("Crash in ${t.name}: $e") }
 
     val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     var carPort = config.carPort
@@ -124,6 +123,7 @@ fun main(args: Array<String>) {
         program = { MatterLink.defaultProgram(File(config.wifiHelper).absoluteFile.parentFile) },
     )
     matter.start() // the program stops by itself when the bridge exits (its stdin closes)
+    runGuard.watchMemory(scope, extra = { matter.memoryNote() })
     val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, shared, activity, watch, smartHome, matter, restart)
     activity.add(io.github.anwo91.phevlink.core.activity.Activity(System.currentTimeMillis(), "bridge", "bridge.started", mapOf("build" to BridgeService.BUILD)))
     val port = api.start()
@@ -141,6 +141,8 @@ fun main(args: Array<String>) {
 
     Runtime.getRuntime().addShutdownHook(Thread {
         runCatching { api.stop() }
+        log.link("Stopping")
+        runGuard.markStopped()
         logWriter?.close()
     })
     Thread.currentThread().join()

@@ -64,7 +64,28 @@ private data class MtInfo(
     val climate: Boolean,
     val headlights: Boolean,
     val parking: Boolean,
+    val programMb: Long?,
+    val restarts: Int,
+    val lastExit: String?,
 ) {
+    /** For the log: "waiting to be added (program 84 MB)", "added to Google Home", "error no-ipv6: …". */
+    fun describe(): String = buildString {
+        append(
+            when (phase) {
+                "waiting" -> "waiting to be added"
+                "paired" -> "added to ${fabrics.joinToString().ifEmpty { "a controller" }}"
+                "error" -> "error${errorCode?.let { " $it" } ?: ""}: ${error ?: "?"}"
+                else -> phase
+            },
+        )
+        val extra = listOfNotNull(
+            programMb?.let { "program $it MB" },
+            restarts.takeIf { it > 0 }?.let { "$it restart(s)" },
+            lastExit?.let { "last exit $it" },
+        )
+        if (extra.isNotEmpty()) append(" (").append(extra.joinToString()).append(")")
+    }
+
     companion object {
         fun from(m: Map<String, Any?>): MtInfo {
             val d = m["devices"] as? Map<*, *>
@@ -79,6 +100,9 @@ private data class MtInfo(
                 climate = d?.get("climate") != false,
                 headlights = d?.get("headlights") == true,
                 parking = d?.get("parking") == true,
+                programMb = (m["programMb"] as? Number)?.toLong(),
+                restarts = (m["restarts"] as? Number)?.toInt() ?: 0,
+                lastExit = m["lastExit"]?.toString(),
             )
         }
     }
@@ -104,9 +128,27 @@ fun MatterCard(vm: MainViewModel, url: String, token: String, supported: Boolean
     var message by remember { mutableStateOf<Pair<String, Boolean>?>(null) }
     var confirmRemove by remember { mutableStateOf(false) }
 
+    var lastSeen by remember { mutableStateOf<String?>(null) }
+
     suspend fun reload() {
         val r = BridgeSetupApi.matter(url, token)
-        if (r?.code == 200) { info = MtInfo.from(r.body); loadFailed = false } else loadFailed = true
+        if (r?.code == 200) {
+            val n = MtInfo.from(r.body)
+            info = n
+            loadFailed = false
+            // Every change of what the bridge reports goes into the log (what the card showed, and when).
+            val seen = listOf(n.phase, n.errorCode, n.error, n.fabrics.joinToString(), n.restarts, n.lastExit).joinToString("|")
+            if (seen != lastSeen) {
+                lastSeen = seen
+                vm.log.link("Matter: bridge says ${n.describe()}")
+            }
+        } else {
+            loadFailed = true
+            if (lastSeen != "failed") {
+                lastSeen = "failed"
+                vm.log.link("Matter: the bridge didn't answer (${r?.code?.let { "HTTP $it" } ?: BridgeSetupApi.lastFailure ?: "no answer"})")
+            }
+        }
     }
 
     fun save(changes: Map<String, Any?>, what: String, done: Int? = null) {
@@ -119,7 +161,7 @@ fun MatterCard(vm: MainViewModel, url: String, token: String, supported: Boolean
             if (r?.code == 200) {
                 info = MtInfo.from(r.body)
                 done?.let { message = ctx.getString(it) to true }
-                vm.log.link("Matter: now ${info?.phase}" + (info?.error?.let { " — $it" } ?: ""))
+                vm.log.link("Matter: now ${info?.describe()}")
             } else {
                 message = ctx.getString(R.string.sh_err_bridge) to false
                 vm.log.link("Matter: $what failed (${r?.code ?: "no answer"})")

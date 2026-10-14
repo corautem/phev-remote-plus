@@ -175,7 +175,10 @@ the car, restart it, restart the computer and **update it from the app**: the br
 GitHub, checks its SHA-256 and reinstalls itself (bridges installed before 1.0.38 need the install command above once
 more; after that, updates happen in the app).
 
-Every step is logged in the app's Log tab and in the bridge log (`journalctl -u phev-bridge -f`).
+Every step is logged in the app's Log tab and in the bridge log (`journalctl -u phev-bridge -f`). The bridge also keeps
+its log in `/var/log/phev-bridge/bridge.log` (at most 4 MB, the previous file as `bridge.log.1`), and every start says
+how the last run ended — normally, the computer restarted (power cut), or the program was stopped abruptly (with the
+number of programs the system stopped for lack of memory) — plus how much memory is free; it warns when memory runs low.
 
 **Shared by all phones:** the bridge keeps the departures, the car's name, full range, the quick-climate defaults and
 the weather place, so every phone paired with it sees the same (changed on one phone → the others take it over; a

@@ -126,6 +126,35 @@ class Elm327Test {
         assertEquals("41 0D 32", ObdHex.format(e.request(EcuTarget.obd(0x7E8), byteArrayOf(0x01, 0x0D)).single().data))
     }
 
+    /** The PHEV's 7BC sends frames on its own; a clone without ATCRA prints them in the middle of every answer. */
+    @Test
+    fun chatteringModuleIsIgnoredWithoutReceiveFilter() = run {
+        val fake = FakeElm().apply { rejectReceiveFilter = true; chatterId = 0x7BC }
+        val e = elm(fake)
+        assertTrue(e.initialize().carReachable)
+        val abs = EcuTarget.physical(0x784, 0x785) // not in the emulator: never answers
+        repeat(40) { i -> // the counter runs through every frame type (single, first, consecutive, flow control)
+            val bmu = e.request(PhevSignals.BMU, bmu2101).single()
+            assertEquals("round $i", 0x762, bmu.rxId)
+            assertEquals("round $i", 55, bmu.data.size)
+            val none = e.exchange(abs, bmu2101)
+            assertTrue("round $i: ${none.incomplete}", none.incomplete.isEmpty())
+            assertTrue("round $i: ${none.status}", none.status.none { it.startsWith("SEQUENCE ERROR") })
+            try {
+                none.positiveOrThrow()
+                fail("round $i: ABS doesn't exist here")
+            } catch (x: ObdException.NoData) {
+                // what a silent module looks like, not "reply stopped after 6 of 1792 bytes"
+            }
+            val obd = e.request(EcuTarget.OBD_BROADCAST, byteArrayOf(0x01, 0x0D))
+            assertEquals("round $i", listOf(0x7E8), obd.map { it.rxId })
+        }
+        val text = log.dump()
+        assertFalse(text, text.contains("did not send flow control"))
+        assertFalse(text, text.contains("discarding stale reply"))
+        assertEquals(text, 1, Regex("ignoring frames from 7BC").findAll(text).count())
+    }
+
     @Test
     fun stnChipIsNotAClone() = run {
         val fake = FakeElm(version = "ELM327 v1.4b").apply { stnChip = true }

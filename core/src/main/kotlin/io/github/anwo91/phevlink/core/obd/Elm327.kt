@@ -489,8 +489,11 @@ class Elm327(
             var lines = r.lines
             var parsed = ElmResponseParser.parse(lines, headersOn, target.rxId ?: EcuReply.UNKNOWN_RX)
             var relevant = parsed.messages.filter { matches(it, payload, sid, target) }
+            // Replies from the asked module(s) that answer something else = a late answer to an earlier command.
+            // Frames other modules send on their own (no receive filter on many clones) don't count.
             val staleOnly = relevant.isEmpty() &&
-                ((parsed.messages.isNotEmpty() && parsed.status.isEmpty()) || (lines.isNotEmpty() && lines.all { isOk(it) }))
+                ((parsed.messages.any { fromTarget(it.rxId, target) && it.sid >= 0x40 } && ownStatus(parsed, target).isEmpty()) ||
+                    (lines.isNotEmpty() && lines.all { isOk(it) }))
             if (staleOnly) {
                 // Only replies to something else (data for another request, or a bare "OK" of an AT command):
                 // a late answer to an earlier, interrupted command. Ours follows.
@@ -528,10 +531,52 @@ class Elm327(
                 delay(config.pendingDelayMs)
                 continue
             }
-            if (parsed.incomplete.isNotEmpty() && target.flowControl) {
-                log.warn("ELM: only ${parsed.incomplete.first().received} of ${parsed.incomplete.first().expected} bytes from ${target.label} — the adapter did not send flow control")
+            val status = ownStatus(parsed, target)
+            val positiveSid = (sid + 0x40) and 0xFF
+            val incomplete = parsed.incomplete.filter { p ->
+                fromTarget(p.rxId, target) && (p.sid < 0 || p.sid == positiveSid || p.sid == 0x7F)
             }
-            return ElmResponse(cmd, target, finals, parsed.incomplete, parsed.status, lines, finals.isEmpty() && pending.isNotEmpty())
+            noteChatter(parsed, relevant, incomplete, target)
+            if (incomplete.isNotEmpty() && target.flowControl) {
+                log.warn("ELM: only ${incomplete.first().received} of ${incomplete.first().expected} bytes from ${target.label} — the adapter did not send flow control")
+            }
+            return ElmResponse(cmd, target, finals, incomplete, status, lines, finals.isEmpty() && pending.isNotEmpty())
+        }
+    }
+
+    /** Could a frame from [rxId] be an answer to a request sent to [target]? */
+    private fun fromTarget(rxId: Int, target: EcuTarget): Boolean = when {
+        rxId == EcuReply.UNKNOWN_RX -> true
+        target.broadcast -> rxId in OBD_REPLY_IDS // ISO 15765-4: answers to 7DF come from 7E8..7EF
+        target.rxId == null -> true
+        else -> rxId == target.rxId
+    }
+
+    /** Status lines without "sequence errors" of other modules (a chattering module's counter produces them). */
+    private fun ownStatus(parsed: ElmResponseParser.Parsed, target: EcuTarget): List<String> = parsed.status.filter { st ->
+        !st.startsWith(SEQUENCE_ERROR) ||
+            fromTarget(st.removePrefix(SEQUENCE_ERROR).trim().toIntOrNull(16) ?: EcuReply.UNKNOWN_RX, target)
+    }
+
+    /** CAN ids already reported as sending frames nobody asked for (logged once each). */
+    private val chatterIds = HashSet<Int>()
+
+    /**
+     * Without a working receive filter the adapter prints every frame on the bus while it waits, e.g. the PHEV's
+     * 7BC, whose counting first byte looks like the start of a long multi-frame message. Those frames are ignored;
+     * this says once per module that it happened, so a log reader isn't misled.
+     */
+    private fun noteChatter(parsed: ElmResponseParser.Parsed, relevant: List<EcuReply>, own: List<ElmResponseParser.Partial>, target: EcuTarget) {
+        val ids = LinkedHashSet<Int>()
+        parsed.messages.forEach { m -> if (relevant.none { it === m } && !fromTarget(m.rxId, target)) ids += m.rxId }
+        parsed.incomplete.forEach { p -> if (p.rxId != EcuReply.UNKNOWN_RX && own.none { it === p }) ids += p.rxId }
+        for (id in ids) {
+            if (target.rxId == id || !chatterIds.add(id)) continue
+            log.add(
+                LogKind.LINK,
+                "ELM: ignoring frames from ${ObdHex.canId(id)} while asking ${target.label} — that module sends on its own and " +
+                    if (supportsReceiveFilter) "the receive filter let them through" else "this adapter can't filter them out",
+            )
         }
     }
 
@@ -837,6 +882,8 @@ class Elm327(
                 "and that the right Bluetooth device is selected."
 
         private const val RECEIVE_GRACE_MS = 500L
+        private const val SEQUENCE_ERROR = "SEQUENCE ERROR"
+        private val OBD_REPLY_IDS = 0x7E8..0x7EF
         private const val MAX_RESPONSE_CHARS = 64 * 1024
         private val VERSION_RE = Regex("V\\d\\.\\d")
         private val VOLT_RE = Regex("^\\d{1,2}([.,]\\d+)?\\s*V?$")

@@ -202,6 +202,49 @@ class ObdClientTest {
         assertFalse(c.state.value.unavailable.containsKey("761:2101"))
     }
 
+    /** Real car, switched off: the engine ECU stops answering a few seconds before the battery ECU does. */
+    @Test
+    fun moduleFallingAsleepIsNotBlamedOnItsRequests() = run {
+        val fake = FakeElm()
+        val c = client(fake)
+        c.connect()
+        c.pollOnce(force = true)
+        val before = c.state.value.unavailable.keys
+        fake.engineAwake = false
+        fake.clearCommandLog()
+        repeat(3) { c.pollOnce(force = true) }
+        assertTrue("the battery ECU still answers", c.state.value.carReachable)
+        assertEquals(before, c.state.value.unavailable.keys)
+        // a sleeping module costs two timeouts per cycle, not one per request
+        assertTrue(fake.commands.toString(), fake.commands.count { it.startsWith("01") } <= 3 * 2)
+        assertTrue(log.dump(), log.dump().contains("Engine (ECM) went quiet"))
+        fake.engineAwake = true
+        c.pollOnce(force = true)
+        assertTrue(log.dump(), log.dump().contains("answers again"))
+        assertEquals(1726.0, c.state.value.values["obd.0C"]!!.value!!, 1e-9)
+    }
+
+    @Test
+    fun pausedForSilenceIsTriedAgainWhenTheCarAnswers() = run {
+        val fake = FakeElm()
+        val c = client(fake)
+        c.connect()
+        c.pollOnce(force = true)
+        c.pollOnce(force = true)
+        assertTrue("6A0:21" in c.state.value.unavailable.keys) // cluster never answers
+        assertTrue("7E0:2101" in c.state.value.unavailable.keys) // engine refuses 21 01
+        fake.ignitionOff = true
+        c.pollOnce(force = true)
+        assertFalse(c.state.value.carReachable)
+        fake.ignitionOff = false
+        fake.clearCommandLog()
+        c.pollOnce(force = true)
+        assertTrue(c.state.value.carReachable)
+        assertTrue(log.dump(), log.dump().contains("the car answers — trying"))
+        assertTrue(fake.commands.toString(), "ATSH6A0" in fake.commands) // asked again
+        assertTrue("a refusal stays paused", "7E0:2101" in c.state.value.unavailable.keys)
+    }
+
     @Test
     fun linkDropEndsInErrorWithoutEscapingExceptions() = run {
         val fake = FakeElm()
@@ -288,6 +331,24 @@ class ObdClientTest {
         assertTrue(fake.commands.toString(), "1003" in fake.commands) // opened a diagnostic session
         // still read-only: no clear, routine, write-data or IO-control services
         assertTrue(fake.commands.none { it == "04" || it.startsWith("14") || it.startsWith("31") || it.startsWith("2E") || it.startsWith("3B") })
+    }
+
+    /** Seen on a real car: 18 02 FF 00 → 7F 18 12, 19 02 FF → 7F 19 80, 10 03 → 7F 10 12. */
+    @Test
+    fun extendedScanTriesTheKwpSessionAndGoesBackToDefault() = run {
+        val fake = FakeElm().apply { obcSessionId = 0x92 }
+        val c = client(fake)
+        c.connect()
+        val r = c.scanDtcs(includeExtended = true)
+        val obc = r.dtcs.single { it.code == "P0A80" }
+        assertEquals(0x766, obc.ecuRxId)
+        val cmds = fake.commands
+        assertTrue(cmds.toString(), "18 00 FF 00".replace(" ", "") in cmds) // the other KWP format was tried
+        assertTrue(cmds.toString(), cmds.indexOf("1003") < cmds.indexOf("1092")) // UDS first, then KWP
+        assertTrue(cmds.toString(), "1081" in cmds) // and back to the default session
+        // never a programming session, never clearing
+        assertTrue(cmds.none { it == "1002" || it == "1085" || it == "04" || it.startsWith("14") || it.startsWith("31") || it.startsWith("2E") || it.startsWith("3B") })
+        assertTrue(log.dump(), log.dump().contains("would not open session 03"))
     }
 
     @Test

@@ -133,7 +133,7 @@ class BridgeAdminController(
                 _state.update { it.copy(url = u, restarting = true) }
                 return
             }
-            if (_state.value.reachable != false) log.warn("Bridge page: $u doesn't answer")
+            if (_state.value.reachable != false) log.warn("Bridge page: $u doesn't answer (${BridgeSetupApi.lastFailure ?: "not a bridge"})")
             _state.update { it.copy(url = u, reachable = false, restarting = false) }
             return
         }
@@ -152,7 +152,19 @@ class BridgeAdminController(
         BridgeSetupApi.log(u, token, LOG_LINES)?.let { text -> _state.update { it.copy(log = text.lines().filter { l -> l.isNotBlank() }) } }
         if (full && "system" in hello.features) {
             BridgeSetupApi.system(u, token)?.takeIf { it.code == 200 }?.let { r ->
-                _state.update { it.copy(system = r.body, startedAtMs = (r.body["startedAtMs"] as? Number)?.toLong()) }
+                val started = (r.body["startedAtMs"] as? Number)?.toLong()
+                val before = _state.value.startedAtMs
+                if (before != null && started != null && started != before) {
+                    // The bridge restarted since the page last looked: say whether the whole computer did (power cut?).
+                    val upS = (r.body["uptimeS"] as? Number)?.toLong()
+                    val nowMs = (r.body["nowMs"] as? Number)?.toLong() ?: System.currentTimeMillis()
+                    val computer = upS != null && nowMs - upS * 1000 > before
+                    log.link(
+                        "Bridge page: the bridge started again at ${java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.ROOT).format(java.util.Date(started))}" +
+                            if (computer) " — the computer itself restarted (up ${upS!! / 60} min)" else " — only the bridge program restarted",
+                    )
+                }
+                _state.update { it.copy(system = r.body, startedAtMs = started) }
             }
         }
         if (updates && "update" in hello.features && updateJob?.isActive != true) fetchUpdate(check = false)

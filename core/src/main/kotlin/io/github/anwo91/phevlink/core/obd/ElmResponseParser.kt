@@ -72,8 +72,14 @@ object ElmText {
  */
 object ElmResponseParser {
 
-    /** A multi-frame message that did not complete. */
-    data class Partial(val rxId: Int, val received: Int, val expected: Int)
+    /**
+     * A multi-frame message that did not complete.
+     *
+     * @param sid its first data byte (the response service id of a real reply), -1 when nothing arrived; lets the
+     *   driver tell a cut-off answer from a module that merely chatters on the bus (the PHEV's 7BC sends frames
+     *   whose first byte counts 01..3F, which look like ISO-TP first frames of hundreds of bytes)
+     */
+    data class Partial(val rxId: Int, val received: Int, val expected: Int, val sid: Int = -1)
 
     /**
      * @param messages complete replies in completion order (an ECU can appear more than once,
@@ -111,7 +117,10 @@ object ElmResponseParser {
             if (from < b.size) buf.write(b, from, b.size - from)
         }
         fun reply() = EcuReply(rxId, buf.toByteArray().copyOf(total))
-        fun partial() = Partial(rxId, minOf(buf.size(), total), total)
+        fun partial(): Partial {
+            val bytes = buf.toByteArray()
+            return Partial(rxId, minOf(bytes.size, total), total, if (bytes.isEmpty()) -1 else bytes.u8(0))
+        }
     }
 
     /**

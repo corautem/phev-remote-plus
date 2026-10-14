@@ -51,7 +51,7 @@ class ElmParserTest {
     fun onlyFirstFrameIsIncomplete() {
         val p = ElmResponseParser.parse(forumLines.take(1))
         assertTrue(p.messages.isEmpty())
-        assertEquals(ElmResponseParser.Partial(0x762, 6, 0x37), p.incomplete.single())
+        assertEquals(ElmResponseParser.Partial(0x762, 6, 0x37, 0x61), p.incomplete.single())
     }
 
     @Test

@@ -261,9 +261,26 @@ object BridgeSetupApi {
         val code = c.responseCode
         val text = (if (code < 400) c.inputStream else c.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
         c.disconnect()
+        lastFailure = null
         Reply(code, runCatching { Json.parseObject(text) }.getOrDefault(emptyMap()))
     } catch (e: Exception) {
+        lastFailure = describeFailure(e)
         null
+    }
+
+    /**
+     * Why the last request got no answer at all, for logs: "timed out" (the bridge is busy or hung), "refused" (the
+     * computer is there but the bridge program isn't running, e.g. restarting), "no route" (not on its network) …
+     */
+    @Volatile var lastFailure: String? = null
+        private set
+
+    private fun describeFailure(e: Exception): String = when (e) {
+        is java.net.SocketTimeoutException -> "timed out"
+        is java.net.ConnectException -> if (e.message?.contains("refused", ignoreCase = true) == true) "connection refused — the bridge program isn't running" else "can't connect: ${e.message}"
+        is java.net.NoRouteToHostException -> "no route to the bridge — not on its network?"
+        is java.net.UnknownHostException -> "unknown address"
+        else -> "${e.javaClass.simpleName}: ${e.message}"
     }
 }
 

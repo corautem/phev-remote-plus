@@ -6,7 +6,7 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=phev
-ExecStart=/usr/bin/java -Xmx64m -Dstdout.encoding=UTF-8 -jar /opt/phev-bridge/phev-bridge.jar /etc/phev-bridge.properties
+ExecStart=/usr/bin/java -Xmx96m -XX:+ExitOnOutOfMemoryError -Dstdout.encoding=UTF-8 -jar /opt/phev-bridge/phev-bridge.jar /etc/phev-bridge.properties
 Restart=always
 RestartSec=5
 StateDirectory=phev-bridge

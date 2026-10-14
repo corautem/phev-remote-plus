@@ -93,7 +93,11 @@ class MatterLink(
     @Volatile private var generation = 0
     @Volatile private var lastState: String? = null
     @Volatile private var dirty = true
-    private var restarts = 0
+    @Volatile private var restarts = 0
+    /** The Matter program's memory as last seen (sampled every 30 s), for the line when it stops. */
+    @Volatile private var lastRssMb: Long? = null
+    @Volatile private var lastExit: String? = null
+    @Volatile private var startedAt = 0L
     private val writeLock = Any()
     /** node + script, looked up when starting (running `node --version` on every status request would be slow on a Pi). */
     @Volatile private var programCache: List<String>? = null
@@ -111,6 +115,7 @@ class MatterLink(
                 delay(1_000)
                 tick++
                 if (proc != null && (dirty || tick % 30 == 0)) pushState(force = false)
+                if (tick % 30 == 0) programMb()?.let { lastRssMb = it }
             }
         }
         if (settings.enabled) launchProgram("starting") else log.link("Matter: off")
@@ -132,8 +137,17 @@ class MatterLink(
             "commissioned" to commissioned,
             "fabrics" to fabrics,
             "devices" to linkedMapOf("climate" to s.climate, "headlights" to s.headlights, "parking" to s.parking),
+            "programMb" to programMb(),
+            "restarts" to restarts,
+            "lastExit" to lastExit,
         )
     }
+
+    /** Resident memory of the running Matter program in MB, or null. */
+    fun programMb(): Long? = proc?.takeIf { it.isAlive }?.let { RunGuard.rssMb(File("/"), it.pid().toString()) }
+
+    /** "Matter program 84 MB" for the bridge's memory lines, or null when it isn't running. */
+    fun memoryNote(): String? = programMb()?.let { "Matter program $it MB" }
 
     /** Applies [changes] from the app (enabled; devices: climate/headlights/parking; language) and (re)starts. */
     @Synchronized
@@ -218,6 +232,7 @@ class MatterLink(
             return
         }
         proc = p
+        startedAt = System.currentTimeMillis()
         input = BufferedWriter(OutputStreamWriter(p.outputStream, Charsets.UTF_8))
         lastState = null
         Thread({ readOut(p, gen) }, "matter-out").apply { isDaemon = true; start() }
@@ -240,13 +255,19 @@ class MatterLink(
 
     private fun watch(p: Process, gen: Int) {
         val code = p.waitFor()
+        val rssBefore = lastRssMb
+        lastRssMb = null
         if (gen != generation) return
         proc = null
         if (!settings.enabled) return
         restarts++
+        lastExit = "$code" + (exitMeaning(code)?.let { " ($it)" } ?: "")
         val waitS = if (errorCode == "no-ipv6") 600L else longArrayOf(5, 30, 120, 300)[(restarts - 1).coerceIn(0, 3)]
-        if (phase != "error") setPhase("error", "the Matter program stopped (exit $code)")
-        log.warn("Matter: the program stopped (exit $code) — starting it again in $waitS s")
+        if (phase != "error") setPhase("error", "the Matter program stopped (exit $lastExit)")
+        log.warn(
+            "Matter: the program stopped (exit $lastExit) after ${(System.currentTimeMillis() - startedAt) / 1000} s" +
+                (rssBefore?.let { " (last seen using $it MB)" } ?: "") + " — starting it again in $waitS s (restart $restarts)",
+        )
         scope.launch {
             delay(waitS * 1000)
             synchronized(this@MatterLink) { if (gen == generation && proc == null && settings.enabled) launchProgram("restart after exit $code") }
@@ -284,10 +305,21 @@ class MatterLink(
                 manual = m["manual"]?.toString()
                 qrRows = (m["qrRows"] as? List<*>).orEmpty().map { it.toString() }.filter { r -> r.all { it == '0' || it == '1' } }
                 updateFabrics(m)
-                restarts = 0
                 setPhase(if (commissioned) "paired" else "waiting")
-                log.link("Matter: running — " + if (commissioned) "paired with ${fabricNames()}" else "waiting to be added (code ${manual?.let { formatManual(it) }})")
+                log.link(
+                    "Matter: running after ${(System.currentTimeMillis() - startedAt) / 1000} s — " +
+                        (if (commissioned) "paired with ${fabricNames()}" else "waiting to be added (code ${manual?.let { formatManual(it) }})") +
+                        (programMb()?.let { ", using $it MB" } ?: ""),
+                )
                 pushState(force = true)
+                // How much it settles at (on a 1 GB Raspberry Pi memory can get tight); a stable run resets the backoff.
+                val gen = generation
+                scope.launch {
+                    delay(120_000)
+                    if (gen != generation || proc == null) return@launch
+                    restarts = 0
+                    log.link("Matter: still running after 2 min, using ${programMb() ?: "?"} MB")
+                }
             }
             "fabrics" -> {
                 val was = fabricNames()
@@ -423,6 +455,18 @@ class MatterLink(
         }
 
         /** "34970112332" → "3497-011-2332" (as Google Home shows it). */
+        /** What a Node.js exit code usually means. */
+        fun exitMeaning(code: Int): String? = when (code) {
+            0 -> "ended by itself"
+            1 -> "error — see the Matter lines above"
+            2 -> "couldn't start"
+            134 -> "aborted — often out of memory"
+            137 -> "killed — usually the system running out of memory"
+            139 -> "crashed"
+            143 -> "stopped from outside"
+            else -> null
+        }
+
         fun formatManual(code: String): String = if (code.length == 11) "${code.take(4)}-${code.substring(4, 7)}-${code.drop(7)}" else code
 
         /** Who switched something, from the controller's vendor id (or the label it gave itself). */

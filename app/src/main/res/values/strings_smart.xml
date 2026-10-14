@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Smart charging (the bridge moves tonight's charging to the cheapest hours). -->
+<resources>
+    <string name="smart_title">Smart charging</string>
+    <string name="set_sum_smart">Charge in the cheapest hours before you leave</string>
+    <string name="smart_explain">When the car is plugged in at home, the bridge moves tonight\'s charging to the cheapest hours before you need the car, using the car\'s own charge timer (2014–2017 cars). The car always charges until full, and your own timer is put back afterwards. New: keep an eye on the first nights.</string>
+    <string name="smart_ready">Ready by</string>
+    <string name="smart_departures">Or by my next departure, if earlier</string>
+    <string name="smart_old_bridge">Update the bridge to use smart charging (Settings → Bridge).</string>
+    <string name="smart_status_planned">Tonight: %1$s–%2$s</string>
+    <string name="smart_status_saving">saves ≈ %1$s</string>
+    <string name="smart_status_waiting">Waiting for the car to be plugged in at home</string>
+    <string name="smart_status_waiting_prices">Waiting for tomorrow\'s prices (out around 13:00)</string>
+    <string name="smart_status_full">Nothing to do — the battery is nearly full</string>
+    <string name="smart_status_no_time">Not enough time before the car is needed — charging as usual</string>
+    <string name="smart_status_no_saving">Charging right away is about as cheap tonight — charging as usual</string>
+    <string name="smart_status_charge_now">\"Charge now\" was pressed — charging as usual</string>
+    <string name="smart_status_my18">Only 2014–2017 cars let the bridge set the charge timer</string>
+    <string name="smart_status_no_timer_data">Waiting for the car to report its charge timer</string>
+    <string name="smart_status_failed">The car didn\'t take the timer — charging as usual tonight</string>
+    <string name="smart_status_changed">The timer was changed on a phone — left as it is tonight</string>
+    <string name="smart_status_done">Done for tonight — your own timer is back</string>
+    <string name="smart_status_off">Off</string>
+    <string name="act_smart_planned">Smart charging: tonight %1$s–%2$s</string>
+    <string name="act_smart_done">Smart charging: your own charge timer is back</string>
+    <string name="act_smart_failed">Smart charging: the car didn\'t take the timer — charged as usual</string>
+</resources>

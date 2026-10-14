@@ -230,6 +230,12 @@ class EnergyHistory(
 
     // ------------------------------------------------------------------ reading
 
+    /** Charges for working out how fast this car charges (oldest first). */
+    fun recentCharges(): List<ChargeRecord> = synchronized(this) { charges.takeLast(30).toList() }
+
+    /** Smart charging's status for the phones (set by Main). */
+    @Volatile var smartStatus: (() -> Map<String, Any?>)? = null
+
     fun summary(fromMs: Long, toMs: Long): Summary = synchronized(this) {
         Summary.of(charges.toList(), trips.toList(), fromMs, toMs, (store.snapshot()["fullRangeKm"] as? Number)?.toInt())
     }
@@ -248,6 +254,7 @@ class EnergyHistory(
             "trips" to tr,
             "week" to summary(now() - 7 * 24 * 3600_000L, now() + 1).toMap(),
             "month" to summary(monthStart, now() + 1).toMap(),
+            "smart" to runCatching { smartStatus?.invoke() }.getOrNull(),
             "plan" to linkedMapOf(
                 "model" to plan.model.name.lowercase(), "area" to plan.area, "areaUsed" to area,
                 "areaGuess" to store.location()?.let { (la, lo) -> PriceAreas.guess(la, lo) },

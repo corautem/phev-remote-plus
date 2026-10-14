@@ -36,6 +36,12 @@ The main goal: **a connection that just works.**
   Norgespris or a fixed price, plus your grid fee — with monthly totals. Trips: from leaving the bridge's reach until
   back, with the battery used (≈ electric km). On Sunday evening every phone gets the week's summary. Settings →
   Charging, or Home → More → Charging and trips.
+- **Smart charging** (opt-in, 2014–2017 cars) — when the car is plugged in at home, the bridge works out how long it
+  needs to get full (from its own earlier charges) and moves tonight's charging to the cheapest hours before you need
+  the car (the next departure, or a time you pick); with Norgespris or a fixed price, the hours just before morning.
+  It uses the car's own charge timer for that one night, with "full charge" so the car never stops short, then puts
+  your timer back (full, unplugged, or morning over). If a phone changes the timer meanwhile, the bridge steps back.
+  Tomorrow's prices (out around 13:00) can move the window once more. Every decision is in the bridge log.
 - **Smart home** — with the bridge, the car shows up in Home Assistant by itself (MQTT discovery): battery, charging,
   climate switch, lights, charge buttons, and events for automations (charging finished, alarm, car home or away).
   Google Home and Alexa through Home Assistant. Set up from the app; the bridge can run the MQTT broker itself.

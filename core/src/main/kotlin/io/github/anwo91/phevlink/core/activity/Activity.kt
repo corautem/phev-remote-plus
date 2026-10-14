@@ -57,7 +57,7 @@ data class Activity(
         }.getOrNull()
 
         fun groupOf(code: String): ActivityGroup = when {
-            code.startsWith("charge.") || code in CHARGING_CODES -> ActivityGroup.CHARGING
+            code.startsWith("charge.") || code.startsWith("smart.") || code in CHARGING_CODES -> ActivityGroup.CHARGING
             code.startsWith("departure.") || code in CLIMATE_CODES -> ActivityGroup.CLIMATE
             code.startsWith("car.") -> ActivityGroup.CAR
             code.startsWith("bridge.") || code.startsWith("shared.") -> ActivityGroup.BRIDGE
@@ -257,6 +257,9 @@ object ActivityText {
             "bridge.matter_off" -> "$who stopped sharing the car through Matter"
             "bridge.matter_reset" -> "$who removed the car's Matter pairings"
             "bridge.paired" -> "$who was paired with the bridge"
+            "smart.planned" -> "Smart charging: tonight ${a.str("start")}–${a.str("end")}" + ((a.params["saving"] as? Number)?.let { ", saves ≈ %.2f %s".format(it.toDouble(), a.str("currency") ?: "") } ?: "")
+            "smart.done" -> "Smart charging: the owner's charge timer is back (${a.str("reason")})"
+            "smart.failed" -> "Smart charging: the car didn't take the timer — charging as usual"
             "bridge.invite" -> "$who opened pairing for another phone"
             else -> "$who: ${a.code}"
         }

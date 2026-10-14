@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Smart charging (the bridge moves tonight's charging to the cheapest hours). -->
+<resources>
+    <string name="smart_title">Smartes Laden</string>
+    <string name="set_sum_smart">In den günstigsten Stunden laden, bevor du losfährst</string>
+    <string name="smart_explain">Wenn das Auto zu Hause angesteckt ist, verlegt die Bridge das Laden in der Nacht in die günstigsten Stunden, bevor du das Auto brauchst – mit dem eigenen Lade-Timer des Autos (Modelle 2014–2017). Das Auto lädt immer voll, und dein eigener Timer wird danach wiederhergestellt. Neu: Behalte die ersten Nächte im Blick.</string>
+    <string name="smart_ready">Fertig bis</string>
+    <string name="smart_departures">Oder bis zur nächsten Abfahrt, wenn früher</string>
+    <string name="smart_old_bridge">Aktualisiere die Bridge, um smartes Laden zu nutzen (Optionen → Bridge).</string>
+    <string name="smart_status_planned">Heute Nacht: %1$s–%2$s</string>
+    <string name="smart_status_saving">spart ≈ %1$s</string>
+    <string name="smart_status_waiting">Wartet, bis das Auto zu Hause angesteckt ist</string>
+    <string name="smart_status_waiting_prices">Wartet auf die Preise für morgen (gegen 13 Uhr)</string>
+    <string name="smart_status_full">Nichts zu tun – der Akku ist fast voll</string>
+    <string name="smart_status_no_time">Nicht genug Zeit, bis das Auto gebraucht wird – lädt wie gewohnt</string>
+    <string name="smart_status_no_saving">Sofort laden ist heute Nacht etwa gleich günstig – lädt wie gewohnt</string>
+    <string name="smart_status_charge_now">„Jetzt laden“ wurde gedrückt – lädt wie gewohnt</string>
+    <string name="smart_status_my18">Nur bei Modellen 2014–2017 kann die Bridge den Lade-Timer setzen</string>
+    <string name="smart_status_no_timer_data">Wartet, bis das Auto seinen Lade-Timer meldet</string>
+    <string name="smart_status_failed">Das Auto hat den Timer nicht übernommen – lädt heute Nacht wie gewohnt</string>
+    <string name="smart_status_changed">Der Timer wurde auf einem Handy geändert – bleibt heute Nacht so</string>
+    <string name="smart_status_done">Fertig für heute Nacht – dein eigener Timer ist zurück</string>
+    <string name="smart_status_off">Aus</string>
+    <string name="act_smart_planned">Smartes Laden: heute Nacht %1$s–%2$s</string>
+    <string name="act_smart_done">Smartes Laden: dein eigener Lade-Timer ist zurück</string>
+    <string name="act_smart_failed">Smartes Laden: das Auto hat den Timer nicht übernommen – wie gewohnt geladen</string>
+</resources>

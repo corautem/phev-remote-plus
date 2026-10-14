@@ -304,6 +304,9 @@ object ActivityLabels {
             "car.switched_on" -> res.getString(R.string.act_car_switched_on)
             "car.switched_off" -> res.getString(R.string.act_car_switched_off)
             "car.alarm" -> res.getString(R.string.act_car_alarm)
+            "smart.planned" -> res.getString(R.string.act_smart_planned, a.str("start") ?: "?", a.str("end") ?: "?")
+            "smart.done" -> res.getString(R.string.act_smart_done)
+            "smart.failed" -> res.getString(R.string.act_smart_failed)
             "car.trip" -> minutes?.let { m ->
                 val from = a.int("fromPct")
                 val to = a.int("toPct")

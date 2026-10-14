@@ -241,6 +241,12 @@ fun SettingsScreen(
             ) {
                 io.github.anwo91.phevlink.ui.history.PriceSettings(vm, s)
             }
+            SettingsRow(
+                PhevIcons.Smart, stringResource(R.string.smart_title),
+                if (s.hasBridge) stringResource(R.string.set_sum_smart) else stringResource(R.string.set_sum_needs_bridge),
+            ) {
+                io.github.anwo91.phevlink.ui.history.SmartChargingSettings(vm, s)
+            }
         }
 
         // ------------------------------------------------------------ smart home (through the bridge)

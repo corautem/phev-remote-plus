@@ -139,9 +139,18 @@ fun main(args: Array<String>) {
         raise = { service.raiseAlert(it) }, log = log,
     ).start(scope)
     // Charging (energy, cost from the area's spot prices) and trips, kept for every phone; the Sunday summary.
-    val history = EnergyHistory(stateDir, shared, SpotPrices(File(stateDir, "prices"), log), activity, log, scope)
+    val prices = SpotPrices(File(stateDir, "prices"), log)
+    val history = EnergyHistory(stateDir, shared, prices, activity, log, scope)
     history.raise = { service.raiseAlert(it) }
     history.start(reach = if (config.emulator) null else ({ watch.reach() }), car = { service.connection.car.value })
+    // Smart charging (opt-in): tonight's charging moved to the cheapest hours with the car's own timer.
+    val smart = SmartCharger(
+        shared, history, prices, activity, car = { service.connection.car.value },
+        carHome = { if (config.emulator) service.connection.status.value.isConnected else watch.onCarWifi },
+        execute = { service.execute(it) }, log = log, file = File(stateDir, "smart_charge.json"),
+    )
+    history.smartStatus = { smart.describe() }
+    smart.start(scope)
     val api = HttpApi(config, service, log, pairing, carWifi, configFile, updater, shared, activity, watch, smartHome, matter, history = history, restart = restart)
     activity.add(io.github.anwo91.phevlink.core.activity.Activity(System.currentTimeMillis(), "bridge", "bridge.started", mapOf("build" to BridgeService.BUILD)))
     val port = api.start()

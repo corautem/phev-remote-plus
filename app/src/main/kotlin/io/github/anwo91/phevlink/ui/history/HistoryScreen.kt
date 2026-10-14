@@ -62,6 +62,8 @@ private data class History(
     val week: Map<String, Any?>,
     val month: Map<String, Any?>,
     val plan: Map<String, Any?>,
+    /** Smart charging: on/off, tonight's plan or why there is none (null from an older bridge). */
+    val smart: Map<String, Any?>?,
 )
 
 private enum class Load { LOADING, OK, NO_BRIDGE, OLD_BRIDGE, FAILED }
@@ -96,6 +98,7 @@ fun HistoryScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit, onO
                     week = (b["week"] as? Map<String, Any?>).orEmpty(),
                     month = (b["month"] as? Map<String, Any?>).orEmpty(),
                     plan = (b["plan"] as? Map<String, Any?>).orEmpty(),
+                    smart = b["smart"] as? Map<String, Any?>,
                 )
                 state = Load.OK
                 vm.log.link("History: ${data?.charges?.size} charge(s), ${data?.trips?.size} trip(s) from the bridge")
@@ -151,6 +154,7 @@ private fun androidx.compose.foundation.lazy.LazyListScope.charging(
     d: History, loc: Locale, vm: MainViewModel, s: io.github.anwo91.phevlink.data.AppSettings, reload: () -> Unit,
 ) {
     item { Totals(d) }
+    d.smart?.takeIf { it["enabled"] == true }?.let { sm -> item(key = "smart") { SmartCard(sm) } }
     if (d.charges.isEmpty()) item { SectionCard { Text(stringResource(R.string.hist_no_charges), style = MaterialTheme.typography.bodyMedium) } }
     val zone = ZoneId.systemDefault()
     val byMonth = d.charges.groupBy { Instant.ofEpochMilli(it.endMs).atZone(zone).let { z -> z.year * 100 + z.monthValue } }
@@ -167,6 +171,18 @@ private fun Totals(d: History) {
         Row(Modifier.fillMaxWidth()) {
             SummaryColumn(stringResource(R.string.hist_week), d.week, Modifier.weight(1f))
             SummaryColumn(stringResource(R.string.hist_month), d.month, Modifier.weight(1f))
+        }
+    }
+}
+
+@Composable
+private fun SmartCard(sm: Map<String, Any?>) {
+    val ctx = LocalContext.current
+    SectionCard(title = stringResource(R.string.smart_title)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(PhevIcons.Smart, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
+            Spacer(Modifier.width(12.dp))
+            Text(smartStatusText(ctx, sm), style = MaterialTheme.typography.bodyMedium)
         }
     }
 }

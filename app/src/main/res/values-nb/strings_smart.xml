@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Smart charging (the bridge moves tonight's charging to the cheapest hours). -->
+<resources>
+    <string name="smart_title">Smart lading</string>
+    <string name="set_sum_smart">Lad i de billigste timene før du drar</string>
+    <string name="smart_explain">Når bilen står i laderen hjemme, flytter broen nattens lading til de billigste timene før du trenger bilen, med bilens egen ladetimer (2014–2017-biler). Bilen lader alltid til full, og din egen timer settes tilbake etterpå. Nytt: følg med de første nettene.</string>
+    <string name="smart_ready">Klar til</string>
+    <string name="smart_departures">Eller til neste avreise, hvis den er tidligere</string>
+    <string name="smart_old_bridge">Oppdater broen for å bruke smart lading (Innstillinger → Bro).</string>
+    <string name="smart_status_planned">I natt: %1$s–%2$s</string>
+    <string name="smart_status_saving">sparer ≈ %1$s</string>
+    <string name="smart_status_waiting">Venter på at bilen settes på lading hjemme</string>
+    <string name="smart_status_waiting_prices">Venter på morgendagens priser (kommer rundt 13:00)</string>
+    <string name="smart_status_full">Ingenting å gjøre – batteriet er nesten fullt</string>
+    <string name="smart_status_no_time">Ikke nok tid før bilen trengs – lader som vanlig</string>
+    <string name="smart_status_no_saving">Å lade med en gang er omtrent like billig i natt – lader som vanlig</string>
+    <string name="smart_status_charge_now">«Lad nå» ble trykket – lader som vanlig</string>
+    <string name="smart_status_my18">Bare 2014–2017-biler lar broen stille ladetimeren</string>
+    <string name="smart_status_no_timer_data">Venter på at bilen melder ladetimeren sin</string>
+    <string name="smart_status_failed">Bilen tok ikke imot timeren – lader som vanlig i natt</string>
+    <string name="smart_status_changed">Timeren ble endret på en telefon – får stå i natt</string>
+    <string name="smart_status_done">Ferdig for i natt – din egen timer er tilbake</string>
+    <string name="smart_status_off">Av</string>
+    <string name="act_smart_planned">Smart lading: i natt %1$s–%2$s</string>
+    <string name="act_smart_done">Smart lading: din egen ladetimer er tilbake</string>
+    <string name="act_smart_failed">Smart lading: bilen tok ikke imot timeren – ladet som vanlig</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Smart charging (the bridge moves tonight's charging to the cheapest hours). -->
+<resources>
+    <string name="smart_title">Smart opladning</string>
+    <string name="set_sum_smart">Oplad i de billigste timer, før du kører</string>
+    <string name="smart_explain">Når bilen er sat til opladning derhjemme, flytter broen nattens opladning til de billigste timer, før du skal bruge bilen, med bilens egen ladetimer (2014–2017-biler). Bilen lader altid helt op, og din egen timer sættes tilbage bagefter. Nyt: hold øje med de første nætter.</string>
+    <string name="smart_ready">Klar til</string>
+    <string name="smart_departures">Eller til næste afgang, hvis den er tidligere</string>
+    <string name="smart_old_bridge">Opdater broen for at bruge smart opladning (Indstillinger → Bro).</string>
+    <string name="smart_status_planned">I nat: %1$s–%2$s</string>
+    <string name="smart_status_saving">sparer ≈ %1$s</string>
+    <string name="smart_status_waiting">Venter på, at bilen sættes til opladning derhjemme</string>
+    <string name="smart_status_waiting_prices">Venter på morgendagens priser (kommer omkring kl. 13)</string>
+    <string name="smart_status_full">Intet at gøre – batteriet er næsten fuldt</string>
+    <string name="smart_status_no_time">Ikke nok tid, før bilen skal bruges – lader som normalt</string>
+    <string name="smart_status_no_saving">At lade med det samme er omtrent lige så billigt i nat – lader som normalt</string>
+    <string name="smart_status_charge_now">»Oplad nu« blev trykket – lader som normalt</string>
+    <string name="smart_status_my18">Kun 2014–2017-biler lader broen indstille ladetimeren</string>
+    <string name="smart_status_no_timer_data">Venter på, at bilen melder sin ladetimer</string>
+    <string name="smart_status_failed">Bilen tog ikke imod timeren – lader som normalt i nat</string>
+    <string name="smart_status_changed">Timeren blev ændret på en telefon – får lov at stå i nat</string>
+    <string name="smart_status_done">Færdig for i nat – din egen timer er tilbage</string>
+    <string name="smart_status_off">Fra</string>
+    <string name="act_smart_planned">Smart opladning: i nat %1$s–%2$s</string>
+    <string name="act_smart_done">Smart opladning: din egen ladetimer er tilbage</string>
+    <string name="act_smart_failed">Smart opladning: bilen tog ikke imod timeren – ladede som normalt</string>
+</resources>

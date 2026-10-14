@@ -77,6 +77,8 @@ class SharedStore(private val file: File, private val log: DiagLog, private val 
         "priceSupport", "weeklySummary" -> v is Boolean
         "fullChargeKwh" -> v is Number && v.toDouble() in 4.0..30.0
         "priceCurrency" -> v is String && Regex("^[A-Z]{3}$").matches(v)
+        "smartCharge", "smartUseDepartures" -> v is Boolean
+        "smartReadyAt" -> v is String && HHMM.matches(v)
         else -> false
     }
 
@@ -93,6 +95,15 @@ class SharedStore(private val file: File, private val log: DiagLog, private val 
 
     /** The price area: chosen, or guessed from the home location (null when neither). */
     fun priceArea(): String? = pricePlan().area ?: location()?.let { (la, lo) -> PriceAreas.guess(la, lo) }
+
+    /** Smart charging: off by default (it changes the car's charge timer); ready by 07:00 or the next departure. */
+    data class SmartCharging(val enabled: Boolean, val readyAt: java.time.LocalTime, val useDepartures: Boolean)
+
+    fun smartCharging(): SmartCharging = SmartCharging(
+        enabled = data["smartCharge"] as? Boolean ?: false,
+        readyAt = (data["smartReadyAt"] as? String)?.let { runCatching { java.time.LocalTime.parse(it) }.getOrNull() } ?: java.time.LocalTime.of(7, 0),
+        useDepartures = data["smartUseDepartures"] as? Boolean ?: true,
+    )
 
     /** The Sunday-evening summary of the week (on by default). */
     fun weeklySummary(): Boolean = data["weeklySummary"] as? Boolean ?: true
@@ -128,6 +139,7 @@ class SharedStore(private val file: File, private val log: DiagLog, private val 
             "departures", "carName", "fullRangeKm", "quickMode", "quickDuration", "quickSmart", "homeLat", "homeLon", "timeZone", "carColor",
             "plugReminder", "plugReminderAt", "plugReminderBelow",
             "priceModel", "priceArea", "priceFixed", "priceGridFee", "priceSupport", "fullChargeKwh", "weeklySummary", "priceCurrency",
+            "smartCharge", "smartReadyAt", "smartUseDepartures",
         )
         /** Keys that change what charges cost. */
         val PRICE_KEYS = setOf("priceModel", "priceArea", "priceFixed", "priceGridFee", "priceSupport", "fullChargeKwh", "priceCurrency")

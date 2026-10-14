@@ -23,7 +23,7 @@
     <string name="smart_status_no_saving">Å lade med en gang er omtrent like billig i natt – lader som vanlig</string>
     <string name="smart_status_charge_now">«Lad nå» ble trykket – lader som vanlig</string>
     <string name="smart_status_my18">Bare 2014–2017-biler lar broen stille ladetimeren</string>
-    <string name="smart_status_no_timer_data">Venter på at bilen melder ladetimeren sin</string>
+    <string name="smart_status_no_timer_data">Venter på at bilen melder ladetimeren sin (blir dette stående, kan bilen ikke brukes til smart lading)</string>
     <string name="smart_status_failed">Bilen tok ikke imot timeren – lader som vanlig i natt</string>
     <string name="smart_status_changed">Ladetimeren ble endret på en telefon – broen lot den stå slik den ble satt</string>
     <string name="smart_status_done">Ferdig for i natt – din egen timer er tilbake</string>

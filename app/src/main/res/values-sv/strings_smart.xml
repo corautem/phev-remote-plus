@@ -23,7 +23,7 @@
     <string name="smart_status_no_saving">Att ladda direkt är ungefär lika billigt i natt – laddar som vanligt</string>
     <string name="smart_status_charge_now">”Ladda nu” trycktes – laddar som vanligt</string>
     <string name="smart_status_my18">Bara bilar 2014–2017 låter bryggan ställa laddtimern</string>
-    <string name="smart_status_no_timer_data">Väntar på att bilen rapporterar sin laddtimer</string>
+    <string name="smart_status_no_timer_data">Väntar på att bilen rapporterar sin laddtimer (står det kvar kan bilen inte använda smart laddning)</string>
     <string name="smart_status_failed">Bilen tog inte emot timern – laddar som vanligt i natt</string>
     <string name="smart_status_changed">Laddtimern ändrades på en telefon – bryggan lät den vara som den ställdes</string>
     <string name="smart_status_done">Klart för i natt – din egen timer är tillbaka</string>

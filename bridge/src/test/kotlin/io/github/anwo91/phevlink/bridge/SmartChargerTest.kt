@@ -78,7 +78,10 @@ class SmartChargerTest {
             store, history, prices, activity, car = { car }, carHome = { true },
             execute = { cmd ->
                 val p = (cmd as CarCommand.SetChargeTimer).program
+                val onCar = ChargeTimerProgram.read(car)?.normalized()
                 when {
+                    // Like the car session's compare-and-swap check.
+                    cmd.expected != null && onCar !in cmd.expected!!.map { it.normalized() } -> CommandResult.Failure(cmd, CarCommand.SetChargeTimer.TIMER_CHANGED)
                     reachButFail -> {
                         program = p
                         car = carWith(p, car.batteryPercent ?: 0, car.plug)
@@ -203,17 +206,36 @@ class SmartChargerTest {
     }
 
     @Test
-    fun theCarRefusingLeavesItsOwnTimer() = runBlocking {
+    fun theCarRefusingGetsTheOwnersTimerWrittenBack() = runBlocking {
         accept = false
         val s = rig()
-        // Three tries (the car keeps reporting the owner's timer, fresh), then it's charging as usual.
-        repeat(5) {
+        // Three tries (the car keeps reporting the owner's timer), then the owner's timer is written back — harmless
+        // if it's there, and it covers a write that reached the car unconfirmed.
+        repeat(4) {
             s.tick()
             t = t.plusMinutes(1)
             car = carWith(ownerTimer, 40, PlugState.PLUGGED)
         }
-        assertTrue(written.isEmpty())
+        assertEquals("restoring", s.describe()["status"])
+        accept = true
+        t = t.plusMinutes(5)
+        s.tick()
+        assertEquals(ownerTimer.normalized(), written.single())
         assertEquals("failed", s.describe()["status"])
-        assertTrue(log.dump(), log.dump().contains("never took"))
+    }
+
+    @Test
+    fun aPhoneChangeJustBeforeTheRestoreStays() = runBlocking {
+        val s = rig()
+        s.tick()
+        // The car comes back unplugged with a timer a phone set — but its report is older than the write (cached),
+        // so only the compare-and-swap at write time catches it.
+        val mine = ChargeTimerProgram(listOf(ChargeWindow(LocalTime.of(21, 0), LocalTime.of(5, 0)), null, null), List(7) { 1 }, emptySet())
+        val stale = carWith(mine, 40, PlugState.UNPLUGGED)
+        car = stale.copy(registers = stale.registers.mapValues { (_, r) -> r.copy(updatedAtMs = 0) })
+        t = t.plusHours(1)
+        s.tick()
+        assertEquals("nothing written over the phone's timer", 1, written.size)
+        assertEquals("changed", s.describe()["status"])
     }
 }

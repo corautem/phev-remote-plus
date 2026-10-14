@@ -124,6 +124,21 @@ class ChargeTimerTest {
     }
 
     @Test
+    fun onlyOverwritesTheTimerItExpects() {
+        // The car reports Mon–Fri 23:00–07:00 (as the official app would have written it).
+        val raw = ChargeTimerCodec.encodeMy14(weekdays, 2)
+        val presets = (byteArrayOf(raw[0], raw[1]) + raw.copyOfRange(3, 11)).toHex()
+        val car = state(Reg.READ_CHARGE_TIMER_STATE_B to "02", Reg.READ_CHARGE_PRESETS to presets, Reg.READ_FULL_CHARGE_DAYS to byteArrayOf(raw[2]).toHex())
+        val fresh = setOf(Reg.READ_CHARGE_TIMER_STATE_B, Reg.READ_CHARGE_PRESETS, Reg.READ_FULL_CHARGE_DAYS)
+        val other = weekdays.copy(fullDays = emptySet())
+        assertNull(CarCommand.SetChargeTimer(other, expected = setOf(weekdays)).refusal(car, fresh))
+        assertEquals(CarCommand.SetChargeTimer.TIMER_CHANGED, CarCommand.SetChargeTimer(weekdays, expected = setOf(other)).refusal(car, fresh))
+        // Only what the car sent in this connection counts.
+        assertEquals(CarCommand.SetChargeTimer.TIMER_UNKNOWN, CarCommand.SetChargeTimer(other, expected = setOf(weekdays)).refusal(car, setOf(Reg.READ_CHARGE_TIMER_STATE_B)))
+        assertTrue(Reg.READ_CHARGE_PRESETS in CarCommand.SetChargeTimer(other, expected = setOf(weekdays)).requiredRegisters(ModelYear.MY14))
+    }
+
+    @Test
     fun travelsToTheBridgeAsJson() {
         val c = CarCommand.SetChargeTimer(weekdays)
         val back = Codecs.commandFromMap(io.github.anwo91.phevlink.core.json.Json.parseObject(io.github.anwo91.phevlink.core.json.Json.write(Codecs.commandToMap(c))))

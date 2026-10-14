@@ -23,7 +23,7 @@
     <string name="smart_status_no_saving">Sofort laden ist heute Nacht etwa gleich günstig – lädt wie gewohnt</string>
     <string name="smart_status_charge_now">„Jetzt laden“ wurde gedrückt – lädt wie gewohnt</string>
     <string name="smart_status_my18">Nur bei Modellen 2014–2017 kann die Bridge den Lade-Timer setzen</string>
-    <string name="smart_status_no_timer_data">Wartet, bis das Auto seinen Lade-Timer meldet</string>
+    <string name="smart_status_no_timer_data">Wartet, bis das Auto seinen Lade-Timer meldet (bleibt das so, kann das Auto nicht smart laden)</string>
     <string name="smart_status_failed">Das Auto hat den Timer nicht übernommen – lädt heute Nacht wie gewohnt</string>
     <string name="smart_status_changed">Der Lade-Timer wurde auf einem Handy geändert – die Bridge hat ihn so gelassen</string>
     <string name="smart_status_done">Fertig für heute Nacht – dein eigener Timer ist zurück</string>

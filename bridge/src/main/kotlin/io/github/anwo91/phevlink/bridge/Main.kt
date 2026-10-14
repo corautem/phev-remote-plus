@@ -89,6 +89,12 @@ fun main(args: Array<String>) {
     val updater = Updater(File(File(config.wifiHelper).absoluteFile.parentFile, "bridgectl.sh").path, stateDir, log)
     // Departures, car name, range and climate defaults all phones share; the bridge runs the departures while the car is home.
     val shared = SharedStore(File(stateDir, "shared.json"), log)
+    // The car's clock (set by the bridge when it connects; its charge timer runs on it) and the log follow the home
+    // time zone the phones share, even when this computer runs on UTC.
+    if (shared.snapshot()["timeZone"] != null && shared.zone() != java.time.ZoneId.systemDefault()) {
+        log.link("Time zone: ${shared.zone()} (the phones'), this computer says ${java.time.ZoneId.systemDefault()}")
+        java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone(shared.zone()))
+    }
     DepartureRunner(
         shared, log,
         carHome = { config.emulator || runCatching { carWifi.status().connected }.getOrDefault(false) },

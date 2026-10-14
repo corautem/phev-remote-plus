@@ -23,7 +23,7 @@
     <string name="smart_status_no_saving">Charging right away is about as cheap tonight — charging as usual</string>
     <string name="smart_status_charge_now">\"Charge now\" was pressed — charging as usual</string>
     <string name="smart_status_my18">Only 2014–2017 cars let the bridge set the charge timer</string>
-    <string name="smart_status_no_timer_data">Waiting for the car to report its charge timer</string>
+    <string name="smart_status_no_timer_data">Waiting for the car to report its charge timer (if this stays, the car can\'t be used for smart charging)</string>
     <string name="smart_status_failed">The car didn\'t take the timer — charging as usual tonight</string>
     <string name="smart_status_changed">The charge timer was changed on a phone — the bridge left it as it was set</string>
     <string name="smart_status_done">Done for tonight — your own timer is back</string>

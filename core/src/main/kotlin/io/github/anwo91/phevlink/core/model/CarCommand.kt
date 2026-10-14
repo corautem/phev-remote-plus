@@ -191,15 +191,26 @@ sealed interface CarCommand {
      * (28 bytes, see [ChargeTimerCodec]), then wait until the car reports it back (0x20 and 0x0e). When a timer is
      * now set but the car's timer was paused or off, switch it on (0x17 = on value), as the official app does once it
      * sees the new schedule; with no timer left, 0x17 = 1 (the car charges as soon as it's plugged in).
+     *
+     * [expected] (compare-and-swap, for the bridge's smart charging): only write when the car's timer — as it reported
+     * it in this very connection — is one of these; otherwise refuse with [TIMER_CHANGED] (a phone changed it) or
+     * [TIMER_UNKNOWN]. Null: write whatever the car has (a phone's own edit).
      */
-    data class SetChargeTimer(val program: ChargeTimerProgram) : CarCommand {
+    data class SetChargeTimer(val program: ChargeTimerProgram, val expected: Set<ChargeTimerProgram>? = null) : CarCommand {
         override val label = "Set charge timer: ${program.summary()}"
         override val confirmMs: Long get() = CONFIRM_MS
 
-        override fun requiredRegisters(modelYear: ModelYear) = setOf(Reg.READ_CHARGE_TIMER_STATE_B)
+        override fun requiredRegisters(modelYear: ModelYear) =
+            if (expected == null) setOf(Reg.READ_CHARGE_TIMER_STATE_B)
+            else setOf(Reg.READ_CHARGE_TIMER_STATE_B, Reg.READ_CHARGE_PRESETS, Reg.READ_FULL_CHARGE_DAYS)
 
-        override fun refusal(state: CarState, fresh: Set<Int>): String? =
-            if (state.modelYear == ModelYear.MY18 || state.modelYear == ModelYear.MY24) NOT_MY14 else null
+        override fun refusal(state: CarState, fresh: Set<Int>): String? = when {
+            state.modelYear == ModelYear.MY18 || state.modelYear == ModelYear.MY24 -> NOT_MY14
+            expected == null -> null
+            Reg.READ_CHARGE_PRESETS !in fresh || Reg.READ_FULL_CHARGE_DAYS !in fresh -> TIMER_UNKNOWN
+            ChargeTimerProgram.read(state)?.normalized() !in expected.map { it.normalized() } -> TIMER_CHANGED
+            else -> null
+        }
 
         override fun toWrites(modelYear: ModelYear, state: CarState): List<RegisterWrite> {
             val target = program.normalized()
@@ -224,6 +235,8 @@ sealed interface CarCommand {
             const val CONFIRM_MS = 10_000L
             const val UNCONFIRMED = "The car did not confirm the new charge timer — check it in the app after a refresh"
             const val NOT_MY14 = "Setting the charge timer works on 2014–2017 cars for now"
+            const val TIMER_CHANGED = "The car's charge timer changed meanwhile — not overwriting it"
+            const val TIMER_UNKNOWN = "The car hasn't reported its charge timer in this connection — not changing it"
         }
     }
 

@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.sp
 import io.github.anwo91.phevlink.R
 import io.github.anwo91.phevlink.core.session.LinkStatus
 import io.github.anwo91.phevlink.link.BridgeAdminController
+import io.github.anwo91.phevlink.link.BridgeSetupApi
 import io.github.anwo91.phevlink.link.BridgeAdminController.Action
 import io.github.anwo91.phevlink.link.BridgeAdminController.Outcome
 import io.github.anwo91.phevlink.link.BridgeAdminController.UpdatePhase
@@ -59,6 +60,7 @@ import io.github.anwo91.phevlink.ui.settings.ExpandableHelp
 import io.github.anwo91.phevlink.ui.theme.LocalStatus
 import io.github.anwo91.phevlink.util.Format
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * The bridge page: what the bridge is doing (status, car link, car Wi-Fi, the computer, its own log) and what you can
@@ -106,7 +108,7 @@ fun BridgeScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit, onOp
                     SmartHomeCard(vm, s.bridgeUrl, s.bridgeToken, supported = "smarthome" in st.features, carName = s.carName.ifBlank { "Outlander PHEV" })
                 }
                 UpdateCard(c, st)
-                LogCard(st)
+                LogCard(st, s.bridgeUrl, s.bridgeToken)
             }
             TextButton(onClick = onOpenSetup) { Text(stringResource(R.string.bp_setup_again)) }
             Spacer(Modifier.height(24.dp))
@@ -337,18 +339,26 @@ private fun UpdateCard(c: BridgeAdminController, st: BridgeAdminController.State
 }
 
 @Composable
-private fun LogCard(st: BridgeAdminController.State) {
+private fun LogCard(st: BridgeAdminController.State, url: String, token: String) {
     val ctx = LocalContext.current
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
     val shareTitle = stringResource(R.string.bp_share)
+    var fetching by remember { mutableStateOf(false) }
     SectionCard(title = stringResource(R.string.bp_log), trailing = {
         if (st.log.isNotEmpty()) {
-            TextButton(onClick = {
-                val send = Intent(Intent.ACTION_SEND).apply {
-                    type = "text/plain"
-                    putExtra(Intent.EXTRA_SUBJECT, "PHEV Link bridge log")
-                    putExtra(Intent.EXTRA_TEXT, st.log.joinToString("\n"))
+            TextButton(enabled = !fetching, onClick = {
+                scope.launch {
+                    // Shared: a longer stretch from the bridge's log file (earlier runs included), else what's shown.
+                    fetching = true
+                    val long = if ("log-file" in st.features) BridgeSetupApi.log(url, token, SHARE_LINES, fromFile = true) else null
+                    fetching = false
+                    val send = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_SUBJECT, "PHEV Link bridge log")
+                        putExtra(Intent.EXTRA_TEXT, long?.takeIf { it.isNotBlank() } ?: st.log.joinToString("\n"))
+                    }
+                    ctx.startActivity(Intent.createChooser(send, shareTitle))
                 }
-                ctx.startActivity(Intent.createChooser(send, shareTitle))
             }) { Text(shareTitle) }
         }
     }) {
@@ -357,6 +367,9 @@ private fun LogCard(st: BridgeAdminController.State) {
         if (st.log.isEmpty()) Note(stringResource(R.string.bp_log_empty)) else LogBox(st.log, maxHeight = 360)
     }
 }
+
+/** Lines of the bridge log file the share button sends (about 150 KB; a share intent can't carry much more). */
+private const val SHARE_LINES = 1500
 
 /** Monospace lines in a scrollable box that follows the newest line (at the bottom). */
 @Composable

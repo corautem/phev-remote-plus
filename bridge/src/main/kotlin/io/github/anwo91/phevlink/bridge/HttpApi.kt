@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit
  *                          vehicle settings: {"action":"setting","id":7,"value":2}, {"action":"reset_settings"}
  *   POST /api/connect      connect now
  *   POST /api/disconnect   disconnect now
- *   GET  /api/log?n=300    diagnostic log (text)
+ *   GET  /api/log?n=300    diagnostic log (text); &file=1: from the log file, earlier runs included
  *   GET  /api/carwifi      the bridge's own link to the car's Wi-Fi (interface, connected, IP, MAC, signal, problem)
  *   POST /api/carwifi/scan {"country":"NO"} -> networks the car radio sees
  *   POST /api/carwifi/join {"ssid":"REMOTExxxxxx","password":"…","country":"NO"} -> save + connect the car network
@@ -250,8 +250,12 @@ class HttpApi(
                 json(ex, 200, mapOf("ok" to true))
             }
             path == "log" && ex.requestMethod == "GET" -> {
-                val n = query(ex)["n"]?.toIntOrNull() ?: 300
-                send(ex, 200, "text/plain; charset=utf-8", log.tail(n).joinToString("\n") { it.format(ZoneId.systemDefault()) })
+                val q = query(ex)
+                val n = (q["n"]?.toIntOrNull() ?: 300).coerceIn(1, 5000)
+                // file=1: from the log file, so lines from before the last restart are included.
+                val fromFile = config.logFile.takeIf { q["file"] == "1" && it.isNotBlank() }
+                    ?.let { LogFileWriter.tail(File(it), n) }?.takeIf { it.isNotEmpty() }
+                send(ex, 200, "text/plain; charset=utf-8", fromFile?.joinToString("\n") ?: log.tail(n).joinToString("\n") { it.format(ZoneId.systemDefault()) })
             }
             else -> json(ex, 404, mapOf("ok" to false, "error" to "Unknown endpoint"))
         }

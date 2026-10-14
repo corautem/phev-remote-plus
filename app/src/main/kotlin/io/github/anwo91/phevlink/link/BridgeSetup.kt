@@ -225,9 +225,10 @@ object BridgeSetupApi {
         withContext(Dispatchers.IO) { request(url, "connect", "POST", token, emptyMap(), 4_000, 10_000) }
 
     /** The bridge's own log, last [n] lines (plain text), or null when it doesn't answer. */
-    suspend fun log(url: String, token: String, n: Int = 200): String? = withContext(Dispatchers.IO) {
+    suspend fun log(url: String, token: String, n: Int = 200, fromFile: Boolean = false): String? = withContext(Dispatchers.IO) {
         try {
-            val c = URI(url.trimEnd('/') + "/api/log?n=$n").toURL().openConnection() as HttpURLConnection
+            // fromFile (bridge with "log-file"): from the bridge's log file, so lines from before its last restart are included.
+            val c = URI(url.trimEnd('/') + "/api/log?n=$n" + if (fromFile) "&file=1" else "").toURL().openConnection() as HttpURLConnection
             c.connectTimeout = 4_000
             c.readTimeout = 8_000
             c.setRequestProperty("Authorization", "Bearer $token")

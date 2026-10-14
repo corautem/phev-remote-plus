@@ -72,5 +72,12 @@ class RunGuardTest {
         assertTrue(old.readText().startsWith("---- 2025-10-09 ----"))
         assertTrue(f.readText().startsWith("---- 2025-10-09 ----"))
         assertEquals(1, f.readText().lines().count { it.startsWith("----") })
+        // the tail spans both files, newest last
+        val tail = LogFileWriter.tail(f, 40)
+        assertEquals(40, tail.size)
+        assertTrue(tail.last(), tail.last().contains("line 99 "))
+        assertTrue(tail.any { it.startsWith("----") }) // reached into the older file
+        assertEquals(tail.filter { it.contains("line ") }.map { it.substringAfter("line ").substringBefore(' ').toInt() }.sorted(),
+            tail.filter { it.contains("line ") }.map { it.substringAfter("line ").substringBefore(' ').toInt() })
     }
 }

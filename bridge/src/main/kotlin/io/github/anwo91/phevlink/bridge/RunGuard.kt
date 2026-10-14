@@ -180,4 +180,29 @@ class LogFileWriter(private val file: File, private val maxBytes: Long = 4L * 10
         file.renameTo(old)
         size = 0
     }
+
+    companion object {
+        /** The last [n] lines of [file], earlier runs included (continues into `<name>.1` when needed). */
+        fun tail(file: File, n: Int): List<String> {
+            val cur = tailOf(file, n)
+            if (cur.size >= n) return cur
+            return tailOf(File(file.path + ".1"), n - cur.size) + cur
+        }
+
+        private fun tailOf(f: File, n: Int): List<String> {
+            if (n <= 0 || !f.isFile) return emptyList()
+            return runCatching {
+                java.io.RandomAccessFile(f, "r").use { raf ->
+                    val len = raf.length()
+                    val start = maxOf(0L, len - n * 400L) // reads only the end, not the whole file
+                    raf.seek(start)
+                    val buf = ByteArray((len - start).toInt())
+                    raf.readFully(buf)
+                    var lines = String(buf, Charsets.UTF_8).split('\n')
+                    if (start > 0) lines = lines.drop(1) // cut in the middle of a line
+                    lines.filter { it.isNotEmpty() }.takeLast(n)
+                }
+            }.getOrDefault(emptyList())
+        }
+    }
 }

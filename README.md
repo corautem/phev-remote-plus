@@ -276,7 +276,7 @@ like the bridge's own port, never open it to the internet.
 | GET | `/api/events` | Server-sent events, a `status` event per change |
 | POST | `/api/command` | `{"action":"climate","mode":"HEAT","minutes":20}` · `climate_off` · `headlights`/`parking_lights` + `on` · `locate` · `refresh` · `charge_now` · `ack_climate` · `register` · `unregister` · `sync_clock` · `raw` (+ `register`, `data` hex) |
 | POST | `/api/connect`, `/api/disconnect` | |
-| GET | `/api/log?n=300` | Diagnostic log |
+| GET | `/api/log?n=300` | Diagnostic log; `&file=1` reads the log file, earlier runs included (the app's Share sends 1500 lines of it) |
 | GET | `/api/hello` | No token: identity for discovery + whether pairing is open |
 | POST | `/api/pair` | No token, header `X-PHEV-Pair: 1`: the token, once per boot, within 10 min of power-on |
 | GET | `/api/carwifi` | The bridge's own link to the car's Wi-Fi (interface, connected, IP, MAC, signal) |

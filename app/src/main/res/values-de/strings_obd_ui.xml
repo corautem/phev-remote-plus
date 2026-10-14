@@ -181,7 +181,7 @@
     <string name="vs_unnamed_item">Einstellung #%1$d</string>
     <string name="vs_unnamed_value">Option %1$d (verfügbar: %2$s)</string>
     <string name="vs_option_n">Option %1$d</string>
-    <string name="vs_beeps_hint">Signaltöne beim Ver- und Entriegeln und das Hupsignal findest du in der Gruppe „Keyless Entry System / Keyless Operation System“. Unter Tipps → Signaltöne stehen alle Töne und wie man sie ändert.</string>
+    <string name="vs_beeps_hint">Signaltöne beim Ver- und Entriegeln und das Hupsignal findest du in der Gruppe „Keyless Entry System / Keyless Operation System“. Unter Optionen → Hilfe und Fragen → Signaltöne stehen alle Töne und wie du sie änderst.</string>
 
     <!-- Tips -->
     <string name="tips_problems">Häufige Probleme</string>

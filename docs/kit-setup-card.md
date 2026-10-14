@@ -26,7 +26,7 @@ Pick the car from Android's Wi‑Fi list once. After that it joins on its own.
 - Switch power **OFF** to finish. The app reconnects by itself.
 
 **5 · OBD extras** (optional)
-Plug in the adapter, then pair it in **Settings → OBD**. Unlocks per‑cell battery, charger and DC‑DC data.
+Plug in the adapter, then pair it in the **OBD** tab. Unlocks per‑cell battery, charger and DC‑DC data.
 
 ---
 *The car remembers only **2 phones** — a home bridge uses one slot. · No remote unlock (the car's

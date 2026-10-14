@@ -181,7 +181,7 @@
     <string name="vs_unnamed_item">Indstilling #%1$d</string>
     <string name="vs_unnamed_value">Mulighed %1$d (tilgængelige: %2$s)</string>
     <string name="vs_option_n">Mulighed %1$d</string>
-    <string name="vs_beeps_hint">Bip ved låsning/oplåsning og hornkvittering findes i gruppen »Fjernbetjent centrallås og nøglefri betjening«. Under Tips → Bip og lyde står alle lydene, og hvordan de ændres.</string>
+    <string name="vs_beeps_hint">Bip ved låsning/oplåsning og hornkvittering findes i gruppen »Fjernbetjent centrallås og nøglefri betjening«. Under Indstillinger → Hjælp og spørgsmål → Bip og lyde står alle lydene, og hvordan de ændres.</string>
 
     <!-- Tips -->
     <string name="tips_problems">Almindelige problemer</string>

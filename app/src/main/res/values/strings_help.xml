@@ -72,7 +72,6 @@
     <string name="climate_stopping">Stopping the climate…</string>
     <string name="climate_clearing">Clearing the warning…</string>
     <string name="climate_working_hint">The car can take up to 30 seconds to respond.</string>
-    <string name="sched_charge">Charge timer</string>
     <string name="sched_climate">Climate timer</string>
     <string name="sched_on">On</string>
     <string name="sched_off">Off</string>

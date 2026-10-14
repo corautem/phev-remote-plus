@@ -136,7 +136,7 @@ sudo phev-bridge/install.sh phev-bridge/phev-bridge.jar      # also updates an e
 ```
 
 **Everything else happens in the app** — first-run setup asks for the car's Wi-Fi card, then offers *I have a PHEV Link
-bridge* (also under Settings → Set up bridge). It
+bridge* (also under Settings → Bridge). It
 
 1. finds the bridge on your home network (no addresses to type),
 2. pairs with it: unplug the bridge for 5 seconds and plug it back in — for 10 minutes after power-on the bridge hands
@@ -171,7 +171,7 @@ setup walks you through clearing its memory (one beep confirms it; the car's Wi-
 password from the card), waits until the bridge is back on the car's Wi-Fi, and only then asks for registration mode
 again.
 
-**Settings → Bridge: status, log and updates** shows what the bridge is doing — its car Wi-Fi and car connection, last
+**Settings → Bridge** (status, log and updates) shows what the bridge is doing — its car Wi-Fi and car connection, last
 car data, the computer (model, temperature, memory, disk) and the bridge's own log, live — and lets you connect it to
 the car, restart it, restart the computer and **update it from the app**: the bridge downloads the newest release from
 GitHub, checks its SHA-256 and reinstalls itself (bridges installed before 1.0.38 need the install command above once

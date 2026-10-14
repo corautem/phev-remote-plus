@@ -589,7 +589,7 @@
 <text x="14.0" y="89.39999999999996" font-family="Helvetica, Arial, sans-serif" font-size="3.2" font-weight="normal" fill="#444444" text-anchor="start">(start LOCK). In app: Settings → Register.</text>
 <text x="8.0" y="94.79999999999995" font-family="Helvetica, Arial, sans-serif" font-size="5.5" font-weight="bold" fill="#111111" text-anchor="start">5</text>
 <text x="14.0" y="94.79999999999995" font-family="Helvetica, Arial, sans-serif" font-size="4.2" font-weight="bold" fill="#111111" text-anchor="start">OBD extras (optional)</text>
-<text x="14.0" y="99.39999999999995" font-family="Helvetica, Arial, sans-serif" font-size="3.2" font-weight="normal" fill="#444444" text-anchor="start">Plug the adapter, pair in Settings → OBD:</text>
+<text x="14.0" y="99.39999999999995" font-family="Helvetica, Arial, sans-serif" font-size="3.2" font-weight="normal" fill="#444444" text-anchor="start">Plug the adapter, pair in the OBD tab:</text>
 <text x="14.0" y="103.19999999999995" font-family="Helvetica, Arial, sans-serif" font-size="3.2" font-weight="normal" fill="#444444" text-anchor="start">per-cell battery, charger &amp; DC-DC data.</text>
 <line x1="8.0" y1="131.5" x2="97.0" y2="131.5" stroke="#111111" stroke-width="0.3"/>
 <text x="8.0" y="134.5" font-family="Helvetica, Arial, sans-serif" font-size="2.6" font-weight="normal" fill="#444444" text-anchor="start">Car remembers only 2 phones (a bridge uses one). No remote unlock.</text>

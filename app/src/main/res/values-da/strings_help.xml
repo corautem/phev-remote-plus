@@ -66,7 +66,6 @@
     <string name="climate_stopping">Stopper klimaanlægget …</string>
     <string name="climate_clearing">Rydder advarslen …</string>
     <string name="climate_working_hint">Bilen kan være op til 30 sekunder om at svare.</string>
-    <string name="sched_charge">Ladetimer</string>
     <string name="sched_climate">Klimatimer</string>
     <string name="sched_on">Til</string>
     <string name="sched_off">Fra</string>

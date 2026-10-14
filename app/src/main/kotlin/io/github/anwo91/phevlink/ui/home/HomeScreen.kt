@@ -224,8 +224,14 @@ private fun ReachBanner(link: LinkUi, onRetry: () -> Unit, onWhy: (String) -> Un
                     TextButton(onClick = onRetry, contentPadding = PaddingValues(horizontal = 0.dp)) {
                         Text(stringResource(R.string.reach_try_again))
                     }
-                    // Away from home without a VPN: how to reach the bridge. Otherwise: what "not within reach" means.
-                    TextButton(onClick = { onWhy(if (kind == OutOfReach.HOME_UNREACHABLE) "away" else "reach") }, contentPadding = PaddingValues(horizontal = 0.dp)) {
+                    // Away from home without a VPN: how to reach the bridge; the bridge not answering: what to check; otherwise
+                    // what "not within reach" means.
+                    val faq = when (kind) {
+                        OutOfReach.HOME_UNREACHABLE -> "away"
+                        OutOfReach.BRIDGE_DOWN -> "bridge"
+                        else -> "reach"
+                    }
+                    TextButton(onClick = { onWhy(faq) }, contentPadding = PaddingValues(horizontal = 0.dp)) {
                         Text(stringResource(R.string.reach_why))
                     }
                 }
@@ -618,9 +624,15 @@ private fun SecurityCard(car: CarState) {
                 else -> stringResource(R.string.home_sec_open, openDoors.joinToString())
             },
             when {
-                car.headlights == null && car.parkingLights == null -> null
-                lights.isEmpty() -> stringResource(R.string.home_sec_lights_off)
-                else -> stringResource(R.string.home_sec_lights_on, lights.joinToString())
+                lights.isNotEmpty() -> stringResource(R.string.home_sec_lights_on, lights.joinToString())
+                car.headlights == null && car.parkingLights == null && car.interiorLights == null && car.hazardLights == null -> null
+                else -> stringResource(R.string.home_sec_lights_off)
+            },
+            // Switched on (ACC or ON) matters: no remote climate, and the car's Wi-Fi goes off on older cars.
+            when (car.ignition) {
+                Ignition.ACC -> stringResource(R.string.home_sec_power, stringResource(R.string.ignition_acc))
+                Ignition.ON -> stringResource(R.string.home_sec_power, stringResource(R.string.common_on))
+                else -> null
             },
             stringResource(R.string.home_sec_alarm).takeIf { car.theftAlarm == TheftAlarm.TRIGGERED },
         )
@@ -705,11 +717,15 @@ private fun TimersCard(vm: MainViewModel, car: CarState, onOpenSchedule: () -> U
             )
         }
         HorizontalDivider(Modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
-        // The car's charge timer (kept in the car).
-        val known = ScheduleDecoder.hasAny(car)
+        // The car's charge timer (kept in the car). [known]: the car has reported it (an empty list until then).
+        val chargeDays = ScheduleDecoder.charge(car)
+        val known = chargeDays.isNotEmpty()
         val chargeOn = ScheduleDecoder.chargeTimerOn(car)
-        val charge = ScheduleDecoder.charge(car).filter { it.programmed }
-        TimerRow(PhevIcons.Plug, stringResource(R.string.ct_title), stringResource(R.string.departure_edit), onOpenChargeTimer) {
+        val charge = chargeDays.filter { it.programmed }
+        TimerRow(
+            PhevIcons.Plug, stringResource(R.string.ct_title),
+            stringResource(if (charge.isEmpty() && !chargeOn) R.string.departure_set_up else R.string.departure_edit), onOpenChargeTimer,
+        ) {
             if (!known) {
                 Text(stringResource(R.string.ct_more), style = MaterialTheme.typography.bodyMedium)
             } else {

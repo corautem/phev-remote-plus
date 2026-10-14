@@ -21,7 +21,7 @@
     <string name="faq_reach_q">What does \"Car not within reach\" mean?</string>
     <string name="faq_reach_a">The bridge hasn\'t seen the car\'s Wi-Fi for a while — the car is away, or just out of the bridge\'s range — or this phone couldn\'t find the car\'s Wi-Fi nearby. It reconnects by itself when the car is back. \"Try again\" asks the bridge to look right away.</string>
     <string name="faq_drive_q">Why does the connection drop while the car is switched on?</string>
-    <string name="faq_drive_a">2014–2017 cars switch their Wi-Fi off a little while after the car is switched ON. The app finds the car again once it is switched off. 2018 and newer cars have an \"Always communicate\" setting.</string>
+    <string name="faq_drive_a">2014–2017 cars switch their Wi-Fi off a little while after the car is switched ON. The app finds the car again once it is switched off. 2018 and newer cars have an \"Always communicate\" setting. Settings → Staying connected also lists phone settings that stop drop-outs.</string>
     <string name="faq_asleep_q">The car\'s Wi-Fi has disappeared</string>
     <string name="faq_asleep_a">After standing for days, the car switches its Wi-Fi off to save the 12 V battery. Pressing a button on the key or unlocking usually wakes it. If not: switch the car ON for 10 seconds, enter registration mode, connect once, and keep the car in READY for 10 minutes so the 12 V battery gets charged.</string>
     <string name="faq_away_q">How do I use the app away from home?</string>
@@ -38,6 +38,8 @@
     <string name="faq_health_a">Health compares today\'s capacity with a new battery (38 Ah before model year 2017, 40 Ah from 2017). A cell difference up to about 20 mV is fine. The car\'s own estimate can lag: running the battery low and charging it full in one go refreshes it.</string>
     <string name="faq_obd_q">Which OBD adapter works?</string>
     <string name="faq_obd_a">An ELM327-compatible Bluetooth adapter. OBDLink and Vgate iCar Pro work best; cheap clones read the basics but can\'t filter the car\'s chatter. The pairing PIN is usually 1234.</string>
+    <string name="faq_bridge_q">The bridge isn\'t answering</string>
+    <string name="faq_bridge_a">Check that the bridge (the small computer) has power and is on your home Wi-Fi, and that this phone is on the same network — or on the VPN when you\'re away. Settings → Bridge shows its status and can restart it. Meanwhile, next to the car, the app uses the car\'s Wi-Fi directly.</string>
     <string name="faq_alerts_q">How do alerts work with a bridge?</string>
     <string name="faq_alerts_a">The bridge watches the car around the clock. This phone shows its alerts at once while the app is open, otherwise within the hour — every few minutes while the car charges or preheats. If they arrive late, set PHEV Link\'s battery use to \"Unrestricted\".</string>
     <string name="faq_google_q">How do I add the car to Google Home?</string>

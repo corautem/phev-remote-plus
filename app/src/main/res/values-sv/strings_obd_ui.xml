@@ -181,7 +181,7 @@
     <string name="vs_unnamed_item">Inställning #%1$d</string>
     <string name="vs_unnamed_value">Alternativ %1$d (tillgängliga: %2$s)</string>
     <string name="vs_option_n">Alternativ %1$d</string>
-    <string name="vs_beeps_hint">Pip vid låsning/upplåsning och signalhornskvittens finns i gruppen ”Fjärrlåsning och nyckelfritt system”. Under Tips → Pip och ljud finns alla ljud och hur de ändras.</string>
+    <string name="vs_beeps_hint">Pip vid låsning/upplåsning och signalhornskvittens finns i gruppen ”Fjärrlåsning och nyckelfritt system”. Under Inställningar → Hjälp och frågor → Pip och ljud finns alla ljud och hur de ändras.</string>
 
     <!-- Tips -->
     <string name="tips_problems">Vanliga problem</string>

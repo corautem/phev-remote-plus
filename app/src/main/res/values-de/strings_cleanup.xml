@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Tidier app: settings groups, smart home page, Home cards, help links. -->
 <resources>
+    <string name="home_sec_power">Zündung: %1$s</string>
     <string name="set_group_smarthome">Smart Home</string>
     <string name="set_group_help">Hilfe und Support</string>
     <string name="set_sum_bridge_page">%1$s · Status, Protokoll und Updates</string>

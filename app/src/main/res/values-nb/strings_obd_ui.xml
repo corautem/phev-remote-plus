@@ -181,7 +181,7 @@
     <string name="vs_unnamed_item">Innstilling #%1$d</string>
     <string name="vs_unnamed_value">Valg %1$d (tilgjengelig: %2$s)</string>
     <string name="vs_option_n">Valg %1$d</string>
-    <string name="vs_beeps_hint">Pipelyd ved låsing/opplåsing og hornkvittering finner du i gruppen «Fjernstyrt sentrallås og nøkkelløs betjening». Under Tips → Pip og lyder står alle lydene og hvordan de endres.</string>
+    <string name="vs_beeps_hint">Pipelyd ved låsing/opplåsing og hornkvittering finner du i gruppen «Fjernstyrt sentrallås og nøkkelløs betjening». Under Innstillinger → Hjelp og spørsmål → Pip og lyder står alle lydene og hvordan de endres.</string>
 
     <!-- Tips -->
     <string name="tips_problems">Vanlige problemer</string>

@@ -15,13 +15,13 @@
     <string name="faq_one_q">Warum kann nur ein Gerät gleichzeitig das WLAN des Autos nutzen?</string>
     <string name="faq_one_a">Das WLAN des Autos nimmt nur ein Gerät an. Mit Bridge belegt die Bridge diesen Platz, und alle Handys gehen über sie. Um das WLAN des Autos direkt zu nutzen (etwa zum Registrieren eines Handys), lass die Bridge unter Optionen für 10 Minuten Platz machen.</string>
     <string name="faq_register_q">Wie registriere ich ein Handy im Auto?</string>
-    <string name="faq_register_a">Im Auto: Zündung AUS, dann auf ACC, ohne die Bremse zu berühren, und innerhalb von 10 Sekunden auf dem Schlüssel abwechselnd LOCK und UNLOCK drücken, insgesamt 10-mal. Dann unter Optionen → Handy-Registrierung auf Registrieren tippen – dort wird jeder Schritt erklärt. Das Auto merkt sich höchstens zwei Geräte.</string>
+    <string name="faq_register_a">Im Auto: Zündung AUS, dann auf ACC, ohne die Bremse zu berühren, und innerhalb von 10 Sekunden auf dem Schlüssel abwechselnd LOCK und UNLOCK drücken, insgesamt 10-mal. Dann unter Optionen → Handy registrieren auf Registrieren tippen – dort wird jeder Schritt erklärt. Das Auto merkt sich höchstens zwei Geräte.</string>
     <string name="faq_full_q">Das Auto hat beim Registrieren dreimal gepiept</string>
-    <string name="faq_full_a">Drei Pieptöne bedeuten, dass schon zwei Geräte registriert sind. Unter Optionen → Handy-Registrierung steht, wie du alle löschst (20 Tastendrücke). Dabei werden auch das WLAN-Passwort des Autos zurückgesetzt und seine Lade- und Klimatimer gelöscht.</string>
+    <string name="faq_full_a">Drei Pieptöne bedeuten, dass schon zwei Geräte registriert sind. Unter Optionen → Handy registrieren steht, wie du alle löschst (20 Tastendrücke). Dabei werden auch das WLAN-Passwort des Autos zurückgesetzt und seine Lade- und Klimatimer gelöscht.</string>
     <string name="faq_reach_q">Was bedeutet „Auto nicht in Reichweite“?</string>
     <string name="faq_reach_a">Die Bridge hat das WLAN des Autos eine Weile nicht gesehen – das Auto ist unterwegs oder nur außer Reichweite der Bridge –, oder dein Handy hat das WLAN des Autos in der Nähe nicht gefunden. Es verbindet sich von selbst wieder, sobald das Auto zurück ist. „Erneut versuchen“ lässt die Bridge sofort nachsehen.</string>
     <string name="faq_drive_q">Warum bricht die Verbindung ab, wenn das Auto eingeschaltet ist?</string>
-    <string name="faq_drive_a">Modelle 2014–2017 schalten ihr WLAN kurz nach dem Einschalten ab. Die App findet das Auto wieder, sobald es ausgeschaltet ist. Ab 2018 gibt es die Einstellung „Immer kommunizieren“.</string>
+    <string name="faq_drive_a">Modelle 2014–2017 schalten ihr WLAN kurz nach dem Einschalten ab. Die App findet das Auto wieder, sobald es ausgeschaltet ist. Ab 2018 gibt es die Einstellung „Immer kommunizieren“. Unter Optionen → Verbunden bleiben stehen außerdem Handy-Einstellungen gegen Abbrüche.</string>
     <string name="faq_asleep_q">Das WLAN des Autos ist verschwunden</string>
     <string name="faq_asleep_a">Nach Tagen Standzeit schaltet das Auto sein WLAN ab, um die 12-V-Batterie zu schonen. Ein Druck auf den Schlüssel oder Entriegeln weckt es meist. Sonst: Auto 10 Sekunden einschalten, Registriermodus starten, einmal verbinden und das Auto 10 Minuten in READY lassen, damit die 12-V-Batterie geladen wird.</string>
     <string name="faq_away_q">Wie nutze ich die App unterwegs?</string>
@@ -38,6 +38,8 @@
     <string name="faq_health_a">Der Zustand vergleicht die heutige Kapazität mit einer neuen Batterie (38 Ah vor Modelljahr 2017, 40 Ah ab 2017). Ein Zellunterschied bis etwa 20 mV ist in Ordnung. Die eigene Schätzung des Autos kann hinterherhinken: Batterie leer fahren und in einem Zug voll laden frischt sie auf.</string>
     <string name="faq_obd_q">Welcher OBD-Adapter funktioniert?</string>
     <string name="faq_obd_a">Ein ELM327-kompatibler Bluetooth-Adapter. OBDLink und Vgate iCar Pro funktionieren am besten; billige Klone lesen die Grundwerte, können das Grundrauschen des Autos aber nicht herausfiltern. Die Kopplungs-PIN ist meist 1234.</string>
+    <string name="faq_bridge_q">Die Bridge antwortet nicht</string>
+    <string name="faq_bridge_a">Prüfe, ob die Bridge (der kleine Computer) Strom hat und in deinem WLAN zu Hause ist, und ob dieses Handy im selben Netz ist – oder unterwegs im VPN. Optionen → Bridge zeigt ihren Status und kann sie neu starten. Solange nutzt die App direkt das WLAN des Autos, wenn du daneben stehst.</string>
     <string name="faq_alerts_q">Wie funktionieren Benachrichtigungen mit Bridge?</string>
     <string name="faq_alerts_a">Die Bridge behält das Auto rund um die Uhr im Blick. Dein Handy zeigt ihre Benachrichtigungen sofort, solange die App offen ist, sonst innerhalb einer Stunde – alle paar Minuten, solange das Auto lädt oder vorklimatisiert. Kommen sie zu spät, stelle die Akkunutzung von PHEV Link auf „Nicht eingeschränkt“.</string>
     <string name="faq_google_q">Wie füge ich das Auto zu Google Home hinzu?</string>

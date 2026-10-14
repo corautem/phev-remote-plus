@@ -405,7 +405,7 @@
     <string name="diag_data_hex">Daten (hex)</string>
     <string name="diag_send">Senden</string>
     <!-- Demo mode / emulation (added by 1.0.28) -->
-    <string name="emulation_banner">EMULATION — simuliertes Auto, nicht Ihr echtes Fahrzeug</string>
+    <string name="emulation_banner">EMULATION — simuliertes Auto, nicht dein echtes Fahrzeug</string>
     <string name="emulation_stop">Beenden</string>
     <string name="settings_demo_title">Demomodus</string>
     <string name="settings_demo_explain">Erkunde die App mit einem simulierten Auto – kein Auto, Dongle oder Bridge nötig. Schaltet sich beim Schließen der App aus.</string>

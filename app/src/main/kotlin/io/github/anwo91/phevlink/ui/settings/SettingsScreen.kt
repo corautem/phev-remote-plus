@@ -346,7 +346,6 @@ fun SettingsScreen(
                 // The car as it reports itself (was the footer of the Car tab).
                 car.vin?.let { LabeledValue("VIN", it) }
                 car.ecuVersion?.let { LabeledValue("ECU", it) }
-                car.registrations?.let { LabeledValue(stringResource(R.string.settings_registered_phones), it.toString()) }
                 Text(
                     stringResource(R.string.settings_about_text),
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,

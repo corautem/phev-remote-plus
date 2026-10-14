@@ -25,6 +25,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import androidx.annotation.StringRes
 import androidx.compose.ui.Modifier
@@ -183,6 +184,7 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
     fun show(p: String) { previous = page; page = p }
     fun back() { page = previous?.takeIf { it != page }; previous = null }
     fun openTab(t: Tab) { tab = t.ordinal; page = null; previous = null }
+    val tabState = rememberSaveableStateHolder()
     // Which page shows (also one restored after the app was restarted, e.g. by an update) — logged for support.
     LaunchedEffect(page) { vm.log.link("UI: ${page?.let { "page $it" } ?: "tabs"}") }
     // A page asked for from outside (a notification tap): open it once.
@@ -225,7 +227,7 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
         val p = page
         when {
             p == Page.VEHICLE -> VehicleSettingsScreen(vm, m, onBack = { back() })
-            p == Page.BRIDGE -> BridgeSetupScreen(vm, m, onBack = { back() }, onFinished = { page = null; previous = null })
+            p == Page.BRIDGE -> BridgeSetupScreen(vm, m, onBack = { back() }, onFinished = { back() })
             p == Page.BRIDGE_STATUS -> BridgeScreen(
                 vm, m, onBack = { back() }, onOpenSetup = { show(Page.BRIDGE) }, onOpenActivity = { show(Page.ACTIVITY) },
                 onOpenSmartHome = { show(Page.SMART_HOME + ":" + it) },
@@ -242,7 +244,8 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
                 onOpenTests = { openTab(Tab.OBD) },
                 onOpenVehicleSettings = { show(Page.VEHICLE) },
             )
-            else -> when (current) {
+            // Each tab keeps its scroll position and open rows while a page is shown over it.
+            else -> tabState.SaveableStateProvider(current.name) { when (current) {
                 Tab.CAR -> HomeScreen(
                     vm, m,
                     onOpenSchedule = { openTab(Tab.SCHEDULE) },
@@ -263,7 +266,7 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
                     onOpenHelp = { show(Page.TIPS) },
                     onOpenDiagnostics = { show(Page.DIAGNOSTICS) },
                 )
-            }
+            } }
         }
     }
 }

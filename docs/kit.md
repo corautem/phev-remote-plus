@@ -77,7 +77,7 @@ what's built today.
    on is fine: the app's setup switches the bridge to the real car.
 
 The **buyer** then does the rest from the app, with no computer: first-run setup asks for the car's Wi-Fi card, then
-offers **I have a PHEV Link bridge** (also in Settings → Set up bridge), which finds the bridge, pairs by
+offers **I have a PHEV Link bridge** (also in Settings → Bridge), which finds the bridge, pairs by
 re-plugging it, joins the bridge to their car's Wi-Fi and walks them through the car's registration beeps. Their home
 link must be Ethernet or the USB Wi-Fi adapter — the built-in Wi-Fi goes to the car (the app says so if it can't).
 

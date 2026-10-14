@@ -15,13 +15,13 @@
     <string name="faq_one_q">Hvorfor kan bare én enhet bruke bilens Wi-Fi om gangen?</string>
     <string name="faq_one_a">Bilens Wi-Fi tar imot én enhet. Med bro holder broen den plassen, og alle telefoner går via den. For å bruke bilens Wi-Fi direkte (for eksempel for å registrere en telefon) kan broen gå til side i 10 minutter under Innstillinger.</string>
     <string name="faq_register_q">Hvordan registrerer jeg en telefon i bilen?</string>
-    <string name="faq_register_a">I bilen: strøm AV, så til ACC uten å røre bremsen, og innen 10 sekunder trykk LOCK og UNLOCK på nøkkelen annenhver gang, 10 trykk i alt. Trykk så Registrer under Innstillinger → Telefonregistrering, som viser hvert steg. Bilen husker maks to enheter.</string>
+    <string name="faq_register_a">I bilen: strøm AV, så til ACC uten å røre bremsen, og innen 10 sekunder trykk LOCK og UNLOCK på nøkkelen annenhver gang, 10 trykk i alt. Trykk så Registrer under Innstillinger → Registrering av telefon, som viser hvert steg. Bilen husker maks to enheter.</string>
     <string name="faq_full_q">Bilen pep tre ganger da jeg prøvde å registrere</string>
-    <string name="faq_full_a">Tre pip betyr at bilen allerede har to enheter registrert. Innstillinger → Telefonregistrering forklarer hvordan du sletter alle (20 tastetrykk). Det tilbakestiller også passordet til bilens Wi-Fi og sletter bilens lade- og klimatidsur.</string>
+    <string name="faq_full_a">Tre pip betyr at bilen allerede har to enheter registrert. Innstillinger → Registrering av telefon forklarer hvordan du sletter alle (20 tastetrykk). Det tilbakestiller også passordet til bilens Wi-Fi og sletter bilens lade- og klimatidsur.</string>
     <string name="faq_reach_q">Hva betyr «Bilen er ikke innen rekkevidde»?</string>
     <string name="faq_reach_a">Broen har ikke sett bilens Wi-Fi på en stund – bilen er borte, eller bare utenfor broens rekkevidde – eller telefonen fant ikke bilens Wi-Fi i nærheten. Den kobler seg til igjen av seg selv når bilen er tilbake. «Prøv igjen» ber broen se etter med en gang.</string>
     <string name="faq_drive_q">Hvorfor faller forbindelsen ut når bilen er slått på?</string>
-    <string name="faq_drive_a">2014–2017-biler slår av Wi-Fi-en litt etter at bilen er slått PÅ. Appen finner bilen igjen når den er slått av. 2018 og nyere har innstillingen «Kommuniser alltid».</string>
+    <string name="faq_drive_a">2014–2017-biler slår av Wi-Fi-en litt etter at bilen er slått PÅ. Appen finner bilen igjen når den er slått av. 2018 og nyere har innstillingen «Kommuniser alltid». Under Innstillinger → Holde forbindelsen står også telefoninnstillinger som hindrer brudd.</string>
     <string name="faq_asleep_q">Bilens Wi-Fi har forsvunnet</string>
     <string name="faq_asleep_a">Etter flere dager i ro slår bilen av Wi-Fi-en for å spare 12 V-batteriet. Et trykk på nøkkelen eller å låse opp vekker den som regel. Hvis ikke: slå bilen PÅ i 10 sekunder, gå i registreringsmodus, koble til én gang, og la bilen stå i READY i 10 minutter så 12 V-batteriet lades.</string>
     <string name="faq_away_q">Hvordan bruker jeg appen borte fra hjemmet?</string>
@@ -38,6 +38,8 @@
     <string name="faq_health_a">Helse sammenligner dagens kapasitet med et nytt batteri (38 Ah før årsmodell 2017, 40 Ah fra 2017). En celleforskjell opp til omtrent 20 mV er fint. Bilens eget anslag kan henge etter: kjør batteriet lavt og lad det fullt i ett strekk, så oppdateres det.</string>
     <string name="faq_obd_q">Hvilken OBD-adapter fungerer?</string>
     <string name="faq_obd_a">En ELM327-kompatibel Bluetooth-adapter. OBDLink og Vgate iCar Pro fungerer best; billige kopier leser det grunnleggende, men klarer ikke å filtrere bort støyen fra bilen. Paringskoden er som regel 1234.</string>
+    <string name="faq_bridge_q">Broen svarer ikke</string>
+    <string name="faq_bridge_a">Sjekk at broen (den lille datamaskinen) har strøm og er på Wi-Fi hjemme, og at denne telefonen er på samme nett – eller på VPN når du er borte. Innstillinger → Bro viser status og kan starte den på nytt. I mellomtiden bruker appen bilens Wi-Fi direkte når du står ved bilen.</string>
     <string name="faq_alerts_q">Hvordan virker varsler med bro?</string>
     <string name="faq_alerts_a">Broen holder øye med bilen hele døgnet. Telefonen viser varslene med en gang mens appen er åpen, ellers innen en time – hvert par minutter mens bilen lader eller forvarmes. Kommer de sent, sett batteribruk for PHEV Link til «Ubegrenset».</string>
     <string name="faq_google_q">Hvordan legger jeg bilen til i Google Home?</string>

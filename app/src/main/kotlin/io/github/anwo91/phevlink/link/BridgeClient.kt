@@ -66,14 +66,14 @@ class BridgeClient(
             val c = open("status", "GET", timeoutMs)
             val code = c.responseCode
             if (code == 401) {
-                fail(errorText(R.string.bridge_err_token)); return@withContext null
+                fail(errorText(R.string.bridge_err_token), hard = true); return@withContext null
             }
             if (code != 200) {
-                fail(errorText(R.string.bridge_err_http, code)); return@withContext null
+                fail(errorText(R.string.bridge_err_http, code), hard = true); return@withContext null
             }
             val text = c.inputStream.bufferedReader().use { it.readText() }
             c.disconnect()
-            parse(text).also { _snapshot.value = it; _reachable.value = true; _error.value = null }
+            parse(text).also { _snapshot.value = it; answered("status") }
         } catch (e: Exception) {
             fail(errorText(R.string.bridge_err_unreachable, e.message ?: e.javaClass.simpleName))
             null
@@ -90,6 +90,7 @@ class BridgeClient(
             val code = c.responseCode
             val body = (if (code in 200..299) c.inputStream else c.errorStream)?.bufferedReader()?.use { it.readText() } ?: ""
             c.disconnect()
+            if (code != 401) answered("command")
             val m = runCatching { Json.parseObject(body) }.getOrDefault(emptyMap())
             if (code in 200..299 && m["ok"] == true) {
                 CommandResult.Success(cmd, m.long("tookMs") ?: 0)
@@ -97,8 +98,9 @@ class BridgeClient(
                 CommandResult.Failure(cmd, m.str("error") ?: errorText(R.string.bridge_err_http, code))
             }
         } catch (e: Exception) {
-            _reachable.value = false
-            CommandResult.Failure(cmd, errorText(R.string.bridge_err_unreachable, e.message ?: e.javaClass.simpleName), retryable = true)
+            val why = errorText(R.string.bridge_err_unreachable, e.message ?: e.javaClass.simpleName)
+            fail(why)
+            CommandResult.Failure(cmd, why, retryable = true)
         }
     }
 
@@ -126,13 +128,15 @@ class BridgeClient(
                     c.setRequestProperty("Accept", "text/event-stream")
                     eventConn = c
                     if (c.responseCode != 200) throw IllegalStateException("HTTP ${c.responseCode}")
-                    _reachable.value = true
-                    _error.value = null
+                    answered("live updates")
                     backoff = 1_000
                     BufferedReader(InputStreamReader(c.inputStream)).use { r ->
                         val data = StringBuilder()
                         while (isActive) {
                             val line = r.readLine() ?: break
+                            // Any line (data or the 15 s keepalive) proves the bridge is there — also after a
+                            // command or status request failed meanwhile while this stream kept running.
+                            if (_reachable.value != true || failingSince != null) answered("live updates")
                             when {
                                 line.startsWith("data:") -> data.append(line.removePrefix("data:").trim())
                                 line.isEmpty() && data.isNotEmpty() -> {
@@ -172,10 +176,40 @@ class BridgeClient(
         return c
     }
 
-    private fun fail(msg: String) {
-        if (_error.value != msg) log.warn(msg)
+    /** When talking to the bridge started failing (null = it answers); see [fail]. */
+    @Volatile private var failingSince: Long? = null
+
+    /** The bridge answered (an HTTP reply, or a line on the live stream). */
+    private fun answered(what: String) {
+        val since = failingSince
+        if (_reachable.value == false || since != null) {
+            log.link("Bridge answers again ($what)" + (since?.let { " after ${(System.currentTimeMillis() - it) / 1000} s" } ?: ""))
+        }
+        failingSince = null
+        _reachable.value = true
+        _error.value = null
+    }
+
+    /**
+     * Talking to the bridge failed. A single failed request or a dropped live stream (the phone changing networks, a
+     * busy bridge) isn't an outage: "unreachable" is shown only once failures have lasted [UNREACHABLE_AFTER_MS] with
+     * nothing answering in between, or right away when it was never reached yet or for a [hard] answer (wrong token,
+     * HTTP error).
+     */
+    private fun fail(msg: String, hard: Boolean = false) {
+        val now = System.currentTimeMillis()
+        val since = failingSince ?: now.also { failingSince = it }
+        val report = hard || _reachable.value != true || now - since >= UNREACHABLE_AFTER_MS
+        if (_error.value != msg || (report && _reachable.value == true)) {
+            log.warn(msg + if (report) "" else " — trying again; not shown as unreachable yet")
+        }
         _error.value = msg
-        _reachable.value = false
+        if (report) _reachable.value = false
+    }
+
+    private companion object {
+        /** How long failures must last (with nothing answering) before the app says the bridge is unreachable. */
+        const val UNREACHABLE_AFTER_MS = 20_000L
     }
 
     private fun parse(text: String): Snapshot {

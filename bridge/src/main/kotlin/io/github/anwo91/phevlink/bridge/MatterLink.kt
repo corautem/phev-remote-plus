@@ -225,7 +225,9 @@ class MatterLink(
         setPhase("starting")
         log.link("Matter: starting ($why): ${cmd.joinToString(" ")}")
         val p = try {
-            ProcessBuilder(cmd).start()
+            // At low priority: starting Matter keeps a small Raspberry Pi busy for a while, and the bridge's own
+            // answers to the phones (and the car link) must not wait for it.
+            ProcessBuilder(if (NICE.canExecute()) listOf(NICE.path, "-n", "10") + cmd else cmd).start()
         } catch (e: Exception) {
             setPhase("error", "couldn't start Node.js: ${e.message}", "no-node")
             log.warn("Matter: couldn't start ${cmd.first()}: ${e.message}")
@@ -455,6 +457,8 @@ class MatterLink(
         }
 
         /** "34970112332" → "3497-011-2332" (as Google Home shows it). */
+        private val NICE = File("/usr/bin/nice")
+
         /** What a Node.js exit code usually means. */
         fun exitMeaning(code: Int): String? = when (code) {
             0 -> "ended by itself"

@@ -126,7 +126,7 @@ class BridgeAdminController(
             _state.update { it.copy(url = u, reachable = false) }
             return
         }
-        val hello = BridgeSetupApi.hello(u)
+        val hello = BridgeSetupApi.hello(u) ?: secondTry(u)
         if (hello == null) {
             if (awayExpected) {
                 // Asked to restart or update: it's supposed to be away for a bit — keep the page as it was.
@@ -168,6 +168,14 @@ class BridgeAdminController(
             }
         }
         if (updates && "update" in hello.features && updateJob?.isActive != true) fetchUpdate(check = false)
+    }
+
+    /** One slow answer (a busy bridge, the phone switching networks) isn't "doesn't answer": ask once more, patiently. */
+    private suspend fun secondTry(u: String): FoundBridge? {
+        if (_state.value.reachable != true || awayExpected) return null
+        val first = BridgeSetupApi.lastFailure
+        return BridgeSetupApi.hello(u, connectMs = 5_000, readMs = 10_000)
+            ?.also { log.link("Bridge page: $u was slow to answer ($first) — fine on the second try") }
     }
 
     private suspend fun fetchUpdate(check: Boolean): UpdateInfo? {

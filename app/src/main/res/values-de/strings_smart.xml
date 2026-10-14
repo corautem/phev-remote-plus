@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Smart charging (the bridge moves tonight's charging to the cheapest hours). -->
 <resources>
+    <string name="smart_status_owner_before">Dein Timer vor heute Nacht: %1$s</string>
+    <string name="smart_owner_none">kein Timer (lädt, sobald es angesteckt ist)</string>
     <string name="ct_smart_note">Das Fenster für heute Nacht hat smartes Laden gesetzt; dein eigener Timer kommt morgens zurück. Speicherst du hier eine Änderung, bleibt sie, und smartes Laden zieht sich für heute Nacht zurück.</string>
     <string name="act_smart_stepped_back">Smartes Laden: der Timer wurde auf einem Handy geändert – bleibt so</string>
     <string name="smart_status_state_failed">Die Bridge konnte ihre Notizen nicht speichern – sie lässt den Timer in Ruhe</string>

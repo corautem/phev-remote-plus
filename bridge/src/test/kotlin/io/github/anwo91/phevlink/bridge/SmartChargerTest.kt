@@ -81,7 +81,7 @@ class SmartChargerTest {
                 val onCar = ChargeTimerProgram.read(car)?.normalized()
                 when {
                     // Like the car session's compare-and-swap check.
-                    cmd.expected != null && onCar !in cmd.expected!!.map { it.normalized() } -> CommandResult.Failure(cmd, CarCommand.SetChargeTimer.TIMER_CHANGED)
+                    cmd.expected != null && cmd.expected!!.none { it.sameTimes(onCar) } -> CommandResult.Failure(cmd, CarCommand.SetChargeTimer.TIMER_CHANGED)
                     reachButFail -> {
                         program = p
                         car = carWith(p, car.batteryPercent ?: 0, car.plug)
@@ -203,6 +203,8 @@ class SmartChargerTest {
         s.tick()
         assertEquals("nothing put back over the phone's timer", 1, written.size)
         assertEquals("changed", s.describe()["status"])
+        // The phones can still show what the timer was before tonight.
+        assertTrue(s.describe()["ownerBefore"] != null)
     }
 
     @Test

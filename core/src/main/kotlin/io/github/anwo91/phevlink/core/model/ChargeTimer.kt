@@ -36,6 +36,17 @@ data class ChargeTimerProgram(
     /** The window [day] uses, if any. */
     fun window(day: Int): ChargeWindow? = dayTimer[day].takeIf { it in 1..3 }?.let { windows[it - 1] }
 
+    /**
+     * Same windows on the same days — full-charge days aside (the car may clear those itself after a full charge).
+     * What the bridge's smart charging compares when it decides whose timer the car carries.
+     */
+    fun sameTimes(other: ChargeTimerProgram?): Boolean {
+        if (other == null) return false
+        val a = normalized()
+        val b = other.normalized()
+        return (0..6).all { a.window(it) == b.window(it) }
+    }
+
     /** At least one day has a window: the car waits for it when plugged in. */
     val active: Boolean get() = (0..6).any { window(it) != null }
 

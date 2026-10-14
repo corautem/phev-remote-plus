@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Smart charging (the bridge moves tonight's charging to the cheapest hours). -->
 <resources>
+    <string name="smart_status_owner_before">Timeren din før i natt: %1$s</string>
+    <string name="smart_owner_none">ingen timer (lader så snart den kobles til)</string>
     <string name="ct_smart_note">Nattens vindu er satt av smart lading; din egen timer kommer tilbake om morgenen. Lagrer du en endring her, blir den stående, og smart lading trekker seg for i natt.</string>
     <string name="act_smart_stepped_back">Smart lading: timeren ble endret på en telefon – står slik den ble satt</string>
     <string name="smart_status_state_failed">Broen fikk ikke lagret notatene sine – den lot timeren være</string>

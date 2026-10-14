@@ -223,6 +223,11 @@ class HttpApi(
                 val next = s.update(changes, by)
                 if (s.rev != before) record(ex, "shared.changed", mapOf("keys" to changes.keys.filter { it in SharedStore.KEYS }.joinToString()), null)
                 if (s.rev != before && changes.keys.any { it in SharedStore.PRICE_KEYS }) history?.planChanged()
+                // The car's clock (set by the bridge) follows the phones' time zone.
+                if (s.rev != before && "timeZone" in changes && s.zone() != java.time.ZoneId.systemDefault()) {
+                    log.link("Time zone: now ${s.zone()} (from $by)")
+                    java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone(s.zone()))
+                }
                 json(ex, 200, mapOf("ok" to true, "shared" to next))
             }
             path == "activity" && ex.requestMethod == "GET" -> {

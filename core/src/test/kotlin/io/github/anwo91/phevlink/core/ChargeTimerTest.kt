@@ -130,12 +130,14 @@ class ChargeTimerTest {
         val presets = (byteArrayOf(raw[0], raw[1]) + raw.copyOfRange(3, 11)).toHex()
         val car = state(Reg.READ_CHARGE_TIMER_STATE_B to "02", Reg.READ_CHARGE_PRESETS to presets, Reg.READ_FULL_CHARGE_DAYS to byteArrayOf(raw[2]).toHex())
         val fresh = setOf(Reg.READ_CHARGE_TIMER_STATE_B, Reg.READ_CHARGE_PRESETS, Reg.READ_FULL_CHARGE_DAYS)
-        val other = weekdays.copy(fullDays = emptySet())
+        val other = weekdays.copy(dayTimer = List(7) { 1 })
         assertNull(CarCommand.SetChargeTimer(other, expected = setOf(weekdays)).refusal(car, fresh))
         assertEquals(CarCommand.SetChargeTimer.TIMER_CHANGED, CarCommand.SetChargeTimer(weekdays, expected = setOf(other)).refusal(car, fresh))
         // Only what the car sent in this connection counts.
         assertEquals(CarCommand.SetChargeTimer.TIMER_UNKNOWN, CarCommand.SetChargeTimer(other, expected = setOf(weekdays)).refusal(car, setOf(Reg.READ_CHARGE_TIMER_STATE_B)))
         assertTrue(Reg.READ_CHARGE_PRESETS in CarCommand.SetChargeTimer(other, expected = setOf(weekdays)).requiredRegisters(ModelYear.MY14))
+        // Full-charge days don't count (the car may clear them itself).
+        assertNull(CarCommand.SetChargeTimer(other, expected = setOf(weekdays.copy(fullDays = emptySet()))).refusal(car, fresh))
     }
 
     @Test

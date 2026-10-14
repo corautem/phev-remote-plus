@@ -193,8 +193,9 @@ sealed interface CarCommand {
      * sees the new schedule; with no timer left, 0x17 = 1 (the car charges as soon as it's plugged in).
      *
      * [expected] (compare-and-swap, for the bridge's smart charging): only write when the car's timer — as it reported
-     * it in this very connection — is one of these; otherwise refuse with [TIMER_CHANGED] (a phone changed it) or
-     * [TIMER_UNKNOWN]. Null: write whatever the car has (a phone's own edit).
+     * it in this very connection — has the same windows on the same days as one of these (see
+     * [ChargeTimerProgram.sameTimes]); otherwise refuse with [TIMER_CHANGED] (a phone changed it) or [TIMER_UNKNOWN].
+     * Null: write whatever the car has (a phone's own edit).
      */
     data class SetChargeTimer(val program: ChargeTimerProgram, val expected: Set<ChargeTimerProgram>? = null) : CarCommand {
         override val label = "Set charge timer: ${program.summary()}"
@@ -208,7 +209,7 @@ sealed interface CarCommand {
             state.modelYear == ModelYear.MY18 || state.modelYear == ModelYear.MY24 -> NOT_MY14
             expected == null -> null
             Reg.READ_CHARGE_PRESETS !in fresh || Reg.READ_FULL_CHARGE_DAYS !in fresh -> TIMER_UNKNOWN
-            ChargeTimerProgram.read(state)?.normalized() !in expected.map { it.normalized() } -> TIMER_CHANGED
+            ChargeTimerProgram.read(state).let { onCar -> expected.none { it.sameTimes(onCar) } } -> TIMER_CHANGED
             else -> null
         }
 

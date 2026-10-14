@@ -113,6 +113,8 @@ class SmartCharger(
             "enabled" to cfg.enabled, "readyAt" to cfg.readyAt.toString(), "useDepartures" to cfg.useDepartures,
             "status" to status, "plan" to plan?.toMap(), "saving" to plan?.let { savingFor(it, car().batteryPercent ?: 0) },
             "currency" to store.pricePlan().currencyFor(store.priceArea()),
+            // After stepping back: the timer the car had before tonight (the phones can show it).
+            "ownerBefore" to s.owner?.takeIf { s.written == null && s.note == "changed" }?.let(::programMap),
         )
     }
 
@@ -148,8 +150,8 @@ class SmartCharger(
         val written = s.written ?: return
         // What the car reported after the last write came back (older reports can't show its effect).
         val onCar = timerSince(c, s.writeDoneMs)
-        if (onCar != null && onCar !in s.ours) {
-            if (onCar == ownerProgram(s)) {
+        if (onCar != null && !isOurs(s, onCar)) {
+            if (onCar.sameTimes(ownerProgram(s))) {
                 if (s.confirmed) {
                     // Tonight's timer was confirmed, and since then the car reports the owner's: a phone put it back.
                     log.link("Smart charging: the car has the owner's timer again (${onCar.summary()}) — put back by a phone; done")
@@ -161,11 +163,11 @@ class SmartCharger(
                 // Someone else changed the timer (a phone): that stays — nothing to put back.
                 log.link("Smart charging: the car's timer was changed by someone else (${onCar.summary()}) — stepping back; it stays as they set it. The timer before tonight was: ${ownerProgram(s).summary()}")
                 record("smart.stepped_back")
-                update(State(pluggedMs = s.pluggedMs.takeIf { c.plug == PlugState.PLUGGED }, decided = true, note = "changed"))
+                stepBack(s, c.plug == PlugState.PLUGGED)
                 return
             }
         }
-        if (!s.confirmed && onCar == written) {
+        if (!s.confirmed && onCar != null && onCar.sameTimes(written)) {
             log.link("Smart charging: the car confirms tonight's timer (${written.summary()})")
             update(s.copy(confirmed = true, writeTries = 0, note = "planned"))
             return
@@ -251,6 +253,7 @@ class SmartCharger(
      */
     private suspend fun write(
         owner: ChargeTimerProgram?, program: ChargeTimerProgram, plan: ChargePlan, pct: Int, first: Boolean, expected: Set<ChargeTimerProgram>,
+        replan: Boolean = false,
     ) {
         val s = st
         val t = now()
@@ -273,12 +276,19 @@ class SmartCharger(
         if (r is CommandResult.Failure && (r.reason == CarCommand.SetChargeTimer.TIMER_CHANGED || r.reason == CarCommand.SetChargeTimer.TIMER_UNKNOWN)) {
             // Nothing was written. Changed: a phone set the timer — it stays. Unknown: look again next minute.
             if (r.reason == CarCommand.SetChargeTimer.TIMER_CHANGED) {
-                log.link("Smart charging: ${r.reason} (${ChargeTimerProgram.read(car())?.summary() ?: "?"}) — stepping back")
+                log.link("Smart charging: ${r.reason} (${ChargeTimerProgram.read(car())?.summary() ?: "?"}) — stepping back; the timer before tonight was: ${ownerProgram(s).summary()}")
                 if (!first) record("smart.stepped_back")
-                update(State(pluggedMs = s.pluggedMs, decided = true, note = "changed"))
+                if (first) update(s.copy(decided = true, note = "changed")) else stepBack(s, true)
             } else {
-                log.link("Smart charging: ${r.reason} — trying again in a minute")
-                if (first) update(s) else update(st.copy(writeDoneMs = now(), writeTries = st.writeTries + 1))
+                // The car hasn't sent its timer in this connection: ask for it; try again next minute.
+                log.link("Smart charging: ${r.reason} — asking the car for its state, trying again in a minute")
+                runCatching { execute(CarCommand.RequestUpdate) }
+                when {
+                    first -> update(s)
+                    // A move: the car still carries the confirmed window — keep it, look again later.
+                    replan -> update(s.copy(lastLookMs = now()))
+                    else -> update(st.copy(writeDoneMs = now(), writeTries = st.writeTries + 1))
+                }
             }
             return
         }
@@ -332,7 +342,7 @@ class SmartCharger(
         }
         log.link("Smart charging: " + if (tooLate) "the car is needed by ${clock(readyBy)} now — moving the window" else "cheaper hours came in (%.2f → %.2f) — moving the window".format(current, newPrice))
         update(st.copy(rewrites = s.rewrites + 1, lastLookMs = t))
-        write(s.owner, program, better, pct, first = false, expected = s.ours.toSet())
+        write(s.owner, program, better, pct, first = false, expected = s.ours.toSet(), replan = true)
     }
 
     /**
@@ -343,16 +353,23 @@ class SmartCharger(
         val s = st
         val target = ownerProgram(s)
         log.link("Smart charging: $why — putting the owner's timer back (${target.summary()})" + if (s.restoreTries > 0) ", try ${s.restoreTries + 1}" else "")
-        val r = execute(CarCommand.SetChargeTimer(target, expected = (s.ours + target).toSet()))
+        val expected = (s.ours + target).toSet()
+        var r = execute(CarCommand.SetChargeTimer(target, expected = expected))
+        if (r is CommandResult.Failure && r.reason == CarCommand.SetChargeTimer.TIMER_UNKNOWN) {
+            // The car hasn't sent its timer in this connection yet: ask, then try once more while it's connected.
+            log.link("Smart charging: ${r.reason} — asking the car for its state and trying once more")
+            runCatching { execute(CarCommand.RequestUpdate) }
+            r = execute(CarCommand.SetChargeTimer(target, expected = expected))
+        }
         when {
             r is CommandResult.Success -> {
                 record("smart.done", "reason" to why)
                 update(State(pluggedMs = s.pluggedMs.takeIf { car().plug == PlugState.PLUGGED }, decided = true, note = note))
             }
             r is CommandResult.Failure && r.reason == CarCommand.SetChargeTimer.TIMER_CHANGED -> {
-                log.link("Smart charging: $why — but the timer was changed by someone else meanwhile (${ChargeTimerProgram.read(car())?.summary() ?: "?"}); leaving it")
+                log.link("Smart charging: $why — but the timer was changed by someone else meanwhile (${ChargeTimerProgram.read(car())?.summary() ?: "?"}); leaving it. The timer before tonight was: ${target.summary()}")
                 record("smart.stepped_back")
-                update(State(pluggedMs = s.pluggedMs.takeIf { car().plug == PlugState.PLUGGED }, decided = true, note = "changed"))
+                stepBack(s, car().plug == PlugState.PLUGGED)
             }
             r is CommandResult.Failure -> {
                 val tries = s.restoreTries + 1
@@ -364,6 +381,14 @@ class SmartCharger(
     }
 
     private fun ownerProgram(s: State): ChargeTimerProgram = (s.owner ?: ChargeTimerProgram.EMPTY).normalized()
+
+    /** [p] is one of the bridge's programs tonight (same windows on the same days). */
+    private fun isOurs(s: State, p: ChargeTimerProgram): Boolean = s.ours.any { it.sameTimes(p) }
+
+    /** A phone changed the timer: the bridge lets go, keeping the owner's earlier timer for the phones to show. */
+    private fun stepBack(s: State, plugged: Boolean) {
+        update(State(owner = s.owner ?: ChargeTimerProgram.EMPTY, pluggedMs = s.pluggedMs.takeIf { plugged }, decided = true, note = "changed"))
+    }
 
     private fun skip(code: String, why: String) {
         log.link("Smart charging: $why")

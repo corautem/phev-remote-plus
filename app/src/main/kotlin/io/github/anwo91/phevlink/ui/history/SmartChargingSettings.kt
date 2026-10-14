@@ -121,6 +121,23 @@ fun SmartChargingSettings(vm: MainViewModel, s: AppSettings) {
     }
 }
 
+/** "23:00–07:00 Mon, Tue, Wed, Thu, Fri" for the owner's timer before tonight (null when there's nothing to show). */
+private fun ownerBefore(ctx: Context, m: Any?): String? {
+    @Suppress("UNCHECKED_CAST")
+    val p = (m as? Map<String, Any?>)?.let { runCatching { io.github.anwo91.phevlink.core.json.Codecs.commandFromMap(it) }.getOrNull() }
+        as? io.github.anwo91.phevlink.core.model.CarCommand.SetChargeTimer ?: return null
+    val loc = AppLocale.uiLocale(ctx)
+    val res = AppLocale.localized(ctx)
+    val program = p.program.normalized()
+    if (!program.active) return res.getString(R.string.smart_owner_none)
+    fun dayName(d: Int) = java.time.DayOfWeek.of(if (d == 0) 7 else d).getDisplayName(java.time.format.TextStyle.SHORT, loc)
+    return (1..3).mapNotNull { t ->
+        val w = program.windows[t - 1] ?: return@mapNotNull null
+        val days = listOf(1, 2, 3, 4, 5, 6, 0).filter { program.dayTimer[it] == t }
+        if (days.isEmpty()) null else "%02d:%02d–%02d:%02d ".format(w.start.hour, w.start.minute, w.end.hour, w.end.minute) + days.joinToString(", ") { dayName(it) }
+    }.joinToString("; ")
+}
+
 /** Statuses where the car carries (or gets) the bridge's window. */
 val BUSY = setOf("planned", "writing", "restoring")
 
@@ -164,7 +181,7 @@ fun smartStatusText(ctx: Context, sm: Map<String, Any?>): String {
         "my18" -> res.getString(R.string.smart_status_my18)
         "no_timer_data" -> res.getString(R.string.smart_status_no_timer_data)
         "failed" -> res.getString(R.string.smart_status_failed)
-        "changed" -> res.getString(R.string.smart_status_changed)
+        "changed" -> res.getString(R.string.smart_status_changed) + (ownerBefore(ctx, sm["ownerBefore"])?.let { "\n" + res.getString(R.string.smart_status_owner_before, it) } ?: "")
         "done" -> res.getString(R.string.smart_status_done)
         "flat_price" -> res.getString(R.string.smart_status_flat_price)
         "no_slot" -> res.getString(R.string.smart_status_no_slot)

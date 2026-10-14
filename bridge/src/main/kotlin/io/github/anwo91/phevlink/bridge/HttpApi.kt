@@ -59,6 +59,8 @@ import java.util.concurrent.TimeUnit
  *   POST /api/shared       {"departures":[…],"carName":"…"} -> saved (only the keys sent; last writer wins per key)
  *   GET  /api/activity     ?limit=200&before=<ms>: who did what and what the car did, newest first (+ English "text")
  *   POST /api/activity     {"entries":[…]}: a phone reports what it did straight over the car's Wi-Fi ("cmd.…" only)
+ *   GET  /api/carwifi/radios  the Wi-Fi radios (built in / USB, driver, what each does, car signal)
+ *   POST /api/carwifi/radio   {"iface":"wlan1"}: move the car's Wi-Fi to that radio (not the home one), save, restart
  *   GET  /api/history      ?limit=300: charges (energy, cost) and trips, newest first, this week, this month, the price plan
  *
  * Phones name themselves in the "X-PHEV-Device" header (URL-encoded); that name goes into the activity log.
@@ -184,6 +186,22 @@ class HttpApi(
                     "ok" to r.ok, "saved" to r.saved, "connected" to r.connected, "message" to r.message,
                     "status" to r.status.toMap(),
                 ))
+            }
+            path == "carwifi/radios" && ex.requestMethod == "GET" -> withWifi(ex) { wifi ->
+                json(ex, 200, mapOf("ok" to true, "radios" to wifi.radios().map { it.toMap() }, "chosen" to config.carIface.ifBlank { null }))
+            }
+            path == "carwifi/radio" && ex.requestMethod == "POST" -> withWifi(ex) { wifi ->
+                val iface = body(ex)["iface"] as? String ?: return json(ex, 400, mapOf("ok" to false, "error" to "Which radio?"))
+                val radios = wifi.radios()
+                if (radios.none { it.name == iface }) return json(ex, 400, mapOf("ok" to false, "error" to "No Wi-Fi radio $iface"))
+                val file = settingsFile ?: return json(ex, 409, mapOf("ok" to false, "error" to "No config file to save to"))
+                log.link("API: car Wi-Fi radio → $iface, asked by ${who(ex)} (radios: ${radios.joinToString { "${it.name}${if (it.usb) " usb" else ""} ${it.driver ?: "?"} ${it.state}${it.carSignal?.let { s -> " car $s %" } ?: ""}" }})")
+                val why = wifi.moveTo(iface)
+                if (why != null) return json(ex, 500, mapOf("ok" to false, "error" to why))
+                if (!BridgeConfig.saveProperty(file, "car.iface", iface)) return json(ex, 500, mapOf("ok" to false, "error" to "Could not write ${file.path}"))
+                record(ex, "bridge.carwifi_radio", mapOf("iface" to iface), null)
+                json(ex, 200, mapOf("ok" to true, "restarting" to true))
+                restart()
             }
             path == "carwifi/forget" && ex.requestMethod == "POST" -> withWifi(ex) { json(ex, 200, mapOf("ok" to it.forget())) }
             path == "config" && ex.requestMethod == "POST" -> configChange(ex)

@@ -50,6 +50,55 @@ class CarWifi(
         )
     }
 
+    /**
+     * A Wi-Fi radio of this computer: built in or USB, its driver (chipset family), what it does now, and how well it
+     * sees the car's network ([carSignal], from NetworkManager's latest scan; null when not in sight).
+     */
+    data class Radio(
+        val name: String,
+        val usb: Boolean,
+        val driver: String?,
+        val state: String,
+        val connection: String?,
+        val forCar: Boolean,
+        val home: Boolean,
+        val carSignal: Int?,
+    ) {
+        fun toMap(): Map<String, Any?> = linkedMapOf(
+            "name" to name, "usb" to usb, "driver" to driver, "state" to state, "connection" to connection,
+            "forCar" to forCar, "home" to home, "carSignal" to carSignal,
+        )
+    }
+
+    /** Every Wi-Fi radio, the one serving the car first. */
+    fun radios(): List<Radio> {
+        val st = status()
+        val dev = runner.run(listOf("nmcli", "-t", "-f", "DEVICE,TYPE,STATE,CONNECTION", "device", "status"), null, 8_000)
+        if (dev.code != 0) return emptyList()
+        return parseDevices(dev.out).filter { it.type == "wifi" }.map { d ->
+            val devicePath = runCatching { File("/sys/class/net/${d.name}/device").canonicalPath }.getOrNull().orEmpty()
+            val driver = runCatching { File("/sys/class/net/${d.name}/device/driver").canonicalFile.name }.getOrNull()
+            Radio(
+                name = d.name, usb = "/usb" in devicePath, driver = driver, state = d.state,
+                connection = d.connection.takeIf { it.isNotBlank() && it != "--" },
+                forCar = d.name == st.iface, home = d.name == st.homeIface, carSignal = inSight(d.name, st.ssid),
+            )
+        }.sortedByDescending { it.forCar }
+    }
+
+    /**
+     * Moves the car's network to [iface] (through the helper). Null when done (joined or saved for later), else why
+     * not. Refuses the radio that carries the home network: the bridge would cut itself off.
+     */
+    fun moveTo(iface: String): String? {
+        val st = status()
+        if (iface == st.homeIface) return "$iface carries the home network"
+        val r = runHelper(listOf("move", iface), null, 70_000)
+        log.link("Car Wi-Fi: move to $iface — ${r.out.trim().replace('\n', ' ').take(300).ifEmpty { "code ${r.code}" }}")
+        if (r.code != 0) return helperError(r).let { if (it.startsWith("usage")) PROBLEM_HELPER_OLD else it }
+        return null
+    }
+
     data class JoinResult(val ok: Boolean, val saved: Boolean, val connected: Boolean, val message: String, val status: Status)
 
     // ------------------------------------------------------------------ reading
@@ -244,6 +293,8 @@ class CarWifi(
         const val PROBLEM_NO_WIFI = "no-wifi"
         const val PROBLEM_SINGLE_RADIO = "single-radio"
         const val PROBLEM_HELPER_MISSING = "helper-missing"
+        /** The helper on the computer is from before "move": the bridge needs an update (it brings the new one). */
+        const val PROBLEM_HELPER_OLD = "helper-old"
 
         private fun cleanCountry(cc: String?): String? = cc?.trim()?.uppercase()?.takeIf { it.matches(Regex("[A-Z]{2}")) }
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge page: which Wi-Fi radio talks to the car. -->
+<resources>
+    <string name="act_bridge_radio">%1$s flyttede broens bil-Wi-Fi til %2$s</string>
+    <string name="radio_title">Radio til bilen</string>
+    <string name="radio_intro">Broen taler med bilen over én Wi-Fi-radio og med dit hjemmenet over en anden (eller kabel). Med en USB-Wi-Fi-adapter sat i kan du vælge den radio, der ser bilen bedst.</string>
+    <string name="radio_single">Fandt kun én Wi-Fi-radio. Sæt en USB-Wi-Fi-adapter i broen for at vælge.</string>
+    <string name="radio_builtin">indbygget</string>
+    <string name="radio_usb">USB</string>
+    <string name="radio_car">taler med bilen</string>
+    <string name="radio_home">hjemmenet</string>
+    <string name="radio_signal">bilsignal %1$d %%</string>
+    <string name="radio_not_seen">ser ikke bilen</string>
+    <string name="radio_use">Brug til bilen</string>
+    <string name="radio_confirm_title">Bruge %1$s til bilen?</string>
+    <string name="radio_confirm_text">Broen flytter bilens Wi-Fi til %1$s og genstarter. Bilen er uden forbindelse i omkring et minut.</string>
+    <string name="radio_moving">Flytter bilens Wi-Fi …</string>
+    <string name="radio_failed">Kunne ikke flytte den: %1$s</string>
+    <string name="radio_old_helper">Opdater broen først (Indstillinger → Bro → Opdater) – dens Wi-Fi-hjælper er for gammel til dette.</string>
+</resources>

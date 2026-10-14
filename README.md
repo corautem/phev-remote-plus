@@ -140,7 +140,10 @@ offers an HTTP API + web page. The app uses it automatically when it has fresh d
 
 What you need: a Raspberry Pi (Zero 2 W, 3, 4, 5) or any small Linux box with Wi-Fi and NetworkManager, within range of
 where the car parks, plus a second connection to your home network (Ethernet, or a USB Wi-Fi adapter) — the built-in
-Wi-Fi is reserved for the car.
+Wi-Fi is reserved for the car. With two Wi-Fi radios, the Bridge page shows how well each sees the car and lets you move
+the car to the other one (e.g. a USB adapter with an antenna). 2.4 GHz is all the car needs; adapters with an
+in-kernel driver (e.g. RTL8188FU/FTV, MT7601U, RTL8811CU/8821CU) work on current Raspberry Pi OS without installing
+anything.
 
 **Install** (once, on the Pi — kits come with this done):
 
@@ -329,6 +332,8 @@ like the bridge's own port, never open it to the internet.
 | POST | `/api/shared` | `{"departures":[…],"carName":"…"}` — saves only the keys sent |
 | GET | `/api/activity` | `?limit=200&before=<ms>` — who did what and what the car did, newest first, with an English `text` |
 | POST | `/api/activity` | `{"entries":[…]}` — a phone reports what it did straight over the car's Wi-Fi (`cmd.…` only) |
+| GET | `/api/carwifi/radios` | The computer's Wi-Fi radios: built in or USB, driver, which one talks to the car / carries the home network, how well each sees the car |
+| POST | `/api/carwifi/radio` | `{"iface":"wlan1"}` — move the car's Wi-Fi to that radio (never the home one), save `car.iface`, restart |
 | GET | `/api/history` | `?limit=300` — charges at home (`fromPct`, `toPct`, `kwh` from the wall, `cost`, `perKwh`, `currency`, `area`) and trips (`leftMs`, `backMs`, battery before/after), newest first; `week` and `month` summaries; the price `plan` |
 
 Auth (all but hello/pair): `Authorization: Bearer <token>` or `?token=<token>`.

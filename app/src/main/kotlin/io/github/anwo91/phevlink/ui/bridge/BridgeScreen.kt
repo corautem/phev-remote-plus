@@ -108,6 +108,8 @@ fun BridgeScreen(
             if (st.reachable == true || st.restarting || st.phase != UpdatePhase.IDLE) {
                 ActionsCard(c, st)
                 RecentActivityCard(vm, onOpenActivity)
+                // Which Wi-Fi radio talks to the car (built in or a USB adapter).
+                if ("carwifi-radio" in st.features && !st.restarting) RadioCard(vm, s.bridgeUrl, s.bridgeToken)
                 // Google Home and Home Assistant have their own page (also under Settings → Smart home).
                 if (st.features.isNotEmpty()) SmartHomeLinks(onOpenSmartHome)
                 UpdateCard(c, st)

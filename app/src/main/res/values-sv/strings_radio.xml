@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge page: which Wi-Fi radio talks to the car. -->
+<resources>
+    <string name="act_bridge_radio">%1$s flyttade bryggans bil-wifi till %2$s</string>
+    <string name="radio_title">Radio till bilen</string>
+    <string name="radio_intro">Bryggan pratar med bilen över en wifi-radio och med ditt hemnätverk över en annan (eller kabel). Med en USB-wifi-adapter isatt kan du välja den radio som ser bilen bäst.</string>
+    <string name="radio_single">Hittade bara en wifi-radio. Sätt en USB-wifi-adapter i bryggan för att välja.</string>
+    <string name="radio_builtin">inbyggd</string>
+    <string name="radio_usb">USB</string>
+    <string name="radio_car">pratar med bilen</string>
+    <string name="radio_home">hemnätverk</string>
+    <string name="radio_signal">bilsignal %1$d %%</string>
+    <string name="radio_not_seen">ser inte bilen</string>
+    <string name="radio_use">Använd för bilen</string>
+    <string name="radio_confirm_title">Använda %1$s för bilen?</string>
+    <string name="radio_confirm_text">Bryggan flyttar bilens wifi till %1$s och startar om. Bilen är utan kontakt i ungefär en minut.</string>
+    <string name="radio_moving">Flyttar bilens wifi …</string>
+    <string name="radio_failed">Kunde inte flytta den: %1$s</string>
+    <string name="radio_old_helper">Uppdatera bryggan först (Inställningar → Brygga → Uppdatera) – dess wifi-hjälpare är för gammal för detta.</string>
+</resources>

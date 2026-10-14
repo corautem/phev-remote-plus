@@ -34,6 +34,12 @@ class CarWifiScriptTest {
               "-t -f SSID,SIGNAL,SECURITY device wifi list ifname wlan0 --rescan yes") printf 'REMOTE46pdmp:71:WPA2\nNeighbour:40:WPA2\n' ;;
               "device disconnect wlan0"|"device set wlan0 autoconnect no"|"device set wlan0 autoconnect yes") exit 0 ;;
               "--wait 30 connection up phev-car ifname wlan0") exit 0 ;;
+              "-g GENERAL.TYPE device show wlan1") echo "wifi" ;;
+              "-g GENERAL.TYPE device show eth0") echo "ethernet" ;;
+              "-g connection.id connection show phev-car") echo "phev-car" ;;
+              "-g connection.interface-name connection show phev-car") echo "wlan0" ;;
+              "device disconnect wlan0"|"device set wlan1 autoconnect yes") exit 0 ;;
+              "--wait 45 connection up phev-car ifname wlan1") exit 0 ;;
               *) echo "unexpected: $*" >&2; exit 99 ;;
             esac
         """)
@@ -111,6 +117,18 @@ class CarWifiScriptTest {
         assertTrue(out2, out2.contains("@resumed") && out2.contains("@up-ok"))
         assertTrue(recorded().contains("device set wlan0 autoconnect yes"))
         assertEquals(2, run("pause", "wlan0;reboot").first)
+    }
+
+    @Test
+    fun moveTakesTheCarsNetworkToAnotherRadio() {
+        val (code, out) = run("move", "wlan1")
+        assertEquals(out, 0, code)
+        assertTrue(out, out.contains("@moved wlan0 wlan1") && out.contains("@up-ok"))
+        assertTrue(recorded().contains("connection modify phev-car connection.interface-name wlan1"))
+        assertTrue("the old radio is let go", recorded().contains("device disconnect wlan0"))
+        // Only Wi-Fi radios, and only valid names.
+        assertEquals(2, run("move", "eth0").first)
+        assertEquals(2, run("move", "wlan1;reboot").first)
     }
 
     @Test

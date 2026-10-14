@@ -257,6 +257,7 @@ object ActivityText {
             "bridge.matter_off" -> "$who stopped sharing the car through Matter"
             "bridge.matter_reset" -> "$who removed the car's Matter pairings"
             "bridge.paired" -> "$who was paired with the bridge"
+            "bridge.carwifi_radio" -> "$who moved the bridge's car Wi-Fi to ${a.str("iface")}"
             "smart.planned" -> "Smart charging: tonight ${a.str("start")}–${a.str("end")}" + ((a.params["saving"] as? Number)?.let { ", saves ≈ %.2f %s".format(it.toDouble(), a.str("currency") ?: "") } ?: "")
             "smart.done" -> "Smart charging: the owner's charge timer is back (${a.str("reason")})"
             "smart.failed" -> "Smart charging: the car didn't take the timer — charging as usual"

@@ -14,6 +14,8 @@
 #   resume <iface>             allow the car's Wi-Fi again and join it (also lifts a block NetworkManager put on the
 #                              car's network after failed joins — the bridge's watch uses it to get back on)
 #   why <iface>                what NetworkManager and wpa_supplicant said about <iface> in the last 30 minutes
+#   move <iface>               put the car's profile on another Wi-Fi radio (e.g. a USB adapter with a better antenna)
+#                              and bring it up there; the old radio is let go
 #
 # CC = two-letter Wi-Fi country (from the phone); set on Raspberry Pi OS when it differs, which also lifts the
 # rfkill block a fresh Pi OS has until a country is set.
@@ -132,7 +134,28 @@ case "$action" in
     echo "@done"
     ;;
 
+  move)
+    IFACE=${2:-}
+    valid_iface "$IFACE" || die "bad interface name"
+    [ "$(nmcli -g GENERAL.TYPE device show "$IFACE" 2>/dev/null | head -n1)" = "wifi" ] || die "$IFACE is not a Wi-Fi radio"
+    nmcli -g connection.id connection show "$CON" >/dev/null 2>&1 || die "the car's network isn't set up yet"
+    old=$(nmcli -g connection.interface-name connection show "$CON" 2>/dev/null | head -n1)
+    nmcli connection modify "$CON" connection.interface-name "$IFACE" >/dev/null 2>&1 || die "could not move the car's network to $IFACE"
+    echo "@moved ${old:-none} $IFACE"
+    if [ -n "$old" ] && [ "$old" != "$IFACE" ]; then
+      nmcli device disconnect "$old" >/dev/null 2>&1 || true
+      nmcli device set "$old" autoconnect yes >/dev/null 2>&1 || true
+    fi
+    nmcli device set "$IFACE" autoconnect yes >/dev/null 2>&1 || true
+    if out=$(nmcli --wait 45 connection up "$CON" ifname "$IFACE" 2>&1); then
+      echo "@up-ok"
+    else
+      # Moved anyway: NetworkManager joins by itself when the car is in range.
+      echo "@up-failed ${out//$'\n'/ }"
+    fi
+    ;;
+
   *)
-    die "usage: carwifi.sh scan <iface> [CC] | join <iface> <ssid> [CC] (password on stdin) | forget | pause <iface> | resume <iface> | why <iface>"
+    die "usage: carwifi.sh scan <iface> [CC] | join <iface> <ssid> [CC] (password on stdin) | forget | pause <iface> | resume <iface> | why <iface> | move <iface>"
     ;;
 esac

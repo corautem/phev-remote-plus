@@ -333,6 +333,7 @@ object ActivityLabels {
             "bridge.matter_off" -> res.getString(R.string.act_bridge_matter_off, who)
             "bridge.matter_reset" -> res.getString(R.string.act_bridge_matter_reset, who)
             "bridge.paired" -> res.getString(R.string.act_bridge_paired, who)
+            "bridge.carwifi_radio" -> res.getString(R.string.act_bridge_radio, who, a.str("iface") ?: "?")
             "bridge.invite" -> res.getString(R.string.act_bridge_invite, who)
             else -> null
         }

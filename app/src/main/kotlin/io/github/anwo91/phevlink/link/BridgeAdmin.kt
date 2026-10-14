@@ -91,6 +91,12 @@ class BridgeAdminController(
         expectAwayUntilMs = System.currentTimeMillis() + ms
     }
 
+    /** The bridge restarts by itself after a change asked for elsewhere (e.g. its car Wi-Fi radio): don't call it offline. */
+    fun expectRestart() {
+        expectAway(90_000)
+        _state.update { it.copy(restarting = true) }
+    }
+
     private val awayExpected: Boolean
         get() = System.currentTimeMillis() < expectAwayUntilMs || updateJob?.isActive == true
 

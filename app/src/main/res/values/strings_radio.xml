@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge page: which Wi-Fi radio talks to the car. -->
+<resources>
+    <string name="act_bridge_radio">%1$s moved the bridge\'s car Wi-Fi to %2$s</string>
+    <string name="radio_title">Radio for the car</string>
+    <string name="radio_intro">The bridge talks to the car over one Wi-Fi radio and to your home network over another (or a cable). With a USB Wi-Fi adapter plugged in, pick the radio that sees the car best.</string>
+    <string name="radio_single">Only one Wi-Fi radio found. Plug a USB Wi-Fi adapter into the bridge to choose.</string>
+    <string name="radio_builtin">built in</string>
+    <string name="radio_usb">USB</string>
+    <string name="radio_car">talks to the car</string>
+    <string name="radio_home">home network</string>
+    <string name="radio_signal">car signal %1$d %%</string>
+    <string name="radio_not_seen">car not in sight</string>
+    <string name="radio_use">Use for the car</string>
+    <string name="radio_confirm_title">Use %1$s for the car?</string>
+    <string name="radio_confirm_text">The bridge moves the car\'s Wi-Fi to %1$s and restarts. The car is out of touch for about a minute.</string>
+    <string name="radio_moving">Moving the car\'s Wi-Fi…</string>
+    <string name="radio_failed">Couldn\'t move it: %1$s</string>
+    <string name="radio_old_helper">Update the bridge first (Settings → Bridge → Update) — its Wi-Fi helper is too old for this.</string>
+</resources>

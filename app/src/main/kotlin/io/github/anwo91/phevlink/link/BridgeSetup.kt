@@ -211,6 +211,14 @@ object BridgeSetupApi {
             request(url, "shared", "POST", token, changes, 4_000, 8_000)
         }
 
+    /** The bridge's Wi-Fi radios (bridge with "carwifi-radio"). */
+    suspend fun radios(url: String, token: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "carwifi/radios", "GET", token, null, 4_000, 20_000) }
+
+    /** Moves the bridge's car Wi-Fi to [iface]; the bridge restarts after answering. */
+    suspend fun setRadio(url: String, token: String, iface: String): Reply? =
+        withContext(Dispatchers.IO) { request(url, "carwifi/radio", "POST", token, mapOf("iface" to iface), 4_000, 90_000) }
+
     /** Charging (energy, cost) and trips, this week and month, and the price plan (bridge with "history"). */
     suspend fun history(url: String, token: String, limit: Int = 300): Reply? =
         withContext(Dispatchers.IO) { request(url, "history?limit=$limit", "GET", token, null, 4_000, 15_000) }

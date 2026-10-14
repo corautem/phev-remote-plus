@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bridge page: which Wi-Fi radio talks to the car. -->
+<resources>
+    <string name="act_bridge_radio">%1$s hat das Auto-WLAN der Bridge auf %2$s verlegt</string>
+    <string name="radio_title">Funk zum Auto</string>
+    <string name="radio_intro">Die Bridge spricht über ein WLAN-Modul mit dem Auto und über ein anderes (oder Kabel) mit deinem Heimnetz. Mit einem USB-WLAN-Adapter kannst du das Modul wählen, das das Auto am besten empfängt.</string>
+    <string name="radio_single">Nur ein WLAN-Modul gefunden. Stecke einen USB-WLAN-Adapter in die Bridge, um zu wählen.</string>
+    <string name="radio_builtin">eingebaut</string>
+    <string name="radio_usb">USB</string>
+    <string name="radio_car">spricht mit dem Auto</string>
+    <string name="radio_home">Heimnetz</string>
+    <string name="radio_signal">Autosignal %1$d %%</string>
+    <string name="radio_not_seen">Auto nicht in Sicht</string>
+    <string name="radio_use">Fürs Auto nutzen</string>
+    <string name="radio_confirm_title">%1$s fürs Auto nutzen?</string>
+    <string name="radio_confirm_text">Die Bridge verlegt das WLAN des Autos auf %1$s und startet neu. Das Auto ist etwa eine Minute nicht erreichbar.</string>
+    <string name="radio_moving">Verlege das WLAN des Autos …</string>
+    <string name="radio_failed">Konnte es nicht verlegen: %1$s</string>
+    <string name="radio_old_helper">Aktualisiere zuerst die Bridge (Optionen → Bridge → Update) – ihr WLAN-Helfer ist dafür zu alt.</string>
+</resources>

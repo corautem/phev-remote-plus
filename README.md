@@ -48,8 +48,8 @@ The main goal: **a connection that just works.**
 - **Background watch** — while the car charges or preconditions, the app checks in every few minutes and alerts you.
 - **Charge now** — override the charge timer (experimental).
 - **Car clock** kept in sync (the car's own timers depend on it), like the official app does.
-- **Diagnostics** — live log of every connection step and packet (with raw hex), raw register table, raw register writes
-  for experiments, previous-session log, one-tap share.
+- **Diagnostics** (Settings → Diagnostics) — live log of every connection step and packet (with raw hex), raw register
+  table, raw register writes for experiments, previous-session log, one-tap share.
 - **Vehicle settings** — the car's own customisable functions over Wi-Fi, like in the official app: lights (auto-cutout,
   headlights on exit, lights on remote unlock), locks (auto relock, unlock mode, auto unlock), lock/unlock beeps and horn
   answerback, wipers, turn signals, power windows and A/C behaviour; each change is confirmed by the car and saved.
@@ -68,7 +68,9 @@ The main goal: **a connection that just works.**
     front/rear tyre match — each with step-by-step instructions and a pass/warning/fail verdict with explanation
     ([design, limits and sources](docs/live-tests.md));
   - CSV recording, adapter details, raw battery data and a terminal (non-read commands need a confirmation).
-- **Tips** — 26 well-known problems of the 2014–2017 Outlander PHEV (12 V battery, EV system warnings, capacity loss,
+- **Help & FAQ** (Settings, or Home → More) — answers to the common questions (connecting, the bridge, departures,
+  charging, smart home, privacy), searchable, and linked from where they matter ("What does this mean?" when the car
+  isn't within reach). Plus 26 well-known problems of the 2014–2017 Outlander PHEV (12 V battery, EV system warnings, capacity loss,
   brake disc rust, charging, …) with why they happen and what to do, and a guide to all 24 beeps and sounds: which ones
   this app, the car's menu, a switch or only a dealer can change. With sources.
 - **Languages** — English, Norsk (bokmål), Svenska, Dansk and Deutsch (Settings → Language).
@@ -191,7 +193,7 @@ rather than as an error, with the last known values marked "As of 14:32". Comman
 reason instead of spinning, and a departure that can't start for that reason gets one quiet notification instead of a
 "failed, try again".
 
-Every step is logged in the app's Log tab and in the bridge log (`journalctl -u phev-bridge -f`). The bridge also keeps
+Every step is logged in the app (Settings → Diagnostics) and in the bridge log (`journalctl -u phev-bridge -f`). The bridge also keeps
 its log in `/var/log/phev-bridge/bridge.log` (at most 4 MB, the previous file as `bridge.log.1`), and every start says
 how the last run ended — normally, the computer restarted (power cut), or the program was stopped abruptly (with the
 number of programs the system stopped for lack of memory) — plus how much memory is free; it warns when memory runs low.
@@ -236,7 +238,7 @@ control the car's climate and lights (not locks: the protocol has no remote unlo
 ### Google Home, Apple Home, Alexa (Matter)
 
 The bridge can show up in Google Home as a Matter bridge — no Home Assistant, no cloud: a small Node.js program
-(`bridge/matter`, matter.js) runs next to the bridge when switched on in the app (**Bridge page → Google Home → Set
+(`bridge/matter`, matter.js) runs next to the bridge when switched on in the app (**Settings → Smart home → Google Home → Set
 up**). It shares the car's climate (on/off), and optionally the headlights and parking lights; while the car is away
 they show as offline. Commands run like a phone's and appear in the activity log as "Google Home" (or Apple Home,
 Alexa…). Climate on uses the shared one-tap choice (and the weather when smart).
@@ -251,7 +253,7 @@ Matter needs IPv6 on the bridge's home network (on by default).
 ### Smart home (Home Assistant)
 
 The bridge can put the car into Home Assistant over MQTT, with Home Assistant's discovery: no YAML, the car just shows
-up as a device. Set it up in the app: **Bridge page → Smart home → Set up**. The bridge looks for MQTT brokers on its
+up as a device. Set it up in the app: **Settings → Smart home → Home Assistant → Set up**. The bridge looks for MQTT brokers on its
 network (and marks which one runs Home Assistant); pick one and enter a user (with Home Assistant's Mosquitto add-on:
 a Home Assistant user made for the car). No broker? **Run a broker on the bridge** installs Mosquitto on the bridge
 computer with a generated password, and the app shows what to type into Home Assistant's MQTT integration.
@@ -341,7 +343,7 @@ sending anything that isn't a read request.
   ACC/ON, and reports a failure (with the car's state in the log) if the car acks but never starts.
 - **OBD tool connects but never answers** — scan tools with their own app (Autel "Maxi…", Launch, ThinkCar…) don't
   speak ELM327 and can't be used; use an ELM327-compatible adapter (see above).
-- **Anything else** — Diagnostics → Share. The log shows each step with timestamps and raw packets.
+- **Anything else** — Settings → Help & FAQ, or Settings → Diagnostics → Share. The log shows each step with timestamps and raw packets.
 
 ## How it's built
 

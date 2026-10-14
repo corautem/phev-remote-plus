@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tidier app: settings groups, smart home page, Home cards, help links. -->
+<resources>
+    <string name="set_group_smarthome">Smart home</string>
+    <string name="set_group_help">Help and support</string>
+    <string name="set_sum_bridge_page">%1$s · status, log and updates</string>
+    <string name="set_sum_bridge_none">Not set up — use the app from anywhere at home</string>
+    <string name="set_sum_needs_bridge">Needs the bridge</string>
+    <string name="set_sum_google">Add the car to Google Home</string>
+    <string name="set_sum_ha">Connect the car to Home Assistant</string>
+    <string name="set_sum_help">Answers to common questions</string>
+    <string name="set_sum_diagnostics">The app\'s log, the car\'s raw data and tools</string>
+    <string name="smart_needs_bridge">Google Home and Home Assistant reach the car through the bridge at home. Set up the bridge first.</string>
+    <string name="smart_unreachable">The bridge isn\'t answering. It has to be reachable — on your home Wi-Fi, or over a VPN — to set this up. Trying again…</string>
+    <string name="bp_log_folded">What the bridge did, line by line — useful when something misbehaves.</string>
+    <string name="bp_log_show">Show the log</string>
+    <string name="bp_log_hide">Hide the log</string>
+    <string name="home_sec_closed">All doors closed</string>
+    <string name="home_sec_open">Open: %1$s</string>
+    <string name="home_sec_lights_off">Lights off</string>
+    <string name="home_sec_lights_on">On: %1$s</string>
+    <string name="home_sec_alarm">Alarm going off</string>
+    <string name="home_timers_title">Timers</string>
+    <string name="home_timers_no_departure">None planned</string>
+    <string name="reach_why">What does this mean?</string>
+    <string name="link_why">Why can\'t it connect?</string>
+</resources>

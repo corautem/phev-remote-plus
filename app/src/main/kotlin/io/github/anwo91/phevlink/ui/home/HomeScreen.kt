@@ -7,6 +7,7 @@ import io.github.anwo91.phevlink.ui.home.carpic.CarPart
 import io.github.anwo91.phevlink.ui.home.carpic.CarPicture
 import io.github.anwo91.phevlink.ui.home.carpic.CarPictureDialog
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -79,7 +80,6 @@ import io.github.anwo91.phevlink.ui.common.LinkChip
 import io.github.anwo91.phevlink.ui.common.Pill
 import io.github.anwo91.phevlink.ui.common.SectionCard
 import io.github.anwo91.phevlink.ui.common.phaseColor
-import io.github.anwo91.phevlink.ui.common.quantityString
 import io.github.anwo91.phevlink.ui.icons.PhevIcons
 import io.github.anwo91.phevlink.ui.theme.LocalStatus
 import io.github.anwo91.phevlink.util.Format
@@ -93,8 +93,8 @@ fun HomeScreen(
     onOpenSchedule: () -> Unit,
     onOpenDiagnostics: () -> Unit,
     onOpenVehicleSettings: () -> Unit = {},
-    onOpenTips: () -> Unit = {},
-    onOpenObd: () -> Unit = {},
+    /** Help & FAQ, opened at one question (its id, e.g. "reach") or at the top (null). */
+    onOpenHelp: (String?) -> Unit = {},
     onOpenBridgeSetup: () -> Unit = {},
     onOpenChargeTimer: () -> Unit = {},
     onOpenActivity: () -> Unit = {},
@@ -121,7 +121,12 @@ fun HomeScreen(
     ) {
         if (settings.bridgeSetupPending) item { BridgePendingCard(vm, onOpenBridgeSetup) }
         // The car can't be reached: say so first, plainly, with what it means.
-        if (link.outOfReach != null) item { ReachBanner(link, onRetry = { vm.reconnect() }) }
+        if (link.outOfReach != null) item {
+            ReachBanner(link, onRetry = { vm.reconnect() }, onWhy = { id ->
+                vm.log.link("Help: opened faq.$id from the \"${link.outOfReach}\" banner")
+                onOpenHelp(id)
+            })
+        }
         item { AttentionCard(car) }
         item {
             HeroHeader(
@@ -157,19 +162,8 @@ fun HomeScreen(
         }
         item { QuickActions(car, pending, vm) }
         item { SecurityCard(car) }
-        item { ScheduleCard(car, onOpenChargeTimer) }
-        item { DepartureCard(vm, onOpenSchedule) }
-        item { MoreCard(onOpenVehicleSettings, onOpenTips, onOpenObd, onOpenChargeTimer, onOpenActivity) }
-        item {
-            Text(
-                listOfNotNull(
-                    car.vin?.let { "VIN $it" }, car.ecuVersion?.let { "ECU $it" },
-                    car.registrations?.let { quantityString(R.plurals.home_phones_registered, it, it) },
-                ).joinToString(" · "),
-                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
-            )
-        }
+        item { TimersCard(vm, car, onOpenSchedule, onOpenChargeTimer) }
+        item { MoreCard(onOpenActivity, onOpenVehicleSettings, onOpenHelp = { onOpenHelp(null) }) }
     }
 
     if (bigPicture) {
@@ -189,7 +183,11 @@ fun HomeScreen(
             onOpenChargeTimer = { part = null; bigPicture = false; onOpenChargeTimer() },
         )
     }
-    if (showLink) LinkSheet(link, car, onDismiss = { showLink = false }, onRetry = { vm.reconnect(); showLink = false }, onDiagnostics = { showLink = false; onOpenDiagnostics() })
+    if (showLink) LinkSheet(
+        link, car, onDismiss = { showLink = false }, onRetry = { vm.reconnect(); showLink = false },
+        onDiagnostics = { showLink = false; onOpenDiagnostics() },
+        onWhy = { showLink = false; vm.log.link("Help: opened \"why can't it connect\" from the connection sheet"); onOpenHelp("reach") },
+    )
 }
 
 /**
@@ -197,7 +195,7 @@ fun HomeScreen(
  * out of reach is usually just the car being out driving; only the bridge not answering is shown as a fault.
  */
 @Composable
-private fun ReachBanner(link: LinkUi, onRetry: () -> Unit) {
+private fun ReachBanner(link: LinkUi, onRetry: () -> Unit, onWhy: (String) -> Unit) {
     val kind = link.outOfReach ?: return
     val (icon, title) = when (kind) {
         OutOfReach.NOT_SEEN -> PhevIcons.Location to stringResource(R.string.reach_not_seen_title)
@@ -222,8 +220,14 @@ private fun ReachBanner(link: LinkUi, onRetry: () -> Unit) {
                     Spacer(Modifier.height(2.dp))
                     Text(it, style = MaterialTheme.typography.bodyMedium)
                 }
-                TextButton(onClick = onRetry, contentPadding = PaddingValues(horizontal = 0.dp)) {
-                    Text(stringResource(R.string.reach_try_again))
+                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                    TextButton(onClick = onRetry, contentPadding = PaddingValues(horizontal = 0.dp)) {
+                        Text(stringResource(R.string.reach_try_again))
+                    }
+                    // Away from home without a VPN: how to reach the bridge. Otherwise: what "not within reach" means.
+                    TextButton(onClick = { onWhy(if (kind == OutOfReach.HOME_UNREACHABLE) "away" else "reach") }, contentPadding = PaddingValues(horizontal = 0.dp)) {
+                        Text(stringResource(R.string.reach_why))
+                    }
                 }
             }
         }
@@ -578,11 +582,23 @@ private fun ActionButton(text: String, icon: ImageVector, pending: String?, modi
     }
 }
 
+/**
+ * Doors, lights, power switch and alarm. Folded to one line ("All doors closed · Lights off") — tap for the details;
+ * anything open or on shows in the warning colour.
+ */
 @Composable
 private fun SecurityCard(car: CarState) {
     val status = LocalStatus.current
     val ctx = LocalContext.current
-    SectionCard(title = stringResource(R.string.security_title), trailing = {
+    var open by rememberSaveable { mutableStateOf(false) }
+    val openDoors = car.doors?.let { Labels.openDoors(ctx, it) }.orEmpty()
+    val lights = listOfNotNull(
+        stringResource(R.string.light_headlights).takeIf { car.headlights == true },
+        stringResource(R.string.light_parking).takeIf { car.parkingLights == true },
+        stringResource(R.string.light_interior).takeIf { car.interiorLights == true },
+        stringResource(R.string.light_hazards).takeIf { car.hazardLights == true },
+    )
+    SectionCard(modifier = Modifier.animateContentSize(), title = stringResource(R.string.security_title), trailing = {
         when (car.locked) {
             true -> Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(PhevIcons.Lock, null, tint = status.good, modifier = Modifier.size(18.dp))
@@ -595,17 +611,36 @@ private fun SecurityCard(car: CarState) {
             null -> Unit
         }
     }) {
-        val open = car.doors?.let { Labels.openDoors(ctx, it) }.orEmpty()
+        val summary = listOfNotNull(
+            when {
+                car.doors == null -> null
+                openDoors.isEmpty() -> stringResource(R.string.home_sec_closed)
+                else -> stringResource(R.string.home_sec_open, openDoors.joinToString())
+            },
+            when {
+                car.headlights == null && car.parkingLights == null -> null
+                lights.isEmpty() -> stringResource(R.string.home_sec_lights_off)
+                else -> stringResource(R.string.home_sec_lights_on, lights.joinToString())
+            },
+            stringResource(R.string.home_sec_alarm).takeIf { car.theftAlarm == TheftAlarm.TRIGGERED },
+        )
+        val attention = openDoors.isNotEmpty() || lights.isNotEmpty() || car.theftAlarm == TheftAlarm.TRIGGERED
+        Row(
+            Modifier.fillMaxWidth().clickable { open = !open }.padding(vertical = 2.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                summary.joinToString(" · ").ifEmpty { "–" }, style = MaterialTheme.typography.bodyMedium,
+                color = if (attention) status.warn else MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f),
+            )
+            Icon(if (open) PhevIcons.ChevronUp else PhevIcons.ChevronDown, null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(20.dp))
+        }
+        if (!open) return@SectionCard
+        Spacer(Modifier.height(6.dp))
         LabeledValue(
             stringResource(R.string.security_doors),
-            if (car.doors == null) "–" else if (open.isEmpty()) stringResource(R.string.security_all_closed) else open.joinToString(),
-            valueColor = if (open.isEmpty()) androidx.compose.ui.graphics.Color.Unspecified else status.warn,
-        )
-        val lights = listOfNotNull(
-            stringResource(R.string.light_headlights).takeIf { car.headlights == true },
-            stringResource(R.string.light_parking).takeIf { car.parkingLights == true },
-            stringResource(R.string.light_hazards).takeIf { car.hazardLights == true },
-            stringResource(R.string.light_interior).takeIf { car.interiorLights == true },
+            if (car.doors == null) "–" else if (openDoors.isEmpty()) stringResource(R.string.security_all_closed) else openDoors.joinToString(),
+            valueColor = if (openDoors.isEmpty()) androidx.compose.ui.graphics.Color.Unspecified else status.warn,
         )
         LabeledValue(
             stringResource(R.string.security_lights), if (lights.isEmpty()) stringResource(R.string.common_off) else lights.joinToString(),
@@ -632,38 +667,107 @@ private fun SecurityCard(car: CarState) {
     }
 }
 
+/**
+ * Timers in one place: the app's next departure (climate from the weather) and the car's own charge and climate
+ * timers, each with a way to change it.
+ */
 @Composable
-private fun DepartureCard(vm: MainViewModel, onOpenSchedule: () -> Unit) {
+private fun TimersCard(vm: MainViewModel, car: CarState, onOpenSchedule: () -> Unit, onOpenChargeTimer: () -> Unit) {
     val settings by vm.settings.collectAsState()
+    val status = LocalStatus.current
     var minute by remember { mutableLongStateOf(System.currentTimeMillis() / 60_000) }
     LaunchedEffect(Unit) { while (true) { delay(30_000); minute = System.currentTimeMillis() / 60_000 } }
     val next = remember(settings.departures, minute) { vm.nextDeparture() }
-    SectionCard(title = stringResource(R.string.departure_next_title), trailing = {
-        TextButton(onClick = onOpenSchedule) {
-            Text(stringResource(if (settings.departures.isEmpty()) R.string.departure_set_up else R.string.departure_edit))
+    fun dayName(d: Int): String =
+        java.time.DayOfWeek.of(if (d == 0) 7 else d).getDisplayName(java.time.format.TextStyle.SHORT, java.util.Locale.getDefault())
+    fun hhmm(t: java.time.LocalTime) = "%02d:%02d".format(t.hour, t.minute)
+    SectionCard(title = stringResource(R.string.home_timers_title)) {
+        // The next departure.
+        TimerRow(
+            PhevIcons.Clock, stringResource(R.string.departure_next_title),
+            stringResource(if (settings.departures.isEmpty()) R.string.departure_set_up else R.string.departure_edit), onOpenSchedule,
+        ) {
+            if (next == null) {
+                Text(stringResource(R.string.home_timers_no_departure), style = MaterialTheme.typography.bodyMedium)
+            } else {
+                Text(Format.clockOrDay(next.atMs), style = MaterialTheme.typography.titleMedium)
+                Text(
+                    stringResource(R.string.departure_weather_check, Format.clockOrDay(next.planAtMs)),
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
         }
-    }) {
-        if (next == null) {
+        if (settings.departures.isEmpty()) {
             Text(
                 stringResource(R.string.departure_empty),
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(start = 34.dp, bottom = 4.dp),
             )
-        } else {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(PhevIcons.Clock, null, tint = MaterialTheme.colorScheme.primary)
-                Spacer(Modifier.width(10.dp))
-                Column {
-                    Text(Format.clockOrDay(next.atMs), style = MaterialTheme.typography.titleMedium)
-                    Text(stringResource(R.string.departure_weather_check, Format.clockOrDay(next.planAtMs)), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        HorizontalDivider(Modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+        // The car's charge timer (kept in the car).
+        val known = ScheduleDecoder.hasAny(car)
+        val chargeOn = ScheduleDecoder.chargeTimerOn(car)
+        val charge = ScheduleDecoder.charge(car).filter { it.programmed }
+        TimerRow(PhevIcons.Plug, stringResource(R.string.ct_title), stringResource(R.string.departure_edit), onOpenChargeTimer) {
+            if (!known) {
+                Text(stringResource(R.string.ct_more), style = MaterialTheme.typography.bodyMedium)
+            } else {
+                Spacer(Modifier.height(2.dp))
+                Pill(stringResource(if (chargeOn) R.string.sched_on else R.string.sched_off), if (chargeOn) status.good else status.idle)
+            }
+        }
+        if (known && (charge.isNotEmpty() || chargeOn)) {
+            Column(Modifier.padding(start = 34.dp)) {
+                if (charge.isEmpty()) {
+                    Text(stringResource(R.string.sched_none), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                } else charge.forEach { d ->
+                    val window = listOfNotNull(d.start?.let(::hhmm), d.end?.let(::hhmm)).joinToString("–")
+                    val extra = if (d.fullCharge) " · " + stringResource(R.string.sched_full) else ""
+                    LabeledValue(dayName(d.day), window + extra)
                 }
+            }
+        }
+        // The car's own climate timer — only when the car has one (set in the car or the official app).
+        val climate = ScheduleDecoder.climate(car).filter { it.programmed }
+        val climateOn = ScheduleDecoder.climateTimerOn(car)
+        if (climate.isNotEmpty() || climateOn) {
+            HorizontalDivider(Modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(PhevIcons.Heat, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(22.dp))
+                Spacer(Modifier.width(12.dp))
+                Text(
+                    stringResource(R.string.sched_climate), style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f),
+                )
+                Pill(stringResource(if (climateOn) R.string.sched_on else R.string.sched_off), if (climateOn) status.good else status.idle)
+            }
+            Column(Modifier.padding(start = 34.dp, top = 4.dp)) {
+                if (climate.isEmpty()) {
+                    Text(stringResource(R.string.sched_none), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                } else climate.forEach { d -> d.start?.let { LabeledValue(dayName(d.day), hhmm(it)) } }
             }
         }
     }
 }
 
+/** One timer in [TimersCard]: icon, a small label, what's set ([content]) and a button to change it. */
+@Composable
+private fun TimerRow(icon: ImageVector, label: String, action: String, onAction: () -> Unit, content: @Composable () -> Unit) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Icon(icon, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(22.dp))
+        Spacer(Modifier.width(12.dp))
+        Column(Modifier.weight(1f)) {
+            Text(label, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            content()
+        }
+        TextButton(onClick = onAction) { Text(action) }
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun LinkSheet(link: LinkUi, car: CarState, onDismiss: () -> Unit, onRetry: () -> Unit, onDiagnostics: () -> Unit) {
+private fun LinkSheet(link: LinkUi, car: CarState, onDismiss: () -> Unit, onRetry: () -> Unit, onDiagnostics: () -> Unit, onWhy: () -> Unit) {
     ModalBottomSheet(onDismissRequest = onDismiss) {
         Column(Modifier.padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
             Text(link.text, style = MaterialTheme.typography.titleLarge, color = phaseColor(link.phase))
@@ -681,11 +785,13 @@ private fun LinkSheet(link: LinkUi, car: CarState, onDismiss: () -> Unit, onRetr
             Spacer(Modifier.height(16.dp))
             HorizontalDivider()
             Spacer(Modifier.height(12.dp))
-            Text(
-                stringResource(R.string.link_tips),
-                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            Spacer(Modifier.height(16.dp))
+            // The common reasons (range, car switched on, asleep, not registered) are in Help & FAQ.
+            TextButton(onClick = onWhy, contentPadding = PaddingValues(horizontal = 0.dp)) {
+                Icon(PhevIcons.Help, null, Modifier.size(18.dp))
+                Spacer(Modifier.width(8.dp))
+                Text(stringResource(R.string.link_why))
+            }
+            Spacer(Modifier.height(8.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Button(onClick = onRetry, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.link_try_again)) }
                 OutlinedButton(onClick = onDiagnostics, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.tab_diagnostics)) }
@@ -694,60 +800,13 @@ private fun LinkSheet(link: LinkUi, car: CarState, onDismiss: () -> Unit, onRetr
     }
 }
 
-/** The car's own charge and climate timers, read-only. Shows nothing until the car reports a programmed timer. */
+/** The rest: the shared activity log, the car's own settings, and Help & FAQ. */
 @Composable
-private fun ScheduleCard(car: CarState, onOpenChargeTimer: () -> Unit) {
-    if (!ScheduleDecoder.hasAny(car)) return
-    val status = LocalStatus.current
-    fun dayName(d: Int): String =
-        java.time.DayOfWeek.of(if (d == 0) 7 else d).getDisplayName(java.time.format.TextStyle.SHORT, java.util.Locale.getDefault())
-    fun hhmm(t: java.time.LocalTime) = "%02d:%02d".format(t.hour, t.minute)
-
-    SectionCard(title = stringResource(R.string.sched_card_title)) {
-        val charge = ScheduleDecoder.charge(car).filter { it.programmed }
-        val climate = ScheduleDecoder.climate(car).filter { it.programmed }
-        if (charge.isNotEmpty() || ScheduleDecoder.chargeTimerOn(car)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(stringResource(R.string.sched_charge), style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
-                Pill(
-                    stringResource(if (ScheduleDecoder.chargeTimerOn(car)) R.string.sched_on else R.string.sched_off),
-                    if (ScheduleDecoder.chargeTimerOn(car)) status.good else status.idle,
-                )
-            }
-            if (charge.isEmpty()) {
-                Text(stringResource(R.string.sched_none), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            } else charge.forEach { d ->
-                val window = listOfNotNull(d.start?.let(::hhmm), d.end?.let(::hhmm)).joinToString("–")
-                val extra = if (d.fullCharge) " · " + stringResource(R.string.sched_full) else ""
-                LabeledValue(dayName(d.day), window + extra)
-            }
-            TextButton(onClick = onOpenChargeTimer) { Text(stringResource(R.string.ct_change)) }
-        }
-        if (climate.isNotEmpty() || ScheduleDecoder.climateTimerOn(car)) {
-            Spacer(Modifier.height(8.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(stringResource(R.string.sched_climate), style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
-                Pill(
-                    stringResource(if (ScheduleDecoder.climateTimerOn(car)) R.string.sched_on else R.string.sched_off),
-                    if (ScheduleDecoder.climateTimerOn(car)) status.good else status.idle,
-                )
-            }
-            if (climate.isEmpty()) {
-                Text(stringResource(R.string.sched_none), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            } else climate.forEach { d -> d.start?.let { LabeledValue(dayName(d.day), hhmm(it)) } }
-        }
-    }
-}
-
-/** Entry points to the car's own settings, the tips and the OBD diagnostics. */
-@Composable
-private fun MoreCard(onOpenVehicleSettings: () -> Unit, onOpenTips: () -> Unit, onOpenObd: () -> Unit, onOpenChargeTimer: () -> Unit, onOpenActivity: () -> Unit) {
+private fun MoreCard(onOpenActivity: () -> Unit, onOpenVehicleSettings: () -> Unit, onOpenHelp: () -> Unit) {
     SectionCard(title = stringResource(R.string.home_more)) {
         MoreRow(stringResource(R.string.act_title), stringResource(R.string.act_more), onOpenActivity)
-        MoreRow(stringResource(R.string.ct_title), stringResource(R.string.ct_more), onOpenChargeTimer)
         MoreRow(stringResource(R.string.vs_title), stringResource(R.string.home_more_vs), onOpenVehicleSettings)
-        MoreRow(stringResource(R.string.tips_title), stringResource(R.string.home_more_tips), onOpenTips)
-        MoreRow(stringResource(R.string.tab_obd), stringResource(R.string.home_more_obd), onOpenObd)
+        MoreRow(stringResource(R.string.help_title), stringResource(R.string.home_more_tips), onOpenHelp)
     }
 }
 

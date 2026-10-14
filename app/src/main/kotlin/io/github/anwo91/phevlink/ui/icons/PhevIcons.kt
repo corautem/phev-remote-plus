@@ -751,4 +751,40 @@ object PhevIcons {
             ),
         )
     }
+
+    /** Smart home (Home Assistant): a house. */
+    val Home: ImageVector by lazy {
+        icon(
+            "Home",
+            listOf(
+                "M 3.5 11 L 12 4 L 20.5 11",
+                "M 6 9.2 V 20 h 12 V 9.2",
+                "M 10 20 v -5 h 4 v 5",
+            ),
+        )
+    }
+
+    /** Google Home: a smart speaker. */
+    val Speaker: ImageVector by lazy {
+        icon(
+            "Speaker",
+            listOf(
+                "M 8.5 3 h 7 a 2 2 0 0 1 2 2 v 14 a 2 2 0 0 1 -2 2 h -7 a 2 2 0 0 1 -2 -2 v -14 a 2 2 0 0 1 2 -2 z",
+                "M 9.2 14.5 a 2.8 2.8 0 1 0 5.6 0 a 2.8 2.8 0 1 0 -5.6 0 Z",
+            ),
+            listOf(12f, 7f),
+        )
+    }
+
+    /** How the app reaches the car (the route): a path that turns. */
+    val Route: ImageVector by lazy {
+        icon(
+            "Route",
+            listOf(
+                "M 6 19 V 13 a 5 5 0 0 1 5 -5 h 7",
+                "M 15.5 5.5 L 18 8 L 15.5 10.5",
+            ),
+            listOf(6f, 19f),
+        )
+    }
 }

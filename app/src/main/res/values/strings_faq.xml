@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Help & FAQ. -->
+<resources>
+    <string name="help_title">Help &amp; FAQ</string>
+    <string name="faq_tab">Questions</string>
+    <string name="faq_search">Search the questions</string>
+    <string name="faq_none">Nothing found — try another word.</string>
+    <string name="faq_group_connect">Connecting</string>
+    <string name="faq_group_use">Climate and departures</string>
+    <string name="faq_group_battery">Battery and charging</string>
+    <string name="faq_group_bridge">Bridge and smart home</string>
+    <string name="faq_group_app">The app</string>
+    <string name="faq_route_q">Car Wi-Fi or bridge — what\'s the difference?</string>
+    <string name="faq_route_a">On the car\'s own Wi-Fi the phone talks to the car directly, from about 10–20 m away. A bridge is a small computer at home that stays on the car\'s Wi-Fi, so the app works from anywhere on your home network — and away from home over a VPN. In Automatic, the app uses the bridge when it can reach the car, otherwise the car\'s Wi-Fi.</string>
+    <string name="faq_one_q">Why can only one device use the car\'s Wi-Fi at a time?</string>
+    <string name="faq_one_a">The car\'s Wi-Fi accepts a single device. With a bridge, the bridge holds that place and every phone goes through it. To use the car\'s Wi-Fi directly (for example to register a phone), let the bridge step aside for 10 minutes under Settings.</string>
+    <string name="faq_register_q">How do I register a phone with the car?</string>
+    <string name="faq_register_a">In the car: power OFF, then to ACC without touching the brake, and within 10 seconds press LOCK and UNLOCK on the key alternately, 10 presses in all. Then tap Register under Settings → Phone registration, which walks you through every step. The car remembers at most two devices.</string>
+    <string name="faq_full_q">The car beeped three times when I tried to register</string>
+    <string name="faq_full_a">Three beeps mean the car already has two devices registered. Settings → Phone registration explains how to delete them all (20 key presses). That also resets the car\'s Wi-Fi password and clears its charging and climate timers.</string>
+    <string name="faq_reach_q">What does \"Car not within reach\" mean?</string>
+    <string name="faq_reach_a">The bridge hasn\'t seen the car\'s Wi-Fi for a while — the car is away, or just out of the bridge\'s range — or this phone couldn\'t find the car\'s Wi-Fi nearby. It reconnects by itself when the car is back. \"Try again\" asks the bridge to look right away.</string>
+    <string name="faq_drive_q">Why does the connection drop while the car is switched on?</string>
+    <string name="faq_drive_a">2014–2017 cars switch their Wi-Fi off a little while after the car is switched ON. The app finds the car again once it is switched off. 2018 and newer cars have an \"Always communicate\" setting.</string>
+    <string name="faq_asleep_q">The car\'s Wi-Fi has disappeared</string>
+    <string name="faq_asleep_a">After standing for days, the car switches its Wi-Fi off to save the 12 V battery. Pressing a button on the key or unlocking usually wakes it. If not: switch the car ON for 10 seconds, enter registration mode, connect once, and keep the car in READY for 10 minutes so the 12 V battery gets charged.</string>
+    <string name="faq_away_q">How do I use the app away from home?</string>
+    <string name="faq_away_a">Through the bridge over a VPN (for example Tailscale or WireGuard), so the phone can reach the bridge\'s home address. Never open the bridge\'s port to the internet. Next to the car, the app can also use the car\'s Wi-Fi directly.</string>
+    <string name="faq_dep_q">How do departures decide what to do?</string>
+    <string name="faq_dep_a">35 minutes before you leave, the app checks the forecast for your home location (MET Norway): around freezing it defrosts, below 12 °C it heats, from 24 °C it cools, otherwise it does nothing. It runs 10–30 minutes so the cabin is ready on time. With a bridge, the bridge starts it even when every phone is off.</string>
+    <string name="faq_late_q">A departure started late</string>
+    <string name="faq_late_a">Android can hold back alarms to save battery. Allow exact alarms and set PHEV Link\'s battery use to \"Unrestricted\". With a bridge and the car at home, the bridge starts the climate on time anyway.</string>
+    <string name="faq_timer_q">Charge timer or departures — which is which?</string>
+    <string name="faq_timer_a">The charge timer is kept in the car and decides when it charges once plugged in; \"Charge now\" skips it once. Departures are about the cabin climate. Times go in 10-minute steps, and editing the charge timer works on 2014–2017 cars.</string>
+    <string name="faq_12v_q">Can the app drain the 12 V battery?</string>
+    <string name="faq_12v_a">Each contact wakes the car briefly. The bridge looks in for about a minute every 10 minutes, which a healthy battery handles fine. Unplug an OBD dongle when the car stands for days, and check the battery under OBD → Tests → 12 V battery — a weak 12 V battery causes odd warnings.</string>
+    <string name="faq_health_q">What do the drive battery numbers mean?</string>
+    <string name="faq_health_a">Health compares today\'s capacity with a new battery (38 Ah before model year 2017, 40 Ah from 2017). A cell difference up to about 20 mV is fine. The car\'s own estimate can lag: running the battery low and charging it full in one go refreshes it.</string>
+    <string name="faq_obd_q">Which OBD adapter works?</string>
+    <string name="faq_obd_a">An ELM327-compatible Bluetooth adapter. OBDLink and Vgate iCar Pro work best; cheap clones read the basics but can\'t filter the car\'s chatter. The pairing PIN is usually 1234.</string>
+    <string name="faq_alerts_q">How do alerts work with a bridge?</string>
+    <string name="faq_alerts_a">The bridge watches the car around the clock. This phone shows its alerts at once while the app is open, otherwise within the hour — every few minutes while the car charges or preheats. If they arrive late, set PHEV Link\'s battery use to \"Unrestricted\".</string>
+    <string name="faq_google_q">How do I add the car to Google Home?</string>
+    <string name="faq_google_a">The bridge speaks Matter, locally on your network. You need a Google speaker or display at home and a one-time entry in Google\'s developer console; then scan the code under Settings → Smart home → Google Home. Apple Home and Alexa can be added the same way.</string>
+    <string name="faq_ha_q">Does it work with Home Assistant?</string>
+    <string name="faq_ha_a">Yes, over MQTT: point the bridge at your broker (for example the Mosquitto add-on), or let the bridge set one up. The car then shows up with sensors and switches, and a \"Car event\" entity for automations.</string>
+    <string name="faq_privacy_q">Where does my data go?</string>
+    <string name="faq_privacy_a">Only where you set it up: the app talks to the car, your bridge, MET Norway (your home coordinates, for the forecast) and GitHub (to check for updates). There is no account and no cloud service.</string>
+    <string name="faq_update_q">How do updates work?</string>
+    <string name="faq_update_a">The app checks GitHub for a new version and installs it once you have allowed \"Install unknown apps\". The bridge is updated from the app too, under Settings → Bridge.</string>
+</resources>

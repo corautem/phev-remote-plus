@@ -7,11 +7,9 @@
 
     <!-- Tabs and home -->
     <string name="tab_obd">OBD</string>
-    <string name="tab_log">Log</string>
     <string name="home_more">Mere</string>
     <string name="home_more_vs">Skift bilens egne indstillinger: lys, låse, bip, viskere, klima</string>
-    <string name="home_more_tips">Almindelige problemer på denne bil, og hvordan du justerer bippene</string>
-    <string name="home_more_obd">Batteritilstand, fejlkoder og test med en OBD-adapter</string>
+    <string name="home_more_tips">Almindelige spørgsmål, kendte problemer på denne bil og bippene</string>
     <string name="cmd_change_setting">Indstilling »%1$s«: %2$s</string>
     <string name="cmd_reset_settings">Nulstil bilindstillingerne</string>
     <string name="msg_setting_unconfirmed">bilen bekræftede ikke den nye indstilling. Tjek den i bilen.</string>
@@ -186,7 +184,6 @@
     <string name="vs_beeps_hint">Bip ved låsning/oplåsning og hornkvittering findes i gruppen »Fjernbetjent centrallås og nøglefri betjening«. Under Tips → Bip og lyde står alle lydene, og hvordan de ændres.</string>
 
     <!-- Tips -->
-    <string name="tips_title">Tips og kendte problemer</string>
     <string name="tips_problems">Almindelige problemer</string>
     <string name="tips_beeps">Bip og lyde</string>
     <string name="tips_all">Alle</string>
@@ -220,7 +217,7 @@
     <string name="obd_cells_none">Tryk på “Læs nu” for at hente alle cellespændinger (bilen skal være i READY eller tænding TIL).</string>
     <string name="obd_cells_count">Læste celler</string>
     <string name="obd_cell_temps">Modultemperaturer</string>
-    <string name="obd_cells_unverified">Kunne ikke bekræfte cellerækkefølgen mod pakkeoversigten – viser bedste bud. Del Diagnostik, så låser jeg layoutet.</string>
+    <string name="obd_cells_unverified">Kunne ikke bekræfte cellerækkefølgen mod pakkeoversigten – viser bedste bud. Del loggen (Indstillinger → Diagnose), så kan layoutet fastlægges.</string>
     <string name="obd_cells_unverified_toast">Læste cellerne, men kunne ikke bekræfte layoutet – del diagnostikloggen.</string>
     <string name="obd_cells_note">Cellespændinger fra batteri-ECU’en. Fremhævet = højeste og laveste celle.</string>
 </resources>

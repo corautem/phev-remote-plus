@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Help & FAQ. -->
+<resources>
+    <string name="help_title">Hjälp och frågor</string>
+    <string name="faq_tab">Frågor</string>
+    <string name="faq_search">Sök bland frågorna</string>
+    <string name="faq_none">Inget hittades – prova ett annat ord.</string>
+    <string name="faq_group_connect">Anslutning</string>
+    <string name="faq_group_use">Klimat och avgångar</string>
+    <string name="faq_group_battery">Batteri och laddning</string>
+    <string name="faq_group_bridge">Brygga och smarta hem</string>
+    <string name="faq_group_app">Appen</string>
+    <string name="faq_route_q">Bilens Wi-Fi eller brygga – vad är skillnaden?</string>
+    <string name="faq_route_a">På bilens eget Wi-Fi pratar telefonen direkt med bilen, från ungefär 10–20 m. En brygga är en liten dator hemma som stannar på bilens Wi-Fi, så att appen fungerar överallt på hemmanätverket – och borta via VPN. I Automatiskt använder appen bryggan när den når bilen, annars bilens Wi-Fi.</string>
+    <string name="faq_one_q">Varför kan bara en enhet använda bilens Wi-Fi åt gången?</string>
+    <string name="faq_one_a">Bilens Wi-Fi tar emot en enda enhet. Med brygga håller bryggan den platsen och alla telefoner går via den. För att använda bilens Wi-Fi direkt (till exempel för att registrera en telefon) kan bryggan kliva åt sidan i 10 minuter under Inställningar.</string>
+    <string name="faq_register_q">Hur registrerar jag en telefon i bilen?</string>
+    <string name="faq_register_a">I bilen: strömmen AV, sedan till ACC utan att röra bromsen, och inom 10 sekunder tryck LOCK och UNLOCK på nyckeln växelvis, 10 tryck totalt. Tryck sedan Registrera under Inställningar → Telefonregistrering, som visar varje steg. Bilen minns högst två enheter.</string>
+    <string name="faq_full_q">Bilen pep tre gånger när jag försökte registrera</string>
+    <string name="faq_full_a">Tre pip betyder att bilen redan har två enheter registrerade. Inställningar → Telefonregistrering förklarar hur du raderar alla (20 knapptryck). Det återställer också lösenordet till bilens Wi-Fi och raderar bilens ladd- och klimattimer.</string>
+    <string name="faq_reach_q">Vad betyder ”Bilen är inte inom räckvidd”?</string>
+    <string name="faq_reach_a">Bryggan har inte sett bilens Wi-Fi på ett tag – bilen är borta, eller bara utom bryggans räckvidd – eller så hittade telefonen inte bilens Wi-Fi i närheten. Den ansluter igen av sig själv när bilen är tillbaka. ”Försök igen” ber bryggan titta direkt.</string>
+    <string name="faq_drive_q">Varför bryts anslutningen när bilen är påslagen?</string>
+    <string name="faq_drive_a">Bilar från 2014–2017 stänger av sitt Wi-Fi en stund efter att bilen slagits PÅ. Appen hittar bilen igen när den stängs av. 2018 och nyare har inställningen ”Kommunicera alltid”.</string>
+    <string name="faq_asleep_q">Bilens Wi-Fi har försvunnit</string>
+    <string name="faq_asleep_a">Efter flera dagars stillastående stänger bilen av sitt Wi-Fi för att spara 12 V-batteriet. Ett tryck på nyckeln eller att låsa upp väcker det oftast. Annars: slå PÅ bilen i 10 sekunder, gå in i registreringsläge, anslut en gång och låt bilen stå i READY i 10 minuter så att 12 V-batteriet laddas.</string>
+    <string name="faq_away_q">Hur använder jag appen borta från hemmet?</string>
+    <string name="faq_away_a">Via bryggan över VPN (till exempel Tailscale eller WireGuard), så att telefonen når bryggans adress hemma. Öppna aldrig bryggans port mot internet. Vid bilen kan appen också använda bilens Wi-Fi direkt.</string>
+    <string name="faq_dep_q">Hur bestämmer avgångarna vad de ska göra?</string>
+    <string name="faq_dep_a">35 minuter innan du åker kollar appen väderprognosen för ditt hem (Norska meteorologiska institutet): runt nollan avfrostar den, under 12 °C värmer den, från 24 °C kyler den, annars gör den inget. Den kör 10–30 minuter så att kupén är klar i tid. Med brygga startar bryggan den även om alla telefoner är avstängda.</string>
+    <string name="faq_late_q">En avgång startade för sent</string>
+    <string name="faq_late_a">Android kan hålla tillbaka larm för att spara batteri. Tillåt exakta larm och ställ PHEV Links batterianvändning på ”Obegränsad”. Med brygga och bilen hemma startar bryggan klimatet i tid ändå.</string>
+    <string name="faq_timer_q">Laddtimer eller avgångar – vad är vad?</string>
+    <string name="faq_timer_a">Laddtimern finns i bilen och bestämmer när den laddar när den är inkopplad; ”Ladda nu” hoppar över den en gång. Avgångar handlar om klimatet i kupén. Tider går i steg om 10 minuter, och laddtimern kan ändras på bilar från 2014–2017.</string>
+    <string name="faq_12v_q">Kan appen tömma 12 V-batteriet?</string>
+    <string name="faq_12v_a">Varje kontakt väcker bilen en kort stund. Bryggan tittar in i ungefär en minut var 10:e minut, vilket ett friskt batteri klarar fint. Dra ur en OBD-dongel när bilen står i flera dagar och kolla batteriet under OBD → Tester → 12 V-batteri – ett svagt 12 V-batteri ger konstiga varningar.</string>
+    <string name="faq_health_q">Vad betyder siffrorna för drivbatteriet?</string>
+    <string name="faq_health_a">Hälsa jämför dagens kapacitet med ett nytt batteri (38 Ah före årsmodell 2017, 40 Ah från 2017). En cellskillnad upp till ungefär 20 mV är bra. Bilens egen uppskattning kan släpa efter: kör batteriet lågt och ladda det fullt i ett svep så uppdateras den.</string>
+    <string name="faq_obd_q">Vilken OBD-adapter fungerar?</string>
+    <string name="faq_obd_a">En ELM327-kompatibel Bluetooth-adapter. OBDLink och Vgate iCar Pro fungerar bäst; billiga kopior läser grunderna men kan inte filtrera bort bilens brus. Parkopplingskoden är oftast 1234.</string>
+    <string name="faq_alerts_q">Hur fungerar aviseringar med brygga?</string>
+    <string name="faq_alerts_a">Bryggan håller koll på bilen dygnet runt. Telefonen visar dess aviseringar direkt medan appen är öppen, annars inom en timme – med några minuters mellanrum medan bilen laddar eller förvärms. Kommer de sent, ställ PHEV Links batterianvändning på ”Obegränsad”.</string>
+    <string name="faq_google_q">Hur lägger jag till bilen i Google Home?</string>
+    <string name="faq_google_a">Bryggan talar Matter, lokalt i ditt nätverk. Du behöver en Google-högtalare eller -skärm hemma och en engångspost i Googles utvecklarkonsol; skanna sedan koden under Inställningar → Smarta hem → Google Home. Apple Home och Alexa kan läggas till på samma sätt.</string>
+    <string name="faq_ha_q">Fungerar det med Home Assistant?</string>
+    <string name="faq_ha_a">Ja, via MQTT: peka bryggan mot din broker (till exempel Mosquitto-tillägget) eller låt bryggan sätta upp en. Bilen dyker då upp med sensorer och brytare och en ”Bilhändelse” för automatiseringar.</string>
+    <string name="faq_privacy_q">Vart tar mina data vägen?</string>
+    <string name="faq_privacy_a">Bara dit du har ställt in: appen pratar med bilen, din brygga, Norska meteorologiska institutet (hemmets koordinater, för prognosen) och GitHub (för att söka efter uppdateringar). Inget konto och ingen molntjänst.</string>
+    <string name="faq_update_q">Hur fungerar uppdateringar?</string>
+    <string name="faq_update_a">Appen söker efter en ny version på GitHub och installerar den när du har tillåtit ”Installera okända appar”. Bryggan uppdateras också från appen, under Inställningar → Brygga.</string>
+</resources>

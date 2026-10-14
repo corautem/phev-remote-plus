@@ -5,7 +5,6 @@
     <string name="bp_invite_open">The bridge lets one more phone connect until %1$s. On the other phone: install PHEV Link, enter the car\'s Wi-Fi card, then choose “I have a PHEV Link bridge”.</string>
     <string name="bp_done_invite">The door is open for one more phone.</string>
     <string name="bp_title">Bridge</string>
-    <string name="bp_open">Bridge: status, log and updates</string>
     <string name="bp_none">No bridge is set up yet.</string>
     <string name="bp_unreachable">Can\'t reach the bridge at %1$s. This phone has to be on your home Wi-Fi (or your VPN) to see it.</string>
     <string name="bp_checking">Asking the bridge…</string>

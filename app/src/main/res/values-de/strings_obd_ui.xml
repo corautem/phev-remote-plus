@@ -7,11 +7,9 @@
 
     <!-- Tabs and home -->
     <string name="tab_obd">OBD</string>
-    <string name="tab_log">Log</string>
     <string name="home_more">Mehr</string>
     <string name="home_more_vs">Einstellungen des Autos ändern: Licht, Schlösser, Signaltöne, Wischer, Klima</string>
-    <string name="home_more_tips">Häufige Probleme bei diesem Auto und wie du die Signaltöne einstellst</string>
-    <string name="home_more_obd">Batteriezustand, Fehlercodes und Tests mit einem OBD-Adapter</string>
+    <string name="home_more_tips">Häufige Fragen, bekannte Probleme bei diesem Auto und die Signaltöne</string>
     <string name="cmd_change_setting">Einstellung „%1$s“: %2$s</string>
     <string name="cmd_reset_settings">Fahrzeugeinstellungen zurücksetzen</string>
     <string name="msg_setting_unconfirmed">das Auto hat die neue Einstellung nicht bestätigt. Prüfe sie im Auto.</string>
@@ -186,7 +184,6 @@
     <string name="vs_beeps_hint">Signaltöne beim Ver- und Entriegeln und das Hupsignal findest du in der Gruppe „Keyless Entry System / Keyless Operation System“. Unter Tipps → Signaltöne stehen alle Töne und wie man sie ändert.</string>
 
     <!-- Tips -->
-    <string name="tips_title">Tipps und bekannte Probleme</string>
     <string name="tips_problems">Häufige Probleme</string>
     <string name="tips_beeps">Signaltöne</string>
     <string name="tips_all">Alle</string>
@@ -220,7 +217,7 @@
     <string name="obd_cells_none">Tippe auf „Jetzt lesen“, um alle Zellspannungen zu holen (Auto muss in READY oder Zündung AN sein).</string>
     <string name="obd_cells_count">Gelesene Zellen</string>
     <string name="obd_cell_temps">Modultemperaturen</string>
-    <string name="obd_cells_unverified">Reihenfolge der Zellen ließ sich nicht gegen die Paketübersicht bestätigen — Näherung. Teile die Diagnose, dann lege ich das Layout fest.</string>
+    <string name="obd_cells_unverified">Reihenfolge der Zellen ließ sich nicht gegen die Paketübersicht bestätigen – Näherung. Teile das Protokoll (Optionen → Diagnose), dann lässt sich das Layout festlegen.</string>
     <string name="obd_cells_unverified_toast">Zellen gelesen, aber Layout nicht bestätigt — bitte teile das Diagnoseprotokoll.</string>
     <string name="obd_cells_note">Zellspannungen vom Batterie-Steuergerät. Hervorgehoben = höchste und niedrigste Zelle.</string>
 </resources>

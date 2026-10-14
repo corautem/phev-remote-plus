@@ -7,11 +7,9 @@
 
     <!-- Tabs and home -->
     <string name="tab_obd">OBD</string>
-    <string name="tab_log">Log</string>
     <string name="home_more">More</string>
     <string name="home_more_vs">Change the car\'s own settings: lights, locks, beeps, wipers, A/C</string>
-    <string name="home_more_tips">Common problems on this car, and how to adjust the beeps</string>
-    <string name="home_more_obd">Battery health, fault codes and live tests with an OBD adapter</string>
+    <string name="home_more_tips">Common questions, known issues on this car, and the beeps</string>
     <string name="cmd_change_setting">Set %1$s: %2$s</string>
     <string name="cmd_reset_settings">Reset vehicle settings</string>
     <string name="msg_setting_unconfirmed">the car did not confirm the new setting. Check it in the car.</string>
@@ -186,7 +184,6 @@
     <string name="vs_beeps_hint">Lock/unlock beeps and horn answerback are in the “Keyless entry &amp; operation” group. Tips → Beeps lists every sound and how to change it.</string>
 
     <!-- Tips -->
-    <string name="tips_title">Tips and known issues</string>
     <string name="tips_problems">Common problems</string>
     <string name="tips_beeps">Beeps and sounds</string>
     <string name="tips_all">All</string>
@@ -220,7 +217,7 @@
     <string name="obd_cells_none">Tap “Read now” to fetch every cell voltage (car must be in READY or ignition ON).</string>
     <string name="obd_cells_count">Cells read</string>
     <string name="obd_cell_temps">Module temperatures</string>
-    <string name="obd_cells_unverified">Couldn’t confirm the cell order against the pack summary — showing best effort. Please share Diagnostics so I can pin the layout down.</string>
+    <string name="obd_cells_unverified">Couldn\'t confirm the cell order against the pack summary — showing a best guess. Sharing the log (Settings → Diagnostics) helps pin the layout down.</string>
     <string name="obd_cells_unverified_toast">Read the cells, but couldn’t confirm the layout — please share the diagnostics log.</string>
     <string name="obd_cells_note">Per-cell voltages from the battery ECU. Highlighted = highest and lowest cell.</string>
 </resources>

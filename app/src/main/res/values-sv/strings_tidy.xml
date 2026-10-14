@@ -4,9 +4,7 @@
     <string name="set_group_connection">Anslutning till bilen</string>
     <string name="set_group_climate">Klimat och aviseringar</string>
     <string name="set_group_look">Utseende och språk</string>
-    <string name="set_group_other">Övrigt</string>
     <string name="set_sum_not_set">Inte angivet</string>
-    <string name="set_sum_no_bridge">ingen brygga</string>
     <string name="set_sum_on_of">På · %1$d av %2$d</string>
     <string name="set_sum_off">Av</string>
     <string name="set_sum_stay">Varför anslutningen bryts, och tips för telefonen</string>

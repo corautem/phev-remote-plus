@@ -96,7 +96,7 @@
     <string name="msg_phone_unregistered">Handy abgemeldet</string>
     <string name="msg_bridge_ok">Bridge OK – Autodaten %1$s</string>
     <string name="msg_bridge_no_car_data">noch nicht verfügbar</string>
-    <string name="msg_bridge_unreachable">Bridge nicht erreichbar – siehe Diagnose</string>
+    <string name="msg_bridge_unreachable">Bridge nicht erreichbar – siehe Optionen → Diagnose</string>
     <string name="msg_location_saved">Standort gespeichert</string>
     <string name="msg_location_none">Noch kein Standort verfügbar – öffne einmal eine Karten-App und versuch es erneut</string>
     <string name="msg_location_denied">Standortberechtigung verweigert – Koordinaten bitte von Hand eingeben</string>
@@ -173,7 +173,6 @@
     <!-- Connection status -->
     <string name="link_route">Verbindung: %1$s</string>
     <string name="link_since">Seit %1$s</string>
-    <string name="link_tips">Tipps: Das Wi-Fi des Autos funktioniert nur, solange das Auto ausgeschaltet ist (oder auf ACC steht), und reicht etwa 10–20 m. Nach mehreren Tagen Standzeit schläft es ein – ein Druck auf eine Taste am Schlüssel oder das Entriegeln weckt es meist auf. Wenn es heißt, das Handy sei nicht registriert, registriere es unter Optionen. Unter Optionen → Verbunden bleiben findest du Handy-Einstellungen gegen Verbindungsabbrüche.</string>
     <string name="link_try_again">Jetzt erneut versuchen</string>
     <string name="link_not_connected">Nicht verbunden</string>
     <string name="link_not_set_up">Nicht eingerichtet</string>
@@ -371,7 +370,7 @@
     <string name="setup_register_phone">Dieses Handy registrieren</string>
     <string name="setup_skip_for_now">Vorerst überspringen</string>
     <string name="setup_step3_title">3 · Alles bereit</string>
-    <string name="setup_good_to_know">Gut zu wissen:\n• Lange auf das App-Symbol drücken für Verknüpfungen (Vorheizen, Enteisen, Licht blinken lassen).\n• Füge das Widget und die Schnelleinstellungs-Kachel „Vorheizen“ hinzu.\n• Plane deine üblichen Abfahrten im Tab „Abfahrten“.\n• Jeder Verbindungsversuch wird unter Diagnose protokolliert – teile das Log, wenn etwas nicht klappt.\n• Für die Steuerung von überall: Richte die Bridge ein (siehe README) und gib ihre Adresse unter Optionen ein.</string>
+    <string name="setup_good_to_know">Gut zu wissen:\n• Lange auf das App-Symbol drücken für Verknüpfungen (Vorheizen, Enteisen, Licht blinken lassen).\n• Füge das Widget und die Schnelleinstellungs-Kachel „Vorheizen“ hinzu.\n• Plane deine üblichen Abfahrten im Tab „Abfahrten“.\n• Fragen? Optionen → Hilfe und Fragen.\n• Jeder Verbindungsversuch wird unter Optionen → Diagnose protokolliert – teile das Protokoll, wenn etwas nicht klappt.\n• Für die Steuerung von überall: Richte unter Optionen → Bridge eine Bridge ein.</string>
     <string name="setup_open_app">App öffnen</string>
 
     <!-- Diagnostics tab -->

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tidier app: settings groups, smart home page, Home cards, help links. -->
+<resources>
+    <string name="set_group_smarthome">Smarthjem</string>
+    <string name="set_group_help">Hjelp og støtte</string>
+    <string name="set_sum_bridge_page">%1$s · status, logg og oppdateringer</string>
+    <string name="set_sum_bridge_none">Ikke satt opp – bruk appen fra hvor som helst hjemme</string>
+    <string name="set_sum_needs_bridge">Trenger broen</string>
+    <string name="set_sum_google">Legg bilen til i Google Home</string>
+    <string name="set_sum_ha">Koble bilen til Home Assistant</string>
+    <string name="set_sum_help">Svar på vanlige spørsmål</string>
+    <string name="set_sum_diagnostics">Appens logg, bilens rådata og verktøy</string>
+    <string name="smart_needs_bridge">Google Home og Home Assistant når bilen gjennom broen hjemme. Sett opp broen først.</string>
+    <string name="smart_unreachable">Broen svarer ikke. Den må kunne nås – på Wi-Fi hjemme, eller over VPN – for å sette opp dette. Prøver igjen …</string>
+    <string name="bp_log_folded">Hva broen har gjort, linje for linje – nyttig når noe oppfører seg rart.</string>
+    <string name="bp_log_show">Vis loggen</string>
+    <string name="bp_log_hide">Skjul loggen</string>
+    <string name="home_sec_closed">Alle dører lukket</string>
+    <string name="home_sec_open">Åpen: %1$s</string>
+    <string name="home_sec_lights_off">Lys av</string>
+    <string name="home_sec_lights_on">På: %1$s</string>
+    <string name="home_sec_alarm">Alarmen går</string>
+    <string name="home_timers_title">Tidsur</string>
+    <string name="home_timers_no_departure">Ingen planlagt</string>
+    <string name="reach_why">Hva betyr dette?</string>
+    <string name="link_why">Hvorfor kobler den ikke til?</string>
+</resources>

@@ -3,10 +3,12 @@ package io.github.anwo91.phevlink.ui.bridge
 import android.content.Intent
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -68,7 +71,10 @@ import kotlinx.coroutines.launch
  * once for bridges from before in-app updates.
  */
 @Composable
-fun BridgeScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit, onOpenSetup: () -> Unit, onOpenActivity: () -> Unit = {}) {
+fun BridgeScreen(
+    vm: MainViewModel, modifier: Modifier, onBack: () -> Unit, onOpenSetup: () -> Unit, onOpenActivity: () -> Unit = {},
+    onOpenSmartHome: (String) -> Unit = {},
+) {
     val c = vm.bridgeAdmin
     val st by c.state.collectAsState()
     val s by vm.settings.collectAsState()
@@ -102,11 +108,8 @@ fun BridgeScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit, onOp
             if (st.reachable == true || st.restarting || st.phase != UpdatePhase.IDLE) {
                 ActionsCard(c, st)
                 RecentActivityCard(vm, onOpenActivity)
-                // Home Assistant (MQTT): only once the bridge has said what it can do.
-                if (st.features.isNotEmpty()) {
-                    MatterCard(vm, s.bridgeUrl, s.bridgeToken, supported = "matter" in st.features)
-                    SmartHomeCard(vm, s.bridgeUrl, s.bridgeToken, supported = "smarthome" in st.features, carName = s.carName.ifBlank { "Outlander PHEV" })
-                }
+                // Google Home and Home Assistant have their own page (also under Settings → Smart home).
+                if (st.features.isNotEmpty()) SmartHomeLinks(onOpenSmartHome)
                 UpdateCard(c, st)
                 LogCard(st, s.bridgeUrl, s.bridgeToken)
             }
@@ -338,12 +341,40 @@ private fun UpdateCard(c: BridgeAdminController, st: BridgeAdminController.State
     }
 }
 
+/** Links to the Google Home and Home Assistant pages. */
+@Composable
+private fun SmartHomeLinks(onOpen: (String) -> Unit) {
+    SectionCard(title = stringResource(R.string.set_group_smarthome)) {
+        for ((id, icon, title, sub) in listOf(
+            SmartLink("matter", PhevIcons.Speaker, R.string.mt_title, R.string.set_sum_google),
+            SmartLink("ha", PhevIcons.Home, R.string.sh_title, R.string.set_sum_ha),
+        )) {
+            Row(
+                Modifier.fillMaxWidth().clickable { onOpen(id) }.padding(vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(icon, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(22.dp))
+                Spacer(Modifier.width(14.dp))
+                Column(Modifier.weight(1f)) {
+                    Text(stringResource(title), style = MaterialTheme.typography.bodyLarge)
+                    Note(stringResource(sub))
+                }
+                Icon(PhevIcons.ChevronRight, null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(20.dp))
+            }
+        }
+    }
+}
+
+private data class SmartLink(val id: String, val icon: androidx.compose.ui.graphics.vector.ImageVector, val title: Int, val sub: Int)
+
+/** The bridge's own log: folded away by default (it's for when something misbehaves), shareable either way. */
 @Composable
 private fun LogCard(st: BridgeAdminController.State, url: String, token: String) {
     val ctx = LocalContext.current
     val scope = androidx.compose.runtime.rememberCoroutineScope()
     val shareTitle = stringResource(R.string.bp_share)
     var fetching by remember { mutableStateOf(false) }
+    var shown by rememberSaveable { mutableStateOf(false) }
     SectionCard(title = stringResource(R.string.bp_log), trailing = {
         if (st.log.isNotEmpty()) {
             TextButton(enabled = !fetching, onClick = {
@@ -362,9 +393,15 @@ private fun LogCard(st: BridgeAdminController.State, url: String, token: String)
             }) { Text(shareTitle) }
         }
     }) {
+        if (!shown) {
+            Note(stringResource(R.string.bp_log_folded))
+            TextButton(onClick = { shown = true }, contentPadding = PaddingValues(horizontal = 0.dp)) { Text(stringResource(R.string.bp_log_show)) }
+            return@SectionCard
+        }
         Note(stringResource(R.string.bp_log_hint))
         Spacer(Modifier.height(6.dp))
         if (st.log.isEmpty()) Note(stringResource(R.string.bp_log_empty)) else LogBox(st.log, maxHeight = 360)
+        TextButton(onClick = { shown = false }, contentPadding = PaddingValues(horizontal = 0.dp)) { Text(stringResource(R.string.bp_log_hide)) }
     }
 }
 

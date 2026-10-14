@@ -5,7 +5,6 @@
     <string name="bp_invite_open">Die Bridge lässt bis %1$s ein weiteres Handy herein. Auf dem anderen Handy: PHEV Link installieren, die WLAN-Karte des Autos eingeben und „Ich habe eine PHEV-Link-Bridge“ wählen.</string>
     <string name="bp_done_invite">Die Tür ist für ein weiteres Handy offen.</string>
     <string name="bp_title">Bridge</string>
-    <string name="bp_open">Bridge: Status, Protokoll und Updates</string>
     <string name="bp_none">Es ist noch keine Bridge eingerichtet.</string>
     <string name="bp_unreachable">Die Bridge unter %1$s ist nicht erreichbar. Dein Handy muss in deinem WLAN zu Hause (oder deinem VPN) sein, um sie zu sehen.</string>
     <string name="bp_checking">Frage die Bridge …</string>

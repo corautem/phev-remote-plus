@@ -82,9 +82,14 @@ private enum class Filter(@StringRes val label: Int, val kinds: Set<LogKind>) {
 
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
-fun DiagnosticsScreen(vm: MainViewModel, modifier: Modifier) {
+fun DiagnosticsScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit) {
     var tab by rememberSaveable { mutableIntStateOf(0) }
+    androidx.activity.compose.BackHandler(onBack = onBack)
     Column(modifier.fillMaxSize()) {
+        Row(Modifier.fillMaxWidth().padding(4.dp), verticalAlignment = Alignment.CenterVertically) {
+            IconButton(onClick = onBack) { Icon(PhevIcons.Back, stringResource(R.string.common_back)) }
+            Text(stringResource(R.string.tab_diagnostics), style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
+        }
         PrimaryTabRow(selectedTabIndex = tab) {
             listOf(R.string.diag_tab_log, R.string.diag_tab_registers, R.string.diag_tab_tools).forEachIndexed { i, t ->
                 Tab(selected = tab == i, onClick = { tab = i }, text = { Text(stringResource(t)) })

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tidier app: settings groups, smart home page, Home cards, help links. -->
+<resources>
+    <string name="set_group_smarthome">Smart home</string>
+    <string name="set_group_help">Hjælp og support</string>
+    <string name="set_sum_bridge_page">%1$s · status, log og opdateringer</string>
+    <string name="set_sum_bridge_none">Ikke sat op – brug appen fra hvor som helst derhjemme</string>
+    <string name="set_sum_needs_bridge">Kræver broen</string>
+    <string name="set_sum_google">Føj bilen til Google Home</string>
+    <string name="set_sum_ha">Forbind bilen med Home Assistant</string>
+    <string name="set_sum_help">Svar på almindelige spørgsmål</string>
+    <string name="set_sum_diagnostics">Appens log, bilens rådata og værktøjer</string>
+    <string name="smart_needs_bridge">Google Home og Home Assistant når bilen gennem broen derhjemme. Sæt broen op først.</string>
+    <string name="smart_unreachable">Broen svarer ikke. Den skal kunne nås – på dit Wi-Fi derhjemme eller via VPN – for at sætte dette op. Prøver igen …</string>
+    <string name="bp_log_folded">Hvad broen har gjort, linje for linje – nyttigt, når noget driller.</string>
+    <string name="bp_log_show">Vis loggen</string>
+    <string name="bp_log_hide">Skjul loggen</string>
+    <string name="home_sec_closed">Alle døre lukket</string>
+    <string name="home_sec_open">Åben: %1$s</string>
+    <string name="home_sec_lights_off">Lys slukket</string>
+    <string name="home_sec_lights_on">Tændt: %1$s</string>
+    <string name="home_sec_alarm">Alarmen går</string>
+    <string name="home_timers_title">Timere</string>
+    <string name="home_timers_no_departure">Ingen planlagt</string>
+    <string name="reach_why">Hvad betyder det?</string>
+    <string name="link_why">Hvorfor kan den ikke forbinde?</string>
+</resources>

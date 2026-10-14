@@ -96,7 +96,7 @@
     <string name="msg_phone_unregistered">Telefonen är avregistrerad</string>
     <string name="msg_bridge_ok">Bryggan OK – bildata %1$s</string>
     <string name="msg_bridge_no_car_data">inte tillgängliga än</string>
-    <string name="msg_bridge_unreachable">Bryggan går inte att nå – se Diagnostik</string>
+    <string name="msg_bridge_unreachable">Bryggan går inte att nå – se Inställningar → Diagnostik</string>
     <string name="msg_location_saved">Platsen sparad</string>
     <string name="msg_location_none">Ingen plats tillgänglig än – öppna en kartapp en gång och försök igen</string>
     <string name="msg_location_denied">Platsbehörighet nekad – ange koordinaterna för hand</string>
@@ -173,7 +173,6 @@
     <!-- Connection status -->
     <string name="link_route">Anslutningsväg: %1$s</string>
     <string name="link_since">Sedan %1$s</string>
-    <string name="link_tips">Tips: Bilens Wi-Fi fungerar bara medan bilen är avslagen (eller i ACC) och räcker ungefär 10–20 m. Efter flera dagar parkerad somnar det – ett tryck på en knapp på nyckeln, eller en upplåsning, väcker det oftast. Om det står att telefonen inte är registrerad, registrera den under Inställningar. Under Inställningar → Hålla anslutningen finns telefoninställningar som stoppar avbrott.</string>
     <string name="link_try_again">Försök igen nu</string>
     <string name="link_not_connected">Inte ansluten</string>
     <string name="link_not_set_up">Inte konfigurerad</string>
@@ -371,7 +370,7 @@
     <string name="setup_register_phone">Registrera den här telefonen</string>
     <string name="setup_skip_for_now">Hoppa över tills vidare</string>
     <string name="setup_step3_title">3 · Klart</string>
-    <string name="setup_good_to_know">Bra att veta:\n• Tryck länge på appikonen för genvägar (förvärmning, avisning, blinka med ljuset).\n• Lägg till widgeten och snabbinställningsrutan ”Förvärmning”.\n• Lägg in dina vanliga avresor på fliken Avresor.\n• Varje anslutningsförsök loggas under Diagnostik – dela loggen om något krånglar.\n• För styrning var du än är: konfigurera bryggan (se README) och ange dess adress under Inställningar.</string>
+    <string name="setup_good_to_know">Bra att veta:\n• Tryck länge på appikonen för genvägar (förvärmning, avisning, blinka med ljuset).\n• Lägg till widgeten och snabbinställningsrutan ”Förvärmning”.\n• Lägg in dina vanliga avresor på fliken Avresor.\n• Frågor? Inställningar → Hjälp och frågor.\n• Varje anslutningsförsök loggas under Inställningar → Diagnostik – dela loggen om något krånglar.\n• För styrning var du än är: konfigurera en brygga under Inställningar → Brygga.</string>
     <string name="setup_open_app">Öppna appen</string>
 
     <!-- Diagnostics tab -->

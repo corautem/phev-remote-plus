@@ -50,7 +50,9 @@ import io.github.anwo91.phevlink.ui.schedule.ChargeTimerScreen
 import io.github.anwo91.phevlink.ui.home.HomeScreen
 import io.github.anwo91.phevlink.ui.obd.ObdScreen
 import io.github.anwo91.phevlink.ui.obd.ObdViewModel
+import io.github.anwo91.phevlink.ui.tips.Faq
 import io.github.anwo91.phevlink.ui.tips.TipsScreen
+import io.github.anwo91.phevlink.ui.bridge.SmartHomeScreen
 import io.github.anwo91.phevlink.ui.vehicle.VehicleSettingsScreen
 import io.github.anwo91.phevlink.ui.schedule.ScheduleScreen
 import io.github.anwo91.phevlink.ui.settings.SettingsScreen
@@ -111,7 +113,6 @@ private enum class Tab(@StringRes val label: Int, val icon: ImageVector) {
     CAR(R.string.tab_car, PhevIcons.Car),
     SCHEDULE(R.string.tab_schedule, PhevIcons.Clock),
     OBD(R.string.tab_obd, PhevIcons.Obd),
-    DIAG(R.string.tab_log, PhevIcons.Log),
     SETTINGS(R.string.tab_settings, PhevIcons.Settings),
 }
 
@@ -123,6 +124,10 @@ private object Page {
     const val BRIDGE_STATUS = "bridge-status"
     const val CHARGE_TIMER = "charge-timer"
     const val ACTIVITY = "activity"
+    /** The app's own log, the car's registers and tools (was a tab; now under Settings → Help and support). */
+    const val DIAGNOSTICS = "diagnostics"
+    /** Google Home ("smart-home:matter") or Home Assistant ("smart-home:ha"). */
+    const val SMART_HOME = "smart-home"
 }
 
 /** The always-visible EMULATION bar, shown while demo mode is on so simulated data is never mistaken for the real car. */
@@ -169,8 +174,15 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
         return
     }
     var tab by rememberSaveable { mutableIntStateOf(0) }
-    // An open page ("vehicle", "tips" or "tips:<id>") is drawn over the current tab.
+    // A tab index saved by an older version (it had five tabs) may not exist any more.
+    val current = Tab.entries.getOrElse(tab) { Tab.CAR }
+    // An open page ("vehicle", "tips" or "tips:<id>") is drawn over the current tab. [previous]: the page it was
+    // opened from (one step), so Back returns there — e.g. Bridge → Google Home → back to the bridge page.
     var page by rememberSaveable { mutableStateOf<String?>(null) }
+    var previous by rememberSaveable { mutableStateOf<String?>(null) }
+    fun show(p: String) { previous = page; page = p }
+    fun back() { page = previous?.takeIf { it != page }; previous = null }
+    fun openTab(t: Tab) { tab = t.ordinal; page = null; previous = null }
     // Which page shows (also one restored after the app was restarted, e.g. by an update) — logged for support.
     LaunchedEffect(page) { vm.log.link("UI: ${page?.let { "page $it" } ?: "tabs"}") }
     // A page asked for from outside (a notification tap): open it once.
@@ -178,6 +190,7 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
     LaunchedEffect(requested) {
         requested?.let {
             page = it
+            previous = null
             vm.pageOpened()
         }
     }
@@ -195,8 +208,8 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
             NavigationBar {
                 Tab.entries.forEachIndexed { i, t ->
                     NavigationBarItem(
-                        selected = tab == i,
-                        onClick = { tab = i; page = null },
+                        selected = current == t,
+                        onClick = { openTab(t) },
                         icon = {
                             // A dot on Settings when the app or the bridge has an update.
                             if (t == Tab.SETTINGS && updates) BadgedBox(badge = { Badge() }) { Icon(t.icon, contentDescription = null) }
@@ -211,33 +224,45 @@ fun AppRoot(vm: MainViewModel, obdVm: ObdViewModel) {
         val m = Modifier.padding(pad)
         val p = page
         when {
-            p == Page.VEHICLE -> VehicleSettingsScreen(vm, m, onBack = { page = null })
-            p == Page.BRIDGE -> BridgeSetupScreen(vm, m, onBack = { page = null }, onFinished = { page = null })
-            p == Page.BRIDGE_STATUS -> BridgeScreen(vm, m, onBack = { page = null }, onOpenSetup = { page = Page.BRIDGE }, onOpenActivity = { page = Page.ACTIVITY })
-            p == Page.CHARGE_TIMER -> ChargeTimerScreen(vm, m, onBack = { page = null })
-            p == Page.ACTIVITY -> io.github.anwo91.phevlink.ui.activity.ActivityScreen(vm, m, onBack = { page = null })
+            p == Page.VEHICLE -> VehicleSettingsScreen(vm, m, onBack = { back() })
+            p == Page.BRIDGE -> BridgeSetupScreen(vm, m, onBack = { back() }, onFinished = { page = null; previous = null })
+            p == Page.BRIDGE_STATUS -> BridgeScreen(
+                vm, m, onBack = { back() }, onOpenSetup = { show(Page.BRIDGE) }, onOpenActivity = { show(Page.ACTIVITY) },
+                onOpenSmartHome = { show(Page.SMART_HOME + ":" + it) },
+            )
+            p == Page.CHARGE_TIMER -> ChargeTimerScreen(vm, m, onBack = { back() })
+            p == Page.ACTIVITY -> io.github.anwo91.phevlink.ui.activity.ActivityScreen(vm, m, onBack = { back() })
+            p == Page.DIAGNOSTICS -> DiagnosticsScreen(vm, m, onBack = { back() })
+            p != null && p.startsWith(Page.SMART_HOME) -> SmartHomeScreen(
+                vm, m, which = p.substringAfter(':', "matter"), onBack = { back() }, onOpenSetup = { show(Page.BRIDGE) },
+            )
             p != null && p.startsWith(Page.TIPS) -> TipsScreen(
                 m, initialTip = p.substringAfter(':', "").ifEmpty { null },
-                onBack = { page = null },
-                onOpenTests = { page = null; tab = Tab.OBD.ordinal },
-                onOpenVehicleSettings = { page = Page.VEHICLE },
+                onBack = { back() },
+                onOpenTests = { openTab(Tab.OBD) },
+                onOpenVehicleSettings = { show(Page.VEHICLE) },
             )
-            else -> when (Tab.entries[tab]) {
+            else -> when (current) {
                 Tab.CAR -> HomeScreen(
                     vm, m,
-                    onOpenSchedule = { tab = Tab.SCHEDULE.ordinal },
-                    onOpenDiagnostics = { tab = Tab.DIAG.ordinal },
-                    onOpenVehicleSettings = { page = Page.VEHICLE },
-                    onOpenTips = { page = Page.TIPS },
-                    onOpenObd = { tab = Tab.OBD.ordinal },
-                    onOpenBridgeSetup = { page = Page.BRIDGE },
-                    onOpenChargeTimer = { page = Page.CHARGE_TIMER },
-                    onOpenActivity = { page = Page.ACTIVITY },
+                    onOpenSchedule = { openTab(Tab.SCHEDULE) },
+                    onOpenDiagnostics = { show(Page.DIAGNOSTICS) },
+                    onOpenVehicleSettings = { show(Page.VEHICLE) },
+                    onOpenHelp = { id -> show(if (id == null) Page.TIPS else Page.TIPS + ":" + Faq.PREFIX + id) },
+                    onOpenBridgeSetup = { show(Page.BRIDGE) },
+                    onOpenChargeTimer = { show(Page.CHARGE_TIMER) },
+                    onOpenActivity = { show(Page.ACTIVITY) },
                 )
-                Tab.SCHEDULE -> ScheduleScreen(vm, m, onOpenChargeTimer = { page = Page.CHARGE_TIMER })
-                Tab.OBD -> ObdScreen(obdVm, m, onOpenTip = { page = Page.TIPS + ":" + it })
-                Tab.DIAG -> DiagnosticsScreen(vm, m)
-                Tab.SETTINGS -> SettingsScreen(vm, m, onOpenBridgeSetup = { page = Page.BRIDGE }, onOpenBridge = { page = Page.BRIDGE_STATUS })
+                Tab.SCHEDULE -> ScheduleScreen(vm, m, onOpenChargeTimer = { show(Page.CHARGE_TIMER) })
+                Tab.OBD -> ObdScreen(obdVm, m, onOpenTip = { show(Page.TIPS + ":" + it) })
+                Tab.SETTINGS -> SettingsScreen(
+                    vm, m,
+                    onOpenBridgeSetup = { show(Page.BRIDGE) },
+                    onOpenBridge = { show(Page.BRIDGE_STATUS) },
+                    onOpenSmartHome = { show(Page.SMART_HOME + ":" + it) },
+                    onOpenHelp = { show(Page.TIPS) },
+                    onOpenDiagnostics = { show(Page.DIAGNOSTICS) },
+                )
             }
         }
     }

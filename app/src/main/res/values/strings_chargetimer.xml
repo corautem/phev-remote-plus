@@ -25,7 +25,6 @@
     <string name="ct_pick_end">Timer %1$d ends at</string>
     <string name="ct_ten_minutes">Times go in 10-minute steps (rounded down).</string>
     <string name="ct_ok">OK</string>
-    <string name="ct_change">Change the charge timer</string>
     <string name="ct_more">Charge only at night or at set times</string>
     <string name="ct_change_timer">Change the charge timer</string>
     <string name="ct_set_timer">Set a charge timer</string>

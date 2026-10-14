@@ -104,7 +104,7 @@
     <string name="msg_phone_unregistered">Phone unregistered</string>
     <string name="msg_bridge_ok">Bridge OK — car data %1$s</string>
     <string name="msg_bridge_no_car_data">not yet available</string>
-    <string name="msg_bridge_unreachable">Bridge not reachable — see Diagnostics</string>
+    <string name="msg_bridge_unreachable">Bridge not reachable — see Settings → Diagnostics</string>
     <string name="msg_location_saved">Location saved</string>
     <string name="msg_location_none">No location available yet — open a maps app once and try again</string>
     <string name="msg_location_denied">Location permission denied — enter coordinates by hand</string>
@@ -181,7 +181,6 @@
     <!-- Connection status -->
     <string name="link_route">Route: %1$s</string>
     <string name="link_since">Since %1$s</string>
-    <string name="link_tips">Tips: the car\'s Wi-Fi only works while the car is switched OFF (or in ACC), and reaches about 10–20 m. After several days parked it goes to sleep — pressing a button on the key, or unlocking, usually wakes it. If it says the phone isn\'t registered, register it under Settings. Settings → Staying connected has phone settings that stop drop-outs.</string>
     <string name="link_try_again">Try again now</string>
     <string name="link_not_connected">Not connected</string>
     <string name="link_not_set_up">Not set up</string>
@@ -282,7 +281,7 @@
     <string name="sched_exact_explain">Without this, Android may delay the departure check by several minutes.</string>
     <string name="sched_open_settings">Open settings</string>
     <string name="sched_no_location_title">Weather location not set</string>
-    <string name="sched_no_location_explain">Set your home location in Settings → Weather so the forecast is for where the car is parked. Until then the phone\'s last known location is used, or your default mode if that is unknown.</string>
+    <string name="sched_no_location_explain">Set your home location under Settings → Weather location so the forecast is for where the car is parked. Until then the phone\'s last known location is used, or your default mode if that is unknown.</string>
     <string name="sched_next">Next: %1$s · weather check %2$s</string>
     <string name="sched_add">Add departure</string>
     <string name="days_every">Every day</string>
@@ -380,7 +379,7 @@
     <string name="setup_register_phone">Register this phone</string>
     <string name="setup_skip_for_now">Skip for now</string>
     <string name="setup_step3_title">3 · All set</string>
-    <string name="setup_good_to_know">Good to know:\n• Long-press the app icon for shortcuts (preheat, defrost, flash lights).\n• Add the widget and the \"Preheat\" quick-settings tile.\n• Schedule your usual departures in the Schedule tab.\n• Every connection attempt is logged in Diagnostics — share the log if something misbehaves.\n• For control from anywhere, set up the bridge (see the README) and enter its address in Settings.</string>
+    <string name="setup_good_to_know">Good to know:\n• Long-press the app icon for shortcuts (preheat, defrost, flash lights).\n• Add the widget and the \"Preheat\" quick-settings tile.\n• Schedule your usual departures in the Schedule tab.\n• Questions? Settings → Help &amp; FAQ.\n• Every connection attempt is logged under Settings → Diagnostics — share the log if something misbehaves.\n• For control from anywhere, set up a bridge under Settings → Bridge.</string>
     <string name="setup_open_app">Open the app</string>
 
     <!-- Diagnostics tab -->

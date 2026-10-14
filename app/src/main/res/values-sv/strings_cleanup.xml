@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tidier app: settings groups, smart home page, Home cards, help links. -->
+<resources>
+    <string name="set_group_smarthome">Smarta hem</string>
+    <string name="set_group_help">Hjälp och support</string>
+    <string name="set_sum_bridge_page">%1$s · status, logg och uppdateringar</string>
+    <string name="set_sum_bridge_none">Inte konfigurerad – använd appen var som helst hemma</string>
+    <string name="set_sum_needs_bridge">Kräver bryggan</string>
+    <string name="set_sum_google">Lägg till bilen i Google Home</string>
+    <string name="set_sum_ha">Anslut bilen till Home Assistant</string>
+    <string name="set_sum_help">Svar på vanliga frågor</string>
+    <string name="set_sum_diagnostics">Appens logg, bilens rådata och verktyg</string>
+    <string name="smart_needs_bridge">Google Home och Home Assistant når bilen via bryggan hemma. Konfigurera bryggan först.</string>
+    <string name="smart_unreachable">Bryggan svarar inte. Den måste gå att nå – på wifi hemma, eller via VPN – för att ställa in det här. Försöker igen …</string>
+    <string name="bp_log_folded">Vad bryggan har gjort, rad för rad – användbart när något krånglar.</string>
+    <string name="bp_log_show">Visa loggen</string>
+    <string name="bp_log_hide">Dölj loggen</string>
+    <string name="home_sec_closed">Alla dörrar stängda</string>
+    <string name="home_sec_open">Öppen: %1$s</string>
+    <string name="home_sec_lights_off">Lampor av</string>
+    <string name="home_sec_lights_on">På: %1$s</string>
+    <string name="home_sec_alarm">Larmet går</string>
+    <string name="home_timers_title">Timers</string>
+    <string name="home_timers_no_departure">Ingen planerad</string>
+    <string name="reach_why">Vad betyder det här?</string>
+    <string name="link_why">Varför ansluter den inte?</string>
+</resources>

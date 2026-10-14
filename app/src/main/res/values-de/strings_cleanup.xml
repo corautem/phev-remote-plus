@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tidier app: settings groups, smart home page, Home cards, help links. -->
+<resources>
+    <string name="set_group_smarthome">Smart Home</string>
+    <string name="set_group_help">Hilfe und Support</string>
+    <string name="set_sum_bridge_page">%1$s · Status, Protokoll und Updates</string>
+    <string name="set_sum_bridge_none">Nicht eingerichtet – nutze die App von überall zu Hause</string>
+    <string name="set_sum_needs_bridge">Braucht die Bridge</string>
+    <string name="set_sum_google">Füge das Auto zu Google Home hinzu</string>
+    <string name="set_sum_ha">Verbinde das Auto mit Home Assistant</string>
+    <string name="set_sum_help">Antworten auf häufige Fragen</string>
+    <string name="set_sum_diagnostics">Protokoll der App, Rohdaten des Autos und Werkzeuge</string>
+    <string name="smart_needs_bridge">Google Home und Home Assistant erreichen das Auto über die Bridge zu Hause. Richte zuerst die Bridge ein.</string>
+    <string name="smart_unreachable">Die Bridge antwortet nicht. Sie muss erreichbar sein – im WLAN zu Hause oder über VPN –, um das einzurichten. Versuche es erneut …</string>
+    <string name="bp_log_folded">Was die Bridge getan hat, Zeile für Zeile – hilfreich, wenn etwas nicht klappt.</string>
+    <string name="bp_log_show">Protokoll anzeigen</string>
+    <string name="bp_log_hide">Protokoll ausblenden</string>
+    <string name="home_sec_closed">Alle Türen zu</string>
+    <string name="home_sec_open">Offen: %1$s</string>
+    <string name="home_sec_lights_off">Licht aus</string>
+    <string name="home_sec_lights_on">An: %1$s</string>
+    <string name="home_sec_alarm">Alarm ausgelöst</string>
+    <string name="home_timers_title">Timer</string>
+    <string name="home_timers_no_departure">Keine geplant</string>
+    <string name="reach_why">Was bedeutet das?</string>
+    <string name="link_why">Warum verbindet es sich nicht?</string>
+</resources>

@@ -25,7 +25,6 @@
     <string name="ct_pick_end">Timer %1$d slutter</string>
     <string name="ct_ten_minutes">Tidene går i steg på 10 minutter (rundes ned).</string>
     <string name="ct_ok">OK</string>
-    <string name="ct_change">Endre ladetimeren</string>
     <string name="ct_more">Lad bare om natten eller til faste tider</string>
     <string name="ct_change_timer">Endre ladetimeren</string>
     <string name="ct_set_timer">Still inn en ladetimer</string>

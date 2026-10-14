@@ -7,11 +7,9 @@
 
     <!-- Tabs and home -->
     <string name="tab_obd">OBD</string>
-    <string name="tab_log">Logg</string>
     <string name="home_more">Mer</string>
     <string name="home_more_vs">Endre bilens egne innstillinger: lys, låser, pipelyder, viskere, klima</string>
-    <string name="home_more_tips">Vanlige problemer på denne bilen, og hvordan du justerer pipelydene</string>
-    <string name="home_more_obd">Batteritilstand, feilkoder og tester med en OBD-adapter</string>
+    <string name="home_more_tips">Vanlige spørsmål, kjente problemer på denne bilen og pipelydene</string>
     <string name="cmd_change_setting">Innstilling «%1$s»: %2$s</string>
     <string name="cmd_reset_settings">Tilbakestill bilinnstillingene</string>
     <string name="msg_setting_unconfirmed">bilen bekreftet ikke den nye innstillingen. Sjekk den i bilen.</string>
@@ -186,7 +184,6 @@
     <string name="vs_beeps_hint">Pipelyd ved låsing/opplåsing og hornkvittering finner du i gruppen «Fjernstyrt sentrallås og nøkkelløs betjening». Under Tips → Pip og lyder står alle lydene og hvordan de endres.</string>
 
     <!-- Tips -->
-    <string name="tips_title">Tips og kjente feil</string>
     <string name="tips_problems">Vanlige problemer</string>
     <string name="tips_beeps">Pip og lyder</string>
     <string name="tips_all">Alle</string>
@@ -220,7 +217,7 @@
     <string name="obd_cells_none">Trykk «Les nå» for å hente alle cellespenninger (bilen må være i READY eller tenning PÅ).</string>
     <string name="obd_cells_count">Celler lest</string>
     <string name="obd_cell_temps">Modultemperaturer</string>
-    <string name="obd_cells_unverified">Kunne ikke bekrefte cellerekkefølgen mot pakkesammendraget – viser beste forsøk. Del Diagnostikk, så låser jeg oppsettet.</string>
+    <string name="obd_cells_unverified">Kunne ikke bekrefte cellerekkefølgen mot pakkesammendraget – viser beste anslag. Å dele loggen (Innstillinger → Diagnose) hjelper med å låse oppsettet.</string>
     <string name="obd_cells_unverified_toast">Leste cellene, men kunne ikke bekrefte oppsettet – del diagnostikkloggen.</string>
     <string name="obd_cells_note">Cellespenninger fra batteri-ECU-en. Uthevet = høyeste og laveste celle.</string>
 </resources>

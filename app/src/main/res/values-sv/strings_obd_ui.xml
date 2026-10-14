@@ -7,11 +7,9 @@
 
     <!-- Tabs and home -->
     <string name="tab_obd">OBD</string>
-    <string name="tab_log">Logg</string>
     <string name="home_more">Mer</string>
     <string name="home_more_vs">Ändra bilens egna inställningar: belysning, lås, pip, torkare, A/C</string>
-    <string name="home_more_tips">Vanliga problem på den här bilen, och hur du ställer in pipljuden</string>
-    <string name="home_more_obd">Batterihälsa, felkoder och tester med en OBD-adapter</string>
+    <string name="home_more_tips">Vanliga frågor, kända problem på den här bilen och pipljuden</string>
     <string name="cmd_change_setting">Inställning ”%1$s”: %2$s</string>
     <string name="cmd_reset_settings">Återställ bilinställningarna</string>
     <string name="msg_setting_unconfirmed">bilen bekräftade inte den nya inställningen. Kontrollera den i bilen.</string>
@@ -186,7 +184,6 @@
     <string name="vs_beeps_hint">Pip vid låsning/upplåsning och signalhornskvittens finns i gruppen ”Fjärrlåsning och nyckelfritt system”. Under Tips → Pip och ljud finns alla ljud och hur de ändras.</string>
 
     <!-- Tips -->
-    <string name="tips_title">Tips och kända problem</string>
     <string name="tips_problems">Vanliga problem</string>
     <string name="tips_beeps">Pip och ljud</string>
     <string name="tips_all">Alla</string>
@@ -220,7 +217,7 @@
     <string name="obd_cells_none">Tryck på ”Läs nu” för att hämta alla cellspänningar (bilen måste vara i READY eller tändning PÅ).</string>
     <string name="obd_cells_count">Lästa celler</string>
     <string name="obd_cell_temps">Modultemperaturer</string>
-    <string name="obd_cells_unverified">Kunde inte bekräfta cellordningen mot paketsammanfattningen – visar bästa försök. Dela Diagnostik så låser jag layouten.</string>
+    <string name="obd_cells_unverified">Kunde inte bekräfta cellordningen mot paketsammanfattningen – visar bästa gissning. Att dela loggen (Inställningar → Diagnostik) hjälper till att låsa layouten.</string>
     <string name="obd_cells_unverified_toast">Läste cellerna men kunde inte bekräfta layouten – dela diagnostikloggen.</string>
     <string name="obd_cells_note">Cellspänningar från batteri-ECU:n. Markerat = högsta och lägsta cellen.</string>
 </resources>

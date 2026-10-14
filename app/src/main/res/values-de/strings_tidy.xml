@@ -4,9 +4,7 @@
     <string name="set_group_connection">Verbindung zum Auto</string>
     <string name="set_group_climate">Klima und Benachrichtigungen</string>
     <string name="set_group_look">Aussehen und Sprache</string>
-    <string name="set_group_other">Sonstiges</string>
     <string name="set_sum_not_set">Nicht festgelegt</string>
-    <string name="set_sum_no_bridge">keine Bridge</string>
     <string name="set_sum_on_of">An · %1$d von %2$d</string>
     <string name="set_sum_off">Aus</string>
     <string name="set_sum_stay">Warum die Verbindung abbricht, und Tipps fürs Handy</string>

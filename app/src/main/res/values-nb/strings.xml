@@ -96,7 +96,7 @@
     <string name="msg_phone_unregistered">Telefonen er avregistrert</string>
     <string name="msg_bridge_ok">Broen OK – bildata %1$s</string>
     <string name="msg_bridge_no_car_data">ikke tilgjengelig ennå</string>
-    <string name="msg_bridge_unreachable">Får ikke kontakt med broen – se Diagnose</string>
+    <string name="msg_bridge_unreachable">Får ikke kontakt med broen – se Innstillinger → Diagnose</string>
     <string name="msg_location_saved">Posisjon lagret</string>
     <string name="msg_location_none">Ingen posisjon tilgjengelig ennå – åpne en kartapp én gang og prøv igjen</string>
     <string name="msg_location_denied">Posisjonstillatelse avslått – skriv inn koordinatene selv</string>
@@ -173,7 +173,6 @@
     <!-- Connection status -->
     <string name="link_route">Rute: %1$s</string>
     <string name="link_since">Siden %1$s</string>
-    <string name="link_tips">Tips: Bilens Wi-Fi virker bare mens bilen er slått AV (eller står i ACC), og rekker omtrent 10–20 m. Etter flere dager parkert går det i dvale – et trykk på en knapp på nøkkelen, eller å låse opp, vekker det som regel. Står det at telefonen ikke er registrert, registrer den under Innstillinger. Under Innstillinger → Holde forbindelsen finner du telefoninnstillinger som hindrer brudd.</string>
     <string name="link_try_again">Prøv igjen nå</string>
     <string name="link_not_connected">Frakoblet</string>
     <string name="link_not_set_up">Ikke satt opp</string>
@@ -371,7 +370,7 @@
     <string name="setup_register_phone">Registrer denne telefonen</string>
     <string name="setup_skip_for_now">Hopp over nå</string>
     <string name="setup_step3_title">3 · Alt klart</string>
-    <string name="setup_good_to_know">Greit å vite:\n• Trykk lenge på appikonet for snarveier (forvarming, avising, blink med lysene).\n• Legg til widgeten og hurtiginnstillingen «Forvarming».\n• Legg inn de vanlige avreisene dine i fanen Avreiser.\n• Hvert tilkoblingsforsøk logges under Diagnose – del loggen hvis noe oppfører seg rart.\n• For styring fra hvor som helst: sett opp broen (se README) og skriv inn adressen under Innstillinger.</string>
+    <string name="setup_good_to_know">Greit å vite:\n• Trykk lenge på appikonet for snarveier (forvarming, avising, blink med lysene).\n• Legg til widgeten og hurtiginnstillingen «Forvarming».\n• Legg inn de vanlige avreisene dine i fanen Avreiser.\n• Spørsmål? Innstillinger → Hjelp og spørsmål.\n• Hvert tilkoblingsforsøk logges under Innstillinger → Diagnose – del loggen hvis noe oppfører seg rart.\n• For styring fra hvor som helst: sett opp en bro under Innstillinger → Bro.</string>
     <string name="setup_open_app">Åpne appen</string>
 
     <!-- Diagnostics tab -->

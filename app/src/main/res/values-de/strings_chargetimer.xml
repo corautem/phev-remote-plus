@@ -25,7 +25,6 @@
     <string name="ct_pick_end">Timer %1$d endet um</string>
     <string name="ct_ten_minutes">Die Zeiten gehen in 10-Minuten-Schritten (abgerundet).</string>
     <string name="ct_ok">OK</string>
-    <string name="ct_change">Lade-Timer ändern</string>
     <string name="ct_more">Nur nachts oder zu festen Zeiten laden</string>
     <string name="ct_change_timer">Lade-Timer ändern</string>
     <string name="ct_set_timer">Lade-Timer einstellen</string>

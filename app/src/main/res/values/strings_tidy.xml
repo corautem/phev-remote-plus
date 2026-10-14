@@ -4,9 +4,7 @@
     <string name="set_group_connection">Car connection</string>
     <string name="set_group_climate">Climate and alerts</string>
     <string name="set_group_look">Look and language</string>
-    <string name="set_group_other">Other</string>
     <string name="set_sum_not_set">Not set</string>
-    <string name="set_sum_no_bridge">no bridge</string>
     <string name="set_sum_on_of">On · %1$d of %2$d</string>
     <string name="set_sum_off">Off</string>
     <string name="set_sum_stay">Why the link drops, and phone tips</string>

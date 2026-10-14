@@ -5,7 +5,6 @@
     <string name="bp_invite_open">Broen lukker én telefon mere ind indtil %1$s. På den anden telefon: installér PHEV Link, indtast bilens wifi-kort, og vælg “Jeg har en PHEV Link-bro”.</string>
     <string name="bp_done_invite">Døren står åben for én telefon mere.</string>
     <string name="bp_title">Bro</string>
-    <string name="bp_open">Bro: status, log og opdateringer</string>
     <string name="bp_none">Der er ikke sat nogen bro op endnu.</string>
     <string name="bp_unreachable">Kan ikke nå broen på %1$s. Telefonen skal være på wifi\'et derhjemme (eller din VPN) for at se den.</string>
     <string name="bp_checking">Spørger broen …</string>

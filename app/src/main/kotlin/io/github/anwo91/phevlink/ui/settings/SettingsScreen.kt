@@ -112,7 +112,15 @@ private fun BridgeStepAside(vm: MainViewModel) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () -> Unit = {}, onOpenBridge: () -> Unit = {}) {
+fun SettingsScreen(
+    vm: MainViewModel,
+    modifier: Modifier,
+    onOpenBridgeSetup: () -> Unit = {},
+    onOpenBridge: () -> Unit = {},
+    onOpenSmartHome: (String) -> Unit = {},
+    onOpenHelp: () -> Unit = {},
+    onOpenDiagnostics: () -> Unit = {},
+) {
     val s by vm.settings.collectAsState()
     val car by vm.car.collectAsState()
     val pending by vm.pending.collectAsState()
@@ -131,10 +139,15 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () 
 
         // ------------------------------------------------------------ car connection
         SettingsGroup(stringResource(R.string.set_group_connection)) {
-            val routeSummary = stringResource(s.route.labelRes) + " · " +
-                if (s.hasBridge) s.bridgeUrl.substringAfter("://").substringBefore('/') else stringResource(R.string.set_sum_no_bridge)
-            SettingsRow(PhevIcons.Bridge, stringResource(R.string.settings_route_title), routeSummary, first = true) {
-                RouteContent(vm, s, onOpenBridgeSetup, onOpenBridge)
+            // The bridge has a page of its own (status, log, updates, smart home); without one this sets it up.
+            SettingsRow(
+                PhevIcons.Bridge, stringResource(R.string.bp_title),
+                if (s.hasBridge) stringResource(R.string.set_sum_bridge_page, s.bridgeUrl.substringAfter("://").substringBefore('/'))
+                else stringResource(R.string.set_sum_bridge_none),
+                first = true, onClick = if (s.hasBridge) onOpenBridge else onOpenBridgeSetup,
+            )
+            SettingsRow(PhevIcons.Route, stringResource(R.string.settings_route_title), stringResource(s.route.labelRes)) {
+                RouteContent(vm, s)
             }
             SettingsRow(PhevIcons.Wifi, stringResource(R.string.settings_car_wifi), s.ssid.ifBlank { notSet }) {
                 CarWifiFields(vm, s)
@@ -214,6 +227,19 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () 
             }
         }
 
+        // ------------------------------------------------------------ smart home (through the bridge)
+        SettingsGroup(stringResource(R.string.set_group_smarthome)) {
+            val needsBridge = stringResource(R.string.set_sum_needs_bridge)
+            SettingsRow(
+                PhevIcons.Speaker, stringResource(R.string.mt_title),
+                if (s.hasBridge) stringResource(R.string.set_sum_google) else needsBridge, first = true, onClick = { onOpenSmartHome("matter") },
+            )
+            SettingsRow(
+                PhevIcons.Home, stringResource(R.string.sh_title),
+                if (s.hasBridge) stringResource(R.string.set_sum_ha) else needsBridge, onClick = { onOpenSmartHome("ha") },
+            )
+        }
+
         // ------------------------------------------------------------ look and language
         SettingsGroup(stringResource(R.string.set_group_look)) {
             LanguageRow()
@@ -261,11 +287,13 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () 
             }
         }
 
-        // ------------------------------------------------------------ other
-        SettingsGroup(stringResource(R.string.set_group_other)) {
+        // ------------------------------------------------------------ help and support
+        SettingsGroup(stringResource(R.string.set_group_help)) {
+            SettingsRow(PhevIcons.Help, stringResource(R.string.help_title), stringResource(R.string.set_sum_help), first = true, onClick = onOpenHelp)
+            SettingsRow(PhevIcons.Log, stringResource(R.string.tab_diagnostics), stringResource(R.string.set_sum_diagnostics), onClick = onOpenDiagnostics)
             SettingsRow(
                 PhevIcons.Demo, stringResource(R.string.settings_demo_title),
-                stringResource(if (demo) R.string.settings_demo_running else R.string.set_sum_demo), first = true,
+                stringResource(if (demo) R.string.settings_demo_running else R.string.set_sum_demo),
             ) {
                 Text(
                     stringResource(R.string.settings_demo_explain),
@@ -315,6 +343,10 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () 
                         if (devTaps >= 7) { set { it.copy(devMode = true) }; vm.toast(devOnMsg) }
                     },
                 )
+                // The car as it reports itself (was the footer of the Car tab).
+                car.vin?.let { LabeledValue("VIN", it) }
+                car.ecuVersion?.let { LabeledValue("ECU", it) }
+                car.registrations?.let { LabeledValue(stringResource(R.string.settings_registered_phones), it.toString()) }
                 Text(
                     stringResource(R.string.settings_about_text),
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -328,24 +360,12 @@ fun SettingsScreen(vm: MainViewModel, modifier: Modifier, onOpenBridgeSetup: () 
     }
 }
 
-/** How the app reaches the car: the bridge (its page, setup), Automatic / car Wi-Fi only / bridge only, and — tucked away — the address and key by hand. */
+/** How the app reaches the car: Automatic / car Wi-Fi only / bridge only, and — tucked away — the bridge address and key by hand. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun RouteContent(vm: MainViewModel, s: AppSettings, onOpenBridgeSetup: () -> Unit, onOpenBridge: () -> Unit) {
+private fun RouteContent(vm: MainViewModel, s: AppSettings) {
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
-    if (s.hasBridge) {
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-            // What the bridge is doing (status, its log) and what you can do with it (restart, update).
-            FilledTonalButton(onClick = onOpenBridge, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.bp_open)) }
-            OutlinedButton(onClick = onOpenBridgeSetup, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.settings_bridge_setup), maxLines = 1) }
-        }
-    } else {
-        Text(stringResource(R.string.settings_bridge_setup_hint), style = MaterialTheme.typography.bodyMedium)
-        Spacer(Modifier.height(8.dp))
-        Button(onClick = onOpenBridgeSetup, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.settings_bridge_setup)) }
-    }
-    Spacer(Modifier.height(12.dp))
     SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
         Route.entries.forEachIndexed { i, r ->
             SegmentedButton(selected = s.route == r, onClick = { vm.updateSettings { it.copy(route = r) } }, shape = SegmentedButtonDefaults.itemShape(i, Route.entries.size)) {

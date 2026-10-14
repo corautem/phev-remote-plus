@@ -57,8 +57,8 @@ import io.github.anwo91.phevlink.ui.theme.LocalStatus
 import io.github.anwo91.phevlink.util.AppLocale
 
 /**
- * Known complaints and problems of the 2014–2017 Outlander PHEV, plus the warning sounds and how to change them.
- * [initialTip] opens and scrolls to one tip.
+ * Help & FAQ: questions about the app and the car, known complaints and problems of the 2014–2017 Outlander PHEV, and
+ * the warning sounds and how to change them. [initialTip] opens one tip, or one question ("faq.<id>").
  */
 @Composable
 fun TipsScreen(
@@ -71,30 +71,36 @@ fun TipsScreen(
     val ctx = LocalContext.current
     val lang = remember { AppLocale.effectiveLanguage(ctx) }
     val book = remember(lang) { Tips.load(lang) }
-    var section by rememberSaveable { mutableStateOf(if (initialTip == null) 0 else 0) }
+    // Questions first; a link to a known problem ("tips:<id>") opens that, one to a question ("tips:faq.<id>") the question.
+    val faqLink = initialTip?.takeIf { it.startsWith(Faq.PREFIX) }?.removePrefix(Faq.PREFIX)
+    val tipLink = initialTip?.takeIf { faqLink == null }
+    var section by rememberSaveable { mutableStateOf(if (tipLink != null) 1 else 0) }
     var category by rememberSaveable { mutableStateOf<String?>(null) }
-    var expanded by rememberSaveable { mutableStateOf(initialTip) }
+    var expanded by rememberSaveable { mutableStateOf(tipLink) }
     var codeDetail by remember { mutableStateOf<String?>(null) }
     val listState = rememberLazyListState()
 
     BackHandler(onBack = onBack)
 
     val tips = book.tips.filter { category == null || it.category == category }
-    LaunchedEffect(initialTip) {
-        val i = tips.indexOfFirst { it.id == initialTip }
+    LaunchedEffect(tipLink) {
+        val i = tips.indexOfFirst { it.id == tipLink }
         if (i >= 0) listState.scrollToItem(i + 1)
     }
 
     Column(modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth().padding(4.dp), verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = onBack) { Icon(PhevIcons.Back, stringResource(R.string.common_back)) }
-            Text(stringResource(R.string.tips_title), style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
+            Text(stringResource(R.string.help_title), style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
         }
         Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 12.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            FilterChip(selected = section == 0, onClick = { section = 0 }, label = { Text(stringResource(R.string.tips_problems)) })
-            FilterChip(selected = section == 1, onClick = { section = 1 }, label = { Text(stringResource(R.string.tips_beeps)) })
+            FilterChip(selected = section == 0, onClick = { section = 0 }, label = { Text(stringResource(R.string.faq_tab)) })
+            FilterChip(selected = section == 1, onClick = { section = 1 }, label = { Text(stringResource(R.string.tips_problems)) })
+            FilterChip(selected = section == 2, onClick = { section = 2 }, label = { Text(stringResource(R.string.tips_beeps)) })
         }
         if (section == 0) {
+            FaqList(faqLink)
+        } else if (section == 1) {
             LazyColumn(Modifier.fillMaxSize(), state = listState, contentPadding = PaddingValues(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 item {
                     Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {

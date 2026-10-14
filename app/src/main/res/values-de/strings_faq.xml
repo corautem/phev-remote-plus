@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Help & FAQ. -->
+<resources>
+    <string name="help_title">Hilfe und Fragen</string>
+    <string name="faq_tab">Fragen</string>
+    <string name="faq_search">Fragen durchsuchen</string>
+    <string name="faq_none">Nichts gefunden – versuch ein anderes Wort.</string>
+    <string name="faq_group_connect">Verbindung</string>
+    <string name="faq_group_use">Klima und Abfahrten</string>
+    <string name="faq_group_battery">Batterie und Laden</string>
+    <string name="faq_group_bridge">Bridge und Smart Home</string>
+    <string name="faq_group_app">Die App</string>
+    <string name="faq_route_q">WLAN des Autos oder Bridge – was ist der Unterschied?</string>
+    <string name="faq_route_a">Im WLAN des Autos spricht dein Handy direkt mit dem Auto, aus etwa 10–20 m Entfernung. Eine Bridge ist ein kleiner Computer zu Hause, der im WLAN des Autos bleibt – so funktioniert die App überall im Heimnetz und unterwegs per VPN. In „Automatisch“ nutzt die App die Bridge, wenn sie das Auto erreicht, sonst das WLAN des Autos.</string>
+    <string name="faq_one_q">Warum kann nur ein Gerät gleichzeitig das WLAN des Autos nutzen?</string>
+    <string name="faq_one_a">Das WLAN des Autos nimmt nur ein Gerät an. Mit Bridge belegt die Bridge diesen Platz, und alle Handys gehen über sie. Um das WLAN des Autos direkt zu nutzen (etwa zum Registrieren eines Handys), lass die Bridge unter Optionen für 10 Minuten Platz machen.</string>
+    <string name="faq_register_q">Wie registriere ich ein Handy im Auto?</string>
+    <string name="faq_register_a">Im Auto: Zündung AUS, dann auf ACC, ohne die Bremse zu berühren, und innerhalb von 10 Sekunden auf dem Schlüssel abwechselnd LOCK und UNLOCK drücken, insgesamt 10-mal. Dann unter Optionen → Handy-Registrierung auf Registrieren tippen – dort wird jeder Schritt erklärt. Das Auto merkt sich höchstens zwei Geräte.</string>
+    <string name="faq_full_q">Das Auto hat beim Registrieren dreimal gepiept</string>
+    <string name="faq_full_a">Drei Pieptöne bedeuten, dass schon zwei Geräte registriert sind. Unter Optionen → Handy-Registrierung steht, wie du alle löschst (20 Tastendrücke). Dabei werden auch das WLAN-Passwort des Autos zurückgesetzt und seine Lade- und Klimatimer gelöscht.</string>
+    <string name="faq_reach_q">Was bedeutet „Auto nicht in Reichweite“?</string>
+    <string name="faq_reach_a">Die Bridge hat das WLAN des Autos eine Weile nicht gesehen – das Auto ist unterwegs oder nur außer Reichweite der Bridge –, oder dein Handy hat das WLAN des Autos in der Nähe nicht gefunden. Es verbindet sich von selbst wieder, sobald das Auto zurück ist. „Erneut versuchen“ lässt die Bridge sofort nachsehen.</string>
+    <string name="faq_drive_q">Warum bricht die Verbindung ab, wenn das Auto eingeschaltet ist?</string>
+    <string name="faq_drive_a">Modelle 2014–2017 schalten ihr WLAN kurz nach dem Einschalten ab. Die App findet das Auto wieder, sobald es ausgeschaltet ist. Ab 2018 gibt es die Einstellung „Immer kommunizieren“.</string>
+    <string name="faq_asleep_q">Das WLAN des Autos ist verschwunden</string>
+    <string name="faq_asleep_a">Nach Tagen Standzeit schaltet das Auto sein WLAN ab, um die 12-V-Batterie zu schonen. Ein Druck auf den Schlüssel oder Entriegeln weckt es meist. Sonst: Auto 10 Sekunden einschalten, Registriermodus starten, einmal verbinden und das Auto 10 Minuten in READY lassen, damit die 12-V-Batterie geladen wird.</string>
+    <string name="faq_away_q">Wie nutze ich die App unterwegs?</string>
+    <string name="faq_away_a">Über die Bridge per VPN (zum Beispiel Tailscale oder WireGuard), damit dein Handy die Adresse der Bridge zu Hause erreicht. Öffne den Port der Bridge nie zum Internet. Am Auto kann die App auch direkt das WLAN des Autos nutzen.</string>
+    <string name="faq_dep_q">Wie entscheiden die Abfahrten, was zu tun ist?</string>
+    <string name="faq_dep_a">35 Minuten vor der Abfahrt prüft die App die Vorhersage für deinen Wohnort (Norwegisches Meteorologisches Institut): um den Gefrierpunkt enteist sie, unter 12 °C heizt sie, ab 24 °C kühlt sie, sonst nichts. Sie läuft 10–30 Minuten, damit der Innenraum rechtzeitig fertig ist. Mit Bridge startet die Bridge sie auch, wenn alle Handys aus sind.</string>
+    <string name="faq_late_q">Eine Abfahrt hat zu spät gestartet</string>
+    <string name="faq_late_a">Android kann Wecker zurückhalten, um Akku zu sparen. Erlaube exakte Wecker und stelle die Akkunutzung von PHEV Link auf „Nicht eingeschränkt“. Mit Bridge und dem Auto zu Hause startet die Bridge das Klima ohnehin pünktlich.</string>
+    <string name="faq_timer_q">Ladetimer oder Abfahrten – was ist was?</string>
+    <string name="faq_timer_a">Der Ladetimer liegt im Auto und bestimmt, wann es lädt, sobald es eingesteckt ist; „Jetzt laden“ überspringt ihn einmal. Abfahrten betreffen das Klima im Innenraum. Zeiten gehen in 10-Minuten-Schritten, und der Ladetimer lässt sich bei Modellen 2014–2017 bearbeiten.</string>
+    <string name="faq_12v_q">Kann die App die 12-V-Batterie entladen?</string>
+    <string name="faq_12v_a">Jeder Kontakt weckt das Auto kurz. Die Bridge schaut alle 10 Minuten für etwa eine Minute vorbei, was eine gesunde Batterie gut verkraftet. Zieh einen OBD-Stecker ab, wenn das Auto tagelang steht, und prüfe die Batterie unter OBD → Tests → 12-V-Batterie – eine schwache 12-V-Batterie verursacht seltsame Warnungen.</string>
+    <string name="faq_health_q">Was bedeuten die Werte der Antriebsbatterie?</string>
+    <string name="faq_health_a">Der Zustand vergleicht die heutige Kapazität mit einer neuen Batterie (38 Ah vor Modelljahr 2017, 40 Ah ab 2017). Ein Zellunterschied bis etwa 20 mV ist in Ordnung. Die eigene Schätzung des Autos kann hinterherhinken: Batterie leer fahren und in einem Zug voll laden frischt sie auf.</string>
+    <string name="faq_obd_q">Welcher OBD-Adapter funktioniert?</string>
+    <string name="faq_obd_a">Ein ELM327-kompatibler Bluetooth-Adapter. OBDLink und Vgate iCar Pro funktionieren am besten; billige Klone lesen die Grundwerte, können das Grundrauschen des Autos aber nicht herausfiltern. Die Kopplungs-PIN ist meist 1234.</string>
+    <string name="faq_alerts_q">Wie funktionieren Benachrichtigungen mit Bridge?</string>
+    <string name="faq_alerts_a">Die Bridge behält das Auto rund um die Uhr im Blick. Dein Handy zeigt ihre Benachrichtigungen sofort, solange die App offen ist, sonst innerhalb einer Stunde – alle paar Minuten, solange das Auto lädt oder vorklimatisiert. Kommen sie zu spät, stelle die Akkunutzung von PHEV Link auf „Nicht eingeschränkt“.</string>
+    <string name="faq_google_q">Wie füge ich das Auto zu Google Home hinzu?</string>
+    <string name="faq_google_a">Die Bridge spricht Matter, lokal in deinem Netz. Du brauchst einen Google-Lautsprecher oder -Bildschirm zu Hause und einen einmaligen Eintrag in Googles Entwicklerkonsole; dann scannst du den Code unter Optionen → Smart Home → Google Home. Apple Home und Alexa lassen sich genauso hinzufügen.</string>
+    <string name="faq_ha_q">Funktioniert es mit Home Assistant?</string>
+    <string name="faq_ha_a">Ja, über MQTT: richte die Bridge auf deinen Broker (etwa das Mosquitto-Add-on) oder lass die Bridge einen einrichten. Das Auto erscheint dann mit Sensoren und Schaltern sowie einer Entität „Auto-Ereignis“ für Automationen.</string>
+    <string name="faq_privacy_q">Wohin gehen meine Daten?</string>
+    <string name="faq_privacy_a">Nur dorthin, wo du es eingerichtet hast: Die App spricht mit dem Auto, deiner Bridge, dem Norwegischen Meteorologischen Institut (die Koordinaten deines Zuhauses, für die Vorhersage) und GitHub (für Updates). Kein Konto, kein Cloud-Dienst.</string>
+    <string name="faq_update_q">Wie funktionieren Updates?</string>
+    <string name="faq_update_a">Die App sucht auf GitHub nach einer neuen Version und installiert sie, sobald du „Unbekannte Apps installieren“ erlaubt hast. Die Bridge wird ebenfalls aus der App aktualisiert, unter Optionen → Bridge.</string>
+</resources>

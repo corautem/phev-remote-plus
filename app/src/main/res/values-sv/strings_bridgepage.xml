@@ -5,7 +5,6 @@
     <string name="bp_invite_open">Bryggan släpper in en telefon till fram till %1$s. På den andra telefonen: installera PHEV Link, ange bilens wifi-kort och välj ”Jag har en PHEV Link-brygga”.</string>
     <string name="bp_done_invite">Dörren står öppen för en telefon till.</string>
     <string name="bp_title">Brygga</string>
-    <string name="bp_open">Brygga: status, logg och uppdateringar</string>
     <string name="bp_none">Ingen brygga är konfigurerad än.</string>
     <string name="bp_unreachable">Når inte bryggan på %1$s. Telefonen måste vara ansluten till wifi-nätverket hemma (eller din VPN) för att se den.</string>
     <string name="bp_checking">Frågar bryggan …</string>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Help & FAQ. -->
+<resources>
+    <string name="help_title">Hjælp og spørgsmål</string>
+    <string name="faq_tab">Spørgsmål</string>
+    <string name="faq_search">Søg i spørgsmålene</string>
+    <string name="faq_none">Intet fundet – prøv et andet ord.</string>
+    <string name="faq_group_connect">Forbindelse</string>
+    <string name="faq_group_use">Klima og afgange</string>
+    <string name="faq_group_battery">Batteri og opladning</string>
+    <string name="faq_group_bridge">Bro og smart home</string>
+    <string name="faq_group_app">Appen</string>
+    <string name="faq_route_q">Bilens Wi-Fi eller bro – hvad er forskellen?</string>
+    <string name="faq_route_a">På bilens eget Wi-Fi taler telefonen direkte med bilen, fra omkring 10–20 m. En bro er en lille computer derhjemme, der bliver på bilens Wi-Fi, så appen virker overalt på hjemmenetværket – og væk hjemmefra via VPN. I Automatisk bruger appen broen, når den kan nå bilen, ellers bilens Wi-Fi.</string>
+    <string name="faq_one_q">Hvorfor kan kun én enhed bruge bilens Wi-Fi ad gangen?</string>
+    <string name="faq_one_a">Bilens Wi-Fi tager imod én enhed. Med en bro holder broen den plads, og alle telefoner går gennem den. For at bruge bilens Wi-Fi direkte (fx for at registrere en telefon) kan broen træde til side i 10 minutter under Indstillinger.</string>
+    <string name="faq_register_q">Hvordan registrerer jeg en telefon i bilen?</string>
+    <string name="faq_register_a">I bilen: strøm FRA, så til ACC uden at røre bremsen, og inden for 10 sekunder tryk LOCK og UNLOCK på nøglen skiftevis, 10 tryk i alt. Tryk så Registrér under Indstillinger → Telefonregistrering, som viser hvert trin. Bilen husker højst to enheder.</string>
+    <string name="faq_full_q">Bilen bippede tre gange, da jeg prøvede at registrere</string>
+    <string name="faq_full_a">Tre bip betyder, at bilen allerede har to enheder registreret. Indstillinger → Telefonregistrering forklarer, hvordan du sletter dem alle (20 tryk på nøglen). Det nulstiller også adgangskoden til bilens Wi-Fi og sletter bilens lade- og klimatimere.</string>
+    <string name="faq_reach_q">Hvad betyder »Bilen er ikke inden for rækkevidde«?</string>
+    <string name="faq_reach_a">Broen har ikke set bilens Wi-Fi i et stykke tid – bilen er væk, eller bare uden for broens rækkevidde – eller telefonen kunne ikke finde bilens Wi-Fi i nærheden. Den forbinder sig igen af sig selv, når bilen er tilbage. »Prøv igen« beder broen kigge med det samme.</string>
+    <string name="faq_drive_q">Hvorfor falder forbindelsen ud, når bilen er tændt?</string>
+    <string name="faq_drive_a">2014–2017-biler slukker deres Wi-Fi lidt efter, at bilen er tændt. Appen finder bilen igen, når den er slukket. 2018 og nyere har indstillingen »Kommunikér altid«.</string>
+    <string name="faq_asleep_q">Bilens Wi-Fi er forsvundet</string>
+    <string name="faq_asleep_a">Efter flere dages stilstand slukker bilen sit Wi-Fi for at spare 12 V-batteriet. Et tryk på nøglen eller at låse op vækker det som regel. Ellers: tænd bilen i 10 sekunder, gå i registreringstilstand, forbind én gang, og lad bilen stå i READY i 10 minutter, så 12 V-batteriet bliver opladet.</string>
+    <string name="faq_away_q">Hvordan bruger jeg appen væk hjemmefra?</string>
+    <string name="faq_away_a">Gennem broen via VPN (fx Tailscale eller WireGuard), så telefonen kan nå broens adresse derhjemme. Åbn aldrig broens port mod internettet. Ved bilen kan appen også bruge bilens Wi-Fi direkte.</string>
+    <string name="faq_dep_q">Hvordan beslutter afgangene, hvad de skal gøre?</string>
+    <string name="faq_dep_a">35 minutter før du kører, tjekker appen vejrudsigten for din hjemadresse (det norske meteorologiske institut): omkring frysepunktet afrimer den, under 12 °C varmer den, fra 24 °C køler den, ellers gør den intet. Den kører 10–30 minutter, så kabinen er klar til tiden. Med en bro starter broen den, selv om alle telefoner er slukket.</string>
+    <string name="faq_late_q">En afgang startede for sent</string>
+    <string name="faq_late_a">Android kan holde alarmer tilbage for at spare batteri. Tillad præcise alarmer, og sæt batteriforbrug for PHEV Link til »Ubegrænset«. Med en bro og bilen derhjemme starter broen klimaet til tiden alligevel.</string>
+    <string name="faq_timer_q">Ladetimer eller afgange – hvad er hvad?</string>
+    <string name="faq_timer_a">Ladetimeren ligger i bilen og bestemmer, hvornår den lader, når den er tilsluttet; »Lad nu« springer den over én gang. Afgange handler om klimaet i kabinen. Tider går i trin på 10 minutter, og ladetimeren kan redigeres på 2014–2017-biler.</string>
+    <string name="faq_12v_q">Kan appen dræne 12 V-batteriet?</string>
+    <string name="faq_12v_a">Hver kontakt vækker bilen kort. Broen kigger forbi i omkring et minut hvert 10. minut, hvilket et sundt batteri sagtens klarer. Tag en OBD-dongle ud, når bilen står i flere dage, og tjek batteriet under OBD → Test → 12 V-batteri – et svagt 12 V-batteri giver mærkelige advarsler.</string>
+    <string name="faq_health_q">Hvad betyder tallene for drivbatteriet?</string>
+    <string name="faq_health_a">Sundhed sammenligner dagens kapacitet med et nyt batteri (38 Ah før årgang 2017, 40 Ah fra 2017). En celleforskel op til omkring 20 mV er fin. Bilens eget skøn kan halte bagefter: kør batteriet lavt, og lad det helt op i ét stræk, så opdateres det.</string>
+    <string name="faq_obd_q">Hvilken OBD-adapter virker?</string>
+    <string name="faq_obd_a">En ELM327-kompatibel Bluetooth-adapter. OBDLink og Vgate iCar Pro virker bedst; billige kopier læser det grundlæggende, men kan ikke filtrere bilens støj fra. Parringskoden er som regel 1234.</string>
+    <string name="faq_alerts_q">Hvordan virker advarsler med en bro?</string>
+    <string name="faq_alerts_a">Broen holder øje med bilen døgnet rundt. Telefonen viser dens advarsler med det samme, mens appen er åben, ellers inden for en time – med få minutters mellemrum, mens bilen lader eller forvarmes. Kommer de sent, så sæt batteriforbrug for PHEV Link til »Ubegrænset«.</string>
+    <string name="faq_google_q">Hvordan tilføjer jeg bilen i Google Home?</string>
+    <string name="faq_google_a">Broen taler Matter, lokalt på dit netværk. Du skal bruge en Google-højttaler eller -skærm derhjemme og en engangsopsætning i Googles udviklerkonsol; scan så koden under Indstillinger → Smart home → Google Home. Apple Home og Alexa kan tilføjes på samme måde.</string>
+    <string name="faq_ha_q">Virker det med Home Assistant?</string>
+    <string name="faq_ha_a">Ja, via MQTT: peg broen mod din broker (fx Mosquitto-tilføjelsen), eller lad broen sætte en op. Bilen dukker så op med sensorer og kontakter og en »Bilhændelse« til automatiseringer.</string>
+    <string name="faq_privacy_q">Hvor ender mine data?</string>
+    <string name="faq_privacy_a">Kun der, hvor du har sat det op: appen taler med bilen, din bro, det norske meteorologiske institut (dine hjemkoordinater, til vejrudsigten) og GitHub (for at se efter opdateringer). Ingen konto og ingen skytjeneste.</string>
+    <string name="faq_update_q">Hvordan virker opdateringer?</string>
+    <string name="faq_update_a">Appen ser efter en ny version på GitHub og installerer den, når du har tilladt »Installér ukendte apps«. Broen opdateres også fra appen under Indstillinger → Bro.</string>
+</resources>

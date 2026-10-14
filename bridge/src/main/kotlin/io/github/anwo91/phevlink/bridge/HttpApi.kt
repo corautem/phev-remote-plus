@@ -222,6 +222,7 @@ class HttpApi(
                 val changes = body(ex)
                 val next = s.update(changes, by)
                 if (s.rev != before) record(ex, "shared.changed", mapOf("keys" to changes.keys.filter { it in SharedStore.KEYS }.joinToString()), null)
+                if (s.rev != before && changes.keys.any { it in SharedStore.PRICE_KEYS }) history?.planChanged()
                 json(ex, 200, mapOf("ok" to true, "shared" to next))
             }
             path == "activity" && ex.requestMethod == "GET" -> {

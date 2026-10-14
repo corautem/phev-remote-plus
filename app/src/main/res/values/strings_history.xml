@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Charging and trips (kept by the bridge), electricity price, weekly summary. -->
 <resources>
+    <string name="hist_no_price">no price set</string>
+    <string name="price_spot_unavailable">Spot prices are only available for Norway and Sweden. Choose Fixed price and enter what you pay per kWh.</string>
+    <string name="price_currency">Currency</string>
     <string name="hist_title">Charging and trips</string>
     <string name="hist_more">Energy, cost and trips, kept by the bridge</string>
     <string name="hist_charging">Charging</string>
@@ -13,7 +16,7 @@
     <string name="hist_no_charges">No charging recorded yet. From now on the bridge records every charge at home.</string>
     <string name="hist_no_trips">No trips recorded yet. A trip lasts from when the car leaves the bridge\'s reach until it\'s back.</string>
     <string name="hist_cost_later">cost later</string>
-    <string name="hist_estimate">Energy is estimated from the battery level: a full charge takes about %1$s kWh from the wall (change it under the price).</string>
+    <string name="hist_estimate">Energy is estimated from the battery level: a full charge takes about %1$s kWh from the wall (change it under Electricity price).</string>
     <string name="hist_trips_note">Trips: the time the car was out of the bridge\'s reach and the battery it used. Electric km is an estimate from your full range.</string>
     <string name="hist_used">%1$d %% used</string>
     <string name="hist_gained">+%1$d %% (charged away)</string>

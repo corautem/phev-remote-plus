@@ -51,16 +51,24 @@ fun PriceSettings(vm: MainViewModel, s: AppSettings, onSaved: () -> Unit = {}) {
     val loc = AppLocale.uiLocale(ctx)
     var shared by remember { mutableStateOf<Map<String, Any?>?>(null) }
     var failed by remember { mutableStateOf(false) }
-    LaunchedEffect(s.bridgeUrl) {
+    var loads by remember { mutableStateOf(0) }
+    LaunchedEffect(s.bridgeUrl, loads) {
         val r = BridgeSetupApi.shared(s.bridgeUrl, s.bridgeToken)
-        if (r?.code == 200) shared = r.body else failed = true
+        if (r?.code == 200) {
+            shared = r.body
+            failed = false
+        } else {
+            failed = true
+            vm.log.link("Price: couldn't read the bridge's settings (${r?.code ?: BridgeSetupApi.lastFailure ?: "no answer"})")
+        }
     }
     fun save(changes: Map<String, Any?>) {
         shared = (shared ?: emptyMap()) + changes
         scope.launch {
             val r = BridgeSetupApi.putShared(s.bridgeUrl, s.bridgeToken, changes)
             vm.log.link("Price: $changes → " + if (r?.code == 200) "saved on the bridge" else "not saved (${r?.code ?: "no answer"})")
-            if (r?.code == 200) onSaved() else failed = true
+            failed = r?.code != 200
+            if (!failed) onSaved()
         }
     }
     if (!s.hasBridge) {
@@ -70,20 +78,30 @@ fun PriceSettings(vm: MainViewModel, s: AppSettings, onSaved: () -> Unit = {}) {
     val m = shared
     if (m == null) {
         Note(stringResource(if (failed) R.string.rem_load_failed else R.string.sh_loading))
+        if (failed) androidx.compose.material3.TextButton(onClick = { failed = false; loads++ }) { Text(stringResource(R.string.reach_try_again)) }
         return
     }
     val model = (m["priceModel"] as? String)?.lowercase() ?: "spot"
     val chosenArea = (m["priceArea"] as? String)?.takeIf { PriceAreas.valid(it) }?.uppercase()
     val guess = s.homeLat?.let { la -> s.homeLon?.let { lo -> PriceAreas.guess(la, lo) } }
     val area = chosenArea ?: guess
-    // A fixed price is in the phone's own currency (saved with it); spot prices in the area's.
-    val phoneCurrency = remember { runCatching { java.util.Currency.getInstance(Locale.getDefault()).currencyCode }.getOrNull() ?: "EUR" }
+    // Where the phone is (its system region, not the app language): picks the fixed price's currency and whether
+    // Norgespris applies. A fixed price keeps its own currency (saved with it); spot prices are in the area's.
+    val country = remember { systemCountry() }
+    val phoneCurrency = remember(area) {
+        when {
+            area?.startsWith("NO") == true -> "NOK"
+            area?.startsWith("SE") == true -> "SEK"
+            else -> runCatching { java.util.Currency.getInstance(Locale("", country)).currencyCode }.getOrNull() ?: "EUR"
+        }
+    }
     val currency = if (model == "fixed") m["priceCurrency"] as? String ?: phoneCurrency else PriceAreas.currency(area)
+    val norway = area?.startsWith("NO") == true || (area == null && country == "NO")
 
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Label(stringResource(R.string.price_model))
         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            listOf("spot" to R.string.price_spot, "norgespris" to R.string.price_norgespris, "fixed" to R.string.price_fixed).forEach { (k, label) ->
+            listOfNotNull("spot" to R.string.price_spot, ("norgespris" to R.string.price_norgespris).takeIf { norway || model == "norgespris" }, "fixed" to R.string.price_fixed).forEach { (k, label) ->
                 FilterChip(
                     selected = model == k,
                     onClick = { save(if (k == "fixed" && m["priceCurrency"] == null) mapOf("priceModel" to k, "priceCurrency" to phoneCurrency) else mapOf("priceModel" to k)) },
@@ -101,7 +119,11 @@ fun PriceSettings(vm: MainViewModel, s: AppSettings, onSaved: () -> Unit = {}) {
                 val list = if (model == "norgespris") PriceAreas.NORWAY else PriceAreas.ALL
                 list.forEach { a -> FilterChip(selected = chosenArea == a, onClick = { save(mapOf("priceArea" to a)) }, label = { Text(a) }) }
             }
-            if (area == null) Note(stringResource(R.string.price_area_missing))
+            when {
+                // Home location known, but not in Norway or Sweden: no spot prices to fetch.
+                area == null && s.homeLat != null && model == "spot" -> Note(stringResource(R.string.price_spot_unavailable))
+                area == null -> Note(stringResource(R.string.price_area_missing))
+            }
         }
         if (model == "spot" && PriceAreas.hasSupport(area)) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
@@ -119,6 +141,12 @@ fun PriceSettings(vm: MainViewModel, s: AppSettings, onSaved: () -> Unit = {}) {
             mutableStateOf(num((m["fullChargeKwh"] as? Number)?.toDouble() ?: PricePlan.DEFAULT_FULL_CHARGE_KWH, loc, 1))
         }
         if (model == "fixed") {
+            Label(stringResource(R.string.price_currency))
+            Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                (listOf(phoneCurrency, "NOK", "SEK", "DKK", "EUR") + listOfNotNull(m["priceCurrency"] as? String)).distinct().forEach { c ->
+                    FilterChip(selected = currency == c, onClick = { save(mapOf("priceCurrency" to c)) }, label = { Text(c) })
+                }
+            }
             OutlinedTextField(
                 fixed, { fixed = it }, singleLine = true, modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.price_fixed_field, currencyWord(currency))) },
@@ -154,6 +182,10 @@ fun PriceSettings(vm: MainViewModel, s: AppSettings, onSaved: () -> Unit = {}) {
         if (failed) Note(stringResource(R.string.rem_load_failed))
     }
 }
+
+/** The phone's region ("NO", "DE" …) from the system settings — the app's own language may have none. */
+private fun systemCountry(): String =
+    runCatching { android.content.res.Resources.getSystem().configuration.locales[0].country }.getOrNull()?.ifBlank { null } ?: Locale.getDefault().country
 
 /** "1.25" or "1,25" → 1.25. */
 private fun parse(text: String): Double? = text.trim().replace(',', '.').replace(" ", "").toDoubleOrNull()

@@ -103,6 +103,33 @@ class EnergyHistoryTest {
     }
 
     @Test
+    fun theSupportUsesTheWholeHourAlsoForAHalfHourCharge() {
+        // 22:00–22:30 at 2.00, 22:30–23:00 at 0.80: the hour averages 1.40, so the support is 0.9 × (1.40 − 0.77).
+        val (h) = rig(fetch = { url ->
+            fakeDay(url)!!.replace(Regex(""""NOK_per_kWh":0.60,"time_start":"(\d{4}-\d{2}-\d{2})T22:(00|15)""")) { m ->
+                """"NOK_per_kWh":2.00,"time_start":"${m.groupValues[1]}T22:${m.groupValues[2]}"""
+            }.replace(Regex(""""NOK_per_kWh":0.60,"time_start":"(\d{4}-\d{2}-\d{2})T22:(30|45)""")) { m ->
+                """"NOK_per_kWh":0.80,"time_start":"${m.groupValues[1]}T22:${m.groupValues[2]}"""
+            }
+        })
+        h.record(session(t.minusDays(1).withHour(23).withMinute(0), 50, 60, 30))
+        // (0.80 − 0.567) × 1.25 = 0.29/kWh.
+        assertEquals(0.29, charges(h).single()["perKwh"] as Double, 1e-9)
+    }
+
+    @Test
+    fun aParkedCarWithItsWifiAsleepIsNotATrip() {
+        val (h) = rig()
+        val left = t.toInstant().toEpochMilli()
+        h.tick(mapOf("state" to "not_seen", "lastSeenMs" to left), CarState(batteryPercent = 64, updatedAtMs = left))
+        t = t.plusDays(2)
+        h.tick(mapOf("state" to "in_reach", "sinceMs" to t.toInstant().toEpochMilli()), CarState(batteryPercent = 63, updatedAtMs = t.toInstant().toEpochMilli() + 1))
+        @Suppress("UNCHECKED_CAST")
+        assertTrue((h.describe(10)["trips"] as List<Any?>).isEmpty())
+        assertTrue(log.dump().contains("Wi-Fi asleep"))
+    }
+
+    @Test
     fun nothingChargedIsNotKept() {
         val (h) = rig()
         h.record(session(t, 70, 70, 5))

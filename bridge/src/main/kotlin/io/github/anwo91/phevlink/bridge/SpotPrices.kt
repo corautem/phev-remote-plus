@@ -45,16 +45,22 @@ class SpotPrices(
         memory[key]?.let { return it }
         val file = File(dir, "$key.json")
         if (file.exists()) {
-            SpotApi.parse(file.readText())?.takeIf { SpotApi.complete(it, a, day) }?.let { memory[key] = it; return it }
+            runCatching { SpotApi.parse(file.readText()) }.getOrNull()?.takeIf { SpotApi.complete(it, a, day) }?.let { memory[key] = it; return it }
         }
         val t = now()
         if (t - (lastTry[key] ?: 0L) < RETRY_MS) return null
         lastTry[key] = t
         val url = SpotApi.url(a, day)
-        val text = runCatching { fetch(url) }.getOrNull()
+        val got = runCatching { fetch(url) }
+        val text = got.getOrNull()
         val slots = text?.let { SpotApi.parse(it) }
         if (slots == null || slots.isEmpty()) {
-            log.link("Prices: $a $day not available (${if (text == null) "no answer from ${URI(url).host}" else "no prices in the answer"})")
+            val why = when {
+                got.isFailure -> "${URI(url).host}: ${got.exceptionOrNull()?.message ?: "no answer"}"
+                text == null -> "no answer from ${URI(url).host}"
+                else -> "no prices in the answer"
+            }
+            log.link("Prices: $a $day not available ($why)")
             return null
         }
         val complete = SpotApi.complete(slots, a, day)
@@ -80,7 +86,9 @@ class SpotPrices(
             c.readTimeout = 15_000
             c.setRequestProperty("User-Agent", "PHEVLink-bridge/${BridgeService.BUILD} github.com/Anwo91/phev-remote-plus")
             return try {
-                if (c.responseCode != 200) null else c.inputStream.bufferedReader().use { it.readText() }
+                // 404: that day's prices aren't out yet (tomorrow's come around 13:00).
+                if (c.responseCode != 200) throw java.io.IOException("HTTP ${c.responseCode}" + if (c.responseCode == 404) " (not published yet)" else "")
+                c.inputStream.bufferedReader().use { it.readText() }
             } finally {
                 c.disconnect()
             }

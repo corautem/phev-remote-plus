@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Charging and trips (kept by the bridge), electricity price, weekly summary. -->
 <resources>
+    <string name="hist_no_price">ingen pris satt</string>
+    <string name="price_spot_unavailable">Spotpriser finnes bare for Norge og Sverige. Velg fastpris og skriv inn hva du betaler per kWh.</string>
+    <string name="price_currency">Valuta</string>
     <string name="hist_title">Lading og turer</string>
     <string name="hist_more">Strøm, kostnad og turer, lagret av broen</string>
     <string name="hist_charging">Lading</string>
@@ -16,7 +19,7 @@
     <string name="hist_estimate">Strømmen anslås ut fra batterinivået: en full lading tar omtrent %1$s kWh fra stikkontakten (kan endres under strømprisen).</string>
     <string name="hist_trips_note">Turer: tiden bilen var utenfor broens rekkevidde og batteriet den brukte. Elektriske km er et anslag ut fra full rekkevidde.</string>
     <string name="hist_used">%1$d %% brukt</string>
-    <string name="hist_gained">+%1$d %% (ladet ute)</string>
+    <string name="hist_gained">+%1$d %% (ladet underveis)</string>
     <plurals name="hist_charges_kwh">
         <item quantity="one">%1$d lading · %2$s kWh</item>
         <item quantity="other">%1$d ladinger · %2$s kWh</item>

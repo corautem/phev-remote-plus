@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Charging and trips (kept by the bridge), electricity price, weekly summary. -->
 <resources>
+    <string name="hist_no_price">kein Preis festgelegt</string>
+    <string name="price_spot_unavailable">Spotpreise gibt es nur für Norwegen und Schweden. Wähle Festpreis und gib ein, was du pro kWh zahlst.</string>
+    <string name="price_currency">Währung</string>
     <string name="hist_title">Laden und Fahrten</string>
     <string name="hist_more">Strom, Kosten und Fahrten, von der Bridge gespeichert</string>
     <string name="hist_charging">Laden</string>
@@ -13,7 +16,7 @@
     <string name="hist_no_charges">Noch keine Ladevorgänge. Ab jetzt zeichnet die Bridge jeden Ladevorgang zu Hause auf.</string>
     <string name="hist_no_trips">Noch keine Fahrten. Eine Fahrt reicht vom Verlassen der Reichweite der Bridge bis zur Rückkehr.</string>
     <string name="hist_cost_later">Kosten folgen</string>
-    <string name="hist_estimate">Der Strom wird aus dem Akkustand geschätzt: Eine volle Ladung braucht etwa %1$s kWh aus der Steckdose (änderbar beim Strompreis).</string>
+    <string name="hist_estimate">Die Energie wird aus dem Akkustand geschätzt: Eine volle Ladung braucht etwa %1$s kWh aus der Steckdose (änderbar beim Strompreis).</string>
     <string name="hist_trips_note">Fahrten: die Zeit außerhalb der Reichweite der Bridge und der verbrauchte Akku. Elektrische km sind eine Schätzung aus deiner vollen Reichweite.</string>
     <string name="hist_used">%1$d %% verbraucht</string>
     <string name="hist_gained">+%1$d %% (unterwegs geladen)</string>
@@ -22,8 +25,8 @@
         <item quantity="other">%1$d Ladungen · %2$s kWh</item>
     </plurals>
     <plurals name="hist_trips_away">
-        <item quantity="one">%1$d Fahrt · %2$s weg</item>
-        <item quantity="other">%1$d Fahrten · %2$s weg</item>
+        <item quantity="one">%1$d Fahrt · %2$s unterwegs</item>
+        <item quantity="other">%1$d Fahrten · %2$s unterwegs</item>
     </plurals>
     <plurals name="week_charges">
         <item quantity="one">%1$d Ladung, %2$s kWh</item>

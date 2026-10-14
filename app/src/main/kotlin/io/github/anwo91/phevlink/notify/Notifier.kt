@@ -101,7 +101,8 @@ class Notifier(private val context: Context) {
         val lines = ArrayList<String>()
         if (charges > 0) {
             val kwh = String.format(loc, "%.1f", (p["kwh"] as? Number)?.toDouble() ?: 0.0)
-            val cost = (p["cost"] as? Number)?.toDouble()?.let { Money.format(it, p["currency"] as? String, loc) }
+            // " +": some charges' costs aren't known yet.
+            val cost = (p["cost"] as? Number)?.toDouble()?.let { Money.format(it, p["currency"] as? String, loc) + if (p["costComplete"] == false) " +" else "" }
             lines += res.resources.getQuantityString(R.plurals.week_charges, charges, charges, kwh) + (cost?.let { " · ≈ $it" } ?: "")
         }
         if (trips > 0) {

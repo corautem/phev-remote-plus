@@ -129,6 +129,8 @@ class SharedStore(private val file: File, private val log: DiagLog, private val 
             "plugReminder", "plugReminderAt", "plugReminderBelow",
             "priceModel", "priceArea", "priceFixed", "priceGridFee", "priceSupport", "fullChargeKwh", "weeklySummary", "priceCurrency",
         )
+        /** Keys that change what charges cost. */
+        val PRICE_KEYS = setOf("priceModel", "priceArea", "priceFixed", "priceGridFee", "priceSupport", "fullChargeKwh", "priceCurrency")
         private val HHMM = Regex("^([01]\\d|2[0-3]):[0-5]\\d$")
     }
 }

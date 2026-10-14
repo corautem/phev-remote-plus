@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Charging and trips (kept by the bridge), electricity price, weekly summary. -->
 <resources>
+    <string name="hist_no_price">inget pris angivet</string>
+    <string name="price_spot_unavailable">Spotpriser finns bara för Norge och Sverige. Välj fast pris och ange vad du betalar per kWh.</string>
+    <string name="price_currency">Valuta</string>
     <string name="hist_title">Laddning och resor</string>
     <string name="hist_more">Energi, kostnad och resor, sparade av bryggan</string>
     <string name="hist_charging">Laddning</string>

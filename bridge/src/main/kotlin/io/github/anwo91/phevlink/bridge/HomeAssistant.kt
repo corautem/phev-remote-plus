@@ -257,6 +257,7 @@ class HomeAssistant(val id: String, private val language: String = "en", val pre
             "climate_on", "climate_off", "climate_cancelled", "alarm", "locked", "unlocked", "door_open", "doors_closed",
             "switched_on", "switched_off", "car_home", "car_away", "bridge_off_car_wifi", "departure_started",
             "departure_failed", "left_unlocked", "door_left_open", "lights_left_on", "command_failed", "plug_in_reminder",
+            "weekly_summary",
         )
 
         private val LANGS = listOf("en", "nb", "da", "de", "sv")

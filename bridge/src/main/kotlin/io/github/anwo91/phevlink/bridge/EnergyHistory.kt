@@ -58,7 +58,11 @@ class EnergyHistory(
 
     /** Starts listening for charges and watching for trips ([reach]: the bridge's reach map, [car]: the last state). */
     fun start(reach: (() -> Map<String, Any?>?)?, car: () -> CarState): Job {
-        activity.addListener { a -> if (a.code == "charge.session") scope.launch(Dispatchers.IO) { record(a) } }
+        activity.addListener { a ->
+            if (a.code == "charge.session") scope.launch(Dispatchers.IO) {
+                runCatching { record(a) }.onFailure { log.warn("Charging: couldn't keep the charge ${a.params}: $it") }
+            }
+        }
         return scope.launch(Dispatchers.IO) {
             var lastFill = 0L
             while (isActive) {
@@ -103,7 +107,10 @@ class EnergyHistory(
         val plan = store.pricePlan()
         val area = store.priceArea()
         val kwh = ChargeCosts.gridKwh(r.fromPct, r.toPct, plan.fullChargeKwh)
-        val slots = if (plan.model == PriceModel.SPOT && area != null) prices.slots(area, r.startMs, maxOf(r.endMs, r.startMs + 60_000)) else emptyList()
+        // Whole hours: the support is worked out on each hour's average, also for the part of an hour the car charged.
+        val slots = if (plan.model == PriceModel.SPOT && area != null) {
+            prices.slots(area, r.startMs / HOUR * HOUR, (maxOf(r.endMs, r.startMs + 60_000) + HOUR - 1) / HOUR * HOUR)
+        } else emptyList()
         val c = ChargeCosts.cost(kwh, r.startMs, r.endMs, plan, area, slots)
         return r.copy(kwh = kwh, cost = c.cost, perKwh = c.perKwh, currency = c.currency, model = plan.model.name.lowercase(), area = area)
     }
@@ -115,9 +122,14 @@ class EnergyHistory(
         else -> " — cost later, when the ${r.area} prices for those hours are in"
     }
 
-    /** Charges of the last week without a cost (prices weren't out, or no area then): priced again. */
-    internal fun fillCosts() {
-        val since = now() - 7 * 24 * 3600_000L
+    /** The price plan changed (a phone saved it): charges still without a cost get one now if they can. */
+    fun planChanged() {
+        scope.launch(Dispatchers.IO) { runCatching { fillCosts(maxAgeDays = 90) }.onFailure { log.warn("Charging costs: ${it.message}") } }
+    }
+
+    /** Charges without a cost (prices weren't out, or no price set then) from the last [maxAgeDays]: priced again. */
+    internal fun fillCosts(maxAgeDays: Int = 7) {
+        val since = now() - maxAgeDays * 24 * 3600_000L
         val todo = synchronized(this) { charges.filter { it.cost == null && it.endMs > since } }
         if (todo.isEmpty()) return
         var filled = 0
@@ -149,7 +161,8 @@ class EnergyHistory(
             CarWifiWatch.REACH_IN_REACH -> {
                 val o = tracker.open
                 if (o != null && o.backMs == null) {
-                    tracker.back(t)
+                    // Back since the bridge rejoined (the car's first news can come before this look).
+                    tracker.back((reach["sinceMs"] as? Number)?.toLong()?.coerceIn(o.leftMs, t) ?: t)
                     log.link(if (tracker.open == null) "Trips: back after ${(t - o.leftMs) / 60_000} min — too short to count" else "Trips: the car is back at ${clock(t)} — waiting for its battery level")
                     saveOpen()
                 }
@@ -157,6 +170,12 @@ class EnergyHistory(
         }
         val trip = tracker.onCar(car.updatedAtMs, car.batteryPercent, t) { Activity.newId(it) } ?: return
         saveOpen()
+        // The car's Wi-Fi asleep while parked looks like the car gone: no battery change, not a trip.
+        val used = trip.usedPct
+        if (used != null && used in -1..1) {
+            log.link("Trips: ${ActivityText.hm(trip.minutes)} out of reach with the battery unchanged (${trip.fromPct} → ${trip.toPct} %) — the car was probably parked with its Wi-Fi asleep; not counted")
+            return
+        }
         synchronized(this) {
             trips += trip
             append(tripsFile, trip.toMap())
@@ -169,8 +188,11 @@ class EnergyHistory(
         val o = tracker.open
         runCatching {
             if (o == null) openFile.delete()
-            else openFile.writeText(Json.write(mapOf("leftMs" to o.leftMs, "fromPct" to o.fromPct, "backMs" to o.backMs)))
-        }
+            else {
+                dir.mkdirs()
+                openFile.writeText(Json.write(mapOf("leftMs" to o.leftMs, "fromPct" to o.fromPct, "backMs" to o.backMs)))
+            }
+        }.onFailure { log.warn("Trips: couldn't save the open trip: ${it.message}") }
     }
 
     // ------------------------------------------------------------------ weekly summary
@@ -196,7 +218,7 @@ class EnergyHistory(
         }
         val text = buildString {
             append("${s.charges} charge(s), ${s.kwh} kWh")
-            s.cost?.let { append(", ≈ %.0f %s".format(it, s.currency ?: "")) }
+            s.cost?.let { append(", ≈ %.0f %s".format(it, s.currency ?: "") + if (s.costComplete) "" else " +") }
             if (s.trips > 0) append("; ${s.trips} trip(s), ${s.usedPct} % battery" + (s.electricKm?.let { " (≈ $it km electric)" } ?: ""))
         }
         log.link("Weekly summary: $text → the phones")
@@ -275,5 +297,6 @@ class EnergyHistory(
 
     companion object {
         val WEEKLY_AT: LocalTime = LocalTime.of(19, 0)
+        private const val HOUR = 3_600_000L
     }
 }

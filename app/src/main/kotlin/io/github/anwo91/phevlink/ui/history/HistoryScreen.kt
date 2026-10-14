@@ -48,6 +48,7 @@ import io.github.anwo91.phevlink.ui.theme.LocalStatus
 import io.github.anwo91.phevlink.util.AppLocale
 import io.github.anwo91.phevlink.util.Format
 import io.github.anwo91.phevlink.util.Money
+import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -137,7 +138,7 @@ fun HistoryScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit, onO
                     }
                 }
                 d == null -> item { Note(stringResource(R.string.sh_loading)) }
-                tab == 0 -> charging(d, loc, vm, s)
+                tab == 0 -> charging(d, loc, vm, s) { state = Load.LOADING; reloads++ }
                 else -> trips(d, loc)
             }
         }
@@ -146,16 +147,18 @@ fun HistoryScreen(vm: MainViewModel, modifier: Modifier, onBack: () -> Unit, onO
 
 // ---------------------------------------------------------------------------------------------- charging
 
-private fun androidx.compose.foundation.lazy.LazyListScope.charging(d: History, loc: Locale, vm: MainViewModel, s: io.github.anwo91.phevlink.data.AppSettings) {
+private fun androidx.compose.foundation.lazy.LazyListScope.charging(
+    d: History, loc: Locale, vm: MainViewModel, s: io.github.anwo91.phevlink.data.AppSettings, reload: () -> Unit,
+) {
     item { Totals(d) }
     if (d.charges.isEmpty()) item { SectionCard { Text(stringResource(R.string.hist_no_charges), style = MaterialTheme.typography.bodyMedium) } }
     val zone = ZoneId.systemDefault()
     val byMonth = d.charges.groupBy { Instant.ofEpochMilli(it.endMs).atZone(zone).let { z -> z.year * 100 + z.monthValue } }
     for ((ym, list) in byMonth) {
         item(key = "m$ym") { MonthHeader(ym, list, loc) }
-        items(list, key = { it.id }) { c -> ChargeRow(c, loc) }
+        items(list, key = { it.id }) { c -> ChargeRow(c, loc, priced(d.plan)) }
     }
-    item(key = "price") { PriceCard(vm, s, d) }
+    item(key = "price") { PriceCard(vm, s, d, reload) }
 }
 
 @Composable
@@ -202,8 +205,15 @@ private fun MonthHeader(ym: Int, list: List<ChargeRecord>, loc: Locale) {
     }
 }
 
+/** Whether the plan can price a charge at all (else a charge without a cost says "no price set", not "later"). */
+private fun priced(plan: Map<String, Any?>): Boolean = when (plan["model"]) {
+    "fixed" -> plan["fixedPerKwh"] != null
+    "norgespris" -> true
+    else -> plan["areaUsed"] != null
+}
+
 @Composable
-private fun ChargeRow(c: ChargeRecord, loc: Locale) {
+private fun ChargeRow(c: ChargeRecord, loc: Locale, priced: Boolean) {
     val status = LocalStatus.current
     SectionCard {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -219,7 +229,7 @@ private fun ChargeRow(c: ChargeRecord, loc: Locale) {
             Column(horizontalAlignment = Alignment.End) {
                 Text(c.cost?.let { "≈ " + Money.format(it, c.currency, loc) } ?: "–", style = MaterialTheme.typography.titleSmall)
                 Text(
-                    c.perKwh?.let { Money.perKwh(it, c.currency, loc) } ?: stringResource(R.string.hist_cost_later),
+                    c.perKwh?.let { Money.perKwh(it, c.currency, loc) } ?: stringResource(if (priced) R.string.hist_cost_later else R.string.hist_no_price),
                     style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
@@ -228,8 +238,9 @@ private fun ChargeRow(c: ChargeRecord, loc: Locale) {
 }
 
 @Composable
-private fun PriceCard(vm: MainViewModel, s: io.github.anwo91.phevlink.data.AppSettings, d: History) {
+private fun PriceCard(vm: MainViewModel, s: io.github.anwo91.phevlink.data.AppSettings, d: History, reload: () -> Unit) {
     var open by rememberSaveable { mutableStateOf(false) }
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
     val p = d.plan
     val model = when (p["model"]) {
         "norgespris" -> stringResource(R.string.price_norgespris)
@@ -247,7 +258,8 @@ private fun PriceCard(vm: MainViewModel, s: io.github.anwo91.phevlink.data.AppSe
         Note(stringResource(R.string.hist_estimate, String.format(AppLocale.uiLocale(LocalContext.current), "%.1f", (p["fullChargeKwh"] as? Number)?.toDouble() ?: 12.0)))
         if (open) {
             Spacer(Modifier.height(8.dp))
-            PriceSettings(vm, s)
+            // Saved: the bridge prices the charges still without a cost; show them a moment later.
+            PriceSettings(vm, s, onSaved = { scope.launch { kotlinx.coroutines.delay(2_500); reload() } })
         }
     }
 }
